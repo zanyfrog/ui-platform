@@ -1,0 +1,38 @@
+{
+  "name": "ui-platform",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "description": "UI application creation, discovery, preview, settings, export, deletion, and maintenance platform.",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "vite build && tsc -p tsconfig.server.json",
+    "start": "node dist-server/server/index.js",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.server.json",
+    "test": "vitest run",
+    "dev:api": "tsx src/server/index.ts"
+  },
+  "dependencies": {
+    "@ui-base/core": "file:../ui-base/packages/ui-base-core",
+    "@ui-base/design-system": "file:../ui-base/packages/ui-base-design-system",
+    "@ui-base/theme": "file:../ui-base/packages/ui-base-theme",
+    "@ui-base/icons": "file:../ui-base/packages/ui-base-icons",
+    "@ui-base/ui": "file:../ui-base/packages/ui-base-ui",
+    "@ui-base/forms": "file:../ui-base/packages/ui-base-forms",
+    "@ui-base/calendar": "file:../ui-base/packages/ui-base-calendar",
+    "@ui-base/hero": "file:../ui-base/packages/ui-base-hero",
+    "@ui-base/tour-ui": "file:../ui-base/packages/ui-base-tour-ui",
+    "@ui-base/assets": "file:../ui-base/packages/ui-base-assets",
+    "@ui-base/ui-layout": "file:../ui-base/packages/ui-layout"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "tsx": "latest",
+    "typescript": "latest",
+    "vite": "latest",
+    "vitest": "latest"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
