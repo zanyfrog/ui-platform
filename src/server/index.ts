@@ -10,6 +10,8 @@ import { exportApp } from './exporter.js';
 import { appendHistory } from './history.js';
 import { startWorkspaceWatcher } from './watcher.js';
 import { runtimeDir } from './paths.js';
+import { deletePageSource, getPageSource, getPageTree, movePageSource, savePageSource } from './page-builder.js';
+import { discoverComponents } from './component-registry.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const sseClients = new Set<http.ServerResponse>();
@@ -64,6 +66,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === '/api/templates' && method === 'GET') return json(res, 200, await discoverTemplates());
     if (url.pathname === '/api/apps' && method === 'GET') return json(res, 200, await discoverApps());
     if (url.pathname === '/api/apps' && method === 'POST') return json(res, 201, await createApp(await body(req)));
+    if (url.pathname === '/api/components' && method === 'GET') return json(res, 200, await discoverComponents());
 
     if (parts[0] === 'api' && parts[1] === 'apps' && parts[2]) {
       const key = decodeURIComponent(parts[2]);
@@ -75,6 +78,30 @@ const server = http.createServer(async (req, res) => {
       if (parts.length === 4 && parts[3] === 'info' && method === 'GET') {
         const app = await getApp(key);
         return json(res, 200, appInfoPayload(req, url, app));
+      }
+      if (parts.length === 4 && parts[3] === 'pages' && method === 'GET') return json(res, 200, await getPageTree(key));
+      if (parts.length === 4 && parts[3] === 'pages' && method === 'POST') {
+        const input = await body(req);
+        if (!input.source || !input.destination) throw new Error('source and destination are required.');
+        return json(res, 200, await movePageSource(key, String(input.source), String(input.destination)));
+      }
+      if (parts.length === 4 && parts[3] === 'components' && method === 'GET') return json(res, 200, await discoverComponents(key));
+      if (parts.length === 4 && parts[3] === 'page' && method === 'GET') {
+        const source = url.searchParams.get('source');
+        if (!source) throw new Error('The source query parameter is required.');
+        return json(res, 200, await getPageSource(key, source));
+      }
+      if (parts.length === 4 && parts[3] === 'page' && method === 'PUT') {
+        const source = url.searchParams.get('source');
+        if (!source) throw new Error('The source query parameter is required.');
+        const input = await body(req);
+        return json(res, 200, await savePageSource(key, source, String(input.source ?? ''), input.expectedHash ? String(input.expectedHash) : undefined));
+      }
+      if (parts.length === 4 && parts[3] === 'page' && method === 'DELETE') {
+        const source = url.searchParams.get('source');
+        if (!source) throw new Error('The source query parameter is required.');
+        await deletePageSource(key, source);
+        return json(res, 200, { removed: true, mode: 'os-trash' });
       }
       if (parts.length === 3 && method === 'DELETE') {
         stopPreview(key);

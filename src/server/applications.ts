@@ -25,10 +25,11 @@ async function pagesFor(appDir: string): Promise<string[]> {
   const found: string[] = [];
   async function walk(dir: string, rel = ''): Promise<void> {
     for (const entry of await readdir(dir, { withFileTypes: true }).catch(() => [])) {
+      if (entry.name.startsWith('_')) continue;
       const childRel = path.join(rel, entry.name);
       if (entry.isDirectory()) await walk(path.join(dir, entry.name), childRel);
-      else if (entry.isFile() && entry.name.endsWith('.ts')) {
-        let route = '/' + childRel.replaceAll('\\', '/').replace(/\.ts$/, '').replace(/\/index$/, '');
+      else if (entry.isFile() && /\.(ts|tsx)$/.test(entry.name)) {
+        let route = '/' + childRel.replaceAll('\\', '/').replace(/\.(ts|tsx)$/, '').replace(/\/index$/, '');
         if (route === '/index') route = '/';
         found.push(route);
       }

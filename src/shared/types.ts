@@ -41,3 +41,60 @@ export interface DiscoveredApp {
     };
   } | null;
 }
+
+export type BuilderSupport = 'supported' | 'partial' | 'code-managed';
+
+export interface BuilderTreeNode {
+  id: string;
+  kind: 'site' | 'folder' | 'page' | 'component' | 'element' | 'unknown';
+  label: string;
+  children?: BuilderTreeNode[];
+  route?: string;
+  source?: string;
+  format?: 'typescript' | 'tsx';
+  support?: BuilderSupport;
+  expanded?: boolean;
+}
+
+export interface PageDescriptor {
+  id: string;
+  source: string;
+  route: string;
+  label: string;
+  title?: string;
+  format: 'typescript' | 'tsx';
+  support: BuilderSupport;
+  hash: string;
+}
+
+export interface PageTreePayload {
+  tree: BuilderTreeNode;
+  pages: PageDescriptor[];
+}
+
+export interface PageSourcePayload {
+  page: PageDescriptor;
+  source: string;
+  structure: BuilderTreeNode;
+}
+
+export interface ComponentManifestEntry {
+  id?: string;
+  tagName: string;
+  name?: string;
+  category?: string;
+  description?: string;
+  importPath?: string;
+  attributes?: string[];
+  properties?: string[];
+  events?: string[];
+  slots?: string[];
+}
+
+export interface ComponentCatalogEntry extends ComponentManifestEntry {
+  id: string;
+  packageName: string;
+  packageVersion: string;
+  source: string;
+  metadataStatus: 'manifest' | 'package-metadata' | 'exports';
+}

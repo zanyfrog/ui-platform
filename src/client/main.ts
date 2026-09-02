@@ -12,6 +12,7 @@ import '@ui-base/assets';
 import '@ui-base/ui-layout';
 import './styles.css';
 import type { DiscoveredApp, TemplateDefinition, TemplateSettingDefinition } from '../shared/types';
+import { mountBuilder } from './builder';
 
 const root = document.querySelector<HTMLDivElement>('#app');
 if (!root) throw new Error('Missing #app root.');
@@ -149,7 +150,8 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
     const header = def.group && def.group !== group ? (group = def.group, `<div class="group">${esc(group)}</div>`) : '';
     return header + settingControl(def, app.settings);
   }).join('');
-  shell(`<div class="stack"><section class="panel stack"><div><uib-heading text="${esc(app.name)}" level="2"></uib-heading><span class="badge">/${esc(app.key)}</span> <span class="badge">${esc(app.status)}</span> <span class="badge">${esc(app.appId)}</span></div>${app.valid?'':`<div class="error">${app.issues.map((x:string)=>esc(x)).join('<br>')}</div>`}<form id="settingsForm"><div class="settings-grid">${controls}</div><div class="actions" style="margin-top:1rem"><button class="primary" type="submit">Save Settings</button><button type="button" data-action="preview">Current Preview</button><button type="button" data-action="export">Export ZIP</button><button class="danger" type="button" data-action="delete">Delete to OS Trash</button></div></form><p class="note">Folder/URL name is immutable. Pages: ${app.pages.map((r:string)=>`<code>${esc(r)}</code>`).join(', ') || 'none'}</p><div id="appMessage"></div></section><section class="panel stack"><uib-heading text="Current Preview" level="2" size="compact"></uib-heading><div id="previewTarget"><p class="note">Click Current Preview to start this app through the platform-managed preview runtime.</p></div></section></div>`);
+  shell(`<div class="stack"><section class="panel stack"><div><uib-heading text="${esc(app.name)}" level="2"></uib-heading><span class="badge">/${esc(app.key)}</span> <span class="badge">${esc(app.status)}</span> <span class="badge">${esc(app.appId)}</span></div>${app.valid?'':`<div class="error">${app.issues.map((x:string)=>esc(x)).join('<br>')}</div>`}<form id="settingsForm"><div class="settings-grid">${controls}</div><div class="actions" style="margin-top:1rem"><button class="primary" type="submit">Save Settings</button><button type="button" data-action="preview">Current Preview</button><button type="button" data-action="export">Export ZIP</button><button class="danger" type="button" data-action="delete">Delete to OS Trash</button></div></form><p class="note">Folder/URL name is immutable. Pages: ${app.pages.map((r:string)=>`<code>${esc(r)}</code>`).join(', ') || 'none'}</p><div id="appMessage"></div></section><section class="panel stack"><uib-heading text="Current Preview" level="2" size="compact"></uib-heading><div id="previewTarget"><p class="note">Click Current Preview to start this app through the platform-managed preview runtime.</p></div></section><div id="builderTarget"></div></div>`);
+  void mountBuilder(root!.querySelector<HTMLElement>('#builderTarget')!, { key: app.key, name: app.name });
 
   root!.querySelector<HTMLFormElement>('#settingsForm')!.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -183,6 +185,7 @@ renderHome();
 const events = new EventSource('/api/events');
 events.addEventListener('workspace-change', async () => {
   await refresh();
+  document.dispatchEvent(new CustomEvent('ui-platform-workspace-change'));
   if (!currentKey) renderHome();
   // If a detail screen is open, leave current unsaved inputs alone; Vite preview itself handles source HMR.
 });
