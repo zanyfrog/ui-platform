@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 const apiPort = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 
@@ -9,5 +9,8 @@ export default defineConfig({
     proxy: {
       '/api': `http://127.0.0.1:${apiPort}`,
     },
+  },
+  test: {
+    exclude: ['**/node_modules/**', '**/dist/**', '**/dist-server/**'],
   },
 });

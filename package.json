@@ -4,11 +4,14 @@
   "private": true,
   "type": "module",
   "description": "UI application creation, discovery, preview, settings, export, deletion, and maintenance platform.",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "node scripts/dev.mjs",
-    "build": "vite build && tsc -p tsconfig.server.json",
+    "build": "npm run build --workspace @uib/platform-core && vite build && tsc -p tsconfig.server.json",
     "start": "node dist-server/server/index.js",
-    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.server.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p packages/platform-core/tsconfig.json",
     "test": "vitest run",
     "dev:api": "tsx src/server/index.ts"
   },

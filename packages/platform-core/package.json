@@ -1,0 +1,29 @@
+{
+  "name": "@uib/platform-core",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Core UIB platform contracts, manifest validation, discovery, and service registry.",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package-manifest.schema.json": "./src/schemas/package-manifest.schema.json"
+  },
+  "files": [
+    "dist",
+    "src/schemas",
+    "platform-core.manifest.json"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "typescript": "latest",
+    "vitest": "latest"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

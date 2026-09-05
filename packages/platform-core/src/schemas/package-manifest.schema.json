@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uib.dev/schemas/package-manifest.schema.json",
+  "title": "UIB Package Manifest",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["name", "version", "manifestVersion", "displayName", "capabilities"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^@uib/[a-z0-9][a-z0-9._-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:[-+][0-9A-Za-z.-]+)?$"
+    },
+    "manifestVersion": {
+      "const": "1.0.0"
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "requiresServices": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^(?:\\^\\d+\\.\\d+\\.\\d+|\\d+\\.\\d+\\.\\d+)$"
+      },
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$"
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["name", "tagName"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "tagName": { "type": "string", "minLength": 1 },
+          "displayName": { "type": "string" },
+          "category": { "type": "string" },
+          "description": { "type": "string" },
+          "icon": { "type": "string" },
+          "importPath": { "type": "string" },
+          "attributes": { "type": "array", "items": { "type": "string" } },
+          "properties": { "type": "array", "items": { "type": "string" } },
+          "events": { "type": "array", "items": { "type": "string" } },
+          "slots": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "schema": { "type": "string" },
+        "entries": { "type": "object" }
+      }
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["stores"],
+      "properties": {
+        "stores": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["name", "purpose", "access", "scope"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "purpose": { "type": "string", "minLength": 1 },
+              "access": { "enum": ["read", "write", "read-write", "manage"] },
+              "scope": {
+                "enum": ["platform", "workspace", "application", "page", "component", "user", "session"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "admin": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["id", "label", "route"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "label": { "type": "string", "minLength": 1 },
+              "route": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

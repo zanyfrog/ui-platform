@@ -1,13 +1,16 @@
 # UIB Specifications
 
-The Architecture Guide identifies these specifications as the next detailed documents to maintain under `docs/specifications/`.
+The Architecture Guide identifies these specifications as the detailed documents to maintain under `docs/specifications/`.
 
 The Architecture Guide remains authoritative for architectural intent. Specification documents should refine the guide rather than contradict it. When a specification needs to change a decision, update the Architecture Guide and Decision Record at the same time.
 
-Recommended specifications:
+## Normative Specifications
 
-- Package Manifest Specification
-- Service Contract Specification
+- [UIB Package Manifest Specification](./package-manifest-spec.md)
+- [UIB Service Contract Specification](./service-contract-spec.md)
+
+## Planned Specifications
+
 - Settings Specification
 - Package Manager Specification
 - Data Service Specification
