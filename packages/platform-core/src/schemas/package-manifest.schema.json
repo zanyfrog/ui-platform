@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://uib.dev/schemas/package-manifest.schema.json",
+  "$comment": "Purpose: JSON Schema for UIB <package-name>.manifest.json files. Use: editors, CI, and platform tooling can validate package-provided manifest metadata before discovery and catalog registration.",
   "title": "UIB Package Manifest",
   "type": "object",
   "additionalProperties": true,

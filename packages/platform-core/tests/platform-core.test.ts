@@ -1,4 +1,9 @@
-﻿import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+/**
+ * Purpose: Covers the baseline @uib/platform-core manifest, discovery, and service-registry behavior.
+ * Use: Run with npm run test --workspace @uib/platform-core or the repo-level npm test command.
+ */
+
+import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';

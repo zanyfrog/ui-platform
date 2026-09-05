@@ -1,4 +1,9 @@
-﻿export const UIB_MANIFEST_VERSION = '1.0.0';
+/**
+ * Purpose: Defines UIB package manifest contracts and validation helpers.
+ * Use: Package authors validate <package-name>.manifest.json files before discovery or catalog registration.
+ */
+
+export const UIB_MANIFEST_VERSION = '1.0.0';
 export const UIB_PACKAGE_SCOPE = '@uib/';
 
 export const WELL_KNOWN_PACKAGE_CAPABILITIES = [

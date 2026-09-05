@@ -1,6 +1,18 @@
-﻿import { readdir, readFile } from 'node:fs/promises';
+/**
+ * Purpose: Finds and validates UIB package manifests from workspace packages and installed @uib dependencies.
+ * Use: Platform services call discoverPackageManifests before building catalogs or reporting manifest issues.
+ */
+
+import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { validateManifestFileName, validatePackageManifest, type ManifestValidationResult, type UibPackageManifest } from './manifest.js';
+
+export type ManifestDiscoverySourceType = 'workspace' | 'installed';
+
+export interface ManifestDiscoverySource {
+  type: ManifestDiscoverySourceType;
+  packageRoot: string;
+}
 
 export interface ManifestDiscoveryOptions {
   rootDir: string;
@@ -11,11 +23,13 @@ export interface ManifestDiscoveryOptions {
 export interface DiscoveredPackageManifest {
   manifest: UibPackageManifest;
   filePath: string;
+  source: ManifestDiscoverySource;
   validation: ManifestValidationResult;
 }
 
 export interface RejectedPackageManifest {
   filePath: string;
+  source: ManifestDiscoverySource;
   validation: ManifestValidationResult;
 }
 
@@ -24,10 +38,15 @@ export interface ManifestDiscoveryResult {
   rejected: RejectedPackageManifest[];
 }
 
+interface CandidateManifestFile {
+  filePath: string;
+  source: ManifestDiscoverySource;
+}
+
 export async function discoverPackageManifests(options: ManifestDiscoveryOptions): Promise<ManifestDiscoveryResult> {
   const includeWorkspacePackages = options.includeWorkspacePackages ?? true;
   const includeInstalledPackages = options.includeInstalledPackages ?? true;
-  const candidateFiles: string[] = [];
+  const candidateFiles: CandidateManifestFile[] = [];
 
   if (includeWorkspacePackages) {
     candidateFiles.push(...(await findWorkspaceManifestFiles(options.rootDir)));
@@ -40,29 +59,29 @@ export async function discoverPackageManifests(options: ManifestDiscoveryOptions
   const manifests: DiscoveredPackageManifest[] = [];
   const rejected: RejectedPackageManifest[] = [];
 
-  for (const filePath of candidateFiles) {
-    const parsed = await readManifestFile(filePath);
+  for (const candidate of candidateFiles) {
+    const parsed = await readManifestFile(candidate.filePath);
     if (!parsed.ok) {
-      rejected.push({ filePath, validation: { valid: false, issues: [parsed.error] } });
+      rejected.push({ filePath: candidate.filePath, source: candidate.source, validation: { valid: false, issues: [parsed.error] } });
       continue;
     }
 
-    const validation = validatePackageManifest(parsed.value, { fileName: path.basename(filePath) });
+    const validation = validatePackageManifest(parsed.value, { fileName: path.basename(candidate.filePath) });
 
     if (validation.valid) {
-      manifests.push({ manifest: parsed.value as UibPackageManifest, filePath, validation });
+      manifests.push({ manifest: parsed.value as UibPackageManifest, filePath: candidate.filePath, source: candidate.source, validation });
     } else {
-      rejected.push({ filePath, validation });
+      rejected.push({ filePath: candidate.filePath, source: candidate.source, validation });
     }
   }
 
   return { manifests, rejected };
 }
 
-async function findWorkspaceManifestFiles(rootDir: string): Promise<string[]> {
+async function findWorkspaceManifestFiles(rootDir: string): Promise<CandidateManifestFile[]> {
   const packagesDir = path.join(rootDir, 'packages');
   const packageDirs = await readDirectoryIfExists(packagesDir);
-  const files: string[] = [];
+  const files: CandidateManifestFile[] = [];
 
   for (const packageDir of packageDirs) {
     if (!packageDir.isDirectory()) {
@@ -74,7 +93,7 @@ async function findWorkspaceManifestFiles(rootDir: string): Promise<string[]> {
 
     for (const file of packageFiles) {
       if (file.isFile() && file.name.endsWith('.manifest.json')) {
-        files.push(path.join(fullPackageDir, file.name));
+        files.push({ filePath: path.join(fullPackageDir, file.name), source: { type: 'workspace', packageRoot: fullPackageDir } });
       }
     }
   }
@@ -82,10 +101,10 @@ async function findWorkspaceManifestFiles(rootDir: string): Promise<string[]> {
   return files;
 }
 
-async function findInstalledUibManifestFiles(rootDir: string): Promise<string[]> {
+async function findInstalledUibManifestFiles(rootDir: string): Promise<CandidateManifestFile[]> {
   const uibNodeModulesDir = path.join(rootDir, 'node_modules', '@uib');
   const packageDirs = await readDirectoryIfExists(uibNodeModulesDir);
-  const files: string[] = [];
+  const files: CandidateManifestFile[] = [];
 
   for (const packageDir of packageDirs) {
     if (!packageDir.isDirectory()) {
@@ -98,7 +117,7 @@ async function findInstalledUibManifestFiles(rootDir: string): Promise<string[]>
 
     for (const file of packageFiles) {
       if (file.isFile() && file.name.endsWith('.manifest.json') && validateManifestFileName(packageName, file.name)) {
-        files.push(path.join(fullPackageDir, file.name));
+        files.push({ filePath: path.join(fullPackageDir, file.name), source: { type: 'installed', packageRoot: fullPackageDir } });
       }
     }
   }

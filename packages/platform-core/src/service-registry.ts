@@ -1,4 +1,9 @@
-﻿export interface ServiceRegistration<TService = unknown> {
+/**
+ * Purpose: Provides the in-memory registry for versioned UIB platform service contracts.
+ * Use: Register concrete services by string key, then resolve them with exact or supported semver ranges.
+ */
+
+export interface ServiceRegistration<TService = unknown> {
   key: string;
   version: string;
   service: TService;
