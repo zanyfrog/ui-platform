@@ -1,8 +1,8 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
-import type { ComponentCatalogEntry, ComponentManifestEntry } from '../shared/types.js';
-import { appPath } from './applications.js';
+import type { AppPackageListEntry, ComponentCatalogEntry, ComponentManifestEntry } from '../shared/types.js';
 import { uiBasePackagesDir } from './paths.js';
+import { getActiveAppPackages } from './packages.js';
 
 const ignoredExportNames = new Set(['.', './styles.css', './tokens.css', './default.css', './dark.css', './sample-tour.css', './metadata', './analyzer', './writer', './page-importer', './page-import-artifact', './uib-layout-manager', './uib-layout-editor', './platform-info']);
 
@@ -46,25 +46,35 @@ async function packageEntries(packageDir: string): Promise<ComponentCatalogEntry
       .filter((name) => !ignoredExportNames.has(name) && !name.endsWith('.css'))
       .map((name) => ({ tagName: name.slice(2).replaceAll('/', '-'), importPath: name, metadataStatus: 'exports' as const })));
   }
-  return entries.map((entry) => {
-    const source = entry.importPath ?? `package:${packageJson.name}`;
-    return {
-      id: entry.id ?? `${packageJson.name}:${entry.tagName}`,
-      tagName: entry.tagName,
-      name: entry.name ?? displayName(entry.tagName),
-      category: entry.category ?? 'Components',
-      description: entry.description,
-      importPath: entry.importPath,
-      attributes: entry.attributes,
-      properties: entry.properties,
-      events: entry.events,
-      slots: entry.slots,
-      packageName: packageJson.name!,
-      packageVersion: packageJson.version ?? '0.0.0',
-      source,
-      metadataStatus: entry.metadataStatus,
-    } satisfies ComponentCatalogEntry;
-  });
+  return entries.map((entry) => toComponentCatalogEntry(entry, packageJson.name!, packageJson.version ?? '0.0.0'));
+}
+
+function activatedPackageEntries(pkg: AppPackageListEntry): ComponentCatalogEntry[] {
+  return pkg.components.map((entry) => toComponentCatalogEntry(entry, pkg.name, pkg.version, entry.importPath ?? pkg.manifestPath));
+}
+
+function toComponentCatalogEntry(
+  entry: ComponentManifestEntry,
+  packageName: string,
+  packageVersion: string,
+  source = entry.importPath ?? `package:${packageName}`,
+): ComponentCatalogEntry {
+  return {
+    id: entry.id ?? `${packageName}:${entry.tagName}`,
+    tagName: entry.tagName,
+    name: entry.name ?? displayName(entry.tagName),
+    category: entry.category ?? 'Components',
+    description: entry.description,
+    importPath: entry.importPath,
+    attributes: entry.attributes,
+    properties: entry.properties,
+    events: entry.events,
+    slots: entry.slots,
+    packageName,
+    packageVersion,
+    source,
+    metadataStatus: (entry as ComponentManifestEntry & { metadataStatus?: ComponentCatalogEntry['metadataStatus'] }).metadataStatus ?? 'manifest',
+  };
 }
 
 async function packageDirs(root: string): Promise<string[]> {
@@ -73,9 +83,16 @@ async function packageDirs(root: string): Promise<string[]> {
 }
 
 export async function discoverComponents(appKey?: string): Promise<ComponentCatalogEntry[]> {
-  const roots = [uiBasePackagesDir];
-  if (appKey) roots.push(path.join(appPath(appKey), 'packages'));
-  const dirs = (await Promise.all(roots.map(packageDirs))).flat();
+  if (appKey) {
+    const activePackages = await getActiveAppPackages(appKey);
+    return activePackages.flatMap(activatedPackageEntries).sort(sortComponents);
+  }
+
+  const dirs = await packageDirs(uiBasePackagesDir);
   const entries = (await Promise.all(dirs.map(packageEntries))).flat();
-  return entries.sort((a, b) => a.packageName.localeCompare(b.packageName) || a.name!.localeCompare(b.name!));
+  return entries.sort(sortComponents);
+}
+
+function sortComponents(a: ComponentCatalogEntry, b: ComponentCatalogEntry): number {
+  return a.packageName.localeCompare(b.packageName) || a.name!.localeCompare(b.name!);
 }

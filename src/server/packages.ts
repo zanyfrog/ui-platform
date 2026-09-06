@@ -1,4 +1,3 @@
-import path from 'node:path';
 import {
   discoverPackageManifests,
   isVersionCompatible,
@@ -32,6 +31,12 @@ interface CandidatePackage {
   lastDiscoveredAt?: string;
 }
 
+export interface ResolveAppPackageCatalogOptions {
+  appManifest: AppManifest;
+  appDir: string;
+  platformRootDir: string;
+}
+
 export async function getGlobalPackageCatalog(): Promise<PackageCatalogPayload> {
   const catalog = await refreshPackageCatalog({ rootDir: platformRoot });
   return {
@@ -43,34 +48,37 @@ export async function getGlobalPackageCatalog(): Promise<PackageCatalogPayload> 
 
 export async function getAppPackageCatalog(key: string): Promise<AppPackageCatalogPayload> {
   const appManifest = await ensureAppManifest(key);
-  const appDir = appPath(key);
+  return resolveAppPackageCatalog({ appManifest, appDir: appPath(key), platformRootDir: platformRoot });
+}
+
+export async function resolveAppPackageCatalog(options: ResolveAppPackageCatalogOptions): Promise<AppPackageCatalogPayload> {
   const [appDiscovery, platformCatalog] = await Promise.all([
-    discoverPackageManifests({ rootDir: appDir }),
-    refreshPackageCatalog({ rootDir: platformRoot }),
+    discoverPackageManifests({ rootDir: options.appDir }),
+    refreshPackageCatalog({ rootDir: options.platformRootDir }),
   ]);
 
   const appCandidates = new Map<string, CandidatePackage>();
   for (const discovered of appDiscovery.manifests) {
-    appCandidates.set(discovered.manifest.name, toCandidate(discovered, sourceTypeForApp(discovered.source.type)));
+    setPreferredCandidate(appCandidates, discovered.manifest.name, toCandidate(discovered, sourceTypeForApp(discovered.source.type)));
   }
 
   const platformCandidates = new Map<string, CandidatePackage>();
   for (const entry of platformCatalog.entries) {
-    platformCandidates.set(entry.name, toCandidateFromCatalog(entry));
+    setPreferredCandidate(platformCandidates, entry.name, toCandidateFromCatalog(entry));
   }
 
   const packageNames = new Set<string>([
-    ...Object.keys(appManifest.packages),
+    ...Object.keys(options.appManifest.packages),
     ...appCandidates.keys(),
     ...platformCandidates.keys(),
   ]);
 
   const entries = [...packageNames]
-    .map((packageName) => toAppPackageListEntry(packageName, appManifest, appCandidates, platformCandidates))
+    .map((packageName) => toAppPackageListEntry(packageName, options.appManifest, appCandidates, platformCandidates))
     .sort(sortPackages);
 
   return {
-    appManifest,
+    appManifest: options.appManifest,
     entries,
     rejected: [
       ...appDiscovery.rejected.map((issue) => toManifestIssue(issue, sourceTypeForApp(issue.source.type))),
@@ -79,6 +87,20 @@ export async function getAppPackageCatalog(key: string): Promise<AppPackageCatal
   };
 }
 
+export async function getActiveAppPackages(key: string): Promise<AppPackageListEntry[]> {
+  const catalog = await getAppPackageCatalog(key);
+  return activePackageEntries(catalog.entries);
+}
+
+export function activePackageEntries(entries: AppPackageListEntry[]): AppPackageListEntry[] {
+  return entries.filter((entry) => entry.appEnabled && entry.resolved && entry.status !== 'missing' && entry.status !== 'incompatible');
+}
+
+function setPreferredCandidate(candidates: Map<string, CandidatePackage>, packageName: string, candidate: CandidatePackage): void {
+  if (!candidates.has(packageName)) {
+    candidates.set(packageName, candidate);
+  }
+}
 export async function enableAppPackage(key: string, packageName: string, version?: string): Promise<AppPackageCatalogPayload> {
   const catalog = await getAppPackageCatalog(key);
   const current = catalog.entries.find((entry) => entry.name === packageName);
@@ -136,7 +158,7 @@ function toAppPackageListEntry(
 
   if (declaration?.enabled && !candidate) {
     status = 'missing';
-    issues.push(`Package is enabled in app.manifest.json but no matching package manifest was found.`);
+    issues.push('Package is enabled in app.manifest.json but no matching package manifest was found.');
   } else if (declaration?.enabled && requestedVersion && candidate && !isVersionCompatible(candidate.manifest.version, requestedVersion)) {
     status = 'incompatible';
     issues.push(`App requests ${requestedVersion}, but resolved package version is ${candidate.manifest.version}.`);

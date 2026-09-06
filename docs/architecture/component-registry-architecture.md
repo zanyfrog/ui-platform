@@ -91,3 +91,13 @@ This prevents package management from becoming tightly coupled to the Page Build
 
 ---
 
+## Current Implementation: App Component Activation
+
+The platform currently has two component catalog modes:
+
+- The global component catalog remains a broad discovery view of platform packages and legacy component metadata.
+- The app-scoped component catalog is an activation view. It includes components only from packages that are enabled in the application's `app.manifest.json`, resolved from the app-first package catalog, and compatible with the requested version.
+
+Missing and incompatible package declarations remain visible as warnings in app package management views. They do not contribute components to the app-scoped component catalog until the package can be resolved compatibly.
+
+This keeps the Page Builder aligned with the application folder as the source of truth while still allowing the platform administration view to discover global package inventory.

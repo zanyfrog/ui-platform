@@ -76,7 +76,21 @@ If an app declares an enabled package whose resolved version does not satisfy th
 
 Missing or incompatible packages are warn-only in this implementation step; they do not automatically modify the app manifest or block app discovery.
 
-## 7. Separation of Responsibilities
+## 7. Component Activation
+
+Components are the first package capability activated by this specification.
+
+For an app-scoped component catalog, the platform MUST include only packages that are:
+
+- declared in `app.manifest.json` with `enabled: true`.
+- resolved from app-local or platform package sources according to the declaration resolution order.
+- compatible with the requested version, when a version is declared.
+
+Disabled, missing, and incompatible packages MUST remain visible in package management views, but their components MUST NOT appear in the active app component catalog.
+
+Other capability types, including routes, services, admin extensions, and settings contributions, remain package metadata until their activation behavior is specified separately.
+
+## 8. Separation of Responsibilities
 
 - `app.manifest.json` owns app identity and package intent.
 - `app.settings.json` owns runtime/admin-configurable app settings.
