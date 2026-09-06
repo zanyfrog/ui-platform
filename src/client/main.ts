@@ -13,6 +13,7 @@ import '@ui-base/ui-layout';
 import './styles.css';
 import type { DiscoveredApp, TemplateDefinition, TemplateSettingDefinition } from '../shared/types';
 import { mountBuilder } from './builder';
+import { mountAppPackages, mountGlobalPackages } from './packages-ui';
 
 const root = document.querySelector<HTMLDivElement>('#app');
 if (!root) throw new Error('Missing #app root.');
@@ -80,9 +81,13 @@ function sidebar(): string {
   return `
     <section class="panel stack">
       <uib-heading text="Applications" level="2" size="compact"></uib-heading>
+      <div class="sidebar-nav">
+        <button data-action="home">Applications</button>
+        <button data-action="packages">Packages</button>
+      </div>
       <button class="primary" data-action="new">+ Create Application</button>
       <div class="app-list">
-        ${apps.map((app) => `<button class="app-row" data-app="${esc(app.key)}"><strong>${esc(app.name)}</strong><small>/${esc(app.key)} · ${esc(app.status)}</small></button>`).join('') || '<p class="note">No applications yet.</p>'}
+        ${apps.map((app) => `<button class="app-row" data-app="${esc(app.key)}"><strong>${esc(app.name)}</strong><small>/${esc(app.key)} - ${esc(app.status)}</small></button>`).join('') || '<p class="note">No applications yet.</p>'}
       </div>
     </section>`;
 }
@@ -94,6 +99,8 @@ function shell(content: string): void {
 
 function bindCommon(): void {
   root!.querySelector('[data-action="new"]')?.addEventListener('click', renderCreate);
+  root!.querySelector('[data-action="home"]')?.addEventListener('click', renderHome);
+  root!.querySelector('[data-action="packages"]')?.addEventListener('click', renderPackages);
   root!.querySelectorAll<HTMLElement>('[data-app]').forEach((el) => el.addEventListener('click', () => void renderApp(el.dataset.app!)));
 }
 
@@ -104,6 +111,12 @@ function renderHome(): void {
   void loadAppInfoComponents();
 }
 
+
+function renderPackages(): void {
+  currentKey = null;
+  shell('<div id="packagesTarget"></div>');
+  void mountGlobalPackages(root!.querySelector<HTMLElement>('#packagesTarget')!);
+}
 function renderCreate(): void {
   currentKey = null; keyWasEdited = false;
   const templateField = templates.length === 1
@@ -150,8 +163,9 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
     const header = def.group && def.group !== group ? (group = def.group, `<div class="group">${esc(group)}</div>`) : '';
     return header + settingControl(def, app.settings);
   }).join('');
-  shell(`<div class="stack"><section class="panel stack"><div><uib-heading text="${esc(app.name)}" level="2"></uib-heading><span class="badge">/${esc(app.key)}</span> <span class="badge">${esc(app.status)}</span> <span class="badge">${esc(app.appId)}</span></div>${app.valid?'':`<div class="error">${app.issues.map((x:string)=>esc(x)).join('<br>')}</div>`}<form id="settingsForm"><div class="settings-grid">${controls}</div><div class="actions" style="margin-top:1rem"><button class="primary" type="submit">Save Settings</button><button type="button" data-action="preview">Current Preview</button><button type="button" data-action="export">Export ZIP</button><button class="danger" type="button" data-action="delete">Delete to OS Trash</button></div></form><p class="note">Folder/URL name is immutable. Pages: ${app.pages.map((r:string)=>`<code>${esc(r)}</code>`).join(', ') || 'none'}</p><div id="appMessage"></div></section><section class="panel stack"><uib-heading text="Current Preview" level="2" size="compact"></uib-heading><div id="previewTarget"><p class="note">Click Current Preview to start this app through the platform-managed preview runtime.</p></div></section><div id="builderTarget"></div></div>`);
+  shell(`<div class="stack"><section class="panel stack"><div><uib-heading text="${esc(app.name)}" level="2"></uib-heading><span class="badge">/${esc(app.key)}</span> <span class="badge">${esc(app.status)}</span> <span class="badge">${esc(app.appId)}</span></div>${app.valid?'':`<div class="error">${app.issues.map((x:string)=>esc(x)).join('<br>')}</div>`}<form id="settingsForm"><div class="settings-grid">${controls}</div><div class="actions" style="margin-top:1rem"><button class="primary" type="submit">Save Settings</button><button type="button" data-action="preview">Current Preview</button><button type="button" data-action="export">Export ZIP</button><button class="danger" type="button" data-action="delete">Delete to OS Trash</button></div></form><p class="note">Folder/URL name is immutable. Pages: ${app.pages.map((r:string)=>`<code>${esc(r)}</code>`).join(', ') || 'none'}</p><div id="appMessage"></div></section><section class="panel stack"><div id="appPackagesTarget"></div></section><section class="panel stack"><uib-heading text="Current Preview" level="2" size="compact"></uib-heading><div id="previewTarget"><p class="note">Click Current Preview to start this app through the platform-managed preview runtime.</p></div></section><div id="builderTarget"></div></div>`);
   void mountBuilder(root!.querySelector<HTMLElement>('#builderTarget')!, { key: app.key, name: app.name });
+  void mountAppPackages(root!.querySelector<HTMLElement>('#appPackagesTarget')!, app.key);
 
   root!.querySelector<HTMLFormElement>('#settingsForm')!.addEventListener('submit', async (event) => {
     event.preventDefault();

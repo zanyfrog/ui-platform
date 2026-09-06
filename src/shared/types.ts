@@ -98,3 +98,75 @@ export interface ComponentCatalogEntry extends ComponentManifestEntry {
   source: string;
   metadataStatus: 'manifest' | 'package-metadata' | 'exports';
 }
+
+export type AppPackageResolution = 'app-first' | 'app-only' | 'platform-first' | 'platform-only';
+
+export interface AppPackageDeclaration {
+  enabled: boolean;
+  version?: string;
+  resolution?: AppPackageResolution;
+  addedAt?: string;
+  updatedAt?: string;
+}
+
+export interface AppManifest {
+  manifestVersion: '1.0.0';
+  appId: string;
+  template: string;
+  templateVersion: string;
+  createdAt?: string;
+  updatedAt?: string;
+  packages: Record<string, AppPackageDeclaration>;
+}
+
+export type PackageListSourceType = 'app-packages' | 'app-node-modules' | 'platform-packages' | 'platform-node-modules';
+export type PackageListStatus = 'available' | 'installed' | 'enabled' | 'disabled' | 'missing' | 'incompatible' | 'error';
+
+export interface PackageManifestIssue {
+  filePath: string;
+  sourceType: string;
+  packageRoot: string;
+  issues: string[];
+}
+
+export interface PackageListEntry {
+  name: string;
+  displayName: string;
+  version: string;
+  description?: string;
+  icon?: string;
+  status: PackageListStatus;
+  sourceType: PackageListSourceType;
+  sourceLabel: string;
+  manifestPath: string;
+  packageRoot: string;
+  capabilities: string[];
+  requiresServices: Record<string, string>;
+  components: ComponentManifestEntry[];
+  firstDiscoveredAt?: string;
+  addedAt?: string;
+  lastDiscoveredAt?: string;
+  issues: string[];
+}
+
+export interface PackageCatalogPayload {
+  entries: PackageListEntry[];
+  rejected: PackageManifestIssue[];
+  stateFilePath: string;
+}
+
+export interface AppPackageListEntry extends PackageListEntry {
+  appEnabled: boolean;
+  declared: boolean;
+  requestedVersion?: string;
+  resolution: AppPackageResolution;
+  resolved: boolean;
+  globalAvailable: boolean;
+  appLocalAvailable: boolean;
+}
+
+export interface AppPackageCatalogPayload {
+  appManifest: AppManifest;
+  entries: AppPackageListEntry[];
+  rejected: PackageManifestIssue[];
+}

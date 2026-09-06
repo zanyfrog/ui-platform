@@ -152,6 +152,22 @@ Survey App
 
 ---
 
+## Application-Owned Package Intent
+
+**Status:** CONFIRMED
+
+Application-level package enablement and dependency intent should live with the application in `app.manifest.json`. The platform catalog remains an index/cache/read model that can be rebuilt from application folders and package manifests.
+
+For app-scoped package views and runtime resolution, the platform should resolve packages app-first:
+
+1. app-local packages;
+2. app-local `node_modules/@uib` packages;
+3. platform workspace packages;
+4. platform `node_modules/@uib` packages.
+
+Missing or incompatible app-declared packages should preserve the app's intent and surface warn-only status until install/repair workflows are implemented.
+---
+
 # 12. One Platform Version for Now
 
 At this stage, different applications should **not** use different versions of the same package.

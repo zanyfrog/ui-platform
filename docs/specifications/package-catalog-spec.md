@@ -106,3 +106,8 @@ The first catalog view MUST be global. App-scoped catalog views SHOULD be derive
 A package whose manifest is no longer discovered MUST NOT appear as currently available.
 
 The platform MAY preserve historical catalog state for that package so first-discovery timestamps, audit details, and enablement history are not lost.
+## 9. App-Owned Package Intent
+
+App-scoped package enablement MUST be read from the application's `app.manifest.json` package declarations. The platform catalog MAY index and display app usage, but app-level package intent MUST remain portable with the application folder.
+
+The platform SHOULD resolve packages app-first for app-scoped package views and SHOULD preserve missing or incompatible app declarations as warning states.

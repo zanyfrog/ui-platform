@@ -2,13 +2,14 @@ import crypto from 'node:crypto';
 import { cp, mkdir, readdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { DiscoveredApp } from '../shared/types.js';
+import { APP_MANIFEST_FILE, ensureAppManifest, writeInitialAppManifest } from './app-manifests.js';
 import { appsDir } from './paths.js';
 import { readJson, atomicWriteJson } from './json-files.js';
 import { appendHistory } from './history.js';
 import { getTemplate } from './templates.js';
 import { spawnNpm } from './npm-process.js';
 
-const REQUIRED = ['package.json', 'tsconfig.json', 'ui.app.json', 'app.settings.json', 'app-services.json', 'src/main.ts'];
+const REQUIRED = ['package.json', 'tsconfig.json', APP_MANIFEST_FILE, 'app.settings.json', 'app-services.json', 'src/main.ts'];
 const keyPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 function safeKey(key: string): string {
@@ -43,12 +44,17 @@ export async function getApp(keyInput: string): Promise<DiscoveredApp> {
   const key = safeKey(keyInput);
   const appDir = path.join(appsDir, key);
   const issues: string[] = [];
-  for (const required of REQUIRED) if (!(await exists(path.join(appDir, required)))) issues.push(`Missing ${required}`);
 
   let manifest: any = {};
   let settings: any = {};
   let appServices: DiscoveredApp['appServices'] = null;
-  try { manifest = await readJson(path.join(appDir, 'ui.app.json')); } catch { issues.push('Invalid ui.app.json'); }
+  try { manifest = await ensureAppManifest(key); } catch {
+    issues.push('Invalid app.manifest.json');
+    try { manifest = await readJson(path.join(appDir, 'ui.app.json')); } catch { issues.push('Invalid ui.app.json'); }
+  }
+
+  for (const required of REQUIRED) if (!(await exists(path.join(appDir, required)))) issues.push(`Missing ${required}`);
+
   try { settings = await readJson(path.join(appDir, 'app.settings.json')); } catch { issues.push('Invalid app.settings.json'); }
   try { appServices = await readJson(path.join(appDir, 'app-services.json')); } catch { appServices = null; }
 
@@ -127,6 +133,7 @@ export async function createApp(input: { name: string; key: string; templateId?:
   try {
     await cp(path.join(folder, 'files'), tempDir, { recursive: true });
     await replaceTokens(tempDir, { APP_NAME: name, APP_KEY: key, APP_ID: appId, CREATED_AT: createdAt });
+    await writeInitialAppManifest(tempDir, { appId, template: definition.id, templateVersion: definition.version, createdAt });
     await appendHistory(tempDir, { action: 'app.created', appId, appKey: key, template: definition.id, templateVersion: definition.version, actor: 'local-user' });
 
     for (const required of REQUIRED) {
@@ -148,7 +155,7 @@ export async function createApp(input: { name: string; key: string; templateId?:
 export async function saveSettings(keyInput: string, settings: Record<string, unknown>): Promise<DiscoveredApp> {
   const key = safeKey(keyInput);
   const appDir = path.join(appsDir, key);
-  const manifest = await readJson<any>(path.join(appDir, 'ui.app.json'));
+  const manifest = await ensureAppManifest(key);
   const status = (settings as any)?.application?.status;
   if (status !== 'active' && status !== 'disabled') throw new Error('application.status must be active or disabled.');
   await atomicWriteJson(path.join(appDir, 'app.settings.json'), settings);

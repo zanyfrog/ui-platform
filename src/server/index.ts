@@ -12,6 +12,7 @@ import { startWorkspaceWatcher } from './watcher.js';
 import { runtimeDir } from './paths.js';
 import { deletePageSource, getPageSource, getPageTree, movePageSource, savePageSource } from './page-builder.js';
 import { discoverComponents } from './component-registry.js';
+import { disableAppPackage, enableAppPackage, getAppPackageCatalog, getGlobalPackageCatalog } from './packages.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const sseClients = new Set<http.ServerResponse>();
@@ -67,6 +68,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === '/api/apps' && method === 'GET') return json(res, 200, await discoverApps());
     if (url.pathname === '/api/apps' && method === 'POST') return json(res, 201, await createApp(await body(req)));
     if (url.pathname === '/api/components' && method === 'GET') return json(res, 200, await discoverComponents());
+    if (url.pathname === '/api/packages' && method === 'GET') return json(res, 200, await getGlobalPackageCatalog());
 
     if (parts[0] === 'api' && parts[1] === 'apps' && parts[2]) {
       const key = decodeURIComponent(parts[2]);
@@ -86,6 +88,14 @@ const server = http.createServer(async (req, res) => {
         return json(res, 200, await movePageSource(key, String(input.source), String(input.destination)));
       }
       if (parts.length === 4 && parts[3] === 'components' && method === 'GET') return json(res, 200, await discoverComponents(key));
+      if (parts.length === 4 && parts[3] === 'packages' && method === 'GET') return json(res, 200, await getAppPackageCatalog(key));
+      if (parts.length === 6 && parts[3] === 'packages' && parts[5] === 'enable' && method === 'POST') {
+        const input = await body(req);
+        return json(res, 200, await enableAppPackage(key, decodeURIComponent(parts[4]), input.version ? String(input.version) : undefined));
+      }
+      if (parts.length === 6 && parts[3] === 'packages' && parts[5] === 'disable' && method === 'POST') {
+        return json(res, 200, await disableAppPackage(key, decodeURIComponent(parts[4])));
+      }
       if (parts.length === 4 && parts[3] === 'page' && method === 'GET') {
         const source = url.searchParams.get('source');
         if (!source) throw new Error('The source query parameter is required.');
