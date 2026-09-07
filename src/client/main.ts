@@ -22,6 +22,7 @@ let apps: DiscoveredApp[] = [];
 let templates: TemplateDefinition[] = [];
 let currentKey: string | null = null;
 let keyWasEdited = false;
+let currentSearch = '';
 
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, { headers: { 'content-type': 'application/json', ...(init?.headers ?? {}) }, ...init });
@@ -53,6 +54,36 @@ async function loadAppInfoComponents(): Promise<void> {
   }));
 }
 
+function icon(name: string): string {
+  return `<uib-icon name="${esc(name)}" decorative></uib-icon>`;
+}
+
+function appInitial(app: { name?: string; key?: string }): string {
+  return String(app.name || app.key || 'A').trim().charAt(0).toUpperCase() || 'A';
+}
+
+function appStatusBadge(status: string): string {
+  const normalized = String(status || '').toLowerCase();
+  return `<span class="status-pill ${normalized === 'active' ? 'status-active' : ''}"><span></span>${esc(status || 'Unknown')}</span>`;
+}
+
+function actionButton(action: string, label: string, options: { icon?: string; variant?: 'primary' | 'danger' | 'muted'; type?: 'button' | 'submit' } = {}): string {
+  const type = options.type ?? 'button';
+  const classes = ['action-button', options.variant ? `action-button-${options.variant}` : ''].filter(Boolean).join(' ');
+  return `<button class="${classes}" type="${type}" data-action="${esc(action)}">${options.icon ? icon(options.icon) : ''}<span>${esc(label)}</span></button>`;
+}
+
+function filteredApps(): DiscoveredApp[] {
+  const query = currentSearch.trim().toLowerCase();
+  if (!query) return apps;
+  return apps.filter((app) => [app.name, app.key, app.status].some((value) => String(value ?? '').toLowerCase().includes(query)));
+}
+
+function homeAppsMarkup(): string {
+  const visibleApps = filteredApps();
+  return visibleApps.length ? `<div class="app-tiles">${visibleApps.map(appInfoTile).join('')}</div>` : '<p class="empty-state">No matching applications yet.</p>';
+}
+
 function appInfoTile(app: DiscoveredApp): string {
   const component = app.appServices?.components?.appInfo;
   if (component?.bundle && validCustomElementName(component.tag)) {
@@ -66,9 +97,10 @@ function appInfoTile(app: DiscoveredApp): string {
 
   return `
     <button class="app-tile" data-app="${esc(app.key)}">
+      <span class="app-tile-icon">${esc(appInitial(app))}</span>
       <strong>${esc(app.name)}</strong>
       <span>/${esc(app.key)}</span>
-      <small>${esc(app.status)} · ${app.valid ? 'ready' : `${app.issues.length} issue${app.issues.length === 1 ? '' : 's'}`}</small>
+      <small>${esc(app.status)} - ${app.valid ? 'ready' : `${app.issues.length} issue${app.issues.length === 1 ? '' : 's'}`}</small>
     </button>
   `;
 }
@@ -79,21 +111,37 @@ async function refresh(): Promise<void> {
 
 function sidebar(): string {
   return `
-    <section class="panel stack">
-      <uib-heading text="Applications" level="2" size="compact"></uib-heading>
-      <div class="sidebar-nav">
-        <button data-action="home">Applications</button>
-        <button data-action="packages">Packages</button>
+    <aside class="sidebar-shell">
+      <button class="brand-lockup" type="button" data-action="home" aria-label="Modular UI Platform home">
+        <span class="brand-mark">M</span>
+        <span><small>MODULAR</small><strong>UI Platform</strong></span>
+      </button>
+      <uib-menu class="side-menu" label="Platform navigation" open breakpoint="1px">
+        <uib-menuitem name="applications" active data-action="home">${icon('menu')}<span>Applications</span></uib-menuitem>
+        <uib-menuitem name="packages" data-action="packages">${icon('info')}<span>Packages</span></uib-menuitem>
+        <uib-menuitem name="templates" disabled>${icon('calendar')}<span>Templates</span></uib-menuitem>
+        <uib-menuitem name="settings" disabled>${icon('chevron-down')}<span>Settings</span></uib-menuitem>
+      </uib-menu>
+      <div class="sidebar-user">
+        <span class="user-avatar">U</span>
+        <span><strong>User</strong><small>user@example.com</small></span>
+        ${icon('chevron-down')}
       </div>
-      <button class="primary" data-action="new">+ Create Application</button>
-      <div class="app-list">
-        ${apps.map((app) => `<button class="app-row" data-app="${esc(app.key)}"><strong>${esc(app.name)}</strong><small>/${esc(app.key)} - ${esc(app.status)}</small></button>`).join('') || '<p class="note">No applications yet.</p>'}
-      </div>
-    </section>`;
+    </aside>`;
 }
 
 function shell(content: string): void {
-  root!.innerHTML = `<main class="shell"><header class="topbar"><uib-heading-block eyebrow="Modular" headline="UI Platform" subheadline="Create, discover, preview, configure, export, and remove portable TypeScript applications."></uib-heading-block></header><div class="grid">${sidebar()}<section>${content}</section></div></main>`;
+  root!.innerHTML = `
+    <main class="shell">
+      ${sidebar()}
+      <section class="workspace">
+        <header class="topbar">
+          <uib-forms-textbox class="global-search" name="applicationSearch" label="Search applications" placeholder="Search applications..." value="${esc(currentSearch)}"></uib-forms-textbox>
+          ${actionButton('new', 'New Application', { variant: 'primary' })}
+        </header>
+        ${content}
+      </section>
+    </main>`;
   bindCommon();
 }
 
@@ -101,57 +149,106 @@ function bindCommon(): void {
   root!.querySelector('[data-action="new"]')?.addEventListener('click', renderCreate);
   root!.querySelector('[data-action="home"]')?.addEventListener('click', renderHome);
   root!.querySelector('[data-action="packages"]')?.addEventListener('click', renderPackages);
+  root!.querySelector('uib-menu.side-menu')?.addEventListener('uib-menuitem-select', (event) => {
+    const target = event.target as HTMLElement;
+    const action = target.closest<HTMLElement>('[data-action]')?.dataset.action;
+    if (action === 'home') renderHome();
+    if (action === 'packages') renderPackages();
+  });
+  root!.querySelector<HTMLElement>('.global-search')?.addEventListener('input', (event) => {
+    const detail = (event as unknown as CustomEvent).detail as { newValue?: unknown } | undefined;
+    currentSearch = String(detail?.newValue ?? (event.target as any).value ?? '');
+    if (!currentKey) {
+      const region = root!.querySelector<HTMLElement>('#appTilesRegion');
+      if (region) {
+        region.innerHTML = homeAppsMarkup();
+        bindAppRows();
+      }
+    }
+  });
+  bindAppRows();
+}
+
+function bindAppRows(): void {
   root!.querySelectorAll<HTMLElement>('[data-app]').forEach((el) => el.addEventListener('click', () => void renderApp(el.dataset.app!)));
 }
 
 function renderHome(): void {
   currentKey = null;
-  const appTiles = apps.map(appInfoTile).join('');
-  shell(`<div class="panel stack"><uib-heading text="Application Workspace" level="2"></uib-heading><p>Select an application or create a new one. Valid folders copied manually into <code>Modular/apps/</code> are discovered automatically.</p><p class="note">Version 1 uses one auto-discovered template: Standard Application.</p>${apps.length ? `<div class="app-tiles">${appTiles}</div>` : '<p class="note">No applications yet.</p>'}</div>`);
+  const appTiles = homeAppsMarkup();
+  shell(`
+    <div class="breadcrumb"><button type="button" data-action="home">Applications</button></div>
+    <uib-panel class="content-panel home-panel" heading="Applications">
+      <p class="note">Select an application or create a new one. Valid folders copied manually into <code>Modular/apps/</code> are discovered automatically.</p>
+      <div id="appTilesRegion">${appTiles}</div>
+    </uib-panel>`);
   void loadAppInfoComponents();
 }
 
-
 function renderPackages(): void {
   currentKey = null;
-  shell('<div id="packagesTarget"></div>');
+  shell(`
+    <div class="breadcrumb"><button type="button" data-action="home">Applications</button><span>/</span><strong>Packages</strong></div>
+    <uib-panel class="content-panel" heading="Packages">
+      <div id="packagesTarget"></div>
+    </uib-panel>`);
   void mountGlobalPackages(root!.querySelector<HTMLElement>('#packagesTarget')!);
 }
+
 function renderCreate(): void {
   currentKey = null; keyWasEdited = false;
   const templateField = templates.length === 1
-    ? `<div class="field"><span class="field-label">Template</span><div class="readonly-value">${esc(templates[0].name)}</div><input type="hidden" name="templateId" value="${esc(templates[0].id)}" /></div>`
-    : `<div class="field"><label for="templateId">Template *</label><select id="templateId" name="templateId" required>${templates.map(t => `<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('')}</select></div>`;
-  shell(`<form id="createForm" class="panel stack"><uib-heading text="Create Application" level="2"></uib-heading><p class="note">Only the required creation fields are shown here. After creation, all persistent settings are displayed.</p><div class="field"><label for="appName">Application Name *</label><input id="appName" name="name" required /></div><div class="field"><label for="appKey">URL / Folder Name *</label><input id="appKey" name="key" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required /><small class="note">Permanent after creation. This becomes the default URL.</small></div>${templateField}<div class="actions"><button class="primary" type="submit">Create</button><button type="button" data-action="cancel">Cancel</button></div><div id="createError"></div></form>`);
+    ? `<uib-forms-display-field label="Template" display-value="${esc(templates[0].name)}"></uib-forms-display-field><input type="hidden" name="templateId" value="${esc(templates[0].id)}" />`
+    : `<uib-forms-select id="templateId" name="templateId" label="Template" required options="${esc(templates.map(t => t.id).join(','))}"></uib-forms-select>`;
+  shell(`
+    <div class="breadcrumb"><button type="button" data-action="home">Applications</button><span>/</span><strong>New Application</strong></div>
+    <form id="createForm">
+      <uib-panel class="content-panel form-panel" heading="Create Application">
+        <p class="note">Only the required creation fields are shown here. After creation, all persistent settings are displayed.</p>
+        <div class="settings-grid">
+          <uib-forms-textbox id="appName" name="name" label="Application Name" required></uib-forms-textbox>
+          <uib-forms-textbox id="appKey" name="key" label="URL / Folder Name" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required help="Permanent after creation. This becomes the default URL."></uib-forms-textbox>
+          ${templateField}
+        </div>
+        <div class="actions">
+          ${actionButton('create', 'Create', { variant: 'primary', type: 'submit' })}
+          ${actionButton('cancel', 'Cancel', { variant: 'muted' })}
+        </div>
+        <div id="createError"></div>
+      </uib-panel>
+    </form>`);
   const form = root!.querySelector<HTMLFormElement>('#createForm')!;
-  const name = root!.querySelector<HTMLInputElement>('#appName')!;
-  const key = root!.querySelector<HTMLInputElement>('#appKey')!;
+  const name = root!.querySelector<any>('#appName')!;
+  const key = root!.querySelector<any>('#appKey')!;
   name.addEventListener('input', () => { if (!keyWasEdited) key.value = slug(name.value); });
   key.addEventListener('input', () => { keyWasEdited = true; });
   root!.querySelector('[data-action="cancel"]')?.addEventListener('click', renderHome);
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
-    button.disabled = true; button.textContent = 'Creating / installing…';
+    button.disabled = true; button.querySelector('span')!.textContent = 'Creating / installing...';
     try {
-      const templateId = (form.elements.namedItem('templateId') as HTMLInputElement | HTMLSelectElement | null)?.value;
+      const templateControl = form.querySelector<any>('[name="templateId"]');
+      const templateId = templateControl?.value;
       const created = await api<DiscoveredApp>('/api/apps', { method:'POST', body:JSON.stringify({ name:name.value, key:key.value, templateId }) });
       await refresh();
       await renderApp(created.key, true);
     } catch (error) {
       root!.querySelector('#createError')!.innerHTML = `<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`;
-      button.disabled = false; button.textContent = 'Create';
+      button.disabled = false; button.querySelector('span')!.textContent = 'Create';
     }
   });
 }
 
 function settingControl(def: TemplateSettingDefinition, settings: any): string {
   const value = getPath(settings, def.path);
-  const common = `data-setting="${esc(def.path)}"`;
-  if (def.type === 'boolean') return `<div class="field"><label><input type="checkbox" ${common} ${value ? 'checked':''}/> ${esc(def.label)}</label>${def.help ? `<small class="note">${esc(def.help)}</small>`:''}</div>`;
-  if (def.type === 'select') return `<div class="field"><label>${esc(def.label)}</label><select ${common}>${(def.options ?? []).map(o => `<option value="${esc(o)}" ${o===value?'selected':''}>${esc(o)}</option>`).join('')}</select></div>`;
-  if (def.type === 'multiline') return `<div class="field"><label>${esc(def.label)}</label><textarea rows="4" ${common}>${esc(value ?? '')}</textarea></div>`;
-  return `<div class="field"><label>${esc(def.label)}</label><input type="${def.type === 'email' ? 'email' : def.type === 'url' ? 'url' : def.type === 'number' ? 'number' : 'text'}" value="${esc(value ?? '')}" ${common} ${def.required?'required':''}/>${def.help ? `<small class="note">${esc(def.help)}</small>`:''}</div>`;
+  const common = `data-setting="${esc(def.path)}" name="${esc(def.path)}" label="${esc(def.label)}" ${def.required?'required':''} ${def.help ? `help="${esc(def.help)}"` : ''}`;
+  if (def.type === 'boolean') return `<uib-checkbox ${common} ${value ? 'checked':''}></uib-checkbox>`;
+  if (def.type === 'select') return `<uib-forms-select ${common} value="${esc(value ?? '')}" options="${esc((def.options ?? []).join(','))}"></uib-forms-select>`;
+  if (def.type === 'multiline') return `<uib-forms-textarea ${common} value="${esc(value ?? '')}"></uib-forms-textarea>`;
+  if (def.type === 'email') return `<uib-forms-email ${common} value="${esc(value ?? '')}"></uib-forms-email>`;
+  if (def.type === 'number') return `<uib-forms-number ${common} value="${esc(value ?? '')}"></uib-forms-number>`;
+  return `<uib-forms-textbox ${common} value="${esc(value ?? '')}"></uib-forms-textbox>`;
 }
 
 async function renderApp(key: string, startPreview = false): Promise<void> {
@@ -163,25 +260,83 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
     const header = def.group && def.group !== group ? (group = def.group, `<div class="group">${esc(group)}</div>`) : '';
     return header + settingControl(def, app.settings);
   }).join('');
-  shell(`<div class="stack"><section class="panel stack"><div><uib-heading text="${esc(app.name)}" level="2"></uib-heading><span class="badge">/${esc(app.key)}</span> <span class="badge">${esc(app.status)}</span> <span class="badge">${esc(app.appId)}</span></div>${app.valid?'':`<div class="error">${app.issues.map((x:string)=>esc(x)).join('<br>')}</div>`}<form id="settingsForm"><div class="settings-grid">${controls}</div><div class="actions" style="margin-top:1rem"><button class="primary" type="submit">Save Settings</button><button type="button" data-action="preview">Current Preview</button><button type="button" data-action="export">Export ZIP</button><button class="danger" type="button" data-action="delete">Delete to OS Trash</button></div></form><p class="note">Folder/URL name is immutable. Pages: ${app.pages.map((r:string)=>`<code>${esc(r)}</code>`).join(', ') || 'none'}</p><div id="appMessage"></div></section><section class="panel stack"><div id="appPackagesTarget"></div></section><section class="panel stack"><uib-heading text="Current Preview" level="2" size="compact"></uib-heading><div id="previewTarget"><p class="note">Click Current Preview to start this app through the platform-managed preview runtime.</p></div></section><div id="builderTarget"></div></div>`);
+  shell(`
+    <div class="breadcrumb"><button type="button" data-action="home">Applications</button><span>/</span><strong>${esc(app.name)}</strong></div>
+    <section class="app-hero">
+      <div class="app-icon">${esc(appInitial(app))}</div>
+      <div class="app-summary">
+        <div class="app-title-row"><h1>${esc(app.name)}</h1>${appStatusBadge(app.status)}</div>
+        <p><span>/${esc(app.key)}</span><span class="app-id">${icon('info')}${esc(app.appId)}</span></p>
+        <p>${esc(app.settings?.description ?? 'A sample application built with the UI Platform.')}</p>
+      </div>
+      <button class="icon-button" type="button" aria-label="More application actions">${icon('menu')}</button>
+    </section>
+    ${app.valid?'':`<div class="error">${app.issues.map((x:string)=>esc(x)).join('<br>')}</div>`}
+    <uib-tabs class="app-tabs" selected="0">
+      <uib-tab>${icon('info')}<span>Overview</span></uib-tab>
+      <uib-tab>${icon('calendar')}<span>Pages</span></uib-tab>
+      <uib-tab>${icon('info')}<span>Packages</span></uib-tab>
+      <uib-tab>${icon('external-link')}<span>Preview</span></uib-tab>
+      <uib-tab>${icon('chevron-down')}<span>Settings</span></uib-tab>
+      <uib-tab-panel>
+        <form id="settingsForm">
+          <uib-panel class="content-panel details-panel" heading="Application Details">
+            <button class="edit-button" slot="actions" type="button">${icon('info')}<span>Edit</span></button>
+            <div class="settings-grid">${controls}</div>
+            <div class="actions">
+              ${actionButton('save', 'Save Changes', { variant: 'primary', icon: 'check', type: 'submit' })}
+              ${actionButton('preview', 'Current Preview', { variant: 'muted', icon: 'external-link' })}
+              ${actionButton('export', 'Export ZIP', { variant: 'muted', icon: 'external-link' })}
+              ${actionButton('delete', 'Delete to OS Trash', { variant: 'danger', icon: 'x' })}
+            </div>
+            <p class="note">Folder/URL name is immutable. Pages: ${app.pages.map((r:string)=>`<code>${esc(r)}</code>`).join(', ') || 'none'}</p>
+            <div id="appMessage"></div>
+          </uib-panel>
+        </form>
+      </uib-tab-panel>
+      <uib-tab-panel><div id="builderTarget"></div></uib-tab-panel>
+      <uib-tab-panel><div id="appPackagesTarget"></div></uib-tab-panel>
+      <uib-tab-panel>
+        <uib-panel class="content-panel" heading="Current Preview">
+          <div id="previewTarget"><p class="note">Click Current Preview to start this app through the platform-managed preview runtime.</p></div>
+        </uib-panel>
+      </uib-tab-panel>
+      <uib-tab-panel>
+        <uib-panel class="content-panel" heading="Application Settings">
+          <p class="note">Persistent template settings are edited in Overview. Package and page tools live in their own tabs.</p>
+        </uib-panel>
+      </uib-tab-panel>
+    </uib-tabs>`);
   void mountBuilder(root!.querySelector<HTMLElement>('#builderTarget')!, { key: app.key, name: app.name });
   void mountAppPackages(root!.querySelector<HTMLElement>('#appPackagesTarget')!, app.key);
 
   root!.querySelector<HTMLFormElement>('#settingsForm')!.addEventListener('submit', async (event) => {
     event.preventDefault();
     const next = structuredClone(app.settings);
-    root!.querySelectorAll<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>('[data-setting]').forEach((el) => setPath(next, el.dataset.setting!, el instanceof HTMLInputElement && el.type==='checkbox' ? el.checked : el instanceof HTMLInputElement && el.type==='number' ? Number(el.value) : el.value));
+    root!.querySelectorAll<any>('[data-setting]').forEach((el) => setPath(next, el.dataset.setting!, el.localName === 'uib-checkbox' ? Boolean(el.checked) : el.localName === 'uib-forms-number' ? Number(el.value) : el.value));
     try { await api(`/api/apps/${encodeURIComponent(key)}/settings`, { method:'PUT', body:JSON.stringify(next) }); root!.querySelector('#appMessage')!.innerHTML='<p>Settings saved.</p>'; await refresh(); }
     catch(error) { root!.querySelector('#appMessage')!.innerHTML=`<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`; }
   });
 
+  const tabs = root!.querySelector<any>('uib-tabs.app-tabs')!;
+  let previewStarted = false;
+  let previewStarting = false;
   const preview = async () => {
+    if (previewStarted || previewStarting) return;
+    previewStarting = true;
     const target = root!.querySelector('#previewTarget')!;
-    target.innerHTML = '<p class="note">Starting preview…</p>';
-    try { await api<{url:string}>(`/api/apps/${encodeURIComponent(key)}/preview`, { method:'POST' }); target.innerHTML = `<iframe class="preview-frame" src="/${esc(app.key)}/" title="${esc(app.name)} preview"></iframe>`; }
+    target.innerHTML = '<p class="note">Starting preview...</p>';
+    try { await api<{url:string}>(`/api/apps/${encodeURIComponent(key)}/preview`, { method:'POST' }); target.innerHTML = `<iframe class="preview-frame" src="/${esc(app.key)}/" title="${esc(app.name)} preview"></iframe>`; previewStarted = true; }
     catch(error) { target.innerHTML=`<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`; }
+    finally { previewStarting = false; }
   };
-  root!.querySelector('[data-action="preview"]')?.addEventListener('click', () => void preview());
+  tabs.addEventListener('uib-tabs-change', (event: Event) => {
+    if (Number((event as CustomEvent<{ newValue?: number }>).detail?.newValue) === 3) void preview();
+  });
+  root!.querySelector('[data-action="preview"]')?.addEventListener('click', () => {
+    tabs.selected = '3';
+    void preview();
+  });
   root!.querySelector('[data-action="export"]')?.addEventListener('click', async () => {
     try { const out = await api<{url:string;downloadName:string}>(`/api/apps/${encodeURIComponent(key)}/export`, { method:'POST' }); const a=document.createElement('a'); a.href=out.url; a.download=out.downloadName; a.click(); }
     catch(error) { alert(error instanceof Error ? error.message : String(error)); }
@@ -191,7 +346,10 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
     try { await api(`/api/apps/${encodeURIComponent(key)}`, { method:'DELETE' }); currentKey=null; await refresh(); renderHome(); }
     catch(error) { alert(error instanceof Error ? error.message : String(error)); }
   });
-  if (startPreview) void preview();
+  if (startPreview) {
+    tabs.selected = '3';
+    void preview();
+  }
 }
 
 await refresh();
