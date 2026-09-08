@@ -67,10 +67,10 @@ function appStatusBadge(status: string): string {
   return `<span class="status-pill ${normalized === 'active' ? 'status-active' : ''}"><span></span>${esc(status || 'Unknown')}</span>`;
 }
 
-function actionButton(action: string, label: string, options: { icon?: string; variant?: 'primary' | 'danger' | 'muted'; type?: 'button' | 'submit' } = {}): string {
+function actionButton(action: string, label: string, options: { disabled?: boolean; icon?: string; variant?: 'primary' | 'danger' | 'muted'; type?: 'button' | 'submit' } = {}): string {
   const type = options.type ?? 'button';
   const classes = ['action-button', options.variant ? `action-button-${options.variant}` : ''].filter(Boolean).join(' ');
-  return `<button class="${classes}" type="${type}" data-action="${esc(action)}">${options.icon ? icon(options.icon) : ''}<span>${esc(label)}</span></button>`;
+  return `<button class="${classes}" type="${type}" data-action="${esc(action)}"${options.disabled ? ' disabled' : ''}>${options.icon ? icon(options.icon) : ''}<span>${esc(label)}</span></button>`;
 }
 
 function filteredApps(): DiscoveredApp[] {
@@ -284,7 +284,7 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
             <button class="edit-button" slot="actions" type="button">${icon('info')}<span>Edit</span></button>
             <div class="settings-grid">${controls}</div>
             <div class="actions">
-              ${actionButton('save', 'Save Changes', { variant: 'primary', icon: 'check', type: 'submit' })}
+              ${actionButton('save', 'Save Changes', { disabled: true, variant: 'primary', icon: 'check', type: 'submit' })}
               ${actionButton('preview', 'Current Preview', { variant: 'muted', icon: 'external-link' })}
               ${actionButton('export', 'Export ZIP', { variant: 'muted', icon: 'external-link' })}
               ${actionButton('delete', 'Delete to OS Trash', { variant: 'danger', icon: 'x' })}
@@ -310,23 +310,77 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
   void mountBuilder(root!.querySelector<HTMLElement>('#builderTarget')!, { key: app.key, name: app.name });
   void mountAppPackages(root!.querySelector<HTMLElement>('#appPackagesTarget')!, app.key);
 
-  root!.querySelector<HTMLFormElement>('#settingsForm')!.addEventListener('submit', async (event) => {
-    event.preventDefault();
+  const form = root!.querySelector<HTMLFormElement>('#settingsForm')!;
+  const saveButton = form.querySelector<HTMLButtonElement>('[data-action="save"]')!;
+  let lastSavedSettings = JSON.stringify(app.settings);
+  let settingsDirty = false;
+  let saveTimer: ReturnType<typeof setTimeout> | undefined;
+  let saveInFlight: Promise<boolean> | null = null;
+  const readSettings = () => {
     const next = structuredClone(app.settings);
     root!.querySelectorAll<any>('[data-setting]').forEach((el) => setPath(next, el.dataset.setting!, el.localName === 'uib-checkbox' ? Boolean(el.checked) : el.localName === 'uib-forms-number' ? Number(el.value) : el.value));
-    try { await api(`/api/apps/${encodeURIComponent(key)}/settings`, { method:'PUT', body:JSON.stringify(next) }); root!.querySelector('#appMessage')!.innerHTML='<p>Settings saved.</p>'; await refresh(); }
-    catch(error) { root!.querySelector('#appMessage')!.innerHTML=`<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`; }
-  });
+    return next;
+  };
+  const updateSaveButton = () => { saveButton.disabled = !settingsDirty || Boolean(saveInFlight); };
+  const scheduleSave = () => {
+    if (saveTimer) clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => { saveTimer = undefined; void saveSettings(true); }, 2000);
+  };
+  const markSettingsDirty = () => {
+    settingsDirty = JSON.stringify(readSettings()) !== lastSavedSettings;
+    updateSaveButton();
+    if (settingsDirty) scheduleSave();
+    else if (saveTimer) { clearTimeout(saveTimer); saveTimer = undefined; }
+  };
+  const saveSettings = async (automatic = false): Promise<boolean> => {
+    if (saveTimer) { clearTimeout(saveTimer); saveTimer = undefined; }
+    if (saveInFlight) return saveInFlight;
+    if (!settingsDirty) return true;
+    const next = readSettings();
+    const savedSettings = JSON.stringify(next);
+    updateSaveButton();
+    saveInFlight = (async () => {
+      try {
+        const updated = await api<any>(`/api/apps/${encodeURIComponent(key)}/settings`, { method:'PUT', body:JSON.stringify(next) });
+        app.settings = updated.settings ?? next;
+        lastSavedSettings = savedSettings;
+        await refresh();
+        root!.querySelector('#appMessage')!.innerHTML = `<p>${automatic ? 'Changes saved automatically.' : 'Changes saved.'}</p>`;
+        settingsDirty = JSON.stringify(readSettings()) !== lastSavedSettings;
+        return true;
+      } catch(error) {
+        root!.querySelector('#appMessage')!.innerHTML=`<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`;
+        settingsDirty = true;
+        return false;
+      } finally {
+        saveInFlight = null;
+        updateSaveButton();
+      }
+    })();
+    return saveInFlight;
+  };
+  form.addEventListener('submit', (event) => { event.preventDefault(); void saveSettings(); });
+  form.addEventListener('input', markSettingsDirty);
+  form.addEventListener('change', markSettingsDirty);
 
   const tabs = root!.querySelector<any>('uib-tabs.app-tabs')!;
   let previewStarted = false;
   let previewStarting = false;
   const preview = async () => {
-    if (previewStarted || previewStarting) return;
+    if (previewStarting) return;
+    const refreshPreview = settingsDirty || Boolean(saveInFlight) || Boolean(saveTimer);
     previewStarting = true;
     const target = root!.querySelector('#previewTarget')!;
-    target.innerHTML = '<p class="note">Starting preview...</p>';
-    try { await api<{url:string}>(`/api/apps/${encodeURIComponent(key)}/preview`, { method:'POST' }); target.innerHTML = `<iframe class="preview-frame" src="/${esc(app.key)}/" title="${esc(app.name)} preview"></iframe>`; previewStarted = true; }
+    try {
+      if (!(await saveSettings())) { target.innerHTML = '<div class="error">Preview was not started because changes could not be saved.</div>'; return; }
+      if (previewStarted && !refreshPreview) return;
+      target.innerHTML = '<p class="note">Starting preview...</p>';
+      const previewInfo = await api<{url:string}>(`/api/apps/${encodeURIComponent(key)}/preview`, { method:'POST' });
+      const previewUrl = new URL(previewInfo.url);
+      previewUrl.searchParams.set('platform-preview', String(Date.now()));
+      target.innerHTML = `<iframe class="preview-frame" src="${esc(previewUrl.toString())}" title="${esc(app.name)} preview"></iframe>`;
+      previewStarted = true;
+    }
     catch(error) { target.innerHTML=`<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`; }
     finally { previewStarting = false; }
   };
