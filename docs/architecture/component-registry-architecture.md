@@ -100,4 +100,10 @@ The platform currently has two component catalog modes:
 
 Missing and incompatible package declarations remain visible as warnings in app package management views. They do not contribute components to the app-scoped component catalog until the package can be resolved compatibly.
 
+## App Builder Preview Loading
+
+The App Builder uses the app-scoped component catalog as its palette. A component with a manifest module field receives an app-scoped module URL and is loaded only after the user selects it for preview. The server resolves the module relative to the selected package root and rejects paths that escape that root. Components without a module remain discoverable metadata but show a warning and cannot be previewed.
+
+Duplicate custom-element tag names are retained as warning states in the catalog. Runtime module failures are warn-only: the package declaration remains unchanged, while the builder shows an error state and package/component details.
+
 This keeps the Page Builder aligned with the application folder as the source of truth while still allowing the platform administration view to discover global package inventory.

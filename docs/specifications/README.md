@@ -9,6 +9,8 @@ The Architecture Guide remains authoritative for architectural intent. Specifica
 - [UIB Package Manifest Specification](./package-manifest-spec.md)
 - [UIB Service Contract Specification](./service-contract-spec.md)
 - [UIB Package Catalog Specification](./package-catalog-spec.md)
+- [UIB Package Installation Specification](./package-installation-spec.md)
+- [Foundation Source Specification](./foundation-source-spec.md)
 - [UIB App Manifest Specification](./app-manifest-spec.md)
 
 ## Planned Specifications

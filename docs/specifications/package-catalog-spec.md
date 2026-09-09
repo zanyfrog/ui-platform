@@ -111,3 +111,7 @@ The platform MAY preserve historical catalog state for that package so first-dis
 App-scoped package enablement MUST be read from the application's `app.manifest.json` package declarations. The platform catalog MAY index and display app usage, but app-level package intent MUST remain portable with the application folder.
 
 The platform SHOULD resolve packages app-first for app-scoped package views and SHOULD preserve missing or incompatible app declarations as warning states.
+
+## 10. Installation Boundary
+
+Package acquisition and installation are separate from discovery and app enablement. The first managed installation source is a local package folder or ZIP archive. Platform installation places a validated package in the platform package workspace and makes it available globally; it MUST NOT enable the package for an application. App-level installation places a validated package in the application package folder and remains portable with that application; it MUST NOT change app.manifest.json until the app explicitly enables the package.

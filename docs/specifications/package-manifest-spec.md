@@ -113,6 +113,16 @@ When a package declares the `components` capability, it SHOULD provide component
 
 Each component entry MUST include `name` and `tagName`.
 
+For runtime activation in the App Builder, a component SHOULD provide `module`, a package-relative browser module path beginning with `./`. The platform MUST serve that module only from the resolved package root. A component without `module` may remain visible as metadata, but it cannot be loaded into the preview runtime.
+
+```json
+{
+  "name": "Button",
+  "tagName": "uib-button",
+  "module": "./dist/button.js"
+}
+```
+
 ## 8. Settings
 
 When a package declares the `settings` capability, it SHOULD declare a settings schema reference or inline setting metadata.

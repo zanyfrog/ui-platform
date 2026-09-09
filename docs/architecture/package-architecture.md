@@ -166,6 +166,12 @@ For app-scoped package views and runtime resolution, the platform should resolve
 4. platform `node_modules/@uib` packages.
 
 Missing or incompatible app-declared packages should preserve the app's intent and surface warn-only status until install/repair workflows are implemented.
+
+## Foundation Workspaces
+
+Shared runtime workspaces such as UI-Base are distinct from UIB extension packages. Their standard npm dependencies are selected in the application's `package.json`; their GitHub source and exact resolved commit are maintained by the platform. An app export vendors its selected external file dependencies so it remains portable.
+
+This distinction keeps `app.manifest.json` focused on UIB extension intent while allowing applications to carry the ordinary package dependencies required to run.
 ---
 
 # 12. One Platform Version for Now

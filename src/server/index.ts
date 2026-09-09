@@ -1,6 +1,7 @@
 import http from 'node:http';
 import { createReadStream } from 'node:fs';
-import { mkdir, readFile, stat } from 'node:fs/promises';
+import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { discoverApps, createApp, getApp, saveSettings, appPath } from './applications.js';
 import { discoverTemplates, getTemplate } from './templates.js';
@@ -11,8 +12,11 @@ import { appendHistory } from './history.js';
 import { startWorkspaceWatcher } from './watcher.js';
 import { runtimeDir } from './paths.js';
 import { deletePageSource, getPageSource, getPageTree, movePageSource, savePageSource } from './page-builder.js';
-import { discoverComponents } from './component-registry.js';
+import { discoverComponents, getAppPackageAsset } from './component-registry.js';
 import { disableAppPackage, enableAppPackage, getAppPackageCatalog, getGlobalPackageCatalog } from './packages.js';
+import { installManualPackage } from './package-installer.js';
+import { addAppFoundationDependencies, getAppFoundationDependencies, installGitHubFoundationSource, listFoundationSources } from './foundation-sources.js';
+import { acquirePackageFromUrl } from './package-acquisition.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const sseClients = new Set<http.ServerResponse>();
@@ -24,9 +28,71 @@ function json(res: http.ServerResponse, status: number, value: unknown): void {
 
 async function body(req: http.IncomingMessage): Promise<any> {
   const chunks: Buffer[] = [];
-  for await (const chunk of req) chunks.push(Buffer.from(chunk));
+  let size = 0;
+  for await (const chunk of req) {
+    const buffer = Buffer.from(chunk);
+    size += buffer.length;
+    if (size > 100 * 1024 * 1024) throw new Error('Package upload exceeds the 100 MB limit.');
+    chunks.push(buffer);
+  }
   if (!chunks.length) return {};
-  return JSON.parse(Buffer.concat(chunks).toString('utf8'));
+  const value = Buffer.concat(chunks);
+  const contentType = req.headers['content-type'] ?? '';
+  if (contentType.startsWith('multipart/form-data')) return parseMultipart(value, contentType);
+  return JSON.parse(value.toString('utf8'));
+}
+
+interface UploadedFile { name: string; filename: string; content: Buffer; }
+interface MultipartBody { fields: Record<string, string>; files: Record<string, UploadedFile>; }
+
+function parseMultipart(payload: Buffer, contentType: string): MultipartBody {
+  const boundary = /boundary=(?:"([^"]+)"|([^;\s]+))/.exec(contentType)?.[1] ?? /boundary=(?:"([^"]+)"|([^;\s]+))/.exec(contentType)?.[2];
+  if (!boundary) throw new Error('Package upload is missing a multipart boundary.');
+  const marker = Buffer.from('--' + boundary);
+  const separator = Buffer.from('\r\n\r\n');
+  const result: MultipartBody = { fields: {}, files: {} };
+  let start = payload.indexOf(marker) + marker.length;
+  while (start >= marker.length && start < payload.length) {
+    if (payload.subarray(start, start + 2).equals(Buffer.from('--'))) break;
+    if (payload.subarray(start, start + 2).equals(Buffer.from('\r\n'))) start += 2;
+    const headersEnd = payload.indexOf(separator, start);
+    if (headersEnd < 0) break;
+    const headers = payload.subarray(start, headersEnd).toString('utf8');
+    const next = payload.indexOf(marker, headersEnd + separator.length);
+    if (next < 0) break;
+    const content = payload.subarray(headersEnd + separator.length, next - 2);
+    const disposition = /content-disposition:\s*form-data;\s*name="([^"]+)"(?:;\s*filename="([^"]*)")?/i.exec(headers);
+    if (disposition) {
+      const [, name, filename] = disposition;
+      if (filename) result.files[name] = { name, filename: path.basename(filename), content };
+      else result.fields[name] = content.toString('utf8');
+    }
+    start = next + marker.length;
+  }
+  return result;
+}
+
+async function acquirePackage(input: MultipartBody | Record<string, unknown>, scope: 'platform' | 'app', appKey?: string): Promise<unknown> {
+  const multipart = isMultipartBody(input) ? input : null;
+  const sourceUrl = String(multipart ? multipart.fields.sourceUrl ?? '' : (input as Record<string, unknown>).sourceUrl ?? '').trim();
+  const uploaded = multipart?.files.packageFile;
+  if (uploaded?.content.length) {
+    const uploadRoot = path.join(runtimeDir, 'package-uploads', crypto.randomUUID());
+    const uploadPath = path.join(uploadRoot, uploaded.filename || 'package-upload.zip');
+    await mkdir(uploadRoot, { recursive: true });
+    try {
+      await writeFile(uploadPath, uploaded.content);
+      return { kind: 'package', package: await installManualPackage({ sourcePath: uploadPath, scope, appKey }) };
+    } finally {
+      await rm(uploadRoot, { recursive: true, force: true });
+    }
+  }
+  if (!sourceUrl) throw new Error('Upload a package archive or provide a GitHub or npm URL.');
+  return acquirePackageFromUrl(sourceUrl, { scope, appKey });
+}
+
+function isMultipartBody(input: MultipartBody | Record<string, unknown>): input is MultipartBody {
+  return 'fields' in input && 'files' in input && typeof input.fields === 'object' && input.fields !== null && typeof input.files === 'object' && input.files !== null;
 }
 
 function error(res: http.ServerResponse, err: unknown): void {
@@ -69,6 +135,16 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === '/api/apps' && method === 'POST') return json(res, 201, await createApp(await body(req)));
     if (url.pathname === '/api/components' && method === 'GET') return json(res, 200, await discoverComponents());
     if (url.pathname === '/api/packages' && method === 'GET') return json(res, 200, await getGlobalPackageCatalog());
+    if (url.pathname === '/api/packages/install' && method === 'POST') {
+      const input = await body(req);
+      return json(res, 201, await installManualPackage({ sourcePath: String(input.sourcePath ?? ''), scope: 'platform' }));
+    }
+    if (url.pathname === '/api/packages/acquire' && method === 'POST') return json(res, 201, await acquirePackage(await body(req), 'platform'));
+    if (url.pathname === '/api/foundation-sources' && method === 'GET') return json(res, 200, await listFoundationSources());
+    if (url.pathname === '/api/foundation-sources/github' && method === 'POST') {
+      const input = await body(req);
+      return json(res, 201, await installGitHubFoundationSource({ repository: String(input.repository ?? ''), ref: input.ref ? String(input.ref) : undefined }));
+    }
 
     if (parts[0] === 'api' && parts[1] === 'apps' && parts[2]) {
       const key = decodeURIComponent(parts[2]);
@@ -88,7 +164,29 @@ const server = http.createServer(async (req, res) => {
         return json(res, 200, await movePageSource(key, String(input.source), String(input.destination)));
       }
       if (parts.length === 4 && parts[3] === 'components' && method === 'GET') return json(res, 200, await discoverComponents(key));
+      if (parts.length >= 6 && parts[3] === 'package-assets' && method === 'GET') {
+        const packageName = decodeURIComponent(parts[4]);
+        const modulePath = `./${decodeURIComponent(parts.slice(5).join('/'))}`;
+        const asset = await getAppPackageAsset(key, packageName, modulePath);
+        const info = await stat(asset.filePath);
+        const contentType = asset.filePath.endsWith('.css') ? 'text/css; charset=utf-8' : asset.filePath.endsWith('.json') ? 'application/json; charset=utf-8' : 'text/javascript; charset=utf-8';
+        res.writeHead(200, { 'content-type': contentType, 'cache-control': 'no-store', 'content-length': String(info.size) });
+        return createReadStream(asset.filePath).pipe(res);
+      }
       if (parts.length === 4 && parts[3] === 'packages' && method === 'GET') return json(res, 200, await getAppPackageCatalog(key));
+      if (parts.length === 4 && parts[3] === 'packages' && method === 'POST') {
+        const input = await body(req);
+        return json(res, 201, await installManualPackage({ sourcePath: String(input.sourcePath ?? ''), scope: 'app', appKey: key }));
+      }
+      if (parts.length === 5 && parts[3] === 'packages' && parts[4] === 'acquire' && method === 'POST') return json(res, 201, await acquirePackage(await body(req), 'app', key));
+      if (parts.length === 4 && parts[3] === 'foundation-dependencies' && method === 'POST') {
+        const input = await body(req);
+        const packageNames = Array.isArray(input.packageNames) ? input.packageNames.map((value: unknown) => String(value)) : [];
+        return json(res, 200, await addAppFoundationDependencies({ appKey: key, sourceId: String(input.sourceId ?? ''), packageNames }));
+      }
+      if (parts.length === 5 && parts[3] === 'foundation-dependencies' && parts[4] && method === 'GET') {
+        return json(res, 200, await getAppFoundationDependencies({ appKey: key, sourceId: decodeURIComponent(parts[4]) }));
+      }
       if (parts.length === 6 && parts[3] === 'packages' && parts[5] === 'enable' && method === 'POST') {
         const input = await body(req);
         return json(res, 200, await enableAppPackage(key, decodeURIComponent(parts[4]), input.version ? String(input.version) : undefined));

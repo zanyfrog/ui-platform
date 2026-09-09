@@ -1,4 +1,4 @@
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import type { AppPackageListEntry, ComponentCatalogEntry, ComponentManifestEntry } from '../shared/types.js';
 import { uiBasePackagesDir } from './paths.js';
@@ -49,8 +49,8 @@ async function packageEntries(packageDir: string): Promise<ComponentCatalogEntry
   return entries.map((entry) => toComponentCatalogEntry(entry, packageJson.name!, packageJson.version ?? '0.0.0'));
 }
 
-function activatedPackageEntries(pkg: AppPackageListEntry): ComponentCatalogEntry[] {
-  return pkg.components.map((entry) => toComponentCatalogEntry(entry, pkg.name, pkg.version, entry.importPath ?? pkg.manifestPath));
+function activatedPackageEntries(pkg: AppPackageListEntry, appKey: string): ComponentCatalogEntry[] {
+  return pkg.components.map((entry) => toComponentCatalogEntry(entry, pkg.name, pkg.version, entry.importPath ?? pkg.manifestPath, appKey));
 }
 
 function toComponentCatalogEntry(
@@ -58,13 +58,16 @@ function toComponentCatalogEntry(
   packageName: string,
   packageVersion: string,
   source = entry.importPath ?? `package:${packageName}`,
+  appKey?: string,
 ): ComponentCatalogEntry {
+  const id = entry.id ?? `${packageName}:${entry.tagName}`;
   return {
-    id: entry.id ?? `${packageName}:${entry.tagName}`,
+    id,
     tagName: entry.tagName,
     name: entry.name ?? displayName(entry.tagName),
     category: entry.category ?? 'Components',
     description: entry.description,
+    module: entry.module,
     importPath: entry.importPath,
     attributes: entry.attributes,
     properties: entry.properties,
@@ -74,6 +77,9 @@ function toComponentCatalogEntry(
     packageVersion,
     source,
     metadataStatus: (entry as ComponentManifestEntry & { metadataStatus?: ComponentCatalogEntry['metadataStatus'] }).metadataStatus ?? 'manifest',
+    moduleUrl: appKey && entry.module
+      ? `/api/apps/${encodeURIComponent(appKey)}/package-assets/${encodeURIComponent(packageName)}/${encodeURI(entry.module.slice(2))}`
+      : undefined,
   };
 }
 
@@ -85,12 +91,38 @@ async function packageDirs(root: string): Promise<string[]> {
 export async function discoverComponents(appKey?: string): Promise<ComponentCatalogEntry[]> {
   if (appKey) {
     const activePackages = await getActiveAppPackages(appKey);
-    return activePackages.flatMap(activatedPackageEntries).sort(sortComponents);
+    const entries = activePackages.flatMap((pkg) => activatedPackageEntries(pkg, appKey));
+    const tags = new Map<string, ComponentCatalogEntry[]>();
+    for (const entry of entries) tags.set(entry.tagName, [...(tags.get(entry.tagName) ?? []), entry]);
+    return entries.map((entry) => {
+      const matches = tags.get(entry.tagName) ?? [];
+      const activationIssues = [...(entry.activationIssues ?? [])];
+      if (!entry.module) activationIssues.push('This component does not declare a runtime module in its package manifest.');
+      if (matches.length > 1) activationIssues.push(`The tag name is also declared by ${matches.filter((match) => match.id !== entry.id).map((match) => match.packageName).join(', ')}.`);
+      return { ...entry, activationIssues: activationIssues.length ? activationIssues : undefined };
+    }).sort(sortComponents);
   }
 
   const dirs = await packageDirs(uiBasePackagesDir);
   const entries = (await Promise.all(dirs.map(packageEntries))).flat();
   return entries.sort(sortComponents);
+}
+
+export async function getAppPackageAsset(appKey: string, packageName: string, modulePath: string): Promise<{ filePath: string; packageName: string }> {
+  const activePackage = (await getActiveAppPackages(appKey)).find((entry) => entry.name === packageName);
+  if (!activePackage) throw new Error(`Active package "${packageName}" was not found.`);
+  const filePath = resolvePackageModulePath(activePackage.packageRoot, modulePath);
+  const info = await stat(filePath);
+  if (!info.isFile()) throw new Error(`Package asset is not a file: ${modulePath}`);
+  return { filePath, packageName: activePackage.name };
+}
+
+export function resolvePackageModulePath(packageRoot: string, modulePath: string): string {
+  if (!modulePath.startsWith('./') || modulePath.includes('\\')) throw new Error('Package asset paths must begin with ./ and use forward slashes.');
+  const filePath = path.resolve(packageRoot, modulePath);
+  const relative = path.relative(packageRoot, filePath);
+  if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) throw new Error('Component module must remain inside its package root.');
+  return filePath;
 }
 
 function sortComponents(a: ComponentCatalogEntry, b: ComponentCatalogEntry): number {

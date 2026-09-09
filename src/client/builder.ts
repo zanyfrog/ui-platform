@@ -17,13 +17,14 @@ export async function mountBuilder(target: HTMLElement, app: BuilderApp): Promis
     <div class="builder-heading"><div><uib-heading text="Page Builder" level="2" size="compact"></uib-heading><p class="note">Pages are discovered from <code>src/pages</code>. Changes are written back to the selected source file.</p></div><span id="builderStatus" class="save-status" aria-live="polite">Loading builder...</span></div>
     <div class="builder-layout">
       <aside class="builder-sidebar"><div class="pane-heading"><strong>Site Tree</strong><span id="pageCount" class="note"></span></div><div id="siteTree" class="tree-host"></div></aside>
-      <section class="builder-center"><div id="pageEditor" class="page-editor"><p class="note">Select a page to inspect its structure and source.</p></div></section>
+      <section class="builder-center"><div id="componentPreview" class="component-preview"><div class="pane-heading"><strong>Component Preview</strong><span class="note">Select a component to load it.</span></div></div><div id="pageEditor" class="page-editor"><p class="note">Select a page to inspect its structure and source.</p></div></section>
       <aside class="builder-sidebar component-sidebar"><div class="pane-heading"><strong>Components</strong><span id="componentCount" class="note"></span></div><input id="componentSearch" type="search" placeholder="Search components" aria-label="Search components"><div id="componentCatalog" class="component-catalog"></div></aside>
     </div>
   </section>`;
 
   const status = target.querySelector<HTMLElement>('#builderStatus')!;
   const pageEditor = target.querySelector<HTMLElement>('#pageEditor')!;
+  const componentPreview = target.querySelector<HTMLElement>('#componentPreview')!;
   const siteTree = target.querySelector<HTMLElement>('#siteTree')!;
   const componentCatalog = target.querySelector<HTMLElement>('#componentCatalog')!;
   const componentSearch = target.querySelector<HTMLInputElement>('#componentSearch')!;
@@ -50,6 +51,11 @@ export async function mountBuilder(target: HTMLElement, app: BuilderApp): Promis
       if (source) void loadPage(source);
     });
     componentSearch.addEventListener('input', renderCatalog);
+    componentCatalog.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-component-id]');
+      const component = components.find((item) => item.id === button?.dataset.componentId);
+      if (component) void previewComponent(component);
+    });
     if (pagePayload.pages[0]) await loadPage(pagePayload.pages[0].source);
     else pageEditor.innerHTML = '<p class="note">No pages were found under src/pages.</p>';
     document.addEventListener('ui-platform-workspace-change', syncWorkspace);
@@ -82,7 +88,45 @@ export async function mountBuilder(target: HTMLElement, app: BuilderApp): Promis
     const filtered = components.filter((item) => [item.name, item.tagName, item.packageName, item.category, item.description].some((value) => String(value ?? '').toLowerCase().includes(query)));
     const packages = new Map<string, ComponentCatalogEntry[]>();
     filtered.forEach((item) => packages.set(item.packageName, [...(packages.get(item.packageName) ?? []), item]));
-    componentCatalog.innerHTML = [...packages.entries()].map(([packageName, entries]) => `<details class="component-group"><summary><span>${esc(packageName)}</span><span class="note">${entries.length}</span></summary><div class="component-items">${entries.map((item) => `<button type="button" class="component-item" title="${esc(item.description ?? item.tagName)}"><strong>${esc(item.name)}</strong><code>${esc(item.tagName)}</code></button>`).join('')}</div></details>`).join('') || '<p class="note">No matching components.</p>';
+    componentCatalog.innerHTML = [...packages.entries()].map(([packageName, entries]) => `<details class="component-group"><summary><span>${esc(packageName)}</span><span class="note">${entries.length}</span></summary><div class="component-items">${entries.map((item) => `<button type="button" class="component-item" data-component-id="${esc(item.id)}" title="${esc(item.description ?? item.tagName)}"><strong>${esc(item.name)}</strong><code>${esc(item.tagName)}</code>${item.activationIssues?.length ? '<span class="component-warning">Warning</span>' : ''}</button>`).join('')}</div></details>`).join('') || '<p class="note">No matching components.</p>';
+  }
+
+  async function previewComponent(component: ComponentCatalogEntry): Promise<void> {
+    componentPreview.innerHTML = `<div class="pane-heading"><strong>${esc(component.name)}</strong><span class="note">${esc(component.packageName)} v${esc(component.packageVersion)}</span></div><p class="note">Loading component module...</p>`;
+    if (component.activationIssues?.length) {
+      componentPreview.innerHTML += `<div class="warning-box"><strong>Component needs attention</strong><ul>${component.activationIssues.map((issue) => `<li>${esc(issue)}</li>`).join('')}</ul><button type="button" class="warning-link" data-component-details>View package details</button></div>`;
+      componentPreview.querySelector('[data-component-details]')?.addEventListener('click', () => showComponentDetails(component));
+    }
+    if (component.activationIssues?.some((issue) => issue.includes('also declared'))) {
+      componentPreview.querySelector('.note')!.textContent = 'Preview blocked until the duplicate tag name is resolved.';
+      return;
+    }
+    if (!component.moduleUrl) {
+      componentPreview.querySelector('.note')!.textContent = 'No runtime module is available for this component.';
+      return;
+    }
+    try {
+      await import(/* @vite-ignore */ component.moduleUrl);
+      if (!customElements.get(component.tagName)) throw new Error(`The module loaded but did not register <${component.tagName}>.`);
+      const preview = document.createElement(component.tagName);
+      componentPreview.insertAdjacentHTML('beforeend', '<div class="component-preview-host"></div>');
+      componentPreview.querySelector('.component-preview-host')!.append(preview);
+      componentPreview.querySelector('.note')!.textContent = 'Module loaded';
+    } catch (error) {
+      componentPreview.insertAdjacentHTML('beforeend', `<div class="error">Component preview failed: ${esc(error instanceof Error ? error.message : error)} <button type="button" class="warning-link" data-component-details>View package details</button></div>`);
+      componentPreview.querySelectorAll('[data-component-details]').item(componentPreview.querySelectorAll('[data-component-details]').length - 1)?.addEventListener('click', () => showComponentDetails(component));
+    }
+  }
+
+  function showComponentDetails(component: ComponentCatalogEntry): void {
+    const details = component.activationIssues?.length ? component.activationIssues : ['No package activation warnings were reported.'];
+    document.querySelector<HTMLDialogElement>('#componentIssueDialog')?.remove();
+    const dialog = document.createElement('dialog');
+    dialog.id = 'componentIssueDialog';
+    dialog.className = 'package-dialog';
+    dialog.innerHTML = `<form method="dialog" class="stack"><div class="package-heading"><strong>${esc(component.packageName)} component details</strong><button value="close" aria-label="Close">Close</button></div><p><code>${esc(component.tagName)}</code> from version ${esc(component.packageVersion)}</p><ul>${details.map((issue) => `<li>${esc(issue)}</li>`).join('')}</ul></form>`;
+    document.body.append(dialog);
+    dialog.showModal();
   }
 
   async function loadPage(source: string): Promise<void> {

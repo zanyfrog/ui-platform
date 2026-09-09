@@ -37,11 +37,30 @@ The platform MAY lazily create `app.manifest.json` for existing applications fro
       "version": "^1.0.0",
       "resolution": "app-first"
     }
+  },
+  "foundationImports": {
+    "zanyfrog-ui-base": {
+      "sourceId": "zanyfrog-ui-base",
+      "repository": "git@github.com:zanyfrog/ui-base.git",
+      "commit": "663ee4cf613ed28ecc57c9a59919c1a9205d26d7",
+      "selectedPackages": ["@ui-base/ui"],
+      "resolvedPackages": ["@ui-base/core", "@ui-base/ui"],
+      "addedAt": "2026-09-08T12:00:00.000Z",
+      "updatedAt": "2026-09-08T12:00:00.000Z"
+    }
   }
 }
 ```
 
 `manifestVersion` MUST be `1.0.0` for this specification.
+
+## Application URL Names
+
+Application folder/URL names MUST NOT use a platform-reserved root path. The current reserved names are `api`, `assets`, `node_modules`, `packages`, and `src`. Folders with those names are ignored during application discovery; the platform does not delete or alter them.
+
+## Foundation Imports
+
+`foundationImports` preserves the app's direct foundation-package selections and the resolved dependency set for each foundation source. `package.json` remains authoritative for npm installation; this manifest section makes the import graph, source commit, and direct-versus-transitive relationship visible to the app package view.
 
 ## 4. Package Declarations
 

@@ -84,6 +84,7 @@ export interface ComponentManifestEntry {
   name?: string;
   category?: string;
   description?: string;
+  module?: string;
   importPath?: string;
   attributes?: string[];
   properties?: string[];
@@ -97,6 +98,8 @@ export interface ComponentCatalogEntry extends ComponentManifestEntry {
   packageVersion: string;
   source: string;
   metadataStatus: 'manifest' | 'package-metadata' | 'exports';
+  moduleUrl?: string;
+  activationIssues?: string[];
 }
 
 export type AppPackageResolution = 'app-first' | 'app-only' | 'platform-first' | 'platform-only';
@@ -109,6 +112,16 @@ export interface AppPackageDeclaration {
   updatedAt?: string;
 }
 
+export interface AppFoundationImport {
+  sourceId: string;
+  repository: string;
+  commit: string;
+  selectedPackages: string[];
+  resolvedPackages: string[];
+  addedAt: string;
+  updatedAt: string;
+}
+
 export interface AppManifest {
   manifestVersion: '1.0.0';
   appId: string;
@@ -117,6 +130,7 @@ export interface AppManifest {
   createdAt?: string;
   updatedAt?: string;
   packages: Record<string, AppPackageDeclaration>;
+  foundationImports: Record<string, AppFoundationImport>;
 }
 
 export type PackageListSourceType = 'app-packages' | 'app-node-modules' | 'platform-packages' | 'platform-node-modules';
@@ -169,4 +183,41 @@ export interface AppPackageCatalogPayload {
   appManifest: AppManifest;
   entries: AppPackageListEntry[];
   rejected: PackageManifestIssue[];
+}
+
+export interface FoundationWorkspacePackage {
+  name: string;
+  version: string;
+  packagePath: string;
+  dependencies: string[];
+}
+
+export interface FoundationSource {
+  id: string;
+  kind: 'github';
+  repository: string;
+  commit: string;
+  installedAt: string;
+  workspacePath: string;
+  packages: FoundationWorkspacePackage[];
+}
+
+export interface FoundationSourcePayload {
+  sources: FoundationSource[];
+}
+
+export interface AppFoundationDependencyResult {
+  sourceId: string;
+  packages: string[];
+  requestedPackages: string[];
+  transitivePackages: string[];
+  installRequired: true;
+}
+
+export interface AppFoundationDependencyPayload {
+  sourceId: string;
+  fromSourcePackageNames: string[];
+  existingPackageNames: string[];
+  directPackageNames: string[];
+  hasImportRecord: boolean;
 }

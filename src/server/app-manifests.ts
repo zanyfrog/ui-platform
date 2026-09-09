@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import type { AppManifest, AppPackageDeclaration, AppPackageResolution } from '../shared/types.js';
+import type { AppFoundationImport, AppManifest, AppPackageDeclaration, AppPackageResolution } from '../shared/types.js';
 import { appsDir } from './paths.js';
 import { atomicWriteJson, readJson } from './json-files.js';
 
@@ -74,6 +74,28 @@ export async function readRawAppManifest(appDir: string): Promise<AppManifest> {
   return normalizeAppManifest(JSON.parse(await readFile(path.join(appDir, APP_MANIFEST_FILE), 'utf8')));
 }
 
+export async function recordFoundationImport(appDir: string, input: Omit<AppFoundationImport, 'selectedPackages' | 'resolvedPackages' | 'addedAt' | 'updatedAt'> & { selectedPackages: string[]; resolvedPackages: string[] }): Promise<AppManifest> {
+  const manifest = await readRawAppManifest(appDir);
+  const now = new Date().toISOString();
+  const current = manifest.foundationImports[input.sourceId];
+  const nextImport: AppFoundationImport = {
+    sourceId: input.sourceId,
+    repository: input.repository,
+    commit: input.commit,
+    selectedPackages: uniqueNames([...current?.selectedPackages ?? [], ...input.selectedPackages]),
+    resolvedPackages: uniqueNames([...current?.resolvedPackages ?? [], ...input.resolvedPackages]),
+    addedAt: current?.addedAt ?? now,
+    updatedAt: now,
+  };
+  const next: AppManifest = {
+    ...manifest,
+    updatedAt: now,
+    foundationImports: { ...manifest.foundationImports, [input.sourceId]: nextImport },
+  };
+  await atomicWriteJson(path.join(appDir, APP_MANIFEST_FILE), next);
+  return next;
+}
+
 function createInitialAppManifest(input: {
   appId: string;
   template: string;
@@ -88,6 +110,7 @@ function createInitialAppManifest(input: {
     templateVersion: input.templateVersion,
     createdAt: input.createdAt,
     packages: normalizePackages(input.packages ?? {}),
+    foundationImports: {},
   };
 }
 
@@ -105,7 +128,34 @@ function normalizeAppManifest(value: unknown): AppManifest {
     createdAt: typeof manifest.createdAt === 'string' ? manifest.createdAt : undefined,
     updatedAt: typeof manifest.updatedAt === 'string' ? manifest.updatedAt : undefined,
     packages: normalizePackages(manifest.packages),
+    foundationImports: normalizeFoundationImports(manifest.foundationImports),
   };
+}
+
+function normalizeFoundationImports(value: unknown): Record<string, AppFoundationImport> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
+  return Object.fromEntries(Object.entries(value as Record<string, unknown>).flatMap(([sourceId, raw]) => {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return [];
+    const value = raw as Partial<AppFoundationImport>;
+    if (typeof value.repository !== 'string' || typeof value.commit !== 'string') return [];
+    return [[sourceId, {
+      sourceId,
+      repository: value.repository,
+      commit: value.commit,
+      selectedPackages: stringArray(value.selectedPackages),
+      resolvedPackages: stringArray(value.resolvedPackages),
+      addedAt: typeof value.addedAt === 'string' ? value.addedAt : '',
+      updatedAt: typeof value.updatedAt === 'string' ? value.updatedAt : '',
+    }]];
+  }));
+}
+
+function stringArray(value: unknown): string[] {
+  return Array.isArray(value) ? uniqueNames(value.filter((item): item is string => typeof item === 'string')) : [];
+}
+
+function uniqueNames(names: string[]): string[] {
+  return [...new Set(names)].sort();
 }
 
 function normalizePackages(value: unknown): Record<string, AppPackageDeclaration> {

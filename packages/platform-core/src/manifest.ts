@@ -37,6 +37,7 @@ export interface UibComponentManifestEntry {
   category?: string;
   description?: string;
   icon?: string;
+  module?: string;
   importPath?: string;
   attributes?: string[];
   properties?: string[];
@@ -222,7 +223,15 @@ function validateComponents(value: unknown, issues: string[]): void {
 
     requireString(component.name, `components[${index}].name`, issues);
     requireString(component.tagName, `components[${index}].tagName`, issues);
+    if (component.module !== undefined && (typeof component.module !== 'string' || !isPackageRelativeModulePath(component.module))) {
+      issues.push(`components[${index}].module must be a package-relative path beginning with ./ and must not escape the package root.`);
+    }
   });
+}
+
+function isPackageRelativeModulePath(value: string): boolean {
+  if (!value.startsWith('./') || value.includes('\\')) return false;
+  return !value.split('/').some((segment) => segment === '..');
 }
 
 function validateDataManifest(value: unknown, issues: string[]): void {

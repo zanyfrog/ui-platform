@@ -147,8 +147,8 @@ function shell(content: string): void {
 
 function bindCommon(): void {
   root!.querySelector('[data-action="new"]')?.addEventListener('click', renderCreate);
-  root!.querySelector('[data-action="home"]')?.addEventListener('click', renderHome);
-  root!.querySelector('[data-action="packages"]')?.addEventListener('click', renderPackages);
+  root!.querySelector('[data-action="home"]')?.addEventListener('click', () => renderHome());
+  root!.querySelector('[data-action="packages"]')?.addEventListener('click', () => renderPackages());
   root!.querySelector('uib-menu.side-menu')?.addEventListener('uib-menuitem-select', (event) => {
     const target = event.target as HTMLElement;
     const action = target.closest<HTMLElement>('[data-action]')?.dataset.action;
@@ -173,8 +173,9 @@ function bindAppRows(): void {
   root!.querySelectorAll<HTMLElement>('[data-app]').forEach((el) => el.addEventListener('click', () => void renderApp(el.dataset.app!)));
 }
 
-function renderHome(): void {
+function renderHome(updateUrl = true): void {
   currentKey = null;
+  if (updateUrl && window.location.pathname !== '/') window.history.pushState({}, '', '/');
   const appTiles = homeAppsMarkup();
   shell(`
     <div class="breadcrumb"><button type="button" data-action="home">Applications</button></div>
@@ -185,8 +186,9 @@ function renderHome(): void {
   void loadAppInfoComponents();
 }
 
-function renderPackages(): void {
+function renderPackages(updateUrl = true): void {
   currentKey = null;
+  if (updateUrl && window.location.pathname !== '/packages') window.history.pushState({}, '', '/packages');
   shell(`
     <div class="breadcrumb"><button type="button" data-action="home">Applications</button><span>/</span><strong>Packages</strong></div>
     <uib-panel class="content-panel" heading="Packages">
@@ -222,7 +224,7 @@ function renderCreate(): void {
   const key = root!.querySelector<any>('#appKey')!;
   name.addEventListener('input', () => { if (!keyWasEdited) key.value = slug(name.value); });
   key.addEventListener('input', () => { keyWasEdited = true; });
-  root!.querySelector('[data-action="cancel"]')?.addEventListener('click', renderHome);
+  root!.querySelector('[data-action="cancel"]')?.addEventListener('click', () => renderHome());
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
@@ -407,7 +409,12 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
 }
 
 await refresh();
-renderHome();
+if (window.location.pathname === '/packages') renderPackages(false);
+else renderHome(false);
+window.addEventListener('popstate', () => {
+  if (window.location.pathname === '/packages') renderPackages(false);
+  else renderHome(false);
+});
 const events = new EventSource('/api/events');
 events.addEventListener('workspace-change', async () => {
   await refresh();

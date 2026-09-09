@@ -11,9 +11,11 @@ import { spawnNpm } from './npm-process.js';
 
 const REQUIRED = ['package.json', 'tsconfig.json', APP_MANIFEST_FILE, 'app.settings.json', 'app-services.json', 'src/main.ts'];
 const keyPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const reservedAppKeys = new Set(['api', 'assets', 'node_modules', 'packages', 'src']);
 
 function safeKey(key: string): string {
   if (!keyPattern.test(key)) throw new Error('Folder / URL Name must contain lowercase letters, numbers, and single hyphens only.');
+  if (reservedAppKeys.has(key)) throw new Error('Folder / URL Name is reserved for a platform route.');
   return key;
 }
 
@@ -79,7 +81,7 @@ export async function discoverApps(): Promise<DiscoveredApp[]> {
   const result: DiscoveredApp[] = [];
   for (const entry of entries) {
     if (!entry.isDirectory() || entry.name.startsWith('.')) continue;
-    if (!keyPattern.test(entry.name)) continue;
+    if (!keyPattern.test(entry.name) || reservedAppKeys.has(entry.name)) continue;
     result.push(await getApp(entry.name));
   }
   return result.sort((a, b) => a.name.localeCompare(b.name));

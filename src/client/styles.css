@@ -208,6 +208,9 @@ button:disabled { cursor:not-allowed; opacity:.55; }
 .component-item:hover, .component-item:focus-visible { border-color:#9bb5d8; background:#eef4fc; }
 .component-item strong { font-size:.8rem; }
 .component-item code { color:#53647c; font-size:.72rem; overflow-wrap:anywhere; }
+.component-warning { color:#7b4300; font-size:.72rem; }
+.component-preview { display:grid; gap:.65rem; min-height:7rem; padding-bottom:.9rem; margin-bottom:.9rem; border-bottom:1px solid #e3e7ed; }
+.component-preview-host { min-height:5rem; padding:.9rem; border:1px dashed #b8c7da; background:#f8fbff; }
 .page-editor { display:grid; gap:.75rem; min-width:0; }
 .page-editor-heading { border-bottom:1px solid #e3e7ed; padding-bottom:.7rem; }
 .page-actions { display:flex; flex-wrap:wrap; gap:.4rem; justify-content:flex-end; }
@@ -219,6 +222,38 @@ button:disabled { cursor:not-allowed; opacity:.55; }
 .save-status { color:#53647c; font-size:.82rem; }
 .package-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
 .package-heading p { margin:.25rem 0 0; }
+.package-install-panel { display:grid; gap:.7rem; padding:.8rem; border:1px solid #d8dee8; background:#f8fbff; }
+.package-install-panel p { margin:.2rem 0 0; }
+.package-install-controls { display:flex; flex-wrap:wrap; gap:.5rem; }
+.package-install-controls input { flex:1 1 24rem; min-width:0; padding:.6rem .7rem; border:1px solid #b8c2d1; border-radius:.4rem; }
+.package-source-fields { display:grid; grid-template-columns:minmax(12rem,1fr) auto minmax(16rem,1.5fr) auto; align-items:end; gap:.65rem; }
+.package-file-field { display:grid; gap:.3rem; color:#334966; font-size:.85rem; font-weight:650; }
+.package-source-fields label { display:grid; gap:.3rem; color:#334966; font-size:.85rem; font-weight:650; }
+.package-source-fields input { min-width:0; padding:.6rem .7rem; border:1px solid #b8c2d1; border-radius:.4rem; background:#fff; }
+.package-file-drop-zone { min-height:2.7rem; display:flex; align-items:center; gap:.5rem; padding:.35rem .45rem .35rem .7rem; border:1px dashed #8095b0; border-radius:.4rem; background:#fff; cursor:pointer; }
+.package-file-drop-zone:hover, .package-file-drop-zone.is-dragging { border-color:#215899; background:#edf5ff; }
+.package-file-drop-zone [data-file-selection] { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#526987; font-weight:500; }
+.package-file-drop-zone button { margin-left:auto; white-space:nowrap; }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0, 0, 0, 0); white-space:nowrap; border:0; }
+.source-divider { padding-bottom:.6rem; color:#61728a; font-weight:650; }
+@media (max-width: 760px) { .package-source-fields { grid-template-columns:1fr; align-items:stretch; } .source-divider { padding:0; text-align:center; } }
+.foundation-source-panel { background:#f7fbf7; }
+.foundation-source-list, .foundation-package-options { display:grid; gap:.45rem; }
+.foundation-source-list details { border:1px solid #d6e4d7; padding:.45rem .6rem; }
+.foundation-source-list summary { display:flex; justify-content:space-between; gap:.75rem; cursor:pointer; }
+.foundation-installed-panel { display:grid; gap:.65rem; padding:.8rem; border:1px solid #b9d9c1; background:#f4fbf5; }
+.foundation-installed-panel p { margin:.2rem 0 0; }
+.foundation-installed-source { border:1px solid #d6e4d7; background:#fff; padding:.45rem .6rem; }
+.foundation-installed-source summary { display:flex; justify-content:space-between; gap:.75rem; cursor:pointer; }
+.foundation-installed-source ul { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.4rem; padding:0; margin:.6rem 0 0; list-style:none; }
+.foundation-installed-source li { display:flex; justify-content:space-between; gap:.5rem; padding:.35rem .45rem; border:1px solid #e0e7e1; }
+.foundation-installed-source small { color:#5a6b61; white-space:nowrap; }
+.foundation-package-options { grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); margin:.65rem 0; }
+.foundation-package-options label { display:flex; align-items:flex-start; gap:.45rem; padding:.4rem; border:1px solid #d8dee8; background:#fff; }
+.foundation-package-options label.is-added { border-color:#b7dfc5; background:#effaf2; color:#486257; }
+.foundation-package-options label.is-added input { accent-color:#16804a; }
+.foundation-package-options label.is-existing { border-color:#cbd6e3; background:#f3f6f9; color:#607086; }
+.foundation-package-options code { overflow-wrap:anywhere; }
 .package-list { display:grid; gap:.55rem; }
 .package-list.compact { max-height:520px; overflow:auto; padding-right:.25rem; }
 .package-card { border:1px solid #d8dee8; border-radius:.5rem; background:#fff; }

@@ -136,7 +136,7 @@ async function proxyToPreview(req, res, targetUrl, basePath) {
 }
 
 function appPreviewProxyMiddleware() {
-  const platformPaths = new Set(['api', 'assets', 'node_modules', 'src']);
+  const platformPaths = new Set(['api', 'assets', 'node_modules', 'src', 'packages']);
   return async (req, res, next) => {
     const pathname = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`).pathname;
     const key = pathname.split('/').filter(Boolean)[0];

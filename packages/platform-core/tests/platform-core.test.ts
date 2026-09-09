@@ -36,6 +36,7 @@ describe('@uib/platform-core', () => {
         {
           name: 'Calendar',
           tagName: 'uib-calendar',
+          module: './dist/calendar.js',
         },
       ],
       data: {
@@ -54,6 +55,20 @@ describe('@uib/platform-core', () => {
       valid: true,
       issues: [],
     });
+  });
+
+  it('rejects component modules that are not package-relative', () => {
+    const result = validatePackageManifest({
+      name: '@uib/calendar',
+      version: '1.2.3',
+      manifestVersion: '1.0.0',
+      displayName: 'UIB Calendar',
+      capabilities: ['components'],
+      components: [{ name: 'Calendar', tagName: 'uib-calendar', module: '../outside.js' }],
+    }, { fileName: 'calendar.manifest.json' });
+
+    expect(result.valid).toBe(false);
+    expect(result.issues).toContain('components[0].module must be a package-relative path beginning with ./ and must not escape the package root.');
   });
 
   it('registers and resolves services by string key and semver-compatible range', () => {
