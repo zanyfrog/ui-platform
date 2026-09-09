@@ -15,7 +15,8 @@ import { deletePageSource, getPageSource, getPageTree, movePageSource, savePageS
 import { discoverComponents, getAppPackageAsset } from './component-registry.js';
 import { disableAppPackage, enableAppPackage, getAppPackageCatalog, getGlobalPackageCatalog } from './packages.js';
 import { installManualPackage } from './package-installer.js';
-import { addAppFoundationDependencies, getAppFoundationDependencies, installGitHubFoundationSource, listFoundationSources } from './foundation-sources.js';
+import { addAppFoundationDependencies, getAppFoundationDependencies, installGitHubFoundationSource, listFoundationSources, migrateFoundationSourceUpdate, previewFoundationSourceUpdate, refreshFoundationSource } from './foundation-sources.js';
+import { getUnifiedPackageCatalog, removeUnusedFoundationSource } from './unified-package-catalog.js';
 import { acquirePackageFromUrl } from './package-acquisition.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
@@ -135,6 +136,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === '/api/apps' && method === 'POST') return json(res, 201, await createApp(await body(req)));
     if (url.pathname === '/api/components' && method === 'GET') return json(res, 200, await discoverComponents());
     if (url.pathname === '/api/packages' && method === 'GET') return json(res, 200, await getGlobalPackageCatalog());
+    if (url.pathname === '/api/package-catalog' && method === 'GET') return json(res, 200, await getUnifiedPackageCatalog());
     if (url.pathname === '/api/packages/install' && method === 'POST') {
       const input = await body(req);
       return json(res, 201, await installManualPackage({ sourcePath: String(input.sourcePath ?? ''), scope: 'platform' }));
@@ -144,6 +146,22 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === '/api/foundation-sources/github' && method === 'POST') {
       const input = await body(req);
       return json(res, 201, await installGitHubFoundationSource({ repository: String(input.repository ?? ''), ref: input.ref ? String(input.ref) : undefined }));
+    }
+    if (parts[0] === 'api' && parts[1] === 'foundation-sources' && parts[2] && parts.length === 4 && parts[3] === 'refresh' && method === 'POST') {
+      return json(res, 200, await refreshFoundationSource(decodeURIComponent(parts[2])));
+    }
+    if (parts[0] === 'api' && parts[1] === 'foundation-sources' && parts[2] && parts.length === 4 && parts[3] === 'update-preview' && method === 'POST') {
+      const input = await body(req);
+      return json(res, 200, await previewFoundationSourceUpdate(decodeURIComponent(parts[2]), input.ref ? String(input.ref) : undefined));
+    }
+    if (parts[0] === 'api' && parts[1] === 'foundation-sources' && parts[2] && parts.length === 4 && parts[3] === 'migrations' && method === 'POST') {
+      const input = await body(req);
+      const appKeys = Array.isArray(input.appKeys) ? input.appKeys.map((value: unknown) => String(value)) : [];
+      return json(res, 200, await migrateFoundationSourceUpdate(String(input.planId ?? ''), appKeys));
+    }
+    if (parts[0] === 'api' && parts[1] === 'foundation-sources' && parts[2] && parts.length === 3 && method === 'DELETE') {
+      await removeUnusedFoundationSource(decodeURIComponent(parts[2]));
+      return json(res, 200, { removed: true });
     }
 
     if (parts[0] === 'api' && parts[1] === 'apps' && parts[2]) {

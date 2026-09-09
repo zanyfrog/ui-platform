@@ -1,4 +1,4 @@
-import type { AppFoundationDependencyPayload, AppPackageCatalogPayload, AppPackageListEntry, FoundationSource, FoundationSourcePayload, PackageCatalogPayload, PackageListEntry, PackageManifestIssue } from '../shared/types';
+import type { AppFoundationDependencyPayload, AppPackageCatalogPayload, AppPackageListEntry, FoundationSource, FoundationSourcePayload, FoundationSourceUpdatePlan, PackageListEntry, PackageManifestIssue, UnifiedPackageCatalogEntry, UnifiedPackageCatalogPayload } from '../shared/types';
 
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const headers = init?.body instanceof FormData ? init?.headers : { 'content-type': 'application/json', ...(init?.headers ?? {}) };
@@ -39,13 +39,6 @@ function packageSourcePanel(scope: 'platform' | 'app'): string {
   </form>`;
 }
 
-function githubFoundationSourcePanel(sources: FoundationSource[]): string {
-  return '<section class="package-install-panel foundation-source-panel">' +
-    '<div><strong>GitHub foundation sources</strong><p class="note">Install a trusted GitHub workspace at an immutable commit. Foundation dependencies stay separate from UIB extension packages.</p></div>' +
-    (sources.length ? '<div class="foundation-source-list">' + sources.map((source) => '<details><summary><strong>' + esc(source.id) + '</strong><span class="note">' + esc(source.commit.slice(0, 12)) + '</span></summary><p class="note">' + esc(source.repository) + '</p><p class="note">' + source.packages.length + ' @ui-base packages</p></details>').join('') + '</div>' : '<p class="note">No GitHub foundation sources installed.</p>') +
-    '</section>';
-}
-
 function foundationDependencyPanels(sources: FoundationSource[], stateBySource: Map<string, AppFoundationDependencyPayload>): string {
   if (!sources.length) return '';
   return '<section class="package-install-panel foundation-source-panel"><div><strong>Foundation dependencies</strong><p class="note">Select UI-Base packages for this app. Required UI-Base workspace dependencies are included automatically.</p></div>' +
@@ -54,11 +47,15 @@ function foundationDependencyPanels(sources: FoundationSource[], stateBySource: 
       const fromSource = new Set(state?.fromSourcePackageNames ?? []);
       const existing = new Set(state?.existingPackageNames ?? []);
       const direct = new Set(state?.directPackageNames ?? []);
+      const required = new Set(state?.requiredPackageNames ?? []);
       const allSelected = source.packages.every((pkg) => fromSource.has(pkg.name) || existing.has(pkg.name));
-      return '<form data-foundation-dependencies="' + esc(source.id) + '"><details><summary><strong>' + esc(source.id) + '</strong><span class="note">' + esc(source.commit.slice(0, 12)) + '</span></summary><div class="foundation-package-options">' + source.packages.map((pkg) => {
-        const status = direct.has(pkg.name) ? 'Direct' : fromSource.has(pkg.name) ? (state?.hasImportRecord ? 'Dependency' : 'Imported before tracking') : existing.has(pkg.name) ? 'Already present' : '';
-        const selected = Boolean(status);
-        const className = fromSource.has(pkg.name) ? 'is-added' : existing.has(pkg.name) ? 'is-existing' : '';
+      const unresolvedRequired = source.packages.filter((pkg) => required.has(pkg.name) && !direct.has(pkg.name)).map((pkg) => pkg.name);
+      return '<form data-foundation-dependencies="' + esc(source.id) + '"><details open><summary><strong>' + esc(source.id) + '</strong><span class="note">' + esc(source.commit.slice(0, 12)) + '</span></summary>' +
+        (unresolvedRequired.length ? '<div class="foundation-source-requirements"><strong>Required by application source</strong><p class="note">' + unresolvedRequired.map(esc).join(', ') + '</p><button type="button" data-foundation-sync-source="' + esc(source.id) + '">Sync source imports</button></div>' : '') +
+        '<div class="foundation-package-options">' + source.packages.map((pkg) => {
+        const status = direct.has(pkg.name) ? 'Direct' : required.has(pkg.name) ? 'Required by app source' : fromSource.has(pkg.name) ? (state?.hasImportRecord ? 'Dependency' : 'Imported before tracking') : existing.has(pkg.name) ? 'Already present' : '';
+        const selected = Boolean(status) && !required.has(pkg.name);
+        const className = required.has(pkg.name) ? 'is-required' : fromSource.has(pkg.name) ? 'is-added' : existing.has(pkg.name) ? 'is-existing' : '';
         return '<label' + (className ? ' class="' + className + '"' : '') + '><input type="checkbox" name="packageName" value="' + esc(pkg.name) + '"' + (selected ? ' checked disabled' : '') + '><span><code>' + esc(pkg.name) + '</code> <small>v' + esc(pkg.version) + (status ? ' - ' + status : '') + '</small></span></label>';
       }).join('') + '</div></details><div class="actions package-actions"><button type="submit"' + (allSelected ? ' disabled' : '') + '>Add selected dependencies</button></div></form>';
     }).join('') +
@@ -123,29 +120,123 @@ function rejectedRow(issue: PackageManifestIssue, index: number): string {
   return `<li><button class="warning-link" data-rejected-issue="${index}">${esc(issue.filePath)}</button><small>${esc(issue.sourceType)}</small></li>`;
 }
 
+function unifiedPackageCard(entry: UnifiedPackageCatalogEntry): string {
+  const usage = entry.appUsage.length
+    ? entry.appUsage.map((item) => `<li><code>${esc(item.appKey)}</code><small>${esc(item.relationship)}</small></li>`).join('')
+    : '<li><small>Not used by a discovered application.</small></li>';
+  const iconEntry: PackageListEntry = {
+    name: entry.name,
+    displayName: entry.displayName,
+    version: entry.version,
+    icon: entry.icon,
+    status: entry.status,
+    sourceType: 'platform-packages',
+    sourceLabel: entry.sourceLabel,
+    manifestPath: '',
+    packageRoot: '',
+    capabilities: [],
+    requiresServices: {},
+    components: [],
+    issues: [],
+  };
+  return `<details class="package-card unified-package-card">
+    <summary>${packageIcon(iconEntry)}<span class="package-title"><strong>${esc(entry.displayName)}</strong><code>${esc(entry.name)}</code></span><span class="package-version">v${esc(entry.version)}</span><span class="package-status status-${esc(entry.status)}">${esc(entry.lifecycleLabel)}</span></summary>
+    <div class="package-detail">
+      ${entry.description ? `<p>${esc(entry.description)}</p>` : ''}
+      <dl>
+        <div><dt>Source</dt><dd>${esc(entry.sourceLabel)}</dd></div>
+        <div><dt>Installed / added</dt><dd>${date(entry.installedAt ?? entry.addedAt)}</dd></div>
+        <div><dt>First discovered</dt><dd>${date(entry.firstDiscoveredAt)}</dd></div>
+        <div><dt>Last discovered</dt><dd>${date(entry.lastDiscoveredAt)}</dd></div>
+        ${entry.repository ? `<div><dt>Repository</dt><dd><code>${esc(entry.repository)}</code></dd></div>` : ''}
+        ${entry.commit ? `<div><dt>Pinned commit</dt><dd><code>${esc(entry.commit)}</code></dd></div>` : ''}
+      </dl>
+      <div><strong>Application usage</strong><ul class="catalog-usage">${usage}</ul></div>
+      <div><strong>Details</strong><ul>${entry.details.map((detail) => `<li>${esc(detail)}</li>`).join('')}</ul></div>
+    </div>
+  </details>`;
+}
+
+function foundationSourceManagement(sources: FoundationSource[]): string {
+  if (!sources.length) return '';
+  return `<section class="foundation-source-management"><div><strong>Foundation sources</strong><p class="note">Sources are pinned immutable workspaces. Refresh re-scans the current checkout; updating to another commit is an explicit app migration.</p></div><div class="foundation-source-list">${sources.map((source) => `<details><summary><strong>${esc(source.id)}</strong><span class="note">${esc(source.packages.length)} packages</span></summary><dl class="source-details"><div><dt>Repository</dt><dd><code>${esc(source.repository)}</code></dd></div><div><dt>Commit</dt><dd><code>${esc(source.commit)}</code></dd></div><div><dt>Installed</dt><dd>${date(source.installedAt)}</dd></div></dl><div class="actions package-actions"><button type="button" data-foundation-refresh="${esc(source.id)}">Refresh</button><button type="button" data-foundation-update="${esc(source.id)}">Update plan</button><button type="button" data-foundation-remove="${esc(source.id)}">Remove source</button></div></details>`).join('')}</div></section>`;
+}
+
 export async function mountGlobalPackages(target: HTMLElement): Promise<void> {
   target.innerHTML = '<p class="note">Loading packages...</p>';
   try {
-    const [payload, foundationPayload] = await Promise.all([
-      api<PackageCatalogPayload>('/api/packages'),
-      api<FoundationSourcePayload>('/api/foundation-sources'),
-    ]);
+    const payload = await api<UnifiedPackageCatalogPayload>('/api/package-catalog');
     const issueMap = new Map<string, string[]>();
-    payload.entries.forEach((entry, index) => issueMap.set(`global-${index}`, entry.issues));
     target.innerHTML = `
       <section class="panel stack">
-        <div class="package-heading"><div><uib-heading text="Packages" level="2"></uib-heading><p class="note">Global package catalog from platform packages and installed @uib packages.</p></div><span class="badge">${payload.entries.length} package${payload.entries.length === 1 ? '' : 's'}</span></div>
+        <div class="package-heading"><div><uib-heading text="Packages" level="2"></uib-heading><p class="note">Installed and discovered UIB extensions and foundation workspace packages. Their lifecycle rules remain distinct.</p></div><span class="badge">${payload.entries.length} package${payload.entries.length === 1 ? '' : 's'}</span></div>
         ${packageSourcePanel('platform')}
-        ${githubFoundationSourcePanel(foundationPayload.sources)}
+        ${foundationSourceManagement(payload.foundationSources)}
         ${payload.rejected.length ? `<div class="warning-box"><strong>${payload.rejected.length} rejected manifest${payload.rejected.length === 1 ? '' : 's'}</strong><ul>${payload.rejected.map(rejectedRow).join('')}</ul></div>` : ''}
-        <div class="package-list">${payload.entries.map((entry, index) => packageCard(entry, index)).join('') || '<p class="note">No UIB packages discovered.</p>'}</div>
+        <div class="package-list">${payload.entries.map(unifiedPackageCard).join('') || '<p class="note">No packages discovered.</p>'}</div>
       </section>
     `;
     bindIssueButtons(target, issueMap, payload.rejected);
     bindPackageSource(target, 'platform');
+    bindFoundationSourceActions(target);
   } catch (error) {
     target.innerHTML = `<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`;
   }
+}
+
+function bindFoundationSourceActions(target: HTMLElement): void {
+  target.querySelectorAll<HTMLButtonElement>('[data-foundation-refresh]').forEach((button) => button.addEventListener('click', async () => {
+    button.disabled = true;
+    try {
+      await api(`/api/foundation-sources/${encodeURIComponent(button.dataset.foundationRefresh!)}/refresh`, { method: 'POST' });
+      await mountGlobalPackages(target);
+    } catch (error) {
+      showIssueDialog('Source refresh failed', [error instanceof Error ? error.message : String(error)]);
+      button.disabled = false;
+    }
+  }));
+  target.querySelectorAll<HTMLButtonElement>('[data-foundation-update]').forEach((button) => button.addEventListener('click', async () => {
+    button.disabled = true;
+    try {
+      const plan = await api<FoundationSourceUpdatePlan>(`/api/foundation-sources/${encodeURIComponent(button.dataset.foundationUpdate!)}/update-preview`, { method: 'POST', body: JSON.stringify({}) });
+      await showFoundationUpdatePlan(plan);
+      await mountGlobalPackages(target);
+    } catch (error) {
+      showIssueDialog('Source update preview unavailable', [error instanceof Error ? error.message : String(error)]);
+      button.disabled = false;
+    }
+  }));
+  target.querySelectorAll<HTMLButtonElement>('[data-foundation-remove]').forEach((button) => button.addEventListener('click', async () => {
+    const sourceId = button.dataset.foundationRemove!;
+    if (!window.confirm(`Remove ${sourceId}? The server will refuse if any application still uses it.`)) return;
+    button.disabled = true;
+    try {
+      await api(`/api/foundation-sources/${encodeURIComponent(sourceId)}`, { method: 'DELETE' });
+      await mountGlobalPackages(target);
+    } catch (error) {
+      showIssueDialog('Source removal blocked', [error instanceof Error ? error.message : String(error)]);
+      button.disabled = false;
+    }
+  }));
+}
+
+function showFoundationUpdatePlan(plan: FoundationSourceUpdatePlan): Promise<void> {
+  const existing = document.querySelector<HTMLDialogElement>('#foundationUpdateDialog'); existing?.remove();
+  const dialog = document.createElement('dialog');
+  dialog.id = 'foundationUpdateDialog'; dialog.className = 'package-dialog';
+  const readyApps = plan.affectedApps.filter((app) => app.status === 'ready');
+  dialog.innerHTML = `<form method="dialog" class="stack"><div class="package-heading"><strong>Foundation source update</strong><button value="close" aria-label="Close">Close</button></div><p><code>${esc(plan.fromCommit)}</code> to <code>${esc(plan.toCommit)}</code></p><dl><div><dt>Added packages</dt><dd>${esc(plan.addedPackages.join(', ') || 'None')}</dd></div><div><dt>Removed packages</dt><dd>${esc(plan.removedPackages.join(', ') || 'None')}</dd></div><div><dt>Changed packages</dt><dd>${esc(plan.changedPackages.join(', ') || 'None')}</dd></div></dl><div><strong>Applications</strong><div class="migration-app-list">${plan.affectedApps.map((app) => `<label><input type="checkbox" name="appKey" value="${esc(app.appKey)}"${app.status === 'ready' ? ' checked' : ' disabled'}><span><code>${esc(app.appKey)}</code><small>${esc(app.status)}${app.issues.length ? ' - ' + esc(app.issues.join('; ')) : ''}</small></span></label>`).join('') || '<p class="note">No discovered applications use this source.</p>'}</div></div><div class="actions"><button value="cancel">Cancel</button><button class="primary" value="migrate"${readyApps.length ? '' : ' disabled'}>Migrate selected apps</button></div></form>`;
+  document.body.append(dialog); dialog.showModal();
+  return new Promise((resolve) => dialog.addEventListener('close', async () => {
+    if (dialog.returnValue === 'migrate') {
+      const appKeys = [...new FormData(dialog.querySelector('form')!).getAll('appKey')].map((item) => String(item));
+      try {
+        const results = await api<Array<{ appKey: string; status: string; issues: string[] }>>(`/api/foundation-sources/${encodeURIComponent(plan.sourceId)}/migrations`, { method: 'POST', body: JSON.stringify({ planId: plan.id, appKeys }) });
+        showIssueDialog('Migration results', results.map((result) => `${result.appKey}: ${result.status}${result.issues.length ? ' - ' + result.issues.join('; ') : ''}`));
+      } catch (error) { showIssueDialog('Migration failed', [error instanceof Error ? error.message : String(error)]); }
+    }
+    dialog.remove(); resolve();
+  }, { once: true }));
 }
 
 export async function mountAppPackages(target: HTMLElement, appKey: string): Promise<void> {
@@ -177,6 +268,7 @@ function renderAppPackagePayload(target: HTMLElement, appKey: string, payload: A
   bindIssueButtons(target, issueMap, payload.rejected);
   bindPackageSource(target, 'app', appKey);
   bindFoundationDependencies(target, appKey, foundationSources);
+  bindFoundationSourceImports(target, appKey, foundationSources, foundationState);
   target.querySelectorAll<HTMLButtonElement>('[data-package-enable]').forEach((button) => {
     button.addEventListener('click', async () => {
       button.disabled = true;
@@ -206,6 +298,31 @@ function renderAppPackagePayload(target: HTMLElement, appKey: string, payload: A
       }
     });
   });
+}
+
+function bindFoundationSourceImports(target: HTMLElement, appKey: string, sources: FoundationSource[], stateBySource: Map<string, AppFoundationDependencyPayload>): void {
+  target.querySelectorAll<HTMLButtonElement>('[data-foundation-sync-source]').forEach((button) => button.addEventListener('click', async () => {
+    const source = sources.find((item) => item.id === button.dataset.foundationSyncSource);
+    const state = source ? stateBySource.get(source.id) : undefined;
+    const packageNames = state?.requiredPackageNames ?? [];
+    if (!source || !packageNames.length) return;
+    button.disabled = true;
+    try {
+      const result = await api<{ requestedPackages: string[]; transitivePackages: string[] }>(`/api/apps/${encodeURIComponent(appKey)}/foundation-dependencies`, {
+        method: 'POST',
+        body: JSON.stringify({ sourceId: source.id, packageNames }),
+      });
+      await mountAppPackages(target, appKey);
+      showIssueDialog('Source imports synchronized', [
+        'Direct source imports: ' + result.requestedPackages.join(', '),
+        ...(result.transitivePackages.length ? ['Additional dependencies: ' + result.transitivePackages.join(', ')] : []),
+        'Run npm install --ignore-scripts in the application before building or previewing it.',
+      ]);
+    } catch (error) {
+      showIssueDialog('Source import synchronization failed', [error instanceof Error ? error.message : String(error)]);
+      button.disabled = false;
+    }
+  }));
 }
 
 function bindPackageSource(target: HTMLElement, scope: 'platform' | 'app', appKey?: string): void {

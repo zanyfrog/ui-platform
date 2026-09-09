@@ -200,10 +200,77 @@ export interface FoundationSource {
   installedAt: string;
   workspacePath: string;
   packages: FoundationWorkspacePackage[];
+  revisions?: Record<string, FoundationSourceRevision>;
+}
+
+export interface FoundationSourceRevision {
+  commit: string;
+  installedAt: string;
+  workspacePath: string;
+  packages: FoundationWorkspacePackage[];
+}
+
+export interface FoundationSourceUpdatePlan {
+  id: string;
+  sourceId: string;
+  repository: string;
+  fromCommit: string;
+  toCommit: string;
+  preparedAt: string;
+  candidate: FoundationSourceRevision;
+  addedPackages: string[];
+  removedPackages: string[];
+  changedPackages: string[];
+  affectedApps: FoundationUpdateAffectedApp[];
+}
+
+export interface FoundationUpdateAffectedApp {
+  appKey: string;
+  directPackages: string[];
+  status: 'ready' | 'blocked' | 'not-on-current-revision';
+  issues: string[];
+}
+
+export interface FoundationMigrationResult {
+  appKey: string;
+  status: 'migrated' | 'blocked' | 'failed';
+  issues: string[];
 }
 
 export interface FoundationSourcePayload {
   sources: FoundationSource[];
+}
+
+export interface FoundationPackageUsage {
+  appKey: string;
+  relationship: 'direct' | 'dependency' | 'legacy';
+}
+
+export interface UnifiedPackageCatalogEntry {
+  kind: 'uib-extension' | 'foundation';
+  name: string;
+  displayName: string;
+  version: string;
+  description?: string;
+  icon?: string;
+  status: PackageListStatus;
+  lifecycleLabel: string;
+  sourceLabel: string;
+  sourceId?: string;
+  repository?: string;
+  commit?: string;
+  installedAt?: string;
+  firstDiscoveredAt?: string;
+  addedAt?: string;
+  lastDiscoveredAt?: string;
+  appUsage: FoundationPackageUsage[];
+  details: string[];
+}
+
+export interface UnifiedPackageCatalogPayload {
+  entries: UnifiedPackageCatalogEntry[];
+  rejected: PackageManifestIssue[];
+  foundationSources: FoundationSource[];
 }
 
 export interface AppFoundationDependencyResult {
@@ -219,5 +286,6 @@ export interface AppFoundationDependencyPayload {
   fromSourcePackageNames: string[];
   existingPackageNames: string[];
   directPackageNames: string[];
+  requiredPackageNames: string[];
   hasImportRecord: boolean;
 }

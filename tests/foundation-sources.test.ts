@@ -7,7 +7,7 @@ import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { addAppFoundationDependencies, getAppFoundationDependencies, inspectFoundationWorkspace } from '../src/server/foundation-sources.js';
+import { addAppFoundationDependencies, discoverFoundationImportRequirements, getAppFoundationDependencies, inspectFoundationWorkspace } from '../src/server/foundation-sources.js';
 
 describe('foundation sources', () => {
   it('discovers UI-Base packages and their workspace dependencies', async () => {
@@ -58,10 +58,19 @@ describe('foundation sources', () => {
     expect(appPackage.dependencies['@ui-base/ui']).toContain('data/foundation-sources/zanyfrog-ui-base');
     await expect(readFile(path.join(appDir, 'history', 'app-history.jsonl'), 'utf8')).resolves.toContain('"requestedPackages":["@ui-base/ui"]');
     await expect(getAppFoundationDependencies({ sourceId: 'zanyfrog-ui-base', appDir, platformRootDir: root })).resolves.toEqual({
-      sourceId: 'zanyfrog-ui-base', fromSourcePackageNames: ['@ui-base/core', '@ui-base/ui'], existingPackageNames: [], directPackageNames: ['@ui-base/ui'], hasImportRecord: true,
+      sourceId: 'zanyfrog-ui-base', fromSourcePackageNames: ['@ui-base/core', '@ui-base/ui'], existingPackageNames: [], directPackageNames: ['@ui-base/ui'], requiredPackageNames: [], hasImportRecord: true,
     });
     const appManifest = JSON.parse(await readFile(path.join(appDir, 'app.manifest.json'), 'utf8')) as { foundationImports: Record<string, { selectedPackages: string[]; resolvedPackages: string[] }> };
     expect(appManifest.foundationImports['zanyfrog-ui-base']).toMatchObject({ selectedPackages: ['@ui-base/ui'], resolvedPackages: ['@ui-base/core', '@ui-base/ui'] });
+  });
+
+  it('discovers UI-Base imports from application source files', async () => {
+    const appDir = await mkdtemp(path.join(tmpdir(), 'uib-foundation-imports-'));
+    await mkdir(path.join(appDir, 'src', 'pages'), { recursive: true });
+    await writeFile(path.join(appDir, 'src', 'main.ts'), "import '@ui-base/core/styles.css';\nimport { button } from '@ui-base/ui';\n", 'utf8');
+    await writeFile(path.join(appDir, 'src', 'pages', 'index.ts'), "export { default as theme } from '@ui-base/theme';\n", 'utf8');
+
+    await expect(discoverFoundationImportRequirements(appDir)).resolves.toEqual(['@ui-base/core', '@ui-base/theme', '@ui-base/ui']);
   });
 
   async function createWorkspace(root?: string): Promise<string> {

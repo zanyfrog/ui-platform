@@ -241,6 +241,18 @@ button:disabled { cursor:not-allowed; opacity:.55; }
 .foundation-source-list, .foundation-package-options { display:grid; gap:.45rem; }
 .foundation-source-list details { border:1px solid #d6e4d7; padding:.45rem .6rem; }
 .foundation-source-list summary { display:flex; justify-content:space-between; gap:.75rem; cursor:pointer; }
+.foundation-source-management { display:grid; gap:.7rem; padding:.8rem; border:1px solid #b9d9c1; background:#f7fbf7; }
+.foundation-source-management p { margin:.2rem 0 0; }
+.source-details { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:.55rem 1rem; margin:.65rem 0; }
+.source-details dt { font-size:.75rem; font-weight:800; color:#53647c; text-transform:uppercase; }
+.source-details dd { margin:0; overflow-wrap:anywhere; }
+.catalog-usage { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.35rem; margin:.45rem 0 0; padding:0; list-style:none; }
+.catalog-usage li { display:flex; justify-content:space-between; gap:.5rem; padding:.3rem .45rem; border:1px solid #e0e7e1; }
+.catalog-usage small { color:#5a6b61; text-transform:capitalize; }
+.migration-app-list { display:grid; gap:.4rem; margin-top:.45rem; }
+.migration-app-list label { display:flex; gap:.5rem; align-items:flex-start; padding:.45rem; border:1px solid #d8dee8; }
+.migration-app-list span { display:grid; gap:.12rem; }
+.migration-app-list small { color:#53647c; }
 .foundation-installed-panel { display:grid; gap:.65rem; padding:.8rem; border:1px solid #b9d9c1; background:#f4fbf5; }
 .foundation-installed-panel p { margin:.2rem 0 0; }
 .foundation-installed-source { border:1px solid #d6e4d7; background:#fff; padding:.45rem .6rem; }
@@ -253,6 +265,9 @@ button:disabled { cursor:not-allowed; opacity:.55; }
 .foundation-package-options label.is-added { border-color:#b7dfc5; background:#effaf2; color:#486257; }
 .foundation-package-options label.is-added input { accent-color:#16804a; }
 .foundation-package-options label.is-existing { border-color:#cbd6e3; background:#f3f6f9; color:#607086; }
+.foundation-package-options label.is-required { border-color:#d5a24c; background:#fff8e8; }
+.foundation-source-requirements { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:.35rem .75rem; align-items:center; margin:.65rem 0; padding:.55rem .65rem; border:1px solid #e0b36a; background:#fff9ed; }
+.foundation-source-requirements p { grid-column:1/-1; margin:0; overflow-wrap:anywhere; }
 .foundation-package-options code { overflow-wrap:anywhere; }
 .package-list { display:grid; gap:.55rem; }
 .package-list.compact { max-height:520px; overflow:auto; padding-right:.25rem; }

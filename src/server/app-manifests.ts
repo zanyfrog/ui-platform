@@ -96,6 +96,22 @@ export async function recordFoundationImport(appDir: string, input: Omit<AppFoun
   return next;
 }
 
+export async function replaceFoundationImport(appDir: string, input: Omit<AppFoundationImport, 'addedAt' | 'updatedAt'>): Promise<AppManifest> {
+  const manifest = await readRawAppManifest(appDir);
+  const now = new Date().toISOString();
+  const current = manifest.foundationImports[input.sourceId];
+  const nextImport: AppFoundationImport = {
+    ...input,
+    selectedPackages: uniqueNames(input.selectedPackages),
+    resolvedPackages: uniqueNames(input.resolvedPackages),
+    addedAt: current?.addedAt ?? now,
+    updatedAt: now,
+  };
+  const next: AppManifest = { ...manifest, updatedAt: now, foundationImports: { ...manifest.foundationImports, [input.sourceId]: nextImport } };
+  await atomicWriteJson(path.join(appDir, APP_MANIFEST_FILE), next);
+  return next;
+}
+
 function createInitialAppManifest(input: {
   appId: string;
   template: string;

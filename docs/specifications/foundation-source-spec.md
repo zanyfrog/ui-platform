@@ -24,6 +24,8 @@ The first supported adapter accepts a github.com SSH or HTTPS repository URL. It
 
 The platform MUST use the machine's existing SSH agent or Git credential configuration. It MUST NOT store private tokens, SSH keys, or credentials in platform or application manifests.
 
+Registering an already-known repository MUST return its current pinned source record. It MUST NOT replace that source with a newer ref through the registration path.
+
 ## App Dependency Selection
 
 When an application selects foundation packages, the platform MUST add `file:` dependencies to the application's `package.json`. It MUST include transitive `@ui-base/*` workspace dependencies declared by the selected packages. The application owner runs `npm install --ignore-scripts` before running or building the application.
@@ -47,7 +49,17 @@ UIB extension packages continue to require a `<package-name>.manifest.json` and 
 - `GET /api/foundation-sources` lists registered foundation sources and discovered packages.
 - `POST /api/foundation-sources/github` registers a GitHub source. The request accepts `repository` and optional `ref`.
 - `POST /api/apps/:key/foundation-dependencies` adds selected packages from a source. The request accepts `sourceId` and `packageNames`.
+- `POST /api/foundation-sources/:sourceId/refresh` re-inspects the already-pinned checkout. It does not fetch a newer commit or modify applications.
+- `DELETE /api/foundation-sources/:sourceId` removes an unused source. The platform MUST refuse removal while an application has package dependencies resolved from that source.
+
+## Source Changes
+
+A source refresh MUST only re-scan the checkout already pinned in the source record. It MAY update discovered package metadata, but it MUST NOT change the pinned commit or any application dependency.
+
+Updating a source to a new Git commit is an explicit migration. The platform MUST stage and inspect the proposed revision, show package changes and affected applications, and apply a selected migration per application. It MUST NOT silently rewrite an application's `package.json` or `app.manifest.json`.
+
+Each selected npm application MUST be validated with `npm install --ignore-scripts`, `npm run typecheck`, and `npm run build`. A failed application migration MUST restore its `package.json`, `package-lock.json`, and `app.manifest.json`; other selected applications may still complete independently. The previous checkout MUST remain available until an administrator explicitly removes it.
 
 ## Deferred Work
 
-Source refresh, source removal, alternate foundation namespaces, package version conflict policy, and additional registry adapters remain future work.
+Explicit source-update migrations, alternate foundation namespaces, package version conflict policy, and additional registry adapters remain future work.
