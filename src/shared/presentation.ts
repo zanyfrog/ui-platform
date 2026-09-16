@@ -32,10 +32,17 @@ export interface PresentationNavigationItem {
   order?: number;
 }
 
+export interface PresentationHero {
+  id: string;
+  enabled: boolean;
+  variant: 'standard' | 'compact' | 'image-background';
+  data: Record<string, unknown>;
+}
+
 export interface ApplicationPresentationLayout {
   defaultShell: PresentationShell;
   defaultTemplate: PresentationTemplate;
-  routes: Record<string, { shell?: PresentationShell; template?: PresentationTemplate }>;
+  routes: Record<string, { shell?: PresentationShell; template?: PresentationTemplate; heroId?: string }>;
   shells: Record<PresentationShell, PresentationShellSettings>;
   navigation: PresentationNavigationItem[];
 }
@@ -48,6 +55,7 @@ export interface ApplicationPresentation {
   /** Values are accepted only for component settings advertised by UI Base metadata. */
   componentDefaults: Record<string, Record<string, string | number | boolean>>;
   layout: ApplicationPresentationLayout;
+  heroes: Record<string, PresentationHero>;
   css: string;
   assets: PresentationAsset[];
 }

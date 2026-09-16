@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import type { ApplicationPresentation, ApplicationPresentationManifest, ApplicationPresentationStatus, PresentationAsset } from '../shared/presentation.js';
+import type { ApplicationPresentation, ApplicationPresentationManifest, ApplicationPresentationStatus, PresentationAsset, PresentationHero } from '../shared/presentation.js';
 import { APPLICATION_PRESENTATION_VERSION } from '../shared/presentation.js';
 import { appPath, getApp } from './applications.js';
 import { atomicWriteJson, atomicWriteText, readJson } from './json-files.js';
@@ -28,7 +28,7 @@ export function defaultPresentation(): ApplicationPresentation {
       '--app-spacing-sm': '0.5rem', '--app-spacing-md': '1rem', '--app-spacing-lg': '1.5rem',
       '--app-radius-card': '0.5rem', '--app-content-max-width': '75rem', '--app-font-body': 'system-ui, sans-serif',
     },
-    typography: {}, componentDefaults: {}, layout: { defaultShell: 'authenticated', defaultTemplate: 'standard', routes: {}, shells: defaultShells(), navigation: [] }, css: '', assets: [],
+    typography: {}, componentDefaults: {}, layout: { defaultShell: 'authenticated', defaultTemplate: 'standard', routes: {}, shells: defaultShells(), navigation: [] }, heroes: {}, css: '', assets: [],
   };
 }
 
@@ -66,7 +66,43 @@ export function validatePresentation(value: unknown): ApplicationPresentation {
   if (!input.componentDefaults || typeof input.componentDefaults !== 'object' || Array.isArray(input.componentDefaults)) throw new Error('componentDefaults must be an object.');
   // Component metadata enforcement will be enabled when UI Base publishes its contract.
   const layout = normalizeLayout(input.layout);
-  return { schemaVersion: APPLICATION_PRESENTATION_VERSION, name: input.name.trim(), tokens: normalizeStringMap(input.tokens ?? {}, 'tokens'), typography: normalizeStringMap(input.typography ?? {}, 'typography'), componentDefaults: input.componentDefaults as ApplicationPresentation['componentDefaults'], layout, css: input.css, assets: normalizeAssets(input.assets ?? []) };
+  const heroes = normalizeHeroes(input.heroes);
+  for (const [route, assignment] of Object.entries(layout.routes)) {
+    if (assignment.heroId && !heroes[assignment.heroId]) throw new Error(`Route ${route} references an unknown hero.`);
+  }
+  return { schemaVersion: APPLICATION_PRESENTATION_VERSION, name: input.name.trim(), tokens: normalizeStringMap(input.tokens ?? {}, 'tokens'), typography: normalizeStringMap(input.typography ?? {}, 'typography'), componentDefaults: input.componentDefaults as ApplicationPresentation['componentDefaults'], layout, heroes, css: input.css, assets: normalizeAssets(input.assets ?? []) };
+}
+
+function normalizeHeroes(value: unknown): ApplicationPresentation['heroes'] {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
+  return Object.fromEntries(Object.entries(value as Record<string, unknown>).flatMap(([id, raw]) => {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id) || !raw || typeof raw !== 'object' || Array.isArray(raw)) return [];
+    const hero = raw as Partial<ApplicationPresentation['heroes'][string]>;
+    if (!['standard', 'compact', 'image-background'].includes(String(hero.variant)) || !hero.data || typeof hero.data !== 'object' || Array.isArray(hero.data)) return [];
+    return [[id, { id, enabled: hero.enabled !== false, variant: hero.variant as PresentationHero['variant'], data: normalizeHeroData(hero.data as Record<string, unknown>) }]];
+  }));
+}
+
+/** Presentation heroes are visual content only: retain at most two navigational CTAs. */
+function normalizeHeroData(value: Record<string, unknown>): Record<string, unknown> {
+  const data = { ...value };
+  const actionKeys = ['action-components', 'action_components', 'hero_action_buttons', 'actions'];
+  const source = actionKeys.map((key) => data[key]).find((item) => item !== undefined && item !== '');
+  if (source === undefined) return data;
+
+  let actions: unknown[] = [];
+  try {
+    const parsed = typeof source === 'string' ? JSON.parse(source) : source;
+    actions = Array.isArray(parsed) ? parsed : parsed && typeof parsed === 'object' ? [parsed] : [];
+  } catch { actions = []; }
+  const links = actions
+    .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === 'object' && !Array.isArray(item))
+    .filter((item) => String(item.type ?? item.kind ?? 'link').toLowerCase() !== 'action')
+    .slice(0, 2)
+    .map((item) => ({ ...item, type: 'link' }));
+  const serialized = JSON.stringify(links);
+  for (const key of actionKeys) data[key] = serialized;
+  return data;
 }
 
 function normalizeLayout(value: unknown): ApplicationPresentation['layout'] {
@@ -76,8 +112,8 @@ function normalizeLayout(value: unknown): ApplicationPresentation['layout'] {
   const defaultTemplate = templates.includes(String(input.defaultTemplate)) ? input.defaultTemplate as ApplicationPresentation['layout']['defaultTemplate'] : 'standard';
   const routes = Object.fromEntries(Object.entries(input.routes ?? {}).flatMap(([route, assignment]) => {
     if (!route.startsWith('/') || !assignment || typeof assignment !== 'object') return [];
-    const item = assignment as { shell?: unknown; template?: unknown };
-    return [[route, { ...(shellNames.includes(String(item.shell)) ? { shell: item.shell as ApplicationPresentation['layout']['defaultShell'] } : {}), ...(templates.includes(String(item.template)) ? { template: item.template as ApplicationPresentation['layout']['defaultTemplate'] } : {}) }]];
+    const item = assignment as { shell?: unknown; template?: unknown; heroId?: unknown };
+    return [[route, { ...(shellNames.includes(String(item.shell)) ? { shell: item.shell as ApplicationPresentation['layout']['defaultShell'] } : {}), ...(templates.includes(String(item.template)) ? { template: item.template as ApplicationPresentation['layout']['defaultTemplate'] } : {}), ...(typeof item.heroId === 'string' ? { heroId: item.heroId } : {}) }]];
   }));
   const shellInput = input.shells && typeof input.shells === 'object' ? input.shells as Record<string, Partial<ApplicationPresentation['layout']['shells']['public']>> : {};
   const shells = Object.fromEntries(shellNames.map((name) => [name, normalizeShell(shellInput[name])])) as ApplicationPresentation['layout']['shells'];
@@ -204,10 +240,10 @@ async function writePresentationRuntime(key: string, presentation: ApplicationPr
   const app = await getApp(key);
   const routes = app.pages.map((route) => ({ route, label: route === '/' ? 'Home' : route.split('/').filter(Boolean).map((part) => part.replace(/-/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())).join(' ') }));
   const configuredNavigation = new Map(presentation.layout.navigation.map((item) => [item.route, item]));
-  const config = { layout: presentation.layout, routes: routes.map((item, order) => ({ ...item, ...configuredNavigation.get(item.route), order: configuredNavigation.get(item.route)?.order ?? order })).filter((item) => item.visible !== false).sort((a, b) => a.order - b.order) };
+  const config = { layout: presentation.layout, heroes: presentation.heroes, routes: routes.map((item, order) => ({ ...item, ...configuredNavigation.get(item.route), order: configuredNavigation.get(item.route)?.order ?? order })).filter((item) => item.visible !== false).sort((a, b) => a.order - b.order) };
   const serialized = JSON.stringify(config);
   const assetUrls = presentation.assets.filter((asset) => asset.active).map((asset) => `${JSON.stringify(asset.id)}: new URL(${JSON.stringify(`./assets/${asset.path}`)}, import.meta.url).href`).join(',\n  ');
-  const module = `// Generated by UI Platform. Edit presentation through the platform.\nconst config = ${serialized} as const;\nconst assetUrls: Record<string, string> = {\n  ${assetUrls}\n};\n\nexport function presentationAssetUrl(id: string): string | undefined { return assetUrls[id]; }\n\nexport function composeApplicationPresentation(input: { content: string; route: string }): string {\n  const assignment = (config.layout.routes as Record<string, { shell?: string; template?: string }>)[input.route] ?? {};\n  const shell = assignment.shell ?? config.layout.defaultShell;\n  const template = assignment.template ?? config.layout.defaultTemplate;\n  const shellSettings = (config.layout.shells as Record<string, { showNavigation: boolean; navigationPlacement: string; showFooter: boolean; footerText: string }>)[shell];\n  const nav = config.routes.map((item) => '<a data-route="' + item.route + '" href="' + item.route + '"' + (item.route === input.route ? ' aria-current="page"' : '') + '>' + item.label + '</a>').join('');\n  const content = '<section class="ui-presentation-template template-' + template + '">' + input.content + '</section>';\n  if (shell === 'minimal') return '<main class="ui-presentation-shell shell-minimal">' + content + '</main>';\n  const navigation = shellSettings.showNavigation ? '<nav class="navigation-' + shellSettings.navigationPlacement + '" aria-label="Primary">' + nav + '</nav>' : '';\n  const header = '<header class="ui-presentation-header"><a data-route="/" href="/" class="ui-presentation-brand">Application</a>' + navigation + '</header>';\n  const footer = shellSettings.showFooter ? '<footer class="ui-presentation-footer">' + shellSettings.footerText + '</footer>' : '';\n  return '<div class="ui-presentation-shell shell-' + shell + '">' + header + '<main class="ui-presentation-main">' + content + '</main>' + footer + '</div>';\n}\n`;
+  const module = `// Generated by UI Platform. Edit presentation through the platform.\nconst config = ${serialized} as const;\nconst assetUrls: Record<string, string> = {\n  ${assetUrls}\n};\n\nconst attribute = (value: unknown): string => JSON.stringify(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');\n\nexport function presentationAssetUrl(id: string): string | undefined { return assetUrls[id]; }\n\nexport function composeApplicationPresentation(input: { content: string; route: string }): string {\n  const assignment = (config.layout.routes as Record<string, { shell?: string; template?: string; heroId?: string }>)[input.route] ?? {};\n  const shell = assignment.shell ?? config.layout.defaultShell;\n  const template = assignment.template ?? config.layout.defaultTemplate;\n  const shellSettings = (config.layout.shells as Record<string, { showNavigation: boolean; navigationPlacement: string; showFooter: boolean; footerText: string }>)[shell];\n  const nav = config.routes.map((item) => '<a data-route="' + item.route + '" href="' + item.route + '"' + (item.route === input.route ? ' aria-current="page"' : '') + '>' + item.label + '</a>').join('');\n  const selectedHero = assignment.heroId ? (config.heroes as Record<string, { enabled: boolean; variant: string; data: Record<string, unknown> }>)[assignment.heroId] : undefined;\n  const heroData = selectedHero ? { ...selectedHero.data, size: selectedHero.variant === 'compact' ? 'compact' : 'default', visual_mode: selectedHero.variant === 'image-background' ? 'background' : selectedHero.data.visual_mode } : undefined;\n  const hero = selectedHero?.enabled && heroData ? '<uib-hero asset-map="' + attribute(assetUrls) + '" hero-data="' + attribute(heroData) + '"></uib-hero>' : '';\n  const content = hero + '<section class="ui-presentation-template template-' + template + '">' + input.content + '</section>';\n  if (shell === 'minimal') return '<main class="ui-presentation-shell shell-minimal">' + content + '</main>';\n  const navigation = shellSettings.showNavigation ? '<nav class="navigation-' + shellSettings.navigationPlacement + '" aria-label="Primary">' + nav + '</nav>' : '';\n  const header = '<header class="ui-presentation-header"><a data-route="/" href="/" class="ui-presentation-brand">Application</a>' + navigation + '</header>';\n  const footer = shellSettings.showFooter ? '<footer class="ui-presentation-footer">' + shellSettings.footerText + '</footer>' : '';\n  return '<div class="ui-presentation-shell shell-' + shell + '">' + header + '<main class="ui-presentation-main">' + content + '</main>' + footer + '</div>';\n}\n`;
   await atomicWriteText(path.join(root(key), 'runtime.ts'), module);
 }
 export async function rollbackPresentation(key: string, sourceVersion: number): Promise<ApplicationPresentationStatus> {

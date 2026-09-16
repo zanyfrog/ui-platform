@@ -28,4 +28,38 @@ describe('application presentation contracts', () => {
   it('rejects asset paths that leave application presentation storage', () => {
     expect(() => validatePresentation({ ...defaultPresentation(), assets: [{ id: 'bad', name: 'Bad', type: 'image', path: '../outside.png', active: true }] })).toThrow('within presentation/assets');
   });
+
+  it('stores only link CTAs for an assigned, enabled or disabled application hero', () => {
+    const presentation = validatePresentation({
+      ...defaultPresentation(),
+      heroes: {
+        welcome: {
+          id: 'welcome', enabled: false, variant: 'image-background',
+          data: {
+            headline: 'Welcome',
+            action_components: JSON.stringify([
+              { label: 'Learn more', type: 'link', value: '/learn-more' },
+              { label: 'Do work', type: 'action', value: 'DO_WORK' },
+              { label: 'Contact', type: 'link', value: '/contact' },
+              { label: 'Extra', type: 'link', value: '/extra' },
+            ]),
+          },
+        },
+      },
+      layout: { ...defaultPresentation().layout, routes: { '/': { heroId: 'welcome' } } },
+    });
+    const actions = JSON.parse(String(presentation.heroes.welcome.data.action_components));
+    expect(presentation.heroes.welcome.enabled).toBe(false);
+    expect(actions).toEqual([
+      expect.objectContaining({ label: 'Learn more', type: 'link' }),
+      expect.objectContaining({ label: 'Contact', type: 'link' }),
+    ]);
+  });
+
+  it('rejects route hero assignments that do not exist', () => {
+    expect(() => validatePresentation({
+      ...defaultPresentation(),
+      layout: { ...defaultPresentation().layout, routes: { '/': { heroId: 'missing' } } },
+    })).toThrow('unknown hero');
+  });
 });

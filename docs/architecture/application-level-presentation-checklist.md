@@ -1,6 +1,6 @@
 # Application-Level Presentation: Implementation Checklist
 
-This checklist records the agreed v1 boundary: versioned application styling and local assets; runtime tokens/CSS only; no shell, template, hero, or responsive-rule artifacts until they can be rendered; and component metadata defined by the platform pending a separate UI Base adoption.
+This checklist records the agreed v1 boundary: versioned application styling, local assets, rendered shells/templates, and UI Base-powered reusable heroes. Component metadata is defined by the platform pending a separate UI Base adoption.
 
 - [x] Define and validate application-presentation contracts.
 - [x] Store a mutable draft plus immutable, checksummed published versions.
@@ -18,6 +18,10 @@ This checklist records the agreed v1 boundary: versioned application styling and
 - [x] Add public, authenticated, and minimal shell runtime with route-derived navigation.
 - [x] Add Standard Content, Two Column, Dashboard, Form, and Detail Record template runtime defaults.
 - [x] Add dashboard controls for shell settings, route-derived navigation, and per-route shell/template selection.
-- [ ] Add reusable hero definitions and page-level hero selection.
-- [ ] Test validation, publishing, rollback, active CSS output, asset paths, and compatibility.
+- [x] Add reusable hero definitions and page-level hero selection using `@ui-base/hero`.
+- [x] Use the UI Base hero editor and its embedded preview; persist only up to two link CTAs.
+- [x] Resolve hero image asset IDs against this application's local asset map.
+- [x] Omit an unassigned or disabled hero at runtime rather than hiding it with CSS.
+- [x] Validate hero assignment and core styling/asset rules.
+- [ ] Test full publish, rollback, active CSS output, and generated-runtime compatibility.
 - [ ] Document CSS precedence, public schema, lifecycle, and deferred structural artifacts.
