@@ -30,6 +30,23 @@ export const WELL_KNOWN_PACKAGE_CAPABILITIES = [
 export type UibPackageCapability = (typeof WELL_KNOWN_PACKAGE_CAPABILITIES)[number] | (string & {});
 export type UibServiceRequirements = Record<string, string>;
 
+/**
+ * Describes a component setting that may be supplied by application-level
+ * presentation.  Providers own this list so applications cannot silently set
+ * behavioural or inaccessible component properties.
+ */
+export interface UibComponentPresentationSetting {
+  type: 'string' | 'number' | 'boolean' | 'select';
+  default?: string | number | boolean;
+  options?: Array<string | number>;
+  inheritable?: boolean;
+  accessibilityLocked?: boolean;
+}
+
+export interface UibComponentPresentationMetadata {
+  settings: Record<string, UibComponentPresentationSetting>;
+}
+
 export interface UibComponentManifestEntry {
   name: string;
   tagName: string;
@@ -43,6 +60,7 @@ export interface UibComponentManifestEntry {
   properties?: string[];
   events?: string[];
   slots?: string[];
+  presentation?: UibComponentPresentationMetadata;
 }
 
 export interface UibSettingsManifest {
@@ -226,7 +244,26 @@ function validateComponents(value: unknown, issues: string[]): void {
     if (component.module !== undefined && (typeof component.module !== 'string' || !isPackageRelativeModulePath(component.module))) {
       issues.push(`components[${index}].module must be a package-relative path beginning with ./ and must not escape the package root.`);
     }
+    if (component.presentation !== undefined) validateComponentPresentation(component.presentation, `components[${index}].presentation`, issues);
   });
+}
+
+function validateComponentPresentation(value: unknown, prefix: string, issues: string[]): void {
+  if (!isRecord(value) || !isRecord(value.settings)) {
+    issues.push(`${prefix}.settings must be an object.`);
+    return;
+  }
+  for (const [name, setting] of Object.entries(value.settings)) {
+    if (!isRecord(setting) || !['string', 'number', 'boolean', 'select'].includes(String(setting.type))) {
+      issues.push(`${prefix}.settings.${name}.type must be string, number, boolean, or select.`);
+      continue;
+    }
+    if (setting.type === 'select' && (!Array.isArray(setting.options) || !setting.options.length || setting.options.some((option) => typeof option !== 'string' && typeof option !== 'number'))) {
+      issues.push(`${prefix}.settings.${name}.options must be a non-empty string/number array for select settings.`);
+    }
+    if (setting.inheritable !== undefined && typeof setting.inheritable !== 'boolean') issues.push(`${prefix}.settings.${name}.inheritable must be a boolean.`);
+    if (setting.accessibilityLocked !== undefined && typeof setting.accessibilityLocked !== 'boolean') issues.push(`${prefix}.settings.${name}.accessibilityLocked must be a boolean.`);
+  }
 }
 
 function isPackageRelativeModulePath(value: string): boolean {

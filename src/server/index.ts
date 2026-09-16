@@ -18,6 +18,7 @@ import { installManualPackage } from './package-installer.js';
 import { addAppFoundationDependencies, getAppFoundationDependencies, installGitHubFoundationSource, listFoundationSources, migrateFoundationSourceUpdate, previewFoundationSourceUpdate, refreshFoundationSource } from './foundation-sources.js';
 import { getUnifiedPackageCatalog, removeUnusedFoundationSource } from './unified-package-catalog.js';
 import { acquirePackageFromUrl } from './package-acquisition.js';
+import { getActivePresentationCss, getApplicationPresentation, getDraftPresentationCss, getPresentationAssetPath, initializeApplicationPresentation, publishPresentation, removePresentationAsset, rollbackPresentation, savePresentationDraft, uploadPresentationAsset } from './application-presentation.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const sseClients = new Set<http.ServerResponse>();
@@ -182,6 +183,41 @@ const server = http.createServer(async (req, res) => {
         return json(res, 200, await movePageSource(key, String(input.source), String(input.destination)));
       }
       if (parts.length === 4 && parts[3] === 'components' && method === 'GET') return json(res, 200, await discoverComponents(key));
+      if (parts.length === 4 && parts[3] === 'presentation' && method === 'GET') return json(res, 200, await getApplicationPresentation(key));
+      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'initialize' && method === 'POST') return json(res, 201, await initializeApplicationPresentation(key));
+      if (parts.length === 4 && parts[3] === 'presentation' && method === 'PUT') return json(res, 200, await savePresentationDraft(key, await body(req)));
+      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'publish' && method === 'POST') return json(res, 200, await publishPresentation(key));
+      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'rollback' && method === 'POST') {
+        const input = await body(req);
+        return json(res, 200, await rollbackPresentation(key, Number(input.version)));
+      }
+      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'active.css' && method === 'GET') {
+        const css = await getActivePresentationCss(key);
+        if (css === null) return json(res, 404, { error: 'No active presentation version.' });
+        res.writeHead(200, { 'content-type': 'text/css; charset=utf-8', 'cache-control': 'no-store' });
+        return res.end(css);
+      }
+      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'draft.css' && method === 'GET') {
+        const css = await getDraftPresentationCss(key);
+        if (css === null) return json(res, 404, { error: 'No presentation draft.' });
+        res.writeHead(200, { 'content-type': 'text/css; charset=utf-8', 'cache-control': 'no-store', 'access-control-allow-origin': '*' });
+        return res.end(css);
+      }
+      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'assets' && method === 'POST') {
+        const input = await body(req);
+        if (!isMultipartBody(input) || !input.files.asset) throw new Error('Upload an asset file using the asset field.');
+        const file = input.files.asset;
+        return json(res, 201, await uploadPresentationAsset(key, { id: String(input.fields.id ?? ''), name: String(input.fields.name ?? ''), type: String(input.fields.type ?? 'other') as any, alt: input.fields.alt, filename: file.filename, content: file.content }));
+      }
+      if (parts.length === 6 && parts[3] === 'presentation' && parts[4] === 'assets' && method === 'DELETE') return json(res, 200, await removePresentationAsset(key, decodeURIComponent(parts[5])));
+      if (parts.length === 6 && parts[3] === 'presentation' && parts[4] === 'assets' && method === 'GET') {
+        const file = await getPresentationAssetPath(key, decodeURIComponent(parts[5]));
+        const info = await stat(file);
+        const extension = path.extname(file).toLowerCase();
+        const contentType = extension === '.svg' ? 'image/svg+xml' : extension === '.png' ? 'image/png' : extension === '.jpg' || extension === '.jpeg' ? 'image/jpeg' : extension === '.webp' ? 'image/webp' : extension === '.ico' ? 'image/x-icon' : 'application/octet-stream';
+        res.writeHead(200, { 'content-type': contentType, 'cache-control': 'no-store', 'content-length': String(info.size) });
+        return createReadStream(file).pipe(res);
+      }
       if (parts.length >= 6 && parts[3] === 'package-assets' && method === 'GET') {
         const packageName = decodeURIComponent(parts[4]);
         const modulePath = `./${decodeURIComponent(parts.slice(5).join('/'))}`;

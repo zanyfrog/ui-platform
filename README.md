@@ -31,3 +31,16 @@ Packages may provide `ui.component.json` with a `components` array. The platform
 The editor marks pages as supported, partial, or code-managed. Source edits become dirty immediately, are automatically saved after three seconds of inactivity, and remain available through an explicit Save button while dirty.
 
 See `../docs/UI-PLATFORM-V1-TECHNICAL-SPEC.md`.
+
+## Application Presentation
+
+Application Presentation is opt-in and filesystem-first. Initializing it for an
+application creates `presentation/presentation.manifest.json`, a mutable
+`presentation/draft/presentation.json`, local `presentation/assets`, and an
+`active.css` file imported after UI Base styles by the application runtime.
+
+The platform supports draft saves, immutable published versions, and rollback
+by publishing a prior version as the next version. The active stylesheet is
+also available at `GET /api/apps/:key/presentation/active.css`. See
+`docs/architecture/application-level-presentation-checklist.md` for the agreed
+v1 boundary and deferred work.

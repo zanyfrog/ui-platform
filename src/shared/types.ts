@@ -90,6 +90,15 @@ export interface ComponentManifestEntry {
   properties?: string[];
   events?: string[];
   slots?: string[];
+  presentation?: {
+    settings: Record<string, {
+      type: 'string' | 'number' | 'boolean' | 'select';
+      default?: string | number | boolean;
+      options?: Array<string | number>;
+      inheritable?: boolean;
+      accessibilityLocked?: boolean;
+    }>;
+  };
 }
 
 export interface ComponentCatalogEntry extends ComponentManifestEntry {

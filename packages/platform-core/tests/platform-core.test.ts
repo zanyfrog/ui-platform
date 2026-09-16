@@ -14,6 +14,8 @@ import {
   ServiceRegistry,
   ServiceRegistryError,
   validatePackageManifest,
+  APPLICATION_PRESENTATION_SERVICE_KEY,
+  APPLICATION_PRESENTATION_SERVICE_VERSION,
 } from '../src/index.js';
 
 describe('@uib/platform-core', () => {
@@ -37,6 +39,12 @@ describe('@uib/platform-core', () => {
           name: 'Calendar',
           tagName: 'uib-calendar',
           module: './dist/calendar.js',
+          presentation: {
+            settings: {
+              density: { type: 'select', options: ['compact', 'comfortable'], inheritable: true },
+              minTargetSize: { type: 'number', accessibilityLocked: true },
+            },
+          },
         },
       ],
       data: {
@@ -89,6 +97,11 @@ describe('@uib/platform-core', () => {
     expect(registry.get<typeof fakeSettings>('settings', '^1.0.0').get('theme')).toBe('value:theme');
     expect(registry.has('settings', '^1.0.0')).toBe(true);
     expect(() => registry.get('settings', '^2.0.0')).toThrow(ServiceRegistryError);
+  });
+
+  it('exposes a stable application-presentation service contract identifier', () => {
+    expect(APPLICATION_PRESENTATION_SERVICE_KEY).toBe('application-presentation');
+    expect(APPLICATION_PRESENTATION_SERVICE_VERSION).toBe('1.0.0');
   });
 
   it('checks initial supported semver compatibility rules', () => {

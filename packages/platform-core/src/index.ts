@@ -7,3 +7,4 @@ export * from './manifest.js';
 export * from './manifest-discovery.js';
 export * from './package-catalog.js';
 export * from './service-registry.js';
+export * from './application-presentation.js';

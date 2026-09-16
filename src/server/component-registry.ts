@@ -73,6 +73,7 @@ function toComponentCatalogEntry(
     properties: entry.properties,
     events: entry.events,
     slots: entry.slots,
+    presentation: entry.presentation,
     packageName,
     packageVersion,
     source,

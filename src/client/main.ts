@@ -253,6 +253,116 @@ function settingControl(def: TemplateSettingDefinition, settings: any): string {
   return `<uib-forms-textbox ${common} value="${esc(value ?? '')}"></uib-forms-textbox>`;
 }
 
+async function mountPresentation(target: HTMLElement, key: string): Promise<void> {
+  const endpoint = `/api/apps/${encodeURIComponent(key)}/presentation`;
+  try {
+    const status = await api<any>(endpoint);
+    if (!status.initialized) {
+      target.innerHTML = `<section class="presentation-empty"><div><span class="presentation-orb">${icon('calendar')}</span><h2>Establish your application presentation</h2><p>Set shared styling, assets, and application-wide display defaults. Nothing changes in the app until you publish.</p></div>${actionButton('presentation-initialize', 'Initialize Presentation', { variant: 'primary' })}</section>`;
+      target.querySelector('[data-action="presentation-initialize"]')?.addEventListener('click', async () => { await api(`${endpoint}/initialize`, { method: 'POST' }); await mountPresentation(target, key); });
+      return;
+    }
+    const draft = status.draft;
+    const colors = Object.entries(draft.tokens).filter(([name]) => name.includes('color')).slice(0, 6);
+    const active = status.manifest.activeVersion === null ? 'Draft only' : `v${status.manifest.activeVersion} active`;
+    target.innerHTML = `<section class="presentation-overview">
+      <header class="presentation-header"><div><h2>Presentation</h2><p>Manage the visual design, layout, and presentation settings for this application.</p></div><div class="presentation-actions"><span class="presentation-version">${esc(active)}</span><span class="presentation-published">${status.manifest.versions.at(-1)?.publishedAt ? `Published ${esc(new Date(status.manifest.versions.at(-1).publishedAt).toLocaleString())}` : 'Not published yet'}</span>${actionButton('presentation-publish', 'Publish Changes', { variant: 'primary' })}</div></header>
+      <div class="presentation-grid"><div class="presentation-sections">
+        <article class="presentation-card"><button class="presentation-card-heading" data-presentation-edit="styling"><span class="presentation-orb">${icon('calendar')}</span><span><strong>Styling</strong><small>Customize your brand, colors, typography, and visual style.</small></span><b>›</b></button><div class="presentation-card-body styling-summary"><div><strong>Brand Colors</strong><span class="color-swatches">${colors.map(([, value]) => `<i style="background:${esc(value)}"></i>`).join('') || '<em>No colors yet</em>'}</span></div><div><strong>Typography</strong><span class="type-sample">Aa</span><small>${esc(draft.typography['--app-font-body'] ?? draft.tokens['--app-font-body'] ?? 'System')}</small></div><button type="button" data-presentation-edit="styling"><strong>Design Tokens & CSS</strong><small>${Object.keys(draft.tokens).length} tokens · ${draft.css.trim() ? 'custom CSS' : 'no custom CSS'}</small></button></div></article>
+        <article class="presentation-card"><button class="presentation-card-heading" data-presentation-layout><span class="presentation-orb">${icon('calendar')}</span><span><strong>Layout &amp; Structure</strong><small>Shared shell/template runtime and route-derived navigation are active.</small></span><b>›</b></button><div class="presentation-card-body structure-summary">${[['Application Shell',`${draft.layout.defaultShell} is the default shell.`],['Navigation','Generated from application routes.'],['Heroes','Reusable hero editor is next.'],['Page Templates',`${draft.layout.defaultTemplate} is the default template.`]].map(([title, detail], index) => `<div><strong>${title}</strong><small>${detail}</small><em>${index < 2 ? 'Active default' : 'Next phase'}</em></div>`).join('')}</div></article>
+        <article class="presentation-card"><button class="presentation-card-heading" data-presentation-assets><span class="presentation-orb">${icon('info')}</span><span><strong>Assets</strong><small>Manage logos, images, icons, and other brand assets.</small></span><b>›</b></button><div class="presentation-card-body asset-summary">${draft.assets.length ? draft.assets.slice(0, 4).map((asset: any) => `<div class="asset-chip"><strong>${esc(asset.name)}</strong><small>${esc(asset.type)}</small><button type="button" data-remove-asset="${esc(asset.id)}" aria-label="Remove ${esc(asset.name)}">×</button></div>`).join('') : '<p class="note">No local assets yet.</p>'}<button type="button" class="asset-upload-button" data-presentation-assets>＋ Upload asset</button></div></article>
+      </div><aside class="presentation-preview"><div class="preview-heading"><span class="presentation-orb">${icon('external-link')}</span><span><strong>Preview</strong><small>See how your draft changes look in the application.</small></span></div><div class="preview-modes"><button data-preview-mode="desktop" class="is-selected">Desktop</button><button data-preview-mode="tablet">Tablet</button><button data-preview-mode="mobile">Mobile</button></div><div class="presentation-preview-canvas"><p>Starting draft preview…</p></div><p class="draft-note">Your changes are saved as a draft until you publish.</p></aside></div></section>`;
+    target.querySelector('[data-action="presentation-publish"]')?.addEventListener('click', async () => { await api(`${endpoint}/publish`, { method: 'POST' }); await mountPresentation(target, key); });
+    target.querySelectorAll('[data-presentation-edit]').forEach((button) => button.addEventListener('click', () => void mountPresentationEditor(target, key)));
+    target.querySelectorAll('[data-presentation-layout]').forEach((button) => button.addEventListener('click', () => void mountPresentationLayout(target, key)));
+    target.querySelectorAll('[data-presentation-assets]').forEach((button) => button.addEventListener('click', () => void mountPresentationAssets(target, key)));
+    target.querySelectorAll<HTMLButtonElement>('[data-remove-asset]').forEach((button) => button.addEventListener('click', async () => { if (!confirm('Remove this local asset?')) return; await api(`${endpoint}/assets/${encodeURIComponent(button.dataset.removeAsset!)}`, { method: 'DELETE' }); await mountPresentation(target, key); }));
+    const canvas = target.querySelector<HTMLElement>('.presentation-preview-canvas')!;
+    const preview = async (mode: string) => {
+      canvas.className = `presentation-preview-canvas mode-${mode}`;
+      const started = await api<{ url: string }>(`/api/apps/${encodeURIComponent(key)}/preview`, { method: 'POST' });
+      const url = new URL(started.url); url.searchParams.set('ui-presentation-draft-css', new URL(`${endpoint}/draft.css`, window.location.origin).toString());
+      canvas.innerHTML = `<iframe class="presentation-preview-frame" title="${esc(draft.name)} ${esc(mode)} preview" src="${esc(url.toString())}"></iframe>`;
+    };
+    target.querySelectorAll<HTMLButtonElement>('[data-preview-mode]').forEach((button) => button.addEventListener('click', () => { target.querySelectorAll('[data-preview-mode]').forEach((item) => item.classList.toggle('is-selected', item === button)); void preview(button.dataset.previewMode!); }));
+    void preview('desktop');
+  } catch (error) { target.innerHTML = `<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`; }
+}
+
+async function mountPresentationAssets(target: HTMLElement, key: string): Promise<void> {
+  const endpoint = `/api/apps/${encodeURIComponent(key)}/presentation`;
+  target.innerHTML = `<section class="presentation-editor"><button type="button" class="back-link" data-presentation-back>‹ Presentation overview</button><h2>Assets</h2><p class="note">Assets stay with this application and are portable when it is exported.</p><form id="assetUploadForm" class="asset-upload-form"><label>Asset ID<input name="id" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="brand-logo"></label><label>Name<input name="name" required placeholder="Brand logo"></label><label>Type<select name="type"><option value="logo">Logo</option><option value="image">Image</option><option value="icon">Icon</option><option value="illustration">Illustration</option><option value="background">Background</option><option value="favicon">Favicon</option><option value="other">Other</option></select></label><label>Alt text<input name="alt" placeholder="Company logo"></label><label>File<input name="asset" type="file" required></label>${actionButton('asset-upload', 'Upload asset', { variant: 'primary', type: 'submit' })}<div id="assetUploadMessage"></div></form></section>`;
+  target.querySelector('[data-presentation-back]')?.addEventListener('click', () => void mountPresentation(target, key));
+  target.querySelector<HTMLFormElement>('#assetUploadForm')?.addEventListener('submit', async (event) => { event.preventDefault(); const form = event.currentTarget as HTMLFormElement; try { await fetch(`${endpoint}/assets`, { method: 'POST', body: new FormData(form) }).then(async (response) => { if (!response.ok) throw new Error((await response.json()).error ?? 'Upload failed.'); }); await mountPresentation(target, key); } catch (error) { target.querySelector('#assetUploadMessage')!.innerHTML = `<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`; } });
+}
+
+async function mountPresentationLayout(target: HTMLElement, key: string): Promise<void> {
+  const endpoint = `/api/apps/${encodeURIComponent(key)}/presentation`;
+  const [status, app] = await Promise.all([api<any>(endpoint), api<any>(`/api/apps/${encodeURIComponent(key)}`)]);
+  const draft = status.draft; const layout = draft.layout;
+  const options = (values: string[], selected: string) => values.map((value) => `<option value="${value}"${value === selected ? ' selected' : ''}>${value.replace(/-/g, ' ')}</option>`).join('');
+  const configured = new Map<string, any>(layout.navigation.map((item: any) => [item.route, item]));
+  target.innerHTML = `<section class="presentation-editor layout-editor"><button type="button" class="back-link" data-presentation-back>‹ Presentation overview</button><h2>Layout &amp; Structure</h2><p class="note">These defaults wrap existing page content without changing page source files.</p><form id="presentationLayoutForm" class="stack"><div class="presentation-quick-fields"><label>Default shell<select name="defaultShell">${options(['public','authenticated','minimal'], layout.defaultShell)}</select></label><label>Default template<select name="defaultTemplate">${options(['standard','two-column','dashboard','form','detail-record'], layout.defaultTemplate)}</select></label></div><h3>Shells</h3><div class="shell-settings">${(['public','authenticated','minimal'] as const).map((shell) => { const settings = layout.shells[shell]; return `<fieldset><legend>${shell}</legend><label>Logo asset ID<input name="${shell}-logo" value="${esc(settings.logoAssetId ?? '')}" placeholder="brand-logo"></label><label><input type="checkbox" name="${shell}-navigation"${settings.showNavigation ? ' checked' : ''}> Show navigation</label><label>Navigation placement<select name="${shell}-placement">${options(['top','side'], settings.navigationPlacement)}</select></label><label><input type="checkbox" name="${shell}-footer"${settings.showFooter ? ' checked' : ''}> Show footer</label><label>Footer text<input name="${shell}-footerText" value="${esc(settings.footerText)}"></label></fieldset>`; }).join('')}</div><h3>Route navigation and overrides</h3><div class="route-layout-list">${app.pages.map((route: string, index: number) => { const item: any = configured.get(route) ?? {}; const assignment = layout.routes[route] ?? {}; return `<fieldset><legend>${esc(route)}</legend><label>Label<input name="route-${index}-label" value="${esc(item.label ?? (route === '/' ? 'Home' : route.split('/').filter(Boolean).join(' ')))}"></label><label>Icon<input name="route-${index}-icon" value="${esc(item.icon ?? '')}" placeholder="semantic icon"></label><label>Order<input name="route-${index}-order" type="number" value="${esc(item.order ?? index)}"></label><label><input type="checkbox" name="route-${index}-visible"${item.visible !== false ? ' checked' : ''}> Show in navigation</label><label>Shell override<select name="route-${index}-shell"><option value="">Use default</option>${options(['public','authenticated','minimal'], assignment.shell ?? '')}</select></label><label>Template override<select name="route-${index}-template"><option value="">Use default</option>${options(['standard','two-column','dashboard','form','detail-record'], assignment.template ?? '')}</select></label></fieldset>`; }).join('')}</div>${actionButton('presentation-layout-save', 'Save Layout Draft', { variant: 'primary', type: 'submit' })}<div id="layoutMessage"></div></form></section>`;
+  target.querySelector('[data-presentation-back]')?.addEventListener('click', () => void mountPresentation(target, key));
+  target.querySelector<HTMLFormElement>('#presentationLayoutForm')!.addEventListener('submit', async (event) => { event.preventDefault(); const form = event.currentTarget as HTMLFormElement; const data = new FormData(form); const shells = Object.fromEntries(['public','authenticated','minimal'].map((shell) => [shell, { logoAssetId: String(data.get(`${shell}-logo`) ?? '') || undefined, showNavigation: data.has(`${shell}-navigation`), navigationPlacement: String(data.get(`${shell}-placement`)), showFooter: data.has(`${shell}-footer`), footerText: String(data.get(`${shell}-footerText`) ?? '') }])); const navigation = app.pages.map((route: string, index: number) => ({ route, label: String(data.get(`route-${index}-label`) ?? ''), icon: String(data.get(`route-${index}-icon`) ?? '') || undefined, visible: data.has(`route-${index}-visible`), order: Number(data.get(`route-${index}-order`) ?? index) })); const routes = Object.fromEntries(app.pages.map((route: string, index: number) => [route, { ...(data.get(`route-${index}-shell`) ? { shell: String(data.get(`route-${index}-shell`)) } : {}), ...(data.get(`route-${index}-template`) ? { template: String(data.get(`route-${index}-template`)) } : {}) }])); try { await api(endpoint, { method: 'PUT', body: JSON.stringify({ ...draft, layout: { defaultShell: data.get('defaultShell'), defaultTemplate: data.get('defaultTemplate'), shells, navigation, routes } }) }); await mountPresentation(target, key); } catch (error) { target.querySelector('#layoutMessage')!.innerHTML = `<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`; } });
+}
+
+async function mountPresentationEditor(target: HTMLElement, key: string): Promise<void> {
+  const endpoint = `/api/apps/${encodeURIComponent(key)}/presentation`;
+  try {
+    const status = await api<any>(endpoint);
+    if (!status.initialized) {
+      target.innerHTML = `<uib-panel class="content-panel" heading="Application Presentation"><p class="note">Presentation is opt-in. Initializing creates an editable draft with UI Base-compatible token defaults; it does not alter the current application until you publish.</p><div class="actions">${actionButton('presentation-initialize', 'Initialize Presentation', { variant: 'primary' })}</div><div id="presentationMessage"></div></uib-panel>`;
+      target.querySelector('[data-action="presentation-initialize"]')?.addEventListener('click', async () => {
+        try { await api(`${endpoint}/initialize`, { method: 'POST' }); await mountPresentation(target, key); }
+        catch (error) { target.querySelector('#presentationMessage')!.innerHTML = `<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`; }
+      });
+      return;
+    }
+    const draft = status.draft;
+    const active = status.manifest.activeVersion === null ? 'Not published' : `v${status.manifest.activeVersion}`;
+    target.innerHTML = `<uib-panel class="content-panel" heading="Application Presentation">
+      <button type="button" class="back-link" data-presentation-back>‹ Presentation overview</button>
+      <p class="note">Active: <strong>${esc(active)}</strong>. Draft ${status.draftDiffersFromActive ? 'differs from active' : 'matches active'}. Published application CSS is served at <code>${esc(endpoint)}/active.css</code>.</p>
+      <form id="presentationForm" class="stack">
+        <label><span>Presentation name</span><input name="name" value="${esc(draft.name)}"></label>
+        <div class="presentation-quick-fields"><label><span>Primary color</span><input name="primaryColor" type="color" value="${esc(draft.tokens['--app-color-primary'] ?? '#1f4f8f')}"></label><label><span>Surface color</span><input name="surfaceColor" type="color" value="${esc(draft.tokens['--app-color-surface'] ?? '#ffffff')}"></label><label><span>Body font</span><input name="bodyFont" value="${esc(draft.typography['--app-font-body'] ?? draft.tokens['--app-font-body'] ?? '')}" placeholder="Inter, sans-serif"></label></div>
+        <label><span>Application CSS</span><textarea name="css" rows="12">${esc(draft.css)}</textarea></label>
+        <details class="presentation-advanced"><summary>Advanced design tokens and component defaults</summary><label><span>Design tokens (JSON)</span><textarea name="tokens" rows="10">${esc(JSON.stringify(draft.tokens, null, 2))}</textarea></label><label><span>Typography tokens (JSON)</span><textarea name="typography" rows="6">${esc(JSON.stringify(draft.typography, null, 2))}</textarea></label><label><span>Component defaults (available when UI Base metadata is supplied)</span><textarea name="componentDefaults" rows="6">${esc(JSON.stringify(draft.componentDefaults, null, 2))}</textarea></label></details>
+        <input type="hidden" name="assets" value="${esc(JSON.stringify(draft.assets))}">
+        <div class="actions">${actionButton('presentation-save', 'Save Draft', { variant: 'primary', type: 'submit' })}${actionButton('presentation-publish', 'Publish', { variant: 'muted' })}</div>
+        <div id="presentationMessage"></div>
+      </form>
+      ${status.manifest.versions.length ? `<div class="presentation-versions"><strong>Published versions</strong><ul>${status.manifest.versions.map((version: any) => `<li>v${esc(version.version)} · ${esc(version.publishedAt)} <button type="button" data-presentation-rollback="${esc(version.version)}">Restore as next version</button></li>`).join('')}</ul></div>` : ''}
+    </uib-panel>`;
+    const form = target.querySelector<HTMLFormElement>('#presentationForm')!;
+    target.querySelector('[data-presentation-back]')?.addEventListener('click', () => void mountPresentation(target, key));
+    const read = () => {
+      const data = new FormData(form);
+      const tokens = JSON.parse(String(data.get('tokens') ?? '{}')); const typography = JSON.parse(String(data.get('typography') ?? '{}'));
+      tokens['--app-color-primary'] = String(data.get('primaryColor') ?? ''); tokens['--app-color-surface'] = String(data.get('surfaceColor') ?? ''); typography['--app-font-body'] = String(data.get('bodyFont') ?? '');
+      return { name: String(data.get('name') ?? ''), tokens, typography, css: String(data.get('css') ?? ''), componentDefaults: JSON.parse(String(data.get('componentDefaults') ?? '{}')), layout: draft.layout, assets: JSON.parse(String(data.get('assets') ?? '[]')) };
+    };
+    const message = (value: string, failure = false) => { target.querySelector('#presentationMessage')!.innerHTML = failure ? `<div class="error">${esc(value)}</div>` : `<p>${esc(value)}</p>`; };
+    const save = async () => { await api(endpoint, { method: 'PUT', body: JSON.stringify(read()) }); };
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      try { await save(); message('Draft saved.'); }
+      catch (error) { message(error instanceof Error ? error.message : String(error), true); }
+    });
+    target.querySelector('[data-action="presentation-publish"]')?.addEventListener('click', async () => {
+      try { await save(); await api(`${endpoint}/publish`, { method: 'POST' }); await mountPresentation(target, key); }
+      catch (error) { message(error instanceof Error ? error.message : String(error), true); }
+    });
+    target.querySelectorAll<HTMLButtonElement>('[data-presentation-rollback]').forEach((button) => button.addEventListener('click', async () => {
+      try { await api(`${endpoint}/rollback`, { method: 'POST', body: JSON.stringify({ version: Number(button.dataset.presentationRollback) }) }); await mountPresentation(target, key); }
+      catch (error) { message(error instanceof Error ? error.message : String(error), true); }
+    }));
+  } catch (error) {
+    target.innerHTML = `<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`;
+  }
+}
+
 async function renderApp(key: string, startPreview = false): Promise<void> {
   currentKey = key;
   const app = await api<any>(`/api/apps/${encodeURIComponent(key)}`);
@@ -278,6 +388,7 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
       <uib-tab>${icon('info')}<span>Overview</span></uib-tab>
       <uib-tab>${icon('calendar')}<span>Pages</span></uib-tab>
       <uib-tab>${icon('info')}<span>Packages</span></uib-tab>
+      <uib-tab>${icon('calendar')}<span>Presentation</span></uib-tab>
       <uib-tab>${icon('external-link')}<span>Preview</span></uib-tab>
       <uib-tab>${icon('chevron-down')}<span>Settings</span></uib-tab>
       <uib-tab-panel>
@@ -298,6 +409,7 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
       </uib-tab-panel>
       <uib-tab-panel><div id="builderTarget"></div></uib-tab-panel>
       <uib-tab-panel><div id="appPackagesTarget"></div></uib-tab-panel>
+      <uib-tab-panel><div id="presentationTarget"></div></uib-tab-panel>
       <uib-tab-panel>
         <uib-panel class="content-panel" heading="Current Preview">
           <div id="previewTarget"><p class="note">Click Current Preview to start this app through the platform-managed preview runtime.</p></div>
@@ -311,6 +423,7 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
     </uib-tabs>`);
   void mountBuilder(root!.querySelector<HTMLElement>('#builderTarget')!, { key: app.key, name: app.name });
   void mountAppPackages(root!.querySelector<HTMLElement>('#appPackagesTarget')!, app.key);
+  void mountPresentation(root!.querySelector<HTMLElement>('#presentationTarget')!, app.key);
 
   const form = root!.querySelector<HTMLFormElement>('#settingsForm')!;
   const saveButton = form.querySelector<HTMLButtonElement>('[data-action="save"]')!;
@@ -387,10 +500,10 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
     finally { previewStarting = false; }
   };
   tabs.addEventListener('uib-tabs-change', (event: Event) => {
-    if (Number((event as CustomEvent<{ newValue?: number }>).detail?.newValue) === 3) void preview();
+    if (Number((event as CustomEvent<{ newValue?: number }>).detail?.newValue) === 4) void preview();
   });
   root!.querySelector('[data-action="preview"]')?.addEventListener('click', () => {
-    tabs.selected = '3';
+    tabs.selected = '4';
     void preview();
   });
   root!.querySelector('[data-action="export"]')?.addEventListener('click', async () => {
@@ -403,7 +516,7 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
     catch(error) { alert(error instanceof Error ? error.message : String(error)); }
   });
   if (startPreview) {
-    tabs.selected = '3';
+    tabs.selected = '4';
     void preview();
   }
 }
