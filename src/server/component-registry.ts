@@ -37,14 +37,15 @@ async function packageEntries(packageDir: string): Promise<ComponentCatalogEntry
   if (!packageJson?.name) return [];
   const manifest = await json<unknown>(path.join(packageDir, 'ui.component.json'));
   const explicit = manifestEntries(manifest);
-  const entries: Array<ComponentManifestEntry & { metadataStatus: ComponentCatalogEntry['metadataStatus'] }> = explicit.length
-    ? explicit.map((entry) => ({ ...entry, metadataStatus: 'manifest' as const }))
-    : (await metadataTags(packageDir)).map((tagName) => ({ tagName, metadataStatus: 'package-metadata' as const }))
-    ;
-  if (!entries.length) {
-    entries.push(...Object.keys(packageJson.exports ?? {})
-      .filter((name) => !ignoredExportNames.has(name) && !name.endsWith('.css'))
-      .map((name) => ({ tagName: name.slice(2).replaceAll('/', '-'), importPath: name, metadataStatus: 'exports' as const })));
+  const inferred = await metadataTags(packageDir);
+  const knownTags = new Set(explicit.map((entry) => entry.tagName));
+  const entries: Array<ComponentManifestEntry & { metadataStatus: ComponentCatalogEntry['metadataStatus'] }> = [
+    ...explicit.map((entry) => ({ ...entry, metadataStatus: 'manifest' as const })),
+    ...inferred.filter((tagName) => !knownTags.has(tagName)).map((tagName) => ({ tagName, metadataStatus: 'package-metadata' as const })),
+  ];
+  for (const name of Object.keys(packageJson.exports ?? {}).filter((name) => !ignoredExportNames.has(name) && !name.endsWith('.css'))) {
+    const tagName = name.slice(2).replaceAll('/', '-');
+    if (!knownTags.has(tagName) && !inferred.includes(tagName)) entries.push({ tagName, importPath: name, metadataStatus: 'exports' as const });
   }
   return entries.map((entry) => toComponentCatalogEntry(entry, packageJson.name!, packageJson.version ?? '0.0.0'));
 }

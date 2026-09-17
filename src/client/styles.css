@@ -249,6 +249,12 @@ button:disabled { cursor:not-allowed; opacity:.55; }
 .presentation-advanced { display:grid; gap:.7rem; padding:1rem; border:1px solid #dce7f5; border-radius:8px; background:#f8fbff; }
 .presentation-advanced summary { cursor:pointer; color:#315d9a; font-weight:850; }
 .presentation-advanced label { display:grid; gap:.35rem; }
+.component-defaults { display:grid; gap:.7rem; padding:1rem; border:1px solid #dce7f5; border-radius:8px; background:#f8fbff; }
+.component-defaults h3 { margin:0; color:#172d57; }
+.component-defaults .note { margin:0; }
+.component-default-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr)); gap:.75rem; }
+.component-default-grid fieldset { display:grid; gap:.55rem; margin:0; padding:.8rem; border:1px solid #cbd9ec; border-radius:7px; background:#fff; }
+.component-default-grid label { display:grid; gap:.3rem; color:#3d557d; font-size:.82rem; font-weight:750; }
 .shell-settings, .route-layout-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:.85rem; }
 .shell-settings fieldset, .route-layout-list fieldset { display:grid; gap:.55rem; margin:0; padding:.9rem; border:1px solid #dce7f5; border-radius:8px; background:#fbfdff; }
 .shell-settings label, .route-layout-list label { display:grid; gap:.3rem; color:#3d557d; font-size:.82rem; font-weight:750; }

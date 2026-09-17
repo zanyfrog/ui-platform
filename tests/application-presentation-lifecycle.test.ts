@@ -31,8 +31,11 @@ describe('application presentation lifecycle', () => {
 
   it('stages drafts and atomically activates a published presentation bundle', async () => {
     const initial = await initializeApplicationPresentation('presentation-test');
+    const fixtureEntry = path.join(fixtureApps, 'presentation-test', 'src', 'main.ts');
+    const legacyEntry = await readFile(fixtureEntry, 'utf8');
+    await writeFile(fixtureEntry, legacyEntry.replace("import { composeApplicationPresentation } from '../presentation/runtime';\n", ''));
     const uploaded = await uploadPresentationAsset('presentation-test', { id: 'brand-mark', name: 'Brand mark', type: 'logo', filename: 'brand.svg', content: Buffer.from('<svg/>') });
-    const draft = { ...uploaded.draft!, tokens: { ...uploaded.draft!.tokens, '--app-color-primary': '#123456' }, heroes: { welcome: { id: 'welcome', enabled: true, variant: 'standard' as const, data: { headline: 'Welcome' } } }, layout: { ...uploaded.draft!.layout, routes: { '/': { heroId: 'welcome' } }, shells: { ...uploaded.draft!.layout.shells, authenticated: { ...uploaded.draft!.layout.shells.authenticated, logoAssetId: 'brand-mark' } } } };
+    const draft = { ...uploaded.draft!, tokens: { ...uploaded.draft!.tokens, '--app-color-primary': '#123456' }, componentDefaults: { 'uib-hero': { theme: 'dark' }, 'uib-heading': { size: 'large', align: 'center' } }, heroes: { welcome: { id: 'welcome', enabled: true, variant: 'standard' as const, data: { headline: 'Welcome' } } }, layout: { ...uploaded.draft!.layout, routes: { '/': { heroId: 'welcome' } }, shells: { ...uploaded.draft!.layout.shells, authenticated: { ...uploaded.draft!.layout.shells.authenticated, logoAssetId: 'brand-mark' } } } };
     await savePresentationDraft('presentation-test', draft);
 
     const app = path.join(fixtureApps, 'presentation-test', 'presentation');
@@ -43,9 +46,16 @@ describe('application presentation lifecycle', () => {
     expect(published.manifest!.activeVersion).toBe(1);
     expect(await readFile(path.join(app, 'active.css'), 'utf8')).toContain('#123456');
     const runtime = await readFile(path.join(app, 'runtime.ts'), 'utf8');
+    const entry = await readFile(fixtureEntry, 'utf8');
     expect(runtime).toContain('brand-mark');
     expect(runtime).toContain('<uib-hero');
     expect(runtime).toContain('pageContent');
+    expect(runtime).toContain('"theme":"dark"');
+    expect(runtime).toContain('"uib-heading":{"size":"large","align":"center"}');
+    expect(runtime).toContain('applyComponentDefaults');
+    expect(entry).toContain("import { composeApplicationPresentation } from '../presentation/runtime';");
+    expect(entry).toContain('root!.innerHTML = composeApplicationPresentation(');
+    expect(entry.match(/ui-presentation-draft-css/g)).toHaveLength(1);
     expect(await readFile(path.join(app, 'versions', 'v1', 'assets', 'brand-mark', 'brand.svg'), 'utf8')).toContain('<svg/>');
     await expect(removePresentationAsset('presentation-test', 'brand-mark')).rejects.toThrow('still in use');
     expect(initial.manifest!.activeVersion).toBeNull();

@@ -1,6 +1,6 @@
 # Application-Level Presentation: Implementation Checklist
 
-This checklist records the agreed v1 boundary: versioned application styling, local assets, rendered shells/templates, and UI Base-powered reusable heroes. Component metadata is defined by the platform pending a separate UI Base adoption.
+This checklist records the agreed v1 boundary: versioned application styling, local assets, rendered shells/templates, and UI Base-powered reusable heroes. UI Base owns the allowlisted visual defaults that application presentation may inherit.
 
 - [x] Define and validate application-presentation contracts.
 - [x] Store a mutable draft plus immutable, checksummed published versions.
@@ -13,7 +13,9 @@ This checklist records the agreed v1 boundary: versioned application styling, lo
 - [x] Add a Presentation Manager with draft/active status and publish/rollback controls.
 - [x] Add desktop, tablet, and mobile preview modes for tokens/CSS.
 - [x] Specify component-provided presentation metadata and discovery behaviour.
-- [ ] Adopt that metadata in UI Base in a separate, coordinated change.
+- [x] Adopt Hero presentation metadata in UI Base for inheritable `theme`, `size`, and `visual_mode` defaults only.
+- [x] Adopt Heading presentation metadata in UI Base for inheritable `size` and `align` defaults only; heading level remains page-owned.
+- [x] Render component-default controls from UI Base metadata instead of requiring raw component-default JSON.
 - [x] Keep existing applications presentation-free until explicitly initialized.
 - [x] Add public, authenticated, and minimal shell runtime with route-derived navigation.
 - [x] Add Standard Content, Two Column, Dashboard, Form, and Detail Record template runtime defaults.
@@ -27,5 +29,6 @@ This checklist records the agreed v1 boundary: versioned application styling, lo
 - [x] Keep draft runtime configuration and draft assets out of the active runtime until Publish.
 - [x] Prevent removal of assets referenced by draft or active shells and heroes.
 - [x] Test full publish, draft-only rollback, active CSS output, staged assets, and emitted runtime configuration.
-- [ ] Compile and smoke-test a generated application bundle with its published presentation runtime.
+- [x] Compile and smoke-test a generated application bundle with its published presentation runtime.
+- [ ] Adopt similarly scoped presentation metadata for additional UI Base components as their ownership contracts are defined.
 - [x] Document CSS precedence, public schema, lifecycle, and deferred UI Base metadata adoption.

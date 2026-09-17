@@ -156,7 +156,10 @@ async function readVersion(key: string, version: number): Promise<ApplicationPre
 export async function initializeApplicationPresentation(key: string): Promise<ApplicationPresentationStatus> {
   const app = await getApp(key);
   const existing = await getApplicationPresentation(key);
-  if (existing.initialized) return existing;
+  if (existing.initialized) {
+    await ensurePresentationRuntimeImport(key);
+    return existing;
+  }
   const draft = defaultPresentation();
   const now = new Date().toISOString();
   const manifest: ApplicationPresentationManifest = { type: 'ui-platform.presentation', schemaVersion: APPLICATION_PRESENTATION_VERSION, applicationId: app.appId, activeVersion: null, draft: { exists: true, modifiedAt: now, checksum: checksum(draft) }, versions: [] };
@@ -185,9 +188,10 @@ export async function savePresentationDraft(key: string, value: unknown): Promis
 
 async function validateComponentDefaults(key: string, defaults: ApplicationPresentation['componentDefaults']): Promise<void> {
   if (!Object.keys(defaults).length) return;
-  const components = await discoverComponents(key);
+  const [applicationComponents, uiBaseComponents] = await Promise.all([discoverComponents(key), discoverComponents()]);
+  const components = new Map([...uiBaseComponents, ...applicationComponents].map((component) => [component.tagName, component]));
   for (const [tagName, settings] of Object.entries(defaults)) {
-    const component = components.find((entry) => entry.tagName === tagName);
+    const component = components.get(tagName);
     if (!component?.presentation) throw new Error(`${tagName} does not provide application-presentation metadata.`);
     for (const [name, value] of Object.entries(settings)) {
       const definition = component.presentation.settings[name];
@@ -211,6 +215,7 @@ export async function publishPresentation(key: string): Promise<ApplicationPrese
   await syncDraftAssetsToActive(key);
   await copyPresentationAssetsToVersion(key, version);
   await atomicWriteText(activeCssPath(key), css);
+  await ensurePresentationRuntimeImport(key);
   await writePresentationRuntime(key, draft);
   manifest.activeVersion = version;
   manifest.versions.push({ version, checksum: hash, publishedAt: now, actor: 'local-user' });
@@ -232,22 +237,24 @@ async function ensurePresentationRuntimeImport(key: string): Promise<void> {
   const runtimeMarker = 'ui-presentation-draft-css';
   const runtime = `const draftPresentationCss = new URLSearchParams(window.location.search).get('${runtimeMarker}');\nif (draftPresentationCss) {\n  const link = document.createElement('link');\n  link.rel = 'stylesheet';\n  link.href = draftPresentationCss;\n  document.head.append(link);\n}`;
   const source = await readFile(entry, 'utf8');
-  if (source.includes(marker) && source.includes(runtimeMarker) && source.includes(layoutImport)) return;
-  const withCss = source.includes(marker) ? source : source.replace(/(import ['\"]@ui-app\/app-services['\"];?)/, `$1\n${marker}`);
-  const cssReady = withCss.includes(marker) ? withCss : `${source}\n${marker}`;
+  const runtimeOccurrences = source.split(runtimeMarker).length - 1;
+  if (source.includes(marker) && runtimeOccurrences === 1 && source.includes(layoutImport)) return;
+  const withoutRuntime = source.replaceAll(runtime, '');
+  const withCss = withoutRuntime.includes(marker) ? withoutRuntime : withoutRuntime.replace(/(import ['\"]@ui-app\/app-services['\"];?)/, `$1\n${marker}`);
+  const cssReady = withCss.includes(marker) ? withCss : `${withoutRuntime}\n${marker}`;
   const withLayout = cssReady.includes(layoutImport) ? cssReady : cssReady.replace(marker, `${marker}\n${layoutImport}`);
   const rendered = withLayout.replace('root!.innerHTML = await page.render({ settings: config, route, navigate });', 'root!.innerHTML = composeApplicationPresentation({ content: await page.render({ settings: config, route, navigate }), route });');
-  await writeFile(entry, `${rendered}\n${runtime}\n`, 'utf8');
+  await writeFile(entry, `${rendered.trimEnd()}\n\n${runtime}\n`, 'utf8');
 }
 
 async function writePresentationRuntime(key: string, presentation: ApplicationPresentation): Promise<void> {
   const app = await getApp(key);
   const routes = app.pages.map((route) => ({ route, label: route === '/' ? 'Home' : route.split('/').filter(Boolean).map((part) => part.replace(/-/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())).join(' ') }));
   const configuredNavigation = new Map(presentation.layout.navigation.map((item) => [item.route, item]));
-  const config = { layout: presentation.layout, heroes: presentation.heroes, routes: routes.map((item, order) => ({ ...item, ...configuredNavigation.get(item.route), order: configuredNavigation.get(item.route)?.order ?? order })).filter((item) => item.visible !== false).sort((a, b) => a.order - b.order) };
+  const config = { layout: presentation.layout, componentDefaults: presentation.componentDefaults, heroes: presentation.heroes, routes: routes.map((item, order) => ({ ...item, ...configuredNavigation.get(item.route), order: configuredNavigation.get(item.route)?.order ?? order })).filter((item) => item.visible !== false).sort((a, b) => a.order - b.order) };
   const serialized = JSON.stringify(config);
   const assetUrls = presentation.assets.filter((asset) => asset.active).map((asset) => `${JSON.stringify(asset.id)}: new URL(${JSON.stringify(`./assets/${asset.path}`)}, import.meta.url).href`).join(',\n  ');
-  const module = `// Generated by UI Platform. Edit presentation through the platform.\nconst config = ${serialized} as const;\nconst assetUrls: Record<string, string> = {\n  ${assetUrls}\n};\n\nconst attribute = (value: unknown): string => JSON.stringify(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');\n\nexport function presentationAssetUrl(id: string): string | undefined { return assetUrls[id]; }\n\nexport function composeApplicationPresentation(input: { content: string; route: string }): string {\n  const assignment = (config.layout.routes as Record<string, { shell?: string; template?: string; heroId?: string }>)[input.route] ?? {};\n  const shell = assignment.shell ?? config.layout.defaultShell;\n  const template = assignment.template ?? config.layout.defaultTemplate;\n  const shellSettings = (config.layout.shells as Record<string, { showNavigation: boolean; navigationPlacement: string; showFooter: boolean; footerText: string }>)[shell];\n  const nav = config.routes.map((item) => '<a data-route="' + item.route + '" href="' + item.route + '"' + (item.route === input.route ? ' aria-current="page"' : '') + '>' + item.label + '</a>').join('');\n  const selectedHero = assignment.heroId ? (config.heroes as Record<string, { enabled: boolean; variant: string; data: Record<string, unknown> }>)[assignment.heroId] : undefined;\n  const heroData = selectedHero ? { ...selectedHero.data, size: selectedHero.variant === 'compact' ? 'compact' : 'default', visual_mode: selectedHero.variant === 'image-background' ? 'background' : selectedHero.data.visual_mode } : undefined;\n  const hero = selectedHero?.enabled && heroData ? '<uib-hero asset-map="' + attribute(assetUrls) + '" hero-data="' + attribute(heroData) + '"></uib-hero>' : '';\n  // A hero's UI Base heading is the route h1; page content keeps its h1 only when no hero is rendered.\n  const pageContent = hero ? input.content.replace(/<h1\\b[^>]*>[\\s\\S]*?<\\/h1>/i, '') : input.content;\n  const content = hero + '<section class="ui-presentation-template template-' + template + '">' + pageContent + '</section>';\n  if (shell === 'minimal') return '<main class="ui-presentation-shell shell-minimal">' + content + '</main>';\n  const navigation = shellSettings.showNavigation ? '<nav class="navigation-' + shellSettings.navigationPlacement + '" aria-label="Primary">' + nav + '</nav>' : '';\n  const header = '<header class="ui-presentation-header"><a data-route="/" href="/" class="ui-presentation-brand">Application</a>' + navigation + '</header>';\n  const footer = shellSettings.showFooter ? '<footer class="ui-presentation-footer">' + shellSettings.footerText + '</footer>' : '';\n  return '<div class="ui-presentation-shell shell-' + shell + '">' + header + '<main class="ui-presentation-main">' + content + '</main>' + footer + '</div>';\n}\n`;
+  const module = `// Generated by UI Platform. Edit presentation through the platform.\nconst config = ${serialized} as const;\nconst assetUrls: Record<string, string> = {\n  ${assetUrls}\n};\n\nconst attribute = (value: unknown): string => JSON.stringify(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');\nconst attributeValue = (value: unknown): string => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');\nconst applyComponentDefaults = (content: string, tagName: string, defaults: Record<string, string | number | boolean>): string => Object.entries(defaults).reduce((output, [name, value]) => output.replace(new RegExp('<' + tagName + '\\\\b([^>]*)>', 'g'), (match, attrs) => new RegExp('\\\\s' + name + '(?:\\\\s|=|$)').test(attrs) ? match : '<' + tagName + attrs + ' ' + name + '=\"' + attributeValue(value) + '\">'), content);\n\nexport function presentationAssetUrl(id: string): string | undefined { return assetUrls[id]; }\n\nexport function composeApplicationPresentation(input: { content: string; route: string }): string {\n  const assignment = (config.layout.routes as Record<string, { shell?: string; template?: string; heroId?: string }>)[input.route] ?? {};\n  const shell = assignment.shell ?? config.layout.defaultShell;\n  const template = assignment.template ?? config.layout.defaultTemplate;\n  const shellSettings = (config.layout.shells as Record<string, { showNavigation: boolean; navigationPlacement: string; showFooter: boolean; footerText: string }>)[shell];\n  const nav = config.routes.map((item) => '<a data-route="' + item.route + '" href="' + item.route + '"' + (item.route === input.route ? ' aria-current="page"' : '') + '>' + item.label + '</a>').join('');\n  const selectedHero = assignment.heroId ? (config.heroes as Record<string, { enabled: boolean; variant: string; data: Record<string, unknown> }>)[assignment.heroId] : undefined;\n  const heroDefaults = ((config.componentDefaults as Record<string, Record<string, string | number | boolean>>)['uib-hero']) ?? {};\n  const heroData = selectedHero ? { ...heroDefaults, ...selectedHero.data, ...(selectedHero.variant === 'compact' ? { size: 'compact' } : {}), ...(selectedHero.variant === 'image-background' ? { visual_mode: 'background' } : {}) } : undefined;\n  const hero = selectedHero?.enabled && heroData ? '<uib-hero asset-map="' + attribute(assetUrls) + '" hero-data="' + attribute(heroData) + '"></uib-hero>' : '';\n  const headingContent = applyComponentDefaults(input.content, 'uib-heading', ((config.componentDefaults as Record<string, Record<string, string | number | boolean>>)['uib-heading']) ?? {});\n  // A hero's UI Base heading is the route h1; page content keeps its h1 only when no hero is rendered.\n  const pageContent = hero ? headingContent.replace(/<h1\\b[^>]*>[\\s\\S]*?<\\/h1>/i, '') : headingContent;\n  const content = hero + '<section class="ui-presentation-template template-' + template + '">' + pageContent + '</section>';\n  if (shell === 'minimal') return '<main class="ui-presentation-shell shell-minimal">' + content + '</main>';\n  const navigation = shellSettings.showNavigation ? '<nav class="navigation-' + shellSettings.navigationPlacement + '" aria-label="Primary">' + nav + '</nav>' : '';\n  const header = '<header class="ui-presentation-header"><a data-route="/" href="/" class="ui-presentation-brand">Application</a>' + navigation + '</header>';\n  const footer = shellSettings.showFooter ? '<footer class="ui-presentation-footer">' + shellSettings.footerText + '</footer>' : '';\n  return '<div class="ui-presentation-shell shell-' + shell + '">' + header + '<main class="ui-presentation-main">' + content + '</main>' + footer + '</div>';\n}\n`;
   await atomicWriteText(path.join(root(key), 'runtime.ts'), module);
 }
 export async function rollbackPresentation(key: string, sourceVersion: number): Promise<ApplicationPresentationStatus> {

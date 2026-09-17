@@ -325,7 +325,7 @@ async function mountPresentationHeroes(target: HTMLElement, key: string): Promis
 async function mountPresentationEditor(target: HTMLElement, key: string): Promise<void> {
   const endpoint = `/api/apps/${encodeURIComponent(key)}/presentation`;
   try {
-    const status = await api<any>(endpoint);
+    const [status, componentCatalog] = await Promise.all([api<any>(endpoint), api<any[]>('/api/components')]);
     if (!status.initialized) {
       target.innerHTML = `<uib-panel class="content-panel" heading="Application Presentation"><p class="note">Presentation is opt-in. Initializing creates an editable draft with UI Base-compatible token defaults; it does not alter the current application until you publish.</p><div class="actions">${actionButton('presentation-initialize', 'Initialize Presentation', { variant: 'primary' })}</div><div id="presentationMessage"></div></uib-panel>`;
       target.querySelector('[data-action="presentation-initialize"]')?.addEventListener('click', async () => {
@@ -336,6 +336,20 @@ async function mountPresentationEditor(target: HTMLElement, key: string): Promis
     }
     const draft = status.draft;
     const active = status.manifest.activeVersion === null ? 'Not published' : `v${status.manifest.activeVersion}`;
+    const componentFields = componentCatalog.flatMap((component: any) => Object.entries(component.presentation?.settings ?? {}).flatMap(([name, raw]) => {
+      const setting = raw as any;
+      return setting.inheritable === true ? [{ tagName: component.tagName, componentName: component.name, name, setting }] : [];
+    }));
+    const componentControls = componentFields.map((field: any, index: number) => {
+      const current = draft.componentDefaults[field.tagName]?.[field.name];
+      const value = current ?? field.setting.default ?? '';
+      const input = field.setting.type === 'select'
+        ? `<select name="component-${index}-value">${(field.setting.options ?? []).map((option: string | number) => `<option value="${esc(option)}"${String(option) === String(value) ? ' selected' : ''}>${esc(option)}</option>`).join('')}</select>`
+        : field.setting.type === 'boolean'
+          ? `<input type="checkbox" name="component-${index}-value"${value === true ? ' checked' : ''}>`
+          : `<input type="${field.setting.type === 'number' ? 'number' : 'text'}" name="component-${index}-value" value="${esc(value)}">`;
+      return `<fieldset><legend>${esc(field.componentName)} · ${esc(field.name)}</legend><label><input type="checkbox" name="component-${index}-enabled"${current !== undefined ? ' checked' : ''}> Use application default</label><label>Value${input}</label></fieldset>`;
+    }).join('');
     target.innerHTML = `<uib-panel class="content-panel" heading="Application Presentation">
       <button type="button" class="back-link" data-presentation-back>‹ Presentation overview</button>
       <p class="note">Active: <strong>${esc(active)}</strong>. Draft ${status.draftDiffersFromActive ? 'differs from active' : 'matches active'}. Published application CSS is served at <code>${esc(endpoint)}/active.css</code>.</p>
@@ -343,7 +357,8 @@ async function mountPresentationEditor(target: HTMLElement, key: string): Promis
         <label><span>Presentation name</span><input name="name" value="${esc(draft.name)}"></label>
         <div class="presentation-quick-fields"><label><span>Primary color</span><input name="primaryColor" type="color" value="${esc(draft.tokens['--app-color-primary'] ?? '#1f4f8f')}"></label><label><span>Surface color</span><input name="surfaceColor" type="color" value="${esc(draft.tokens['--app-color-surface'] ?? '#ffffff')}"></label><label><span>Body font</span><input name="bodyFont" value="${esc(draft.typography['--app-font-body'] ?? draft.tokens['--app-font-body'] ?? '')}" placeholder="Inter, sans-serif"></label></div>
         <label><span>Application CSS</span><textarea name="css" rows="12">${esc(draft.css)}</textarea></label>
-        <details class="presentation-advanced"><summary>Advanced design tokens and component defaults</summary><label><span>Design tokens (JSON)</span><textarea name="tokens" rows="10">${esc(JSON.stringify(draft.tokens, null, 2))}</textarea></label><label><span>Typography tokens (JSON)</span><textarea name="typography" rows="6">${esc(JSON.stringify(draft.typography, null, 2))}</textarea></label><label><span>Component defaults (available when UI Base metadata is supplied)</span><textarea name="componentDefaults" rows="6">${esc(JSON.stringify(draft.componentDefaults, null, 2))}</textarea></label></details>
+        <section class="component-defaults"><h3>UI Base component defaults</h3><p class="note">Only component-provided, inheritable visual settings appear here. Content, behaviour, and accessibility semantics stay with pages and routes.</p><div class="component-default-grid">${componentControls || '<p class="note">No inheritable UI Base defaults are available yet.</p>'}</div></section>
+        <details class="presentation-advanced"><summary>Advanced design tokens</summary><label><span>Design tokens (JSON)</span><textarea name="tokens" rows="10">${esc(JSON.stringify(draft.tokens, null, 2))}</textarea></label><label><span>Typography tokens (JSON)</span><textarea name="typography" rows="6">${esc(JSON.stringify(draft.typography, null, 2))}</textarea></label></details>
         <input type="hidden" name="assets" value="${esc(JSON.stringify(draft.assets))}">
         <div class="actions">${actionButton('presentation-save', 'Save Draft', { variant: 'primary', type: 'submit' })}${actionButton('presentation-publish', 'Publish', { variant: 'muted' })}</div>
         <div id="presentationMessage"></div>
@@ -356,7 +371,15 @@ async function mountPresentationEditor(target: HTMLElement, key: string): Promis
       const data = new FormData(form);
       const tokens = JSON.parse(String(data.get('tokens') ?? '{}')); const typography = JSON.parse(String(data.get('typography') ?? '{}'));
       tokens['--app-color-primary'] = String(data.get('primaryColor') ?? ''); tokens['--app-color-surface'] = String(data.get('surfaceColor') ?? ''); typography['--app-font-body'] = String(data.get('bodyFont') ?? '');
-      return { name: String(data.get('name') ?? ''), tokens, typography, css: String(data.get('css') ?? ''), componentDefaults: JSON.parse(String(data.get('componentDefaults') ?? '{}')), layout: draft.layout, heroes: draft.heroes, assets: JSON.parse(String(data.get('assets') ?? '[]')) };
+      const componentDefaults = structuredClone(draft.componentDefaults) as Record<string, Record<string, string | number | boolean>>;
+      componentFields.forEach((field: any, index: number) => {
+        const enabled = data.has(`component-${index}-enabled`);
+        if (!enabled) { delete componentDefaults[field.tagName]?.[field.name]; if (!Object.keys(componentDefaults[field.tagName] ?? {}).length) delete componentDefaults[field.tagName]; return; }
+        const raw = field.setting.type === 'boolean' ? data.has(`component-${index}-value`) : data.get(`component-${index}-value`);
+        const value = field.setting.type === 'number' ? Number(raw) : field.setting.type === 'boolean' ? Boolean(raw) : String(raw ?? '');
+        componentDefaults[field.tagName] = { ...(componentDefaults[field.tagName] ?? {}), [field.name]: value };
+      });
+      return { name: String(data.get('name') ?? ''), tokens, typography, css: String(data.get('css') ?? ''), componentDefaults, layout: draft.layout, heroes: draft.heroes, assets: JSON.parse(String(data.get('assets') ?? '[]')) };
     };
     const message = (value: string, failure = false) => { target.querySelector('#presentationMessage')!.innerHTML = failure ? `<div class="error">${esc(value)}</div>` : `<p>${esc(value)}</p>`; };
     const save = async () => { await api(endpoint, { method: 'PUT', body: JSON.stringify(read()) }); };
