@@ -15,6 +15,11 @@ This checklist records the agreed v1 boundary: versioned application styling, lo
 - [x] Specify component-provided presentation metadata and discovery behaviour.
 - [x] Adopt Hero presentation metadata in UI Base for inheritable `theme`, `size`, and `visual_mode` defaults only.
 - [x] Adopt Heading presentation metadata in UI Base for inheritable `size` and `align` defaults only; heading level remains page-owned.
+- [x] Adopt Card presentation metadata in UI Base for inheritable `variant` and `density` defaults only; content and behavior remain page-owned.
+- [x] Adopt Panel presentation metadata in UI Base for inheritable `variant` and `density` defaults only; content, actions, collapse state, and behavior remain page-owned.
+- [x] Adopt Instruction presentation metadata in UI Base for inheritable `density` defaults only; severity, content, progress, collapse state, and behavior remain page-owned.
+- [x] Adopt Heading Block presentation metadata in UI Base for inheritable `size` and `align` defaults only; copy and semantic heading level remain page-owned.
+- [x] Adopt Action Group presentation metadata in UI Base for inheritable `align` defaults only; actions, their semantics, and stacked layout remain page-owned.
 - [x] Render component-default controls from UI Base metadata instead of requiring raw component-default JSON.
 - [x] Keep existing applications presentation-free until explicitly initialized.
 - [x] Add public, authenticated, and minimal shell runtime with route-derived navigation.
@@ -30,5 +35,8 @@ This checklist records the agreed v1 boundary: versioned application styling, lo
 - [x] Prevent removal of assets referenced by draft or active shells and heroes.
 - [x] Test full publish, draft-only rollback, active CSS output, staged assets, and emitted runtime configuration.
 - [x] Compile and smoke-test a generated application bundle with its published presentation runtime.
-- [ ] Adopt similarly scoped presentation metadata for additional UI Base components as their ownership contracts are defined.
+- [x] Complete the current UI Base component-adoption phase; exclude components whose available attributes govern content, semantic meaning, state, behavior, accessibility, or page structure rather than reusable visual defaults.
+- [x] Generalize generated runtime default application from the published component-default map and remove per-tag wiring; retain Hero as a route-generated special case.
 - [x] Document CSS precedence, public schema, lifecycle, and deferred UI Base metadata adoption.
+
+The current exclusions include media crop and ratio, action-button priority, layout structure, navigation, interactive state, form values, and content/data attributes. Those remain page-owned and can continue to be styled through the application token and CSS cascade.

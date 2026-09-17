@@ -35,7 +35,7 @@ describe('application presentation lifecycle', () => {
     const legacyEntry = await readFile(fixtureEntry, 'utf8');
     await writeFile(fixtureEntry, legacyEntry.replace("import { composeApplicationPresentation } from '../presentation/runtime';\n", ''));
     const uploaded = await uploadPresentationAsset('presentation-test', { id: 'brand-mark', name: 'Brand mark', type: 'logo', filename: 'brand.svg', content: Buffer.from('<svg/>') });
-    const draft = { ...uploaded.draft!, tokens: { ...uploaded.draft!.tokens, '--app-color-primary': '#123456' }, componentDefaults: { 'uib-hero': { theme: 'dark' }, 'uib-heading': { size: 'large', align: 'center' } }, heroes: { welcome: { id: 'welcome', enabled: true, variant: 'standard' as const, data: { headline: 'Welcome' } } }, layout: { ...uploaded.draft!.layout, routes: { '/': { heroId: 'welcome' } }, shells: { ...uploaded.draft!.layout.shells, authenticated: { ...uploaded.draft!.layout.shells.authenticated, logoAssetId: 'brand-mark' } } } };
+    const draft = { ...uploaded.draft!, tokens: { ...uploaded.draft!.tokens, '--app-color-primary': '#123456' }, componentDefaults: { 'uib-hero': { theme: 'dark' }, 'uib-heading': { size: 'large', align: 'center' }, 'uib-card': { variant: 'outlined', density: 'compact' }, 'uib-panel': { variant: 'flat', density: 'compact' }, 'uib-instruction': { density: 'compact' }, 'uib-heading-block': { size: 'large', align: 'center' }, 'uib-action-group': { align: 'center' } }, heroes: { welcome: { id: 'welcome', enabled: true, variant: 'standard' as const, data: { headline: 'Welcome' } } }, layout: { ...uploaded.draft!.layout, routes: { '/': { heroId: 'welcome' } }, shells: { ...uploaded.draft!.layout.shells, authenticated: { ...uploaded.draft!.layout.shells.authenticated, logoAssetId: 'brand-mark' } } } };
     await savePresentationDraft('presentation-test', draft);
 
     const app = path.join(fixtureApps, 'presentation-test', 'presentation');
@@ -52,6 +52,15 @@ describe('application presentation lifecycle', () => {
     expect(runtime).toContain('pageContent');
     expect(runtime).toContain('"theme":"dark"');
     expect(runtime).toContain('"uib-heading":{"size":"large","align":"center"}');
+    expect(runtime).toContain('"uib-card":{"variant":"outlined","density":"compact"}');
+    expect(runtime).toContain('"uib-panel":{"variant":"flat","density":"compact"}');
+    expect(runtime).toContain('"uib-instruction":{"density":"compact"}');
+    expect(runtime).toContain('"uib-heading-block":{"size":"large","align":"center"}');
+    expect(runtime).toContain('"uib-action-group":{"align":"center"}');
+    expect(runtime).toContain('Object.entries(componentDefaults).reduce');
+    expect(runtime).toContain("tagName === 'uib-hero' ? content");
+    expect(runtime).not.toContain("applyComponentDefaults(input.content, 'uib-card'");
+    expect(runtime).not.toContain("applyComponentDefaults(input.content, 'uib-panel'");
     expect(runtime).toContain('applyComponentDefaults');
     expect(entry).toContain("import { composeApplicationPresentation } from '../presentation/runtime';");
     expect(entry).toContain('root!.innerHTML = composeApplicationPresentation(');
