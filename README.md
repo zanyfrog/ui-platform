@@ -39,8 +39,20 @@ application creates `presentation/presentation.manifest.json`, a mutable
 `presentation/draft/presentation.json`, local `presentation/assets`, and an
 `active.css` file imported after UI Base styles by the application runtime.
 
-The platform supports draft saves, immutable published versions, and rollback
-by publishing a prior version as the next version. The active stylesheet is
-also available at `GET /api/apps/:key/presentation/active.css`. See
-`docs/architecture/application-level-presentation-checklist.md` for the agreed
-v1 boundary and deferred work.
+The platform supports a mutable draft and immutable published versions. A draft
+is previewable but never activates the application runtime. Publishing creates
+one atomic logical version containing the presentation schema, stylesheet,
+generated runtime configuration, and local assets. Rollback restores a prior
+version into the draft; a separate Publish is required to activate it.
+
+The styling cascade is UI Base styles, followed by application tokens and
+typography, then application custom CSS. Application-owned files are stored
+under `presentation/`: active assets live in `assets/`, draft-only uploads in
+`draft/assets/`, and immutable publication snapshots in `versions/vN/`.
+Assets cannot be removed while a draft or active shell/hero references them.
+The active stylesheet is available at `GET /api/apps/:key/presentation/active.css`.
+When a route renders a hero, its UI Base hero headline is the route's primary
+heading and the runtime removes the page's first `h1`; routes without a hero
+remain responsible for rendering their own primary heading.
+See `docs/architecture/application-level-presentation-checklist.md` for the
+public contract and deferred UI Base metadata adoption.

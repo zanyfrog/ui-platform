@@ -7,7 +7,7 @@ This checklist records the agreed v1 boundary: versioned application styling, lo
 - [x] Record initialization, draft, publish, and rollback history.
 - [x] Provide application-scoped presentation API endpoints.
 - [x] Generate the active CSS cascade (`ui-base` → tokens → app CSS).
-- [x] Store assets beneath `presentation/assets` using stable IDs and portable paths.
+- [x] Store active assets beneath `presentation/assets`, with draft uploads in `presentation/draft/assets`, using stable IDs and portable paths.
 - [x] Add local asset upload/remove controls.
 - [x] Add stable local asset serving by semantic asset ID.
 - [x] Add a Presentation Manager with draft/active status and publish/rollback controls.
@@ -23,5 +23,9 @@ This checklist records the agreed v1 boundary: versioned application styling, lo
 - [x] Resolve hero image asset IDs against this application's local asset map.
 - [x] Omit an unassigned or disabled hero at runtime rather than hiding it with CSS.
 - [x] Validate hero assignment and core styling/asset rules.
-- [ ] Test full publish, rollback, active CSS output, and generated-runtime compatibility.
-- [ ] Document CSS precedence, public schema, lifecycle, and deferred structural artifacts.
+- [x] Restore rollbacks into the mutable draft; require a separate Publish to activate them.
+- [x] Keep draft runtime configuration and draft assets out of the active runtime until Publish.
+- [x] Prevent removal of assets referenced by draft or active shells and heroes.
+- [x] Test full publish, draft-only rollback, active CSS output, staged assets, and emitted runtime configuration.
+- [ ] Compile and smoke-test a generated application bundle with its published presentation runtime.
+- [x] Document CSS precedence, public schema, lifecycle, and deferred UI Base metadata adoption.
