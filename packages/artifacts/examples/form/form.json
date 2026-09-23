@@ -1,0 +1,17 @@
+{
+  "fields": [
+    {
+      "field": "lastName",
+      "label": "Last Name",
+      "type": "text",
+      "validators": [
+        { "validator": "required", "message": "Last name is required." },
+        {
+          "validator": "max-length",
+          "max": 25,
+          "message": "Last name cannot exceed 25 characters."
+        }
+      ]
+    }
+  ]
+}
