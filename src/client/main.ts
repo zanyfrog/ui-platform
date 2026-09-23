@@ -567,6 +567,9 @@ window.addEventListener('popstate', () => {
   else renderHome(false);
 });
 const events = new EventSource('/api/events');
+events.addEventListener('artifact-change', event => {
+  document.dispatchEvent(new CustomEvent('ui-platform-artifact-change', { detail: JSON.parse(event.data) }));
+});
 events.addEventListener('workspace-change', async () => {
   await refresh();
   document.dispatchEvent(new CustomEvent('ui-platform-workspace-change'));

@@ -1,4 +1,5 @@
 import path from "node:path";
+import { startArtifactWatcher } from "./watcher.js";
 import { appendFile, realpath } from "node:fs/promises";
 import {
   capture,
@@ -20,24 +21,18 @@ import {
 } from "./validation/validate-artifact.js";
 import {
   ArtifactConflictError,
-  adoptPathHistory,
   commitTransaction,
-  createPublishedVersion,
-  createRevision,
   immutableWrite,
-  readHistory,
   recoverTransaction,
   storageDirectory,
   storageKey,
-  versions,
   withArtifactLock,
 } from "./storage.js";
 import type {
   ArtifactChanges,
+  ArtifactWatchOptions,
+  ArtifactWatcher,
   ArtifactLogEvent,
-  ArtifactManifest,
-  ArtifactPublishResult,
-  ArtifactRevision,
   ArtifactSaveResult,
   ArtifactService,
   ArtifactSummary,
@@ -59,6 +54,7 @@ export interface ArtifactServiceOptions {
 export class FileSystemArtifactService implements ArtifactService {
   readonly definitions: ArtifactDefinitionRegistry;
   readonly validators: ValidatorRegistry;
+  private readonly savedChecksums = new Map<string, string>();
   private index = new Map<string, string[]>();
   private readonly observed = new Map<string, Snapshot>();
   private readonly identities = new Map<string, string>();
@@ -96,6 +92,8 @@ export class FileSystemArtifactService implements ArtifactService {
         : {}),
       ...detail,
     };
+    // A watcher must not recreate an application that was removed externally.
+    await realpath(this.root);
     const dir = await storageDirectory(this.root, "logs");
     await appendFile(
       path.join(dir, "operations.jsonl"),
@@ -137,7 +135,6 @@ export class FileSystemArtifactService implements ArtifactService {
         const bindingPath = path.join(bindings, `${storageKey(bundle)}.json`);
         let binding = await readOptional(bindingPath);
         if (!binding && manifest) {
-          await adoptPathHistory(this.root, bundle, manifest.artifactId);
           try {
             await immutableWrite(
               bindingPath,
@@ -224,12 +221,6 @@ export class FileSystemArtifactService implements ArtifactService {
       ...artifact.validation.diagnostics,
       ...extra,
     ]);
-    if (artifact.manifest) {
-      const published = await versions(this.root, artifact.manifest.artifactId);
-      artifact.lifecycle.latestPublishedVersion = published
-        .at(-1)
-        ?.replace(".json", "");
-    }
     return artifact;
   }
   private async locked<T>(
@@ -288,16 +279,9 @@ export class FileSystemArtifactService implements ArtifactService {
   async validate(idOrPath: string) {
     return (await this.load(idOrPath)).validation;
   }
-  async saveDraft(
+  async save(
     idOrPath: string,
     changes: ArtifactChanges = {},
-  ): Promise<ArtifactSaveResult> {
-    return this.save(idOrPath, changes, "save");
-  }
-  private async save(
-    idOrPath: string,
-    changes: ArtifactChanges,
-    reason: "save" | "restore",
   ): Promise<ArtifactSaveResult> {
     const bundle = await this.resolve(idOrPath);
     const initial = await capture(bundle);
@@ -337,12 +321,12 @@ export class FileSystemArtifactService implements ArtifactService {
     try {
       rawId = JSON.parse(staged["artifact.json"] ?? "null")?.artifactId;
     } catch {
-      /* Malformed draft remains saveable. */
+      /* Malformed source remains saveable. */
     }
     if (identity && typeof rawId === "string" && rawId !== identity)
       throw new Error("artifactId is immutable.");
     const artifact = await this.normalized(bundle, original);
-    await this.log("draft.save.start", artifact);
+    await this.log("artifact.save.start", artifact);
     const formatting = await formatArtifact(
       bundle,
       staged,
@@ -351,22 +335,12 @@ export class FileSystemArtifactService implements ArtifactService {
         ? this.definitions.get(nextManifest.artifactType)
         : undefined,
     );
-    const updated = await this.normalized(bundle, staged, formatting);
     return this.locked(bundle, async () => {
       if (
         checksum(await capture(bundle, Object.keys(original))) !==
         checksum(original)
       )
         throw new ArtifactConflictError();
-      const revision = await createRevision(
-        this.root,
-        identity ?? `path:${bundle}`,
-        original,
-        reason,
-      );
-      await this.log("revision.creation", artifact, {
-        revision: revision.revision,
-      });
       try {
         await commitTransaction(this.root, bundle, original, staged, {
           beforeWrite: this.options.beforeCommitFile,
@@ -374,21 +348,19 @@ export class FileSystemArtifactService implements ArtifactService {
       } catch (e) {
         await this.log("transaction.rollback", artifact, {
           message: String(e),
-          revision: revision.revision,
         });
-        await this.log("draft.save.result", artifact, {
+        await this.log("artifact.save.result", artifact, {
           message: "FAILED",
-          revision: revision.revision,
         });
         throw e;
       }
-      // Public checksum covers the current manifest and its declared files only.
-      updated.checksum = checksum(await capture(bundle));
-      this.observed.set(bundle, await capture(bundle));
+      const committed = await capture(bundle);
+      const updated = await this.normalized(bundle, committed, formatting);
+      this.observed.set(bundle, committed);
+      this.savedChecksums.set(bundle, updated.checksum);
       if (updated.manifest)
         this.identities.set(bundle, updated.manifest.artifactId);
-      await this.log("draft.save.result", updated, {
-        revision: revision.revision,
+      await this.log("artifact.save.result", updated, {
         message: "SAVED",
       });
       await this.log("validation.result", updated);
@@ -396,90 +368,31 @@ export class FileSystemArtifactService implements ArtifactService {
         saved: true,
         artifact: updated,
         validation: updated.validation,
-        revision: revision.revision,
       };
     });
   }
-  async publish(idOrPath: string): Promise<ArtifactPublishResult> {
-    const bundle = await this.resolve(idOrPath);
-    return this.locked(bundle, async () => {
-      const original = await capture(bundle);
-      const staged = { ...original };
-      const manifest = parseManifest(staged["artifact.json"]).manifest;
-      const formatting = await formatArtifact(
-        bundle,
-        staged,
-        manifest,
-        manifest ? this.definitions.get(manifest.artifactType) : undefined,
-      );
-      const artifact = await this.normalized(bundle, staged, formatting);
-      await this.log("publish.attempt", artifact);
-      if (
-        !artifact.validation.valid ||
-        !artifact.manifest ||
-        !artifact.capabilities.publish
-      ) {
-        if (artifact.validation.valid)
-          artifact.validation = validationResult([
-            error(
-              "publish.unsupported",
-              "Definition does not support publishing.",
-            ),
-          ]);
-        await this.log("publish.failure", artifact);
-        return { published: false, validation: artifact.validation };
-      }
-      if (checksum(await capture(bundle)) !== checksum(original))
-        throw new ArtifactConflictError();
-      const published = await createPublishedVersion(
-        this.root,
-        artifact.manifest.artifactId,
-        staged,
-      );
-      await this.log("publish.success", artifact, published);
-      return { published: true, validation: artifact.validation, ...published };
-    });
+  async getReferences(idOrPath: string) {
+    return (await this.load(idOrPath)).references;
   }
-  async getHistory(idOrPath: string): Promise<ArtifactRevision[]> {
-    const bundle = await this.resolve(idOrPath);
-    const manifest = parseManifest(
-      await readOptional(await safeFile(bundle, "artifact.json")),
-    ).manifest;
-    return (
-      await readHistory(
-        this.root,
-        this.identities.get(bundle) ?? manifest?.artifactId ?? `path:${bundle}`,
-      )
-    ).map((item) => item.metadata);
-  }
-  async restoreRevision(
-    idOrPath: string,
-    revision: string,
-  ): Promise<ArtifactSaveResult> {
-    const bundle = await this.resolve(idOrPath);
-    const current = await this.load(bundle);
-    const history = await readHistory(
+  async startWatching(
+    options: ArtifactWatchOptions = {},
+  ): Promise<ArtifactWatcher> {
+    await this.discover(this.root);
+    return startArtifactWatcher(
       this.root,
-      this.identities.get(bundle) ??
-        current.manifest?.artifactId ??
-        `path:${bundle}`,
-    );
-    const target = history.find((item) => item.metadata.revision === revision);
-    if (!target) throw new Error(`Unknown revision: ${revision}`);
-    const files: Record<string, string | null> = {};
-    for (const name of new Set([
-      ...declaredPaths(current.manifestContent),
-      ...Object.keys(target.files),
-    ]))
-      if (name !== "artifact.json") files[name] = target.files[name] ?? null;
-    return this.save(
-      bundle,
       {
-        manifest: target.files["artifact.json"] ?? "",
-        files,
-        expectedChecksum: current.checksum,
+        changed: async (bundle) => this.handleExternalChange(bundle),
+        removed: async (bundle) => {
+          this.observed.delete(bundle);
+          this.savedChecksums.delete(bundle);
+          this.identities.delete(bundle);
+          await this.refresh();
+          await this.log("external.remove", undefined, { bundlePath: bundle });
+        },
+        error: async (cause) =>
+          this.log("watch.error", undefined, { message: String(cause) }),
       },
-      "restore",
+      options,
     );
   }
   async handleExternalChange(
@@ -497,27 +410,24 @@ export class FileSystemArtifactService implements ArtifactService {
       .sort((a, b) => b.length - a.length)[0];
     if (!bundle) return undefined;
     return this.locked(bundle, async () => {
-      const snapshot = await capture(bundle);
-      const previous = this.observed.get(bundle);
-      const artifact = await this.normalized(bundle, snapshot);
-      const identity =
-        this.identities.get(bundle) ??
-        artifact.manifest?.artifactId ??
-        `path:${bundle}`;
-      // Without a prior observation only the observed external state is recoverable.
-      const revision = await createRevision(
-        this.root,
-        identity,
-        previous ?? snapshot,
-        "external",
-      );
+      let snapshot: Snapshot;
+      const diagnostics: ValidationDiagnostic[] = [];
+      try {
+        snapshot = await capture(bundle);
+      } catch (cause) {
+        snapshot = {
+          "artifact.json": await readOptional(
+            await safeFile(bundle, "artifact.json"),
+          ),
+        };
+        diagnostics.push(error("file.access", String(cause)));
+      }
+      if (this.savedChecksums.get(bundle) === checksum(snapshot))
+        return undefined;
+      this.savedChecksums.delete(bundle);
+      const artifact = await this.normalized(bundle, snapshot, diagnostics);
       this.observed.set(bundle, snapshot);
-      await this.log("revision.creation", artifact, {
-        revision: revision.revision,
-      });
-      await this.log("external.change", artifact, {
-        revision: revision.revision,
-      });
+      await this.log("external.change", artifact);
       await this.log("validation.result", artifact);
       return artifact;
     });

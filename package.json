@@ -16,7 +16,7 @@
     "preuib": "npm run build --workspace @ui-platform/artifacts",
     "uib": "node packages/artifacts/dist/cli.js",
     "test": "vitest run",
-    "predev:api": "npm run build --workspace @uib/platform-core",
+    "predev:api": "npm run build --workspace @uib/platform-core && npm run build --workspace @ui-platform/artifacts",
     "dev:api": "tsx src/server/index.ts"
   },
   "dependencies": {
@@ -32,7 +32,8 @@
     "@ui-base/ui": "file:../ui-base/packages/ui-base-ui",
     "@ui-base/ui-layout": "file:../ui-base/packages/ui-layout",
     "@uib/platform-core": "file:packages/platform-core",
-    "build": "^0.1.4"
+    "build": "^0.1.4",
+    "@ui-platform/artifacts": "file:packages/artifacts"
   },
   "devDependencies": {
     "@types/node": "^26.0.0",

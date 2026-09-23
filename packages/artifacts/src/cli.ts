@@ -30,7 +30,7 @@ export async function runArtifactCli(
   );
   const [namespace, command, target, ...extra] = positional;
   const usage =
-    "Usage: uib artifact <discover|inspect|validate|save|history|publish> <artifact-or-path> [--root <workspace>] [--json]";
+    "Usage: uib artifact <discover|inspect|validate|save|watch> <artifact-or-path> [--root <workspace>] [--json]";
   if (namespace !== "artifact" || !command || !target || extra.length) {
     stderr(usage + "\n");
     return 2;
@@ -72,17 +72,33 @@ export async function runArtifactCli(
         return result.valid ? 0 : 1;
       }
       case "save": {
-        const result = await service.saveDraft(target, {});
+        const result = await service.save(target, {});
         output(result);
         return result.saved ? 0 : 1;
       }
-      case "history":
-        output(await service.getHistory(target));
+      case "watch": {
+        const watchService =
+          options.service ??
+          new FileSystemArtifactService({ root: path.resolve(root, target) });
+        const watcher = await watchService.startWatching({
+          onChange: (event) => output(event),
+          onError: (error) => stderr(error.message + "\n"),
+        });
+        output({ kind: "watching", root: path.resolve(root, target) });
+        try {
+          await new Promise<void>((resolve) => {
+            const stop = () => {
+              process.off("SIGINT", stop);
+              process.off("SIGTERM", stop);
+              resolve();
+            };
+            process.once("SIGINT", stop);
+            process.once("SIGTERM", stop);
+          });
+        } finally {
+          await watcher.close();
+        }
         return 0;
-      case "publish": {
-        const result = await service.publish(target);
-        output(result);
-        return result.published ? 0 : 1;
       }
       default:
         stderr(usage + "\n");
@@ -97,9 +113,7 @@ export async function runArtifactCli(
 }
 function render(value: unknown): string {
   if (Array.isArray(value))
-    return value.length
-      ? value.map(render).join("")
-      : "No artifacts or history entries found.\n";
+    return value.length ? value.map(render).join("") : "No artifacts found.\n";
   if (value && typeof value === "object") {
     const item = value as Record<string, unknown>;
     if ("valid" in item && Array.isArray(item.diagnostics)) {

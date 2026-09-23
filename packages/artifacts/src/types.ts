@@ -37,8 +37,6 @@ export interface ArtifactFile {
 export interface ArtifactCapabilities {
   edit: boolean;
   format: boolean;
-  publish: boolean;
-  history: boolean;
 }
 export interface ArtifactFileRoleDefinition {
   required?: boolean;
@@ -51,10 +49,6 @@ export interface ArtifactReference {
 }
 export interface ArtifactReferenceSummary {
   outgoing: ArtifactReference[];
-}
-export interface ArtifactLifecycleState {
-  state: "draft";
-  latestPublishedVersion?: string;
 }
 export interface ArtifactValidationContext {
   manifest: ArtifactManifest;
@@ -93,7 +87,6 @@ export interface EditableArtifact {
   definition: ArtifactDefinition | null;
   capabilities: ArtifactCapabilities;
   validation: ArtifactValidationResult;
-  lifecycle: ArtifactLifecycleState;
   references: ArtifactReferenceSummary;
   checksum: string;
 }
@@ -110,23 +103,10 @@ export interface ArtifactChanges {
   files?: Record<string, string | null>;
   expectedChecksum?: string;
 }
-export interface ArtifactRevision {
-  revision: string;
-  createdAt: string;
-  reason: "save" | "restore" | "external";
-  checksum: string;
-}
 export interface ArtifactSaveResult {
   saved: boolean;
   artifact: EditableArtifact;
   validation: ArtifactValidationResult;
-  revision?: string;
-}
-export interface ArtifactPublishResult {
-  published: boolean;
-  validation: ArtifactValidationResult;
-  version?: string;
-  snapshotPath?: string;
 }
 export interface ValidatorConfiguration {
   validator: string;
@@ -149,23 +129,34 @@ export interface ArtifactLogEvent {
   bundlePath?: string;
   validation?: "PASSED" | "FAILED";
   diagnosticCounts?: Record<DiagnosticSeverity, number>;
-  revision?: string;
-  version?: string;
   message?: string;
 }
 export interface ArtifactService {
   discover(root: string): Promise<ArtifactSummary[]>;
   load(artifactIdOrPath: string): Promise<EditableArtifact>;
   validate(artifactIdOrPath: string): Promise<ArtifactValidationResult>;
-  saveDraft(
+  save(
     artifactIdOrPath: string,
     changes: ArtifactChanges,
   ): Promise<ArtifactSaveResult>;
-  publish(artifactIdOrPath: string): Promise<ArtifactPublishResult>;
-  getHistory(artifactIdOrPath: string): Promise<ArtifactRevision[]>;
-  restoreRevision(
-    artifactIdOrPath: string,
-    revision: string,
-  ): Promise<ArtifactSaveResult>;
+  getReferences(artifactIdOrPath: string): Promise<ArtifactReferenceSummary>;
+  startWatching(options?: ArtifactWatchOptions): Promise<ArtifactWatcher>;
   handleExternalChange(filePath: string): Promise<EditableArtifact | undefined>;
+}
+
+export interface ArtifactWatchEvent {
+  kind: "changed" | "removed";
+  bundlePath: string;
+  artifact?: EditableArtifact;
+}
+export interface ArtifactWatchOptions {
+  debounceMs?: number;
+  /** Reconciliation catches missed native events. Defaults to 1000 ms. */
+  pollIntervalMs?: number;
+  onChange?: (event: ArtifactWatchEvent) => void | Promise<void>;
+  onError?: (error: Error) => void;
+}
+export interface ArtifactWatcher {
+  /** Stops timers/native events and waits for in-flight validation. */
+  close(): Promise<void>;
 }

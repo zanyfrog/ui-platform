@@ -78,9 +78,23 @@ afterEach(async () => {
 });
 
 describe("artifact foundation acceptance", () => {
-  it("completes the manual form → invalid draft → corrected formatted draft → immutable publish flow with shared CLI diagnostics", async () => {
+  it("saves invalid source, shares CLI diagnostics, and formats corrected source without history", async () => {
     const dir = await bundle();
-    expect((await service.load(dir)).validation.valid).toBe(true);
+    expect((await service.validate(dir)).valid).toBe(true);
+    const saved = await service.save(dir, {
+      files: {
+        "form.json": JSON.stringify({
+          fields: [
+            {
+              ...form.fields[0],
+              validators: [{ validator: "max-length", max: 0 }],
+            },
+          ],
+        }),
+      },
+    });
+    expect(saved.saved).toBe(true);
+    expect(saved.validation.valid).toBe(false);
     let output = "";
     expect(
       await runArtifactCli(["artifact", "validate", dir, "--json"], {
@@ -89,54 +103,39 @@ describe("artifact foundation acceptance", () => {
           output = text;
         },
       }),
-    ).toBe(0);
-    expect(JSON.parse(output)).toEqual(await service.validate(dir));
-    const invalid = JSON.stringify({
-      fields: [
-        {
-          ...form.fields[0],
-          validators: [{ validator: "max-length", max: 0 }],
-        },
-      ],
-    });
-    await writeFile(path.join(dir, "form.json"), invalid);
-    expect(
-      await runArtifactCli(["artifact", "validate", dir, "--json"], {
-        cwd: root,
-        stdout: (text) => {
-          output = text;
-        },
-      }),
     ).toBe(1);
-    expect(JSON.parse(output)).toEqual(await service.validate(dir));
-    const saved = await service.saveDraft("form_tour", {});
-    expect(saved.saved).toBe(true);
-    expect(saved.validation.valid).toBe(false);
-    expect(saved.revision).toBe("r1");
-    expect((await service.publish("form_tour")).published).toBe(false);
-    const fixed = await service.saveDraft("form_tour", {
+    expect(JSON.parse(output)).toEqual(saved.validation);
+    expect(
+      events.some(
+        (e) =>
+          e.operation === "artifact.save.result" && e.validation === "FAILED",
+      ),
+    ).toBe(true);
+    const fixed = await service.save(dir, {
       files: { "form.json": JSON.stringify(form) },
     });
     expect(fixed.validation.valid).toBe(true);
-    expect(fixed.revision).toBe("r2");
     expect(await readFile(path.join(dir, "form.json"), "utf8")).toContain(
       '\n  "fields"',
     );
-    const published = await service.publish("form_tour");
-    expect(published.published).toBe(true);
-    expect(published.version).toBe("v1");
-    const first = await readFile(published.snapshotPath!, "utf8");
-    await service.saveDraft("form_tour", {
-      files: { "form.json": JSON.stringify({ fields: [] }) },
-    });
-    expect((await service.publish("form_tour")).version).toBe("v2");
-    expect(await readFile(published.snapshotPath!, "utf8")).toBe(first);
-    const loaded = await service.load("form_tour");
-    expect(loaded.lifecycle.latestPublishedVersion).toBe("v2");
-    expect(loaded.validation.valid).toBe(true);
-    expect(
-      (await service.getHistory("form_tour")).map((item) => item.revision),
-    ).toEqual(["r1", "r2", "r3"]);
+    expect(await readdir(path.join(root, ".uib"))).not.toEqual(
+      expect.arrayContaining(["history", "versions"]),
+    );
+    expect("lifecycle" in fixed.artifact).toBe(false);
+    for (const method of [
+      "saveDraft",
+      "publish",
+      "getHistory",
+      "restoreRevision",
+    ])
+      expect(method in service).toBe(false);
+    for (const command of ["publish", "history"])
+      expect(
+        await runArtifactCli(["artifact", command, dir], {
+          cwd: root,
+          stderr: () => {},
+        }),
+      ).toBe(2);
   });
   it("reuses required and max-length for runtime form and server submission validation", () => {
     const validators = form.fields[0].validators;
@@ -195,7 +194,7 @@ describe("artifact foundation acceptance", () => {
         ),
       ),
     ).toBe(true);
-    await expect(service.publish("form_tour")).rejects.toThrow("Duplicate");
+    await expect(service.load("form_tour")).rejects.toThrow("Duplicate");
   });
   it("detects duplicate fields, IDs, invalid validators and invalid dataset references", async () => {
     await bundle(
@@ -233,8 +232,8 @@ describe("artifact foundation acceptance", () => {
     );
   });
 });
-describe("transactions, history and formatting", () => {
-  it("commits all files, formats JSON/TS/TSX/CSS/Markdown and restores previous state", async () => {
+describe("transactions and formatting", () => {
+  it("commits all files, formats JSON/TS/TSX/CSS/Markdown without maintaining source history", async () => {
     const m = {
       ...manifest(),
       files: {
@@ -252,8 +251,7 @@ describe("transactions, history and formatting", () => {
       "style.css": "a{color:red}",
       "readme.md": "# Hello\n\nworld  ",
     });
-    const before = await capture(dir);
-    const saved = await service.saveDraft(dir, {
+    const saved = await service.save(dir, {
       files: { "source.ts": "const x=2", "style.css": "a{color:blue}" },
     });
     expect(saved.validation.valid).toBe(true);
@@ -269,14 +267,6 @@ describe("transactions, history and formatting", () => {
     expect(await readFile(path.join(dir, "readme.md"), "utf8")).toBe(
       "# Hello\n\nworld\n",
     );
-    const restored = await service.restoreRevision(dir, "r1");
-    expect(restored.saved).toBe(true);
-    expect(await readFile(path.join(dir, "source.ts"), "utf8")).toBe(
-      "const x = 1;\n",
-    );
-    expect(JSON.parse((await capture(dir))["form.json"]!)).toEqual(
-      JSON.parse(before["form.json"]!),
-    );
   });
   it("rolls back existing files and new files when a mid-commit write fails", async () => {
     const dir = await bundle();
@@ -289,7 +279,7 @@ describe("transactions, history and formatting", () => {
       },
     });
     await expect(
-      failing.saveDraft(dir, {
+      failing.save(dir, {
         manifest: {
           ...manifest(),
           files: { definition: "form.json", style: "a.css" },
@@ -308,13 +298,13 @@ describe("transactions, history and formatting", () => {
     const loaded = await service.load(dir);
     await writeFile(path.join(dir, "form.json"), '{"fields":[]}');
     await expect(
-      service.saveDraft(dir, {
+      service.save(dir, {
         expectedChecksum: loaded.checksum,
         files: { "form.json": JSON.stringify(form) },
       }),
     ).rejects.toBeInstanceOf(ArtifactConflictError);
     await expect(
-      service.saveDraft(dir, {
+      service.save(dir, {
         manifest: { ...manifest(), artifactId: "changed" },
       }),
     ).rejects.toThrow("immutable");
@@ -333,34 +323,28 @@ describe("transactions, history and formatting", () => {
       },
     });
     const writer = new FileSystemArtifactService({ root, definitions });
-    await expect(writer.saveDraft(dir, {})).rejects.toBeInstanceOf(
+    await expect(writer.save(dir, {})).rejects.toBeInstanceOf(
       ArtifactConflictError,
     );
     expect(await readFile(path.join(dir, "form.json"), "utf8")).toBe(
       '{"fields":[]}',
     );
-    expect(await writer.getHistory(dir)).toEqual([]);
   });
-  it("keeps identity and malformed-manifest history across restarts, and history follows a move", async () => {
+  it("retains immutable identity across restart, repair, and bundle moves", async () => {
     const dir = await bundle();
-    await service.saveDraft(dir, {});
-    await service.saveDraft(dir, { manifest: "{broken" });
+    await service.save(dir, {});
+    await service.save(dir, { manifest: "{broken" });
     const restarted = new FileSystemArtifactService({ root });
     expect((await restarted.load("form_tour")).validation.valid).toBe(false);
-    expect(await restarted.getHistory("form_tour")).toHaveLength(2);
-    expect((await restarted.restoreRevision("form_tour", "r1")).saved).toBe(
-      true,
-    );
+    await restarted.save("form_tour", { manifest: manifest() });
     await writeFile(
       path.join(dir, "artifact.json"),
       JSON.stringify({ ...manifest(), artifactId: "changed" }),
     );
-    const again = new FileSystemArtifactService({ root });
-    expect((await again.publish(dir)).published).toBe(false);
     expect(
-      (await again.validate(dir)).diagnostics.some(
-        (d) => d.code === "artifact.identity",
-      ),
+      (
+        await new FileSystemArtifactService({ root }).validate(dir)
+      ).diagnostics.some((d) => d.code === "artifact.identity"),
     ).toBe(true);
     await writeFile(
       path.join(dir, "artifact.json"),
@@ -368,43 +352,42 @@ describe("transactions, history and formatting", () => {
     );
     const moved = path.join(root, "moved");
     await rename(dir, moved);
-    expect((await again.load("form_tour")).bundlePath).toBe(moved);
-    expect(await again.getHistory("form_tour")).toHaveLength(3);
+    expect((await restarted.load("form_tour")).bundlePath).toBe(moved);
   });
-  it("retains path-addressed history when an initially unreadable manifest is repaired", async () => {
+  it("leaves existing legacy history untouched during saves and external validation", async () => {
     const dir = await bundle();
-    await writeFile(path.join(dir, "artifact.json"), "{broken");
-    await service.saveDraft(dir, {});
-    await service.saveDraft(dir, {
-      manifest: manifest(),
-      files: { "form.json": JSON.stringify(form) },
-    });
-    expect(
-      (await service.getHistory("form_tour")).map((r) => r.revision),
-    ).toEqual(["r1", "r2"]);
-    expect((await service.saveDraft("form_tour", {})).revision).toBe("r3");
+    for (const storage of ["history", "versions"]) {
+      await mkdir(path.join(root, ".uib", storage), { recursive: true });
+      await writeFile(
+        path.join(root, ".uib", storage, "legacy.json"),
+        "legacy bytes",
+      );
+    }
+    await service.save(dir, {});
+    await writeFile(path.join(dir, "form.json"), "{broken");
+    await service.handleExternalChange(dir);
+    for (const storage of ["history", "versions"]) {
+      expect(await readdir(path.join(root, ".uib", storage))).toEqual([
+        "legacy.json",
+      ]);
+      expect(
+        await readFile(path.join(root, ".uib", storage, "legacy.json"), "utf8"),
+      ).toBe("legacy bytes");
+    }
   });
-  it("restores a missing file and removes files introduced after a revision", async () => {
+  it("saves declared file additions and removals transactionally", async () => {
     const dir = await bundle();
-    await rm(path.join(dir, "form.json"));
-    await service.saveDraft(dir, {
-      files: { "form.json": JSON.stringify(form) },
-    });
-    expect((await service.restoreRevision(dir, "r1")).validation.valid).toBe(
-      false,
-    );
-    expect(await readdir(dir)).not.toContain("form.json");
-    await service.saveDraft(dir, {
-      files: { "form.json": JSON.stringify(form) },
-    });
-    await service.saveDraft(dir, {
+    await service.save(dir, {
       manifest: {
         ...manifest(),
         files: { definition: "form.json", style: "style.css" },
       },
       files: { "style.css": "a{color:red}" },
     });
-    await service.restoreRevision(dir, "r4");
+    await service.save(dir, {
+      manifest: manifest(),
+      files: { "style.css": null },
+    });
     expect(await readdir(dir)).not.toContain("style.css");
     expect((await service.load(dir)).manifest?.files).toEqual(manifest().files);
   });
@@ -421,24 +404,23 @@ describe("transactions, history and formatting", () => {
       },
       { "form.json": JSON.stringify(form), "source.ts": "const a=1;" },
     );
-    await service.saveDraft(dir, {});
+    await service.save(dir, {});
     expect(await readFile(path.join(dir, "source.ts"), "utf8")).toBe(
       "const a = 1\n",
     );
     expect(await readFile(path.join(dir, "form.json"), "utf8")).toContain(
       '\n    "fields"',
     );
-    await service.saveDraft(dir, { files: { "source.ts": "const = ;" } });
+    await service.save(dir, { files: { "source.ts": "const = ;" } });
     expect(
       (await service.load(dir)).validation.diagnostics.some(
         (d) => d.code === "source.syntax",
       ),
     ).toBe(true);
-    expect((await service.publish(dir)).published).toBe(false);
   });
-  it("retains malformed source drafts, with formatting diagnostics, and blocks publication", async () => {
+  it("retains malformed source with formatting diagnostics", async () => {
     await bundle();
-    const result = await service.saveDraft("form_tour", {
+    const result = await service.save("form_tour", {
       files: { "form.json": "{bad json" },
     });
     expect(result.saved).toBe(true);
@@ -446,9 +428,8 @@ describe("transactions, history and formatting", () => {
     expect(
       result.validation.diagnostics.some((d) => d.code === "format.failed"),
     ).toBe(true);
-    expect((await service.publish("form_tour")).published).toBe(false);
   });
-  it("creates revisions and logs passed and failed external validation without formatting", async () => {
+  it("logs passed and failed external validation without formatting or history", async () => {
     const dir = await bundle();
     await service.load(dir);
     await writeFile(path.join(dir, "form.json"), "{bad");
@@ -467,10 +448,6 @@ describe("transactions, history and formatting", () => {
         .filter((e) => e.operation === "external.change")
         .map((e) => e.validation),
     ).toEqual(["FAILED", "PASSED"]);
-    expect((await service.getHistory(dir)).map((r) => r.reason)).toEqual([
-      "external",
-      "external",
-    ]);
     expect(
       await service.handleExternalChange(
         path.join(root, ".uib", "logs", "operations.jsonl"),
@@ -498,7 +475,7 @@ describe("transactions, history and formatting", () => {
   it("rejects traversal and changes outside declared roles", async () => {
     const dir = await bundle();
     await expect(
-      service.saveDraft(dir, { files: { "../escape.json": "{}" } }),
+      service.save(dir, { files: { "../escape.json": "{}" } }),
     ).rejects.toThrow("declared");
     await writeFile(
       path.join(dir, "artifact.json"),
@@ -527,7 +504,7 @@ describe("definitions and CLI", () => {
       config: { path: "register", page: "page_registration" },
     };
     const dir = await bundle("routes/tour/register", child, {});
-    expect((await service.load(dir)).references.outgoing[0].artifactId).toBe(
+    expect((await service.getReferences(dir)).outgoing[0].artifactId).toBe(
       "page_registration",
     );
     expect((await service.validate(dir)).valid).toBe(true);

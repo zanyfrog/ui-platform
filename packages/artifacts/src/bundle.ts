@@ -203,7 +203,12 @@ export function checksum(snapshot: Snapshot): string {
 export async function discoverBundles(root: string): Promise<string[]> {
   const bundles: string[] = [];
   async function visit(dir: string): Promise<void> {
-    const entries = await readdir(dir, { withFileTypes: true });
+    const entries = await readdir(dir, { withFileTypes: true }).catch(
+      (cause: NodeJS.ErrnoException) => {
+        if (cause.code === "ENOENT") return [];
+        throw cause;
+      },
+    );
     if (
       entries.some((entry) => entry.name === "artifact.json" && entry.isFile())
     )
@@ -211,7 +216,14 @@ export async function discoverBundles(root: string): Promise<string[]> {
     for (const entry of entries)
       if (
         entry.isDirectory() &&
-        ![".uib", ".git", "node_modules", "dist"].includes(entry.name)
+        ![
+          ".uib",
+          ".git",
+          "node_modules",
+          "dist",
+          "dist-server",
+          ".vite",
+        ].includes(entry.name.toLowerCase())
       )
         await visit(path.join(dir, entry.name));
   }

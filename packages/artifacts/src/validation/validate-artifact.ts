@@ -174,10 +174,8 @@ export async function validateSnapshot(
     definition,
     capabilities: definition?.capabilities ?? {
       ...capabilities,
-      publish: false,
     },
     validation: validationResult(diagnostics),
-    lifecycle: { state: "draft" },
     references: { outgoing },
     checksum: checksum(snapshot),
   };

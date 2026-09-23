@@ -9,7 +9,7 @@ async function signature(root: string): Promise<string> {
   async function walk(dir: string, depth: number): Promise<void> {
     if (depth > 5) return;
     for (const entry of await readdir(dir, { withFileTypes: true }).catch(() => [])) {
-      if (['node_modules', 'dist', 'dist-server', '.git', '.vite'].includes(entry.name)) continue;
+      if (['node_modules', 'dist', 'dist-server', '.git', '.vite', '.uib'].includes(entry.name)) continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) await walk(full, depth + 1);
       else {

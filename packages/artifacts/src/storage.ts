@@ -2,7 +2,6 @@ import {
   mkdir,
   open,
   readFile,
-  readdir,
   rename,
   rm,
   lstat,
@@ -12,14 +11,9 @@ import {
 import path from "node:path";
 import { createHash, randomUUID } from "node:crypto";
 import { capture, checksum, safeFile, type Snapshot } from "./bundle.js";
-import type { ArtifactRevision } from "./types.js";
 
 export const storageKey = (id: string): string =>
   createHash("sha256").update(id).digest("hex");
-export interface StoredSnapshot {
-  metadata: ArtifactRevision;
-  files: Snapshot;
-}
 export class ArtifactConflictError extends Error {
   constructor() {
     super("Artifact changed since it was loaded. Reload before saving.");
@@ -72,7 +66,7 @@ export async function immutableWrite(
   }
   try {
     await chmod(temp, 0o444);
-    await link(temp, file); // Fails if the final name exists; never replaces a version.
+    await link(temp, file); // Fails if the final name exists; never replaces an identity binding.
   } finally {
     await rm(temp, { force: true });
   }
@@ -94,7 +88,28 @@ async function writeSnapshot(
     else await atomicWrite(file, content);
   }
 }
+const localLocks = new Map<string, Promise<void>>();
 export async function withArtifactLock<T>(
+  root: string,
+  bundle: string,
+  run: () => Promise<T>,
+): Promise<T> {
+  const key = path.join(root, storageKey(bundle));
+  const previous = localLocks.get(key) ?? Promise.resolve();
+  let release!: () => void;
+  const current = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  localLocks.set(key, current);
+  await previous;
+  try {
+    return await acquireArtifactLock(root, bundle, run);
+  } finally {
+    release();
+    if (localLocks.get(key) === current) localLocks.delete(key);
+  }
+}
+async function acquireArtifactLock<T>(
   root: string,
   bundle: string,
   run: () => Promise<T>,
@@ -200,94 +215,4 @@ export async function commitTransaction(
     options.rollback?.();
     throw cause;
   }
-}
-export async function readHistory(
-  root: string,
-  id: string,
-): Promise<StoredSnapshot[]> {
-  const dir = await storageDirectory(root, "history", storageKey(id));
-  const names = (await readdir(dir))
-    .filter((name) => /^r\d+\.json$/.test(name))
-    .sort((a, b) => Number(a.slice(1, -5)) - Number(b.slice(1, -5)));
-  return Promise.all(
-    names.map(
-      async (name) =>
-        JSON.parse(
-          await readFile(path.join(dir, name), "utf8"),
-        ) as StoredSnapshot,
-    ),
-  );
-}
-/** Preserve path-addressed recovery history when a previously unreadable manifest gains an ID. */
-export async function adoptPathHistory(
-  root: string,
-  bundle: string,
-  id: string,
-): Promise<void> {
-  const history = await readHistory(root, `path:${bundle}`);
-  if (!history.length) return;
-  const dir = await storageDirectory(root, "history", storageKey(id));
-  for (const item of history) {
-    const file = path.join(dir, `${item.metadata.revision}.json`);
-    const content = JSON.stringify(item);
-    try {
-      await immutableWrite(file, content);
-    } catch (e) {
-      if (
-        (e as NodeJS.ErrnoException).code !== "EEXIST" ||
-        (await readFile(file, "utf8")) !== content
-      )
-        throw new Error(
-          "Cannot adopt recovery history into an artifact ID that already has different history.",
-        );
-    }
-  }
-}
-export async function createRevision(
-  root: string,
-  id: string,
-  snapshot: Snapshot,
-  reason: ArtifactRevision["reason"],
-): Promise<ArtifactRevision> {
-  const dir = await storageDirectory(root, "history", storageKey(id));
-  const history = await readHistory(root, id);
-  const revision = `r${Math.max(0, ...history.map((item) => Number(item.metadata.revision.slice(1)))) + 1}`;
-  const metadata: ArtifactRevision = {
-    revision,
-    reason,
-    createdAt: new Date().toISOString(),
-    checksum: checksum(snapshot),
-  };
-  // Exclusive create means an existing revision can never be replaced.
-  await immutableWrite(
-    path.join(dir, `${revision}.json`),
-    JSON.stringify({ metadata, files: snapshot }),
-  );
-  return metadata;
-}
-export async function versions(root: string, id: string): Promise<string[]> {
-  const dir = await storageDirectory(root, "versions", storageKey(id));
-  return (await readdir(dir))
-    .filter((name) => /^v\d+\.json$/.test(name))
-    .sort((a, b) => Number(a.slice(1, -5)) - Number(b.slice(1, -5)));
-}
-export async function createPublishedVersion(
-  root: string,
-  id: string,
-  snapshot: Snapshot,
-): Promise<{ version: string; snapshotPath: string }> {
-  const dir = await storageDirectory(root, "versions", storageKey(id));
-  const existing = await versions(root, id);
-  const version = `v${Math.max(0, ...existing.map((name) => Number(name.slice(1, -5)))) + 1}`;
-  const snapshotPath = path.join(dir, `${version}.json`);
-  await immutableWrite(
-    snapshotPath,
-    JSON.stringify({
-      version,
-      publishedAt: new Date().toISOString(),
-      checksum: checksum(snapshot),
-      files: snapshot,
-    }),
-  );
-  return { version, snapshotPath };
 }

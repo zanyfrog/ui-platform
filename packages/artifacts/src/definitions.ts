@@ -13,8 +13,6 @@ import type {
 export const capabilities: ArtifactCapabilities = {
   edit: true,
   format: true,
-  publish: true,
-  history: true,
 };
 const referenceName = /^[A-Za-z0-9][A-Za-z0-9_.:-]*$/;
 const datasetDiagnostics = (

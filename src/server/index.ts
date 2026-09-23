@@ -10,7 +10,8 @@ import { ensurePreview, stopAllPreviews, stopPreview } from './preview.js';
 import { exportApp } from './exporter.js';
 import { appendHistory } from './history.js';
 import { startWorkspaceWatcher } from './watcher.js';
-import { runtimeDir } from './paths.js';
+import { startApplicationArtifactWatchers } from './artifact-watcher.js';
+import { appsDir, runtimeDir } from './paths.js';
 import { deletePageSource, getPageSource, getPageTree, movePageSource, savePageSource } from './page-builder.js';
 import { discoverComponents, getAppPackageAsset } from './component-registry.js';
 import { disableAppPackage, enableAppPackage, getAppPackageCatalog, getGlobalPackageCatalog } from './packages.js';
@@ -304,10 +305,15 @@ const stopWatcher = startWorkspaceWatcher(() => {
   for (const client of sseClients) client.write(`event: workspace-change\ndata: {"time":"${new Date().toISOString()}"}\n\n`);
 });
 
+const artifactWatcher = await startApplicationArtifactWatchers(appsDir, event => {
+  for (const client of sseClients) client.write(`event: artifact-change\ndata: ${JSON.stringify(event)}\n\n`);
+});
+
 server.listen(port, '0.0.0.0', () => console.log(`UI Platform API listening on http://localhost:${port}`));
 
-function shutdown() {
+async function shutdown() {
   stopWatcher();
+  await artifactWatcher.close();
   stopAllPreviews();
   for (const client of sseClients) client.end();
   server.close(() => process.exit(0));
