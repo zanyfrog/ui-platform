@@ -4,6 +4,12 @@
 **Project:** UIB Platform  
 **Date:** 2026-09-03
 
+The [Artifact Foundation v1.1 waypoint](./artifact-foundation-v1.1-waypoint.md)
+and [Application Build, Migration & Deployment v1](./application-build-migration-deployment-v1.md)
+define the current artifact/application boundary. See the
+[integration guide](./application-build-integration.md) for implemented services,
+provider limitations, and deployment-specific prerequisites.
+
 ---
 
 ## Document Control and Preservation Policy

@@ -556,6 +556,8 @@ Artifact Foundation v1 is complete when:
 
 ## 22. Next architecture milestone
 
+The companion [Application Build, Migration & Deployment Architecture v1](./application-build-migration-deployment-v1.md) now specifies this application-level layer. Use it alongside this waypoint: Artifact Foundation continues to own artifact identity, storage, discovery, save behavior, references, and shared validation; the companion defines incremental builds, migration approval and execution, production packaging, deployment policy, and recovery. Its implementation work packages and acceptance tests describe requirements, not completed functionality.
+
 The next architecture topic is:
 
 > **Application Validation + Build/Publish Policy**

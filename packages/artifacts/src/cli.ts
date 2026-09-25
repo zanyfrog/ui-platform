@@ -5,6 +5,7 @@ import { realpathSync } from "node:fs";
 import { stat } from "node:fs/promises";
 import { FileSystemArtifactService } from "./artifact-service.js";
 import type { ArtifactService, ArtifactValidationResult } from "./types.js";
+import { runApplicationCli } from "./application/cli.js";
 
 export async function runArtifactCli(
   args: string[],
@@ -15,6 +16,7 @@ export async function runArtifactCli(
     stderr?: (text: string) => void;
   } = {},
 ): Promise<number> {
+  if (args[0] === "app" || args[0] === "migration") return runApplicationCli(args, options);
   const stdout = options.stdout ?? ((text) => process.stdout.write(text));
   const stderr = options.stderr ?? ((text) => process.stderr.write(text));
   const json = args.includes("--json");

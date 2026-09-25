@@ -6,6 +6,22 @@ This document was split out of docs/architecture/UIB-Architecture-Guide.md on 20
 
 # 69. Confirmed Design Decisions
 
+## 2026-09-24 — Application builds and migrations
+
+Use [Application Build, Migration & Deployment v1](../architecture/application-build-migration-deployment-v1.md)
+alongside Artifact Foundation v1.1. Artifacts remain editable source with permanent
+IDs and shared validation. Application/Site is the build/deployment unit. Git owns
+source history. Earlier per-artifact publishing/internal source revisions and
+automatic schema mutation on file changes are superseded within this scope.
+
+Migration generation follows preview, explicit confirmation, source artifact
+persistence, then Development application. Production has separate destructive
+approval, verified backups, environment locking, staged health checks, and durable
+recovery state. The first provider adapts the existing JSON-file ORM offline;
+it does not claim multi-file transactions or online writer fencing. See the
+[integration guide](../architecture/application-build-integration.md) for the
+upstream contract map and required application/host adapters.
+
 The following are confirmed decisions from the current design discussion.
 
 - Packages may be installed for the platform and used by one or many applications.

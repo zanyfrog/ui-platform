@@ -29,6 +29,16 @@ describe('application presentation lifecycle', () => {
 
   afterAll(async () => { await rm(fixtureApps, { recursive: true, force: true }); });
 
+  it('rejects unsupported visual values and page-owned semantic settings', async () => {
+    const initial = await initializeApplicationPresentation('presentation-test');
+    await expect(savePresentationDraft('presentation-test', {
+      ...initial.draft!, componentDefaults: { 'uib-hero': { theme: 'unsupported-theme' } },
+    })).rejects.toThrow('must be one of its declared options');
+    await expect(savePresentationDraft('presentation-test', {
+      ...initial.draft!, componentDefaults: { 'uib-heading': { level: 1 } },
+    })).rejects.toThrow('is not an application-presentation setting');
+  });
+
   it('stages drafts and atomically activates a published presentation bundle', async () => {
     const initial = await initializeApplicationPresentation('presentation-test');
     const fixtureEntry = path.join(fixtureApps, 'presentation-test', 'src', 'main.ts');

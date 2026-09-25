@@ -2,6 +2,19 @@
 
 Filesystem-first lifecycle/orchestration package for dynamically generated UI applications.
 
+## Architecture waypoints
+
+Use these companion specifications together:
+
+- [Artifact Foundation v1.1](docs/architecture/artifact-foundation-v1.1-waypoint.md) defines artifact identity, bundles, discovery, save behavior, and shared validation.
+- [Application Build, Migration & Deployment v1](docs/architecture/application-build-migration-deployment-v1.md) extends that foundation with dependency-aware builds, reviewed schema migrations, production bundles, and deployment recovery.
+
+These documents describe implementation requirements; their work packages and acceptance criteria do not imply that the features are already implemented.
+
+The [application build integration guide](docs/architecture/application-build-integration.md)
+documents the implemented service APIs, CLI, JSON ORM provider, local deployment
+target, required application adapters, and recovery procedures.
+
 Run from `Modular/`:
 
 ```bash

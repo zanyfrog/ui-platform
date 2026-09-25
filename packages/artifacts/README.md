@@ -6,7 +6,12 @@ architecture baseline is [the v1.1 waypoint](../../docs/architecture/artifact-fo
 
 Artifacts are editable UTF-8 source files. Invalid source can be saved. Git/GitHub
 owns history, diffs, branches, rollback, and collaboration. Publish/deploy belongs
-to a later Application/Site layer.
+to the Application/Site layer.
+
+Application build, migration, and deployment services are exported from this
+package. See the [integration and operations guide](../../docs/architecture/application-build-integration.md)
+for compiler/provider wiring, CLI commands, supported JSON ORM maintenance,
+portable releases, and recovery procedures.
 
 ## CLI
 
@@ -110,7 +115,7 @@ these events to refresh through the service.
 
 ## Definitions and shared validation
 
-Built-ins are Form, Route, RouteGroup, and Trigger. Definition and value-validator
+Built-ins are Form, Route, RouteGroup, Trigger, Dataset, and Migration. Definition and value-validator
 registries are extensible. Browser/server form validation shares the dependency-free
 entry point:
 

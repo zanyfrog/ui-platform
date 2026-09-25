@@ -1,5 +1,6 @@
 import path from "node:path";
 import ts from "typescript";
+import { datasetDefinition, migrationDefinition } from "./application/migration-definition.js";
 import { error, isObject } from "./bundle.js";
 import type {
   ArtifactCapabilities,
@@ -466,6 +467,8 @@ export class ArtifactDefinitionRegistry {
         routeArtifactDefinition,
         routeGroupDefinition,
         triggerDefinition,
+        datasetDefinition,
+        migrationDefinition,
       ])
         this.register(definition);
   }
