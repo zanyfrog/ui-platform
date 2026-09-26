@@ -3,6 +3,8 @@ export * from "./artifact-service.js";
 export * from "./definitions.js";
 export * from "./validation/validator-registry.js";
 export { validationResult } from "./validation/validate-artifact.js";
+export { validateReferences } from "./validation/validate-references.js";
+export { ArtifactValidationError } from "./validation/artifact-validation-error.js";
 export { ArtifactConflictError } from "./storage.js";
 export { runArtifactCli } from "./cli.js";
 export * from "./application/graph.js";

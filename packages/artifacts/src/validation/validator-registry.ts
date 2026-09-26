@@ -4,6 +4,15 @@ import type {
   ValidationDiagnostic,
 } from "../types.js";
 
+export type {
+  ValueValidator,
+  ValidatorConfiguration,
+  ValidationDiagnostic,
+  DiagnosticSeverity,
+  ArtifactValidationResult,
+  ValidatorRegistryContract,
+} from "../types.js";
+
 export const requiredValidator: ValueValidator = {
   name: "required",
   validateConfiguration: () => undefined,

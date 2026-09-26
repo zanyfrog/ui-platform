@@ -18,6 +18,7 @@ export class ApplicationGraph {
   readonly diagnostics: ValidationDiagnostic[] = [];
   readonly edges: DependencyEdge[] = [];
   readonly roots: string[];
+  private readonly diagnosticOwners = new Map<ValidationDiagnostic, string>();
   constructor(
     artifacts: EditableArtifact[],
     entries: EntryPoints,
@@ -35,39 +36,13 @@ export class ApplicationGraph {
     ].sort();
     for (const artifact of artifacts) {
       const id = artifact.manifest?.artifactId;
-      this.diagnostics.push(
-        ...artifact.validation.diagnostics.map((d) => ({
-          ...d,
-          artifactId: d.artifactId ?? id ?? `path:${artifact.bundlePath}`,
-          file: d.file ?? artifact.bundlePath,
-        })),
-      );
+      this.addArtifactDiagnostics(artifact, artifact.validation.diagnostics);
       if (!id) continue;
-      if (this.nodes.has(id))
-        this.issue(
-          "application.duplicate-id",
-          id,
-          `Duplicate artifact identity: ${id}`,
-        );
       this.nodes.set(id, artifact);
       for (const ref of artifact.references.outgoing)
         this.edges.push({ from: id, to: ref.artifactId, buildOrder: true });
     }
     this.edges.push(...extraEdges);
-    for (const [id, artifact] of this.nodes)
-      for (const reference of artifact.references.outgoing) {
-        const target = this.nodes.get(reference.artifactId);
-        if (
-          target &&
-          reference.expectedType &&
-          reference.expectedType !== target.manifest?.artifactType
-        )
-          this.issue(
-            "reference.type",
-            id,
-            `${id} requires ${reference.artifactId} to be ${reference.expectedType}.`,
-          );
-      }
     const follow = (id: string, chain: string[]) => {
       if (this.reachable.has(id)) return;
       this.reachable.add(id);
@@ -111,6 +86,18 @@ export class ApplicationGraph {
     };
     this.reachable.forEach((id) => walk(id, []));
   }
+  addArtifactDiagnostics(
+    artifact: EditableArtifact,
+    diagnostics: ValidationDiagnostic[],
+  ) {
+    for (const diagnostic of diagnostics) {
+      this.diagnostics.push(diagnostic);
+      this.diagnosticOwners.set(
+        diagnostic,
+        artifact.manifest?.artifactId ?? "path:" + artifact.bundlePath,
+      );
+    }
+  }
   issue(code: string, artifactId: string, message: string) {
     this.diagnostics.push({ severity: "error", code, artifactId, message });
   }
@@ -132,7 +119,8 @@ export class ApplicationGraph {
     return this.diagnostics.filter(
       (d) =>
         d.severity === "error" &&
-        (!d.artifactId || this.reachable.has(d.artifactId)),
+        ((!this.diagnosticOwners.has(d) && !d.artifactId) ||
+          this.reachable.has(this.diagnosticOwners.get(d) ?? d.artifactId!)),
     );
   }
 }

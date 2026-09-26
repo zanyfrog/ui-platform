@@ -18,6 +18,22 @@ import { mountAppPackages, mountGlobalPackages } from './packages-ui';
 const root = document.querySelector<HTMLDivElement>('#app');
 if (!root) throw new Error('Missing #app root.');
 
+let artifactEditorMounted = false;
+if (import.meta.env.DEV) {
+  const { mountDevelopmentIdentity } = await import('./artifact-editor/identity-selector');
+  const identityHeader = document.createElement('div');
+  identityHeader.className = 'development-identity';
+  root.before(identityHeader);
+  await mountDevelopmentIdentity(identityHeader);
+  const { editorSessionSnapshot } = await import('./artifact-editor/session');
+  if (editorSessionSnapshot()) {
+    const { mountArtifactEditor } = await import('./artifact-editor/shell');
+    await import('./artifact-editor/editor.css');
+    mountArtifactEditor(root);
+    artifactEditorMounted = true;
+  }
+}
+
 let apps: DiscoveredApp[] = [];
 let templates: TemplateDefinition[] = [];
 let currentKey: string | null = null;
@@ -559,6 +575,7 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
   }
 }
 
+if (!artifactEditorMounted) {
 await refresh();
 if (window.location.pathname === '/packages') renderPackages(false);
 else renderHome(false);
@@ -576,3 +593,4 @@ events.addEventListener('workspace-change', async () => {
   if (!currentKey) renderHome();
   // If a detail screen is open, leave current unsaved inputs alone; Vite preview itself handles source HMR.
 });
+}

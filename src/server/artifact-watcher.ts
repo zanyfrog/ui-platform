@@ -12,6 +12,7 @@ export async function startApplicationArtifactWatchers(
   onChange: (event: ArtifactWatchEvent) => void,
   onError: (error: Error) => void = console.error,
   intervalMs = 1500,
+  services?: { get(root: string): FileSystemArtifactService; removed(root: string): void; changed(root: string, event: ArtifactWatchEvent): void },
 ): Promise<ArtifactWatcher> {
   const watchers = new Map<string, ArtifactWatcher>();
   let stopped = false;
@@ -39,10 +40,10 @@ export async function startApplicationArtifactWatchers(
       current.add(root);
       if (!watchers.has(root)) {
         try {
-          const service = new FileSystemArtifactService({ root });
+          const service = services?.get(root) ?? new FileSystemArtifactService({ root });
           watchers.set(
             root,
-            await service.startWatching({ onChange, onError }),
+            await service.startWatching({ onChange: event => { onChange(event); services?.changed(root, event); }, onError }),
           );
         } catch (cause) {
           onError(cause instanceof Error ? cause : new Error(String(cause)));
@@ -53,6 +54,7 @@ export async function startApplicationArtifactWatchers(
       if (!current.has(root)) {
         await watcher.close();
         watchers.delete(root);
+        services?.removed(root);
       }
   };
   await refresh();

@@ -1,13 +1,6 @@
-import { createHash, randomUUID } from "node:crypto";
-import {
-  mkdir,
-  readFile,
-  rename,
-  writeFile,
-  readdir,
-  lstat,
-  appendFile,
-} from "node:fs/promises";
+import { atomicWriteText } from "../file-operations.js";
+import { createHash } from "node:crypto";
+import { readFile, readdir, lstat, appendFile } from "node:fs/promises";
 import path from "node:path";
 import { storageDirectory } from "../storage.js";
 
@@ -32,12 +25,7 @@ export async function readJson<T>(file: string): Promise<T> {
   return JSON.parse(await readFile(file, "utf8"));
 }
 export async function writeJson(file: string, value: unknown): Promise<void> {
-  await mkdir(path.dirname(file), { recursive: true });
-  const temporary = `${file}.${randomUUID()}.tmp`;
-  await writeFile(temporary, JSON.stringify(value, null, 2) + "\n", {
-    flag: "wx",
-  });
-  await rename(temporary, file);
+  await atomicWriteText(file, JSON.stringify(value, null, 2) + "\n");
 }
 export async function filesUnder(
   root: string,

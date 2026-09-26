@@ -1,0 +1,13 @@
+.artifact-editor { padding: 1.25rem; max-width: 100%; min-width: 0; }
+.artifact-editor[data-density="compact"] { padding: .5rem; }
+.artifact-editor header h2 { margin-block: .5rem; }
+.editor-toolbar, nav[aria-label="Artifact navigation"] { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; padding: .75rem; }
+.artifact-editor button, nav[aria-label="Artifact navigation"] select { font: inherit; padding: .5rem .75rem; }
+.artifact-editor pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 28rem; overflow: auto; padding: .75rem; border: 1px solid var(--uib-color-border, #ccc); }
+.artifact-editor aside { margin-block: 1rem; }
+.artifact-editor footer { font-size: .875rem; opacity: .8; }
+.editor-property { margin-block: .8rem; }
+.editor-property input, .editor-property textarea, .editor-property select { box-sizing: border-box; font: inherit; padding: .5rem; width: 100%; max-width: 42rem; }
+.editor-property fieldset { min-width: 0; margin-block: .75rem; border: 1px solid var(--uib-color-border, #ccc); }
+.editor-compatibility { border-left: 3px solid var(--uib-color-warning, #ab7500); padding-left: .75rem; }
+@media (max-width: 600px) { .artifact-editor { padding: .5rem; } .editor-toolbar > *, nav[aria-label="Artifact navigation"] > * { max-width: 100%; } }

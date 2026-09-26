@@ -2,6 +2,7 @@ import path from "node:path";
 import { mkdir, rename } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
 import { safeFile } from "../bundle.js";
+import { ArtifactValidationError } from "../validation/artifact-validation-error.js";
 import type { ArtifactService, EditableArtifact } from "../types.js";
 import { storageDirectory } from "../storage.js";
 import {
@@ -96,15 +97,16 @@ export class MigrationEngine {
   }
   private async source(datasetId: string) {
     const artifact = await this.options.service.load(datasetId);
-    if (
-      !artifact.validation.valid ||
-      artifact.manifest?.artifactType !== "dataset"
-    )
-      throw new Error("Source dataset must pass shared artifact validation.");
+    if (!artifact.validation.valid)
+      throw new ArtifactValidationError(
+        "Source dataset must pass shared artifact validation.",
+        artifact.validation,
+      );
+    if (artifact.manifest?.artifactType !== "dataset")
+      throw new Error("Expected a dataset artifact.");
     const schema = JSON.parse(
       artifact.files.find((f) => f.role === "definition")!.content,
     ) as DatasetSchema;
-    if (schemaErrors(schema).length) throw new Error("Invalid source schema.");
     return { artifact, schema };
   }
   async schemaGate(artifact: EditableArtifact) {
@@ -327,16 +329,16 @@ export class MigrationEngine {
   }
   async load(migrationId: string): Promise<MigrationDefinition> {
     const artifact = await this.options.service.load(migrationId);
-    if (
-      !artifact.validation.valid ||
-      artifact.manifest?.artifactType !== "migration"
-    )
-      throw new Error("Migration failed shared validation.");
+    if (!artifact.validation.valid)
+      throw new ArtifactValidationError(
+        "Migration failed shared validation.",
+        artifact.validation,
+      );
+    if (artifact.manifest?.artifactType !== "migration")
+      throw new Error("Expected a migration artifact.");
     const definition = JSON.parse(
       artifact.files.find((f) => f.role === "definition")!.content,
     ) as MigrationDefinition;
-    if (migrationErrors(definition).length)
-      throw new Error("Invalid migration checksum or definition.");
     return definition;
   }
   async pendingForEnvironment(): Promise<MigrationDefinition[]> {

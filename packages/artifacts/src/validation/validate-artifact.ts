@@ -1,3 +1,4 @@
+import { validateReferences } from "./validate-references.js";
 import path from "node:path";
 import * as prettier from "prettier";
 import { checksum, error, parseManifest, type Snapshot } from "../bundle.js";
@@ -132,36 +133,13 @@ export async function validateSnapshot(
         diagnostics.push(error("reference.extraction", String(e)));
       }
       if (options.resolveReference)
-        for (const reference of outgoing) {
-          try {
-            const target = await options.resolveReference(reference.artifactId);
-            if (!target)
-              diagnostics.push({
-                ...error(
-                  "reference.missing",
-                  `Reference not found: ${reference.artifactId}`,
-                  "artifact.json",
-                ),
-                field: reference.field,
-              });
-            else if (
-              reference.expectedType &&
-              target.artifactType !== reference.expectedType
-            )
-              diagnostics.push({
-                ...error(
-                  "reference.type",
-                  `Reference ${reference.artifactId} must be ${reference.expectedType}.`,
-                  "artifact.json",
-                ),
-                field: reference.field,
-              });
-          } catch (e) {
-            diagnostics.push(
-              error("reference.failure", String(e), "artifact.json"),
-            );
-          }
-        }
+        diagnostics.push(
+          ...(await validateReferences(
+            outgoing,
+            options.resolveReference,
+            manifest.artifactId,
+          )),
+        );
     }
   }
   for (const diagnostic of diagnostics)

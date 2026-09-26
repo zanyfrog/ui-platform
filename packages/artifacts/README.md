@@ -1,5 +1,9 @@
 # Artifact Foundation v1.1
 
+The [Generic Artifact Editor readiness review](../../docs/architecture/generic-artifact-editor-readiness.md)
+records the actual exported TypeScript interfaces, browser/server boundaries,
+upstream schema compatibility checks, and Windows save/rollback guarantees.
+
 `@ui-platform/artifacts` provides shared bundle discovery, loading, saving,
 formatting, validation, references, and active filesystem watching. The current
 architecture baseline is [the v1.1 waypoint](../../docs/architecture/artifact-foundation-v1.1-waypoint.md).

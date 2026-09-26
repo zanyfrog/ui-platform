@@ -1,8 +1,11 @@
 import {
+  atomicWriteText as atomicWrite,
+  retryWindowsFileOperation,
+} from "./file-operations.js";
+import {
   mkdir,
   open,
   readFile,
-  rename,
   rm,
   lstat,
   link,
@@ -34,22 +37,6 @@ export async function storageDirectory(
       throw new Error(`Storage may not contain symbolic links: ${dir}`);
   }
   return dir;
-}
-async function atomicWrite(file: string, content: string): Promise<void> {
-  await mkdir(path.dirname(file), { recursive: true });
-  const temp = `${file}.${randomUUID()}.tmp`;
-  const handle = await open(temp, "wx");
-  try {
-    await handle.writeFile(content, "utf8");
-    await handle.sync();
-  } finally {
-    await handle.close();
-  }
-  try {
-    await rename(temp, file);
-  } finally {
-    await rm(temp, { force: true });
-  }
 }
 /** Complete the snapshot before making its immutable name visible. */
 export async function immutableWrite(
@@ -84,7 +71,8 @@ async function writeSnapshot(
     const [name, content] = entries[index];
     await beforeWrite?.(name, index);
     const file = await safeFile(bundle, name);
-    if (content === null) await rm(file, { force: true });
+    if (content === null)
+      await retryWindowsFileOperation(() => rm(file, { force: true }));
     else await atomicWrite(file, content);
   }
 }

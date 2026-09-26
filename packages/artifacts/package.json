@@ -5,6 +5,10 @@
   "description": "Shared artifact source bundles, validation, transactional saves and filesystem watching.",
   "types": "./dist/index.d.ts",
   "exports": {
+    "./storage": {
+      "types": "./dist/file-operations.d.ts",
+      "import": "./dist/file-operations.js"
+    },
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"

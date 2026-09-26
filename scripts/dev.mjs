@@ -170,6 +170,7 @@ process.env.UI_PLATFORM_UI_PORT = String(uiPort);
 
 const env = {
   ...process.env,
+  NODE_ENV: process.env.NODE_ENV ?? 'development',
   UI_PLATFORM_API_PORT: String(apiPort),
   UI_PLATFORM_UI_PORT: String(uiPort),
 };
@@ -209,7 +210,7 @@ const front = http.createServer((req, res) => {
 
 await new Promise((resolve, reject) => {
   front.once('error', reject);
-  front.listen(uiPort, '0.0.0.0', resolve);
+  front.listen(uiPort, process.env.UI_PLATFORM_EDITOR === '1' ? '127.0.0.1' : '0.0.0.0', resolve);
 });
 
 console.log('');

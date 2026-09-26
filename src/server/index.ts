@@ -11,6 +11,9 @@ import { exportApp } from './exporter.js';
 import { appendHistory } from './history.js';
 import { startWorkspaceWatcher } from './watcher.js';
 import { startApplicationArtifactWatchers } from './artifact-watcher.js';
+import { ArtifactEditorWorkspace } from './artifact-editor.js';
+import { ArtifactEditorSecurity } from './editor-security.js';
+import { editorSecurityConfig } from './editor-security-config.js';
 import { appsDir, runtimeDir } from './paths.js';
 import { deletePageSource, getPageSource, getPageTree, movePageSource, savePageSource } from './page-builder.js';
 import { discoverComponents, getAppPackageAsset } from './component-registry.js';
@@ -22,7 +25,26 @@ import { acquirePackageFromUrl } from './package-acquisition.js';
 import { getActivePresentationCss, getApplicationPresentation, getDraftPresentationCss, getPresentationAssetPath, initializeApplicationPresentation, publishPresentation, removePresentationAsset, rollbackPresentation, savePresentationDraft, uploadPresentationAsset } from './application-presentation.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
-const sseClients = new Set<http.ServerResponse>();
+const editorSettings = await editorSecurityConfig();
+const editorSecurity = new ArtifactEditorSecurity({
+  ...editorSettings,
+  environment: process.env.NODE_ENV ?? '',
+  developmentRuntime: import.meta.url.endsWith('.ts'),
+  origins: [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]),
+  workspace: async key => { await getApp(key); return editorWorkspace(appPath(key)); },
+  audit: event => console.info('artifact-editor-security', JSON.stringify(event)),
+});
+const editorWorkspaces = new Map<string, ArtifactEditorWorkspace>();
+function editorWorkspace(root: string) {
+  let workspace = editorWorkspaces.get(root);
+  if (!workspace) {
+    workspace = new ArtifactEditorWorkspace(root, path.basename(root), event => {
+      editorSecurity.publish(event);
+    });
+    editorWorkspaces.set(root, workspace);
+  }
+  return workspace;
+}
 
 function json(res: http.ServerResponse, status: number, value: unknown): void {
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
@@ -125,14 +147,8 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
   const parts = url.pathname.split('/').filter(Boolean);
   try {
+    if (await editorSecurity.handle(req, res)) return;
     if (url.pathname === '/api/health') return json(res, 200, { ok: true });
-    if (url.pathname === '/api/events') {
-      res.writeHead(200, { 'content-type': 'text/event-stream', 'cache-control': 'no-cache', connection: 'keep-alive' });
-      res.write('event: ready\ndata: {}\n\n');
-      sseClients.add(res);
-      req.on('close', () => sseClients.delete(res));
-      return;
-    }
     if (url.pathname === '/api/templates' && method === 'GET') return json(res, 200, await discoverTemplates());
     if (url.pathname === '/api/apps' && method === 'GET') return json(res, 200, await discoverApps());
     if (url.pathname === '/api/apps' && method === 'POST') return json(res, 201, await createApp(await body(req)));
@@ -302,20 +318,22 @@ const server = http.createServer(async (req, res) => {
 });
 
 const stopWatcher = startWorkspaceWatcher(() => {
-  for (const client of sseClients) client.write(`event: workspace-change\ndata: {"time":"${new Date().toISOString()}"}\n\n`);
+  editorSecurity.publishWorkspaceChange();
 });
 
-const artifactWatcher = await startApplicationArtifactWatchers(appsDir, event => {
-  for (const client of sseClients) client.write(`event: artifact-change\ndata: ${JSON.stringify(event)}\n\n`);
-});
+const artifactWatcher = editorSecurity.enabled ? await startApplicationArtifactWatchers(appsDir, () => {}, console.error, 1500, {
+  get: root => editorWorkspace(root).service,
+  removed: root => { editorWorkspaces.delete(root); },
+  changed: (root, event) => editorWorkspace(root).changed(event),
+}) : undefined;
 
-server.listen(port, '0.0.0.0', () => console.log(`UI Platform API listening on http://localhost:${port}`));
+server.listen(port, editorSecurity.enabled ? '127.0.0.1' : '0.0.0.0', () => console.log(`UI Platform API listening on http://localhost:${port}`));
 
 async function shutdown() {
   stopWatcher();
-  await artifactWatcher.close();
+  await artifactWatcher?.close();
   stopAllPreviews();
-  for (const client of sseClients) client.end();
+  editorSecurity.close();
   server.close(() => process.exit(0));
 }
 process.on('SIGINT', shutdown);

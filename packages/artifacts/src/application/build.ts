@@ -11,6 +11,7 @@ import type {
 } from "../types.js";
 import { storageDirectory } from "../storage.js";
 import { safeFile, validRelativePath } from "../bundle.js";
+import { validateReferences } from "../validation/validate-references.js";
 import {
   ApplicationGraph,
   type DependencyEdge,
@@ -127,6 +128,23 @@ export class ApplicationBuildEngine {
       entries,
       await this.options.dependencies?.(artifacts),
     );
+    for (const artifact of artifacts) {
+      const diagnostics = await validateReferences(
+        artifact.references.outgoing,
+        async (id) => {
+          const target = graph.nodes.get(id)?.manifest;
+          return target ? { artifactType: target.artifactType } : undefined;
+        },
+        artifact.manifest?.artifactId,
+      );
+      const existing = new Set(
+        artifact.validation.diagnostics.map(fingerprint),
+      );
+      graph.addArtifactDiagnostics(
+        artifact,
+        diagnostics.filter((d) => !existing.has(fingerprint(d))),
+      );
+    }
     for (const artifact of artifacts)
       if (
         ["schema", "dataset"].includes(artifact.manifest?.artifactType ?? "") &&
