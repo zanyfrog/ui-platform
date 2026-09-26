@@ -19,7 +19,7 @@ for (const artifactType of ['route', 'routeGroup', 'form', 'trigger']) {
       field('field-name', 'Field name', ['field']), field('field-type', 'Field type', ['type']), field('field-label', 'Field label', ['label']),
       { id: 'validators', label: 'Validator configuration', path: ['validators'], control: 'collection', itemKeys: ['validator'], fields: [
         { ...field('validator-name', 'Validator', ['validator'], 'select'), options: [{ value: 'required', label: 'Required' }, { value: 'max-length', label: 'Maximum length' }] },
-        field('validator-max', 'Maximum length', ['max'], 'number'), field('validator-message', 'Validation message', ['message']),
+        { ...field('validator-max', 'Maximum length', ['max'], 'number'), visibleWhen: { path: ['validator'], equals: 'max-length' } }, field('validator-message', 'Validation message', ['message']),
       ] },
     ],
   }] });

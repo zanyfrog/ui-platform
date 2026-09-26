@@ -12,7 +12,7 @@ import type { EditorPresentationDescriptor } from '../../src/shared/editor-prese
 const fixture = document.querySelector<HTMLElement>('#fixture')!, results = document.querySelector('#results')!;
 const descriptor: EditorPresentationDescriptor = { id: 'browser-form', artifactType: 'form', definitionVersion: 1, preferredEditorIds: ['missing-optional'], sections: [
   { id: 'identity', label: 'Artifact', target: 'manifest', fields: [{ id: 'name', label: 'Name', path: ['name'], control: 'text' }] },
-  { id: 'configuration', label: 'Configuration', target: 'manifest', fields: [{ id: 'amount', label: 'Amount', path: ['config', 'amount'], control: 'number' }, { id: 'active', label: 'Active', path: ['config', 'active'], control: 'boolean' }] },
+  { id: 'configuration', label: 'Configuration', target: 'manifest', fields: [{ id: 'amount', label: 'Amount', path: ['config', 'amount'], control: 'number', visibleWhen: { path: ['config', 'active'], equals: true } }, { id: 'active', label: 'Active', path: ['config', 'active'], control: 'boolean' }] },
   { id: 'form-fields', label: 'Fields', target: 'file', role: 'definition', fields: [{ id: 'fields', label: 'Fields', control: 'collection', path: ['fields'], itemKeys: ['id', 'field'], fields: [{ id: 'label', label: 'Field label', path: ['label'], control: 'text' }, { id: 'validators', label: 'Validators', path: ['validators'], control: 'collection', itemKeys: ['validator'], fields: [{ id: 'max', label: 'Maximum length', path: ['max'], control: 'number' }] }] }] },
 ] };
 let subject = 'editor', revision = 1, editable = true, saves = 0;
@@ -32,12 +32,20 @@ window.fetch = async (input, options) => {
 class FixtureEvents extends EventTarget { close() {} }
 Object.defineProperty(window, 'EventSource', { value: FixtureEvents });
 const context = new EditorRuntimeContext('alpha'), plugins = createDefaultEditorPlugins();
+const unhandled: unknown[] = [];
+window.addEventListener('unhandledrejection', event => { unhandled.push(event.reason); });
 let cleaned = 0;
 plugins.register({ id: 'broken', artifactTypes: ['form'], definitionVersions: [1], contributes: [{ id: 'tab', label: 'Broken plugin', slot: 'tab' }] }, {
   tab: (_container, _context, scope) => { scope.onCleanup(() => { cleaned++; throw new Error('cleanup failure'); }); throw new Error('mount failure'); },
 });
 plugins.register({ id: 'events', artifactTypes: ['form'], definitionVersions: [1], contributes: [{ id: 'action', label: 'Edit action', slot: 'toolbar', requiresEdit: true }] }, {
   action: (container, _context, scope) => { const button = document.createElement('button'); button.textContent = 'Fail action'; container.append(button); scope.listen(button, 'click', async () => { throw new Error('async event failure'); }); },
+});
+plugins.register({ id: 'async-failure', artifactTypes: ['form'], definitionVersions: [1], contributes: [{ id: 'tab', label: 'Async failure', slot: 'tab' }] }, {
+  tab: async (_container, _context, scope) => { scope.onCleanup(async () => { throw new Error('async cleanup'); }); await Promise.resolve(); throw new Error('async mount'); },
+});
+plugins.register({ id: 'subscription-failure', artifactTypes: ['form'], definitionVersions: [1], contributes: [{ id: 'tab', label: 'Subscription failure', slot: 'tab' }] }, {
+  tab: (_container, _context, scope) => { scope.subscribe(() => { throw new Error('subscription failure'); }); },
 });
 const view = mountEditorShell(fixture, context, {}, plugins);
 const assert = (condition: unknown, message: string) => { if (!condition) throw new Error(message); };
@@ -76,6 +84,11 @@ try {
     input('properties', 'Maximum length', '0');
     assert(fixture.textContent?.includes('max-length requires a positive integer max.'), 'Shared validator preview missing');
     assert(JSON.parse(context.snapshot!.artifact.files[0].content).fields[0].validators[0].max === 0, 'Invalid configuration was blocked');
+    const boolean = fixture.querySelector<HTMLSelectElement>('[data-editor-panel="properties"] [aria-label="Active"]')!;
+    boolean.value = 'false'; boolean.dispatchEvent(new Event('change'));
+    assert(!fixture.querySelector('[aria-label="Amount"]'), 'Conditional field stayed visible');
+    const latest = context.snapshot!.artifact.manifest!; context.setManifest(JSON.stringify({ ...latest, config: { ...latest.config, active: true } }));
+    assert(fixture.querySelector('[aria-label="Amount"]'), 'Conditional field did not restore');
   });
   await test('Invalid and unsupported structured source remains intact and compatible regions remain editable', () => {
     context.setFile('form.json', '{broken');
@@ -115,7 +128,7 @@ try {
   });
   await context.discard(); await context.dispose(); view.destroy();
   await test('Panel/plugin cleanup releases the DOM and leaves a single Phase 1 save sequence', () => {
-    assert(!fixture.children.length && cleaned > 0, 'Panel cleanup missing'); assert(saves === 1, 'Independent save path detected');
+    assert(!fixture.children.length && cleaned > 0, 'Panel cleanup missing'); assert(saves === 1, 'Independent save path detected'); assert(unhandled.length === 0, 'Plugin failure escaped isolation');
   });
   document.body.dataset.result = 'passed'; const done = document.createElement('p'); done.textContent = 'All 9 WP3 browser integration tests passed.'; results.after(done);
 } catch (error) { document.body.dataset.result = 'failed'; console.error(error); }

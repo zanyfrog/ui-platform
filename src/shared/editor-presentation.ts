@@ -6,6 +6,7 @@ export interface EditorFieldDescriptor {
   path: string[];
   readOnly?: boolean;
   help?: string;
+  visibleWhen?: { path: string[]; equals: string | number | boolean | null };
   options?: { value: string; label: string }[];
   /** Collections address existing objects by permanent ID, with a declared fallback. */
   itemKeys?: string[];
@@ -56,6 +57,7 @@ export class EditorDescriptorRegistry {
         unique(field.id); assertFieldPath(field.path);
         if (typeof field.label !== 'string' || !field.label || typeof field.control !== 'string' || !field.control || (field.readOnly !== undefined && typeof field.readOnly !== 'boolean')) throw new Error('Field label and component are required.');
         if (field.options && (!Array.isArray(field.options) || field.options.some(option => typeof option.value !== 'string' || typeof option.label !== 'string') || new Set(field.options.map(option => option.value)).size !== field.options.length)) throw new Error('Invalid field selection options.');
+        if (field.visibleWhen) { assertFieldPath(field.visibleWhen.path); if (field.visibleWhen.equals !== null && !['string', 'number', 'boolean'].includes(typeof field.visibleWhen.equals)) throw new Error('Field visibility requires a scalar comparison.'); }
         if (field.fields) fields(field.fields);
         if (field.itemKeys) field.itemKeys.forEach(key => assertFieldPath([key]));
       }

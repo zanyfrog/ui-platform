@@ -26,7 +26,8 @@ const textControl = (multiline = false, number = false): FieldControlFactory => 
   input.addEventListener('input', () => {
     const value = input.value;
     // Incomplete/invalid numeric drafts remain actual JSON string values, never NaN/null or a second source store.
-    commit(number && /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/.test(value) && Number.isFinite(Number(value)) ? Number(value) : value);
+    const numeric = Number(value);
+    commit(number && /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/.test(value) && Number.isFinite(numeric) && (!Number.isInteger(numeric) || Number.isSafeInteger(numeric)) ? numeric : value);
   });
   return input;
 };
@@ -62,15 +63,18 @@ function note(container: HTMLElement, message: string, openSource: () => void) {
 /** Stateless rendering; every mutation reads the current context again. */
 export function renderProperties(container: HTMLElement, context: EditorRuntimeContext, openSource: () => void,
   sections?: EditorSectionDescriptor[], registry = editorFields) {
-  let descriptor;
+  let descriptor: ReturnType<typeof currentPresentation>;
   try { descriptor = currentPresentation(context); } catch { note(container, 'Editor descriptor is invalid. Property editing is unavailable; source is preserved.', openSource); return; }
   if (!descriptor) { note(container, 'No compatible property descriptor for this artifact type and definition version, or the manifest is malformed. Source is preserved.', openSource); return; }
+  const locator = context.snapshot?.artifact.locator;
+  const descriptorId = descriptor.id;
   const caption = document.createElement('p'); caption.textContent = 'Editing diagnostics below describe current field representations and validator configurations. They do not replace saved-source validation.'; container.append(caption);
   function renderField(parent: HTMLElement, section: EditorSectionDescriptor, field: EditorFieldDescriptor, prefix: PropertyPath = []) {
     const path = [...prefix, ...field.path];
     const wrapper = document.createElement('uib-forms-field'); wrapper.setAttribute('label', field.label); wrapper.className = 'editor-property';
     const label = document.createElement('span'); label.slot = 'label'; label.textContent = field.label; wrapper.append(label); parent.append(wrapper);
     try {
+      if (field.visibleWhen && readProperty(context, section, [...prefix, ...field.visibleWhen.path]).value !== field.visibleWhen.equals) { wrapper.remove(); return; }
       const { value, file } = readProperty(context, section, path);
       if (field.control === 'collection') {
         const items = collectionItems(value, field.itemKeys);
@@ -91,7 +95,10 @@ export function renderProperties(container: HTMLElement, context: EditorRuntimeC
       if (!factory) throw new PropertyCompatibilityError('unavailable', `Field component ${field.control} is unavailable.`);
       const error = document.createElement('p'); error.setAttribute('role', 'status');
       const input = factory({ field, value, disabled: !context.canEdit || !!field.readOnly, commit: value => {
-        try { writeProperty(context, section, field, path, value); }
+        try {
+          if (context.snapshot?.artifact.locator !== locator || currentPresentation(context)?.id !== descriptorId) throw new Error('This property panel is no longer active.');
+          writeProperty(context, section, field, path, value);
+        }
         catch (failure) { error.textContent = failure instanceof Error ? failure.message : String(failure); }
       } });
       input.dataset.editorFocus = `${section.id}/${field.id}/${JSON.stringify(prefix)}`;
