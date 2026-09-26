@@ -63,7 +63,7 @@ try {
     assert(fixture.querySelector('[data-editor-panel="plugin:configuration:properties"]') && fixture.querySelector('[data-editor-panel="plugin:form-fields:properties"]'), 'Plugin tabs missing');
     input('properties', 'Name', 'Updated name');
     assert(context.snapshot?.artifact.manifest?.name === 'Updated name', 'Name not updated');
-    assert(fixture.querySelector('[data-editor-panel="source"]')?.textContent?.includes('Updated name'), 'Source panel not synchronized');
+    assert(fixture.querySelector<HTMLTextAreaElement>('[data-editor-panel="source"] [aria-label="Source for artifact.json"]')?.value.includes('Updated name'), 'Source panel not synchronized');
     input('properties', 'Amount', '42');
     assert(fixture.querySelector<HTMLInputElement>('[data-editor-panel="plugin:configuration:properties"] [aria-label="Amount"]')?.value === '42', 'Plugin field stale');
     input('plugin:form-fields:properties', 'Field label', 'New last name');
@@ -99,6 +99,33 @@ try {
     assert(context.snapshot?.artifact.files[0].content === '{"fields":{"extension":"keep"}}', 'Unsupported source changed');
     context.setFile('form.json', validFile); assert(fixture.querySelector('[aria-label="Field label"]'), 'Fields did not recover after source repaired');
   });
+  await test('Form proof editor creates, edits and removes fields through the shared copy', () => {
+    const tab = [...fixture.querySelectorAll<HTMLElement>('uib-tab')].find(value => value.textContent === 'Form designer')!; tab.click();
+    assert(tab && fixture.textContent?.includes('Form proof editor'), 'Form proof editor missing');
+    const add = [...fixture.querySelectorAll<HTMLButtonElement>('[data-editor-panel="plugin:form-proof:designer"] button')].find(button => button.textContent === 'Add text field')!; add.click();
+    let fields = JSON.parse(context.snapshot!.artifact.files[0].content).fields; assert(fields.length === 2 && fields[1].id === 'field-1', 'Form proof add did not use shared source');
+    const label = fixture.querySelector<HTMLInputElement>('[data-editor-panel="plugin:form-proof:designer"] [aria-label="Label for field-1"]')!; label.value = 'Added label'; label.dispatchEvent(new Event('change', { bubbles: true }));
+    fields = JSON.parse(context.snapshot!.artifact.files[0].content).fields; assert(fields[1].label === 'Added label', 'Form proof label edit did not synchronize');
+    const remove = [...fixture.querySelectorAll<HTMLButtonElement>('[data-editor-panel="plugin:form-proof:designer"] button')].find(button => button.textContent === 'Delete field' && !button.disabled)!; remove.click();
+    assert(JSON.parse(context.snapshot!.artifact.files[0].content).fields.length === 1, 'Form proof delete did not use shared source');
+  });
+  await test('Rich source editing, diagnostic navigation and Properties share the same copy', async () => {
+    const sourceTab = [...fixture.querySelectorAll<HTMLElement>('uib-tab')].find(tab => tab.textContent === 'Source')!; sourceTab.click();
+    const sourceFile = fixture.querySelector<HTMLSelectElement>('[aria-label="Source file"]')!; sourceFile.value = 'form.json'; sourceFile.dispatchEvent(new Event('change'));
+    const source = fixture.querySelector<HTMLTextAreaElement>('[aria-label="Source for form.json"]')!;
+    assert(source && !source.disabled, 'Rich source editor not available');
+    source.value = '{broken'; source.dispatchEvent(new Event('input', { bubbles: true }));
+    assert(context.snapshot?.artifact.files[0].content === '{broken' && fixture.textContent?.includes('Malformed JSON is preserved'), 'Malformed raw source was not preserved');
+    context.setFile('form.json', validFile); context.setManifest('{broken');
+    disk.validation = { valid: false, diagnostics: [{ severity: 'error', code: 'manifest.syntax', message: 'Malformed manifest', file: 'artifact.json', line: 1, column: 2 }] }; await context.flush();
+    const diagnosticTab = [...fixture.querySelectorAll<HTMLElement>('uib-tab')].find(tab => tab.textContent === 'Saved diagnostics')!; diagnosticTab.click();
+    const locate = [...fixture.querySelectorAll<HTMLButtonElement>('[data-editor-panel="diagnostics"] button')].find(button => button.textContent?.includes('Open artifact.json:1:2'))!;
+    assert(locate, 'Located diagnostic navigation missing'); locate.click(); await new Promise(resolve => setTimeout(resolve, 20));
+    assert(document.activeElement?.getAttribute('aria-label') === 'Source for artifact.json', 'Diagnostic did not focus manifest source');
+    disk.validation = { valid: true, diagnostics: [] };
+    // Restore a valid manifest so subsequent recovery/plugin coverage keeps its descriptor-backed panels.
+    context.setManifest(JSON.stringify(manifest));
+  });
   await test('Missing/incompatible plugins and mount, event, cleanup failures leave other panels usable', async () => {
     assert(fixture.textContent?.includes('missing-optional') && fixture.textContent?.includes('Editor plugin failed'), 'Plugin diagnostics missing');
     const button = [...fixture.querySelectorAll('button')].find(button => button.textContent === 'Fail action')!; button.click(); await Promise.resolve(); await Promise.resolve();
@@ -127,8 +154,8 @@ try {
     assert(fixture.textContent?.includes('No compatible property descriptor'), 'Version mismatch not detected');
   });
   await context.discard(); await context.dispose(); view.destroy();
-  await test('Panel/plugin cleanup releases the DOM and leaves a single Phase 1 save sequence', () => {
-    assert(!fixture.children.length && cleaned > 0, 'Panel cleanup missing'); assert(saves === 1, 'Independent save path detected'); assert(unhandled.length === 0, 'Plugin failure escaped isolation');
+  await test('Panel/plugin cleanup releases the DOM and leaves only shared Phase 1 save transactions', () => {
+    assert(!fixture.children.length && cleaned > 0, 'Panel cleanup missing'); assert(saves === 2, 'Unexpected save path detected'); assert(unhandled.length === 0, 'Plugin failure escaped isolation');
   });
-  document.body.dataset.result = 'passed'; const done = document.createElement('p'); done.textContent = 'All 9 WP3 browser integration tests passed.'; results.after(done);
+  document.body.dataset.result = 'passed'; const done = document.createElement('p'); done.textContent = 'All 11 WP5 browser integration tests passed.'; results.after(done);
 } catch (error) { document.body.dataset.result = 'failed'; console.error(error); }

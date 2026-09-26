@@ -108,3 +108,21 @@ export function collectionItems(value: unknown, keys: string[] = []) {
     return { key, value: item[key] as string };
   });
 }
+
+/**
+ * Proof-editor collection mutations deliberately reuse the descriptor binding.
+ * The whole collection value is replaced as one targeted JSON span, while the
+ * surrounding source (including extensions and formatting) remains untouched.
+ * Unsafe numeric members are rejected rather than silently rounded by JSON.parse.
+ */
+export function mutateCollection(context: EditorRuntimeContext, section: EditorSectionDescriptor, field: EditorFieldDescriptor, path: PropertyPath,
+  mutation: (items: Record<string, unknown>[]) => Record<string, unknown>[]) {
+  const value = readProperty(context, section, path).value;
+  if (!Array.isArray(value) || value.some(item => !item || typeof item !== 'object' || Array.isArray(item))) throw new PropertyCompatibilityError('unsupported', 'This collection contains an unsupported item. Source is preserved.');
+  const items = value as Record<string, unknown>[];
+  const unsafe = (item: unknown): boolean => typeof item === 'number' ? !Number.isSafeInteger(item) && Number.isInteger(item) : Array.isArray(item) ? item.some(unsafe) : !!item && typeof item === 'object' ? Object.values(item).some(unsafe) : false;
+  if (items.some(unsafe)) throw new PropertyCompatibilityError('unsupported', 'This collection contains a numeric value that cannot be represented safely. Source is preserved.');
+  const next = mutation(items.map(item => structuredClone(item)));
+  if (!Array.isArray(next) || next.some(item => !item || typeof item !== 'object' || Array.isArray(item))) throw new Error('A proof editor must produce object collection items.');
+  writeProperty(context, section, { ...field, control: 'collection' }, path, next);
+}

@@ -4,6 +4,7 @@ import { editorSessionSnapshot, subscribeEditorSession } from './session.js';
 import { renderProperties } from './properties.js';
 import { EditorPluginRegistry, mountPlugin } from './plugins.js';
 import { createDefaultEditorPlugins } from './default-plugins.js';
+import { diagnosticLocation, renderSourceEditor, type SourceEditorState } from './source-editor.js';
 
 export type EditorTab = 'overview' | 'properties' | 'source' | 'diagnostics' | `plugin:${string}`;
 type EditorSlot = 'header' | 'toolbar' | 'tabs' | 'diagnostics' | 'extras';
@@ -13,7 +14,7 @@ export interface EditorPresentation {
   tabOrder?: EditorTab[];
   slotOrder?: EditorSlot[];
 }
-const tabLabels: Partial<Record<EditorTab, string>> = { overview: 'Overview', properties: 'Properties', source: 'Source preview', diagnostics: 'Saved diagnostics' };
+const tabLabels: Partial<Record<EditorTab, string>> = { overview: 'Overview', properties: 'Properties', source: 'Source', diagnostics: 'Saved diagnostics' };
 function order<T extends string>(requested: T[] | undefined, defaults: T[]): T[] {
   return [...new Set([...(requested ?? []).filter(value => defaults.includes(value)), ...defaults])];
 }
@@ -24,6 +25,7 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string) {
 /** Presentation-only adapter; overrides cannot omit protected controls or inject behavior. */
 export function mountEditorShell(container: HTMLElement, context: EditorRuntimeContext, initial: EditorPresentation = {}, plugins: EditorPluginRegistry = createDefaultEditorPlugins()) {
   let presentation = initial, activeTab: EditorTab = 'overview', confirmDiscard = false, message = '';
+  const sourceState: SourceEditorState = {};
   let displayedLocator: string | undefined;
   let pluginCleanups: (() => void)[] = [];
   let destroyed = false;
@@ -101,10 +103,18 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
       } else if (plugin) {
         pluginCleanups.push(mountPlugin(panel, context, plugin.render, openSource));
       } else if (id === 'source') {
-        panel.append(element('p', 'Read-only source preview. Rich source editing is scheduled for WP4.'), element('h3', 'Manifest'), element('pre', snapshot.artifact.manifestContent));
-        for (const file of snapshot.artifact.files) panel.append(element('h3', file.path), element('pre', file.content));
+        renderSourceEditor(panel, context, sourceState);
       } else {
-        panel.append(element('p', 'Authoritative saved-source diagnostics'), element('pre', JSON.stringify(snapshot.artifact.validation, null, 2)));
+        panel.append(element('p', 'Authoritative saved-source diagnostics. Select a diagnostic with a location to navigate to that source.'));
+        if (!snapshot.artifact.validation.diagnostics.length) panel.append(element('p', 'No saved-source diagnostics.'));
+        for (const diagnostic of snapshot.artifact.validation.diagnostics) {
+          const item = element('section'); item.className = 'editor-diagnostic';
+          const location = diagnosticLocation(diagnostic);
+          item.append(element('p', `${diagnostic.severity.toUpperCase()} · ${diagnostic.code} · ${diagnostic.message}`));
+          if (location) item.append(button(`Open ${location.file}${location.line ? `:${location.line}${location.column ? `:${location.column}` : ''}` : ''}`, () => { sourceState.selected = location; activeTab = 'source'; render(); }));
+          else item.append(element('p', 'No precise source location was supplied by the authoritative validator.'));
+          panel.append(item);
+        }
       }
       tabs.append(tab, panel);
     }

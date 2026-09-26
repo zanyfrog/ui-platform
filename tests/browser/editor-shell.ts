@@ -49,13 +49,14 @@ try {
   await test('Uses real UI Base tabs and one shared working snapshot', () => {
     assert(customElements.get('uib-tabs') && fixture.querySelector('uib-tabs')?.shadowRoot, 'UI Base tabs are not registered');
     context.setFile('form.json', 'shared unsaved');
-    assert(fixture.querySelector('[data-editor-panel="source"]')?.textContent?.includes('shared unsaved'), 'Source preview stale');
+    const sourceFile = fixture.querySelector<HTMLSelectElement>('[aria-label="Source file"]')!; sourceFile.value = 'form.json'; sourceFile.dispatchEvent(new Event('change'));
+    assert(fixture.querySelector<HTMLTextAreaElement>('[data-editor-panel="source"] [aria-label="Source for form.json"]')?.value === 'shared unsaved', 'Source editor stale');
     assert(fixture.querySelector('[data-editor-panel="overview"]')?.textContent?.includes('Working generation 1'), 'Overview stale');
     assert(fixture.textContent?.includes('do not validate unsaved edits'), 'Dirty validation mislabeled');
   });
   await test('Presentation overrides reorder real tabs and slots without saving', () => {
     view.setPresentation({ density: 'compact', orientation: 'vertical', tabOrder: ['source', 'overview'], slotOrder: ['tabs', 'header'] });
-    assert(fixture.querySelector('uib-tab')?.textContent === 'Source preview', 'Tab order not applied');
+    assert(fixture.querySelector('uib-tab')?.textContent === 'Source', 'Tab order not applied');
     assert(fixture.querySelector('.artifact-editor')?.firstElementChild?.tagName === 'UIB-TABS', 'Slot order not applied');
     assert(saveCount === 0 && context.snapshot?.dirty, 'Template changed save state');
     assert(!!fixture.querySelector('[aria-label="Editor actions"]'), 'Protected toolbar omitted');

@@ -1,5 +1,6 @@
 import { EditorPluginRegistry } from './plugins.js';
 import { currentPresentation, renderProperties } from './properties.js';
+import { renderFormProofEditor, renderRouteProofEditor } from './proof-editors.js';
 
 /** Generic descriptor-section contributions. Specialized proof designers remain WP5. */
 export function createDefaultEditorPlugins() {
@@ -12,6 +13,12 @@ export function createDefaultEditorPlugins() {
       const descriptor = currentPresentation(context);
       renderProperties(container, context, scope.openSource, descriptor?.sections.filter(value => value.id === section));
     },
+  });
+  plugins.register({ id: 'form-proof', artifactTypes: ['form'], definitionVersions: [1], contributes: [{ id: 'designer', label: 'Form designer', slot: 'tab', requiresEdit: true }] }, {
+    designer: renderFormProofEditor,
+  });
+  plugins.register({ id: 'route-proof', artifactTypes: ['route', 'routeGroup'], definitionVersions: [1], contributes: [{ id: 'designer', label: 'Route designer', slot: 'tab' }] }, {
+    designer: renderRouteProofEditor,
   });
   return plugins;
 }
