@@ -1,0 +1,77 @@
+[
+  {
+    "name": "npm-version",
+    "command": "node \"C:\\Users\\zanyf\\AppData\\Local\\Temp\\ds0-stab0-npm-10.8.2\\package\\bin\\npm-cli.js\" --version",
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "started": "2026-09-27T13:44:53.203059-04:00",
+    "finished": "2026-09-27T13:44:53.3628311-04:00",
+    "exitCode": 0
+  },
+  {
+    "name": "install",
+    "command": "node \"C:\\Users\\zanyf\\AppData\\Local\\Temp\\ds0-stab0-npm-10.8.2\\package\\bin\\npm-cli.js\" ci --ignore-scripts --no-audit --no-fund",
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "started": "2026-09-27T13:44:53.3961941-04:00",
+    "finished": "2026-09-27T13:45:00.2494846-04:00",
+    "exitCode": 0
+  },
+  {
+    "name": "dependencies",
+    "command": "node \"C:\\Users\\zanyf\\AppData\\Local\\Temp\\ds0-stab0-npm-10.8.2\\package\\bin\\npm-cli.js\" ls --depth=0",
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "started": "2026-09-27T13:45:00.2558084-04:00",
+    "finished": "2026-09-27T13:45:00.8583803-04:00",
+    "exitCode": 0
+  },
+  {
+    "name": "nested-npm-version",
+    "command": "local npm exec -- cmd /d /c \"npm --version\"",
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "exitCode": 1,
+    "result": "Interrupted by auditor: npm attempted to resolve cmd@1.0.0; no package manifests found under isolated _npx; no matching live child process remained; lockfile unchanged."
+  },
+  {
+    "name": "direct-child-npm-version-first-attempt",
+    "command": "cmd.exe /d /c \"npm --version\" with temporary trace preload",
+    "exitCode": 1,
+    "result": "Audit harness error: NODE_OPTIONS Windows path lost backslashes; extracted npm.cmd also requires installed-layout paths. No product build or test ran."
+  },
+  {
+    "name": "direct-child-npm-version",
+    "command": "cmd.exe /d /c \"npm --version\" (local npm bin first on PATH)",
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "exitCode": 0
+  },
+  {
+    "name": "build",
+    "command": "node \"C:\\Users\\zanyf\\AppData\\Local\\Temp\\ds0-stab0-npm-10.8.2\\package\\bin\\npm-cli.js\" run build",
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "started": "2026-09-27T13:47:13.8662405-04:00",
+    "finished": "2026-09-27T13:47:21.0073551-04:00",
+    "exitCode": 0
+  },
+  {
+    "name": "typecheck",
+    "command": "node \"C:\\Users\\zanyf\\AppData\\Local\\Temp\\ds0-stab0-npm-10.8.2\\package\\bin\\npm-cli.js\" run typecheck",
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "started": "2026-09-27T13:47:21.0308604-04:00",
+    "finished": "2026-09-27T13:47:26.4712919-04:00",
+    "exitCode": 0
+  },
+  {
+    "name": "tests",
+    "command": "node \"C:\\Users\\zanyf\\AppData\\Local\\Temp\\ds0-stab0-npm-10.8.2\\package\\bin\\npm-cli.js\" test",
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "started": "2026-09-27T13:47:26.4772439-04:00",
+    "finished": "2026-09-27T13:47:28.1825288-04:00",
+    "exitCode": 0
+  },
+  {
+    "name": "schema-application-tests",
+    "command": "node \"C:\\Users\\zanyf\\AppData\\Local\\Temp\\ds0-stab0-npm-10.8.2\\package\\bin\\npm-cli.js\" exec --offline -- vitest run packages/schema-application/tests/state-store.test.ts",
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "started": "2026-09-27T13:47:28.1874154-04:00",
+    "finished": "2026-09-27T13:47:29.9100576-04:00",
+    "exitCode": 0
+  }
+]
