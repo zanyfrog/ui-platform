@@ -1,0 +1,94 @@
+{
+  "recordedAt": "2026-09-28T14:14:22.706Z",
+  "repositories": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform",
+      "head": "9560d104390a82141b7c311037ef66f640c8ddf4",
+      "status": "?? docs/architecture/ds0-wp2-readiness-requirements-reconciliation.md\n?? docs/architecture/evidence/ds0-wp2-reconciliation/",
+      "lockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "head": "9a6f0d5623863a8d44b879eda08316b0e3c79571",
+      "status": "",
+      "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    }
+  ],
+  "existingStab4Commit": "9560d104390a82141b7c311037ef66f640c8ddf4",
+  "committedArtifacts": [
+    {
+      "path": "docs/architecture/ds0-stab-4-consolidated-acceptance-report.md",
+      "sha256": "A6CD386BEF23FA68AB3870F74372D2B88E44D4DA61CE312EEEA3E4C2C14DD011"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-4-unresolved-issues.md",
+      "sha256": "319BB8B6F070AFAF77320C278C8FD84776D26E647B044E87A8C2868C56547A31"
+    },
+    {
+      "path": "docs/architecture/ds0-wp2-readiness-decision.md",
+      "sha256": "C9216D31ECB95837A7579485548BCCA1C006FF1AFCB6D27B0C27AB7361E1F1FB"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/01-dependencies.txt",
+      "sha256": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/02-build.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/03-typecheck.txt",
+      "sha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/04-full-tests.txt",
+      "sha256": "C3D29EB363B727F380AB33046033D9129668F5D851B7AC74D5A6C93D1123FCD7"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/05-consumer-tests-compilation.txt",
+      "sha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/06-platform-focused.txt",
+      "sha256": "89DD69763696F3D99C51B52E48F3670E77021BCB25483286B3EE986F0FAB9FCB"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/07-platform-typecheck.txt",
+      "sha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/08-platform-production.txt",
+      "sha256": "01A22C3B3425FB9AF98B6DBA7DED1E708912C6CD8520421D9CCF98EFC7077DEF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/09-platform-contracts.txt",
+      "sha256": "44694C2F1688F6945C26E76A4849838CB4E3D097571C5E5F2E8D11D3A1519AE1"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/10-preservation-check.txt",
+      "sha256": "9A6AA398AA49E680C5DEED303F4550FA59E5BB2820384D8E0FDB841244F5871F"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/before.json",
+      "sha256": "4DFD51FFF07A25E374E781B72B22CADC413A0E1ED60DDF652ADBEA00532C02DA"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/review.cjs",
+      "sha256": "9EDE781A9196DB10F60D049E15BEDC98143B5CA2C685536E644A433FD0F4DA4E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/review.json",
+      "sha256": "CAFD38CB058D403ADDD9AF4B98CB8253B4C9F4CD1BD91D590869793E11A22F98"
+    }
+  ],
+  "committedArtifactsDiff": "",
+  "preservedSourceCount": 69,
+  "preservedPriorEvidenceCount": 89,
+  "sourceMismatches": [],
+  "priorEvidenceMismatches": [],
+  "commitDiffCheck": {
+    "exit": 2,
+    "output": "docs/architecture/evidence/ds0-stab-4/01-dependencies.txt:21: new blank line at EOF.\ndocs/architecture/evidence/ds0-stab-4/02-build.txt:32: new blank line at EOF.\ndocs/architecture/evidence/ds0-stab-4/03-typecheck.txt:32: new blank line at EOF.\ndocs/architecture/evidence/ds0-stab-4/04-full-tests.txt:29: new blank line at EOF.\ndocs/architecture/evidence/ds0-stab-4/06-platform-focused.txt:9: new blank line at EOF.\ndocs/architecture/evidence/ds0-stab-4/07-platform-typecheck.txt:8: new blank line at EOF.\ndocs/architecture/evidence/ds0-stab-4/08-platform-production.txt:27: trailing whitespace.\n+[plugin builtin:vite-reporter] \ndocs/architecture/evidence/ds0-stab-4/09-platform-contracts.txt:9: new blank line at EOF.\n",
+    "stderr": ""
+  }
+}

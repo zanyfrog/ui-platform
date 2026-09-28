@@ -1,0 +1,11 @@
+const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),crypto=require('node:crypto');
+const p=path.resolve(__dirname,'../../../..'),d=path.resolve(p,'../UI Platform Data Services');
+const git=(r,...a)=>cp.execFileSync('git',['-c',`safe.directory=${r.replaceAll('\\','/')}`,'-C',r,...a],{encoding:'utf8'}).trim();
+const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex').toUpperCase();
+const baseline=JSON.parse(fs.readFileSync(path.join(p,'docs/architecture/evidence/ds0-stab-4/before.json')));
+const committed=git(p,'diff','--name-only','61ef52556db69813e11ffbc387e133232005494a','9560d104390a82141b7c311037ef66f640c8ddf4').split('\n');
+if(committed.length!==16||committed.some(f=>!f.startsWith('docs/architecture/')))throw Error('Unexpected STAB-4 commit scope');
+const result={recordedAt:new Date().toISOString(),repositories:[p,d].map(r=>({path:r,head:git(r,'rev-parse','HEAD'),status:git(r,'status','--short'),lockfileSha256:hash(path.join(r,'package-lock.json'))})),existingStab4Commit:'9560d104390a82141b7c311037ef66f640c8ddf4',committedArtifacts:committed.map(f=>({path:f,sha256:hash(path.join(p,f))})),committedArtifactsDiff:git(p,'diff','HEAD','--',...committed),preservedSourceCount:baseline.dataServices.length,preservedPriorEvidenceCount:baseline.priorEvidence.length,sourceMismatches:baseline.dataServices.filter(x=>hash(path.join(d,x.path))!==x.sha256),priorEvidenceMismatches:baseline.priorEvidence.filter(x=>hash(path.join(p,x.path))!==x.sha256),commitDiffCheck:(()=>{const r=cp.spawnSync('git',['-C',p,'diff','--check','61ef52556db69813e11ffbc387e133232005494a','9560d104390a82141b7c311037ef66f640c8ddf4'],{encoding:'utf8'});return {exit:r.status,output:r.stdout,stderr:r.stderr};})()};
+fs.writeFileSync(path.join(__dirname,'review.json'),JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify({artifacts:committed.length,sources:result.preservedSourceCount,priorEvidence:result.preservedPriorEvidenceCount,sourceMismatches:result.sourceMismatches.length,evidenceMismatches:result.priorEvidenceMismatches.length,artifactDiff:result.committedArtifactsDiff}));
+if(result.sourceMismatches.length||result.priorEvidenceMismatches.length||result.committedArtifactsDiff)process.exitCode=1;

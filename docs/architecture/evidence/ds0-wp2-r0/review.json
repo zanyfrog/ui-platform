@@ -1,0 +1,1253 @@
+{
+  "recordedAt": "2026-09-28T15:44:13.9197634Z",
+  "scope": "R0 documentation-only read-only source and evidence review; no runtime tests rerun",
+  "repositories": [
+    {
+      "path": "C:/Projects/Modular/ui-platform",
+      "head": "9560d104390a82141b7c311037ef66f640c8ddf4",
+      "status": [
+        "?? docs/architecture/ds0-wp2-r0-contract-design.md",
+        "?? docs/architecture/ds0-wp2-readiness-requirements-reconciliation.md",
+        "?? docs/architecture/evidence/ds0-wp2-r0/",
+        "?? docs/architecture/evidence/ds0-wp2-reconciliation/"
+      ],
+      "lockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "path": "C:/Projects/Modular/UI Platform Data Services",
+      "head": "9a6f0d5623863a8d44b879eda08316b0e3c79571",
+      "status": [],
+      "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-base",
+      "head": "96898f73809272e680fcb3402f064a039fff4350",
+      "status": [],
+      "lockfileSha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    }
+  ],
+  "documentSha256": "04362E70A06AD1B3ADC4A66927B0BA0B1424BB9ACD2BF662B09FD64FD375360A",
+  "preservationChecks": [
+    {
+      "group": "DataServices",
+      "path": ".gitignore",
+      "expected": "3D1EB0B4A711F973A6E8601CFE5C9F5A0901FD94169D57277EA70DCE23C1F217",
+      "actual": "3D1EB0B4A711F973A6E8601CFE5C9F5A0901FD94169D57277EA70DCE23C1F217",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "README.md",
+      "expected": "743CCDE6F9C8CAC747E20523E8530AA176281763CB5605786DEF835B1F1FF8AD",
+      "actual": "743CCDE6F9C8CAC747E20523E8530AA176281763CB5605786DEF835B1F1FF8AD",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/Dataset_Operation_Manager_Architecture.md",
+      "expected": "9376E0E95ECA36929A6B427427A9388738A82E285BBC9992E3E5588A95266ECB",
+      "actual": "9376E0E95ECA36929A6B427427A9388738A82E285BBC9992E3E5588A95266ECB",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/I-AM_Architecture.md",
+      "expected": "360FE651912D12EB655622098A6C8446F131CAACCAF8EF6A75FC64AD2B0C0173",
+      "actual": "360FE651912D12EB655622098A6C8446F131CAACCAF8EF6A75FC64AD2B0C0173",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/ORM_Architecture.md",
+      "expected": "9169A12B22BA91C8B6A7229FF36336A87104FA4716A923679FF1AA14B429516C",
+      "actual": "9169A12B22BA91C8B6A7229FF36336A87104FA4716A923679FF1AA14B429516C",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/README.md",
+      "expected": "B3494F8E8577808F3EC39726D8039B4B2925D0F5F4A5FED729FC0903441AC3E1",
+      "actual": "B3494F8E8577808F3EC39726D8039B4B2925D0F5F4A5FED729FC0903441AC3E1",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/UI_Platform_Data_Services_Versioned_Definitions_Architecture.md",
+      "expected": "E0AA3CA7CD786F0BE9037115320D92B220003466AE6FF2329961A38D8738287F",
+      "actual": "E0AA3CA7CD786F0BE9037115320D92B220003466AE6FF2329961A38D8738287F",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "package-lock.json",
+      "expected": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F",
+      "actual": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "package.json",
+      "expected": "AE023970BD83C1C393745090A0749B8AED3D7DE3B2F58F2E79DD83190FB3E55A",
+      "actual": "AE023970BD83C1C393745090A0749B8AED3D7DE3B2F58F2E79DD83190FB3E55A",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/README.md",
+      "expected": "C62CEB439C6D3F872820703E7955CB8771A5A3D448FCF615D141E3A6855D0EFE",
+      "actual": "C62CEB439C6D3F872820703E7955CB8771A5A3D448FCF615D141E3A6855D0EFE",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/package.json",
+      "expected": "51D8BB5B661929C98BF2C558CB4E6B5C4B88A2CC4BF60B6F2950CD0E117650F0",
+      "actual": "51D8BB5B661929C98BF2C558CB4E6B5C4B88A2CC4BF60B6F2950CD0E117650F0",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/src/index.ts",
+      "expected": "2B0E4BCD95E2CBCB08E5E08AD07885B75D1CEE160E08C8AD85CB583A8052C57F",
+      "actual": "2B0E4BCD95E2CBCB08E5E08AD07885B75D1CEE160E08C8AD85CB583A8052C57F",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "expected": "E93CC4F6CEEE0E332FB3994361E02ECF583EC51B6236A9B3F31E37284D9E6932",
+      "actual": "E93CC4F6CEEE0E332FB3994361E02ECF583EC51B6236A9B3F31E37284D9E6932",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/src/request-handler.ts",
+      "expected": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C",
+      "actual": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/src/service.ts",
+      "expected": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A",
+      "actual": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/src/trigger-registry.ts",
+      "expected": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0",
+      "actual": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/src/types.ts",
+      "expected": "A410A19E4D0E7EB0511CB565560D7DCD19F1CBB5CD1D372B8645FBF117BD1362",
+      "actual": "A410A19E4D0E7EB0511CB565560D7DCD19F1CBB5CD1D372B8645FBF117BD1362",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/tests/nested-transactions.test.ts",
+      "expected": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9",
+      "actual": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/tests/operation-failures.test.ts",
+      "expected": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC",
+      "actual": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/tests/operation-manager.test.ts",
+      "expected": "164200BA83ACEEA09CC2CD44835BC993D6098B9980D04C79142F967183DBDE20",
+      "actual": "164200BA83ACEEA09CC2CD44835BC993D6098B9980D04C79142F967183DBDE20",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/tests/operation-security.test.ts",
+      "expected": "786CFC3EF519865E28CEFB7829064CFA675E42D66844378F32511D94AD4D9B2D",
+      "actual": "786CFC3EF519865E28CEFB7829064CFA675E42D66844378F32511D94AD4D9B2D",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/tests/operation-service-contract.test.ts",
+      "expected": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F",
+      "actual": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/tests/result-consumer-fixture.ts",
+      "expected": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879",
+      "actual": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/tests/transaction-fixture.ts",
+      "expected": "CEA83446D202EF7DCC30C76DC8FC55DABA5FB12E804CCAE202435BC7759E4C75",
+      "actual": "CEA83446D202EF7DCC30C76DC8FC55DABA5FB12E804CCAE202435BC7759E4C75",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/dataset-operations/tsconfig.json",
+      "expected": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "actual": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/README.md",
+      "expected": "86C529FA5D7801CE22D0E22370920530E19597313DE5177FC94F3B4B0EFAA682",
+      "actual": "86C529FA5D7801CE22D0E22370920530E19597313DE5177FC94F3B4B0EFAA682",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/package.json",
+      "expected": "7A30068524A7CE6875D315860E3778B57C66DE2DEF7DB88DB8F3F4ECA17B3FE0",
+      "actual": "7A30068524A7CE6875D315860E3778B57C66DE2DEF7DB88DB8F3F4ECA17B3FE0",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/src/authorization-service.ts",
+      "expected": "F9946FCD77F379B6F293149D3D27F1A816600BCC923561C34A67C8787DEE82BC",
+      "actual": "F9946FCD77F379B6F293149D3D27F1A816600BCC923561C34A67C8787DEE82BC",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/src/index.ts",
+      "expected": "21A71E9F663BC334B206655DCD50EA0601934325015C6EDE4076A610ABE663A1",
+      "actual": "21A71E9F663BC334B206655DCD50EA0601934325015C6EDE4076A610ABE663A1",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/src/policy-store.ts",
+      "expected": "235C69FD9D69981E712DB52CF28A899179B8EA8FF9B5BC2DC72775EE8216D2DF",
+      "actual": "235C69FD9D69981E712DB52CF28A899179B8EA8FF9B5BC2DC72775EE8216D2DF",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/src/service.ts",
+      "expected": "65E0300BAFAA91E7D118312FFA0FA9575413D8B2E757063423A446D710A64207",
+      "actual": "65E0300BAFAA91E7D118312FFA0FA9575413D8B2E757063423A446D710A64207",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/src/token-verifier.ts",
+      "expected": "26894F1D5DA129D121FBA1D07D76C5EBD91FFF834BB25C4E82249BB488D8F917",
+      "actual": "26894F1D5DA129D121FBA1D07D76C5EBD91FFF834BB25C4E82249BB488D8F917",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/src/types.ts",
+      "expected": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19",
+      "actual": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/tests/write-scope-containment.test.ts",
+      "expected": "A750DEBD05AF6C906E541158DC61A45DB33345318DC67595B70A832D06A33602",
+      "actual": "A750DEBD05AF6C906E541158DC61A45DB33345318DC67595B70A832D06A33602",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/i-am/tsconfig.json",
+      "expected": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "actual": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/orm/package.json",
+      "expected": "0F8BCAD2A07712520695E95E85B1C2D1C259F4AB51A47FC564004F4C02E8FBE7",
+      "actual": "0F8BCAD2A07712520695E95E85B1C2D1C259F4AB51A47FC564004F4C02E8FBE7",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/orm/src/index.ts",
+      "expected": "EE9709D9AC23AA92C46E7BB7C7573844403628C54B94A1222FBB41B9F88185A9",
+      "actual": "EE9709D9AC23AA92C46E7BB7C7573844403628C54B94A1222FBB41B9F88185A9",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/orm/src/json-file-orm.ts",
+      "expected": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984",
+      "actual": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/orm/src/service.ts",
+      "expected": "AB0E4033010E5A2F13D184368616CCF1C32AE7A530F80ED8AB7A4B7005E12CFB",
+      "actual": "AB0E4033010E5A2F13D184368616CCF1C32AE7A530F80ED8AB7A4B7005E12CFB",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/orm/src/types.ts",
+      "expected": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E",
+      "actual": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/orm/tsconfig.json",
+      "expected": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "actual": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-application/README.md",
+      "expected": "23D9B41D0AE57BAAEA3F3F6C5CEC05009E384A52B84CAD5D0A53506AC22C5A8A",
+      "actual": "23D9B41D0AE57BAAEA3F3F6C5CEC05009E384A52B84CAD5D0A53506AC22C5A8A",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-application/package.json",
+      "expected": "E87DB35DE6F1D25EEC7A46EF43052029D8F0D86F1114FA95E381251959BCB8B3",
+      "actual": "E87DB35DE6F1D25EEC7A46EF43052029D8F0D86F1114FA95E381251959BCB8B3",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-application/src/index.ts",
+      "expected": "611D2E218218D2D9129DAD1A66B9CA14A57955F1E8425B158BC02B244BA84A99",
+      "actual": "611D2E218218D2D9129DAD1A66B9CA14A57955F1E8425B158BC02B244BA84A99",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-application/tests/state-store.test.ts",
+      "expected": "8CD7A3380831BE62F6B6F8B78B15AF6A7C9019A1FD30F7304533EE857DE1D52D",
+      "actual": "8CD7A3380831BE62F6B6F8B78B15AF6A7C9019A1FD30F7304533EE857DE1D52D",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-application/tsconfig.json",
+      "expected": "37A4C392DD55A1537F31704B8B9C905E66E70F97CD3C1FE51877A0EF0D00D829",
+      "actual": "37A4C392DD55A1537F31704B8B9C905E66E70F97CD3C1FE51877A0EF0D00D829",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-manager/package.json",
+      "expected": "E693379EF70539AD439D5CBBAD07247DFB0C9D37C9AB191C111EB666DA1838F6",
+      "actual": "E693379EF70539AD439D5CBBAD07247DFB0C9D37C9AB191C111EB666DA1838F6",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-manager/src/index.ts",
+      "expected": "96399CCC073430EF7BA833F0E0BA9B7CDE65FCE49406C74CDBED510287D74E0C",
+      "actual": "96399CCC073430EF7BA833F0E0BA9B7CDE65FCE49406C74CDBED510287D74E0C",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-manager/src/service.ts",
+      "expected": "0728F5C9EB6E56D4B732A57E2157C32109D6D5F073CE9DE348821E8192B4060A",
+      "actual": "0728F5C9EB6E56D4B732A57E2157C32109D6D5F073CE9DE348821E8192B4060A",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-manager/tests/schema-manager.test.ts",
+      "expected": "A02E49C2ACE6683E01626B86844F69E168CB3D75B2DC7C5CAF354688CB4DA6D7",
+      "actual": "A02E49C2ACE6683E01626B86844F69E168CB3D75B2DC7C5CAF354688CB4DA6D7",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-manager/tests/stab1-contracts.test.ts",
+      "expected": "7783E1CAFA9C404C98045F5160A7FED00CD7893284BBABA987CB10CB6D0E7963",
+      "actual": "7783E1CAFA9C404C98045F5160A7FED00CD7893284BBABA987CB10CB6D0E7963",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/schema-manager/tsconfig.json",
+      "expected": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "actual": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/trigger-manager/package.json",
+      "expected": "854D543D6149076290858470AA573BA3D4B2E454AC87231DC932201B07D3C5A7",
+      "actual": "854D543D6149076290858470AA573BA3D4B2E454AC87231DC932201B07D3C5A7",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/trigger-manager/src/index.ts",
+      "expected": "80CD3BFAE8E0D874C7E61D57A42CCC5A9845C88B8E3FD2BF7E5551540826D627",
+      "actual": "80CD3BFAE8E0D874C7E61D57A42CCC5A9845C88B8E3FD2BF7E5551540826D627",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/trigger-manager/src/service.ts",
+      "expected": "4A1AC5525A0D86A5E3161E3528F98A32ADA0AB51AE1FD55D46FED9D80F550EAA",
+      "actual": "4A1AC5525A0D86A5E3161E3528F98A32ADA0AB51AE1FD55D46FED9D80F550EAA",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/trigger-manager/tests/trigger-manager.test.ts",
+      "expected": "9697118EDC8408D76BD0F69B1FE7B945AD04C6FC1B5835D2C0DF8F4714338EE3",
+      "actual": "9697118EDC8408D76BD0F69B1FE7B945AD04C6FC1B5835D2C0DF8F4714338EE3",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/trigger-manager/tsconfig.json",
+      "expected": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "actual": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/versioned-definition-registry/README.md",
+      "expected": "7B1224BB668436AAAC5C11D9771DCE07A5621E7F7D4C286ED7DA5BF4CEEF0986",
+      "actual": "7B1224BB668436AAAC5C11D9771DCE07A5621E7F7D4C286ED7DA5BF4CEEF0986",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/versioned-definition-registry/package.json",
+      "expected": "6BB2616FA951C93734A746FC9606DC38214D5CCDD5A163EBDCCF69E2A96ACBEC",
+      "actual": "6BB2616FA951C93734A746FC9606DC38214D5CCDD5A163EBDCCF69E2A96ACBEC",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/versioned-definition-registry/src/canonical.ts",
+      "expected": "520637C920A4FD6A2DA3A6A5FCB13CAF5857C8746C7CB31A2F9211DD3FBA6B4F",
+      "actual": "520637C920A4FD6A2DA3A6A5FCB13CAF5857C8746C7CB31A2F9211DD3FBA6B4F",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/versioned-definition-registry/src/index.ts",
+      "expected": "16C79DF9C332FBDB787993E60C17F0A5D9826FB4E2B7AA7E0DE8429B22161B8A",
+      "actual": "16C79DF9C332FBDB787993E60C17F0A5D9826FB4E2B7AA7E0DE8429B22161B8A",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/versioned-definition-registry/src/registry.ts",
+      "expected": "DD3F5D534BA16071A451750CF45F51139542006B486D146279A0FFF0BCD2A4DE",
+      "actual": "DD3F5D534BA16071A451750CF45F51139542006B486D146279A0FFF0BCD2A4DE",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/versioned-definition-registry/src/types.ts",
+      "expected": "0730D28201CE32395ED210C6D2BFDAFF24A8B674D8F5E6C5A078206876D596E7",
+      "actual": "0730D28201CE32395ED210C6D2BFDAFF24A8B674D8F5E6C5A078206876D596E7",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/versioned-definition-registry/tests/canonical.test.ts",
+      "expected": "62EB7135BF8E4288E394863B0C8F386DD2D2BBE36938DAD0C0F5872225F573B7",
+      "actual": "62EB7135BF8E4288E394863B0C8F386DD2D2BBE36938DAD0C0F5872225F573B7",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/versioned-definition-registry/tests/registry.test.ts",
+      "expected": "FC2A5080405CA02BA4B8DE5EB95B48BB948EBDD3B9A278540CE8738B4A0552BA",
+      "actual": "FC2A5080405CA02BA4B8DE5EB95B48BB948EBDD3B9A278540CE8738B4A0552BA",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "packages/versioned-definition-registry/tsconfig.json",
+      "expected": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "actual": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "scripts/check-in.ps1",
+      "expected": "FC1383C2C52CD5FD45C1336E26E50D1BD7F99E6C8E23DAB8A6B3278557F026A4",
+      "actual": "FC1383C2C52CD5FD45C1336E26E50D1BD7F99E6C8E23DAB8A6B3278557F026A4",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "tsconfig.base.json",
+      "expected": "50C33D41549E4CD164F44CD3A5B11BB5F576B1BCC0CBA5696AD165229AB9586B",
+      "actual": "50C33D41549E4CD164F44CD3A5B11BB5F576B1BCC0CBA5696AD165229AB9586B",
+      "matches": true
+    },
+    {
+      "group": "DataServices",
+      "path": "vitest.config.ts",
+      "expected": "BC4F2FEE9BB580797BCEF2D0368CEBD9D7613B53521282576583D39824722022",
+      "actual": "BC4F2FEE9BB580797BCEF2D0368CEBD9D7613B53521282576583D39824722022",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/artifact-watcher-windows-rename-issue.md",
+      "expected": "B92FCBE45EFF179DD03773E443376AB98734985D486CC56AAEC8D745BC4F6337",
+      "actual": "B92FCBE45EFF179DD03773E443376AB98734985D486CC56AAEC8D745BC4F6337",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-baseline-stabilization-repair-plan.md",
+      "expected": "03647EE877E701923B0ABB53E1FAB3AF106751A55AD622DE9E7970852EECF270",
+      "actual": "03647EE877E701923B0ABB53E1FAB3AF106751A55AD622DE9E7970852EECF270",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-stab-0-execution-acceptance-report.md",
+      "expected": "EA1394C439425805B51FAED4E7633C82F14311DFC60E0328162257B7DF8E16DE",
+      "actual": "EA1394C439425805B51FAED4E7633C82F14311DFC60E0328162257B7DF8E16DE",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-stab-1-acceptance-record.md",
+      "expected": "1F2D9D64AEA5ADF99C8A04010908B1F6FB224FA63F486FE0F65D56708288CFC6",
+      "actual": "1F2D9D64AEA5ADF99C8A04010908B1F6FB224FA63F486FE0F65D56708288CFC6",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-stab-1-compatibility-assessment.md",
+      "expected": "2E9ADFB27A1208AF6E650910183464D43433D38ECF186F39D6CB2D6F830DA7A4",
+      "actual": "2E9ADFB27A1208AF6E650910183464D43433D38ECF186F39D6CB2D6F830DA7A4",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-stab-1-implementation-acceptance-report.md",
+      "expected": "2FEEE413FDC9E3876DE3DC32212E38F4D3554EB7AC6D95202A754CBBD8430709",
+      "actual": "2FEEE413FDC9E3876DE3DC32212E38F4D3554EB7AC6D95202A754CBBD8430709",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-stab-2-acceptance-record.md",
+      "expected": "5EC2302E77527DB4A5A1D00147E52406BB60F88CA20F266FA1E1D0ADC07B3ED9",
+      "actual": "5EC2302E77527DB4A5A1D00147E52406BB60F88CA20F266FA1E1D0ADC07B3ED9",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-stab-2-implementation-acceptance-report.md",
+      "expected": "5C52EDF82AFF5DD87989EF3C8C86F8E4E0512BC093FBEC4D6A36685878BC6D55",
+      "actual": "5C52EDF82AFF5DD87989EF3C8C86F8E4E0512BC093FBEC4D6A36685878BC6D55",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-stab-2-transaction-correctness-plan.md",
+      "expected": "0B1E9D98AC5645EE888AEAEE3D82AF083ABCC94EDEBAE19A8DD6D597468F5408",
+      "actual": "0B1E9D98AC5645EE888AEAEE3D82AF083ABCC94EDEBAE19A8DD6D597468F5408",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-stab-3-implementation-acceptance-report.md",
+      "expected": "009E9EE6FC2545C56E7DADC9558D7B843FECD44090AC65DEDFD7C155C7FE7A8A",
+      "actual": "009E9EE6FC2545C56E7DADC9558D7B843FECD44090AC65DEDFD7C155C7FE7A8A",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-stab-3-write-containment-plan.md",
+      "expected": "1AD94E4A72FF7BC5F6AF57D5DB4FDC0DA951994849C145D7F01703E3238EA4F1",
+      "actual": "1AD94E4A72FF7BC5F6AF57D5DB4FDC0DA951994849C145D7F01703E3238EA4F1",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/ds0-wp2-preflight-audit.md",
+      "expected": "F4770FFC052B0C308190F578FB9E87E72E8DD14CAD3A4AA46AD28414C2162F9B",
+      "actual": "F4770FFC052B0C308190F578FB9E87E72E8DD14CAD3A4AA46AD28414C2162F9B",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/build.txt",
+      "expected": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actual": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/commands.json",
+      "expected": "E60EE6846270012C23B7205872B34E8A5F674446DA9B78C23D3671B5FCC85C5C",
+      "actual": "E60EE6846270012C23B7205872B34E8A5F674446DA9B78C23D3671B5FCC85C5C",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/data-services-before.json",
+      "expected": "729636EB0A449B3E2577AD7831F8711BCCC439C5D7BE052A321EB3EFBE81D5F6",
+      "actual": "729636EB0A449B3E2577AD7831F8711BCCC439C5D7BE052A321EB3EFBE81D5F6",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/dependencies.txt",
+      "expected": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "actual": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/direct-child-npm-version-first-attempt.txt",
+      "expected": "A385C88335F547D5E1C6F7BBB6FF2F1B35B5C79D6069B38AE55CAC5F82B95302",
+      "actual": "A385C88335F547D5E1C6F7BBB6FF2F1B35B5C79D6069B38AE55CAC5F82B95302",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/direct-child-npm-version.txt",
+      "expected": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "actual": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/execution-runner.ps1",
+      "expected": "83AEFD27D992C2B7DCFD975F3645A766CD46067D3639C77D29DB5CD6931A3211",
+      "actual": "83AEFD27D992C2B7DCFD975F3645A766CD46067D3639C77D29DB5CD6931A3211",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/git-and-tools-after.txt",
+      "expected": "EAAD9B7EB44537838A5C4399D2FD5238899C1BF19C40F8BEE2BD9ACF0518AC66",
+      "actual": "EAAD9B7EB44537838A5C4399D2FD5238899C1BF19C40F8BEE2BD9ACF0518AC66",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/git-and-tools-before.txt",
+      "expected": "8B750C36069C8FE16949A363BB2C2D42571D3784EF5C2273E364B4D7B0BF2C6F",
+      "actual": "8B750C36069C8FE16949A363BB2C2D42571D3784EF5C2273E364B4D7B0BF2C6F",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/global-npm-before.json",
+      "expected": "39FFCE0ACCB3CCDA46CDF379718142CE59C06A20D89B1C1A6306B78B34687DEE",
+      "actual": "39FFCE0ACCB3CCDA46CDF379718142CE59C06A20D89B1C1A6306B78B34687DEE",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/initial-runner.ps1",
+      "expected": "6CEDF82C8352A2CA34F01D898EAC74671AD9AC6946A7C13A9B97F6A6874F25A8",
+      "actual": "6CEDF82C8352A2CA34F01D898EAC74671AD9AC6946A7C13A9B97F6A6874F25A8",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/install.txt",
+      "expected": "E033C1729A3032484F2DD1CE60F132C7799E4DDC212325524C68DA161A098890",
+      "actual": "E033C1729A3032484F2DD1CE60F132C7799E4DDC212325524C68DA161A098890",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/local-npm-launcher.txt",
+      "expected": "80D14520D96B8E996BEB972A928F0FC184B3B7493277FE4F279B236E1EB04CA2",
+      "actual": "80D14520D96B8E996BEB972A928F0FC184B3B7493277FE4F279B236E1EB04CA2",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/nested-npm-version.txt",
+      "expected": "8F690B1B0E180F17D8CED1C983159803DD14981A422B9BD476FB2E4EE271EB45",
+      "actual": "8F690B1B0E180F17D8CED1C983159803DD14981A422B9BD476FB2E4EE271EB45",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-invocations.txt",
+      "expected": "7F20E2B08A80A131702B19F1AB1CBFA3C771C3E01F2B728EA86701F08E01D33F",
+      "actual": "7F20E2B08A80A131702B19F1AB1CBFA3C771C3E01F2B728EA86701F08E01D33F",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-metadata.json",
+      "expected": "3B8584A215E3E4DE5DF71610DEF88546BC121034EE866C250C5682612D9198DD",
+      "actual": "3B8584A215E3E4DE5DF71610DEF88546BC121034EE866C250C5682612D9198DD",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-trace-source.txt",
+      "expected": "6ABD34BCEF11648377990F92131AF8F09955C252C21313112F1B5CFB0B61DA65",
+      "actual": "6ABD34BCEF11648377990F92131AF8F09955C252C21313112F1B5CFB0B61DA65",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-version.txt",
+      "expected": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "actual": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/preservation-after.json",
+      "expected": "486B2A53E9D955A526D2B5C1B1D7984B92E35ACA8AA916347CF677BFD8227477",
+      "actual": "486B2A53E9D955A526D2B5C1B1D7984B92E35ACA8AA916347CF677BFD8227477",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/schema-application-tests.txt",
+      "expected": "869594FD56797BE93ABA663813A391EB049078510E704FA4D0E0365337A3CD87",
+      "actual": "869594FD56797BE93ABA663813A391EB049078510E704FA4D0E0365337A3CD87",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/source-reports-after.json",
+      "expected": "05C1CB64F1F0DFBB4AD75E4DB40B1C801EC7A2C8E478F3DA2B8C0B6A5774900A",
+      "actual": "05C1CB64F1F0DFBB4AD75E4DB40B1C801EC7A2C8E478F3DA2B8C0B6A5774900A",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/tests.txt",
+      "expected": "FB41598B53ED118631CA66014643C1BE51429CA75FFC036153E9B69EEF99E212",
+      "actual": "FB41598B53ED118631CA66014643C1BE51429CA75FFC036153E9B69EEF99E212",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/toolchain-verification.txt",
+      "expected": "F0686B16D2C0D8656CEDE4511E4B101CC4A7119206522814DE2D170447E0C433",
+      "actual": "F0686B16D2C0D8656CEDE4511E4B101CC4A7119206522814DE2D170447E0C433",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-0/typecheck.txt",
+      "expected": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actual": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/01-tests-initial.txt",
+      "expected": "56EFF3DFFB8BD7FDD86C929A9FBD8C06372EFD79179D8E7A5BA9FDAB6F44B479",
+      "actual": "56EFF3DFFB8BD7FDD86C929A9FBD8C06372EFD79179D8E7A5BA9FDAB6F44B479",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/02-build.txt",
+      "expected": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actual": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/03-tests.txt",
+      "expected": "23C457CF13BEAC1262C5F21A3AC2B7D4B3406C53AC377CBC3B0EB0282BB4A424",
+      "actual": "23C457CF13BEAC1262C5F21A3AC2B7D4B3406C53AC377CBC3B0EB0282BB4A424",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/04-platform-compatibility.txt",
+      "expected": "D35420A8A4B80A9C4C64CE12354740A2935AC79AA026A676C0BBD9C26A6CEA4D",
+      "actual": "D35420A8A4B80A9C4C64CE12354740A2935AC79AA026A676C0BBD9C26A6CEA4D",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/05-build-final.txt",
+      "expected": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actual": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/06-typecheck-final.txt",
+      "expected": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actual": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/07-tests-final.txt",
+      "expected": "373746A55BA0B4477DA759FFEE9ECA94C734A3D80E87C18EE7D397059323C808",
+      "actual": "373746A55BA0B4477DA759FFEE9ECA94C734A3D80E87C18EE7D397059323C808",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/08-platform-editor-contracts.txt",
+      "expected": "6F8986A41100CFF7EC2E8016AB70498227124329AF5FC9DF469D68DE3A743D60",
+      "actual": "6F8986A41100CFF7EC2E8016AB70498227124329AF5FC9DF469D68DE3A743D60",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/09-tests-acceptance.txt",
+      "expected": "F514209A9817AE518EC63CCF8EF06E61CC65E4BCF79B188B1B9FA1F0EF9E7EFD",
+      "actual": "F514209A9817AE518EC63CCF8EF06E61CC65E4BCF79B188B1B9FA1F0EF9E7EFD",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/data-services-before.json",
+      "expected": "90DE742156C1D2598CECFAEC9F6E6A9717360BCCD55E022B52D11F354A850628",
+      "actual": "90DE742156C1D2598CECFAEC9F6E6A9717360BCCD55E022B52D11F354A850628",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/diff-check.txt",
+      "expected": "B340532A911FC3A6FDEC8C41BE4B1B4FECF136CA99F901CBC96CA50C18C4FA60",
+      "actual": "B340532A911FC3A6FDEC8C41BE4B1B4FECF136CA99F901CBC96CA50C18C4FA60",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/implementation-file-hashes.json",
+      "expected": "458E1AFF320ACB767EED360DB2858EB60D4BB4E86D3F60AF70EA4DA7C960738E",
+      "actual": "458E1AFF320ACB767EED360DB2858EB60D4BB4E86D3F60AF70EA4DA7C960738E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/preservation-and-repositories.json",
+      "expected": "7E86B3C93967EB9C947AEF2111B3D0F8767BAD6FB798B4579A09588A0CA74F20",
+      "actual": "7E86B3C93967EB9C947AEF2111B3D0F8767BAD6FB798B4579A09588A0CA74F20",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/record-preservation.ps1",
+      "expected": "5D33DE0EB6BA62AA873BD155B2AE7888684C624B6A76D0C92507DF61408CAECA",
+      "actual": "5D33DE0EB6BA62AA873BD155B2AE7888684C624B6A76D0C92507DF61408CAECA",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-1/tracked-file-preservation.json",
+      "expected": "337F818A15AC230036AAEC5BE0634D0B2063A74DE61468A1E41ACF32EFACEF82",
+      "actual": "337F818A15AC230036AAEC5BE0634D0B2063A74DE61468A1E41ACF32EFACEF82",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/01-build.txt",
+      "expected": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actual": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/02-focused-tests.txt",
+      "expected": "9151CEF9FA7C98805DFE835EA3013B89606BDAABD43A3754593891284475309B",
+      "actual": "9151CEF9FA7C98805DFE835EA3013B89606BDAABD43A3754593891284475309B",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/03-build-corrected.txt",
+      "expected": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actual": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/04-focused-corrected.txt",
+      "expected": "65778DBF9E9894F34437447FDE56DD30DA6219092BEBB8921D89FE676E8EDBB5",
+      "actual": "65778DBF9E9894F34437447FDE56DD30DA6219092BEBB8921D89FE676E8EDBB5",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/05-build-final.txt",
+      "expected": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actual": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/06-typecheck.txt",
+      "expected": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actual": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/07-consumer-typecheck.txt",
+      "expected": "69F797CDD9F474F6B169DCD7F6945328E2DA029C25E77AB70E13597328A3F66E",
+      "actual": "69F797CDD9F474F6B169DCD7F6945328E2DA029C25E77AB70E13597328A3F66E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/08-full-tests.txt",
+      "expected": "A92696286D63EF39BE085B6B13DB13C845E3A07D0C7E4E0245AFBF10BE7BEA5A",
+      "actual": "A92696286D63EF39BE085B6B13DB13C845E3A07D0C7E4E0245AFBF10BE7BEA5A",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/09-platform-production-build.txt",
+      "expected": "103E9667E1389EA48BC463FC7F8C6D13F0D76ED3FC80E6A0E4C1C36017C38B69",
+      "actual": "103E9667E1389EA48BC463FC7F8C6D13F0D76ED3FC80E6A0E4C1C36017C38B69",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/10-platform-typecheck.txt",
+      "expected": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "actual": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/11-platform-focused.txt",
+      "expected": "C0191C11775CE19BF0C44CB5154F063F32313B9ACC03953C21DCD4D2264CAD42",
+      "actual": "C0191C11775CE19BF0C44CB5154F063F32313B9ACC03953C21DCD4D2264CAD42",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/12-platform-contracts.txt",
+      "expected": "45EA09BF8E8041AC87B47F1893AB0381DBAC526570357AF6A8101CEF834D2204",
+      "actual": "45EA09BF8E8041AC87B47F1893AB0381DBAC526570357AF6A8101CEF834D2204",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/before.json",
+      "expected": "D23C2925938A6F14861FB7A57C4E4C8A33AD8E270FC6F218E9A19C781B4F8AE4",
+      "actual": "D23C2925938A6F14861FB7A57C4E4C8A33AD8E270FC6F218E9A19C781B4F8AE4",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/diff-check.txt",
+      "expected": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B",
+      "actual": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/preservation.json",
+      "expected": "6AC2B5F1D5787249133895FBA75D26888F802BB489EC25F93BF929C1168BE1EA",
+      "actual": "6AC2B5F1D5787249133895FBA75D26888F802BB489EC25F93BF929C1168BE1EA",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/record-preservation.cjs",
+      "expected": "52CF58CEBDB2C36EE8DD42353E8DA2FD6F07B0C385A46EAF3D328C14F641573C",
+      "actual": "52CF58CEBDB2C36EE8DD42353E8DA2FD6F07B0C385A46EAF3D328C14F641573C",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2/baseline-review.json",
+      "expected": "04796F689B8295FD27F2B7BB332919F866941B6777CE58FF1FFDABD36138C6FE",
+      "actual": "04796F689B8295FD27F2B7BB332919F866941B6777CE58FF1FFDABD36138C6FE",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-2/review-baseline.cjs",
+      "expected": "A45389D80EA951161343AD343682196612AF62CF4C2BCD069425D65696A8F5D1",
+      "actual": "A45389D80EA951161343AD343682196612AF62CF4C2BCD069425D65696A8F5D1",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-design/record-review.cjs",
+      "expected": "BC223D7AF21ACA10A2FD3F61C8822686F020B75C2BF3678F4A87B8199F65D1A1",
+      "actual": "BC223D7AF21ACA10A2FD3F61C8822686F020B75C2BF3678F4A87B8199F65D1A1",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-design/review.json",
+      "expected": "F0DB8794181EBEEC60D5422B346B5858C85F48DC02DC2B5532038159AF448459",
+      "actual": "F0DB8794181EBEEC60D5422B346B5858C85F48DC02DC2B5532038159AF448459",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/01-build.txt",
+      "expected": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actual": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/02-focused.txt",
+      "expected": "CD23F2282CC60FD5DB302724EC48F5FCB2358F7C7801940E51B2E14BAB5C43B0",
+      "actual": "CD23F2282CC60FD5DB302724EC48F5FCB2358F7C7801940E51B2E14BAB5C43B0",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/03-focused-corrected.txt",
+      "expected": "7DC85899221C0B6A6BD43CEDCBA79BA4863A05EECDEB31224A28ABC799F94AFE",
+      "actual": "7DC85899221C0B6A6BD43CEDCBA79BA4863A05EECDEB31224A28ABC799F94AFE",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/04-test-typecheck.txt",
+      "expected": "A9270E4F049CEFF0B3C592BBC79CBC561A80A2762B03D245DA3C24508AE015ED",
+      "actual": "A9270E4F049CEFF0B3C592BBC79CBC561A80A2762B03D245DA3C24508AE015ED",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/05-test-typecheck-corrected.txt",
+      "expected": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "actual": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/06-build-final.txt",
+      "expected": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actual": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/07-typecheck.txt",
+      "expected": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actual": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/08-focused-final.txt",
+      "expected": "07D464D1CA1E3FC362EAEDAA7235D2D5493C7FA4E4E5455DF718C5491E4B2947",
+      "actual": "07D464D1CA1E3FC362EAEDAA7235D2D5493C7FA4E4E5455DF718C5491E4B2947",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/09-full-tests.txt",
+      "expected": "C97ED8F22E1BB7554075A4E17BE1D1B09B9AE1AB14BE502C0047757FCC272427",
+      "actual": "C97ED8F22E1BB7554075A4E17BE1D1B09B9AE1AB14BE502C0047757FCC272427",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/10-test-consumer-typecheck.txt",
+      "expected": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "actual": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/11-platform-focused.txt",
+      "expected": "64CD4971EF3C129CBB3E4D9CCEB0DBA98FAB11D8BB657190345792073F86B8F2",
+      "actual": "64CD4971EF3C129CBB3E4D9CCEB0DBA98FAB11D8BB657190345792073F86B8F2",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/12-platform-typecheck.txt",
+      "expected": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "actual": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/13-platform-production-build.txt",
+      "expected": "7976C96C5882D2E64D9DBC4476CD0D004DC17A8D37976A6FEEF309D8CEA6A778",
+      "actual": "7976C96C5882D2E64D9DBC4476CD0D004DC17A8D37976A6FEEF309D8CEA6A778",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/14-platform-contracts.txt",
+      "expected": "934E6F97B2D8EAA9FFD3719E010365F28E69E5D8364956669264C9F6BB57C24E",
+      "actual": "934E6F97B2D8EAA9FFD3719E010365F28E69E5D8364956669264C9F6BB57C24E",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/15-preservation-check.txt",
+      "expected": "61E9500E72821B1D340E28681083CEE970EB4063B49EDEE48B2F52CBF99F7C4C",
+      "actual": "61E9500E72821B1D340E28681083CEE970EB4063B49EDEE48B2F52CBF99F7C4C",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/before.json",
+      "expected": "DE23C4DD57CBA62026D1795ED0D60DC030CFCE5A22862E43DF75BA9D7DF7B555",
+      "actual": "DE23C4DD57CBA62026D1795ED0D60DC030CFCE5A22862E43DF75BA9D7DF7B555",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/preservation.json",
+      "expected": "26D564A3E2F3AD6F49299B55DE3F7B9A3B3005C27EDDB7EA7955FF27BB8A7A11",
+      "actual": "26D564A3E2F3AD6F49299B55DE3F7B9A3B3005C27EDDB7EA7955FF27BB8A7A11",
+      "matches": true
+    },
+    {
+      "group": "PriorEvidence",
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/record-preservation.cjs",
+      "expected": "07F4AE21E9726F116E242305EBC93BEE984A174763948B667BDF97B0B24F49CB",
+      "actual": "07F4AE21E9726F116E242305EBC93BEE984A174763948B667BDF97B0B24F49CB",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/ds0-stab-4-consolidated-acceptance-report.md",
+      "expected": "A6CD386BEF23FA68AB3870F74372D2B88E44D4DA61CE312EEEA3E4C2C14DD011",
+      "actual": "A6CD386BEF23FA68AB3870F74372D2B88E44D4DA61CE312EEEA3E4C2C14DD011",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/ds0-stab-4-unresolved-issues.md",
+      "expected": "319BB8B6F070AFAF77320C278C8FD84776D26E647B044E87A8C2868C56547A31",
+      "actual": "319BB8B6F070AFAF77320C278C8FD84776D26E647B044E87A8C2868C56547A31",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/ds0-wp2-readiness-decision.md",
+      "expected": "C9216D31ECB95837A7579485548BCCA1C006FF1AFCB6D27B0C27AB7361E1F1FB",
+      "actual": "C9216D31ECB95837A7579485548BCCA1C006FF1AFCB6D27B0C27AB7361E1F1FB",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/01-dependencies.txt",
+      "expected": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "actual": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/02-build.txt",
+      "expected": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actual": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/03-typecheck.txt",
+      "expected": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actual": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/04-full-tests.txt",
+      "expected": "C3D29EB363B727F380AB33046033D9129668F5D851B7AC74D5A6C93D1123FCD7",
+      "actual": "C3D29EB363B727F380AB33046033D9129668F5D851B7AC74D5A6C93D1123FCD7",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/05-consumer-tests-compilation.txt",
+      "expected": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "actual": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/06-platform-focused.txt",
+      "expected": "89DD69763696F3D99C51B52E48F3670E77021BCB25483286B3EE986F0FAB9FCB",
+      "actual": "89DD69763696F3D99C51B52E48F3670E77021BCB25483286B3EE986F0FAB9FCB",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/07-platform-typecheck.txt",
+      "expected": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "actual": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/08-platform-production.txt",
+      "expected": "01A22C3B3425FB9AF98B6DBA7DED1E708912C6CD8520421D9CCF98EFC7077DEF",
+      "actual": "01A22C3B3425FB9AF98B6DBA7DED1E708912C6CD8520421D9CCF98EFC7077DEF",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/09-platform-contracts.txt",
+      "expected": "44694C2F1688F6945C26E76A4849838CB4E3D097571C5E5F2E8D11D3A1519AE1",
+      "actual": "44694C2F1688F6945C26E76A4849838CB4E3D097571C5E5F2E8D11D3A1519AE1",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/10-preservation-check.txt",
+      "expected": "9A6AA398AA49E680C5DEED303F4550FA59E5BB2820384D8E0FDB841244F5871F",
+      "actual": "9A6AA398AA49E680C5DEED303F4550FA59E5BB2820384D8E0FDB841244F5871F",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/before.json",
+      "expected": "4DFD51FFF07A25E374E781B72B22CADC413A0E1ED60DDF652ADBEA00532C02DA",
+      "actual": "4DFD51FFF07A25E374E781B72B22CADC413A0E1ED60DDF652ADBEA00532C02DA",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/review.cjs",
+      "expected": "9EDE781A9196DB10F60D049E15BEDC98143B5CA2C685536E644A433FD0F4DA4E",
+      "actual": "9EDE781A9196DB10F60D049E15BEDC98143B5CA2C685536E644A433FD0F4DA4E",
+      "matches": true
+    },
+    {
+      "group": "Stab4",
+      "path": "docs/architecture/evidence/ds0-stab-4/review.json",
+      "expected": "CAFD38CB058D403ADDD9AF4B98CB8253B4C9F4CD1BD91D590869793E11A22F98",
+      "actual": "CAFD38CB058D403ADDD9AF4B98CB8253B4C9F4CD1BD91D590869793E11A22F98",
+      "matches": true
+    }
+  ],
+  "missingDocumentLinks": [],
+  "mismatches": [],
+  "reconciliationDocumentSha256": "7324E72FF05DE35EF009C6CCA55AF0E9326787B9D1DDA12AB53042534CDF2BF4"
+}
