@@ -1,0 +1,103 @@
+{
+  "recordedAt": "2026-09-28T01:47:00.186Z",
+  "repositories": [
+    {
+      "path": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "head": "577683840535e668c2000f24562702e7b51c6a0b",
+      "branch": "master",
+      "status": "M packages/dataset-operations/README.md\n M packages/dataset-operations/src/operation-manager.ts\n M packages/dataset-operations/src/service.ts\n M packages/dataset-operations/src/types.ts\n?? packages/dataset-operations/src/request-handler.ts\n?? packages/dataset-operations/tests/nested-transactions.test.ts\n?? packages/dataset-operations/tests/operation-failures.test.ts\n?? packages/dataset-operations/tests/operation-service-contract.test.ts\n?? packages/dataset-operations/tests/result-consumer-fixture.ts\n?? packages/dataset-operations/tests/transaction-fixture.ts",
+      "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform",
+      "head": "849f2afc704a0e433a444c260be86e7dede57cde",
+      "branch": "main",
+      "status": "?? docs/architecture/evidence/ds0-stab-2-implementation/",
+      "lockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-base",
+      "head": "96898f73809272e680fcb3402f064a039fff4350",
+      "branch": "main",
+      "status": "",
+      "lockfileSha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    }
+  ],
+  "trackedBefore": 61,
+  "unchanged": 57,
+  "changedTracked": [
+    {
+      "path": "packages/dataset-operations/README.md",
+      "sha256": "AE3870BD789183F4A62D5AAF4A044CF0E9EFDEA815F6710B7D28FA5DE88FA8BD",
+      "after": "9961DB2A561B96CB41EDB6126BEE6C08C97B59AB6794B4F6529A2AD3EB21BBA9",
+      "unchanged": false
+    },
+    {
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "sha256": "B56D791BF72C3FBB9542957ACC627261E3619FE43C7AB60ECACA8A977BA88E18",
+      "after": "17BA38F99F04464FD489D41A329AC25FA785A4798D90B042BCC94BBD354BE721",
+      "unchanged": false
+    },
+    {
+      "path": "packages/dataset-operations/src/service.ts",
+      "sha256": "28C60F64D2F6D434E0BA16BAA598A0FFE3332C2A53672C85EC503A54946455FC",
+      "after": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A",
+      "unchanged": false
+    },
+    {
+      "path": "packages/dataset-operations/src/types.ts",
+      "sha256": "C8AD1056D83E0EE104E4EF0BBCE8936C343D0BCFD7620D89C88DC1E5D487A5C1",
+      "after": "F0596A001CE438F58EDD17BED538AB75091A8BAFF93B05C4DDD72FBF21EBA486",
+      "unchanged": false
+    }
+  ],
+  "changedFiles": [
+    {
+      "path": "packages/dataset-operations/README.md",
+      "sha256": "9961DB2A561B96CB41EDB6126BEE6C08C97B59AB6794B4F6529A2AD3EB21BBA9"
+    },
+    {
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "sha256": "17BA38F99F04464FD489D41A329AC25FA785A4798D90B042BCC94BBD354BE721"
+    },
+    {
+      "path": "packages/dataset-operations/src/service.ts",
+      "sha256": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A"
+    },
+    {
+      "path": "packages/dataset-operations/src/types.ts",
+      "sha256": "F0596A001CE438F58EDD17BED538AB75091A8BAFF93B05C4DDD72FBF21EBA486"
+    },
+    {
+      "path": "packages/dataset-operations/src/request-handler.ts",
+      "sha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C"
+    },
+    {
+      "path": "packages/dataset-operations/tests/nested-transactions.test.ts",
+      "sha256": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9"
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-failures.test.ts",
+      "sha256": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC"
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-service-contract.test.ts",
+      "sha256": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F"
+    },
+    {
+      "path": "packages/dataset-operations/tests/result-consumer-fixture.ts",
+      "sha256": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879"
+    },
+    {
+      "path": "packages/dataset-operations/tests/transaction-fixture.ts",
+      "sha256": "5765EB4183F392413C32233857F28074D9B5E30077812B240194E94B2B930A43"
+    }
+  ],
+  "stab1SourceMismatches": [],
+  "stab1EvidenceMismatches": [],
+  "tools": {
+    "node": "v24.19.0",
+    "npm": "10.8.2"
+  },
+  "planSha256": "0B1E9D98AC5645EE888AEAEE3D82AF083ABCC94EDEBAE19A8DD6D597468F5408"
+}
