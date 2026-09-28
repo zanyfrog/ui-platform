@@ -1,0 +1,29 @@
+
+> ui-platform-data-services@0.1.0 test
+> vitest run
+
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/versioned-definition-registry/tests/canonical.test.ts (36 tests) 35ms
+ ✓ packages/trigger-manager/tests/trigger-manager.test.ts (2 tests) 62ms
+ ✓ packages/dataset-operations/tests/operation-manager.test.ts (1 test) 29ms
+ ✓ packages/schema-application/tests/state-store.test.ts (4 tests) 153ms
+ ✓ packages/schema-manager/tests/schema-manager.test.ts (1 test) 189ms
+ ✓ packages/dataset-operations/tests/operation-service-contract.test.ts (5 tests) 290ms
+ ✓ packages/dataset-operations/tests/operation-failures.test.ts (17 tests) 388ms
+ ✓ packages/dataset-operations/tests/nested-transactions.test.ts (18 tests) 490ms
+ ✓ packages/i-am/tests/write-scope-containment.test.ts (32 tests) 652ms
+ ✓ packages/versioned-definition-registry/tests/registry.test.ts (31 tests) 1196ms
+ ✓ packages/schema-manager/tests/stab1-contracts.test.ts (13 tests) 2151ms
+   ✓ STAB-1 true (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  504ms
+   ✓ STAB-1 true (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  324ms
+   ✓ STAB-1 false (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  328ms
+   ✓ STAB-1 false (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  304ms
+ ✓ packages/dataset-operations/tests/operation-security.test.ts (185 tests) 3144ms
+
+ Test Files  12 passed (12)
+      Tests  345 passed (345)
+   Start at  09:12:25
+   Duration  4.01s (transform 918ms, setup 0ms, collect 2.85s, tests 8.78s, environment 3ms, prepare 2.49s)
+

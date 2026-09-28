@@ -1,0 +1,838 @@
+
+> ui-platform-data-services@0.1.0 test
+> vitest run packages/dataset-operations/tests/operation-security.test.ts packages/i-am/tests/write-scope-containment.test.ts
+
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ❯ packages/i-am/tests/write-scope-containment.test.ts (32 tests | 32 failed) 69ms
+   × denies persisted malformed scope null for 'insert' without changing files 10ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope false for 'insert' without changing files 2ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope +0 for 'insert' without changing files 2ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope '' for 'insert' without changing files 1ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope null for 'update' without changing files 2ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope false for 'update' without changing files 2ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope +0 for 'update' without changing files 2ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope '' for 'update' without changing files 1ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope null for 'delete' without changing files 2ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope false for 'delete' without changing files 2ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope +0 for 'delete' without changing files 2ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope '' for 'delete' without changing files 1ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope null for 'restore' without changing files 1ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope false for 'restore' without changing files 1ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope +0 for 'restore' without changing files 2ms
+     → this.definitions.set is not a function
+   × denies persisted malformed scope '' for 'restore' without changing files 1ms
+     → this.definitions.set is not a function
+   × preserves 'query' behavior for malformed scope null 2ms
+     → this.definitions.set is not a function
+   × preserves 'query' behavior for malformed scope false 2ms
+     → this.definitions.set is not a function
+   × preserves 'query' behavior for malformed scope +0 1ms
+     → this.definitions.set is not a function
+   × preserves 'query' behavior for malformed scope '' 2ms
+     → this.definitions.set is not a function
+   × preserves 'export' behavior for malformed scope null 2ms
+     → this.definitions.set is not a function
+   × preserves 'export' behavior for malformed scope false 3ms
+     → this.definitions.set is not a function
+   × preserves 'export' behavior for malformed scope +0 3ms
+     → this.definitions.set is not a function
+   × preserves 'export' behavior for malformed scope '' 3ms
+     → this.definitions.set is not a function
+   × ignores nonmatching malformed disabled grants for writes 2ms
+     → this.definitions.set is not a function
+   × ignores nonmatching malformed subject grants for writes 1ms
+     → this.definitions.set is not a function
+   × ignores nonmatching malformed resource grants for writes 2ms
+     → this.definitions.set is not a function
+   × ignores nonmatching malformed action grants for writes 2ms
+     → this.definitions.set is not a function
+   × DOE surfaces I-AM malformed-scope denial null as AUTHORIZATION_DENIED 2ms
+     → this.definitions.set is not a function
+   × DOE surfaces I-AM malformed-scope denial false as AUTHORIZATION_DENIED 1ms
+     → this.definitions.set is not a function
+   × DOE surfaces I-AM malformed-scope denial 0 as AUTHORIZATION_DENIED 1ms
+     → this.definitions.set is not a function
+   × DOE surfaces I-AM malformed-scope denial "" as AUTHORIZATION_DENIED 2ms
+     → this.definitions.set is not a function
+ ❯ packages/dataset-operations/tests/operation-security.test.ts (159 tests | 159 failed) 316ms
+   × rejects unsupported restore before lookup, I-AM, triggers or writes 10ms
+     → this.definitions.set is not a function
+   × rejects unsupported unknown before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported query before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported export before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported empty before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported case before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported space before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported null before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported undefined before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported number before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported boolean before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported object before lookup, I-AM, triggers or writes 1ms
+     → this.definitions.set is not a function
+   × rejects unsupported array before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × rejects unsupported boxed before lookup, I-AM, triggers or writes 2ms
+     → this.definitions.set is not a function
+   × unsupported operation precedes missing dataset and denied actor; external boundary still wins 3ms
+     → this.definitions.set is not a function
+   × captures the operation once despite lookup substitution 3ms
+     → this.definitions.set is not a function
+   × captures the operation once despite authorization substitution 2ms
+     → this.definitions.set is not a function
+   × captures the operation once despite before-trigger substitution 2ms
+     → this.definitions.set is not a function
+   × captures the operation once despite getter substitution 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'insert'/'inside' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'insert'/'outside' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'insert'/'mixed' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'insert'/'empty' with real grants and raw bytes 1ms
+     → this.definitions.set is not a function
+   × contains scoped 'update'/'inside' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'update'/'outside' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'update'/'mixed' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'update'/'empty' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'delete'/'inside' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'delete'/'outside' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'delete'/'mixed' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × contains scoped 'delete'/'empty' with real grants and raw bytes 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'ui'/true/'reject' 3ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'ui'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'ui'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'ui'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'form'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'form'/true/'filter' 6ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'form'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'form'/false/'filter' 3ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'api'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'api'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'api'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'api'/false/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'trigger'/true/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'trigger'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'trigger'/false/'reject' 7ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'trigger'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'import'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'import'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'import'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'import'/false/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'sync'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'sync'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'sync'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'sync'/false/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'system'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'system'/true/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'system'/false/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'insert'/'system'/false/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'ui'/true/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'ui'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'ui'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'ui'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'form'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'form'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'form'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'form'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'api'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'api'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'api'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'api'/false/'filter' 3ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'trigger'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'trigger'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'trigger'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'trigger'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'import'/true/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'import'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'import'/false/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'import'/false/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'sync'/true/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'sync'/true/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'sync'/false/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'sync'/false/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'system'/true/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'system'/true/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'system'/false/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'update'/'system'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'ui'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'ui'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'ui'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'ui'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'form'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'form'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'form'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'form'/false/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'api'/true/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'api'/true/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'api'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'api'/false/'filter' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'trigger'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'trigger'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'trigger'/false/'reject' 6ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'trigger'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'import'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'import'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'import'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'import'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'sync'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'sync'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'sync'/false/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'sync'/false/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'system'/true/'reject' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'system'/true/'filter' 2ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'system'/false/'reject' 1ms
+     → this.definitions.set is not a function
+   × scope gate cannot be bypassed by 'delete'/'system'/false/'filter' 1ms
+     → this.definitions.set is not a function
+   × rejects a custom adapter's defined scope null 2ms
+     → this.definitions.set is not a function
+   × rejects a custom adapter's defined scope false 1ms
+     → this.definitions.set is not a function
+   × rejects a custom adapter's defined scope 0 1ms
+     → this.definitions.set is not a function
+   × rejects a custom adapter's defined scope "" 2ms
+     → this.definitions.set is not a function
+   × rejects a custom adapter's defined scope {} 1ms
+     → this.definitions.set is not a function
+   × rejects a custom adapter's defined scope {"and":[]} 1ms
+     → this.definitions.set is not a function
+   × rejects a custom adapter's defined scope {"or":[]} 2ms
+     → this.definitions.set is not a function
+   × denied decision precedes scoped-write unsupported, filter=false 1ms
+     → this.definitions.set is not a function
+   × denied decision precedes scoped-write unsupported, filter=true 1ms
+     → this.definitions.set is not a function
+   × preserves unscoped CRUD and rejects scoped user authorization 9ms
+     → this.definitions.set is not a function
+   × preserves unscoped CRUD and rejects scoped group authorization 3ms
+     → this.definitions.set is not a function
+   × preserves unscoped CRUD and rejects scoped service authorization 3ms
+     → this.definitions.set is not a function
+   × preserves unscoped CRUD and rejects scoped system authorization 2ms
+     → this.definitions.set is not a function
+   × mixed matching grants retain scope regardless of insertion order false 2ms
+     → this.definitions.set is not a function
+   × mixed matching grants retain scope regardless of insertion order true 2ms
+     → this.definitions.set is not a function
+   × unrelated disabled scope does not block valid unscoped CRUD 2ms
+     → this.definitions.set is not a function
+   × unrelated actor scope does not block valid unscoped CRUD 1ms
+     → this.definitions.set is not a function
+   × unrelated dataset scope does not block valid unscoped CRUD 2ms
+     → this.definitions.set is not a function
+   × unrelated action scope does not block valid unscoped CRUD 2ms
+     → this.definitions.set is not a function
+   × scoped query combines caller predicate and field filtering without storage changes 2ms
+     → this.definitions.set is not a function
+   × 'unsupported' child at 'beforeInsert' poisons root with 'await-ignore' 2ms
+     → this.definitions.set is not a function
+   × 'unsupported' child at 'beforeInsert' poisons root with 'void' 1ms
+     → this.definitions.set is not a function
+   × 'unsupported' child at 'beforeInsert' poisons root with 'catch' 2ms
+     → this.definitions.set is not a function
+   × 'unsupported' child at 'afterInsert' poisons root with 'await-ignore' 1ms
+     → this.definitions.set is not a function
+   × 'unsupported' child at 'afterInsert' poisons root with 'void' 1ms
+     → this.definitions.set is not a function
+   × 'unsupported' child at 'afterInsert' poisons root with 'catch' 1ms
+     → this.definitions.set is not a function
+   × 'scoped' child at 'beforeInsert' poisons root with 'await-ignore' 2ms
+     → this.definitions.set is not a function
+   × 'scoped' child at 'beforeInsert' poisons root with 'void' 1ms
+     → this.definitions.set is not a function
+   × 'scoped' child at 'beforeInsert' poisons root with 'catch' 2ms
+     → this.definitions.set is not a function
+   × 'scoped' child at 'afterInsert' poisons root with 'await-ignore' 1ms
+     → this.definitions.set is not a function
+   × 'scoped' child at 'afterInsert' poisons root with 'void' 1ms
+     → this.definitions.set is not a function
+   × 'scoped' child at 'afterInsert' poisons root with 'catch' 2ms
+     → this.definitions.set is not a function
+   × ignored unsupported grandchild poisons both ancestors and blocks later children 2ms
+     → this.definitions.set is not a function
+   × ignored scoped grandchild poisons both ancestors and blocks later children 2ms
+     → this.definitions.set is not a function
+   × rejected unsupported afterCommit child preserves parent's confirmed write 2ms
+     → this.definitions.set is not a function
+   × rejected scoped afterCommit child preserves parent's confirmed write 2ms
+     → this.definitions.set is not a function
+   × serializes restore via production HTTP handler and actual stores 2ms
+     → this.definitions.set is not a function
+   × serializes unknown via production HTTP handler and actual stores 2ms
+     → this.definitions.set is not a function
+   × serializes scoped-insert via production HTTP handler and actual stores 2ms
+     → this.definitions.set is not a function
+   × serializes scoped-update via production HTTP handler and actual stores 5ms
+     → this.definitions.set is not a function
+   × serializes scoped-delete via production HTTP handler and actual stores 2ms
+     → this.definitions.set is not a function
+   × serializes success via production HTTP handler and actual stores 2ms
+     → this.definitions.set is not a function
+   × serializes nested via production HTTP handler and actual stores 2ms
+     → this.definitions.set is not a function
+   × serializes post-commit via production HTTP handler and actual stores 2ms
+     → this.definitions.set is not a function
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 191 ⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported restore before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported unknown before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported query before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported export before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported empty before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported case before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported space before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported null before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported undefined before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported number before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported boolean before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported object before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported array before lookup, I-AM, triggers or writes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects unsupported boxed before lookup, I-AM, triggers or writes
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:40:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > unsupported operation precedes missing dataset and denied actor; external boundary still wins
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:54:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > captures the operation once despite lookup substitution
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > captures the operation once despite authorization substitution
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > captures the operation once despite before-trigger substitution
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > captures the operation once despite getter substitution
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:59:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'insert'/'inside' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'insert'/'outside' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'insert'/'mixed' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'insert'/'empty' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'update'/'inside' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'update'/'outside' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'update'/'mixed' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'update'/'empty' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'delete'/'inside' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'delete'/'outside' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'delete'/'mixed' with real grants and raw bytes
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > contains scoped 'delete'/'empty' with real grants and raw bytes
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:71:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'ui'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'ui'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'ui'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'ui'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'form'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'form'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'form'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'form'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'api'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'api'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'api'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'api'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'trigger'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'trigger'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'trigger'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'trigger'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'import'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'import'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'import'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'import'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'sync'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'sync'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'sync'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'sync'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'system'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'system'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'system'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'insert'/'system'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'ui'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'ui'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'ui'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'ui'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'form'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'form'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'form'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'form'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'api'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'api'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'api'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'api'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'trigger'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'trigger'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'trigger'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'trigger'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'import'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'import'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'import'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'import'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'sync'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'sync'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'sync'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'sync'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'system'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'system'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'system'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'update'/'system'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'ui'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'ui'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'ui'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'ui'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'form'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'form'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'form'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'form'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'api'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'api'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'api'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'api'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'trigger'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'trigger'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'trigger'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'trigger'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'import'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'import'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'import'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'import'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'sync'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'sync'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'sync'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'sync'/false/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'system'/true/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'system'/true/'filter'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'system'/false/'reject'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scope gate cannot be bypassed by 'delete'/'system'/false/'filter'
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:81:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects a custom adapter's defined scope null
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects a custom adapter's defined scope false
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects a custom adapter's defined scope 0
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects a custom adapter's defined scope ""
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects a custom adapter's defined scope {}
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects a custom adapter's defined scope {"and":[]}
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejects a custom adapter's defined scope {"or":[]}
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:86:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > denied decision precedes scoped-write unsupported, filter=false
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > denied decision precedes scoped-write unsupported, filter=true
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:90:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > preserves unscoped CRUD and rejects scoped user authorization
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > preserves unscoped CRUD and rejects scoped group authorization
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > preserves unscoped CRUD and rejects scoped service authorization
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > preserves unscoped CRUD and rejects scoped system authorization
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:94:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > mixed matching grants retain scope regardless of insertion order false
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > mixed matching grants retain scope regardless of insertion order true
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:109:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > unrelated disabled scope does not block valid unscoped CRUD
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > unrelated actor scope does not block valid unscoped CRUD
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > unrelated dataset scope does not block valid unscoped CRUD
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > unrelated action scope does not block valid unscoped CRUD
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:115:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > scoped query combines caller predicate and field filtering without storage changes
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:120:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'unsupported' child at 'beforeInsert' poisons root with 'await-ignore'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'unsupported' child at 'beforeInsert' poisons root with 'void'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'unsupported' child at 'beforeInsert' poisons root with 'catch'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'unsupported' child at 'afterInsert' poisons root with 'await-ignore'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'unsupported' child at 'afterInsert' poisons root with 'void'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'unsupported' child at 'afterInsert' poisons root with 'catch'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'scoped' child at 'beforeInsert' poisons root with 'await-ignore'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'scoped' child at 'beforeInsert' poisons root with 'void'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'scoped' child at 'beforeInsert' poisons root with 'catch'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'scoped' child at 'afterInsert' poisons root with 'await-ignore'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'scoped' child at 'afterInsert' poisons root with 'void'
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > 'scoped' child at 'afterInsert' poisons root with 'catch'
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:129:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > ignored unsupported grandchild poisons both ancestors and blocks later children
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > ignored scoped grandchild poisons both ancestors and blocks later children
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:144:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejected unsupported afterCommit child preserves parent's confirmed write
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > rejected scoped afterCommit child preserves parent's confirmed write
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:151:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/191]⎯
+
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > serializes restore via production HTTP handler and actual stores
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > serializes unknown via production HTTP handler and actual stores
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > serializes scoped-insert via production HTTP handler and actual stores
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > serializes scoped-update via production HTTP handler and actual stores
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > serializes scoped-delete via production HTTP handler and actual stores
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > serializes success via production HTTP handler and actual stores
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > serializes nested via production HTTP handler and actual stores
+ FAIL  packages/dataset-operations/tests/operation-security.test.ts > serializes post-commit via production HTTP handler and actual stores
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/dataset-operations/tests/operation-security.test.ts:160:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/191]⎯
+
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope null for 'insert' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope false for 'insert' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope +0 for 'insert' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope '' for 'insert' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope null for 'update' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope false for 'update' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope +0 for 'update' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope '' for 'update' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope null for 'delete' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope false for 'delete' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope +0 for 'delete' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope '' for 'delete' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope null for 'restore' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope false for 'restore' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope +0 for 'restore' without changing files
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > denies persisted malformed scope '' for 'restore' without changing files
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/i-am/tests/write-scope-containment.test.ts:10:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/191]⎯
+
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > preserves 'query' behavior for malformed scope null
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > preserves 'query' behavior for malformed scope false
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > preserves 'query' behavior for malformed scope +0
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > preserves 'query' behavior for malformed scope ''
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > preserves 'export' behavior for malformed scope null
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > preserves 'export' behavior for malformed scope false
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > preserves 'export' behavior for malformed scope +0
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > preserves 'export' behavior for malformed scope ''
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/i-am/tests/write-scope-containment.test.ts:18:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/191]⎯
+
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > ignores nonmatching malformed disabled grants for writes
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > ignores nonmatching malformed subject grants for writes
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > ignores nonmatching malformed resource grants for writes
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > ignores nonmatching malformed action grants for writes
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/i-am/tests/write-scope-containment.test.ts:23:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/191]⎯
+
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > DOE surfaces I-AM malformed-scope denial null as AUTHORIZATION_DENIED
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > DOE surfaces I-AM malformed-scope denial false as AUTHORIZATION_DENIED
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > DOE surfaces I-AM malformed-scope denial 0 as AUTHORIZATION_DENIED
+ FAIL  packages/i-am/tests/write-scope-containment.test.ts > DOE surfaces I-AM malformed-scope denial "" as AUTHORIZATION_DENIED
+TypeError: this.definitions.set is not a function
+ ❯ InstrumentedOrm.register packages/orm/src/json-file-orm.ts:27:62
+ ❯ fixture packages/dataset-operations/tests/transaction-fixture.ts:54:54
+     52|   const root = await mkdtemp(join(tmpdir(), "ds0-stab2-")); roots.push…
+     53|   const orm = new InstrumentedOrm(root);
+     54|   for (const name of ["main", "child", "grand"]) orm.register(definiti…
+       |                                                      ^
+     55|   registerIamDatasets(orm); registerTriggerDataset(orm);
+     56|   const policies = new OrmIamPolicyStore(orm);
+ ❯ packages/i-am/tests/write-scope-containment.test.ts:27:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/191]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  191 failed (191)
+   Start at  09:08:16
+   Duration  928ms (transform 164ms, setup 0ms, collect 398ms, tests 386ms, environment 0ms, prepare 286ms)
+

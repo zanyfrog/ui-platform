@@ -1,0 +1,14 @@
+packages/i-am/tests/write-scope-containment.test.ts(12,105): error TS2352: Conversion of type '{ id: "valid" | "bad"; subject: { type: "user"; id: string; }; resource: { appId: string; dataset: string; }; actions: ("insert" | "update" | "delete" | "restore")[]; recordScope: string | number | boolean | { ...; } | null; }' to type 'PermissionGrant' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Types of property 'recordScope' are incompatible.
+    Type '{ readonly and: readonly []; }' is not comparable to type 'QueryExpression | undefined'.
+      Types of property 'and' are incompatible.
+        The type 'readonly []' is 'readonly' and cannot be assigned to the mutable type 'QueryExpression[]'.
+packages/i-am/tests/write-scope-containment.test.ts(18,54): error TS2352: Conversion of type '{ id: string; subject: { type: "user"; id: string; }; resource: { appId: string; dataset: string; }; actions: DatasetAction[]; recordScope: string | number | boolean | null; }' to type 'PermissionGrant' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Types of property 'recordScope' are incompatible.
+    Type 'string | number | boolean | null' is not comparable to type 'QueryExpression | undefined'.
+      Type 'true' is not comparable to type 'QueryExpression | undefined'.
+packages/i-am/tests/write-scope-containment.test.ts(27,54): error TS2352: Conversion of type '{ id: string; subject: { type: "user"; id: string; }; resource: { appId: string; dataset: string; }; actions: "insert"[]; recordScope: string | number | boolean | null; }' to type 'PermissionGrant' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Types of property 'recordScope' are incompatible.
+    Type 'string | number | boolean | null' is not comparable to type 'QueryExpression | undefined'.
+      Type 'true' is not comparable to type 'QueryExpression | undefined'.
+Exit code: 2

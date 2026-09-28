@@ -1,0 +1,214 @@
+{
+  "recordedAt": "2026-09-28T10:02:54.542Z",
+  "activity": "Read-only STAB-2 commit review and STAB-3 design baseline; no tests rerun or runtime edits",
+  "repositories": [
+    {
+      "path": "C:/Projects/Modular/UI Platform Data Services",
+      "head": "d0aa1044b551086d2fbfaccf80357e7e6a5827dc",
+      "branch": "master",
+      "status": "",
+      "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform",
+      "head": "a4b835dc89100cf30e0b0018a0210e08eca6856a",
+      "branch": "main",
+      "status": "?? docs/architecture/ds0-stab-2-acceptance-record.md\n?? docs/architecture/ds0-stab-3-write-containment-plan.md\n?? docs/architecture/evidence/ds0-stab-3-design/",
+      "lockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-base",
+      "head": "96898f73809272e680fcb3402f064a039fff4350",
+      "branch": "main",
+      "status": "",
+      "lockfileSha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    }
+  ],
+  "acceptedSourceParent": "577683840535e668c2000f24562702e7b51c6a0b",
+  "existingCommit": "commit d0aa1044b551086d2fbfaccf80357e7e6a5827dc\nAuthor:     Kelly Harris <zanyfrog@gmail.com>\nAuthorDate: Mon Sep 28 05:55:27 2026 -0400\nCommit:     Kelly Harris <zanyfrog@gmail.com>\nCommitDate: Mon Sep 28 05:55:27 2026 -0400\n\n    Stab=2 stopped at acceptance",
+  "committedFiles": [
+    "packages/dataset-operations/README.md",
+    "packages/dataset-operations/src/operation-manager.ts",
+    "packages/dataset-operations/src/request-handler.ts",
+    "packages/dataset-operations/src/service.ts",
+    "packages/dataset-operations/src/types.ts",
+    "packages/dataset-operations/tests/nested-transactions.test.ts",
+    "packages/dataset-operations/tests/operation-failures.test.ts",
+    "packages/dataset-operations/tests/operation-service-contract.test.ts",
+    "packages/dataset-operations/tests/result-consumer-fixture.ts",
+    "packages/dataset-operations/tests/transaction-fixture.ts"
+  ],
+  "testedFiles": [
+    {
+      "path": "packages/dataset-operations/README.md",
+      "sha256": "9961DB2A561B96CB41EDB6126BEE6C08C97B59AB6794B4F6529A2AD3EB21BBA9",
+      "currentSha256": "9961DB2A561B96CB41EDB6126BEE6C08C97B59AB6794B4F6529A2AD3EB21BBA9",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "sha256": "17BA38F99F04464FD489D41A329AC25FA785A4798D90B042BCC94BBD354BE721",
+      "currentSha256": "17BA38F99F04464FD489D41A329AC25FA785A4798D90B042BCC94BBD354BE721",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/src/service.ts",
+      "sha256": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A",
+      "currentSha256": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/src/types.ts",
+      "sha256": "F0596A001CE438F58EDD17BED538AB75091A8BAFF93B05C4DDD72FBF21EBA486",
+      "currentSha256": "F0596A001CE438F58EDD17BED538AB75091A8BAFF93B05C4DDD72FBF21EBA486",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/src/request-handler.ts",
+      "sha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C",
+      "currentSha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/nested-transactions.test.ts",
+      "sha256": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9",
+      "currentSha256": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-failures.test.ts",
+      "sha256": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC",
+      "currentSha256": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-service-contract.test.ts",
+      "sha256": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F",
+      "currentSha256": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/result-consumer-fixture.ts",
+      "sha256": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879",
+      "currentSha256": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/transaction-fixture.ts",
+      "sha256": "5765EB4183F392413C32233857F28074D9B5E30077812B240194E94B2B930A43",
+      "currentSha256": "5765EB4183F392413C32233857F28074D9B5E30077812B240194E94B2B930A43",
+      "matches": true
+    }
+  ],
+  "diffCheck": "",
+  "protectedOutsideDoeChanges": "",
+  "acceptedEvidenceWorkingTreeDiff": "",
+  "preserved": [
+    {
+      "path": "docs/architecture/ds0-stab-2-implementation-acceptance-report.md",
+      "sha256": "5C52EDF82AFF5DD87989EF3C8C86F8E4E0512BC093FBEC4D6A36685878BC6D55"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/01-build.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/02-focused-tests.txt",
+      "sha256": "9151CEF9FA7C98805DFE835EA3013B89606BDAABD43A3754593891284475309B"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/03-build-corrected.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/04-focused-corrected.txt",
+      "sha256": "65778DBF9E9894F34437447FDE56DD30DA6219092BEBB8921D89FE676E8EDBB5"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/05-build-final.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/06-typecheck.txt",
+      "sha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/07-consumer-typecheck.txt",
+      "sha256": "69F797CDD9F474F6B169DCD7F6945328E2DA029C25E77AB70E13597328A3F66E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/08-full-tests.txt",
+      "sha256": "A92696286D63EF39BE085B6B13DB13C845E3A07D0C7E4E0245AFBF10BE7BEA5A"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/09-platform-production-build.txt",
+      "sha256": "103E9667E1389EA48BC463FC7F8C6D13F0D76ED3FC80E6A0E4C1C36017C38B69"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/10-platform-typecheck.txt",
+      "sha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/11-platform-focused.txt",
+      "sha256": "C0191C11775CE19BF0C44CB5154F063F32313B9ACC03953C21DCD4D2264CAD42"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/12-platform-contracts.txt",
+      "sha256": "45EA09BF8E8041AC87B47F1893AB0381DBAC526570357AF6A8101CEF834D2204"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/before.json",
+      "sha256": "D23C2925938A6F14861FB7A57C4E4C8A33AD8E270FC6F218E9A19C781B4F8AE4"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/diff-check.txt",
+      "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/preservation.json",
+      "sha256": "6AC2B5F1D5787249133895FBA75D26888F802BB489EC25F93BF929C1168BE1EA"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/record-preservation.cjs",
+      "sha256": "52CF58CEBDB2C36EE8DD42353E8DA2FD6F07B0C385A46EAF3D328C14F641573C"
+    }
+  ],
+  "designSourceHashes": [
+    {
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "sha256": "17BA38F99F04464FD489D41A329AC25FA785A4798D90B042BCC94BBD354BE721"
+    },
+    {
+      "path": "packages/dataset-operations/src/types.ts",
+      "sha256": "F0596A001CE438F58EDD17BED538AB75091A8BAFF93B05C4DDD72FBF21EBA486"
+    },
+    {
+      "path": "packages/dataset-operations/src/request-handler.ts",
+      "sha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C"
+    },
+    {
+      "path": "packages/dataset-operations/src/trigger-registry.ts",
+      "sha256": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0"
+    },
+    {
+      "path": "packages/i-am/src/authorization-service.ts",
+      "sha256": "DD5D988BA92070B5EA92356C0DDE837E158A2F00E5D1B06196CE72C080229714"
+    },
+    {
+      "path": "packages/i-am/src/policy-store.ts",
+      "sha256": "235C69FD9D69981E712DB52CF28A899179B8EA8FF9B5BC2DC72775EE8216D2DF"
+    },
+    {
+      "path": "packages/i-am/src/types.ts",
+      "sha256": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19"
+    },
+    {
+      "path": "packages/i-am/src/service.ts",
+      "sha256": "65E0300BAFAA91E7D118312FFA0FA9575413D8B2E757063423A446D710A64207"
+    },
+    {
+      "path": "packages/orm/src/json-file-orm.ts",
+      "sha256": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984"
+    }
+  ]
+}

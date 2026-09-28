@@ -1,0 +1,8 @@
+
+> ui-platform@0.1.2 typecheck
+> tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p packages/platform-core/tsconfig.json && npm run typecheck --workspace @ui-platform/artifacts
+
+
+> @ui-platform/artifacts@0.1.0 typecheck
+> tsc --noEmit -p tsconfig.json
+
