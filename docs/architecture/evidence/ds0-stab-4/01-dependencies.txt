@@ -1,0 +1,21 @@
+ui-platform-data-services@0.1.0 C:\Projects\Modular\UI Platform Data Services
+├── @types/node@22.20.2
+├─┬ @ui-platform/dataset-operations@0.1.0 -> .\packages\dataset-operations
+│ ├── @ui-platform/i-am@0.1.0 deduped -> .\packages\i-am
+│ └── @ui-platform/orm@0.1.0 deduped -> .\packages\orm
+├─┬ @ui-platform/i-am@0.1.0 -> .\packages\i-am
+│ └── @ui-platform/orm@0.1.0 deduped -> .\packages\orm
+├── @ui-platform/orm@0.1.0 -> .\packages\orm
+├─┬ @ui-platform/schema-application@0.1.0 -> .\packages\schema-application
+│ ├── @ui-platform/orm@0.1.0 deduped -> .\packages\orm
+│ └── @ui-platform/schema-manager@0.1.0 deduped -> .\packages\schema-manager
+├─┬ @ui-platform/schema-manager@0.1.0 -> .\packages\schema-manager
+│ ├── @ui-platform/orm@0.1.0 deduped -> .\packages\orm
+│ └── @ui-platform/versioned-definition-registry@0.1.0 deduped -> .\packages\versioned-definition-registry
+├─┬ @ui-platform/trigger-manager@0.1.0 -> .\packages\trigger-manager
+│ └── @ui-platform/versioned-definition-registry@0.1.0 deduped -> .\packages\versioned-definition-registry
+├── @ui-platform/versioned-definition-registry@0.1.0 -> .\packages\versioned-definition-registry
+├── tsx@4.23.13
+├── typescript@5.9.3
+└── vitest@3.2.7
+
