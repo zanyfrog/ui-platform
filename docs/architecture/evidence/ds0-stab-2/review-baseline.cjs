@@ -1,0 +1,15 @@
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{execFileSync}=require('node:child_process');
+const d='C:/Projects/Modular/UI Platform Data Services', p=process.cwd();
+const git=(...args)=>execFileSync('git',['-c','safe.directory='+d,'-C',d,...args],{encoding:'utf8'}).trim();
+const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex').toUpperCase();
+const manifest=JSON.parse(fs.readFileSync('docs/architecture/evidence/ds0-stab-1/implementation-file-hashes.json','utf8'));
+const baseline='313b7e0c64e8e93f75632bb9dc015614d7709668';
+const actual=git('diff','--name-only',baseline,'HEAD').split('\n').filter(Boolean).sort();
+const expected=manifest.map(x=>x.path).sort();
+const mismatches=manifest.filter(x=>hash(path.join(d,x.path))!==x.sha256).map(x=>x.path);
+const protectedFiles=['docs/architecture/ds0-stab-1-compatibility-assessment.md','docs/architecture/ds0-stab-1-implementation-acceptance-report.md',...fs.readdirSync('docs/architecture/evidence/ds0-stab-1').map(n=>'docs/architecture/evidence/ds0-stab-1/'+n)];
+const source=['packages/dataset-operations/src/operation-manager.ts','packages/dataset-operations/src/types.ts','packages/dataset-operations/src/service.ts','packages/dataset-operations/src/trigger-registry.ts','packages/orm/src/json-file-orm.ts','packages/orm/src/types.ts'];
+const result={recordedAt:new Date().toISOString(),baseline,head:git('rev-parse','HEAD'),parent:git('rev-parse','HEAD^'),status:git('status','--porcelain'),committedPaths:actual,exactApprovedPathSet:JSON.stringify(actual)===JSON.stringify(expected),acceptedFileHashMismatches:mismatches,lockfileSha256:hash(path.join(d,'package-lock.json')),reviewedSource:source.map(f=>({path:f,sha256:hash(path.join(d,f))})),preservedStab1Artifacts:protectedFiles.map(f=>({path:f,sha256:hash(path.join(p,f))}))};
+fs.writeFileSync('docs/architecture/evidence/ds0-stab-2/baseline-review.json',JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify({...result,preservedStab1Artifacts:result.preservedStab1Artifacts.length,reviewedSource:result.reviewedSource.length},null,2));
+if(!result.exactApprovedPathSet||mismatches.length||result.status||result.parent!==baseline)process.exitCode=1;

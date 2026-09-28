@@ -1,0 +1,107 @@
+{
+  "recordedAt": "2026-09-27T19:09:00.8204899-04:00",
+  "repositories": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform",
+      "head": "e6b6a86936b8aa24645f24ae53db3cf61a3c0345",
+      "branch": "main",
+      "upstream": "origin/main",
+      "status": [
+        "?? docs/architecture/ds0-stab-1-compatibility-assessment.md",
+        "?? docs/architecture/ds0-stab-1-implementation-acceptance-report.md",
+        "?? docs/architecture/evidence/ds0-stab-1/01-tests-initial.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/02-build.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/03-tests.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/04-platform-compatibility.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/05-build-final.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/06-typecheck-final.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/07-tests-final.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/08-platform-editor-contracts.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/09-tests-acceptance.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/data-services-before.json",
+        "?? docs/architecture/evidence/ds0-stab-1/diff-check.txt",
+        "?? docs/architecture/evidence/ds0-stab-1/implementation-file-hashes.json",
+        "?? docs/architecture/evidence/ds0-stab-1/preservation-and-repositories.json",
+        "?? docs/architecture/evidence/ds0-stab-1/record-preservation.ps1",
+        "?? docs/architecture/evidence/ds0-stab-1/tracked-file-preservation.json"
+      ],
+      "lockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "head": "313b7e0c64e8e93f75632bb9dc015614d7709668",
+      "branch": "master",
+      "upstream": "origin/master",
+      "status": [
+        " M README.md",
+        " M packages/schema-manager/src/index.ts",
+        " M packages/schema-manager/src/service.ts",
+        " M packages/trigger-manager/src/index.ts",
+        " M packages/trigger-manager/src/service.ts",
+        " M packages/versioned-definition-registry/src/index.ts",
+        " M packages/versioned-definition-registry/src/registry.ts",
+        " M packages/versioned-definition-registry/src/types.ts",
+        "?? packages/schema-manager/tests/stab1-contracts.test.ts",
+        "?? packages/versioned-definition-registry/README.md",
+        "?? packages/versioned-definition-registry/src/canonical.ts",
+        "?? packages/versioned-definition-registry/tests/canonical.test.ts",
+        "?? packages/versioned-definition-registry/tests/registry.test.ts"
+      ],
+      "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-base",
+      "head": "96898f73809272e680fcb3402f064a039fff4350",
+      "branch": "main",
+      "upstream": "origin/main",
+      "status": [],
+      "lockfileSha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    }
+  ],
+  "trackedBeforeCount": 56,
+  "trackedUnchangedCount": 48,
+  "trackedChanged": [
+    "README.md",
+    "packages/schema-manager/src/index.ts",
+    "packages/schema-manager/src/service.ts",
+    "packages/trigger-manager/src/index.ts",
+    "packages/trigger-manager/src/service.ts",
+    "packages/versioned-definition-registry/src/index.ts",
+    "packages/versioned-definition-registry/src/registry.ts",
+    "packages/versioned-definition-registry/src/types.ts"
+  ],
+  "protectedDocuments": [
+    {
+      "path": "docs/architecture/ds0-stab-0-execution-acceptance-report.md",
+      "sha256": "EA1394C439425805B51FAED4E7633C82F14311DFC60E0328162257B7DF8E16DE"
+    },
+    {
+      "path": "docs/architecture/ds0-baseline-stabilization-repair-plan.md",
+      "sha256": "03647EE877E701923B0ABB53E1FAB3AF106751A55AD622DE9E7970852EECF270"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-1-compatibility-assessment.md",
+      "sha256": "2E9ADFB27A1208AF6E650910183464D43433D38ECF186F39D6CB2D6F830DA7A4"
+    }
+  ],
+  "tools": {
+    "node": "v24.19.0",
+    "localNpm": "10.8.2",
+    "localNpmNodeEngines": "^18.17.0 || >=20.5.0",
+    "globalNpm": "11.17.0"
+  },
+  "defaultDefinitionRoots": [
+    {
+      "path": "C:\\Projects\\Modular\\UI Platform Data Services\\data\\definitions",
+      "exists": false
+    },
+    {
+      "path": "C:\\Projects\\Modular\\UI Platform Data Services\\packages\\schema-manager\\data\\definitions",
+      "exists": false
+    },
+    {
+      "path": "C:\\Projects\\Modular\\UI Platform Data Services\\packages\\trigger-manager\\data\\definitions",
+      "exists": false
+    }
+  ]
+}

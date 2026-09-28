@@ -1,0 +1,24 @@
+
+> ui-platform-data-services@0.1.0 test
+> vitest run
+
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/versioned-definition-registry/tests/canonical.test.ts (36 tests) 27ms
+ ✓ packages/trigger-manager/tests/trigger-manager.test.ts (2 tests) 47ms
+ ✓ packages/schema-application/tests/state-store.test.ts (4 tests) 129ms
+ ✓ packages/dataset-operations/tests/operation-manager.test.ts (1 test) 21ms
+ ✓ packages/schema-manager/tests/schema-manager.test.ts (1 test) 88ms
+ ✓ packages/versioned-definition-registry/tests/registry.test.ts (31 tests) 860ms
+ ✓ packages/schema-manager/tests/stab1-contracts.test.ts (13 tests) 1909ms
+   ✓ STAB-1 true (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  358ms
+   ✓ STAB-1 true (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  306ms
+   ✓ STAB-1 false (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  314ms
+   ✓ STAB-1 false (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  313ms
+
+ Test Files  7 passed (7)
+      Tests  88 passed (88)
+   Start at  19:04:24
+   Duration  2.54s (transform 432ms, setup 0ms, collect 1.16s, tests 3.08s, environment 1ms, prepare 1.15s)
+

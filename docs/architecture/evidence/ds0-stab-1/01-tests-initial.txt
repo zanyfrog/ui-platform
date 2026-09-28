@@ -1,0 +1,115 @@
+
+> ui-platform-data-services@0.1.0 test
+> vitest run
+
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/trigger-manager/tests/trigger-manager.test.ts (2 tests) 47ms
+ ✓ packages/schema-application/tests/state-store.test.ts (4 tests) 124ms
+ ✓ packages/dataset-operations/tests/operation-manager.test.ts (1 test) 21ms
+ ✓ packages/schema-manager/tests/schema-manager.test.ts (1 test) 85ms
+ ✓ packages/versioned-definition-registry/tests/registry.test.ts (25 tests) 669ms
+ ❯ packages/schema-manager/tests/stab1-contracts.test.ts (6 tests | 2 failed) 1079ms
+   ✓ STAB-1 true (schema=true, trigger=false) > preserves legacy inspection/editing while blocking publication and identity changes 49ms
+   ✓ STAB-1 true (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  383ms
+   × STAB-1 true (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP 155ms
+     → expected { status: 200, body: { …(9) } } to deeply equal { status: 422, …(1) }
+   ✓ STAB-1 false (schema=true, trigger=false) > preserves legacy inspection/editing while blocking publication and identity changes 28ms
+   ✓ STAB-1 false (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  326ms
+   × STAB-1 false (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP 135ms
+     → expected { status: 400, …(1) } to deeply equal { status: 422, …(1) }
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/versioned-definition-registry/tests/canonical.test.ts [ packages/versioned-definition-registry/tests/canonical.test.ts ]
+TypeError: Do not know how to serialize a BigInt
+ ❯ packages/versioned-definition-registry/tests/canonical.test.ts:28:158
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/schema-manager/tests/stab1-contracts.test.ts > STAB-1 true (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP
+AssertionError: expected { status: 200, body: { …(9) } } to deeply equal { status: 422, …(1) }
+
+- Expected
++ Received
+
+  {
+    "body": {
+-     "error": "DEFINITION_JSON_INVALID",
++     "baseVerification": "none",
++     "checksum": "sha256:9e7e65453739bbc64ba155eed18a37bd5fb1196c7f29ded1da660b94414d7ad8",
++     "checksumFormat": "canonical-json-v1",
++     "comparison": "unavailable",
++     "errors": [
++       "Definition type must be dataset-schema.",
++       "Unsupported schema definition format.",
++       "Dataset id is required.",
++       "Dataset key does not match reference.",
++       "Dataset name is required.",
++       "Dataset plural name is required.",
++       "Required id field is required.",
++     ],
++     "identityBasis": {
++       "verification": "none",
+      },
+-   "status": 422,
++     "ref": {
++       "appId": "test",
++       "definitionId": "test:example",
++       "definitionType": "dataset-schema",
++       "key": "example",
++     },
++     "state": "invalid",
++     "value": {
++       "id": 2,
++     },
++   },
++   "status": 200,
+  }
+
+ ❯ packages/schema-manager/tests/stab1-contracts.test.ts:103:73
+    101|   it("exercises canonical publish, verified reads, rollback and strict…
+    102|     const root = await store(isSchema, false), api = await service(isS…
+    103|     expect(await api.request("/draft", "PUT", '{"id":1,"id":2}', true)…
+       |                                                                         ^
+    104|     expect(await snapshot(root)).toEqual({});
+    105|     expect((await api.request("/draft", "PUT", isSchema ? schema : tri…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  packages/schema-manager/tests/stab1-contracts.test.ts > STAB-1 false (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP
+AssertionError: expected { status: 400, …(1) } to deeply equal { status: 422, …(1) }
+
+- Expected
++ Received
+
+  {
+    "body": {
+-     "error": "DEFINITION_JSON_INVALID",
++     "error": "Trigger draft identity must match the request path.",
+    },
+-   "status": 422,
++   "status": 400,
+  }
+
+ ❯ packages/schema-manager/tests/stab1-contracts.test.ts:103:73
+    101|   it("exercises canonical publish, verified reads, rollback and strict…
+    102|     const root = await store(isSchema, false), api = await service(isS…
+    103|     expect(await api.request("/draft", "PUT", '{"id":1,"id":2}', true)…
+       |                                                                         ^
+    104|     expect(await snapshot(root)).toEqual({});
+    105|     expect((await api.request("/draft", "PUT", isSchema ? schema : tri…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed | 5 passed (7)
+      Tests  2 failed | 37 passed (39)
+   Start at  18:54:30
+   Duration  1.77s (transform 754ms, setup 0ms, collect 1.19s, tests 2.02s, environment 1ms, prepare 1.31s)
+

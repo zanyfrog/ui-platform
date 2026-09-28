@@ -1,0 +1,121 @@
+{
+  "recordedAt": "2026-09-27T23:18:14.384Z",
+  "baseline": "313b7e0c64e8e93f75632bb9dc015614d7709668",
+  "head": "577683840535e668c2000f24562702e7b51c6a0b",
+  "parent": "313b7e0c64e8e93f75632bb9dc015614d7709668",
+  "status": "",
+  "committedPaths": [
+    "README.md",
+    "packages/schema-manager/src/index.ts",
+    "packages/schema-manager/src/service.ts",
+    "packages/schema-manager/tests/stab1-contracts.test.ts",
+    "packages/trigger-manager/src/index.ts",
+    "packages/trigger-manager/src/service.ts",
+    "packages/versioned-definition-registry/README.md",
+    "packages/versioned-definition-registry/src/canonical.ts",
+    "packages/versioned-definition-registry/src/index.ts",
+    "packages/versioned-definition-registry/src/registry.ts",
+    "packages/versioned-definition-registry/src/types.ts",
+    "packages/versioned-definition-registry/tests/canonical.test.ts",
+    "packages/versioned-definition-registry/tests/registry.test.ts"
+  ],
+  "exactApprovedPathSet": true,
+  "acceptedFileHashMismatches": [],
+  "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F",
+  "reviewedSource": [
+    {
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "sha256": "B56D791BF72C3FBB9542957ACC627261E3619FE43C7AB60ECACA8A977BA88E18"
+    },
+    {
+      "path": "packages/dataset-operations/src/types.ts",
+      "sha256": "C8AD1056D83E0EE104E4EF0BBCE8936C343D0BCFD7620D89C88DC1E5D487A5C1"
+    },
+    {
+      "path": "packages/dataset-operations/src/service.ts",
+      "sha256": "28C60F64D2F6D434E0BA16BAA598A0FFE3332C2A53672C85EC503A54946455FC"
+    },
+    {
+      "path": "packages/dataset-operations/src/trigger-registry.ts",
+      "sha256": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0"
+    },
+    {
+      "path": "packages/orm/src/json-file-orm.ts",
+      "sha256": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984"
+    },
+    {
+      "path": "packages/orm/src/types.ts",
+      "sha256": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E"
+    }
+  ],
+  "preservedStab1Artifacts": [
+    {
+      "path": "docs/architecture/ds0-stab-1-compatibility-assessment.md",
+      "sha256": "2E9ADFB27A1208AF6E650910183464D43433D38ECF186F39D6CB2D6F830DA7A4"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-1-implementation-acceptance-report.md",
+      "sha256": "2FEEE413FDC9E3876DE3DC32212E38F4D3554EB7AC6D95202A754CBBD8430709"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/01-tests-initial.txt",
+      "sha256": "56EFF3DFFB8BD7FDD86C929A9FBD8C06372EFD79179D8E7A5BA9FDAB6F44B479"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/02-build.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/03-tests.txt",
+      "sha256": "23C457CF13BEAC1262C5F21A3AC2B7D4B3406C53AC377CBC3B0EB0282BB4A424"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/04-platform-compatibility.txt",
+      "sha256": "D35420A8A4B80A9C4C64CE12354740A2935AC79AA026A676C0BBD9C26A6CEA4D"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/05-build-final.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/06-typecheck-final.txt",
+      "sha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/07-tests-final.txt",
+      "sha256": "373746A55BA0B4477DA759FFEE9ECA94C734A3D80E87C18EE7D397059323C808"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/08-platform-editor-contracts.txt",
+      "sha256": "6F8986A41100CFF7EC2E8016AB70498227124329AF5FC9DF469D68DE3A743D60"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/09-tests-acceptance.txt",
+      "sha256": "F514209A9817AE518EC63CCF8EF06E61CC65E4BCF79B188B1B9FA1F0EF9E7EFD"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/data-services-before.json",
+      "sha256": "90DE742156C1D2598CECFAEC9F6E6A9717360BCCD55E022B52D11F354A850628"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/diff-check.txt",
+      "sha256": "B340532A911FC3A6FDEC8C41BE4B1B4FECF136CA99F901CBC96CA50C18C4FA60"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/implementation-file-hashes.json",
+      "sha256": "458E1AFF320ACB767EED360DB2858EB60D4BB4E86D3F60AF70EA4DA7C960738E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/preservation-and-repositories.json",
+      "sha256": "7E86B3C93967EB9C947AEF2111B3D0F8767BAD6FB798B4579A09588A0CA74F20"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/record-preservation.ps1",
+      "sha256": "5D33DE0EB6BA62AA873BD155B2AE7888684C624B6A76D0C92507DF61408CAECA"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/tracked-file-preservation.json",
+      "sha256": "337F818A15AC230036AAEC5BE0634D0B2063A74DE61468A1E41ACF32EFACEF82"
+    }
+  ]
+}
