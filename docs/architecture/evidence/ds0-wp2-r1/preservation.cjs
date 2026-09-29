@@ -1,0 +1,26 @@
+const fs=require('node:fs'), path=require('node:path'), crypto=require('node:crypto'), cp=require('node:child_process');
+const p=path.resolve(__dirname,'../../../..'),d=path.resolve(p,'../UI Platform Data Services'),b=path.resolve(p,'../ui-base');
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8').replace(/^\uFEFF/,''));
+const sha=value=>crypto.createHash('sha256').update(value).digest('hex').toUpperCase();
+const hash=file=>sha(fs.readFileSync(file));
+const git=(root,...args)=>cp.execFileSync('git',['-c',`safe.directory=${root.replaceAll('\\','/')}`,'-C',root,...args],{encoding:'utf8'}).trim();
+const before=read(path.join(__dirname,'before.json'));
+const markers={ 'packages/schema-application/src/index.ts':'\n// WP2-R1', 'packages/schema-application/README.md':'\n## WP2-R1' };
+const baseline=before.files.map(entry=>{
+  const bytes=fs.readFileSync(path.join(d,entry.path)), marker=markers[entry.path];
+  const oldBytes=marker ? bytes.subarray(0,bytes.indexOf(Buffer.from(marker))) : bytes;
+  return {...entry,current:sha(bytes),originalContentPreserved:sha(oldBytes)===entry.sha256,appendOnly:!!marker};
+});
+const previous=read(path.join(p,'docs/architecture/evidence/ds0-stab-4/before.json')).priorEvidence;
+const committed=read(path.join(p,'docs/architecture/evidence/ds0-wp2-reconciliation/review.json')).committedArtifacts;
+const evidenceChecks=[...previous,...committed].map(entry=>({...entry,current:hash(path.join(p,entry.path)),matches:entry.sha256===hash(path.join(p,entry.path))}));
+const r0=read(path.join(p,'docs/architecture/evidence/ds0-wp2-r0/review.json'));
+const r0Hash=hash(path.join(p,'docs/architecture/ds0-wp2-r0-contract-design.md'));
+const changed=git(d,'status','--porcelain=v1','--untracked-files=all').split('\n').filter(Boolean).map(line=>line.slice(line.startsWith('M ') ? 2 : 3).trim());
+const changedFiles=changed.map(file=>({path:file,sha256:hash(path.join(d,file))}));
+const repos=[p,d,b].map(root=>({root,head:git(root,'rev-parse','HEAD'),status:git(root,'status','--porcelain=v1'),lockfileSha256:hash(path.join(root,'package-lock.json'))}));
+const npmTrace=fs.readFileSync(path.join(__dirname,'npm-invocations.jsonl'),'utf8').trim().split('\n').map(JSON.parse);
+const result={recordedAt:new Date().toISOString(),repositories:repos,baseline,originalDataServicesFiles:baseline.length,originalContentMismatches:baseline.filter(x=>!x.originalContentPreserved),evidenceChecks,priorEvidenceMismatches:evidenceChecks.filter(x=>!x.matches),r0:{sha256:r0Hash,matches:r0Hash===r0.documentSha256},changedFiles,npm:{invocations:npmTrace.length,versions:[...new Set(npmTrace.map(x=>x.version))]},noTrackedPlatformChanges:git(p,'diff','--name-only')==='',noStagedChanges:git(p,'diff','--cached','--name-only')===''&&git(d,'diff','--cached','--name-only')===''};
+fs.writeFileSync(path.join(__dirname,'preservation.json'),JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify({repos,originalFiles:baseline.length,mismatches:result.originalContentMismatches,evidenceChecks:evidenceChecks.length,evidenceMismatches:result.priorEvidenceMismatches,r0:result.r0,changedFiles,npm:result.npm},null,2));
+if(result.originalContentMismatches.length||result.priorEvidenceMismatches.length||!result.r0.matches||!result.noTrackedPlatformChanges||!result.noStagedChanges)process.exitCode=1;

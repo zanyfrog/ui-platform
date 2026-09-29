@@ -1,0 +1,182 @@
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/schema-application/tests/state-store.test.ts (4 tests) 91ms
+ ❯ packages/schema-application/tests/fingerprint.test.ts (31 tests | 1 failed) 201ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > pins golden bytes and domain-separated digest 0 2ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > pins golden bytes and domain-separated digest 1 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > pins golden bytes and domain-separated digest 2 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > pins golden bytes and domain-separated digest 3 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > pins golden bytes and domain-separated digest 4 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 0 1ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 1 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 2 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 3 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 4 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 5 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 6 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 7 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 8 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 9 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 10 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 11 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects unsupported value 12 0ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > rejects cycles/accessors/hooks/hidden/symbol/array extras without invoking them 0ms
+   × R1 V1-V3 deterministic fingerprint domain > bounds size/depth and preserves Unicode, array order and presence distinctions 9ms
+     → expected [Function] to throw an error
+   ✓ R1 V1-V3 deterministic fingerprint domain > normalizes independent field order and object keys, excludes verification timestamps 21ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed datasetId in descriptor 17ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed fieldId in descriptor 17ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed key in descriptor 16ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed type in descriptor 21ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed required in descriptor 16ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed default in descriptor 17ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed environment in descriptor 16ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed version in descriptor 16ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed checksum in descriptor 14ms
+   ✓ R1 V1-V3 deterministic fingerprint domain > binds changed schemaVersion in descriptor 14ms
+ ✓ packages/schema-application/tests/resolver.test.ts (20 tests) 575ms
+ ❯ packages/schema-application/tests/verification.test.ts (44 tests | 6 failed) 921ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 reads canonical active and pinned identity without writes or registration 43ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects environment pin 23ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects app pin 21ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects datasetId pin 28ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects datasetKey pin 21ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects namespace pin 20ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects version pin 22ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects checksum pin 21ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects format pin 21ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects definitionType pin 19ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects definitionVersion pin 18ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects windowsPath pin 18ms
+   × R1 verified canonical reader and independently observed ORM > V5 rejects legacy stored history without changing bytes 18ms
+     → ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-yw65Ts\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+   × R1 verified canonical reader and independently observed ORM > V5 rejects unknown-format stored history without changing bytes 14ms
+     → ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-m6VapQ\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+   × R1 verified canonical reader and independently observed ORM > V5 rejects tampered stored history without changing bytes 17ms
+     → ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-FlxZ1Q\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+   × R1 verified canonical reader and independently observed ORM > V5 rejects missing-content stored history without changing bytes 14ms
+     → ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-SMHGza\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+   × R1 verified canonical reader and independently observed ORM > V5 rejects ambiguous-active stored history without changing bytes 13ms
+     → ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-qVctyC\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+   ✓ R1 verified canonical reader and independently observed ORM > V5 pinned canonical historical read never follows a newer active version 40ms
+   × R1 verified canonical reader and independently observed ORM > V5 permits unrelated legacy history without certifying it 28ms
+     → ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-tM5dUt\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects independently supplied missing registration 20ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects independently supplied extra registration 20ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects independently supplied type registration 20ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects independently supplied required registration 20ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects independently supplied default registration 19ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects independently supplied primary registration 23ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects independently supplied schemaVersion registration 21ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects independently supplied classification registration 17ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects independently supplied duplicate registration 19ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects unsupported candidate subset 19ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects duplicate-id candidate subset 17ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects duplicate-key candidate subset 19ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects extra-semantic candidate subset 17ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects secondary-id candidate subset 78ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects primary-type candidate subset 17ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects invalid-required candidate subset 17ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects required-null candidate subset 18ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 rejects invalid-date candidate subset 18ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 exact string default 15ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 exact number default 14ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 exact boolean default 17ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 exact date default 14ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 exact json default 12ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 exact string default 14ms
+   ✓ R1 verified canonical reader and independently observed ORM > captures caller pin before asynchronous publication reads 14ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/schema-application/tests/fingerprint.test.ts > R1 V1-V3 deterministic fingerprint domain > bounds size/depth and preserves Unicode, array order and presence distinctions
+AssertionError: expected [Function] to throw an error
+ ❯ packages/schema-application/tests/fingerprint.test.ts:29:62
+     27|   });
+     28|   it("bounds size/depth and preserves Unicode, array order and presenc…
+     29|     expect(() => canonicalDescriptor("x".repeat(1024*1024))).toThrow();
+       |                                                              ^
+     30|     expect(() => canonicalDescriptor(JSON.parse("[".repeat(102)+"0"+"]…
+     31|     for (const [a,b] of [[{a:null},{}], [[1,2],[2,1]], ["é","e\u0301"]…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  packages/schema-application/tests/verification.test.ts > R1 verified canonical reader and independently observed ORM > V5 rejects legacy stored history without changing bytes
+Error: ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-yw65Ts\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+ ❯ packages/schema-application/tests/verification.test.ts:39:33
+     37|     const dir = path.join(f.publications, "dataset-schema", "travel", …
+     38|     const metadataFile = path.join(dir, "metadata.json"), versionFile …
+     39|     const metadata = JSON.parse(await readFile(metadataFile, "utf8"));
+       |                                 ^
+     40|     const version = JSON.parse(await readFile(versionFile, "utf8"));
+     41|     if (kind === "legacy") { delete metadata.checksumFormat; delete ve…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  packages/schema-application/tests/verification.test.ts > R1 verified canonical reader and independently observed ORM > V5 rejects unknown-format stored history without changing bytes
+Error: ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-m6VapQ\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+ ❯ packages/schema-application/tests/verification.test.ts:39:33
+     37|     const dir = path.join(f.publications, "dataset-schema", "travel", …
+     38|     const metadataFile = path.join(dir, "metadata.json"), versionFile …
+     39|     const metadata = JSON.parse(await readFile(metadataFile, "utf8"));
+       |                                 ^
+     40|     const version = JSON.parse(await readFile(versionFile, "utf8"));
+     41|     if (kind === "legacy") { delete metadata.checksumFormat; delete ve…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  packages/schema-application/tests/verification.test.ts > R1 verified canonical reader and independently observed ORM > V5 rejects tampered stored history without changing bytes
+Error: ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-FlxZ1Q\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+ ❯ packages/schema-application/tests/verification.test.ts:39:33
+     37|     const dir = path.join(f.publications, "dataset-schema", "travel", …
+     38|     const metadataFile = path.join(dir, "metadata.json"), versionFile …
+     39|     const metadata = JSON.parse(await readFile(metadataFile, "utf8"));
+       |                                 ^
+     40|     const version = JSON.parse(await readFile(versionFile, "utf8"));
+     41|     if (kind === "legacy") { delete metadata.checksumFormat; delete ve…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  packages/schema-application/tests/verification.test.ts > R1 verified canonical reader and independently observed ORM > V5 rejects missing-content stored history without changing bytes
+Error: ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-SMHGza\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+ ❯ packages/schema-application/tests/verification.test.ts:39:33
+     37|     const dir = path.join(f.publications, "dataset-schema", "travel", …
+     38|     const metadataFile = path.join(dir, "metadata.json"), versionFile …
+     39|     const metadata = JSON.parse(await readFile(metadataFile, "utf8"));
+       |                                 ^
+     40|     const version = JSON.parse(await readFile(versionFile, "utf8"));
+     41|     if (kind === "legacy") { delete metadata.checksumFormat; delete ve…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  packages/schema-application/tests/verification.test.ts > R1 verified canonical reader and independently observed ORM > V5 rejects ambiguous-active stored history without changing bytes
+Error: ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-qVctyC\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+ ❯ packages/schema-application/tests/verification.test.ts:39:33
+     37|     const dir = path.join(f.publications, "dataset-schema", "travel", …
+     38|     const metadataFile = path.join(dir, "metadata.json"), versionFile …
+     39|     const metadata = JSON.parse(await readFile(metadataFile, "utf8"));
+       |                                 ^
+     40|     const version = JSON.parse(await readFile(versionFile, "utf8"));
+     41|     if (kind === "legacy") { delete metadata.checksumFormat; delete ve…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  packages/schema-application/tests/verification.test.ts > R1 verified canonical reader and independently observed ORM > V5 permits unrelated legacy history without certifying it
+Error: ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\ds0-r1-tM5dUt\publications\dataset-schema\travel\tours\versions\000001\metadata.json'
+ ❯ packages/schema-application/tests/verification.test.ts:61:60
+     59|     const dir = path.join(f.publications, "dataset-schema", "travel", …
+     60|     for (const name of ["metadata.json", "version.json"]) {
+     61|       const file = path.join(dir,name), value = JSON.parse(await readF…
+       |                                                            ^
+     62|       await writeFile(file, JSON.stringify(value));
+     63|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  2 failed | 2 passed (4)
+      Tests  7 failed | 92 passed (99)
+   Start at  06:07:28
+   Duration  1.48s (transform 223ms, setup 0ms, collect 617ms, tests 1.79s, environment 0ms, prepare 568ms)
+

@@ -1,0 +1,82 @@
+{
+  "repos": [
+    {
+      "root": "C:\\Projects\\Modular\\ui-platform",
+      "head": "6b4a53b6a985abdf08698efa76dd0efd69948157",
+      "status": "?? docs/architecture/ds0-wp2-r1-implementation-acceptance-report.md\n?? docs/architecture/evidence/ds0-wp2-r1/",
+      "lockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "root": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "head": "9a6f0d5623863a8d44b879eda08316b0e3c79571",
+      "status": "M packages/schema-application/README.md\n M packages/schema-application/src/index.ts\n?? packages/schema-application/src/activation-contracts.ts\n?? packages/schema-application/src/fingerprint.ts\n?? packages/schema-application/src/resolver.ts\n?? packages/schema-application/src/verification.ts\n?? packages/schema-application/tests/fingerprint.test.ts\n?? packages/schema-application/tests/r1-consumer-fixture.ts\n?? packages/schema-application/tests/r1-fixtures.ts\n?? packages/schema-application/tests/resolver.test.ts\n?? packages/schema-application/tests/verification.test.ts",
+      "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "root": "C:\\Projects\\Modular\\ui-base",
+      "head": "96898f73809272e680fcb3402f064a039fff4350",
+      "status": "",
+      "lockfileSha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    }
+  ],
+  "originalFiles": 69,
+  "mismatches": [],
+  "evidenceChecks": 105,
+  "evidenceMismatches": [],
+  "r0": {
+    "sha256": "04362E70A06AD1B3ADC4A66927B0BA0B1424BB9ACD2BF662B09FD64FD375360A",
+    "matches": true
+  },
+  "changedFiles": [
+    {
+      "path": "packages/schema-application/README.md",
+      "sha256": "5B6AC8115110F5B4C64676893F0B37E9D766F6428878A4CE7696C294B86C5D30"
+    },
+    {
+      "path": "packages/schema-application/src/index.ts",
+      "sha256": "2814010524E5B8AD5368AB0FFF346C849337B2E6400BDBBEF54568414976EEEB"
+    },
+    {
+      "path": "packages/schema-application/src/activation-contracts.ts",
+      "sha256": "D727C3E9DDF4BB2EB9FC769316CC4AACD8E9C2AA10D4424E8F6B69A9538A1674"
+    },
+    {
+      "path": "packages/schema-application/src/fingerprint.ts",
+      "sha256": "0A6C67CB41076FA3A796EBB5871E35EEF4DBBD882408A72666F47281AD63B66D"
+    },
+    {
+      "path": "packages/schema-application/src/resolver.ts",
+      "sha256": "DC1F94248CCB998951635579FFB3E4CBC5A2C37C2D5E13BA7B76E7211CB05A37"
+    },
+    {
+      "path": "packages/schema-application/src/verification.ts",
+      "sha256": "EAEA0343148EDCED26D800BCE2ADDA68D913F958056337D470DA6949A6B08951"
+    },
+    {
+      "path": "packages/schema-application/tests/fingerprint.test.ts",
+      "sha256": "97EA9F7F81342B1B1659D55A92CCA9B99CB815BE4EA4A40D04AE86A9E40ED5CC"
+    },
+    {
+      "path": "packages/schema-application/tests/r1-consumer-fixture.ts",
+      "sha256": "C8CF04C2D3554C7EF84DBB26A830E5D1C8EF1A1B5EED8D2ACA24EFBFD6A62445"
+    },
+    {
+      "path": "packages/schema-application/tests/r1-fixtures.ts",
+      "sha256": "06AFE9537F4F9E7C276FE7754D8994F57D79ADDD4E6589E730A028451A00AF42"
+    },
+    {
+      "path": "packages/schema-application/tests/resolver.test.ts",
+      "sha256": "B9538E82131C1CF0E140A3363DF0DE24E383C286A7C1F71248EDB7385E1D2302"
+    },
+    {
+      "path": "packages/schema-application/tests/verification.test.ts",
+      "sha256": "6F5835A41FDD57C9CF1C9E6711358B3ABAEA5EE494C94430AAA5B03F03EB2D6F"
+    }
+  ],
+  "npm": {
+    "invocations": 21,
+    "versions": [
+      "10.8.2"
+    ]
+  }
+}

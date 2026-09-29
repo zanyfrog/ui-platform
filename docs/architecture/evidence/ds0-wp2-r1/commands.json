@@ -1,0 +1,125 @@
+{
+  "node": "v24.19.0",
+  "npm": "10.8.2",
+  "npmPath": "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+  "results": [
+    {
+      "name": "06-build",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "build"
+      ],
+      "start": "2026-09-29T10:24:07.357Z",
+      "end": "2026-09-29T10:24:07.741Z",
+      "exit": 1
+    },
+    {
+      "name": "07-typecheck",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "start": "2026-09-29T10:24:07.876Z",
+      "end": "2026-09-29T10:24:08.263Z",
+      "exit": 1
+    },
+    {
+      "name": "08-strict",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--skipLibCheck",
+        "--target",
+        "ES2022",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "packages/schema-application/tests/verification.test.ts",
+        "packages/schema-application/tests/fingerprint.test.ts",
+        "packages/schema-application/tests/resolver.test.ts",
+        "packages/schema-application/tests/r1-consumer-fixture.ts",
+        "packages/dataset-operations/tests/operation-security.test.ts",
+        "packages/i-am/tests/write-scope-containment.test.ts",
+        "packages/dataset-operations/tests/result-consumer-fixture.ts"
+      ],
+      "start": "2026-09-29T10:24:08.403Z",
+      "end": "2026-09-29T10:24:09.720Z",
+      "exit": 2
+    },
+    {
+      "name": "09-full-tests",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "start": "2026-09-29T10:24:09.861Z",
+      "end": "2026-09-29T10:24:14.178Z",
+      "exit": 0
+    },
+    {
+      "name": "10-platform-focused",
+      "cwd": "C:\\Projects\\Modular\\ui-platform",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/artifacts/tests/schema-adapter-compatibility.test.ts",
+        "packages/artifacts/tests/migrations-deployment.test.ts"
+      ],
+      "start": "2026-09-29T10:24:14.313Z",
+      "end": "2026-09-29T10:24:17.750Z",
+      "exit": 0
+    },
+    {
+      "name": "11-platform-typecheck",
+      "cwd": "C:\\Projects\\Modular\\ui-platform",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "start": "2026-09-29T10:24:17.897Z",
+      "end": "2026-09-29T10:24:19.206Z",
+      "exit": 1
+    },
+    {
+      "name": "12-platform-production",
+      "cwd": "C:\\Projects\\Modular\\ui-platform",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "check:editor-production"
+      ],
+      "start": "2026-09-29T10:24:19.338Z",
+      "end": "2026-09-29T10:24:19.721Z",
+      "exit": 1
+    },
+    {
+      "name": "13-platform-contracts",
+      "cwd": "C:\\Projects\\Modular\\ui-platform",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "check:editor-contracts"
+      ],
+      "start": "2026-09-29T10:24:19.859Z",
+      "end": "2026-09-29T10:24:29.755Z",
+      "exit": 0
+    }
+  ]
+}

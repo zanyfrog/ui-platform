@@ -1,0 +1,5 @@
+Command: node node_modules/typescript/bin/tsc --noEmit --strict --skipLibCheck --target ES2022 --module NodeNext --moduleResolution NodeNext packages/schema-application/tests/verification.test.ts packages/schema-application/tests/fingerprint.test.ts packages/schema-application/tests/resolver.test.ts packages/schema-application/tests/r1-consumer-fixture.ts packages/dataset-operations/tests/operation-security.test.ts packages/i-am/tests/write-scope-containment.test.ts packages/dataset-operations/tests/result-consumer-fixture.ts
+CWD: C:\Projects\Modular\UI Platform Data Services
+Start: 2026-09-29T10:24:08.403Z
+Exit: 2
+packages/schema-application/tests/r1-consumer-fixture.ts(2,36): error TS2305: Module '"@ui-platform/schema-application"' has no exported member 'CanonicalOrmSchemaVerifier'.
