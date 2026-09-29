@@ -1,0 +1,64 @@
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ❯ packages/dataset-operations/tests/activation-http.test.ts (16 tests | 1 failed) 7054ms
+   ✓ R2 real controlled runtime activation > health through production HTTP, durable receipt, confirmed promotion and lifetime ownership  338ms
+   ✓ R2 real controlled runtime activation > clean restart uses a fresh runtime, preserves applied bytes, and never follows a newer active version  330ms
+   ✓ R2 real controlled runtime activation > rejects definition before health and preserves existing bytes 64ms
+   ✓ R2 real controlled runtime activation > rejects enabled-trigger before health and preserves existing bytes 49ms
+   ✓ R2 real controlled runtime activation > rejects legacy before health and preserves existing bytes 41ms
+   ✓ R2 real controlled runtime activation > rejects journal before health and preserves existing bytes 46ms
+   ✓ R2 real controlled runtime activation > rejects authority before health and preserves existing bytes 25ms
+   ✓ R2 real controlled runtime activation > rejects shared-root before health and preserves existing bytes 34ms
+   × R2 real controlled runtime activation > denied health actor is not certified by HTTP 200 and creates no probe rows 5017ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   ✓ R2 real controlled runtime activation > an actual persisted but unacknowledged commit is unknown: no retry/update/delete/cleanup 139ms
+   ✓ R2 real controlled runtime activation > lost promotion acknowledgement preserves applied bytes but keeps ordinary admission closed 227ms
+   ✓ R2 real controlled runtime activation > receipt failure prevents promotion and retains pending state 183ms
+   ✓ R2 real controlled runtime activation > owner loss closes admission and cannot release another owner's evidence 233ms
+   ✓ R2 real controlled runtime activation > tampered receipt or incomplete applied ledger blocks same-version restart 299ms
+   ✓ R2 admission tracks actual handler settlement > drains beyond response completion and closes new admission using deterministic barriers 6ms
+   ✓ R2 admission tracks actual handler settlement > drain deadline gates shutdown without cancelling outstanding work 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/dataset-operations/tests/activation-http.test.ts > R2 real controlled runtime activation > denied health actor is not certified by HTTP 200 and creates no probe rows
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/dataset-operations/tests/activation-http.test.ts:75:3
+     73|     expect(withoutOwner(await inventory(f.root))).toEqual(withoutOwner…
+     74|   });
+     75|   it("denied health actor is not certified by HTTP 200 and creates no …
+       |   ^
+     76|     const f=await fixture();f.manifest.actor={type:"service",serviceId…
+     77|     const h=host(f.manifest);const result=await h.controller.activateF…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: Cannot write headers after they are sent to the client
+ ❯ ServerResponse.writeHead node:_http_server:408:11
+ ❯ Server.<anonymous> packages/dataset-operations/src/request-handler.ts:19:30
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_HTTP_HEADERS_SENT' }
+This error originated in "packages/dataset-operations/tests/activation-http.test.ts" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "denied health actor is not certified by HTTP 200 and creates no probe rows". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 15 passed (16)
+     Errors  1 error
+   Start at  08:57:55
+   Duration  8.12s (transform 247ms, setup 0ms, collect 383ms, tests 7.05s, environment 0ms, prepare 311ms)
+

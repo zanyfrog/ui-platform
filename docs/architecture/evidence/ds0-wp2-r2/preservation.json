@@ -1,0 +1,1452 @@
+{
+  "acceptedR1Commit": "07f11bc3ad16e249b97311be7641f1c91d48753e",
+  "r1CommitFiles": [
+    "packages/schema-application/README.md",
+    "packages/schema-application/src/activation-contracts.ts",
+    "packages/schema-application/src/fingerprint.ts",
+    "packages/schema-application/src/index.ts",
+    "packages/schema-application/src/resolver.ts",
+    "packages/schema-application/src/verification.ts",
+    "packages/schema-application/tests/fingerprint.test.ts",
+    "packages/schema-application/tests/r1-consumer-fixture.ts",
+    "packages/schema-application/tests/r1-fixtures.ts",
+    "packages/schema-application/tests/resolver.test.ts",
+    "packages/schema-application/tests/verification.test.ts"
+  ],
+  "recordedAt": "2026-09-29T14:30:25.727Z",
+  "repositories": [
+    {
+      "root": "C:\\Projects\\Modular\\ui-platform",
+      "head": "1259d92472ad2716b3e2d5386b160af6a0f9bd88",
+      "status": "?? docs/architecture/ds0-wp2-r1-acceptance-record.md\n?? docs/architecture/ds0-wp2-r2-implementation-acceptance-report.md\n?? docs/architecture/evidence/ds0-wp2-r2/",
+      "lockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "root": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "head": "07f11bc3ad16e249b97311be7641f1c91d48753e",
+      "status": "M packages/schema-application/README.md\n M packages/schema-application/src/index.ts\n?? packages/dataset-operations/tests/activation-drain.test.ts\n?? packages/dataset-operations/tests/activation-http.test.ts\n?? packages/dataset-operations/tests/activation-process.test.ts\n?? packages/dataset-operations/tests/support/\n?? packages/schema-application/src/activation-controller.ts\n?? packages/schema-application/src/activation-owner.ts\n?? packages/schema-application/src/activation-state.ts",
+      "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "root": "C:\\Projects\\Modular\\ui-base",
+      "head": "96898f73809272e680fcb3402f064a039fff4350",
+      "status": "",
+      "lockfileSha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    }
+  ],
+  "baseline": [
+    {
+      "sha256": "3D1EB0B4A711F973A6E8601CFE5C9F5A0901FD94169D57277EA70DCE23C1F217",
+      "path": ".gitignore",
+      "current": "3D1EB0B4A711F973A6E8601CFE5C9F5A0901FD94169D57277EA70DCE23C1F217",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "743CCDE6F9C8CAC747E20523E8530AA176281763CB5605786DEF835B1F1FF8AD",
+      "path": "README.md",
+      "current": "743CCDE6F9C8CAC747E20523E8530AA176281763CB5605786DEF835B1F1FF8AD",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "9376E0E95ECA36929A6B427427A9388738A82E285BBC9992E3E5588A95266ECB",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/Dataset_Operation_Manager_Architecture.md",
+      "current": "9376E0E95ECA36929A6B427427A9388738A82E285BBC9992E3E5588A95266ECB",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "360FE651912D12EB655622098A6C8446F131CAACCAF8EF6A75FC64AD2B0C0173",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/I-AM_Architecture.md",
+      "current": "360FE651912D12EB655622098A6C8446F131CAACCAF8EF6A75FC64AD2B0C0173",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "9169A12B22BA91C8B6A7229FF36336A87104FA4716A923679FF1AA14B429516C",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/ORM_Architecture.md",
+      "current": "9169A12B22BA91C8B6A7229FF36336A87104FA4716A923679FF1AA14B429516C",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "B3494F8E8577808F3EC39726D8039B4B2925D0F5F4A5FED729FC0903441AC3E1",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/README.md",
+      "current": "B3494F8E8577808F3EC39726D8039B4B2925D0F5F4A5FED729FC0903441AC3E1",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "E0AA3CA7CD786F0BE9037115320D92B220003466AE6FF2329961A38D8738287F",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/UI_Platform_Data_Services_Versioned_Definitions_Architecture.md",
+      "current": "E0AA3CA7CD786F0BE9037115320D92B220003466AE6FF2329961A38D8738287F",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F",
+      "path": "package-lock.json",
+      "current": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "AE023970BD83C1C393745090A0749B8AED3D7DE3B2F58F2E79DD83190FB3E55A",
+      "path": "package.json",
+      "current": "AE023970BD83C1C393745090A0749B8AED3D7DE3B2F58F2E79DD83190FB3E55A",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "C62CEB439C6D3F872820703E7955CB8771A5A3D448FCF615D141E3A6855D0EFE",
+      "path": "packages/dataset-operations/README.md",
+      "current": "C62CEB439C6D3F872820703E7955CB8771A5A3D448FCF615D141E3A6855D0EFE",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "51D8BB5B661929C98BF2C558CB4E6B5C4B88A2CC4BF60B6F2950CD0E117650F0",
+      "path": "packages/dataset-operations/package.json",
+      "current": "51D8BB5B661929C98BF2C558CB4E6B5C4B88A2CC4BF60B6F2950CD0E117650F0",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "2B0E4BCD95E2CBCB08E5E08AD07885B75D1CEE160E08C8AD85CB583A8052C57F",
+      "path": "packages/dataset-operations/src/index.ts",
+      "current": "2B0E4BCD95E2CBCB08E5E08AD07885B75D1CEE160E08C8AD85CB583A8052C57F",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "E93CC4F6CEEE0E332FB3994361E02ECF583EC51B6236A9B3F31E37284D9E6932",
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "current": "E93CC4F6CEEE0E332FB3994361E02ECF583EC51B6236A9B3F31E37284D9E6932",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C",
+      "path": "packages/dataset-operations/src/request-handler.ts",
+      "current": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A",
+      "path": "packages/dataset-operations/src/service.ts",
+      "current": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0",
+      "path": "packages/dataset-operations/src/trigger-registry.ts",
+      "current": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "A410A19E4D0E7EB0511CB565560D7DCD19F1CBB5CD1D372B8645FBF117BD1362",
+      "path": "packages/dataset-operations/src/types.ts",
+      "current": "A410A19E4D0E7EB0511CB565560D7DCD19F1CBB5CD1D372B8645FBF117BD1362",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9",
+      "path": "packages/dataset-operations/tests/nested-transactions.test.ts",
+      "current": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC",
+      "path": "packages/dataset-operations/tests/operation-failures.test.ts",
+      "current": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "164200BA83ACEEA09CC2CD44835BC993D6098B9980D04C79142F967183DBDE20",
+      "path": "packages/dataset-operations/tests/operation-manager.test.ts",
+      "current": "164200BA83ACEEA09CC2CD44835BC993D6098B9980D04C79142F967183DBDE20",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "786CFC3EF519865E28CEFB7829064CFA675E42D66844378F32511D94AD4D9B2D",
+      "path": "packages/dataset-operations/tests/operation-security.test.ts",
+      "current": "786CFC3EF519865E28CEFB7829064CFA675E42D66844378F32511D94AD4D9B2D",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F",
+      "path": "packages/dataset-operations/tests/operation-service-contract.test.ts",
+      "current": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879",
+      "path": "packages/dataset-operations/tests/result-consumer-fixture.ts",
+      "current": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "CEA83446D202EF7DCC30C76DC8FC55DABA5FB12E804CCAE202435BC7759E4C75",
+      "path": "packages/dataset-operations/tests/transaction-fixture.ts",
+      "current": "CEA83446D202EF7DCC30C76DC8FC55DABA5FB12E804CCAE202435BC7759E4C75",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "path": "packages/dataset-operations/tsconfig.json",
+      "current": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "86C529FA5D7801CE22D0E22370920530E19597313DE5177FC94F3B4B0EFAA682",
+      "path": "packages/i-am/README.md",
+      "current": "86C529FA5D7801CE22D0E22370920530E19597313DE5177FC94F3B4B0EFAA682",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "7A30068524A7CE6875D315860E3778B57C66DE2DEF7DB88DB8F3F4ECA17B3FE0",
+      "path": "packages/i-am/package.json",
+      "current": "7A30068524A7CE6875D315860E3778B57C66DE2DEF7DB88DB8F3F4ECA17B3FE0",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "F9946FCD77F379B6F293149D3D27F1A816600BCC923561C34A67C8787DEE82BC",
+      "path": "packages/i-am/src/authorization-service.ts",
+      "current": "F9946FCD77F379B6F293149D3D27F1A816600BCC923561C34A67C8787DEE82BC",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "21A71E9F663BC334B206655DCD50EA0601934325015C6EDE4076A610ABE663A1",
+      "path": "packages/i-am/src/index.ts",
+      "current": "21A71E9F663BC334B206655DCD50EA0601934325015C6EDE4076A610ABE663A1",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "235C69FD9D69981E712DB52CF28A899179B8EA8FF9B5BC2DC72775EE8216D2DF",
+      "path": "packages/i-am/src/policy-store.ts",
+      "current": "235C69FD9D69981E712DB52CF28A899179B8EA8FF9B5BC2DC72775EE8216D2DF",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "65E0300BAFAA91E7D118312FFA0FA9575413D8B2E757063423A446D710A64207",
+      "path": "packages/i-am/src/service.ts",
+      "current": "65E0300BAFAA91E7D118312FFA0FA9575413D8B2E757063423A446D710A64207",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "26894F1D5DA129D121FBA1D07D76C5EBD91FFF834BB25C4E82249BB488D8F917",
+      "path": "packages/i-am/src/token-verifier.ts",
+      "current": "26894F1D5DA129D121FBA1D07D76C5EBD91FFF834BB25C4E82249BB488D8F917",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19",
+      "path": "packages/i-am/src/types.ts",
+      "current": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "A750DEBD05AF6C906E541158DC61A45DB33345318DC67595B70A832D06A33602",
+      "path": "packages/i-am/tests/write-scope-containment.test.ts",
+      "current": "A750DEBD05AF6C906E541158DC61A45DB33345318DC67595B70A832D06A33602",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "path": "packages/i-am/tsconfig.json",
+      "current": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "0F8BCAD2A07712520695E95E85B1C2D1C259F4AB51A47FC564004F4C02E8FBE7",
+      "path": "packages/orm/package.json",
+      "current": "0F8BCAD2A07712520695E95E85B1C2D1C259F4AB51A47FC564004F4C02E8FBE7",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "EE9709D9AC23AA92C46E7BB7C7573844403628C54B94A1222FBB41B9F88185A9",
+      "path": "packages/orm/src/index.ts",
+      "current": "EE9709D9AC23AA92C46E7BB7C7573844403628C54B94A1222FBB41B9F88185A9",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984",
+      "path": "packages/orm/src/json-file-orm.ts",
+      "current": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "AB0E4033010E5A2F13D184368616CCF1C32AE7A530F80ED8AB7A4B7005E12CFB",
+      "path": "packages/orm/src/service.ts",
+      "current": "AB0E4033010E5A2F13D184368616CCF1C32AE7A530F80ED8AB7A4B7005E12CFB",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E",
+      "path": "packages/orm/src/types.ts",
+      "current": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "path": "packages/orm/tsconfig.json",
+      "current": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "5B6AC8115110F5B4C64676893F0B37E9D766F6428878A4CE7696C294B86C5D30",
+      "path": "packages/schema-application/README.md",
+      "current": "C7F7385F8D3A377EC3BD1CC269B897DDCCF576859570195F8D0FCBBF378A303D",
+      "originalContentPreserved": true,
+      "appendOnly": true
+    },
+    {
+      "sha256": "E87DB35DE6F1D25EEC7A46EF43052029D8F0D86F1114FA95E381251959BCB8B3",
+      "path": "packages/schema-application/package.json",
+      "current": "E87DB35DE6F1D25EEC7A46EF43052029D8F0D86F1114FA95E381251959BCB8B3",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "D727C3E9DDF4BB2EB9FC769316CC4AACD8E9C2AA10D4424E8F6B69A9538A1674",
+      "path": "packages/schema-application/src/activation-contracts.ts",
+      "current": "D727C3E9DDF4BB2EB9FC769316CC4AACD8E9C2AA10D4424E8F6B69A9538A1674",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "0A6C67CB41076FA3A796EBB5871E35EEF4DBBD882408A72666F47281AD63B66D",
+      "path": "packages/schema-application/src/fingerprint.ts",
+      "current": "0A6C67CB41076FA3A796EBB5871E35EEF4DBBD882408A72666F47281AD63B66D",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "2814010524E5B8AD5368AB0FFF346C849337B2E6400BDBBEF54568414976EEEB",
+      "path": "packages/schema-application/src/index.ts",
+      "current": "4974EF0072C5641E56CAB69CB5D20941B2EA2614164C07565B1A9D000909E4DB",
+      "originalContentPreserved": true,
+      "appendOnly": true
+    },
+    {
+      "sha256": "DC1F94248CCB998951635579FFB3E4CBC5A2C37C2D5E13BA7B76E7211CB05A37",
+      "path": "packages/schema-application/src/resolver.ts",
+      "current": "DC1F94248CCB998951635579FFB3E4CBC5A2C37C2D5E13BA7B76E7211CB05A37",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "EAEA0343148EDCED26D800BCE2ADDA68D913F958056337D470DA6949A6B08951",
+      "path": "packages/schema-application/src/verification.ts",
+      "current": "EAEA0343148EDCED26D800BCE2ADDA68D913F958056337D470DA6949A6B08951",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "97EA9F7F81342B1B1659D55A92CCA9B99CB815BE4EA4A40D04AE86A9E40ED5CC",
+      "path": "packages/schema-application/tests/fingerprint.test.ts",
+      "current": "97EA9F7F81342B1B1659D55A92CCA9B99CB815BE4EA4A40D04AE86A9E40ED5CC",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "C8CF04C2D3554C7EF84DBB26A830E5D1C8EF1A1B5EED8D2ACA24EFBFD6A62445",
+      "path": "packages/schema-application/tests/r1-consumer-fixture.ts",
+      "current": "C8CF04C2D3554C7EF84DBB26A830E5D1C8EF1A1B5EED8D2ACA24EFBFD6A62445",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "06AFE9537F4F9E7C276FE7754D8994F57D79ADDD4E6589E730A028451A00AF42",
+      "path": "packages/schema-application/tests/r1-fixtures.ts",
+      "current": "06AFE9537F4F9E7C276FE7754D8994F57D79ADDD4E6589E730A028451A00AF42",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "B9538E82131C1CF0E140A3363DF0DE24E383C286A7C1F71248EDB7385E1D2302",
+      "path": "packages/schema-application/tests/resolver.test.ts",
+      "current": "B9538E82131C1CF0E140A3363DF0DE24E383C286A7C1F71248EDB7385E1D2302",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "8CD7A3380831BE62F6B6F8B78B15AF6A7C9019A1FD30F7304533EE857DE1D52D",
+      "path": "packages/schema-application/tests/state-store.test.ts",
+      "current": "8CD7A3380831BE62F6B6F8B78B15AF6A7C9019A1FD30F7304533EE857DE1D52D",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "6F5835A41FDD57C9CF1C9E6711358B3ABAEA5EE494C94430AAA5B03F03EB2D6F",
+      "path": "packages/schema-application/tests/verification.test.ts",
+      "current": "6F5835A41FDD57C9CF1C9E6711358B3ABAEA5EE494C94430AAA5B03F03EB2D6F",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "37A4C392DD55A1537F31704B8B9C905E66E70F97CD3C1FE51877A0EF0D00D829",
+      "path": "packages/schema-application/tsconfig.json",
+      "current": "37A4C392DD55A1537F31704B8B9C905E66E70F97CD3C1FE51877A0EF0D00D829",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "E693379EF70539AD439D5CBBAD07247DFB0C9D37C9AB191C111EB666DA1838F6",
+      "path": "packages/schema-manager/package.json",
+      "current": "E693379EF70539AD439D5CBBAD07247DFB0C9D37C9AB191C111EB666DA1838F6",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "96399CCC073430EF7BA833F0E0BA9B7CDE65FCE49406C74CDBED510287D74E0C",
+      "path": "packages/schema-manager/src/index.ts",
+      "current": "96399CCC073430EF7BA833F0E0BA9B7CDE65FCE49406C74CDBED510287D74E0C",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "0728F5C9EB6E56D4B732A57E2157C32109D6D5F073CE9DE348821E8192B4060A",
+      "path": "packages/schema-manager/src/service.ts",
+      "current": "0728F5C9EB6E56D4B732A57E2157C32109D6D5F073CE9DE348821E8192B4060A",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "A02E49C2ACE6683E01626B86844F69E168CB3D75B2DC7C5CAF354688CB4DA6D7",
+      "path": "packages/schema-manager/tests/schema-manager.test.ts",
+      "current": "A02E49C2ACE6683E01626B86844F69E168CB3D75B2DC7C5CAF354688CB4DA6D7",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "7783E1CAFA9C404C98045F5160A7FED00CD7893284BBABA987CB10CB6D0E7963",
+      "path": "packages/schema-manager/tests/stab1-contracts.test.ts",
+      "current": "7783E1CAFA9C404C98045F5160A7FED00CD7893284BBABA987CB10CB6D0E7963",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "path": "packages/schema-manager/tsconfig.json",
+      "current": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "854D543D6149076290858470AA573BA3D4B2E454AC87231DC932201B07D3C5A7",
+      "path": "packages/trigger-manager/package.json",
+      "current": "854D543D6149076290858470AA573BA3D4B2E454AC87231DC932201B07D3C5A7",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "80CD3BFAE8E0D874C7E61D57A42CCC5A9845C88B8E3FD2BF7E5551540826D627",
+      "path": "packages/trigger-manager/src/index.ts",
+      "current": "80CD3BFAE8E0D874C7E61D57A42CCC5A9845C88B8E3FD2BF7E5551540826D627",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "4A1AC5525A0D86A5E3161E3528F98A32ADA0AB51AE1FD55D46FED9D80F550EAA",
+      "path": "packages/trigger-manager/src/service.ts",
+      "current": "4A1AC5525A0D86A5E3161E3528F98A32ADA0AB51AE1FD55D46FED9D80F550EAA",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "9697118EDC8408D76BD0F69B1FE7B945AD04C6FC1B5835D2C0DF8F4714338EE3",
+      "path": "packages/trigger-manager/tests/trigger-manager.test.ts",
+      "current": "9697118EDC8408D76BD0F69B1FE7B945AD04C6FC1B5835D2C0DF8F4714338EE3",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "path": "packages/trigger-manager/tsconfig.json",
+      "current": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "7B1224BB668436AAAC5C11D9771DCE07A5621E7F7D4C286ED7DA5BF4CEEF0986",
+      "path": "packages/versioned-definition-registry/README.md",
+      "current": "7B1224BB668436AAAC5C11D9771DCE07A5621E7F7D4C286ED7DA5BF4CEEF0986",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "6BB2616FA951C93734A746FC9606DC38214D5CCDD5A163EBDCCF69E2A96ACBEC",
+      "path": "packages/versioned-definition-registry/package.json",
+      "current": "6BB2616FA951C93734A746FC9606DC38214D5CCDD5A163EBDCCF69E2A96ACBEC",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "520637C920A4FD6A2DA3A6A5FCB13CAF5857C8746C7CB31A2F9211DD3FBA6B4F",
+      "path": "packages/versioned-definition-registry/src/canonical.ts",
+      "current": "520637C920A4FD6A2DA3A6A5FCB13CAF5857C8746C7CB31A2F9211DD3FBA6B4F",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "16C79DF9C332FBDB787993E60C17F0A5D9826FB4E2B7AA7E0DE8429B22161B8A",
+      "path": "packages/versioned-definition-registry/src/index.ts",
+      "current": "16C79DF9C332FBDB787993E60C17F0A5D9826FB4E2B7AA7E0DE8429B22161B8A",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "DD3F5D534BA16071A451750CF45F51139542006B486D146279A0FFF0BCD2A4DE",
+      "path": "packages/versioned-definition-registry/src/registry.ts",
+      "current": "DD3F5D534BA16071A451750CF45F51139542006B486D146279A0FFF0BCD2A4DE",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "0730D28201CE32395ED210C6D2BFDAFF24A8B674D8F5E6C5A078206876D596E7",
+      "path": "packages/versioned-definition-registry/src/types.ts",
+      "current": "0730D28201CE32395ED210C6D2BFDAFF24A8B674D8F5E6C5A078206876D596E7",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "62EB7135BF8E4288E394863B0C8F386DD2D2BBE36938DAD0C0F5872225F573B7",
+      "path": "packages/versioned-definition-registry/tests/canonical.test.ts",
+      "current": "62EB7135BF8E4288E394863B0C8F386DD2D2BBE36938DAD0C0F5872225F573B7",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "FC2A5080405CA02BA4B8DE5EB95B48BB948EBDD3B9A278540CE8738B4A0552BA",
+      "path": "packages/versioned-definition-registry/tests/registry.test.ts",
+      "current": "FC2A5080405CA02BA4B8DE5EB95B48BB948EBDD3B9A278540CE8738B4A0552BA",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "path": "packages/versioned-definition-registry/tsconfig.json",
+      "current": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "FC1383C2C52CD5FD45C1336E26E50D1BD7F99E6C8E23DAB8A6B3278557F026A4",
+      "path": "scripts/check-in.ps1",
+      "current": "FC1383C2C52CD5FD45C1336E26E50D1BD7F99E6C8E23DAB8A6B3278557F026A4",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "50C33D41549E4CD164F44CD3A5B11BB5F576B1BCC0CBA5696AD165229AB9586B",
+      "path": "tsconfig.base.json",
+      "current": "50C33D41549E4CD164F44CD3A5B11BB5F576B1BCC0CBA5696AD165229AB9586B",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    },
+    {
+      "sha256": "BC4F2FEE9BB580797BCEF2D0368CEBD9D7613B53521282576583D39824722022",
+      "path": "vitest.config.ts",
+      "current": "BC4F2FEE9BB580797BCEF2D0368CEBD9D7613B53521282576583D39824722022",
+      "originalContentPreserved": true,
+      "appendOnly": false
+    }
+  ],
+  "originalDataServicesFiles": 78,
+  "originalContentMismatches": [],
+  "evidenceChecks": [
+    {
+      "path": "docs/architecture/artifact-watcher-windows-rename-issue.md",
+      "sha256": "B92FCBE45EFF179DD03773E443376AB98734985D486CC56AAEC8D745BC4F6337",
+      "current": "B92FCBE45EFF179DD03773E443376AB98734985D486CC56AAEC8D745BC4F6337",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-baseline-stabilization-repair-plan.md",
+      "sha256": "03647EE877E701923B0ABB53E1FAB3AF106751A55AD622DE9E7970852EECF270",
+      "current": "03647EE877E701923B0ABB53E1FAB3AF106751A55AD622DE9E7970852EECF270",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-0-execution-acceptance-report.md",
+      "sha256": "EA1394C439425805B51FAED4E7633C82F14311DFC60E0328162257B7DF8E16DE",
+      "current": "EA1394C439425805B51FAED4E7633C82F14311DFC60E0328162257B7DF8E16DE",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-1-acceptance-record.md",
+      "sha256": "1F2D9D64AEA5ADF99C8A04010908B1F6FB224FA63F486FE0F65D56708288CFC6",
+      "current": "1F2D9D64AEA5ADF99C8A04010908B1F6FB224FA63F486FE0F65D56708288CFC6",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-1-compatibility-assessment.md",
+      "sha256": "2E9ADFB27A1208AF6E650910183464D43433D38ECF186F39D6CB2D6F830DA7A4",
+      "current": "2E9ADFB27A1208AF6E650910183464D43433D38ECF186F39D6CB2D6F830DA7A4",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-1-implementation-acceptance-report.md",
+      "sha256": "2FEEE413FDC9E3876DE3DC32212E38F4D3554EB7AC6D95202A754CBBD8430709",
+      "current": "2FEEE413FDC9E3876DE3DC32212E38F4D3554EB7AC6D95202A754CBBD8430709",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-2-acceptance-record.md",
+      "sha256": "5EC2302E77527DB4A5A1D00147E52406BB60F88CA20F266FA1E1D0ADC07B3ED9",
+      "current": "5EC2302E77527DB4A5A1D00147E52406BB60F88CA20F266FA1E1D0ADC07B3ED9",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-2-implementation-acceptance-report.md",
+      "sha256": "5C52EDF82AFF5DD87989EF3C8C86F8E4E0512BC093FBEC4D6A36685878BC6D55",
+      "current": "5C52EDF82AFF5DD87989EF3C8C86F8E4E0512BC093FBEC4D6A36685878BC6D55",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-2-transaction-correctness-plan.md",
+      "sha256": "0B1E9D98AC5645EE888AEAEE3D82AF083ABCC94EDEBAE19A8DD6D597468F5408",
+      "current": "0B1E9D98AC5645EE888AEAEE3D82AF083ABCC94EDEBAE19A8DD6D597468F5408",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-3-implementation-acceptance-report.md",
+      "sha256": "009E9EE6FC2545C56E7DADC9558D7B843FECD44090AC65DEDFD7C155C7FE7A8A",
+      "current": "009E9EE6FC2545C56E7DADC9558D7B843FECD44090AC65DEDFD7C155C7FE7A8A",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-3-write-containment-plan.md",
+      "sha256": "1AD94E4A72FF7BC5F6AF57D5DB4FDC0DA951994849C145D7F01703E3238EA4F1",
+      "current": "1AD94E4A72FF7BC5F6AF57D5DB4FDC0DA951994849C145D7F01703E3238EA4F1",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-wp2-preflight-audit.md",
+      "sha256": "F4770FFC052B0C308190F578FB9E87E72E8DD14CAD3A4AA46AD28414C2162F9B",
+      "current": "F4770FFC052B0C308190F578FB9E87E72E8DD14CAD3A4AA46AD28414C2162F9B",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/build.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/commands.json",
+      "sha256": "E60EE6846270012C23B7205872B34E8A5F674446DA9B78C23D3671B5FCC85C5C",
+      "current": "E60EE6846270012C23B7205872B34E8A5F674446DA9B78C23D3671B5FCC85C5C",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/data-services-before.json",
+      "sha256": "729636EB0A449B3E2577AD7831F8711BCCC439C5D7BE052A321EB3EFBE81D5F6",
+      "current": "729636EB0A449B3E2577AD7831F8711BCCC439C5D7BE052A321EB3EFBE81D5F6",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/dependencies.txt",
+      "sha256": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "current": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/direct-child-npm-version-first-attempt.txt",
+      "sha256": "A385C88335F547D5E1C6F7BBB6FF2F1B35B5C79D6069B38AE55CAC5F82B95302",
+      "current": "A385C88335F547D5E1C6F7BBB6FF2F1B35B5C79D6069B38AE55CAC5F82B95302",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/direct-child-npm-version.txt",
+      "sha256": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "current": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/execution-runner.ps1",
+      "sha256": "83AEFD27D992C2B7DCFD975F3645A766CD46067D3639C77D29DB5CD6931A3211",
+      "current": "83AEFD27D992C2B7DCFD975F3645A766CD46067D3639C77D29DB5CD6931A3211",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/git-and-tools-after.txt",
+      "sha256": "EAAD9B7EB44537838A5C4399D2FD5238899C1BF19C40F8BEE2BD9ACF0518AC66",
+      "current": "EAAD9B7EB44537838A5C4399D2FD5238899C1BF19C40F8BEE2BD9ACF0518AC66",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/git-and-tools-before.txt",
+      "sha256": "8B750C36069C8FE16949A363BB2C2D42571D3784EF5C2273E364B4D7B0BF2C6F",
+      "current": "8B750C36069C8FE16949A363BB2C2D42571D3784EF5C2273E364B4D7B0BF2C6F",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/global-npm-before.json",
+      "sha256": "39FFCE0ACCB3CCDA46CDF379718142CE59C06A20D89B1C1A6306B78B34687DEE",
+      "current": "39FFCE0ACCB3CCDA46CDF379718142CE59C06A20D89B1C1A6306B78B34687DEE",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/initial-runner.ps1",
+      "sha256": "6CEDF82C8352A2CA34F01D898EAC74671AD9AC6946A7C13A9B97F6A6874F25A8",
+      "current": "6CEDF82C8352A2CA34F01D898EAC74671AD9AC6946A7C13A9B97F6A6874F25A8",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/install.txt",
+      "sha256": "E033C1729A3032484F2DD1CE60F132C7799E4DDC212325524C68DA161A098890",
+      "current": "E033C1729A3032484F2DD1CE60F132C7799E4DDC212325524C68DA161A098890",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/local-npm-launcher.txt",
+      "sha256": "80D14520D96B8E996BEB972A928F0FC184B3B7493277FE4F279B236E1EB04CA2",
+      "current": "80D14520D96B8E996BEB972A928F0FC184B3B7493277FE4F279B236E1EB04CA2",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/nested-npm-version.txt",
+      "sha256": "8F690B1B0E180F17D8CED1C983159803DD14981A422B9BD476FB2E4EE271EB45",
+      "current": "8F690B1B0E180F17D8CED1C983159803DD14981A422B9BD476FB2E4EE271EB45",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-invocations.txt",
+      "sha256": "7F20E2B08A80A131702B19F1AB1CBFA3C771C3E01F2B728EA86701F08E01D33F",
+      "current": "7F20E2B08A80A131702B19F1AB1CBFA3C771C3E01F2B728EA86701F08E01D33F",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-metadata.json",
+      "sha256": "3B8584A215E3E4DE5DF71610DEF88546BC121034EE866C250C5682612D9198DD",
+      "current": "3B8584A215E3E4DE5DF71610DEF88546BC121034EE866C250C5682612D9198DD",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-trace-source.txt",
+      "sha256": "6ABD34BCEF11648377990F92131AF8F09955C252C21313112F1B5CFB0B61DA65",
+      "current": "6ABD34BCEF11648377990F92131AF8F09955C252C21313112F1B5CFB0B61DA65",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-version.txt",
+      "sha256": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "current": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/preservation-after.json",
+      "sha256": "486B2A53E9D955A526D2B5C1B1D7984B92E35ACA8AA916347CF677BFD8227477",
+      "current": "486B2A53E9D955A526D2B5C1B1D7984B92E35ACA8AA916347CF677BFD8227477",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/schema-application-tests.txt",
+      "sha256": "869594FD56797BE93ABA663813A391EB049078510E704FA4D0E0365337A3CD87",
+      "current": "869594FD56797BE93ABA663813A391EB049078510E704FA4D0E0365337A3CD87",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/source-reports-after.json",
+      "sha256": "05C1CB64F1F0DFBB4AD75E4DB40B1C801EC7A2C8E478F3DA2B8C0B6A5774900A",
+      "current": "05C1CB64F1F0DFBB4AD75E4DB40B1C801EC7A2C8E478F3DA2B8C0B6A5774900A",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/tests.txt",
+      "sha256": "FB41598B53ED118631CA66014643C1BE51429CA75FFC036153E9B69EEF99E212",
+      "current": "FB41598B53ED118631CA66014643C1BE51429CA75FFC036153E9B69EEF99E212",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/toolchain-verification.txt",
+      "sha256": "F0686B16D2C0D8656CEDE4511E4B101CC4A7119206522814DE2D170447E0C433",
+      "current": "F0686B16D2C0D8656CEDE4511E4B101CC4A7119206522814DE2D170447E0C433",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/typecheck.txt",
+      "sha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "current": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/01-tests-initial.txt",
+      "sha256": "56EFF3DFFB8BD7FDD86C929A9FBD8C06372EFD79179D8E7A5BA9FDAB6F44B479",
+      "current": "56EFF3DFFB8BD7FDD86C929A9FBD8C06372EFD79179D8E7A5BA9FDAB6F44B479",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/02-build.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/03-tests.txt",
+      "sha256": "23C457CF13BEAC1262C5F21A3AC2B7D4B3406C53AC377CBC3B0EB0282BB4A424",
+      "current": "23C457CF13BEAC1262C5F21A3AC2B7D4B3406C53AC377CBC3B0EB0282BB4A424",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/04-platform-compatibility.txt",
+      "sha256": "D35420A8A4B80A9C4C64CE12354740A2935AC79AA026A676C0BBD9C26A6CEA4D",
+      "current": "D35420A8A4B80A9C4C64CE12354740A2935AC79AA026A676C0BBD9C26A6CEA4D",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/05-build-final.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/06-typecheck-final.txt",
+      "sha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "current": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/07-tests-final.txt",
+      "sha256": "373746A55BA0B4477DA759FFEE9ECA94C734A3D80E87C18EE7D397059323C808",
+      "current": "373746A55BA0B4477DA759FFEE9ECA94C734A3D80E87C18EE7D397059323C808",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/08-platform-editor-contracts.txt",
+      "sha256": "6F8986A41100CFF7EC2E8016AB70498227124329AF5FC9DF469D68DE3A743D60",
+      "current": "6F8986A41100CFF7EC2E8016AB70498227124329AF5FC9DF469D68DE3A743D60",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/09-tests-acceptance.txt",
+      "sha256": "F514209A9817AE518EC63CCF8EF06E61CC65E4BCF79B188B1B9FA1F0EF9E7EFD",
+      "current": "F514209A9817AE518EC63CCF8EF06E61CC65E4BCF79B188B1B9FA1F0EF9E7EFD",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/data-services-before.json",
+      "sha256": "90DE742156C1D2598CECFAEC9F6E6A9717360BCCD55E022B52D11F354A850628",
+      "current": "90DE742156C1D2598CECFAEC9F6E6A9717360BCCD55E022B52D11F354A850628",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/diff-check.txt",
+      "sha256": "B340532A911FC3A6FDEC8C41BE4B1B4FECF136CA99F901CBC96CA50C18C4FA60",
+      "current": "B340532A911FC3A6FDEC8C41BE4B1B4FECF136CA99F901CBC96CA50C18C4FA60",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/implementation-file-hashes.json",
+      "sha256": "458E1AFF320ACB767EED360DB2858EB60D4BB4E86D3F60AF70EA4DA7C960738E",
+      "current": "458E1AFF320ACB767EED360DB2858EB60D4BB4E86D3F60AF70EA4DA7C960738E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/preservation-and-repositories.json",
+      "sha256": "7E86B3C93967EB9C947AEF2111B3D0F8767BAD6FB798B4579A09588A0CA74F20",
+      "current": "7E86B3C93967EB9C947AEF2111B3D0F8767BAD6FB798B4579A09588A0CA74F20",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/record-preservation.ps1",
+      "sha256": "5D33DE0EB6BA62AA873BD155B2AE7888684C624B6A76D0C92507DF61408CAECA",
+      "current": "5D33DE0EB6BA62AA873BD155B2AE7888684C624B6A76D0C92507DF61408CAECA",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/tracked-file-preservation.json",
+      "sha256": "337F818A15AC230036AAEC5BE0634D0B2063A74DE61468A1E41ACF32EFACEF82",
+      "current": "337F818A15AC230036AAEC5BE0634D0B2063A74DE61468A1E41ACF32EFACEF82",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/01-build.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/02-focused-tests.txt",
+      "sha256": "9151CEF9FA7C98805DFE835EA3013B89606BDAABD43A3754593891284475309B",
+      "current": "9151CEF9FA7C98805DFE835EA3013B89606BDAABD43A3754593891284475309B",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/03-build-corrected.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/04-focused-corrected.txt",
+      "sha256": "65778DBF9E9894F34437447FDE56DD30DA6219092BEBB8921D89FE676E8EDBB5",
+      "current": "65778DBF9E9894F34437447FDE56DD30DA6219092BEBB8921D89FE676E8EDBB5",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/05-build-final.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/06-typecheck.txt",
+      "sha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "current": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/07-consumer-typecheck.txt",
+      "sha256": "69F797CDD9F474F6B169DCD7F6945328E2DA029C25E77AB70E13597328A3F66E",
+      "current": "69F797CDD9F474F6B169DCD7F6945328E2DA029C25E77AB70E13597328A3F66E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/08-full-tests.txt",
+      "sha256": "A92696286D63EF39BE085B6B13DB13C845E3A07D0C7E4E0245AFBF10BE7BEA5A",
+      "current": "A92696286D63EF39BE085B6B13DB13C845E3A07D0C7E4E0245AFBF10BE7BEA5A",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/09-platform-production-build.txt",
+      "sha256": "103E9667E1389EA48BC463FC7F8C6D13F0D76ED3FC80E6A0E4C1C36017C38B69",
+      "current": "103E9667E1389EA48BC463FC7F8C6D13F0D76ED3FC80E6A0E4C1C36017C38B69",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/10-platform-typecheck.txt",
+      "sha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "current": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/11-platform-focused.txt",
+      "sha256": "C0191C11775CE19BF0C44CB5154F063F32313B9ACC03953C21DCD4D2264CAD42",
+      "current": "C0191C11775CE19BF0C44CB5154F063F32313B9ACC03953C21DCD4D2264CAD42",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/12-platform-contracts.txt",
+      "sha256": "45EA09BF8E8041AC87B47F1893AB0381DBAC526570357AF6A8101CEF834D2204",
+      "current": "45EA09BF8E8041AC87B47F1893AB0381DBAC526570357AF6A8101CEF834D2204",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/before.json",
+      "sha256": "D23C2925938A6F14861FB7A57C4E4C8A33AD8E270FC6F218E9A19C781B4F8AE4",
+      "current": "D23C2925938A6F14861FB7A57C4E4C8A33AD8E270FC6F218E9A19C781B4F8AE4",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/diff-check.txt",
+      "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B",
+      "current": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/preservation.json",
+      "sha256": "6AC2B5F1D5787249133895FBA75D26888F802BB489EC25F93BF929C1168BE1EA",
+      "current": "6AC2B5F1D5787249133895FBA75D26888F802BB489EC25F93BF929C1168BE1EA",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/record-preservation.cjs",
+      "sha256": "52CF58CEBDB2C36EE8DD42353E8DA2FD6F07B0C385A46EAF3D328C14F641573C",
+      "current": "52CF58CEBDB2C36EE8DD42353E8DA2FD6F07B0C385A46EAF3D328C14F641573C",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2/baseline-review.json",
+      "sha256": "04796F689B8295FD27F2B7BB332919F866941B6777CE58FF1FFDABD36138C6FE",
+      "current": "04796F689B8295FD27F2B7BB332919F866941B6777CE58FF1FFDABD36138C6FE",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2/review-baseline.cjs",
+      "sha256": "A45389D80EA951161343AD343682196612AF62CF4C2BCD069425D65696A8F5D1",
+      "current": "A45389D80EA951161343AD343682196612AF62CF4C2BCD069425D65696A8F5D1",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-design/record-review.cjs",
+      "sha256": "BC223D7AF21ACA10A2FD3F61C8822686F020B75C2BF3678F4A87B8199F65D1A1",
+      "current": "BC223D7AF21ACA10A2FD3F61C8822686F020B75C2BF3678F4A87B8199F65D1A1",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-design/review.json",
+      "sha256": "F0DB8794181EBEEC60D5422B346B5858C85F48DC02DC2B5532038159AF448459",
+      "current": "F0DB8794181EBEEC60D5422B346B5858C85F48DC02DC2B5532038159AF448459",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/01-build.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/02-focused.txt",
+      "sha256": "CD23F2282CC60FD5DB302724EC48F5FCB2358F7C7801940E51B2E14BAB5C43B0",
+      "current": "CD23F2282CC60FD5DB302724EC48F5FCB2358F7C7801940E51B2E14BAB5C43B0",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/03-focused-corrected.txt",
+      "sha256": "7DC85899221C0B6A6BD43CEDCBA79BA4863A05EECDEB31224A28ABC799F94AFE",
+      "current": "7DC85899221C0B6A6BD43CEDCBA79BA4863A05EECDEB31224A28ABC799F94AFE",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/04-test-typecheck.txt",
+      "sha256": "A9270E4F049CEFF0B3C592BBC79CBC561A80A2762B03D245DA3C24508AE015ED",
+      "current": "A9270E4F049CEFF0B3C592BBC79CBC561A80A2762B03D245DA3C24508AE015ED",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/05-test-typecheck-corrected.txt",
+      "sha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "current": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/06-build-final.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/07-typecheck.txt",
+      "sha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "current": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/08-focused-final.txt",
+      "sha256": "07D464D1CA1E3FC362EAEDAA7235D2D5493C7FA4E4E5455DF718C5491E4B2947",
+      "current": "07D464D1CA1E3FC362EAEDAA7235D2D5493C7FA4E4E5455DF718C5491E4B2947",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/09-full-tests.txt",
+      "sha256": "C97ED8F22E1BB7554075A4E17BE1D1B09B9AE1AB14BE502C0047757FCC272427",
+      "current": "C97ED8F22E1BB7554075A4E17BE1D1B09B9AE1AB14BE502C0047757FCC272427",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/10-test-consumer-typecheck.txt",
+      "sha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "current": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/11-platform-focused.txt",
+      "sha256": "64CD4971EF3C129CBB3E4D9CCEB0DBA98FAB11D8BB657190345792073F86B8F2",
+      "current": "64CD4971EF3C129CBB3E4D9CCEB0DBA98FAB11D8BB657190345792073F86B8F2",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/12-platform-typecheck.txt",
+      "sha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "current": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/13-platform-production-build.txt",
+      "sha256": "7976C96C5882D2E64D9DBC4476CD0D004DC17A8D37976A6FEEF309D8CEA6A778",
+      "current": "7976C96C5882D2E64D9DBC4476CD0D004DC17A8D37976A6FEEF309D8CEA6A778",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/14-platform-contracts.txt",
+      "sha256": "934E6F97B2D8EAA9FFD3719E010365F28E69E5D8364956669264C9F6BB57C24E",
+      "current": "934E6F97B2D8EAA9FFD3719E010365F28E69E5D8364956669264C9F6BB57C24E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/15-preservation-check.txt",
+      "sha256": "61E9500E72821B1D340E28681083CEE970EB4063B49EDEE48B2F52CBF99F7C4C",
+      "current": "61E9500E72821B1D340E28681083CEE970EB4063B49EDEE48B2F52CBF99F7C4C",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/before.json",
+      "sha256": "DE23C4DD57CBA62026D1795ED0D60DC030CFCE5A22862E43DF75BA9D7DF7B555",
+      "current": "DE23C4DD57CBA62026D1795ED0D60DC030CFCE5A22862E43DF75BA9D7DF7B555",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/preservation.json",
+      "sha256": "26D564A3E2F3AD6F49299B55DE3F7B9A3B3005C27EDDB7EA7955FF27BB8A7A11",
+      "current": "26D564A3E2F3AD6F49299B55DE3F7B9A3B3005C27EDDB7EA7955FF27BB8A7A11",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/record-preservation.cjs",
+      "sha256": "07F4AE21E9726F116E242305EBC93BEE984A174763948B667BDF97B0B24F49CB",
+      "current": "07F4AE21E9726F116E242305EBC93BEE984A174763948B667BDF97B0B24F49CB",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-4-consolidated-acceptance-report.md",
+      "sha256": "A6CD386BEF23FA68AB3870F74372D2B88E44D4DA61CE312EEEA3E4C2C14DD011",
+      "current": "A6CD386BEF23FA68AB3870F74372D2B88E44D4DA61CE312EEEA3E4C2C14DD011",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-stab-4-unresolved-issues.md",
+      "sha256": "319BB8B6F070AFAF77320C278C8FD84776D26E647B044E87A8C2868C56547A31",
+      "current": "319BB8B6F070AFAF77320C278C8FD84776D26E647B044E87A8C2868C56547A31",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/ds0-wp2-readiness-decision.md",
+      "sha256": "C9216D31ECB95837A7579485548BCCA1C006FF1AFCB6D27B0C27AB7361E1F1FB",
+      "current": "C9216D31ECB95837A7579485548BCCA1C006FF1AFCB6D27B0C27AB7361E1F1FB",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/01-dependencies.txt",
+      "sha256": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "current": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/02-build.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/03-typecheck.txt",
+      "sha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "current": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/04-full-tests.txt",
+      "sha256": "C3D29EB363B727F380AB33046033D9129668F5D851B7AC74D5A6C93D1123FCD7",
+      "current": "C3D29EB363B727F380AB33046033D9129668F5D851B7AC74D5A6C93D1123FCD7",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/05-consumer-tests-compilation.txt",
+      "sha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "current": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/06-platform-focused.txt",
+      "sha256": "89DD69763696F3D99C51B52E48F3670E77021BCB25483286B3EE986F0FAB9FCB",
+      "current": "89DD69763696F3D99C51B52E48F3670E77021BCB25483286B3EE986F0FAB9FCB",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/07-platform-typecheck.txt",
+      "sha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "current": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/08-platform-production.txt",
+      "sha256": "01A22C3B3425FB9AF98B6DBA7DED1E708912C6CD8520421D9CCF98EFC7077DEF",
+      "current": "01A22C3B3425FB9AF98B6DBA7DED1E708912C6CD8520421D9CCF98EFC7077DEF",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/09-platform-contracts.txt",
+      "sha256": "44694C2F1688F6945C26E76A4849838CB4E3D097571C5E5F2E8D11D3A1519AE1",
+      "current": "44694C2F1688F6945C26E76A4849838CB4E3D097571C5E5F2E8D11D3A1519AE1",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/10-preservation-check.txt",
+      "sha256": "9A6AA398AA49E680C5DEED303F4550FA59E5BB2820384D8E0FDB841244F5871F",
+      "current": "9A6AA398AA49E680C5DEED303F4550FA59E5BB2820384D8E0FDB841244F5871F",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/before.json",
+      "sha256": "4DFD51FFF07A25E374E781B72B22CADC413A0E1ED60DDF652ADBEA00532C02DA",
+      "current": "4DFD51FFF07A25E374E781B72B22CADC413A0E1ED60DDF652ADBEA00532C02DA",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/review.cjs",
+      "sha256": "9EDE781A9196DB10F60D049E15BEDC98143B5CA2C685536E644A433FD0F4DA4E",
+      "current": "9EDE781A9196DB10F60D049E15BEDC98143B5CA2C685536E644A433FD0F4DA4E",
+      "matches": true
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/review.json",
+      "sha256": "CAFD38CB058D403ADDD9AF4B98CB8253B4C9F4CD1BD91D590869793E11A22F98",
+      "current": "CAFD38CB058D403ADDD9AF4B98CB8253B4C9F4CD1BD91D590869793E11A22F98",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\01-initial-build.txt",
+      "sha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "current": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\02-initial-focused.txt",
+      "sha256": "29493F1F063EAB62969DD22CAC5E0F2F35EF157348CF93ADAB041BC901727687",
+      "current": "29493F1F063EAB62969DD22CAC5E0F2F35EF157348CF93ADAB041BC901727687",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\03-initial-strict.txt",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "current": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\04-focused.txt",
+      "sha256": "8E579602CC23BC9AC322AB4C26BD2C567017CE446ABCBC85EBCFF567AA15D609",
+      "current": "8E579602CC23BC9AC322AB4C26BD2C567017CE446ABCBC85EBCFF567AA15D609",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\05-strict.txt",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "current": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\06-build.txt",
+      "sha256": "2FCDA17860C0CABFC07D8A8BD9010D1B9B931BADC79DFB7B32D030C6477E653D",
+      "current": "2FCDA17860C0CABFC07D8A8BD9010D1B9B931BADC79DFB7B32D030C6477E653D",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\07-typecheck.txt",
+      "sha256": "308B55FFA34A2DEAA771E806145E0E0406D3F3530D6299C5FF53FEAE8A287625",
+      "current": "308B55FFA34A2DEAA771E806145E0E0406D3F3530D6299C5FF53FEAE8A287625",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\08-strict.txt",
+      "sha256": "79A209AB78A1CA72EB1BFDD3EF104DF13676429A8BD26A2FA8F7EA2FE3F19375",
+      "current": "79A209AB78A1CA72EB1BFDD3EF104DF13676429A8BD26A2FA8F7EA2FE3F19375",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\09-full-tests.txt",
+      "sha256": "F44C412CA7AB5967709B9E51834015FF4113BA5DF09B3382F2A028E93F62F530",
+      "current": "F44C412CA7AB5967709B9E51834015FF4113BA5DF09B3382F2A028E93F62F530",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\10-platform-focused.txt",
+      "sha256": "FAF92EF04C7F1C0C9C5A174D83A74DDA197C82D6A14A06A0185288BA66EC38D1",
+      "current": "FAF92EF04C7F1C0C9C5A174D83A74DDA197C82D6A14A06A0185288BA66EC38D1",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\11-platform-typecheck.txt",
+      "sha256": "05EB38710F63DE6489FC20DC58DDE04175930C3499E3375D8D7CE36CFA54B261",
+      "current": "05EB38710F63DE6489FC20DC58DDE04175930C3499E3375D8D7CE36CFA54B261",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\12-platform-production.txt",
+      "sha256": "42462096C49D3F0174D6AA3C19473E7D10BC0D7D1E00770E214BFB73B178940D",
+      "current": "42462096C49D3F0174D6AA3C19473E7D10BC0D7D1E00770E214BFB73B178940D",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\13-platform-contracts.txt",
+      "sha256": "7E1090246DCB54E7335E7F6A7F3E600AA1F4A0A806B29A11FDE50DD2C669B382",
+      "current": "7E1090246DCB54E7335E7F6A7F3E600AA1F4A0A806B29A11FDE50DD2C669B382",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\14-preservation.txt",
+      "sha256": "E2A9A928913BDD7EE221735EEADB7C4D02BB8283061AFD9F0BEB2FB00D56FE5C",
+      "current": "E2A9A928913BDD7EE221735EEADB7C4D02BB8283061AFD9F0BEB2FB00D56FE5C",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\before.json",
+      "sha256": "93383B0ECD1EA80990F2D5FB56692CB851EF0540826D123119D68DD4E5B3EA14",
+      "current": "93383B0ECD1EA80990F2D5FB56692CB851EF0540826D123119D68DD4E5B3EA14",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\commands.json",
+      "sha256": "C846275E2205E19CE78CB13C06701D09FE2DABE3AF671545AF1C300ECFEC5DD6",
+      "current": "C846275E2205E19CE78CB13C06701D09FE2DABE3AF671545AF1C300ECFEC5DD6",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-06-build.txt",
+      "sha256": "F37878C5765A2CE54BC342F6D3DDE3E6DC4BB043C5B074A969CD00274A843F77",
+      "current": "F37878C5765A2CE54BC342F6D3DDE3E6DC4BB043C5B074A969CD00274A843F77",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-07-typecheck.txt",
+      "sha256": "36D4CB0CD96B07965D9E8669A085ECDAD1A32189F0956F9110B1E21CF2B49C3B",
+      "current": "36D4CB0CD96B07965D9E8669A085ECDAD1A32189F0956F9110B1E21CF2B49C3B",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-08-strict.txt",
+      "sha256": "D2CDA9654D83EE7CB928F931B7AC276EE9770BFACFF8DF6C6AC2ECC1D9004B46",
+      "current": "D2CDA9654D83EE7CB928F931B7AC276EE9770BFACFF8DF6C6AC2ECC1D9004B46",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-11-platform-typecheck.txt",
+      "sha256": "1374EB8620A506EC27575E045052BD26BE304A3855D5CEEB2EF5501DA4708D7D",
+      "current": "1374EB8620A506EC27575E045052BD26BE304A3855D5CEEB2EF5501DA4708D7D",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-12-platform-production.txt",
+      "sha256": "AD3FE9C6DD5315A6DA1B4E3C9FA9E2665FE5A62E24B2254791207BEAC9A0D646",
+      "current": "AD3FE9C6DD5315A6DA1B4E3C9FA9E2665FE5A62E24B2254791207BEAC9A0D646",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-commands.json",
+      "sha256": "7BC41F92C987A424323C4AE1643895143DC20A38745B0600ADA7AEF0A70666EA",
+      "current": "7BC41F92C987A424323C4AE1643895143DC20A38745B0600ADA7AEF0A70666EA",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\npm-invocations.jsonl",
+      "sha256": "3DFD63C4290DCDA0E6CA02D5C5873140AB14DBF5F6BFA1BCBF1E177C2AAA7426",
+      "current": "3DFD63C4290DCDA0E6CA02D5C5873140AB14DBF5F6BFA1BCBF1E177C2AAA7426",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\preservation.cjs",
+      "sha256": "46A670E03E598750D1BDBA58B2A0AD379BB5874A7868647DB0DF0AF7E44255BB",
+      "current": "46A670E03E598750D1BDBA58B2A0AD379BB5874A7868647DB0DF0AF7E44255BB",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\preservation.json",
+      "sha256": "F11782135F28B92CAADE5A1C9E4980EFE94EE84ACC0B85691B6EF52689CB5633",
+      "current": "F11782135F28B92CAADE5A1C9E4980EFE94EE84ACC0B85691B6EF52689CB5633",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\retry.cjs",
+      "sha256": "BFB119274EE14629874D69AD1FC42640217FB6F29255EC009EC276D07F82BB57",
+      "current": "BFB119274EE14629874D69AD1FC42640217FB6F29255EC009EC276D07F82BB57",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\run.cjs",
+      "sha256": "77291F65F1F423A59EE15D26C87018AA233B8166A4F4367BEC8A3676F02ADA79",
+      "current": "77291F65F1F423A59EE15D26C87018AA233B8166A4F4367BEC8A3676F02ADA79",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\trace-npm.cjs",
+      "sha256": "566DE9BEF67BD35746C58899D29FB8B2FE193A79C2C7611756E5341E9115C106",
+      "current": "566DE9BEF67BD35746C58899D29FB8B2FE193A79C2C7611756E5341E9115C106",
+      "matches": true
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\ds0-wp2-r1-implementation-acceptance-report.md",
+      "sha256": "39B22777348C9DEFE0F68BD90EA20821126FDE5BBD88ACA5CE6BBB7581C41544",
+      "current": "39B22777348C9DEFE0F68BD90EA20821126FDE5BBD88ACA5CE6BBB7581C41544",
+      "matches": true
+    }
+  ],
+  "priorEvidenceMismatches": [],
+  "r0": {
+    "sha256": "04362E70A06AD1B3ADC4A66927B0BA0B1424BB9ACD2BF662B09FD64FD375360A",
+    "matches": true
+  },
+  "changedFiles": [
+    {
+      "path": "packages/schema-application/README.md",
+      "sha256": "C7F7385F8D3A377EC3BD1CC269B897DDCCF576859570195F8D0FCBBF378A303D"
+    },
+    {
+      "path": "packages/schema-application/src/index.ts",
+      "sha256": "4974EF0072C5641E56CAB69CB5D20941B2EA2614164C07565B1A9D000909E4DB"
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-drain.test.ts",
+      "sha256": "0386BF02B6F2D18B8646E2F0F9BDB9E6CBA8E368ED5F31FBF88B7CD7D16DF129"
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-http.test.ts",
+      "sha256": "C648F5E580C4E89DB0D40948CC6B6454C57027BF6C7F8FC246FD0F57936AB84B"
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-process.test.ts",
+      "sha256": "55E2687870997D251232667823B254F098346E0993B8A8FF608CF13AD67337D9"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-child.ts",
+      "sha256": "45BD4A2E4E88791D5A2DC74004724C72CEABF2B46170EBD2CA7C704C4D49A251"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-host.ts",
+      "sha256": "285E6EC89510AE8B28A1358F7FB9D223FA70A6BB29F02CD759941C724DCD3FC1"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/r2-fixtures.ts",
+      "sha256": "B596E1782AC96BFE2DA11CDC37A505BA543B5BD0FE875455CD2972F768DE4747"
+    },
+    {
+      "path": "packages/schema-application/src/activation-controller.ts",
+      "sha256": "0A7C266C50AD9491603A234F43AD75AABCFCF9471A867863FACFA1E736893890"
+    },
+    {
+      "path": "packages/schema-application/src/activation-owner.ts",
+      "sha256": "FDCB57DE2D2E3A2C67B88BA0F177A69B7667FBD284848C57B9E9B91EDE830A26"
+    },
+    {
+      "path": "packages/schema-application/src/activation-state.ts",
+      "sha256": "9F6EFE1F92130624221C3F2E4477E3C022642F32FE762FF323BA765CB22779E3"
+    }
+  ],
+  "npm": {
+    "invocations": 53,
+    "versions": [
+      "10.8.2"
+    ]
+  },
+  "noTrackedPlatformChanges": true,
+  "noStagedChanges": true
+}

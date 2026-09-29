@@ -1,0 +1,75 @@
+{
+  "node": "v24.19.0",
+  "npm": "10.8.2",
+  "npmPath": "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+  "results": [
+    {
+      "name": "final-07-build",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "build"
+      ],
+      "start": "2026-09-29T13:12:58.678Z",
+      "end": "2026-09-29T13:13:07.479Z",
+      "exit": 0
+    },
+    {
+      "name": "final-08-typecheck",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "start": "2026-09-29T13:13:07.648Z",
+      "end": "2026-09-29T13:13:14.026Z",
+      "exit": 0
+    },
+    {
+      "name": "final-09-strict",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--skipLibCheck",
+        "--target",
+        "ES2022",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "packages/dataset-operations/tests/activation-http.test.ts",
+        "packages/dataset-operations/tests/activation-process.test.ts",
+        "packages/dataset-operations/tests/activation-drain.test.ts",
+        "packages/schema-application/tests/verification.test.ts",
+        "packages/schema-application/tests/fingerprint.test.ts",
+        "packages/schema-application/tests/resolver.test.ts",
+        "packages/schema-application/tests/r1-consumer-fixture.ts",
+        "packages/dataset-operations/tests/operation-security.test.ts",
+        "packages/i-am/tests/write-scope-containment.test.ts",
+        "packages/dataset-operations/tests/result-consumer-fixture.ts"
+      ],
+      "start": "2026-09-29T13:13:14.183Z",
+      "end": "2026-09-29T13:13:15.844Z",
+      "exit": 0
+    },
+    {
+      "name": "final-10-full-tests",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "start": "2026-09-29T13:13:16.042Z",
+      "end": "2026-09-29T13:13:21.837Z",
+      "exit": 0
+    }
+  ]
+}

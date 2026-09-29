@@ -1,0 +1,42 @@
+Command: node node_modules/vitest/vitest.mjs run
+CWD: C:\Projects\Modular\UI Platform Data Services
+Start: 2026-09-29T13:08:53.856Z
+Exit: 0
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/schema-manager/tests/schema-manager.test.ts (1 test) 174ms
+ ✓ packages/schema-application/tests/state-store.test.ts (4 tests) 180ms
+ ✓ packages/dataset-operations/tests/activation-drain.test.ts (1 test) 144ms
+ ✓ packages/dataset-operations/tests/operation-service-contract.test.ts (5 tests) 449ms
+ ✓ packages/schema-application/tests/fingerprint.test.ts (32 tests) 573ms
+ ✓ packages/dataset-operations/tests/nested-transactions.test.ts (18 tests) 614ms
+ ✓ packages/trigger-manager/tests/trigger-manager.test.ts (2 tests) 77ms
+ ✓ packages/versioned-definition-registry/tests/canonical.test.ts (36 tests) 46ms
+ ✓ packages/dataset-operations/tests/operation-manager.test.ts (1 test) 30ms
+ ✓ packages/dataset-operations/tests/operation-failures.test.ts (17 tests) 860ms
+ ✓ packages/i-am/tests/write-scope-containment.test.ts (32 tests) 1098ms
+ ✓ packages/versioned-definition-registry/tests/registry.test.ts (31 tests) 1705ms
+   ✓ versioned integrity and preservation > changes only the active status token; successful rollback preserves already-historical bytes  350ms
+ ✓ packages/schema-application/tests/resolver.test.ts (25 tests) 1732ms
+   ✓ R1 qualified applied resolver (serving port contract only) > V6 requires applied identity, actual definition and the trusted serving port; projects legacy interface  305ms
+ ✓ packages/schema-application/tests/verification.test.ts (45 tests) 2026ms
+ ✓ packages/schema-manager/tests/stab1-contracts.test.ts (13 tests) 2532ms
+   ✓ STAB-1 true (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  511ms
+   ✓ STAB-1 true (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  406ms
+   ✓ STAB-1 true (schema=true, trigger=false) > reports interrupted publication through HTTP and refuses ambiguous active reads  318ms
+   ✓ STAB-1 false (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  378ms
+   ✓ STAB-1 false (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  372ms
+ ✓ packages/dataset-operations/tests/activation-process.test.ts (2 tests) 2679ms
+   ✓ two-process serving-lifetime contention and verified same-version process restart  1918ms
+   ✓ process death leaves an owner that a second process never steals or reconciles  759ms
+ ✓ packages/dataset-operations/tests/operation-security.test.ts (185 tests) 4090ms
+ ✓ packages/dataset-operations/tests/activation-http.test.ts (31 tests) 4515ms
+   ✓ R2 real controlled runtime activation > health through production HTTP, durable receipt, confirmed promotion and lifetime ownership  984ms
+   ✓ R2 real controlled runtime activation > clean restart uses a fresh runtime, preserves applied bytes, and never follows a newer active version  390ms
+
+ Test Files  18 passed (18)
+      Tests  481 passed (481)
+   Start at  09:08:54
+   Duration  5.45s (transform 1.62s, setup 0ms, collect 5.13s, tests 23.52s, environment 4ms, prepare 3.49s)
+

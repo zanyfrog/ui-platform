@@ -1,0 +1,16 @@
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/dataset-operations/tests/activation-drain.test.ts (1 test) 71ms
+ ✓ packages/dataset-operations/tests/activation-process.test.ts (2 tests) 1887ms
+   ✓ two-process serving-lifetime contention and verified same-version process restart  1197ms
+   ✓ process death leaves an owner that a second process never steals or reconciles  689ms
+ ✓ packages/dataset-operations/tests/activation-http.test.ts (27 tests) 2896ms
+   ✓ R2 real controlled runtime activation > health through production HTTP, durable receipt, confirmed promotion and lifetime ownership  368ms
+   ✓ R2 real controlled runtime activation > clean restart uses a fresh runtime, preserves applied bytes, and never follows a newer active version  329ms
+
+ Test Files  3 passed (3)
+      Tests  30 passed (30)
+   Start at  09:05:25
+   Duration  3.64s (transform 323ms, setup 0ms, collect 797ms, tests 4.85s, environment 0ms, prepare 497ms)
+

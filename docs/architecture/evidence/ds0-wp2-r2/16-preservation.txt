@@ -1,0 +1,82 @@
+{
+  "repos": [
+    {
+      "root": "C:\\Projects\\Modular\\ui-platform",
+      "head": "1259d92472ad2716b3e2d5386b160af6a0f9bd88",
+      "status": "?? docs/architecture/ds0-wp2-r1-acceptance-record.md\n?? docs/architecture/ds0-wp2-r2-implementation-acceptance-report.md\n?? docs/architecture/evidence/ds0-wp2-r2/",
+      "lockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "root": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "head": "07f11bc3ad16e249b97311be7641f1c91d48753e",
+      "status": "M packages/schema-application/README.md\n M packages/schema-application/src/index.ts\n?? packages/dataset-operations/tests/activation-drain.test.ts\n?? packages/dataset-operations/tests/activation-http.test.ts\n?? packages/dataset-operations/tests/activation-process.test.ts\n?? packages/dataset-operations/tests/support/\n?? packages/schema-application/src/activation-controller.ts\n?? packages/schema-application/src/activation-owner.ts\n?? packages/schema-application/src/activation-state.ts",
+      "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "root": "C:\\Projects\\Modular\\ui-base",
+      "head": "96898f73809272e680fcb3402f064a039fff4350",
+      "status": "",
+      "lockfileSha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    }
+  ],
+  "originalFiles": 78,
+  "mismatches": [],
+  "evidenceChecks": 134,
+  "evidenceMismatches": [],
+  "r0": {
+    "sha256": "04362E70A06AD1B3ADC4A66927B0BA0B1424BB9ACD2BF662B09FD64FD375360A",
+    "matches": true
+  },
+  "changedFiles": [
+    {
+      "path": "packages/schema-application/README.md",
+      "sha256": "C7F7385F8D3A377EC3BD1CC269B897DDCCF576859570195F8D0FCBBF378A303D"
+    },
+    {
+      "path": "packages/schema-application/src/index.ts",
+      "sha256": "4974EF0072C5641E56CAB69CB5D20941B2EA2614164C07565B1A9D000909E4DB"
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-drain.test.ts",
+      "sha256": "0386BF02B6F2D18B8646E2F0F9BDB9E6CBA8E368ED5F31FBF88B7CD7D16DF129"
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-http.test.ts",
+      "sha256": "C648F5E580C4E89DB0D40948CC6B6454C57027BF6C7F8FC246FD0F57936AB84B"
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-process.test.ts",
+      "sha256": "55E2687870997D251232667823B254F098346E0993B8A8FF608CF13AD67337D9"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-child.ts",
+      "sha256": "45BD4A2E4E88791D5A2DC74004724C72CEABF2B46170EBD2CA7C704C4D49A251"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-host.ts",
+      "sha256": "285E6EC89510AE8B28A1358F7FB9D223FA70A6BB29F02CD759941C724DCD3FC1"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/r2-fixtures.ts",
+      "sha256": "B596E1782AC96BFE2DA11CDC37A505BA543B5BD0FE875455CD2972F768DE4747"
+    },
+    {
+      "path": "packages/schema-application/src/activation-controller.ts",
+      "sha256": "0A7C266C50AD9491603A234F43AD75AABCFCF9471A867863FACFA1E736893890"
+    },
+    {
+      "path": "packages/schema-application/src/activation-owner.ts",
+      "sha256": "FDCB57DE2D2E3A2C67B88BA0F177A69B7667FBD284848C57B9E9B91EDE830A26"
+    },
+    {
+      "path": "packages/schema-application/src/activation-state.ts",
+      "sha256": "9F6EFE1F92130624221C3F2E4477E3C022642F32FE762FF323BA765CB22779E3"
+    }
+  ],
+  "npm": {
+    "invocations": 53,
+    "versions": [
+      "10.8.2"
+    ]
+  }
+}
