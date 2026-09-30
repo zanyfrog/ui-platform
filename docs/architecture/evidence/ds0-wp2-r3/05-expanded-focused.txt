@@ -1,0 +1,97 @@
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ❯ packages/dataset-operations/tests/recovery-failures.test.ts (27 tests | 8 failed) 4923ms
+   ✓ reconciliation I/O or lost acknowledgment before keeps outcome unknown and never retries  376ms
+   ✓ reconciliation I/O or lost acknowledgment after keeps outcome unknown and never retries 298ms
+   × evidence open failure preserves journal and blocks recovery 231ms
+     → Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+   × evidence write failure preserves journal and blocks recovery 206ms
+     → Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+   × evidence sync failure preserves journal and blocks recovery 165ms
+     → Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+   × evidence readback failure preserves journal and blocks recovery 188ms
+     → Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+   × rechecks boundary after evidence: state-change 188ms
+     → Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+   × rechecks boundary after evidence: journal-change 182ms
+     → Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+   × rechecks boundary after evidence: owner-loss 184ms
+     → Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+   × rechecks boundary after evidence: open-admission 181ms
+     → Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+   ✓ after reconciliation publication failure never certifies serving 258ms
+   ✓ after reconciliation definition failure never certifies serving 251ms
+   ✓ after reconciliation health failure never certifies serving 274ms
+   ✓ after reconciliation promotion failure never certifies serving  356ms
+   ✓ unknown probe commit after reconciliation retains the persisted row and does not retry or clean up 287ms
+   ✓ real state I/O interruption 'applying'/'journal-before' remains unknown 56ms
+   ✓ real state I/O interruption 'applying'/'journal-after' remains unknown 58ms
+   ✓ real state I/O interruption 'applying'/'state-before' remains unknown 54ms
+   ✓ real state I/O interruption 'applying'/'state-after' remains unknown 63ms
+   ✓ real state I/O interruption 'verified-pending-activation'/'journal-before' remains unknown 85ms
+   ✓ real state I/O interruption 'verified-pending-activation'/'journal-after' remains unknown 84ms
+   ✓ real state I/O interruption 'verified-pending-activation'/'state-before' remains unknown 77ms
+   ✓ real state I/O interruption 'verified-pending-activation'/'state-after' remains unknown 71ms
+   ✓ real state I/O interruption 'applied'/'journal-before' remains unknown 184ms
+   ✓ real state I/O interruption 'applied'/'journal-after' remains unknown 194ms
+   ✓ real state I/O interruption 'applied'/'state-before' remains unknown 188ms
+   ✓ real state I/O interruption 'applied'/'state-after' remains unknown 182ms
+ ✓ packages/dataset-operations/tests/recovery.test.ts (57 tests) 14376ms
+   ✓ diagnostics are genuinely read-only: journal  315ms
+   ✓ full real recovery +0/'before' retains bytes and verifies runtime  400ms
+   ✓ full real recovery +0/'next' retains bytes and verifies runtime  390ms
+   ✓ full real recovery 1/'before' retains bytes and verifies runtime  403ms
+   ✓ full real recovery 1/'next' retains bytes and verifies runtime  412ms
+   ✓ full real recovery 2/'before' retains bytes and verifies runtime  427ms
+   ✓ full real recovery 2/'next' retains bytes and verifies runtime  412ms
+   ✓ explicit no-journal resume from phase 0  357ms
+   ✓ explicit no-journal resume from phase 1  358ms
+   ✓ explicit no-journal resume from phase 2  352ms
+   ✓ explicit no-journal resume from phase 3  361ms
+   ✓ next-matching case validates final invariants and does not certify the missing preimage  526ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/dataset-operations/tests/recovery-failures.test.ts > evidence open failure preserves journal and blocks recovery
+ FAIL  packages/dataset-operations/tests/recovery-failures.test.ts > evidence write failure preserves journal and blocks recovery
+ FAIL  packages/dataset-operations/tests/recovery-failures.test.ts > evidence sync failure preserves journal and blocks recovery
+ FAIL  packages/dataset-operations/tests/recovery-failures.test.ts > evidence readback failure preserves journal and blocks recovery
+TypeError: Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+ ❯ packages/dataset-operations/tests/recovery-failures.test.ts:27:6
+     25| it.each(["open","write","sync","readback"] as const)("evidence %s fail…
+     26|   const f=await fixture(),before=await inventory(f.root),original=fs.o…
+     27|   vi.spyOn(fs,"open").mockImplementation(async(...args:Parameters<type…
+       |      ^
+     28|     if(String(args[0]).endsWith("-recovery.json")){
+     29|       if(kind==="open")throw Error("evidence open failure");
+
+Caused by: TypeError: Cannot redefine property: open
+ ❯ packages/dataset-operations/tests/recovery-failures.test.ts:27:6
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  packages/dataset-operations/tests/recovery-failures.test.ts > rechecks boundary after evidence: state-change
+ FAIL  packages/dataset-operations/tests/recovery-failures.test.ts > rechecks boundary after evidence: journal-change
+ FAIL  packages/dataset-operations/tests/recovery-failures.test.ts > rechecks boundary after evidence: owner-loss
+ FAIL  packages/dataset-operations/tests/recovery-failures.test.ts > rechecks boundary after evidence: open-admission
+TypeError: Cannot spy on export "open". Module namespace is not configurable in ESM. See: https://vitest.dev/guide/browser/#limitations
+ ❯ packages/dataset-operations/tests/recovery-failures.test.ts:44:6
+     42| it.each(["state-change","journal-change","owner-loss","open-admission"…
+     43|   const f=await fixture(),original=fs.open;let h:DevelopmentActivation…
+     44|   vi.spyOn(fs,"open").mockImplementation(async(...args:Parameters<type…
+       |      ^
+     45|     const handle=await original(...args);
+     46|     if(String(args[0]).endsWith("-recovery.json")){
+
+Caused by: TypeError: Cannot redefine property: open
+ ❯ packages/dataset-operations/tests/recovery-failures.test.ts:44:6
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  8 failed | 76 passed (84)
+   Start at  19:49:18
+   Duration  15.33s (transform 390ms, setup 0ms, collect 782ms, tests 19.30s, environment 0ms, prepare 444ms)
+

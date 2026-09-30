@@ -1,0 +1,595 @@
+{
+  "recordedAt": "2026-09-29T21:16:57.1488974Z",
+  "r2": [
+    {
+      "path": "packages/schema-application/README.md",
+      "expected": "C7F7385F8D3A377EC3BD1CC269B897DDCCF576859570195F8D0FCBBF378A303D",
+      "actual": "C7F7385F8D3A377EC3BD1CC269B897DDCCF576859570195F8D0FCBBF378A303D",
+      "matches": true
+    },
+    {
+      "path": "packages/schema-application/src/index.ts",
+      "expected": "4974EF0072C5641E56CAB69CB5D20941B2EA2614164C07565B1A9D000909E4DB",
+      "actual": "4974EF0072C5641E56CAB69CB5D20941B2EA2614164C07565B1A9D000909E4DB",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-drain.test.ts",
+      "expected": "0386BF02B6F2D18B8646E2F0F9BDB9E6CBA8E368ED5F31FBF88B7CD7D16DF129",
+      "actual": "0386BF02B6F2D18B8646E2F0F9BDB9E6CBA8E368ED5F31FBF88B7CD7D16DF129",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-http.test.ts",
+      "expected": "C648F5E580C4E89DB0D40948CC6B6454C57027BF6C7F8FC246FD0F57936AB84B",
+      "actual": "C648F5E580C4E89DB0D40948CC6B6454C57027BF6C7F8FC246FD0F57936AB84B",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-process.test.ts",
+      "expected": "55E2687870997D251232667823B254F098346E0993B8A8FF608CF13AD67337D9",
+      "actual": "55E2687870997D251232667823B254F098346E0993B8A8FF608CF13AD67337D9",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-child.ts",
+      "expected": "45BD4A2E4E88791D5A2DC74004724C72CEABF2B46170EBD2CA7C704C4D49A251",
+      "actual": "45BD4A2E4E88791D5A2DC74004724C72CEABF2B46170EBD2CA7C704C4D49A251",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-host.ts",
+      "expected": "285E6EC89510AE8B28A1358F7FB9D223FA70A6BB29F02CD759941C724DCD3FC1",
+      "actual": "285E6EC89510AE8B28A1358F7FB9D223FA70A6BB29F02CD759941C724DCD3FC1",
+      "matches": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/r2-fixtures.ts",
+      "expected": "B596E1782AC96BFE2DA11CDC37A505BA543B5BD0FE875455CD2972F768DE4747",
+      "actual": "B596E1782AC96BFE2DA11CDC37A505BA543B5BD0FE875455CD2972F768DE4747",
+      "matches": true
+    },
+    {
+      "path": "packages/schema-application/src/activation-controller.ts",
+      "expected": "0A7C266C50AD9491603A234F43AD75AABCFCF9471A867863FACFA1E736893890",
+      "actual": "0A7C266C50AD9491603A234F43AD75AABCFCF9471A867863FACFA1E736893890",
+      "matches": true
+    },
+    {
+      "path": "packages/schema-application/src/activation-owner.ts",
+      "expected": "FDCB57DE2D2E3A2C67B88BA0F177A69B7667FBD284848C57B9E9B91EDE830A26",
+      "actual": "FDCB57DE2D2E3A2C67B88BA0F177A69B7667FBD284848C57B9E9B91EDE830A26",
+      "matches": true
+    },
+    {
+      "path": "packages/schema-application/src/activation-state.ts",
+      "expected": "9F6EFE1F92130624221C3F2E4477E3C022642F32FE762FF323BA765CB22779E3",
+      "actual": "9F6EFE1F92130624221C3F2E4477E3C022642F32FE762FF323BA765CB22779E3",
+      "matches": true
+    }
+  ],
+  "baseline": [
+    {
+      "path": ".gitignore",
+      "sha256": "3D1EB0B4A711F973A6E8601CFE5C9F5A0901FD94169D57277EA70DCE23C1F217"
+    },
+    {
+      "path": "README.md",
+      "sha256": "743CCDE6F9C8CAC747E20523E8530AA176281763CB5605786DEF835B1F1FF8AD"
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/Dataset_Operation_Manager_Architecture.md",
+      "sha256": "9376E0E95ECA36929A6B427427A9388738A82E285BBC9992E3E5588A95266ECB"
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/I-AM_Architecture.md",
+      "sha256": "360FE651912D12EB655622098A6C8446F131CAACCAF8EF6A75FC64AD2B0C0173"
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/ORM_Architecture.md",
+      "sha256": "9169A12B22BA91C8B6A7229FF36336A87104FA4716A923679FF1AA14B429516C"
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/README.md",
+      "sha256": "B3494F8E8577808F3EC39726D8039B4B2925D0F5F4A5FED729FC0903441AC3E1"
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/UI_Platform_Data_Services_Versioned_Definitions_Architecture.md",
+      "sha256": "E0AA3CA7CD786F0BE9037115320D92B220003466AE6FF2329961A38D8738287F"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "path": "package.json",
+      "sha256": "AE023970BD83C1C393745090A0749B8AED3D7DE3B2F58F2E79DD83190FB3E55A"
+    },
+    {
+      "path": "packages/dataset-operations/README.md",
+      "sha256": "C62CEB439C6D3F872820703E7955CB8771A5A3D448FCF615D141E3A6855D0EFE"
+    },
+    {
+      "path": "packages/dataset-operations/package.json",
+      "sha256": "51D8BB5B661929C98BF2C558CB4E6B5C4B88A2CC4BF60B6F2950CD0E117650F0"
+    },
+    {
+      "path": "packages/dataset-operations/src/index.ts",
+      "sha256": "2B0E4BCD95E2CBCB08E5E08AD07885B75D1CEE160E08C8AD85CB583A8052C57F"
+    },
+    {
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "sha256": "E93CC4F6CEEE0E332FB3994361E02ECF583EC51B6236A9B3F31E37284D9E6932"
+    },
+    {
+      "path": "packages/dataset-operations/src/request-handler.ts",
+      "sha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C"
+    },
+    {
+      "path": "packages/dataset-operations/src/service.ts",
+      "sha256": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A"
+    },
+    {
+      "path": "packages/dataset-operations/src/trigger-registry.ts",
+      "sha256": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0"
+    },
+    {
+      "path": "packages/dataset-operations/src/types.ts",
+      "sha256": "A410A19E4D0E7EB0511CB565560D7DCD19F1CBB5CD1D372B8645FBF117BD1362"
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-drain.test.ts",
+      "sha256": "0386BF02B6F2D18B8646E2F0F9BDB9E6CBA8E368ED5F31FBF88B7CD7D16DF129"
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-http.test.ts",
+      "sha256": "C648F5E580C4E89DB0D40948CC6B6454C57027BF6C7F8FC246FD0F57936AB84B"
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-process.test.ts",
+      "sha256": "55E2687870997D251232667823B254F098346E0993B8A8FF608CF13AD67337D9"
+    },
+    {
+      "path": "packages/dataset-operations/tests/nested-transactions.test.ts",
+      "sha256": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9"
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-failures.test.ts",
+      "sha256": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC"
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-manager.test.ts",
+      "sha256": "164200BA83ACEEA09CC2CD44835BC993D6098B9980D04C79142F967183DBDE20"
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-security.test.ts",
+      "sha256": "786CFC3EF519865E28CEFB7829064CFA675E42D66844378F32511D94AD4D9B2D"
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-service-contract.test.ts",
+      "sha256": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F"
+    },
+    {
+      "path": "packages/dataset-operations/tests/result-consumer-fixture.ts",
+      "sha256": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-child.ts",
+      "sha256": "45BD4A2E4E88791D5A2DC74004724C72CEABF2B46170EBD2CA7C704C4D49A251"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-host.ts",
+      "sha256": "285E6EC89510AE8B28A1358F7FB9D223FA70A6BB29F02CD759941C724DCD3FC1"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/r2-fixtures.ts",
+      "sha256": "B596E1782AC96BFE2DA11CDC37A505BA543B5BD0FE875455CD2972F768DE4747"
+    },
+    {
+      "path": "packages/dataset-operations/tests/transaction-fixture.ts",
+      "sha256": "CEA83446D202EF7DCC30C76DC8FC55DABA5FB12E804CCAE202435BC7759E4C75"
+    },
+    {
+      "path": "packages/dataset-operations/tsconfig.json",
+      "sha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68"
+    },
+    {
+      "path": "packages/i-am/README.md",
+      "sha256": "86C529FA5D7801CE22D0E22370920530E19597313DE5177FC94F3B4B0EFAA682"
+    },
+    {
+      "path": "packages/i-am/package.json",
+      "sha256": "7A30068524A7CE6875D315860E3778B57C66DE2DEF7DB88DB8F3F4ECA17B3FE0"
+    },
+    {
+      "path": "packages/i-am/src/authorization-service.ts",
+      "sha256": "F9946FCD77F379B6F293149D3D27F1A816600BCC923561C34A67C8787DEE82BC"
+    },
+    {
+      "path": "packages/i-am/src/index.ts",
+      "sha256": "21A71E9F663BC334B206655DCD50EA0601934325015C6EDE4076A610ABE663A1"
+    },
+    {
+      "path": "packages/i-am/src/policy-store.ts",
+      "sha256": "235C69FD9D69981E712DB52CF28A899179B8EA8FF9B5BC2DC72775EE8216D2DF"
+    },
+    {
+      "path": "packages/i-am/src/service.ts",
+      "sha256": "65E0300BAFAA91E7D118312FFA0FA9575413D8B2E757063423A446D710A64207"
+    },
+    {
+      "path": "packages/i-am/src/token-verifier.ts",
+      "sha256": "26894F1D5DA129D121FBA1D07D76C5EBD91FFF834BB25C4E82249BB488D8F917"
+    },
+    {
+      "path": "packages/i-am/src/types.ts",
+      "sha256": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19"
+    },
+    {
+      "path": "packages/i-am/tests/write-scope-containment.test.ts",
+      "sha256": "A750DEBD05AF6C906E541158DC61A45DB33345318DC67595B70A832D06A33602"
+    },
+    {
+      "path": "packages/i-am/tsconfig.json",
+      "sha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68"
+    },
+    {
+      "path": "packages/orm/package.json",
+      "sha256": "0F8BCAD2A07712520695E95E85B1C2D1C259F4AB51A47FC564004F4C02E8FBE7"
+    },
+    {
+      "path": "packages/orm/src/index.ts",
+      "sha256": "EE9709D9AC23AA92C46E7BB7C7573844403628C54B94A1222FBB41B9F88185A9"
+    },
+    {
+      "path": "packages/orm/src/json-file-orm.ts",
+      "sha256": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984"
+    },
+    {
+      "path": "packages/orm/src/service.ts",
+      "sha256": "AB0E4033010E5A2F13D184368616CCF1C32AE7A530F80ED8AB7A4B7005E12CFB"
+    },
+    {
+      "path": "packages/orm/src/types.ts",
+      "sha256": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E"
+    },
+    {
+      "path": "packages/orm/tsconfig.json",
+      "sha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68"
+    },
+    {
+      "path": "packages/schema-application/README.md",
+      "sha256": "C7F7385F8D3A377EC3BD1CC269B897DDCCF576859570195F8D0FCBBF378A303D"
+    },
+    {
+      "path": "packages/schema-application/package.json",
+      "sha256": "E87DB35DE6F1D25EEC7A46EF43052029D8F0D86F1114FA95E381251959BCB8B3"
+    },
+    {
+      "path": "packages/schema-application/src/activation-contracts.ts",
+      "sha256": "D727C3E9DDF4BB2EB9FC769316CC4AACD8E9C2AA10D4424E8F6B69A9538A1674"
+    },
+    {
+      "path": "packages/schema-application/src/activation-controller.ts",
+      "sha256": "0A7C266C50AD9491603A234F43AD75AABCFCF9471A867863FACFA1E736893890"
+    },
+    {
+      "path": "packages/schema-application/src/activation-owner.ts",
+      "sha256": "FDCB57DE2D2E3A2C67B88BA0F177A69B7667FBD284848C57B9E9B91EDE830A26"
+    },
+    {
+      "path": "packages/schema-application/src/activation-state.ts",
+      "sha256": "9F6EFE1F92130624221C3F2E4477E3C022642F32FE762FF323BA765CB22779E3"
+    },
+    {
+      "path": "packages/schema-application/src/fingerprint.ts",
+      "sha256": "0A6C67CB41076FA3A796EBB5871E35EEF4DBBD882408A72666F47281AD63B66D"
+    },
+    {
+      "path": "packages/schema-application/src/index.ts",
+      "sha256": "4974EF0072C5641E56CAB69CB5D20941B2EA2614164C07565B1A9D000909E4DB"
+    },
+    {
+      "path": "packages/schema-application/src/resolver.ts",
+      "sha256": "DC1F94248CCB998951635579FFB3E4CBC5A2C37C2D5E13BA7B76E7211CB05A37"
+    },
+    {
+      "path": "packages/schema-application/src/verification.ts",
+      "sha256": "EAEA0343148EDCED26D800BCE2ADDA68D913F958056337D470DA6949A6B08951"
+    },
+    {
+      "path": "packages/schema-application/tests/fingerprint.test.ts",
+      "sha256": "97EA9F7F81342B1B1659D55A92CCA9B99CB815BE4EA4A40D04AE86A9E40ED5CC"
+    },
+    {
+      "path": "packages/schema-application/tests/r1-consumer-fixture.ts",
+      "sha256": "C8CF04C2D3554C7EF84DBB26A830E5D1C8EF1A1B5EED8D2ACA24EFBFD6A62445"
+    },
+    {
+      "path": "packages/schema-application/tests/r1-fixtures.ts",
+      "sha256": "06AFE9537F4F9E7C276FE7754D8994F57D79ADDD4E6589E730A028451A00AF42"
+    },
+    {
+      "path": "packages/schema-application/tests/resolver.test.ts",
+      "sha256": "B9538E82131C1CF0E140A3363DF0DE24E383C286A7C1F71248EDB7385E1D2302"
+    },
+    {
+      "path": "packages/schema-application/tests/state-store.test.ts",
+      "sha256": "8CD7A3380831BE62F6B6F8B78B15AF6A7C9019A1FD30F7304533EE857DE1D52D"
+    },
+    {
+      "path": "packages/schema-application/tests/verification.test.ts",
+      "sha256": "6F5835A41FDD57C9CF1C9E6711358B3ABAEA5EE494C94430AAA5B03F03EB2D6F"
+    },
+    {
+      "path": "packages/schema-application/tsconfig.json",
+      "sha256": "37A4C392DD55A1537F31704B8B9C905E66E70F97CD3C1FE51877A0EF0D00D829"
+    },
+    {
+      "path": "packages/schema-manager/package.json",
+      "sha256": "E693379EF70539AD439D5CBBAD07247DFB0C9D37C9AB191C111EB666DA1838F6"
+    },
+    {
+      "path": "packages/schema-manager/src/index.ts",
+      "sha256": "96399CCC073430EF7BA833F0E0BA9B7CDE65FCE49406C74CDBED510287D74E0C"
+    },
+    {
+      "path": "packages/schema-manager/src/service.ts",
+      "sha256": "0728F5C9EB6E56D4B732A57E2157C32109D6D5F073CE9DE348821E8192B4060A"
+    },
+    {
+      "path": "packages/schema-manager/tests/schema-manager.test.ts",
+      "sha256": "A02E49C2ACE6683E01626B86844F69E168CB3D75B2DC7C5CAF354688CB4DA6D7"
+    },
+    {
+      "path": "packages/schema-manager/tests/stab1-contracts.test.ts",
+      "sha256": "7783E1CAFA9C404C98045F5160A7FED00CD7893284BBABA987CB10CB6D0E7963"
+    },
+    {
+      "path": "packages/schema-manager/tsconfig.json",
+      "sha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008"
+    },
+    {
+      "path": "packages/trigger-manager/package.json",
+      "sha256": "854D543D6149076290858470AA573BA3D4B2E454AC87231DC932201B07D3C5A7"
+    },
+    {
+      "path": "packages/trigger-manager/src/index.ts",
+      "sha256": "80CD3BFAE8E0D874C7E61D57A42CCC5A9845C88B8E3FD2BF7E5551540826D627"
+    },
+    {
+      "path": "packages/trigger-manager/src/service.ts",
+      "sha256": "4A1AC5525A0D86A5E3161E3528F98A32ADA0AB51AE1FD55D46FED9D80F550EAA"
+    },
+    {
+      "path": "packages/trigger-manager/tests/trigger-manager.test.ts",
+      "sha256": "9697118EDC8408D76BD0F69B1FE7B945AD04C6FC1B5835D2C0DF8F4714338EE3"
+    },
+    {
+      "path": "packages/trigger-manager/tsconfig.json",
+      "sha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008"
+    },
+    {
+      "path": "packages/versioned-definition-registry/README.md",
+      "sha256": "7B1224BB668436AAAC5C11D9771DCE07A5621E7F7D4C286ED7DA5BF4CEEF0986"
+    },
+    {
+      "path": "packages/versioned-definition-registry/package.json",
+      "sha256": "6BB2616FA951C93734A746FC9606DC38214D5CCDD5A163EBDCCF69E2A96ACBEC"
+    },
+    {
+      "path": "packages/versioned-definition-registry/src/canonical.ts",
+      "sha256": "520637C920A4FD6A2DA3A6A5FCB13CAF5857C8746C7CB31A2F9211DD3FBA6B4F"
+    },
+    {
+      "path": "packages/versioned-definition-registry/src/index.ts",
+      "sha256": "16C79DF9C332FBDB787993E60C17F0A5D9826FB4E2B7AA7E0DE8429B22161B8A"
+    },
+    {
+      "path": "packages/versioned-definition-registry/src/registry.ts",
+      "sha256": "DD3F5D534BA16071A451750CF45F51139542006B486D146279A0FFF0BCD2A4DE"
+    },
+    {
+      "path": "packages/versioned-definition-registry/src/types.ts",
+      "sha256": "0730D28201CE32395ED210C6D2BFDAFF24A8B674D8F5E6C5A078206876D596E7"
+    },
+    {
+      "path": "packages/versioned-definition-registry/tests/canonical.test.ts",
+      "sha256": "62EB7135BF8E4288E394863B0C8F386DD2D2BBE36938DAD0C0F5872225F573B7"
+    },
+    {
+      "path": "packages/versioned-definition-registry/tests/registry.test.ts",
+      "sha256": "FC2A5080405CA02BA4B8DE5EB95B48BB948EBDD3B9A278540CE8738B4A0552BA"
+    },
+    {
+      "path": "packages/versioned-definition-registry/tsconfig.json",
+      "sha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008"
+    },
+    {
+      "path": "scripts/check-in.ps1",
+      "sha256": "FC1383C2C52CD5FD45C1336E26E50D1BD7F99E6C8E23DAB8A6B3278557F026A4"
+    },
+    {
+      "path": "tsconfig.base.json",
+      "sha256": "50C33D41549E4CD164F44CD3A5B11BB5F576B1BCC0CBA5696AD165229AB9586B"
+    },
+    {
+      "path": "vitest.config.ts",
+      "sha256": "BC4F2FEE9BB580797BCEF2D0368CEBD9D7613B53521282576583D39824722022"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\01-initial-focused.txt",
+      "sha256": "B2F512F7CEA27FF0FE5B9B240BB5120738A14AE382AF9BB118CC2573E56584CB"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\02-initial-strict.txt",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\03-focused.txt",
+      "sha256": "7C4ECAB0CF87988E403301177F4A1E26E8B5B6CB93B964C73ACEF985771F9917"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\04-process-tests.txt",
+      "sha256": "D4BD13D0D4FFDF4C5C4E77DDB226C1708F3CA4D53C5D5B713102463DBB03FEC5"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\05-expanded-focused.txt",
+      "sha256": "CB0FC60AAEA1661A5DD854D43B3D82720132014042600FCA46877E054320BEFA"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\06-expanded-strict.txt",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\07-build.txt",
+      "sha256": "EE22B928DFC10F70AACE5225773B4DE946582FE56D9D5D58EF57D8422BD288FB"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\08-typecheck.txt",
+      "sha256": "83EA45E1C673BBB0EBA37C134BE916846A4B2A5DDD8BDE3C387067940ED8791F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\09-strict.txt",
+      "sha256": "02053E1B9297A83939F0ED1677209B7BFBC84E62A847B4AD93F4FF87235090F6"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\10-full-tests.txt",
+      "sha256": "911228938EFE7375734AF0E4D478B20F49B773FB7DDED624FEC8A49743119A83"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\11-platform-focused.txt",
+      "sha256": "42FF0AB4B4DF905A6A7D562847990E4A770E143E95B4F767C2750E696975435A"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\12-platform-typecheck.txt",
+      "sha256": "4C83EF05E1EC31F893E6BF5DBAD64B6038D230268F446376E945B5F65740C46F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\13-platform-production.txt",
+      "sha256": "9D2A17216ED49A277E208C1148D63C4F949190912E8353B79F043EB82E802E4C"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\14-platform-contracts.txt",
+      "sha256": "7FF4EF96A007A631353EE4CEA0960D6ABB0909820C98B41B2DE7825C8AC1FA71"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\15-final-strict.txt",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\16-preservation.txt",
+      "sha256": "98CC773F1CA16A794A1E10B360DBC487BAEC1A71EBAD4EC18A1D8E0220152CC1"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\artifact-hashes.json",
+      "sha256": "0FE5CCD2FF22C00CB3BC257094C035C3855C8DAB59332A8A71E3E666BBAE5D7E"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\before.json",
+      "sha256": "A73947DC3E6964D023BC6DB56B568B0141B747918C261C03D24716B77ABD8D53"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\commands.json",
+      "sha256": "5D9A9C20EDC13BAA1CEE0CB572337263E160AAB7AE0A77557158DB9BB1C6C4EA"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-07-build.txt",
+      "sha256": "E6F74861A9493CD98FCED880A794D79E4C230AAE0FED93130B77B443B9CA594F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-08-typecheck.txt",
+      "sha256": "DF3163F01395829D2242FD74E34DB4941F6CD6C9617C6BFEF355E1D5EBC6DCDC"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-09-strict.txt",
+      "sha256": "8E21A5B68E9C00FF86146F3795B43359389F832F913E21B66598E82988B96787"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-10-full-tests.txt",
+      "sha256": "FBB30411A895159340DD6E78A321C7701C16536E8A9DE915CCB3C4C02B08B14B"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-commands.json",
+      "sha256": "71B0CEA055DBE5B9651576A85B8944387E8EF0D06D13B1340B6510FBF4058A3F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-run.cjs",
+      "sha256": "28F4DF13D1BFE6E4DC5DA91876882470AE4CDF013BE4A2CB5071F28E1F13F1E0"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\npm-invocations.jsonl",
+      "sha256": "A0F227FD8C070CBD277D84F52C1E4CD81AABEB396F3C9E606EFF6EBC97D0A523"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\preservation.cjs",
+      "sha256": "895A2987D2FB387383ED0AB92344DBE0AD537643D4BADFC7F01940F875F02E16"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\preservation.json",
+      "sha256": "66A745753E08A87CF03174E6C31707A0757CA2CDA4ABD16EB2ECF90C03D5F523"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\run.cjs",
+      "sha256": "BEDB2C197250DAA6ECA572B56B026A1A5682738817DC43A1BE1BB6F922FC797C"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\trace-npm.cjs",
+      "sha256": "566DE9BEF67BD35746C58899D29FB8B2FE193A79C2C7611756E5341E9115C106"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-07-build.txt",
+      "sha256": "D51A5777944AC1A70B79A1BA57FE80BCE42C10916A5A0261ACF0FA69A25964C9"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-08-typecheck.txt",
+      "sha256": "384A02A22108640334BCAA89183BA0781378637A7D4501BF9622448561236245"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-09-strict.txt",
+      "sha256": "E64E258ED5A54BABC621ECD35D96C71F6621C0EC524A07DB70F0AD8FC21FAD34"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-10-full-tests.txt",
+      "sha256": "4C199F6E892B8422C59613BF5FE22187B13FC2CC3BE90B6A3A965F99D0A04803"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-commands.json",
+      "sha256": "90E73509B5A97F38DFA9E527C5DDDAC6E7853B8A77F50D1EE814BFD655D0767D"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-run.cjs",
+      "sha256": "442DB3379E3E4BC43108E6FD881ACCFACD08A9D7547B3B606DD6017AABB4EE75"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\ds0-wp2-r2-implementation-acceptance-report.md",
+      "sha256": "EE752D49EFC2C7885F4B49DDAE6B6529E3BB1035438185676DB3856CFE5DC06F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\ds0-wp2-r0-contract-design.md",
+      "sha256": "04362E70A06AD1B3ADC4A66927B0BA0B1424BB9ACD2BF662B09FD64FD375360A"
+    }
+  ],
+  "repositories": [
+    {
+      "root": "C:/Projects/Modular/UI Platform Data Services",
+      "head": "d866b86d1fd7f2807ee3708a593b164930df156e",
+      "status": [],
+      "lock": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "root": "C:\\Projects\\Modular\\ui-platform",
+      "head": "1037ebe43c5e0a636945b8dcc069bc4fc79e8f5f",
+      "status": [],
+      "lock": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "root": "C:/Projects/Modular/ui-base",
+      "head": "96898f73809272e680fcb3402f064a039fff4350",
+      "status": [],
+      "lock": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/dataset-operations/tests/recovery-failures.test.ts (27 tests) 7750ms
+   ✓ reconciliation I/O or lost acknowledgment before keeps outcome unknown and never retries  552ms
+   ✓ reconciliation I/O or lost acknowledgment after keeps outcome unknown and never retries  411ms
+   ✓ evidence open failure preserves journal and blocks recovery  395ms
+   ✓ evidence write failure preserves journal and blocks recovery  358ms
+   ✓ evidence sync failure preserves journal and blocks recovery  438ms
+   ✓ evidence readback failure preserves journal and blocks recovery  369ms
+   ✓ rechecks boundary after evidence: state-change  330ms
+   ✓ rechecks boundary after evidence: journal-change  345ms
+   ✓ rechecks boundary after evidence: owner-loss  337ms
+   ✓ rechecks boundary after evidence: open-admission  331ms
+   ✓ after reconciliation publication failure never certifies serving  380ms
+   ✓ after reconciliation definition failure never certifies serving  361ms
+   ✓ after reconciliation health failure never certifies serving  374ms
+   ✓ after reconciliation promotion failure never certifies serving  483ms
+   ✓ unknown probe commit after reconciliation retains the persisted row and does not retry or clean up  390ms
+ ✓ packages/dataset-operations/tests/recovery-process.test.ts (8 tests) 13391ms
+   ✓ kill during 'applying'/'journal': lock diagnostics and contender preserve all bytes  1943ms
+   ✓ kill during 'applying'/'state': lock diagnostics and contender preserve all bytes  1402ms
+   ✓ kill during 'verified-pending-activation'/'journal': lock diagnostics and contender preserve all bytes  1383ms
+   ✓ kill during 'verified-pending-activation'/'state': lock diagnostics and contender preserve all bytes  1336ms
+   ✓ kill during 'applied'/'journal': lock diagnostics and contender preserve all bytes  1584ms
+   ✓ kill during 'applied'/'state': lock diagnostics and contender preserve all bytes  1590ms
+   ✓ real process narrow before recovery holds lifetime ownership, then clean same-version restart  2098ms
+   ✓ real process narrow next recovery holds lifetime ownership, then clean same-version restart  2054ms
+ ✓ packages/dataset-operations/tests/recovery.test.ts (57 tests) 19643ms
+   ✓ diagnostics are genuinely read-only: journal  469ms
+   ✓ diagnostics are genuinely read-only: locks  328ms
+   ✓ diagnostics are genuinely read-only: corrupt  335ms
+   ✓ full real recovery +0/'before' retains bytes and verifies runtime  702ms
+   ✓ full real recovery +0/'next' retains bytes and verifies runtime  614ms
+   ✓ full real recovery 1/'before' retains bytes and verifies runtime  579ms
+   ✓ full real recovery 1/'next' retains bytes and verifies runtime  583ms
+   ✓ full real recovery 2/'before' retains bytes and verifies runtime  564ms
+   ✓ full real recovery 2/'next' retains bytes and verifies runtime  562ms
+   ✓ explicit no-journal resume from phase 0  470ms
+   ✓ explicit no-journal resume from phase 1  459ms
+   ✓ explicit no-journal resume from phase 2  411ms
+   ✓ explicit no-journal resume from phase 3  490ms
+   ✓ rejects invariant violation before-mismatch without discarding any bytes  317ms
+   ✓ rejects invariant violation equal-digests without discarding any bytes  338ms
+   ✓ rejects invariant violation format without discarding any bytes  327ms
+   ✓ rejects invariant violation transaction without discarding any bytes  364ms
+   ✓ rejects invariant violation createdAt without discarding any bytes  331ms
+   ✓ rejects invariant violation journal-extra without discarding any bytes  303ms
+   ✓ rejects invariant violation state-extra without discarding any bytes  303ms
+   ✓ rejects invariant violation multiple-records without discarding any bytes  338ms
+   ✓ rejects invariant violation record-identity without discarding any bytes  342ms
+   ✓ rejects invariant violation phase without discarding any bytes  319ms
+   ✓ rejects invariant violation applying-verification without discarding any bytes  315ms
+   ✓ rejects invariant violation pending-activation without discarding any bytes  346ms
+   ✓ rejects invariant violation verifier without discarding any bytes  311ms
+   ✓ rejects invariant violation fingerprint without discarding any bytes  318ms
+   ✓ rejects invariant violation missing-field without discarding any bytes  347ms
+   ✓ next-matching case validates final invariants and does not certify the missing preimage  525ms
+
+ Test Files  3 passed (3)
+      Tests  92 passed (92)
+   Start at  19:51:27
+   Duration  21.07s (transform 721ms, setup 0ms, collect 1.78s, tests 40.78s, environment 1ms, prepare 1.06s)
+

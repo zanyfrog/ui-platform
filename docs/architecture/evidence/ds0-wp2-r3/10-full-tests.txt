@@ -1,0 +1,113 @@
+Command: node node_modules/vitest/vitest.mjs run
+CWD: C:\Projects\Modular\UI Platform Data Services
+Start: 2026-09-29T23:56:30.357Z
+Exit: 0
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/dataset-operations/tests/operation-service-contract.test.ts (5 tests) 858ms
+   ✓ serializes success through the actual HTTP handler and ORM  383ms
+ ✓ packages/dataset-operations/tests/operation-failures.test.ts (17 tests) 938ms
+ ✓ packages/i-am/tests/write-scope-containment.test.ts (32 tests) 1642ms
+ ✓ packages/schema-application/tests/fingerprint.test.ts (32 tests) 1731ms
+ ✓ packages/schema-manager/tests/schema-manager.test.ts (1 test) 281ms
+ ✓ packages/dataset-operations/tests/nested-transactions.test.ts (18 tests) 2105ms
+ ✓ packages/schema-application/tests/state-store.test.ts (4 tests) 611ms
+ ✓ packages/trigger-manager/tests/trigger-manager.test.ts (2 tests) 140ms
+ ✓ packages/dataset-operations/tests/activation-drain.test.ts (1 test) 193ms
+ ✓ packages/dataset-operations/tests/operation-manager.test.ts (1 test) 53ms
+ ✓ packages/versioned-definition-registry/tests/canonical.test.ts (36 tests) 80ms
+ ✓ packages/versioned-definition-registry/tests/registry.test.ts (31 tests) 5463ms
+   ✓ versioned integrity and preservation > reports mixed history honestly, permits verified current reads/publication and blocks legacy rollback  573ms
+   ✓ versioned integrity and preservation > fails closed for duplicate-json without mutation  377ms
+   ✓ versioned integrity and preservation > fails closed for no-active without mutation  333ms
+   ✓ versioned integrity and preservation > fails closed for two-active without mutation  430ms
+ ✓ packages/schema-manager/tests/stab1-contracts.test.ts (13 tests) 5308ms
+   ✓ STAB-1 true (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  1048ms
+   ✓ STAB-1 true (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  656ms
+   ✓ STAB-1 true (schema=true, trigger=false) > reports interrupted publication through HTTP and refuses ambiguous active reads  617ms
+   ✓ STAB-1 false (schema=true, trigger=false) > preserves legacy inspection/editing while blocking publication and identity changes  365ms
+   ✓ STAB-1 false (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  734ms
+   ✓ STAB-1 false (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  605ms
+   ✓ STAB-1 false (schema=true, trigger=false) > reports interrupted publication through HTTP and refuses ambiguous active reads  522ms
+ ✓ packages/dataset-operations/tests/activation-process.test.ts (2 tests) 6458ms
+   ✓ two-process serving-lifetime contention and verified same-version process restart  4248ms
+   ✓ process death leaves an owner that a second process never steals or reconciles  2207ms
+ ✓ packages/schema-application/tests/resolver.test.ts (25 tests) 6764ms
+   ✓ R1 qualified applied resolver (serving port contract only) > V6 requires applied identity, actual definition and the trusted serving port; projects legacy interface  1174ms
+   ✓ R1 qualified applied resolver (serving port contract only) > V6 candidate verifies but applying cannot resolve  323ms
+   ✓ R1 qualified applied resolver (serving port contract only) > V6 candidate verifies but verified-pending-activation cannot resolve  474ms
+   ✓ R1 qualified applied resolver (serving port contract only) > V6 rejects version state unchanged  394ms
+   ✓ R1 qualified applied resolver (serving port contract only) > V6 rejects checksum state unchanged  421ms
+   ✓ R1 qualified applied resolver (serving port contract only) > V6 rejects reference state unchanged  441ms
+ ✓ packages/schema-application/tests/verification.test.ts (45 tests) 7279ms
+   ✓ R1 verified canonical reader and independently observed ORM > V4 reads canonical active and pinned identity without writes or registration  408ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects datasetId pin  417ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects definitionVersion pin  318ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 rejects legacy stored history without changing bytes  401ms
+   ✓ R1 verified canonical reader and independently observed ORM > V5 pinned canonical historical read never follows a newer active version  323ms
+ ✓ packages/dataset-operations/tests/operation-security.test.ts (185 tests) 10060ms
+   ✓ rejects unsupported query before lookup, I-AM, triggers or writes  300ms
+   ✓ rejects unsupported export before lookup, I-AM, triggers or writes  422ms
+   ✓ rejects unsupported space before lookup, I-AM, triggers or writes  339ms
+   ✓ rejects unsupported undefined before lookup, I-AM, triggers or writes  358ms
+   ✓ rejects unsupported number before lookup, I-AM, triggers or writes  399ms
+ ✓ packages/dataset-operations/tests/activation-http.test.ts (32 tests) 10630ms
+   ✓ R2 real controlled runtime activation > health through production HTTP, durable receipt, confirmed promotion and lifetime ownership  2535ms
+   ✓ R2 real controlled runtime activation > clean restart uses a fresh runtime, preserves applied bytes, and never follows a newer active version  1794ms
+   ✓ R2 real controlled runtime activation > rejects journal before health and preserves existing bytes  364ms
+   ✓ R2 real controlled runtime activation > denied health actor is not certified by HTTP 200 and creates no probe rows  341ms
+   ✓ R2 real controlled runtime activation > an actual persisted but unacknowledged commit is unknown: no retry/update/delete/cleanup  302ms
+   ✓ R2 real controlled runtime activation > lost promotion acknowledgement preserves applied bytes but keeps ordinary admission closed  623ms
+   ✓ R2 real controlled runtime activation > receipt failure prevents promotion and retains pending state  341ms
+   ✓ R2 real controlled runtime activation > owner loss closes admission and cannot release another owner's evidence  322ms
+   ✓ R2 real controlled runtime activation > tampered receipt or incomplete applied ledger blocks same-version restart  363ms
+ ✓ packages/dataset-operations/tests/recovery-failures.test.ts (51 tests) 16436ms
+   ✓ reconciliation I/O or lost acknowledgment before keeps outcome unknown and never retries  2579ms
+   ✓ reconciliation I/O or lost acknowledgment after keeps outcome unknown and never retries  1484ms
+   ✓ evidence open failure preserves journal and blocks recovery  1053ms
+   ✓ evidence write failure preserves journal and blocks recovery  1148ms
+   ✓ evidence sync failure preserves journal and blocks recovery  795ms
+   ✓ evidence readback failure preserves journal and blocks recovery  578ms
+   ✓ rechecks boundary after evidence: state-change  487ms
+   ✓ rechecks boundary after evidence: journal-change  349ms
+   ✓ rechecks boundary after evidence: owner-loss  342ms
+   ✓ rechecks boundary after evidence: open-admission  325ms
+   ✓ after reconciliation publication failure never certifies serving  353ms
+   ✓ after reconciliation definition failure never certifies serving  378ms
+   ✓ after reconciliation health failure never certifies serving  370ms
+   ✓ after reconciliation promotion failure never certifies serving  427ms
+   ✓ unknown probe commit after reconciliation retains the persisted row and does not retry or clean up  385ms
+ ✓ packages/dataset-operations/tests/recovery-process.test.ts (10 tests) 18108ms
+   ✓ kill during 'applying'/'journal': lock diagnostics and contender preserve all bytes  3055ms
+   ✓ kill during 'applying'/'state': lock diagnostics and contender preserve all bytes  2221ms
+   ✓ kill during 'verified-pending-activation'/'journal': lock diagnostics and contender preserve all bytes  2286ms
+   ✓ kill during 'verified-pending-activation'/'state': lock diagnostics and contender preserve all bytes  1651ms
+   ✓ kill during 'applied'/'journal': lock diagnostics and contender preserve all bytes  1555ms
+   ✓ kill during 'applied'/'state': lock diagnostics and contender preserve all bytes  1427ms
+   ✓ real process narrow before recovery holds lifetime ownership, then clean same-version restart  1984ms
+   ✓ real process narrow next recovery holds lifetime ownership, then clean same-version restart  1831ms
+   ✓ death before validated journal reconciliation retains evidence and blocks restart  1102ms
+   ✓ death after validated journal reconciliation retains evidence and blocks restart  993ms
+ ✓ packages/dataset-operations/tests/recovery.test.ts (68 tests) 25930ms
+   ✓ diagnostics are genuinely read-only: empty  658ms
+   ✓ diagnostics are genuinely read-only: journal  1814ms
+   ✓ diagnostics are genuinely read-only: locks  1181ms
+   ✓ diagnostics are genuinely read-only: corrupt  728ms
+   ✓ full real recovery +0/'before' retains bytes and verifies runtime  1855ms
+   ✓ full real recovery +0/'next' retains bytes and verifies runtime  1184ms
+   ✓ full real recovery 1/'before' retains bytes and verifies runtime  735ms
+   ✓ full real recovery 1/'next' retains bytes and verifies runtime  616ms
+   ✓ full real recovery 2/'before' retains bytes and verifies runtime  581ms
+   ✓ full real recovery 2/'next' retains bytes and verifies runtime  542ms
+   ✓ explicit no-journal resume from phase 0  459ms
+   ✓ explicit no-journal resume from phase 1  448ms
+   ✓ explicit no-journal resume from phase 2  462ms
+   ✓ explicit no-journal resume from phase 3  441ms
+   ✓ next-matching case validates final invariants and does not certify the missing preimage  416ms
+
+ Test Files  21 passed (21)
+      Tests  611 passed (611)
+   Start at  19:56:31
+   Duration  27.96s (transform 4.52s, setup 0ms, collect 12.82s, tests 121.07s, environment 9ms, prepare 8.46s)
+

@@ -1,0 +1,5 @@
+packages/dataset-operations/tests/recovery.test.ts(17,59): error TS2345: Argument of type '{ manifest: HostManifest; root: string; } & Record<"states", unknown>' is not assignable to parameter of type '{ states: EnvironmentSchemaState[]; manifest: HostManifest; root: string; }'.
+  Types of property 'states' are incompatible.
+    Type 'unknown' is not assignable to type 'EnvironmentSchemaState[]'.
+packages/dataset-operations/tests/recovery.test.ts(44,29): error TS2345: Argument of type '{ appId: string; dataset: string; }' is not assignable to parameter of type 'OrmQueryPlan'.
+  Property 'resource' is missing in type '{ appId: string; dataset: string; }' but required in type 'OrmQueryPlan'.

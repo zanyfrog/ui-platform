@@ -1,0 +1,36 @@
+Command: node C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js run check:editor-contracts
+CWD: C:\Projects\Modular\ui-platform
+Start: 2026-09-29T23:57:16.611Z
+Exit: 1
+
+> ui-platform@0.1.2 check:editor-contracts
+> node scripts/check-editor-contracts.mjs
+
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ❯ packages/artifacts/tests/consumer-contract.test.ts (5 tests | 1 failed) 7403ms
+     × recognizes every registered type, including an extension, and preserves every diagnostic field 5014ms
+
+ Test Files  1 failed | 12 passed (13)
+      Tests  1 failed | 102 passed (103)
+   Start at  19:57:18
+   Duration  16.90s (transform 5.17s, setup 0ms, import 15.38s, tests 60.31s, environment 3ms)
+
+ENOENT: no such file or directory, open 'C:\Users\zanyf\AppData\Local\Temp\uib-contract-ssLGlK\.uib\bundles\421218c52083f444d108c9e5e9a0cdacac177b6b1bac34df89cfb74992a6c918.json.cf1a87f9-a2c4-4074-9fcf-bec9d802deb8.tmp'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/artifacts/tests/consumer-contract.test.ts > application consumer integration with shared implementations > recognizes every registered type, including an extension, and preserves every diagnostic field
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/artifacts/tests/consumer-contract.test.ts:126:3
+    124| });
+    125| describe("application consumer integration with shared implementations…
+    126|   it("recognizes every registered type, including an extension, and pr…
+       |   ^
+    127|     const f = await fixture();
+    128|     const diagnostic: ValidationDiagnostic = {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

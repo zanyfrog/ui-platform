@@ -1,0 +1,96 @@
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ❯ packages/dataset-operations/tests/recovery.test.ts (57 tests | 6 failed) 14202ms
+   ✓ diagnostics are genuinely read-only: empty 52ms
+   ✓ diagnostics are genuinely read-only: journal 256ms
+   ✓ diagnostics are genuinely read-only: locks 216ms
+   ✓ diagnostics are genuinely read-only: corrupt 190ms
+   × full real recovery +0/'before' retains bytes and verifies runtime 378ms
+     → Cannot read properties of undefined (reading 'appId')
+   × full real recovery +0/'next' retains bytes and verifies runtime 428ms
+     → Cannot read properties of undefined (reading 'appId')
+   × full real recovery 1/'before' retains bytes and verifies runtime 439ms
+     → Cannot read properties of undefined (reading 'appId')
+   × full real recovery 1/'next' retains bytes and verifies runtime 441ms
+     → Cannot read properties of undefined (reading 'appId')
+   × full real recovery 2/'before' retains bytes and verifies runtime 461ms
+     → Cannot read properties of undefined (reading 'appId')
+   × full real recovery 2/'next' retains bytes and verifies runtime 404ms
+     → Cannot read properties of undefined (reading 'appId')
+   ✓ explicit no-journal resume from phase 0  405ms
+   ✓ explicit no-journal resume from phase 1  356ms
+   ✓ explicit no-journal resume from phase 2  338ms
+   ✓ explicit no-journal resume from phase 3  342ms
+   ✓ rejects invariant violation digest without discarding any bytes 224ms
+   ✓ rejects invariant violation before-mismatch without discarding any bytes 218ms
+   ✓ rejects invariant violation equal-digests without discarding any bytes 229ms
+   ✓ rejects invariant violation format without discarding any bytes 218ms
+   ✓ rejects invariant violation transaction without discarding any bytes 200ms
+   ✓ rejects invariant violation createdAt without discarding any bytes 210ms
+   ✓ rejects invariant violation journal-extra without discarding any bytes 202ms
+   ✓ rejects invariant violation state-extra without discarding any bytes 223ms
+   ✓ rejects invariant violation environment without discarding any bytes 211ms
+   ✓ rejects invariant violation recovery-gate without discarding any bytes 194ms
+   ✓ rejects invariant violation multiple-records without discarding any bytes 210ms
+   ✓ rejects invariant violation operation-id without discarding any bytes 215ms
+   ✓ rejects invariant violation record-identity without discarding any bytes 218ms
+   ✓ rejects invariant violation reference without discarding any bytes 234ms
+   ✓ rejects invariant violation published without discarding any bytes 211ms
+   ✓ rejects invariant violation time without discarding any bytes 226ms
+   ✓ rejects invariant violation phase without discarding any bytes 215ms
+   ✓ rejects invariant violation applying-verification without discarding any bytes 214ms
+   ✓ rejects invariant violation pending-activation without discarding any bytes 222ms
+   ✓ rejects invariant violation verifier without discarding any bytes 220ms
+   ✓ rejects invariant violation fingerprint without discarding any bytes 215ms
+   ✓ rejects invariant violation missing-field without discarding any bytes 233ms
+   ✓ rejects invariant violation duplicate-field without discarding any bytes 207ms
+   ✓ rejects invariant violation mapping-type without discarding any bytes 218ms
+   ✓ rejects invariant violation field-required without discarding any bytes 239ms
+   ✓ rejects invariant violation activation-tag without discarding any bytes 215ms
+   ✓ rejects invariant violation receipt-grammar without discarding any bytes 231ms
+   ✓ rejects invariant violation ledger-id without discarding any bytes 218ms
+   ✓ rejects invariant violation ledger-link without discarding any bytes 243ms
+   ✓ rejects invariant violation ledger-order without discarding any bytes 229ms
+   ✓ rejects invariant violation ledger-time without discarding any bytes 243ms
+   ✓ rejects invariant violation ledger-detail without discarding any bytes 220ms
+   ✓ rejects invariant violation ledger-prefix without discarding any bytes 231ms
+   ✓ rejects invariant violation transition-skip without discarding any bytes 192ms
+   ✓ rejects invariant violation transition-identity without discarding any bytes 199ms
+   ✓ rejects invariant violation duplicate-json-key without discarding any bytes 210ms
+   ✓ rejects invariant violation orphan-temp without discarding any bytes 214ms
+   ✓ rejects invariant violation state-lock without discarding any bytes 211ms
+   ✓ rejects invariant violation opaque-current without discarding any bytes 193ms
+   ✓ rejects invariant violation next-hash-order without discarding any bytes 214ms
+   ✓ rejects invariant violation empty-ledger without discarding any bytes 218ms
+   ✓ rejects invariant violation current-duplicate-key without discarding any bytes 217ms
+   ✓ next-matching case validates final invariants and does not certify the missing preimage  372ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/dataset-operations/tests/recovery.test.ts > full real recovery +0/'before' retains bytes and verifies runtime
+ FAIL  packages/dataset-operations/tests/recovery.test.ts > full real recovery +0/'next' retains bytes and verifies runtime
+ FAIL  packages/dataset-operations/tests/recovery.test.ts > full real recovery 1/'before' retains bytes and verifies runtime
+ FAIL  packages/dataset-operations/tests/recovery.test.ts > full real recovery 1/'next' retains bytes and verifies runtime
+ FAIL  packages/dataset-operations/tests/recovery.test.ts > full real recovery 2/'before' retains bytes and verifies runtime
+ FAIL  packages/dataset-operations/tests/recovery.test.ts > full real recovery 2/'next' retains bytes and verifies runtime
+TypeError: Cannot read properties of undefined (reading 'appId')
+ ❯ key packages/orm/src/json-file-orm.ts:8:43
+      6| 
+      7| type Data = Record<string, unknown>[];
+      8| const key = (r: DatasetReference) => `${r.appId}__${r.namespace ?? "de…
+       |                                           ^
+      9| const clone = <T>(value: T): T => structuredClone(value);
+     10| function matches(row: Record<string, unknown>, where?: QueryExpression…
+ ❯ JsonFileDatasetOrm.definition packages/orm/src/json-file-orm.ts:30:87
+ ❯ JsonFileDatasetOrm.query packages/orm/src/json-file-orm.ts:36:72
+ ❯ packages/dataset-operations/tests/recovery.test.ts:44:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 51 passed (57)
+   Start at  19:46:40
+   Duration  15.24s (transform 250ms, setup 0ms, collect 390ms, tests 14.20s, environment 0ms, prepare 308ms)
+
