@@ -1,0 +1,15 @@
+Command: node node_modules/vitest/vitest.mjs run packages/dataset-operations/tests/activation-http.test.ts -t C2
+CWD: C:\Projects\Modular\UI Platform Data Services
+Start: 2026-09-30T00:51:30.134Z
+Exit: 0
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/dataset-operations/tests/activation-http.test.ts (37 tests | 32 skipped) 1251ms
+   ✓ C2 ordinary admitted CRUD preserves the verified serving identity and proves real persistence  500ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed | 32 skipped (37)
+   Start at  20:51:30
+   Duration  1.86s (transform 184ms, setup 0ms, collect 285ms, tests 1.25s, environment 0ms, prepare 131ms)
+

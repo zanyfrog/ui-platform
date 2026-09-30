@@ -1,0 +1,12 @@
+Command: node C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js run typecheck
+CWD: C:\Projects\Modular\ui-platform
+Start: 2026-09-30T00:52:38.247Z
+Exit: 0
+
+> ui-platform@0.1.2 typecheck
+> tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p packages/platform-core/tsconfig.json && npm run typecheck --workspace @ui-platform/artifacts
+
+
+> @ui-platform/artifacts@0.1.0 typecheck
+> tsc --noEmit -p tsconfig.json
+

@@ -1,0 +1,1826 @@
+{
+  "recordedAt": "2026-09-30T02:53:21.647Z",
+  "repositories": [
+    {
+      "root": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "head": "8b988af80ca5ce859a84791e4d63de5d00119a3b",
+      "branch": "master",
+      "status": "M packages/dataset-operations/tests/activation-http.test.ts",
+      "staged": "",
+      "lockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F",
+      "acceptedLockfileSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "root": "C:\\Projects\\Modular\\ui-platform",
+      "head": "6e790b7acc9c7141d426ddfec4a8538709c26323",
+      "branch": "main",
+      "status": "?? docs/architecture/ds0-wp2-r3-acceptance-record.md\n?? docs/architecture/ds0-wp2-r4-consolidated-g5-report.md\n?? docs/architecture/evidence/ds0-wp2-r4/",
+      "staged": "",
+      "lockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA",
+      "acceptedLockfileSha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "root": "C:\\Projects\\Modular\\ui-base",
+      "head": "96898f73809272e680fcb3402f064a039fff4350",
+      "branch": "main",
+      "status": "",
+      "staged": "",
+      "lockfileSha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E",
+      "acceptedLockfileSha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    }
+  ],
+  "sourceInventory": [
+    {
+      "path": ".gitignore",
+      "acceptedSha256": "3D1EB0B4A711F973A6E8601CFE5C9F5A0901FD94169D57277EA70DCE23C1F217",
+      "actualSha256": "3D1EB0B4A711F973A6E8601CFE5C9F5A0901FD94169D57277EA70DCE23C1F217",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "README.md",
+      "acceptedSha256": "743CCDE6F9C8CAC747E20523E8530AA176281763CB5605786DEF835B1F1FF8AD",
+      "actualSha256": "743CCDE6F9C8CAC747E20523E8530AA176281763CB5605786DEF835B1F1FF8AD",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/Dataset_Operation_Manager_Architecture.md",
+      "acceptedSha256": "9376E0E95ECA36929A6B427427A9388738A82E285BBC9992E3E5588A95266ECB",
+      "actualSha256": "9376E0E95ECA36929A6B427427A9388738A82E285BBC9992E3E5588A95266ECB",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/I-AM_Architecture.md",
+      "acceptedSha256": "360FE651912D12EB655622098A6C8446F131CAACCAF8EF6A75FC64AD2B0C0173",
+      "actualSha256": "360FE651912D12EB655622098A6C8446F131CAACCAF8EF6A75FC64AD2B0C0173",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/ORM_Architecture.md",
+      "acceptedSha256": "9169A12B22BA91C8B6A7229FF36336A87104FA4716A923679FF1AA14B429516C",
+      "actualSha256": "9169A12B22BA91C8B6A7229FF36336A87104FA4716A923679FF1AA14B429516C",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/README.md",
+      "acceptedSha256": "B3494F8E8577808F3EC39726D8039B4B2925D0F5F4A5FED729FC0903441AC3E1",
+      "actualSha256": "B3494F8E8577808F3EC39726D8039B4B2925D0F5F4A5FED729FC0903441AC3E1",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/UI_Platform_Data_Services_Versioned_Definitions_Architecture.md",
+      "acceptedSha256": "E0AA3CA7CD786F0BE9037115320D92B220003466AE6FF2329961A38D8738287F",
+      "actualSha256": "E0AA3CA7CD786F0BE9037115320D92B220003466AE6FF2329961A38D8738287F",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "package-lock.json",
+      "acceptedSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F",
+      "actualSha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "package.json",
+      "acceptedSha256": "AE023970BD83C1C393745090A0749B8AED3D7DE3B2F58F2E79DD83190FB3E55A",
+      "actualSha256": "AE023970BD83C1C393745090A0749B8AED3D7DE3B2F58F2E79DD83190FB3E55A",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/README.md",
+      "acceptedSha256": "C62CEB439C6D3F872820703E7955CB8771A5A3D448FCF615D141E3A6855D0EFE",
+      "actualSha256": "C62CEB439C6D3F872820703E7955CB8771A5A3D448FCF615D141E3A6855D0EFE",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/package.json",
+      "acceptedSha256": "51D8BB5B661929C98BF2C558CB4E6B5C4B88A2CC4BF60B6F2950CD0E117650F0",
+      "actualSha256": "51D8BB5B661929C98BF2C558CB4E6B5C4B88A2CC4BF60B6F2950CD0E117650F0",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/src/index.ts",
+      "acceptedSha256": "2B0E4BCD95E2CBCB08E5E08AD07885B75D1CEE160E08C8AD85CB583A8052C57F",
+      "actualSha256": "2B0E4BCD95E2CBCB08E5E08AD07885B75D1CEE160E08C8AD85CB583A8052C57F",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "acceptedSha256": "E93CC4F6CEEE0E332FB3994361E02ECF583EC51B6236A9B3F31E37284D9E6932",
+      "actualSha256": "E93CC4F6CEEE0E332FB3994361E02ECF583EC51B6236A9B3F31E37284D9E6932",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/src/request-handler.ts",
+      "acceptedSha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C",
+      "actualSha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/src/service.ts",
+      "acceptedSha256": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A",
+      "actualSha256": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/src/trigger-registry.ts",
+      "acceptedSha256": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0",
+      "actualSha256": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/src/types.ts",
+      "acceptedSha256": "A410A19E4D0E7EB0511CB565560D7DCD19F1CBB5CD1D372B8645FBF117BD1362",
+      "actualSha256": "A410A19E4D0E7EB0511CB565560D7DCD19F1CBB5CD1D372B8645FBF117BD1362",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-drain.test.ts",
+      "acceptedSha256": "0386BF02B6F2D18B8646E2F0F9BDB9E6CBA8E368ED5F31FBF88B7CD7D16DF129",
+      "actualSha256": "0386BF02B6F2D18B8646E2F0F9BDB9E6CBA8E368ED5F31FBF88B7CD7D16DF129",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-http.test.ts",
+      "acceptedSha256": "C648F5E580C4E89DB0D40948CC6B6454C57027BF6C7F8FC246FD0F57936AB84B",
+      "actualSha256": "04B74ACD584C9078AA7231C4F3236634DD12242F5B5A7571F8D833D84148FDB1",
+      "unchanged": false,
+      "originalPrefixPreserved": true
+    },
+    {
+      "path": "packages/dataset-operations/tests/activation-process.test.ts",
+      "acceptedSha256": "55E2687870997D251232667823B254F098346E0993B8A8FF608CF13AD67337D9",
+      "actualSha256": "55E2687870997D251232667823B254F098346E0993B8A8FF608CF13AD67337D9",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/nested-transactions.test.ts",
+      "acceptedSha256": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9",
+      "actualSha256": "1D394CBCFA275FE4BE73EA88B8188F5AA9EB92FDD2E82F436A1A8882AF4E27B9",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-failures.test.ts",
+      "acceptedSha256": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC",
+      "actualSha256": "6CDA5C040F46ACFDF2827A6A455A7E8D46C757948C3658AC60040DD1EBB2B6BC",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-manager.test.ts",
+      "acceptedSha256": "164200BA83ACEEA09CC2CD44835BC993D6098B9980D04C79142F967183DBDE20",
+      "actualSha256": "164200BA83ACEEA09CC2CD44835BC993D6098B9980D04C79142F967183DBDE20",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-security.test.ts",
+      "acceptedSha256": "786CFC3EF519865E28CEFB7829064CFA675E42D66844378F32511D94AD4D9B2D",
+      "actualSha256": "786CFC3EF519865E28CEFB7829064CFA675E42D66844378F32511D94AD4D9B2D",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/operation-service-contract.test.ts",
+      "acceptedSha256": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F",
+      "actualSha256": "36DF8CF2ADC9D3DEF42D17171EF43B9644E3BEDE96D9286897AFB86CFF45477F",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/result-consumer-fixture.ts",
+      "acceptedSha256": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879",
+      "actualSha256": "79BC075FAC52B46FD9F0B196D38CB5DE1A7993AB94EDC9AA0F598D962F34C879",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-child.ts",
+      "acceptedSha256": "45BD4A2E4E88791D5A2DC74004724C72CEABF2B46170EBD2CA7C704C4D49A251",
+      "actualSha256": "45BD4A2E4E88791D5A2DC74004724C72CEABF2B46170EBD2CA7C704C4D49A251",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-host.ts",
+      "acceptedSha256": "285E6EC89510AE8B28A1358F7FB9D223FA70A6BB29F02CD759941C724DCD3FC1",
+      "actualSha256": "285E6EC89510AE8B28A1358F7FB9D223FA70A6BB29F02CD759941C724DCD3FC1",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/r2-fixtures.ts",
+      "acceptedSha256": "B596E1782AC96BFE2DA11CDC37A505BA543B5BD0FE875455CD2972F768DE4747",
+      "actualSha256": "B596E1782AC96BFE2DA11CDC37A505BA543B5BD0FE875455CD2972F768DE4747",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/transaction-fixture.ts",
+      "acceptedSha256": "CEA83446D202EF7DCC30C76DC8FC55DABA5FB12E804CCAE202435BC7759E4C75",
+      "actualSha256": "CEA83446D202EF7DCC30C76DC8FC55DABA5FB12E804CCAE202435BC7759E4C75",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tsconfig.json",
+      "acceptedSha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "actualSha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/README.md",
+      "acceptedSha256": "86C529FA5D7801CE22D0E22370920530E19597313DE5177FC94F3B4B0EFAA682",
+      "actualSha256": "86C529FA5D7801CE22D0E22370920530E19597313DE5177FC94F3B4B0EFAA682",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/package.json",
+      "acceptedSha256": "7A30068524A7CE6875D315860E3778B57C66DE2DEF7DB88DB8F3F4ECA17B3FE0",
+      "actualSha256": "7A30068524A7CE6875D315860E3778B57C66DE2DEF7DB88DB8F3F4ECA17B3FE0",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/src/authorization-service.ts",
+      "acceptedSha256": "F9946FCD77F379B6F293149D3D27F1A816600BCC923561C34A67C8787DEE82BC",
+      "actualSha256": "F9946FCD77F379B6F293149D3D27F1A816600BCC923561C34A67C8787DEE82BC",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/src/index.ts",
+      "acceptedSha256": "21A71E9F663BC334B206655DCD50EA0601934325015C6EDE4076A610ABE663A1",
+      "actualSha256": "21A71E9F663BC334B206655DCD50EA0601934325015C6EDE4076A610ABE663A1",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/src/policy-store.ts",
+      "acceptedSha256": "235C69FD9D69981E712DB52CF28A899179B8EA8FF9B5BC2DC72775EE8216D2DF",
+      "actualSha256": "235C69FD9D69981E712DB52CF28A899179B8EA8FF9B5BC2DC72775EE8216D2DF",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/src/service.ts",
+      "acceptedSha256": "65E0300BAFAA91E7D118312FFA0FA9575413D8B2E757063423A446D710A64207",
+      "actualSha256": "65E0300BAFAA91E7D118312FFA0FA9575413D8B2E757063423A446D710A64207",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/src/token-verifier.ts",
+      "acceptedSha256": "26894F1D5DA129D121FBA1D07D76C5EBD91FFF834BB25C4E82249BB488D8F917",
+      "actualSha256": "26894F1D5DA129D121FBA1D07D76C5EBD91FFF834BB25C4E82249BB488D8F917",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/src/types.ts",
+      "acceptedSha256": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19",
+      "actualSha256": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/tests/write-scope-containment.test.ts",
+      "acceptedSha256": "A750DEBD05AF6C906E541158DC61A45DB33345318DC67595B70A832D06A33602",
+      "actualSha256": "A750DEBD05AF6C906E541158DC61A45DB33345318DC67595B70A832D06A33602",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/i-am/tsconfig.json",
+      "acceptedSha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "actualSha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/orm/package.json",
+      "acceptedSha256": "0F8BCAD2A07712520695E95E85B1C2D1C259F4AB51A47FC564004F4C02E8FBE7",
+      "actualSha256": "0F8BCAD2A07712520695E95E85B1C2D1C259F4AB51A47FC564004F4C02E8FBE7",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/orm/src/index.ts",
+      "acceptedSha256": "EE9709D9AC23AA92C46E7BB7C7573844403628C54B94A1222FBB41B9F88185A9",
+      "actualSha256": "EE9709D9AC23AA92C46E7BB7C7573844403628C54B94A1222FBB41B9F88185A9",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/orm/src/json-file-orm.ts",
+      "acceptedSha256": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984",
+      "actualSha256": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/orm/src/service.ts",
+      "acceptedSha256": "AB0E4033010E5A2F13D184368616CCF1C32AE7A530F80ED8AB7A4B7005E12CFB",
+      "actualSha256": "AB0E4033010E5A2F13D184368616CCF1C32AE7A530F80ED8AB7A4B7005E12CFB",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/orm/src/types.ts",
+      "acceptedSha256": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E",
+      "actualSha256": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/orm/tsconfig.json",
+      "acceptedSha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "actualSha256": "24B093A29E628C63A82496659423B8CD5563B8BAAB0980EF2F7D2BCDC62F3C68",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/README.md",
+      "acceptedSha256": "50D7A99532BD80E17E098C86094929429106F17F5E238F62B435D7C5B3D73BF2",
+      "actualSha256": "50D7A99532BD80E17E098C86094929429106F17F5E238F62B435D7C5B3D73BF2",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/package.json",
+      "acceptedSha256": "E87DB35DE6F1D25EEC7A46EF43052029D8F0D86F1114FA95E381251959BCB8B3",
+      "actualSha256": "E87DB35DE6F1D25EEC7A46EF43052029D8F0D86F1114FA95E381251959BCB8B3",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/activation-contracts.ts",
+      "acceptedSha256": "D727C3E9DDF4BB2EB9FC769316CC4AACD8E9C2AA10D4424E8F6B69A9538A1674",
+      "actualSha256": "D727C3E9DDF4BB2EB9FC769316CC4AACD8E9C2AA10D4424E8F6B69A9538A1674",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/activation-controller.ts",
+      "acceptedSha256": "B498FAEDE09A35C6F9BD351ABB0DFC9DE2B295F9E03640CC4E394EB21D068928",
+      "actualSha256": "B498FAEDE09A35C6F9BD351ABB0DFC9DE2B295F9E03640CC4E394EB21D068928",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/activation-owner.ts",
+      "acceptedSha256": "FDCB57DE2D2E3A2C67B88BA0F177A69B7667FBD284848C57B9E9B91EDE830A26",
+      "actualSha256": "FDCB57DE2D2E3A2C67B88BA0F177A69B7667FBD284848C57B9E9B91EDE830A26",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/activation-state.ts",
+      "acceptedSha256": "9F6EFE1F92130624221C3F2E4477E3C022642F32FE762FF323BA765CB22779E3",
+      "actualSha256": "9F6EFE1F92130624221C3F2E4477E3C022642F32FE762FF323BA765CB22779E3",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/fingerprint.ts",
+      "acceptedSha256": "0A6C67CB41076FA3A796EBB5871E35EEF4DBBD882408A72666F47281AD63B66D",
+      "actualSha256": "0A6C67CB41076FA3A796EBB5871E35EEF4DBBD882408A72666F47281AD63B66D",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/index.ts",
+      "acceptedSha256": "3147FAE1AB4F4A4CC2480F207E59BF23A7FB86AB23441FF0185ABA47F1E97722",
+      "actualSha256": "3147FAE1AB4F4A4CC2480F207E59BF23A7FB86AB23441FF0185ABA47F1E97722",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/resolver.ts",
+      "acceptedSha256": "DC1F94248CCB998951635579FFB3E4CBC5A2C37C2D5E13BA7B76E7211CB05A37",
+      "actualSha256": "DC1F94248CCB998951635579FFB3E4CBC5A2C37C2D5E13BA7B76E7211CB05A37",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/verification.ts",
+      "acceptedSha256": "EAEA0343148EDCED26D800BCE2ADDA68D913F958056337D470DA6949A6B08951",
+      "actualSha256": "EAEA0343148EDCED26D800BCE2ADDA68D913F958056337D470DA6949A6B08951",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/tests/fingerprint.test.ts",
+      "acceptedSha256": "97EA9F7F81342B1B1659D55A92CCA9B99CB815BE4EA4A40D04AE86A9E40ED5CC",
+      "actualSha256": "97EA9F7F81342B1B1659D55A92CCA9B99CB815BE4EA4A40D04AE86A9E40ED5CC",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/tests/r1-consumer-fixture.ts",
+      "acceptedSha256": "C8CF04C2D3554C7EF84DBB26A830E5D1C8EF1A1B5EED8D2ACA24EFBFD6A62445",
+      "actualSha256": "C8CF04C2D3554C7EF84DBB26A830E5D1C8EF1A1B5EED8D2ACA24EFBFD6A62445",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/tests/r1-fixtures.ts",
+      "acceptedSha256": "06AFE9537F4F9E7C276FE7754D8994F57D79ADDD4E6589E730A028451A00AF42",
+      "actualSha256": "06AFE9537F4F9E7C276FE7754D8994F57D79ADDD4E6589E730A028451A00AF42",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/tests/resolver.test.ts",
+      "acceptedSha256": "B9538E82131C1CF0E140A3363DF0DE24E383C286A7C1F71248EDB7385E1D2302",
+      "actualSha256": "B9538E82131C1CF0E140A3363DF0DE24E383C286A7C1F71248EDB7385E1D2302",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/tests/state-store.test.ts",
+      "acceptedSha256": "8CD7A3380831BE62F6B6F8B78B15AF6A7C9019A1FD30F7304533EE857DE1D52D",
+      "actualSha256": "8CD7A3380831BE62F6B6F8B78B15AF6A7C9019A1FD30F7304533EE857DE1D52D",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/tests/verification.test.ts",
+      "acceptedSha256": "6F5835A41FDD57C9CF1C9E6711358B3ABAEA5EE494C94430AAA5B03F03EB2D6F",
+      "actualSha256": "6F5835A41FDD57C9CF1C9E6711358B3ABAEA5EE494C94430AAA5B03F03EB2D6F",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/tsconfig.json",
+      "acceptedSha256": "37A4C392DD55A1537F31704B8B9C905E66E70F97CD3C1FE51877A0EF0D00D829",
+      "actualSha256": "37A4C392DD55A1537F31704B8B9C905E66E70F97CD3C1FE51877A0EF0D00D829",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-manager/package.json",
+      "acceptedSha256": "E693379EF70539AD439D5CBBAD07247DFB0C9D37C9AB191C111EB666DA1838F6",
+      "actualSha256": "E693379EF70539AD439D5CBBAD07247DFB0C9D37C9AB191C111EB666DA1838F6",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-manager/src/index.ts",
+      "acceptedSha256": "96399CCC073430EF7BA833F0E0BA9B7CDE65FCE49406C74CDBED510287D74E0C",
+      "actualSha256": "96399CCC073430EF7BA833F0E0BA9B7CDE65FCE49406C74CDBED510287D74E0C",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-manager/src/service.ts",
+      "acceptedSha256": "0728F5C9EB6E56D4B732A57E2157C32109D6D5F073CE9DE348821E8192B4060A",
+      "actualSha256": "0728F5C9EB6E56D4B732A57E2157C32109D6D5F073CE9DE348821E8192B4060A",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-manager/tests/schema-manager.test.ts",
+      "acceptedSha256": "A02E49C2ACE6683E01626B86844F69E168CB3D75B2DC7C5CAF354688CB4DA6D7",
+      "actualSha256": "A02E49C2ACE6683E01626B86844F69E168CB3D75B2DC7C5CAF354688CB4DA6D7",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-manager/tests/stab1-contracts.test.ts",
+      "acceptedSha256": "7783E1CAFA9C404C98045F5160A7FED00CD7893284BBABA987CB10CB6D0E7963",
+      "actualSha256": "7783E1CAFA9C404C98045F5160A7FED00CD7893284BBABA987CB10CB6D0E7963",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-manager/tsconfig.json",
+      "acceptedSha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "actualSha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/trigger-manager/package.json",
+      "acceptedSha256": "854D543D6149076290858470AA573BA3D4B2E454AC87231DC932201B07D3C5A7",
+      "actualSha256": "854D543D6149076290858470AA573BA3D4B2E454AC87231DC932201B07D3C5A7",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/trigger-manager/src/index.ts",
+      "acceptedSha256": "80CD3BFAE8E0D874C7E61D57A42CCC5A9845C88B8E3FD2BF7E5551540826D627",
+      "actualSha256": "80CD3BFAE8E0D874C7E61D57A42CCC5A9845C88B8E3FD2BF7E5551540826D627",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/trigger-manager/src/service.ts",
+      "acceptedSha256": "4A1AC5525A0D86A5E3161E3528F98A32ADA0AB51AE1FD55D46FED9D80F550EAA",
+      "actualSha256": "4A1AC5525A0D86A5E3161E3528F98A32ADA0AB51AE1FD55D46FED9D80F550EAA",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/trigger-manager/tests/trigger-manager.test.ts",
+      "acceptedSha256": "9697118EDC8408D76BD0F69B1FE7B945AD04C6FC1B5835D2C0DF8F4714338EE3",
+      "actualSha256": "9697118EDC8408D76BD0F69B1FE7B945AD04C6FC1B5835D2C0DF8F4714338EE3",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/trigger-manager/tsconfig.json",
+      "acceptedSha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "actualSha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/versioned-definition-registry/README.md",
+      "acceptedSha256": "7B1224BB668436AAAC5C11D9771DCE07A5621E7F7D4C286ED7DA5BF4CEEF0986",
+      "actualSha256": "7B1224BB668436AAAC5C11D9771DCE07A5621E7F7D4C286ED7DA5BF4CEEF0986",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/versioned-definition-registry/package.json",
+      "acceptedSha256": "6BB2616FA951C93734A746FC9606DC38214D5CCDD5A163EBDCCF69E2A96ACBEC",
+      "actualSha256": "6BB2616FA951C93734A746FC9606DC38214D5CCDD5A163EBDCCF69E2A96ACBEC",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/versioned-definition-registry/src/canonical.ts",
+      "acceptedSha256": "520637C920A4FD6A2DA3A6A5FCB13CAF5857C8746C7CB31A2F9211DD3FBA6B4F",
+      "actualSha256": "520637C920A4FD6A2DA3A6A5FCB13CAF5857C8746C7CB31A2F9211DD3FBA6B4F",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/versioned-definition-registry/src/index.ts",
+      "acceptedSha256": "16C79DF9C332FBDB787993E60C17F0A5D9826FB4E2B7AA7E0DE8429B22161B8A",
+      "actualSha256": "16C79DF9C332FBDB787993E60C17F0A5D9826FB4E2B7AA7E0DE8429B22161B8A",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/versioned-definition-registry/src/registry.ts",
+      "acceptedSha256": "DD3F5D534BA16071A451750CF45F51139542006B486D146279A0FFF0BCD2A4DE",
+      "actualSha256": "DD3F5D534BA16071A451750CF45F51139542006B486D146279A0FFF0BCD2A4DE",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/versioned-definition-registry/src/types.ts",
+      "acceptedSha256": "0730D28201CE32395ED210C6D2BFDAFF24A8B674D8F5E6C5A078206876D596E7",
+      "actualSha256": "0730D28201CE32395ED210C6D2BFDAFF24A8B674D8F5E6C5A078206876D596E7",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/versioned-definition-registry/tests/canonical.test.ts",
+      "acceptedSha256": "62EB7135BF8E4288E394863B0C8F386DD2D2BBE36938DAD0C0F5872225F573B7",
+      "actualSha256": "62EB7135BF8E4288E394863B0C8F386DD2D2BBE36938DAD0C0F5872225F573B7",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/versioned-definition-registry/tests/registry.test.ts",
+      "acceptedSha256": "FC2A5080405CA02BA4B8DE5EB95B48BB948EBDD3B9A278540CE8738B4A0552BA",
+      "actualSha256": "FC2A5080405CA02BA4B8DE5EB95B48BB948EBDD3B9A278540CE8738B4A0552BA",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/versioned-definition-registry/tsconfig.json",
+      "acceptedSha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "actualSha256": "56B61A4C3358B576F0C494FD52B63D849B5E271EFD993D4BEF777D44345EA008",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "scripts/check-in.ps1",
+      "acceptedSha256": "FC1383C2C52CD5FD45C1336E26E50D1BD7F99E6C8E23DAB8A6B3278557F026A4",
+      "actualSha256": "FC1383C2C52CD5FD45C1336E26E50D1BD7F99E6C8E23DAB8A6B3278557F026A4",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "tsconfig.base.json",
+      "acceptedSha256": "50C33D41549E4CD164F44CD3A5B11BB5F576B1BCC0CBA5696AD165229AB9586B",
+      "actualSha256": "50C33D41549E4CD164F44CD3A5B11BB5F576B1BCC0CBA5696AD165229AB9586B",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "vitest.config.ts",
+      "acceptedSha256": "BC4F2FEE9BB580797BCEF2D0368CEBD9D7613B53521282576583D39824722022",
+      "actualSha256": "BC4F2FEE9BB580797BCEF2D0368CEBD9D7613B53521282576583D39824722022",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/recovery-failures.test.ts",
+      "acceptedSha256": "17CA755D110EAC00BB09B888A4804F8D10D815ED2A2F7E4D622D3ED2A6D5BCE2",
+      "actualSha256": "17CA755D110EAC00BB09B888A4804F8D10D815ED2A2F7E4D622D3ED2A6D5BCE2",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/recovery-process.test.ts",
+      "acceptedSha256": "E277098089CD642ABB5238D05603EF72A15939B90DEC42137B867315364ADE9A",
+      "actualSha256": "E277098089CD642ABB5238D05603EF72A15939B90DEC42137B867315364ADE9A",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/recovery.test.ts",
+      "acceptedSha256": "2D5C41641F5A9B071F8BDD6C57B933F0446A6D00A98CF052D57085238B47F11D",
+      "actualSha256": "2D5C41641F5A9B071F8BDD6C57B933F0446A6D00A98CF052D57085238B47F11D",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/r3-fixtures.ts",
+      "acceptedSha256": "D1520892A7529BDF77102FCA0AB811C5593B4BB97CE8CE9DAD9C39F40A6F9745",
+      "actualSha256": "D1520892A7529BDF77102FCA0AB811C5593B4BB97CE8CE9DAD9C39F40A6F9745",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/recovery-child.ts",
+      "acceptedSha256": "FCF98571EEE958855250F173898E821F329B9D1AF7C26D84FF3547EDC0664DD8",
+      "actualSha256": "FCF98571EEE958855250F173898E821F329B9D1AF7C26D84FF3547EDC0664DD8",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/diagnostics.ts",
+      "acceptedSha256": "A7F0591D42B211927309D5C3AA493F3FDC1ED764CED272225AD52BB983D47288",
+      "actualSha256": "A7F0591D42B211927309D5C3AA493F3FDC1ED764CED272225AD52BB983D47288",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    },
+    {
+      "path": "packages/schema-application/src/journal-validation.ts",
+      "acceptedSha256": "BFD47379EAB9AA3F931FC545A67B079A49509DEC6C7A51EAE25E8A2AA14EEEE8",
+      "actualSha256": "BFD47379EAB9AA3F931FC545A67B079A49509DEC6C7A51EAE25E8A2AA14EEEE8",
+      "unchanged": true,
+      "originalPrefixPreserved": false
+    }
+  ],
+  "protectedEvidence": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\01-initial-focused.txt",
+      "acceptedSha256": "B2F512F7CEA27FF0FE5B9B240BB5120738A14AE382AF9BB118CC2573E56584CB",
+      "actualSha256": "B2F512F7CEA27FF0FE5B9B240BB5120738A14AE382AF9BB118CC2573E56584CB"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\02-initial-strict.txt",
+      "acceptedSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "actualSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\03-focused.txt",
+      "acceptedSha256": "7C4ECAB0CF87988E403301177F4A1E26E8B5B6CB93B964C73ACEF985771F9917",
+      "actualSha256": "7C4ECAB0CF87988E403301177F4A1E26E8B5B6CB93B964C73ACEF985771F9917"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\04-process-tests.txt",
+      "acceptedSha256": "D4BD13D0D4FFDF4C5C4E77DDB226C1708F3CA4D53C5D5B713102463DBB03FEC5",
+      "actualSha256": "D4BD13D0D4FFDF4C5C4E77DDB226C1708F3CA4D53C5D5B713102463DBB03FEC5"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\05-expanded-focused.txt",
+      "acceptedSha256": "CB0FC60AAEA1661A5DD854D43B3D82720132014042600FCA46877E054320BEFA",
+      "actualSha256": "CB0FC60AAEA1661A5DD854D43B3D82720132014042600FCA46877E054320BEFA"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\06-expanded-strict.txt",
+      "acceptedSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "actualSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\07-build.txt",
+      "acceptedSha256": "EE22B928DFC10F70AACE5225773B4DE946582FE56D9D5D58EF57D8422BD288FB",
+      "actualSha256": "EE22B928DFC10F70AACE5225773B4DE946582FE56D9D5D58EF57D8422BD288FB"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\08-typecheck.txt",
+      "acceptedSha256": "83EA45E1C673BBB0EBA37C134BE916846A4B2A5DDD8BDE3C387067940ED8791F",
+      "actualSha256": "83EA45E1C673BBB0EBA37C134BE916846A4B2A5DDD8BDE3C387067940ED8791F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\09-strict.txt",
+      "acceptedSha256": "02053E1B9297A83939F0ED1677209B7BFBC84E62A847B4AD93F4FF87235090F6",
+      "actualSha256": "02053E1B9297A83939F0ED1677209B7BFBC84E62A847B4AD93F4FF87235090F6"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\10-full-tests.txt",
+      "acceptedSha256": "911228938EFE7375734AF0E4D478B20F49B773FB7DDED624FEC8A49743119A83",
+      "actualSha256": "911228938EFE7375734AF0E4D478B20F49B773FB7DDED624FEC8A49743119A83"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\11-platform-focused.txt",
+      "acceptedSha256": "42FF0AB4B4DF905A6A7D562847990E4A770E143E95B4F767C2750E696975435A",
+      "actualSha256": "42FF0AB4B4DF905A6A7D562847990E4A770E143E95B4F767C2750E696975435A"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\12-platform-typecheck.txt",
+      "acceptedSha256": "4C83EF05E1EC31F893E6BF5DBAD64B6038D230268F446376E945B5F65740C46F",
+      "actualSha256": "4C83EF05E1EC31F893E6BF5DBAD64B6038D230268F446376E945B5F65740C46F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\13-platform-production.txt",
+      "acceptedSha256": "9D2A17216ED49A277E208C1148D63C4F949190912E8353B79F043EB82E802E4C",
+      "actualSha256": "9D2A17216ED49A277E208C1148D63C4F949190912E8353B79F043EB82E802E4C"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\14-platform-contracts.txt",
+      "acceptedSha256": "7FF4EF96A007A631353EE4CEA0960D6ABB0909820C98B41B2DE7825C8AC1FA71",
+      "actualSha256": "7FF4EF96A007A631353EE4CEA0960D6ABB0909820C98B41B2DE7825C8AC1FA71"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\15-final-strict.txt",
+      "acceptedSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "actualSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\16-preservation.txt",
+      "acceptedSha256": "98CC773F1CA16A794A1E10B360DBC487BAEC1A71EBAD4EC18A1D8E0220152CC1",
+      "actualSha256": "98CC773F1CA16A794A1E10B360DBC487BAEC1A71EBAD4EC18A1D8E0220152CC1"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\artifact-hashes.json",
+      "acceptedSha256": "0FE5CCD2FF22C00CB3BC257094C035C3855C8DAB59332A8A71E3E666BBAE5D7E",
+      "actualSha256": "0FE5CCD2FF22C00CB3BC257094C035C3855C8DAB59332A8A71E3E666BBAE5D7E"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\before.json",
+      "acceptedSha256": "A73947DC3E6964D023BC6DB56B568B0141B747918C261C03D24716B77ABD8D53",
+      "actualSha256": "A73947DC3E6964D023BC6DB56B568B0141B747918C261C03D24716B77ABD8D53"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\commands.json",
+      "acceptedSha256": "5D9A9C20EDC13BAA1CEE0CB572337263E160AAB7AE0A77557158DB9BB1C6C4EA",
+      "actualSha256": "5D9A9C20EDC13BAA1CEE0CB572337263E160AAB7AE0A77557158DB9BB1C6C4EA"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-07-build.txt",
+      "acceptedSha256": "E6F74861A9493CD98FCED880A794D79E4C230AAE0FED93130B77B443B9CA594F",
+      "actualSha256": "E6F74861A9493CD98FCED880A794D79E4C230AAE0FED93130B77B443B9CA594F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-08-typecheck.txt",
+      "acceptedSha256": "DF3163F01395829D2242FD74E34DB4941F6CD6C9617C6BFEF355E1D5EBC6DCDC",
+      "actualSha256": "DF3163F01395829D2242FD74E34DB4941F6CD6C9617C6BFEF355E1D5EBC6DCDC"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-09-strict.txt",
+      "acceptedSha256": "8E21A5B68E9C00FF86146F3795B43359389F832F913E21B66598E82988B96787",
+      "actualSha256": "8E21A5B68E9C00FF86146F3795B43359389F832F913E21B66598E82988B96787"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-10-full-tests.txt",
+      "acceptedSha256": "FBB30411A895159340DD6E78A321C7701C16536E8A9DE915CCB3C4C02B08B14B",
+      "actualSha256": "FBB30411A895159340DD6E78A321C7701C16536E8A9DE915CCB3C4C02B08B14B"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-commands.json",
+      "acceptedSha256": "71B0CEA055DBE5B9651576A85B8944387E8EF0D06D13B1340B6510FBF4058A3F",
+      "actualSha256": "71B0CEA055DBE5B9651576A85B8944387E8EF0D06D13B1340B6510FBF4058A3F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\final-run.cjs",
+      "acceptedSha256": "28F4DF13D1BFE6E4DC5DA91876882470AE4CDF013BE4A2CB5071F28E1F13F1E0",
+      "actualSha256": "28F4DF13D1BFE6E4DC5DA91876882470AE4CDF013BE4A2CB5071F28E1F13F1E0"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\npm-invocations.jsonl",
+      "acceptedSha256": "A0F227FD8C070CBD277D84F52C1E4CD81AABEB396F3C9E606EFF6EBC97D0A523",
+      "actualSha256": "A0F227FD8C070CBD277D84F52C1E4CD81AABEB396F3C9E606EFF6EBC97D0A523"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\preservation.cjs",
+      "acceptedSha256": "895A2987D2FB387383ED0AB92344DBE0AD537643D4BADFC7F01940F875F02E16",
+      "actualSha256": "895A2987D2FB387383ED0AB92344DBE0AD537643D4BADFC7F01940F875F02E16"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\preservation.json",
+      "acceptedSha256": "66A745753E08A87CF03174E6C31707A0757CA2CDA4ABD16EB2ECF90C03D5F523",
+      "actualSha256": "66A745753E08A87CF03174E6C31707A0757CA2CDA4ABD16EB2ECF90C03D5F523"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\run.cjs",
+      "acceptedSha256": "BEDB2C197250DAA6ECA572B56B026A1A5682738817DC43A1BE1BB6F922FC797C",
+      "actualSha256": "BEDB2C197250DAA6ECA572B56B026A1A5682738817DC43A1BE1BB6F922FC797C"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\trace-npm.cjs",
+      "acceptedSha256": "566DE9BEF67BD35746C58899D29FB8B2FE193A79C2C7611756E5341E9115C106",
+      "actualSha256": "566DE9BEF67BD35746C58899D29FB8B2FE193A79C2C7611756E5341E9115C106"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-07-build.txt",
+      "acceptedSha256": "D51A5777944AC1A70B79A1BA57FE80BCE42C10916A5A0261ACF0FA69A25964C9",
+      "actualSha256": "D51A5777944AC1A70B79A1BA57FE80BCE42C10916A5A0261ACF0FA69A25964C9"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-08-typecheck.txt",
+      "acceptedSha256": "384A02A22108640334BCAA89183BA0781378637A7D4501BF9622448561236245",
+      "actualSha256": "384A02A22108640334BCAA89183BA0781378637A7D4501BF9622448561236245"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-09-strict.txt",
+      "acceptedSha256": "E64E258ED5A54BABC621ECD35D96C71F6621C0EC524A07DB70F0AD8FC21FAD34",
+      "actualSha256": "E64E258ED5A54BABC621ECD35D96C71F6621C0EC524A07DB70F0AD8FC21FAD34"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-10-full-tests.txt",
+      "acceptedSha256": "4C199F6E892B8422C59613BF5FE22187B13FC2CC3BE90B6A3A965F99D0A04803",
+      "actualSha256": "4C199F6E892B8422C59613BF5FE22187B13FC2CC3BE90B6A3A965F99D0A04803"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-commands.json",
+      "acceptedSha256": "90E73509B5A97F38DFA9E527C5DDDAC6E7853B8A77F50D1EE814BFD655D0767D",
+      "actualSha256": "90E73509B5A97F38DFA9E527C5DDDAC6E7853B8A77F50D1EE814BFD655D0767D"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r2\\verified-run.cjs",
+      "acceptedSha256": "442DB3379E3E4BC43108E6FD881ACCFACD08A9D7547B3B606DD6017AABB4EE75",
+      "actualSha256": "442DB3379E3E4BC43108E6FD881ACCFACD08A9D7547B3B606DD6017AABB4EE75"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\ds0-wp2-r2-implementation-acceptance-report.md",
+      "acceptedSha256": "EE752D49EFC2C7885F4B49DDAE6B6529E3BB1035438185676DB3856CFE5DC06F",
+      "actualSha256": "EE752D49EFC2C7885F4B49DDAE6B6529E3BB1035438185676DB3856CFE5DC06F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\ds0-wp2-r0-contract-design.md",
+      "acceptedSha256": "04362E70A06AD1B3ADC4A66927B0BA0B1424BB9ACD2BF662B09FD64FD375360A",
+      "actualSha256": "04362E70A06AD1B3ADC4A66927B0BA0B1424BB9ACD2BF662B09FD64FD375360A"
+    },
+    {
+      "path": "docs/architecture/artifact-watcher-windows-rename-issue.md",
+      "acceptedSha256": "B92FCBE45EFF179DD03773E443376AB98734985D486CC56AAEC8D745BC4F6337",
+      "actualSha256": "B92FCBE45EFF179DD03773E443376AB98734985D486CC56AAEC8D745BC4F6337"
+    },
+    {
+      "path": "docs/architecture/ds0-baseline-stabilization-repair-plan.md",
+      "acceptedSha256": "03647EE877E701923B0ABB53E1FAB3AF106751A55AD622DE9E7970852EECF270",
+      "actualSha256": "03647EE877E701923B0ABB53E1FAB3AF106751A55AD622DE9E7970852EECF270"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-0-execution-acceptance-report.md",
+      "acceptedSha256": "EA1394C439425805B51FAED4E7633C82F14311DFC60E0328162257B7DF8E16DE",
+      "actualSha256": "EA1394C439425805B51FAED4E7633C82F14311DFC60E0328162257B7DF8E16DE"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-1-acceptance-record.md",
+      "acceptedSha256": "1F2D9D64AEA5ADF99C8A04010908B1F6FB224FA63F486FE0F65D56708288CFC6",
+      "actualSha256": "1F2D9D64AEA5ADF99C8A04010908B1F6FB224FA63F486FE0F65D56708288CFC6"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-1-compatibility-assessment.md",
+      "acceptedSha256": "2E9ADFB27A1208AF6E650910183464D43433D38ECF186F39D6CB2D6F830DA7A4",
+      "actualSha256": "2E9ADFB27A1208AF6E650910183464D43433D38ECF186F39D6CB2D6F830DA7A4"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-1-implementation-acceptance-report.md",
+      "acceptedSha256": "2FEEE413FDC9E3876DE3DC32212E38F4D3554EB7AC6D95202A754CBBD8430709",
+      "actualSha256": "2FEEE413FDC9E3876DE3DC32212E38F4D3554EB7AC6D95202A754CBBD8430709"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-2-acceptance-record.md",
+      "acceptedSha256": "5EC2302E77527DB4A5A1D00147E52406BB60F88CA20F266FA1E1D0ADC07B3ED9",
+      "actualSha256": "5EC2302E77527DB4A5A1D00147E52406BB60F88CA20F266FA1E1D0ADC07B3ED9"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-2-implementation-acceptance-report.md",
+      "acceptedSha256": "5C52EDF82AFF5DD87989EF3C8C86F8E4E0512BC093FBEC4D6A36685878BC6D55",
+      "actualSha256": "5C52EDF82AFF5DD87989EF3C8C86F8E4E0512BC093FBEC4D6A36685878BC6D55"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-2-transaction-correctness-plan.md",
+      "acceptedSha256": "0B1E9D98AC5645EE888AEAEE3D82AF083ABCC94EDEBAE19A8DD6D597468F5408",
+      "actualSha256": "0B1E9D98AC5645EE888AEAEE3D82AF083ABCC94EDEBAE19A8DD6D597468F5408"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-3-implementation-acceptance-report.md",
+      "acceptedSha256": "009E9EE6FC2545C56E7DADC9558D7B843FECD44090AC65DEDFD7C155C7FE7A8A",
+      "actualSha256": "009E9EE6FC2545C56E7DADC9558D7B843FECD44090AC65DEDFD7C155C7FE7A8A"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-3-write-containment-plan.md",
+      "acceptedSha256": "1AD94E4A72FF7BC5F6AF57D5DB4FDC0DA951994849C145D7F01703E3238EA4F1",
+      "actualSha256": "1AD94E4A72FF7BC5F6AF57D5DB4FDC0DA951994849C145D7F01703E3238EA4F1"
+    },
+    {
+      "path": "docs/architecture/ds0-wp2-preflight-audit.md",
+      "acceptedSha256": "F4770FFC052B0C308190F578FB9E87E72E8DD14CAD3A4AA46AD28414C2162F9B",
+      "actualSha256": "F4770FFC052B0C308190F578FB9E87E72E8DD14CAD3A4AA46AD28414C2162F9B"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/build.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/commands.json",
+      "acceptedSha256": "E60EE6846270012C23B7205872B34E8A5F674446DA9B78C23D3671B5FCC85C5C",
+      "actualSha256": "E60EE6846270012C23B7205872B34E8A5F674446DA9B78C23D3671B5FCC85C5C"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/data-services-before.json",
+      "acceptedSha256": "729636EB0A449B3E2577AD7831F8711BCCC439C5D7BE052A321EB3EFBE81D5F6",
+      "actualSha256": "729636EB0A449B3E2577AD7831F8711BCCC439C5D7BE052A321EB3EFBE81D5F6"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/dependencies.txt",
+      "acceptedSha256": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "actualSha256": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/direct-child-npm-version-first-attempt.txt",
+      "acceptedSha256": "A385C88335F547D5E1C6F7BBB6FF2F1B35B5C79D6069B38AE55CAC5F82B95302",
+      "actualSha256": "A385C88335F547D5E1C6F7BBB6FF2F1B35B5C79D6069B38AE55CAC5F82B95302"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/direct-child-npm-version.txt",
+      "acceptedSha256": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "actualSha256": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/execution-runner.ps1",
+      "acceptedSha256": "83AEFD27D992C2B7DCFD975F3645A766CD46067D3639C77D29DB5CD6931A3211",
+      "actualSha256": "83AEFD27D992C2B7DCFD975F3645A766CD46067D3639C77D29DB5CD6931A3211"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/git-and-tools-after.txt",
+      "acceptedSha256": "EAAD9B7EB44537838A5C4399D2FD5238899C1BF19C40F8BEE2BD9ACF0518AC66",
+      "actualSha256": "EAAD9B7EB44537838A5C4399D2FD5238899C1BF19C40F8BEE2BD9ACF0518AC66"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/git-and-tools-before.txt",
+      "acceptedSha256": "8B750C36069C8FE16949A363BB2C2D42571D3784EF5C2273E364B4D7B0BF2C6F",
+      "actualSha256": "8B750C36069C8FE16949A363BB2C2D42571D3784EF5C2273E364B4D7B0BF2C6F"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/global-npm-before.json",
+      "acceptedSha256": "39FFCE0ACCB3CCDA46CDF379718142CE59C06A20D89B1C1A6306B78B34687DEE",
+      "actualSha256": "39FFCE0ACCB3CCDA46CDF379718142CE59C06A20D89B1C1A6306B78B34687DEE"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/initial-runner.ps1",
+      "acceptedSha256": "6CEDF82C8352A2CA34F01D898EAC74671AD9AC6946A7C13A9B97F6A6874F25A8",
+      "actualSha256": "6CEDF82C8352A2CA34F01D898EAC74671AD9AC6946A7C13A9B97F6A6874F25A8"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/install.txt",
+      "acceptedSha256": "E033C1729A3032484F2DD1CE60F132C7799E4DDC212325524C68DA161A098890",
+      "actualSha256": "E033C1729A3032484F2DD1CE60F132C7799E4DDC212325524C68DA161A098890"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/local-npm-launcher.txt",
+      "acceptedSha256": "80D14520D96B8E996BEB972A928F0FC184B3B7493277FE4F279B236E1EB04CA2",
+      "actualSha256": "80D14520D96B8E996BEB972A928F0FC184B3B7493277FE4F279B236E1EB04CA2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/nested-npm-version.txt",
+      "acceptedSha256": "8F690B1B0E180F17D8CED1C983159803DD14981A422B9BD476FB2E4EE271EB45",
+      "actualSha256": "8F690B1B0E180F17D8CED1C983159803DD14981A422B9BD476FB2E4EE271EB45"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-invocations.txt",
+      "acceptedSha256": "7F20E2B08A80A131702B19F1AB1CBFA3C771C3E01F2B728EA86701F08E01D33F",
+      "actualSha256": "7F20E2B08A80A131702B19F1AB1CBFA3C771C3E01F2B728EA86701F08E01D33F"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-metadata.json",
+      "acceptedSha256": "3B8584A215E3E4DE5DF71610DEF88546BC121034EE866C250C5682612D9198DD",
+      "actualSha256": "3B8584A215E3E4DE5DF71610DEF88546BC121034EE866C250C5682612D9198DD"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-trace-source.txt",
+      "acceptedSha256": "6ABD34BCEF11648377990F92131AF8F09955C252C21313112F1B5CFB0B61DA65",
+      "actualSha256": "6ABD34BCEF11648377990F92131AF8F09955C252C21313112F1B5CFB0B61DA65"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-version.txt",
+      "acceptedSha256": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742",
+      "actualSha256": "195641AA2FF1994EDC5EA60C0373880EF79A79EDBAF4255063AB923D79F81742"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/preservation-after.json",
+      "acceptedSha256": "486B2A53E9D955A526D2B5C1B1D7984B92E35ACA8AA916347CF677BFD8227477",
+      "actualSha256": "486B2A53E9D955A526D2B5C1B1D7984B92E35ACA8AA916347CF677BFD8227477"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/schema-application-tests.txt",
+      "acceptedSha256": "869594FD56797BE93ABA663813A391EB049078510E704FA4D0E0365337A3CD87",
+      "actualSha256": "869594FD56797BE93ABA663813A391EB049078510E704FA4D0E0365337A3CD87"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/source-reports-after.json",
+      "acceptedSha256": "05C1CB64F1F0DFBB4AD75E4DB40B1C801EC7A2C8E478F3DA2B8C0B6A5774900A",
+      "actualSha256": "05C1CB64F1F0DFBB4AD75E4DB40B1C801EC7A2C8E478F3DA2B8C0B6A5774900A"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/tests.txt",
+      "acceptedSha256": "FB41598B53ED118631CA66014643C1BE51429CA75FFC036153E9B69EEF99E212",
+      "actualSha256": "FB41598B53ED118631CA66014643C1BE51429CA75FFC036153E9B69EEF99E212"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/toolchain-verification.txt",
+      "acceptedSha256": "F0686B16D2C0D8656CEDE4511E4B101CC4A7119206522814DE2D170447E0C433",
+      "actualSha256": "F0686B16D2C0D8656CEDE4511E4B101CC4A7119206522814DE2D170447E0C433"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/typecheck.txt",
+      "acceptedSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actualSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/01-tests-initial.txt",
+      "acceptedSha256": "56EFF3DFFB8BD7FDD86C929A9FBD8C06372EFD79179D8E7A5BA9FDAB6F44B479",
+      "actualSha256": "56EFF3DFFB8BD7FDD86C929A9FBD8C06372EFD79179D8E7A5BA9FDAB6F44B479"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/02-build.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/03-tests.txt",
+      "acceptedSha256": "23C457CF13BEAC1262C5F21A3AC2B7D4B3406C53AC377CBC3B0EB0282BB4A424",
+      "actualSha256": "23C457CF13BEAC1262C5F21A3AC2B7D4B3406C53AC377CBC3B0EB0282BB4A424"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/04-platform-compatibility.txt",
+      "acceptedSha256": "D35420A8A4B80A9C4C64CE12354740A2935AC79AA026A676C0BBD9C26A6CEA4D",
+      "actualSha256": "D35420A8A4B80A9C4C64CE12354740A2935AC79AA026A676C0BBD9C26A6CEA4D"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/05-build-final.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/06-typecheck-final.txt",
+      "acceptedSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actualSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/07-tests-final.txt",
+      "acceptedSha256": "373746A55BA0B4477DA759FFEE9ECA94C734A3D80E87C18EE7D397059323C808",
+      "actualSha256": "373746A55BA0B4477DA759FFEE9ECA94C734A3D80E87C18EE7D397059323C808"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/08-platform-editor-contracts.txt",
+      "acceptedSha256": "6F8986A41100CFF7EC2E8016AB70498227124329AF5FC9DF469D68DE3A743D60",
+      "actualSha256": "6F8986A41100CFF7EC2E8016AB70498227124329AF5FC9DF469D68DE3A743D60"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/09-tests-acceptance.txt",
+      "acceptedSha256": "F514209A9817AE518EC63CCF8EF06E61CC65E4BCF79B188B1B9FA1F0EF9E7EFD",
+      "actualSha256": "F514209A9817AE518EC63CCF8EF06E61CC65E4BCF79B188B1B9FA1F0EF9E7EFD"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/data-services-before.json",
+      "acceptedSha256": "90DE742156C1D2598CECFAEC9F6E6A9717360BCCD55E022B52D11F354A850628",
+      "actualSha256": "90DE742156C1D2598CECFAEC9F6E6A9717360BCCD55E022B52D11F354A850628"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/diff-check.txt",
+      "acceptedSha256": "B340532A911FC3A6FDEC8C41BE4B1B4FECF136CA99F901CBC96CA50C18C4FA60",
+      "actualSha256": "B340532A911FC3A6FDEC8C41BE4B1B4FECF136CA99F901CBC96CA50C18C4FA60"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/implementation-file-hashes.json",
+      "acceptedSha256": "458E1AFF320ACB767EED360DB2858EB60D4BB4E86D3F60AF70EA4DA7C960738E",
+      "actualSha256": "458E1AFF320ACB767EED360DB2858EB60D4BB4E86D3F60AF70EA4DA7C960738E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/preservation-and-repositories.json",
+      "acceptedSha256": "7E86B3C93967EB9C947AEF2111B3D0F8767BAD6FB798B4579A09588A0CA74F20",
+      "actualSha256": "7E86B3C93967EB9C947AEF2111B3D0F8767BAD6FB798B4579A09588A0CA74F20"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/record-preservation.ps1",
+      "acceptedSha256": "5D33DE0EB6BA62AA873BD155B2AE7888684C624B6A76D0C92507DF61408CAECA",
+      "actualSha256": "5D33DE0EB6BA62AA873BD155B2AE7888684C624B6A76D0C92507DF61408CAECA"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/tracked-file-preservation.json",
+      "acceptedSha256": "337F818A15AC230036AAEC5BE0634D0B2063A74DE61468A1E41ACF32EFACEF82",
+      "actualSha256": "337F818A15AC230036AAEC5BE0634D0B2063A74DE61468A1E41ACF32EFACEF82"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/01-build.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/02-focused-tests.txt",
+      "acceptedSha256": "9151CEF9FA7C98805DFE835EA3013B89606BDAABD43A3754593891284475309B",
+      "actualSha256": "9151CEF9FA7C98805DFE835EA3013B89606BDAABD43A3754593891284475309B"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/03-build-corrected.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/04-focused-corrected.txt",
+      "acceptedSha256": "65778DBF9E9894F34437447FDE56DD30DA6219092BEBB8921D89FE676E8EDBB5",
+      "actualSha256": "65778DBF9E9894F34437447FDE56DD30DA6219092BEBB8921D89FE676E8EDBB5"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/05-build-final.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/06-typecheck.txt",
+      "acceptedSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actualSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/07-consumer-typecheck.txt",
+      "acceptedSha256": "69F797CDD9F474F6B169DCD7F6945328E2DA029C25E77AB70E13597328A3F66E",
+      "actualSha256": "69F797CDD9F474F6B169DCD7F6945328E2DA029C25E77AB70E13597328A3F66E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/08-full-tests.txt",
+      "acceptedSha256": "A92696286D63EF39BE085B6B13DB13C845E3A07D0C7E4E0245AFBF10BE7BEA5A",
+      "actualSha256": "A92696286D63EF39BE085B6B13DB13C845E3A07D0C7E4E0245AFBF10BE7BEA5A"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/09-platform-production-build.txt",
+      "acceptedSha256": "103E9667E1389EA48BC463FC7F8C6D13F0D76ED3FC80E6A0E4C1C36017C38B69",
+      "actualSha256": "103E9667E1389EA48BC463FC7F8C6D13F0D76ED3FC80E6A0E4C1C36017C38B69"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/10-platform-typecheck.txt",
+      "acceptedSha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "actualSha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/11-platform-focused.txt",
+      "acceptedSha256": "C0191C11775CE19BF0C44CB5154F063F32313B9ACC03953C21DCD4D2264CAD42",
+      "actualSha256": "C0191C11775CE19BF0C44CB5154F063F32313B9ACC03953C21DCD4D2264CAD42"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/12-platform-contracts.txt",
+      "acceptedSha256": "45EA09BF8E8041AC87B47F1893AB0381DBAC526570357AF6A8101CEF834D2204",
+      "actualSha256": "45EA09BF8E8041AC87B47F1893AB0381DBAC526570357AF6A8101CEF834D2204"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/before.json",
+      "acceptedSha256": "D23C2925938A6F14861FB7A57C4E4C8A33AD8E270FC6F218E9A19C781B4F8AE4",
+      "actualSha256": "D23C2925938A6F14861FB7A57C4E4C8A33AD8E270FC6F218E9A19C781B4F8AE4"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/diff-check.txt",
+      "acceptedSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B",
+      "actualSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/preservation.json",
+      "acceptedSha256": "6AC2B5F1D5787249133895FBA75D26888F802BB489EC25F93BF929C1168BE1EA",
+      "actualSha256": "6AC2B5F1D5787249133895FBA75D26888F802BB489EC25F93BF929C1168BE1EA"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/record-preservation.cjs",
+      "acceptedSha256": "52CF58CEBDB2C36EE8DD42353E8DA2FD6F07B0C385A46EAF3D328C14F641573C",
+      "actualSha256": "52CF58CEBDB2C36EE8DD42353E8DA2FD6F07B0C385A46EAF3D328C14F641573C"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2/baseline-review.json",
+      "acceptedSha256": "04796F689B8295FD27F2B7BB332919F866941B6777CE58FF1FFDABD36138C6FE",
+      "actualSha256": "04796F689B8295FD27F2B7BB332919F866941B6777CE58FF1FFDABD36138C6FE"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2/review-baseline.cjs",
+      "acceptedSha256": "A45389D80EA951161343AD343682196612AF62CF4C2BCD069425D65696A8F5D1",
+      "actualSha256": "A45389D80EA951161343AD343682196612AF62CF4C2BCD069425D65696A8F5D1"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-design/record-review.cjs",
+      "acceptedSha256": "BC223D7AF21ACA10A2FD3F61C8822686F020B75C2BF3678F4A87B8199F65D1A1",
+      "actualSha256": "BC223D7AF21ACA10A2FD3F61C8822686F020B75C2BF3678F4A87B8199F65D1A1"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-design/review.json",
+      "acceptedSha256": "F0DB8794181EBEEC60D5422B346B5858C85F48DC02DC2B5532038159AF448459",
+      "actualSha256": "F0DB8794181EBEEC60D5422B346B5858C85F48DC02DC2B5532038159AF448459"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/01-build.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/02-focused.txt",
+      "acceptedSha256": "CD23F2282CC60FD5DB302724EC48F5FCB2358F7C7801940E51B2E14BAB5C43B0",
+      "actualSha256": "CD23F2282CC60FD5DB302724EC48F5FCB2358F7C7801940E51B2E14BAB5C43B0"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/03-focused-corrected.txt",
+      "acceptedSha256": "7DC85899221C0B6A6BD43CEDCBA79BA4863A05EECDEB31224A28ABC799F94AFE",
+      "actualSha256": "7DC85899221C0B6A6BD43CEDCBA79BA4863A05EECDEB31224A28ABC799F94AFE"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/04-test-typecheck.txt",
+      "acceptedSha256": "A9270E4F049CEFF0B3C592BBC79CBC561A80A2762B03D245DA3C24508AE015ED",
+      "actualSha256": "A9270E4F049CEFF0B3C592BBC79CBC561A80A2762B03D245DA3C24508AE015ED"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/05-test-typecheck-corrected.txt",
+      "acceptedSha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "actualSha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/06-build-final.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/07-typecheck.txt",
+      "acceptedSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actualSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/08-focused-final.txt",
+      "acceptedSha256": "07D464D1CA1E3FC362EAEDAA7235D2D5493C7FA4E4E5455DF718C5491E4B2947",
+      "actualSha256": "07D464D1CA1E3FC362EAEDAA7235D2D5493C7FA4E4E5455DF718C5491E4B2947"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/09-full-tests.txt",
+      "acceptedSha256": "C97ED8F22E1BB7554075A4E17BE1D1B09B9AE1AB14BE502C0047757FCC272427",
+      "actualSha256": "C97ED8F22E1BB7554075A4E17BE1D1B09B9AE1AB14BE502C0047757FCC272427"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/10-test-consumer-typecheck.txt",
+      "acceptedSha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "actualSha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/11-platform-focused.txt",
+      "acceptedSha256": "64CD4971EF3C129CBB3E4D9CCEB0DBA98FAB11D8BB657190345792073F86B8F2",
+      "actualSha256": "64CD4971EF3C129CBB3E4D9CCEB0DBA98FAB11D8BB657190345792073F86B8F2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/12-platform-typecheck.txt",
+      "acceptedSha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "actualSha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/13-platform-production-build.txt",
+      "acceptedSha256": "7976C96C5882D2E64D9DBC4476CD0D004DC17A8D37976A6FEEF309D8CEA6A778",
+      "actualSha256": "7976C96C5882D2E64D9DBC4476CD0D004DC17A8D37976A6FEEF309D8CEA6A778"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/14-platform-contracts.txt",
+      "acceptedSha256": "934E6F97B2D8EAA9FFD3719E010365F28E69E5D8364956669264C9F6BB57C24E",
+      "actualSha256": "934E6F97B2D8EAA9FFD3719E010365F28E69E5D8364956669264C9F6BB57C24E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/15-preservation-check.txt",
+      "acceptedSha256": "61E9500E72821B1D340E28681083CEE970EB4063B49EDEE48B2F52CBF99F7C4C",
+      "actualSha256": "61E9500E72821B1D340E28681083CEE970EB4063B49EDEE48B2F52CBF99F7C4C"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/before.json",
+      "acceptedSha256": "DE23C4DD57CBA62026D1795ED0D60DC030CFCE5A22862E43DF75BA9D7DF7B555",
+      "actualSha256": "DE23C4DD57CBA62026D1795ED0D60DC030CFCE5A22862E43DF75BA9D7DF7B555"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/preservation.json",
+      "acceptedSha256": "26D564A3E2F3AD6F49299B55DE3F7B9A3B3005C27EDDB7EA7955FF27BB8A7A11",
+      "actualSha256": "26D564A3E2F3AD6F49299B55DE3F7B9A3B3005C27EDDB7EA7955FF27BB8A7A11"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/record-preservation.cjs",
+      "acceptedSha256": "07F4AE21E9726F116E242305EBC93BEE984A174763948B667BDF97B0B24F49CB",
+      "actualSha256": "07F4AE21E9726F116E242305EBC93BEE984A174763948B667BDF97B0B24F49CB"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-4-consolidated-acceptance-report.md",
+      "acceptedSha256": "A6CD386BEF23FA68AB3870F74372D2B88E44D4DA61CE312EEEA3E4C2C14DD011",
+      "actualSha256": "A6CD386BEF23FA68AB3870F74372D2B88E44D4DA61CE312EEEA3E4C2C14DD011"
+    },
+    {
+      "path": "docs/architecture/ds0-stab-4-unresolved-issues.md",
+      "acceptedSha256": "319BB8B6F070AFAF77320C278C8FD84776D26E647B044E87A8C2868C56547A31",
+      "actualSha256": "319BB8B6F070AFAF77320C278C8FD84776D26E647B044E87A8C2868C56547A31"
+    },
+    {
+      "path": "docs/architecture/ds0-wp2-readiness-decision.md",
+      "acceptedSha256": "C9216D31ECB95837A7579485548BCCA1C006FF1AFCB6D27B0C27AB7361E1F1FB",
+      "actualSha256": "C9216D31ECB95837A7579485548BCCA1C006FF1AFCB6D27B0C27AB7361E1F1FB"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/01-dependencies.txt",
+      "acceptedSha256": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE",
+      "actualSha256": "C9D8C754F7817C205FD8A90C71B4E6C12ABC1F3B417EA0D21224F97EC447C1AE"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/02-build.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/03-typecheck.txt",
+      "acceptedSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF",
+      "actualSha256": "3571769BE27C7A65708992888F81FE2D825CB4F5FE6B3127B7B95DE65029B8EF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/04-full-tests.txt",
+      "acceptedSha256": "C3D29EB363B727F380AB33046033D9129668F5D851B7AC74D5A6C93D1123FCD7",
+      "actualSha256": "C3D29EB363B727F380AB33046033D9129668F5D851B7AC74D5A6C93D1123FCD7"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/05-consumer-tests-compilation.txt",
+      "acceptedSha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF",
+      "actualSha256": "78E1EEFDD5B61C51D0683723752D200301095922E4BB612EA6DD3EA448D410BF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/06-platform-focused.txt",
+      "acceptedSha256": "89DD69763696F3D99C51B52E48F3670E77021BCB25483286B3EE986F0FAB9FCB",
+      "actualSha256": "89DD69763696F3D99C51B52E48F3670E77021BCB25483286B3EE986F0FAB9FCB"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/07-platform-typecheck.txt",
+      "acceptedSha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370",
+      "actualSha256": "5F43A420F954E1C7A5EF12F26B0C158FA4AAF595B2BD5167DB9121864CCD4370"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/08-platform-production.txt",
+      "acceptedSha256": "01A22C3B3425FB9AF98B6DBA7DED1E708912C6CD8520421D9CCF98EFC7077DEF",
+      "actualSha256": "01A22C3B3425FB9AF98B6DBA7DED1E708912C6CD8520421D9CCF98EFC7077DEF"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/09-platform-contracts.txt",
+      "acceptedSha256": "44694C2F1688F6945C26E76A4849838CB4E3D097571C5E5F2E8D11D3A1519AE1",
+      "actualSha256": "44694C2F1688F6945C26E76A4849838CB4E3D097571C5E5F2E8D11D3A1519AE1"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/10-preservation-check.txt",
+      "acceptedSha256": "9A6AA398AA49E680C5DEED303F4550FA59E5BB2820384D8E0FDB841244F5871F",
+      "actualSha256": "9A6AA398AA49E680C5DEED303F4550FA59E5BB2820384D8E0FDB841244F5871F"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/before.json",
+      "acceptedSha256": "4DFD51FFF07A25E374E781B72B22CADC413A0E1ED60DDF652ADBEA00532C02DA",
+      "actualSha256": "4DFD51FFF07A25E374E781B72B22CADC413A0E1ED60DDF652ADBEA00532C02DA"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/review.cjs",
+      "acceptedSha256": "9EDE781A9196DB10F60D049E15BEDC98143B5CA2C685536E644A433FD0F4DA4E",
+      "actualSha256": "9EDE781A9196DB10F60D049E15BEDC98143B5CA2C685536E644A433FD0F4DA4E"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/review.json",
+      "acceptedSha256": "CAFD38CB058D403ADDD9AF4B98CB8253B4C9F4CD1BD91D590869793E11A22F98",
+      "actualSha256": "CAFD38CB058D403ADDD9AF4B98CB8253B4C9F4CD1BD91D590869793E11A22F98"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\01-initial-build.txt",
+      "acceptedSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E",
+      "actualSha256": "80825ACC785EF91DAAA87F58D9B18F80C702901585652C14E8F124022395FE1E"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\02-initial-focused.txt",
+      "acceptedSha256": "29493F1F063EAB62969DD22CAC5E0F2F35EF157348CF93ADAB041BC901727687",
+      "actualSha256": "29493F1F063EAB62969DD22CAC5E0F2F35EF157348CF93ADAB041BC901727687"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\03-initial-strict.txt",
+      "acceptedSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "actualSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\04-focused.txt",
+      "acceptedSha256": "8E579602CC23BC9AC322AB4C26BD2C567017CE446ABCBC85EBCFF567AA15D609",
+      "actualSha256": "8E579602CC23BC9AC322AB4C26BD2C567017CE446ABCBC85EBCFF567AA15D609"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\05-strict.txt",
+      "acceptedSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "actualSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\06-build.txt",
+      "acceptedSha256": "2FCDA17860C0CABFC07D8A8BD9010D1B9B931BADC79DFB7B32D030C6477E653D",
+      "actualSha256": "2FCDA17860C0CABFC07D8A8BD9010D1B9B931BADC79DFB7B32D030C6477E653D"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\07-typecheck.txt",
+      "acceptedSha256": "308B55FFA34A2DEAA771E806145E0E0406D3F3530D6299C5FF53FEAE8A287625",
+      "actualSha256": "308B55FFA34A2DEAA771E806145E0E0406D3F3530D6299C5FF53FEAE8A287625"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\08-strict.txt",
+      "acceptedSha256": "79A209AB78A1CA72EB1BFDD3EF104DF13676429A8BD26A2FA8F7EA2FE3F19375",
+      "actualSha256": "79A209AB78A1CA72EB1BFDD3EF104DF13676429A8BD26A2FA8F7EA2FE3F19375"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\09-full-tests.txt",
+      "acceptedSha256": "F44C412CA7AB5967709B9E51834015FF4113BA5DF09B3382F2A028E93F62F530",
+      "actualSha256": "F44C412CA7AB5967709B9E51834015FF4113BA5DF09B3382F2A028E93F62F530"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\10-platform-focused.txt",
+      "acceptedSha256": "FAF92EF04C7F1C0C9C5A174D83A74DDA197C82D6A14A06A0185288BA66EC38D1",
+      "actualSha256": "FAF92EF04C7F1C0C9C5A174D83A74DDA197C82D6A14A06A0185288BA66EC38D1"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\11-platform-typecheck.txt",
+      "acceptedSha256": "05EB38710F63DE6489FC20DC58DDE04175930C3499E3375D8D7CE36CFA54B261",
+      "actualSha256": "05EB38710F63DE6489FC20DC58DDE04175930C3499E3375D8D7CE36CFA54B261"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\12-platform-production.txt",
+      "acceptedSha256": "42462096C49D3F0174D6AA3C19473E7D10BC0D7D1E00770E214BFB73B178940D",
+      "actualSha256": "42462096C49D3F0174D6AA3C19473E7D10BC0D7D1E00770E214BFB73B178940D"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\13-platform-contracts.txt",
+      "acceptedSha256": "7E1090246DCB54E7335E7F6A7F3E600AA1F4A0A806B29A11FDE50DD2C669B382",
+      "actualSha256": "7E1090246DCB54E7335E7F6A7F3E600AA1F4A0A806B29A11FDE50DD2C669B382"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\14-preservation.txt",
+      "acceptedSha256": "E2A9A928913BDD7EE221735EEADB7C4D02BB8283061AFD9F0BEB2FB00D56FE5C",
+      "actualSha256": "E2A9A928913BDD7EE221735EEADB7C4D02BB8283061AFD9F0BEB2FB00D56FE5C"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\before.json",
+      "acceptedSha256": "93383B0ECD1EA80990F2D5FB56692CB851EF0540826D123119D68DD4E5B3EA14",
+      "actualSha256": "93383B0ECD1EA80990F2D5FB56692CB851EF0540826D123119D68DD4E5B3EA14"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\commands.json",
+      "acceptedSha256": "C846275E2205E19CE78CB13C06701D09FE2DABE3AF671545AF1C300ECFEC5DD6",
+      "actualSha256": "C846275E2205E19CE78CB13C06701D09FE2DABE3AF671545AF1C300ECFEC5DD6"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-06-build.txt",
+      "acceptedSha256": "F37878C5765A2CE54BC342F6D3DDE3E6DC4BB043C5B074A969CD00274A843F77",
+      "actualSha256": "F37878C5765A2CE54BC342F6D3DDE3E6DC4BB043C5B074A969CD00274A843F77"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-07-typecheck.txt",
+      "acceptedSha256": "36D4CB0CD96B07965D9E8669A085ECDAD1A32189F0956F9110B1E21CF2B49C3B",
+      "actualSha256": "36D4CB0CD96B07965D9E8669A085ECDAD1A32189F0956F9110B1E21CF2B49C3B"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-08-strict.txt",
+      "acceptedSha256": "D2CDA9654D83EE7CB928F931B7AC276EE9770BFACFF8DF6C6AC2ECC1D9004B46",
+      "actualSha256": "D2CDA9654D83EE7CB928F931B7AC276EE9770BFACFF8DF6C6AC2ECC1D9004B46"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-11-platform-typecheck.txt",
+      "acceptedSha256": "1374EB8620A506EC27575E045052BD26BE304A3855D5CEEB2EF5501DA4708D7D",
+      "actualSha256": "1374EB8620A506EC27575E045052BD26BE304A3855D5CEEB2EF5501DA4708D7D"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-12-platform-production.txt",
+      "acceptedSha256": "AD3FE9C6DD5315A6DA1B4E3C9FA9E2665FE5A62E24B2254791207BEAC9A0D646",
+      "actualSha256": "AD3FE9C6DD5315A6DA1B4E3C9FA9E2665FE5A62E24B2254791207BEAC9A0D646"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\corrected-commands.json",
+      "acceptedSha256": "7BC41F92C987A424323C4AE1643895143DC20A38745B0600ADA7AEF0A70666EA",
+      "actualSha256": "7BC41F92C987A424323C4AE1643895143DC20A38745B0600ADA7AEF0A70666EA"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\npm-invocations.jsonl",
+      "acceptedSha256": "3DFD63C4290DCDA0E6CA02D5C5873140AB14DBF5F6BFA1BCBF1E177C2AAA7426",
+      "actualSha256": "3DFD63C4290DCDA0E6CA02D5C5873140AB14DBF5F6BFA1BCBF1E177C2AAA7426"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\preservation.cjs",
+      "acceptedSha256": "46A670E03E598750D1BDBA58B2A0AD379BB5874A7868647DB0DF0AF7E44255BB",
+      "actualSha256": "46A670E03E598750D1BDBA58B2A0AD379BB5874A7868647DB0DF0AF7E44255BB"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\preservation.json",
+      "acceptedSha256": "F11782135F28B92CAADE5A1C9E4980EFE94EE84ACC0B85691B6EF52689CB5633",
+      "actualSha256": "F11782135F28B92CAADE5A1C9E4980EFE94EE84ACC0B85691B6EF52689CB5633"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\retry.cjs",
+      "acceptedSha256": "BFB119274EE14629874D69AD1FC42640217FB6F29255EC009EC276D07F82BB57",
+      "actualSha256": "BFB119274EE14629874D69AD1FC42640217FB6F29255EC009EC276D07F82BB57"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\run.cjs",
+      "acceptedSha256": "77291F65F1F423A59EE15D26C87018AA233B8166A4F4367BEC8A3676F02ADA79",
+      "actualSha256": "77291F65F1F423A59EE15D26C87018AA233B8166A4F4367BEC8A3676F02ADA79"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r1\\trace-npm.cjs",
+      "acceptedSha256": "566DE9BEF67BD35746C58899D29FB8B2FE193A79C2C7611756E5341E9115C106",
+      "actualSha256": "566DE9BEF67BD35746C58899D29FB8B2FE193A79C2C7611756E5341E9115C106"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\ds0-wp2-r1-implementation-acceptance-report.md",
+      "acceptedSha256": "39B22777348C9DEFE0F68BD90EA20821126FDE5BBD88ACA5CE6BBB7581C41544",
+      "actualSha256": "39B22777348C9DEFE0F68BD90EA20821126FDE5BBD88ACA5CE6BBB7581C41544"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\ds0-wp2-r1-acceptance-record.md",
+      "acceptedSha256": "62042A0DEE1E47253CE7BD6683DEE6B2A95EF1F9C5018F77EC76088C1C39F260",
+      "actualSha256": "62042A0DEE1E47253CE7BD6683DEE6B2A95EF1F9C5018F77EC76088C1C39F260"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\02-initial-focused.txt",
+      "acceptedSha256": "1E5AB4075266890718CF1782604CB51780ADBA789BEB7BA63BC04E8F703FBE2D",
+      "actualSha256": "1E5AB4075266890718CF1782604CB51780ADBA789BEB7BA63BC04E8F703FBE2D"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\03-test-strict.txt",
+      "acceptedSha256": "B2EA44F9D558711199B22E2E05CC27273B684B60F86E895D513198722E736C9B",
+      "actualSha256": "B2EA44F9D558711199B22E2E05CC27273B684B60F86E895D513198722E736C9B"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\05-expanded-focused.txt",
+      "acceptedSha256": "C6C9A16FECA9990D4B7A3F59B9F8D76386DBC8C3C718A667C17132B35C72D5B4",
+      "actualSha256": "C6C9A16FECA9990D4B7A3F59B9F8D76386DBC8C3C718A667C17132B35C72D5B4"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\07-build.txt",
+      "acceptedSha256": "D00F84D47D909EE2EF6D66AF677B4B53304930A7B2BBDCE25D3726E4ACEB8DBD",
+      "actualSha256": "D00F84D47D909EE2EF6D66AF677B4B53304930A7B2BBDCE25D3726E4ACEB8DBD"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\07-focused.txt",
+      "acceptedSha256": "3F185C90CDF91229DF6546E90AF706FCE953F0EEFC793E39F9023DEDB743CF4D",
+      "actualSha256": "3F185C90CDF91229DF6546E90AF706FCE953F0EEFC793E39F9023DEDB743CF4D"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\08-typecheck.txt",
+      "acceptedSha256": "DEDD4A9AF9717579C9303682072178BDF68E88C4E981FDE83F748E07B91AB782",
+      "actualSha256": "DEDD4A9AF9717579C9303682072178BDF68E88C4E981FDE83F748E07B91AB782"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\09-expanded-focused.txt",
+      "acceptedSha256": "756A526D35BBAF6782C7BF0DC061608D415D5084336270581FB55DBFFEADFD4B",
+      "actualSha256": "756A526D35BBAF6782C7BF0DC061608D415D5084336270581FB55DBFFEADFD4B"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\09-strict.txt",
+      "acceptedSha256": "30090654A1DF9C0D4A6999660D31CA9D9FE84063301B21146F674E51899E7A90",
+      "actualSha256": "30090654A1DF9C0D4A6999660D31CA9D9FE84063301B21146F674E51899E7A90"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\10-full-tests.txt",
+      "acceptedSha256": "EF06C5A85E4CF7A6E5AAC42B21EC8557D7FB0EFEEC3D57A11E1A07A4F6DE0D45",
+      "actualSha256": "EF06C5A85E4CF7A6E5AAC42B21EC8557D7FB0EFEEC3D57A11E1A07A4F6DE0D45"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\11-platform-focused.txt",
+      "acceptedSha256": "06485E6613D5C30B8B10BAAA76AA38695CE0235C4DDB12FC9D753A14B5AA4A1E",
+      "actualSha256": "06485E6613D5C30B8B10BAAA76AA38695CE0235C4DDB12FC9D753A14B5AA4A1E"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\12-platform-typecheck.txt",
+      "acceptedSha256": "E1F6749DD27DCD0BE0BCF3DDEE76BD128183162153C1C91C3040BB58F10B0409",
+      "actualSha256": "E1F6749DD27DCD0BE0BCF3DDEE76BD128183162153C1C91C3040BB58F10B0409"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\13-platform-production.txt",
+      "acceptedSha256": "FB1582D8B6CD74796D0FBEC973D2915B76B2103B8FF4B449BB20AAB068B77AC4",
+      "actualSha256": "FB1582D8B6CD74796D0FBEC973D2915B76B2103B8FF4B449BB20AAB068B77AC4"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\14-platform-contracts.txt",
+      "acceptedSha256": "681D5CE56148515B05ED8A7F8EB9EA7037787947E30E0C84304A6AAD6D0379EC",
+      "actualSha256": "681D5CE56148515B05ED8A7F8EB9EA7037787947E30E0C84304A6AAD6D0379EC"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\15-preservation.txt",
+      "acceptedSha256": "74667C3CFF8FA2F3BFE59825E53E870A2062D84865856DB3DAB7944BF30DC31A",
+      "actualSha256": "74667C3CFF8FA2F3BFE59825E53E870A2062D84865856DB3DAB7944BF30DC31A"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\16-preservation.txt",
+      "acceptedSha256": "70B5CBE14AC6BBACDB663E7785F800592C3E30E0E8C9762322583263B81935E0",
+      "actualSha256": "70B5CBE14AC6BBACDB663E7785F800592C3E30E0E8C9762322583263B81935E0"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\17-consumer-isolated.txt",
+      "acceptedSha256": "21A19C9EF4F2D64F04F450AFD801CA47A33B469AD620DCA7D354A96D13432915",
+      "actualSha256": "21A19C9EF4F2D64F04F450AFD801CA47A33B469AD620DCA7D354A96D13432915"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\18-watcher-isolated.txt",
+      "acceptedSha256": "2D560F363B143823FA324D15249E19A6CC2EB2D06F174C22F470862A072539F2",
+      "actualSha256": "2D560F363B143823FA324D15249E19A6CC2EB2D06F174C22F470862A072539F2"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\19-platform-contracts-serial.txt",
+      "acceptedSha256": "9FA2D89D446C4A55CE3394DF69804C38996687CE083DEDD0AA8ECE6325416B0C",
+      "actualSha256": "9FA2D89D446C4A55CE3394DF69804C38996687CE083DEDD0AA8ECE6325416B0C"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\20-final-preservation.txt",
+      "acceptedSha256": "70B5CBE14AC6BBACDB663E7785F800592C3E30E0E8C9762322583263B81935E0",
+      "actualSha256": "70B5CBE14AC6BBACDB663E7785F800592C3E30E0E8C9762322583263B81935E0"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\before.json",
+      "acceptedSha256": "67BE5AB0CAEDFF0FB33BCA650BE575F45ABF6B809E2C78914E10A378B4481EAF",
+      "actualSha256": "67BE5AB0CAEDFF0FB33BCA650BE575F45ABF6B809E2C78914E10A378B4481EAF"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\commands.json",
+      "acceptedSha256": "7B4B05F7343DAC2265CFA67E7ECD2425338EAD59F8B8413ED298FF74A3E8CABA",
+      "actualSha256": "7B4B05F7343DAC2265CFA67E7ECD2425338EAD59F8B8413ED298FF74A3E8CABA"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\isolated-commands.json",
+      "acceptedSha256": "9090C1E7D1C2FEFCF152B74D414C1701F9D792320C7751883171F2E8F5C33E8B",
+      "actualSha256": "9090C1E7D1C2FEFCF152B74D414C1701F9D792320C7751883171F2E8F5C33E8B"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\isolated.cjs",
+      "acceptedSha256": "883B7134566221C4E29E3755E026D25632F05EB3884D88658446AB0D38AC8F6D",
+      "actualSha256": "883B7134566221C4E29E3755E026D25632F05EB3884D88658446AB0D38AC8F6D"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\npm-invocations.jsonl",
+      "acceptedSha256": "3E7F3D7EBFBF955C91B387F021975E64E669C0019BD10F7A7120498C39D793B9",
+      "actualSha256": "3E7F3D7EBFBF955C91B387F021975E64E669C0019BD10F7A7120498C39D793B9"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\preservation.json",
+      "acceptedSha256": "DA1C5C5A206D6C46FDDE16E5319AB52972EA31CCB97AAFB28E603C312B10F17A",
+      "actualSha256": "DA1C5C5A206D6C46FDDE16E5319AB52972EA31CCB97AAFB28E603C312B10F17A"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\preserve.cjs",
+      "acceptedSha256": "B48D20CF234371294BCC84D920B43C9E2F5AF110456C997A98D52C7B1DFDFD67",
+      "actualSha256": "B48D20CF234371294BCC84D920B43C9E2F5AF110456C997A98D52C7B1DFDFD67"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\retry-14-platform-contracts.txt",
+      "acceptedSha256": "DF753251FB3775596BD9595C2ACAC78B4074EF286AC0F27E8184C89D8A34623F",
+      "actualSha256": "DF753251FB3775596BD9595C2ACAC78B4074EF286AC0F27E8184C89D8A34623F"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\retry-commands.json",
+      "acceptedSha256": "7FF363505A295F71C215403F520EB722E1276AC365E78813BD7803EBFE516E11",
+      "actualSha256": "7FF363505A295F71C215403F520EB722E1276AC365E78813BD7803EBFE516E11"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\retry.cjs",
+      "acceptedSha256": "87578EF0BAC3B5A393C2FC78681EBBA9C35BB811FA164F695947B9A62983DDF5",
+      "actualSha256": "87578EF0BAC3B5A393C2FC78681EBBA9C35BB811FA164F695947B9A62983DDF5"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\run.cjs",
+      "acceptedSha256": "E3C73E93B0135139B8D7F189729E1346AEC9BAAFC24AAF413471C0B815528743",
+      "actualSha256": "E3C73E93B0135139B8D7F189729E1346AEC9BAAFC24AAF413471C0B815528743"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\serial-command.json",
+      "acceptedSha256": "A4E666C1E0A9152B529B8047F0436E1BB81B98A8EF3C69FB07B90C2253DDA225",
+      "actualSha256": "A4E666C1E0A9152B529B8047F0436E1BB81B98A8EF3C69FB07B90C2253DDA225"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\serial.cjs",
+      "acceptedSha256": "2BE47C43B614460CE91662972C583565CB99D88B40B8BCF7348DF0FEF2214496",
+      "actualSha256": "2BE47C43B614460CE91662972C583565CB99D88B40B8BCF7348DF0FEF2214496"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\ds0-wp2-r3\\trace-npm.cjs",
+      "acceptedSha256": "566DE9BEF67BD35746C58899D29FB8B2FE193A79C2C7611756E5341E9115C106",
+      "actualSha256": "566DE9BEF67BD35746C58899D29FB8B2FE193A79C2C7611756E5341E9115C106"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\ds0-wp2-r3-implementation-acceptance-report.md",
+      "acceptedSha256": "8FEE2EF0E6BCB70EEC688CF32ED3DC7FEE29578D9E3527BE1BF6F157E0168D64",
+      "actualSha256": "8FEE2EF0E6BCB70EEC688CF32ED3DC7FEE29578D9E3527BE1BF6F157E0168D64"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\ds0-wp2-r2-acceptance-record.md",
+      "acceptedSha256": "6BE80F1EBFDE7C4456BE185619881A6E0FE364EE798B4603205FEB1640FB4CAA",
+      "actualSha256": "6BE80F1EBFDE7C4456BE185619881A6E0FE364EE798B4603205FEB1640FB4CAA"
+    }
+  ],
+  "preservedStopReport": {
+    "expected": "29A153B763589C22FDF816D91C09D820F2631A3FEA345BDB20548DFF23683260",
+    "actual": "29A153B763589C22FDF816D91C09D820F2631A3FEA345BDB20548DFF23683260"
+  },
+  "interfaceInspection": [
+    {
+      "path": "packages/orm/package.json",
+      "sha256": "0F8BCAD2A07712520695E95E85B1C2D1C259F4AB51A47FC564004F4C02E8FBE7"
+    },
+    {
+      "path": "packages/orm/src/index.ts",
+      "sha256": "EE9709D9AC23AA92C46E7BB7C7573844403628C54B94A1222FBB41B9F88185A9"
+    },
+    {
+      "path": "packages/orm/src/types.ts",
+      "sha256": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E"
+    },
+    {
+      "path": "packages/orm/src/json-file-orm.ts",
+      "sha256": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984"
+    },
+    {
+      "path": "packages/dataset-operations/package.json",
+      "sha256": "51D8BB5B661929C98BF2C558CB4E6B5C4B88A2CC4BF60B6F2950CD0E117650F0"
+    },
+    {
+      "path": "packages/dataset-operations/src/index.ts",
+      "sha256": "2B0E4BCD95E2CBCB08E5E08AD07885B75D1CEE160E08C8AD85CB583A8052C57F"
+    },
+    {
+      "path": "packages/dataset-operations/src/types.ts",
+      "sha256": "A410A19E4D0E7EB0511CB565560D7DCD19F1CBB5CD1D372B8645FBF117BD1362"
+    },
+    {
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "sha256": "E93CC4F6CEEE0E332FB3994361E02ECF583EC51B6236A9B3F31E37284D9E6932"
+    },
+    {
+      "path": "packages/dataset-operations/src/request-handler.ts",
+      "sha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C"
+    },
+    {
+      "path": "packages/i-am/package.json",
+      "sha256": "7A30068524A7CE6875D315860E3778B57C66DE2DEF7DB88DB8F3F4ECA17B3FE0"
+    },
+    {
+      "path": "packages/i-am/src/index.ts",
+      "sha256": "21A71E9F663BC334B206655DCD50EA0601934325015C6EDE4076A610ABE663A1"
+    },
+    {
+      "path": "packages/i-am/src/types.ts",
+      "sha256": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19"
+    },
+    {
+      "path": "packages/i-am/src/authorization-service.ts",
+      "sha256": "F9946FCD77F379B6F293149D3D27F1A816600BCC923561C34A67C8787DEE82BC"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-host.ts",
+      "sha256": "285E6EC89510AE8B28A1358F7FB9D223FA70A6BB29F02CD759941C724DCD3FC1"
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/r2-fixtures.ts",
+      "sha256": "B596E1782AC96BFE2DA11CDC37A505BA543B5BD0FE875455CD2972F768DE4747"
+    },
+    {
+      "path": "packages/dataset-operations/tests/recovery.test.ts",
+      "sha256": "2D5C41641F5A9B071F8BDD6C57B933F0446A6D00A98CF052D57085238B47F11D"
+    }
+  ],
+  "changedFiles": [
+    "packages/dataset-operations/tests/activation-http.test.ts"
+  ],
+  "untrackedDataServices": "",
+  "node": "v24.19.0",
+  "npm": {
+    "invocations": 25,
+    "versions": [
+      "10.8.2"
+    ]
+  },
+  "historicalQualification": [
+    {
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "acceptedCheckoutSha256": "17BA38F99F04464FD489D41A329AC25FA785A4798D90B042BCC94BBD354BE721",
+      "gitBlobSha256": "A25C2975A29A5A9428C9C7722C5A0406319E47CF69119CE4A5A111693E65360A",
+      "crlfCheckoutSha256": "4DA96A414195719EFBE35B8B1691F9CFA4CE57500776404C8A9C835B9E75EDE0",
+      "match": "historical-checkout-bytes-not-reconstructed"
+    }
+  ],
+  "unexpectedSourceChanges": [],
+  "evidenceMismatches": []
+}

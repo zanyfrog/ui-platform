@@ -1,0 +1,36 @@
+[
+  {
+    "name": "04-c2-strict",
+    "args": [
+      "node_modules/typescript/bin/tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "ES2022",
+      "--module",
+      "NodeNext",
+      "--moduleResolution",
+      "NodeNext",
+      "packages/dataset-operations/tests/activation-http.test.ts"
+    ],
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "start": "2026-09-30T00:51:28.965Z",
+    "end": "2026-09-30T00:51:30.132Z",
+    "exit": 0
+  },
+  {
+    "name": "05-c2-focused",
+    "args": [
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "packages/dataset-operations/tests/activation-http.test.ts",
+      "-t",
+      "C2"
+    ],
+    "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "start": "2026-09-30T00:51:30.134Z",
+    "end": "2026-09-30T00:51:32.600Z",
+    "exit": 0
+  }
+]

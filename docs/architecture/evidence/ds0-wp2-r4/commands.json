@@ -1,0 +1,132 @@
+{
+  "node": "v24.19.0",
+  "npm": "10.8.2",
+  "npmPath": "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+  "results": [
+    {
+      "name": "07-build",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "build"
+      ],
+      "start": "2026-09-30T00:52:04.248Z",
+      "end": "2026-09-30T00:52:11.226Z",
+      "exit": 0
+    },
+    {
+      "name": "08-typecheck",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "start": "2026-09-30T00:52:11.369Z",
+      "end": "2026-09-30T00:52:16.883Z",
+      "exit": 0
+    },
+    {
+      "name": "09-strict",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--skipLibCheck",
+        "--target",
+        "ES2022",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "packages/dataset-operations/tests/recovery.test.ts",
+        "packages/dataset-operations/tests/recovery-failures.test.ts",
+        "packages/dataset-operations/tests/recovery-process.test.ts",
+        "packages/dataset-operations/tests/support/recovery-child.ts",
+        "packages/dataset-operations/tests/activation-http.test.ts",
+        "packages/dataset-operations/tests/activation-process.test.ts",
+        "packages/dataset-operations/tests/activation-drain.test.ts",
+        "packages/schema-application/tests/verification.test.ts",
+        "packages/schema-application/tests/fingerprint.test.ts",
+        "packages/schema-application/tests/resolver.test.ts",
+        "packages/schema-application/tests/r1-consumer-fixture.ts",
+        "packages/dataset-operations/tests/operation-security.test.ts",
+        "packages/i-am/tests/write-scope-containment.test.ts",
+        "packages/dataset-operations/tests/result-consumer-fixture.ts"
+      ],
+      "start": "2026-09-30T00:52:17.021Z",
+      "end": "2026-09-30T00:52:18.451Z",
+      "exit": 0
+    },
+    {
+      "name": "10-full-tests",
+      "cwd": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "start": "2026-09-30T00:52:18.588Z",
+      "end": "2026-09-30T00:52:34.869Z",
+      "exit": 0
+    },
+    {
+      "name": "11-platform-focused",
+      "cwd": "C:\\Projects\\Modular\\ui-platform",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "packages/artifacts/tests/schema-adapter-compatibility.test.ts",
+        "packages/artifacts/tests/migrations-deployment.test.ts"
+      ],
+      "start": "2026-09-30T00:52:35.009Z",
+      "end": "2026-09-30T00:52:38.108Z",
+      "exit": 0
+    },
+    {
+      "name": "12-platform-typecheck",
+      "cwd": "C:\\Projects\\Modular\\ui-platform",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "start": "2026-09-30T00:52:38.247Z",
+      "end": "2026-09-30T00:52:40.815Z",
+      "exit": 0
+    },
+    {
+      "name": "13-platform-production",
+      "cwd": "C:\\Projects\\Modular\\ui-platform",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "check:editor-production"
+      ],
+      "start": "2026-09-30T00:52:40.943Z",
+      "end": "2026-09-30T00:52:43.915Z",
+      "exit": 0
+    },
+    {
+      "name": "14-platform-contracts",
+      "cwd": "C:\\Projects\\Modular\\ui-platform",
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:/Users/zanyf/AppData/Local/Temp/ds0-stab0-npm-10.8.2/package/bin/npm-cli.js",
+        "run",
+        "check:editor-contracts"
+      ],
+      "start": "2026-09-30T00:52:44.038Z",
+      "end": "2026-09-30T00:52:53.179Z",
+      "exit": 0
+    }
+  ]
+}
