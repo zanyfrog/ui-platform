@@ -1,0 +1,31 @@
+{
+  "completedUtc": "2026-09-30T15:15:45.1519060Z",
+  "scope": "Read-only IAM-0 architecture/evidence audit; documentation outputs only",
+  "report": "docs/architecture/iam-0-requirements-architecture-gap-review.md",
+  "reportSha256": "3D843ADC67B9698057F0499410A8FFF32CC8787E77429B059C5983C17EAF213A",
+  "inventory": "docs/architecture/evidence/iam-0/source-inventory.json",
+  "inventorySha256": "5FD181125E0A36509EFE031D2A10FD5779C29EDA4DBED50CEED67AC6D76839B6",
+  "protectedSourceCount": 55,
+  "protectedSourceChanges": [],
+  "scoutsFileCount": 19,
+  "scoutsFileChanges": [],
+  "missingLocalLinks": [],
+  "trailingWhitespaceLines": 0,
+  "markdownFenceCount": 0,
+  "scoutsTopLevelTestDeclarations": 23,
+  "dataServicesStatus": [],
+  "uiBaseStatus": [],
+  "platformStatusBeforeVerificationFile": [
+    "?? docs/architecture/evidence/iam-0/",
+    "?? docs/architecture/iam-0-requirements-architecture-gap-review.md"
+  ],
+  "runtimeTestsExecuted": false,
+  "buildsExecuted": false,
+  "commitsCreated": false,
+  "initialCommandQualifications": [
+    "UI Base Git ownership check failed initially; command-local safe.directory read succeeded. No global config changed.",
+    "A guessed Forms_Architecture.md source path was missing; actual inventory/search used instead.",
+    "A source-reading command returned a session handle; polled to completion. No reference program was executed."
+  ],
+  "disposition": "STOP at IAM-0 review gate; no implementation work package authorized."
+}

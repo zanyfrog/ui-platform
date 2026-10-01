@@ -1,0 +1,75 @@
+{
+  "review": "WP0 D1-D7 approved with D6 recovery clarification; awaiting separate WP1 instruction",
+  "capturedUtc": "2026-10-01T17:45:06.126Z",
+  "baseline": {
+    "platform": "f2d2ae336fc050e096f2209a2d6c9278486832dd",
+    "dataServices": "b5c1466c2825c76a36ea78f986192fefd4f3569b"
+  },
+  "architecture": {
+    "path": "C:/Users/zanyf/Downloads/ui-platform-i-am-architecture-and-implementation-waypoints.md",
+    "sha256": "865f970a4e07b748bb0a5bab3ba3e3ca36fd3e91442388fc3b01803e2f1d58f8"
+  },
+  "sourcePreservation": {
+    "checked": 55,
+    "mismatches": []
+  },
+  "documents": [
+    {
+      "path": "docs/architecture/iam-wp0-contract-reconciliation.md",
+      "sha256": "763ccf57c19c80c80abb60b0a9bd3a568d62d48d741094067a49b357305b874d"
+    },
+    {
+      "path": "docs/architecture/iam-wp0/contracts.proposed.ts",
+      "sha256": "30128bc693f6f4959c002ad34bf4fd097c2501ef3e5af54640e1bbd8ba902357"
+    },
+    {
+      "path": "docs/architecture/iam-wp0/file-formats.md",
+      "sha256": "0d10f97743375faaa65d5c1ea80290b2e42033e0494026050cf308abe8ea81ff"
+    },
+    {
+      "path": "docs/architecture/iam-wp0/migration-plan.md",
+      "sha256": "907888c43e10c840b74f78d14eb03e9c0175857d7303e8d296fe03e34343296e"
+    },
+    {
+      "path": "docs/architecture/iam-wp0/acceptance-matrix.md",
+      "sha256": "a0251e43079a29730ae8f2a95a9402d5cacfbdb6f5c137942cb9abb51eee4d7f"
+    }
+  ],
+  "jsonExamplesParsed": 7,
+  "brokenLinks": [],
+  "proposalCompilation": {
+    "command": "node node_modules/typescript/bin/tsc --ignoreConfig --noEmit --strict --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler docs/architecture/iam-wp0/contracts.proposed.ts",
+    "exitCode": 0,
+    "output": ""
+  },
+  "plannedAcceptanceCases": 66,
+  "duplicateAcceptanceIds": [],
+  "iam0GapsMapped": [
+    "IAM-01",
+    "IAM-02",
+    "IAM-03",
+    "IAM-04",
+    "IAM-05",
+    "IAM-06",
+    "IAM-07",
+    "IAM-08",
+    "IAM-09",
+    "IAM-10",
+    "IAM-11",
+    "IAM-12",
+    "IAM-13",
+    "IAM-14",
+    "IAM-15",
+    "IAM-16",
+    "IAM-17"
+  ],
+  "runtimeTestsExecuted": false,
+  "productionImplementationChanges": false,
+  "notes": [
+    "First compiler invocation required --ignoreConfig for the installed TypeScript; corrected command recorded here.",
+    "JSON parsing establishes example syntax only, not implementation of proposed semantic validation.",
+    "Proposal strict compilation is self-contained, not proof of old/new package integration.",
+    "IAM-0 report/evidence were already untracked at start and are preserved.",
+    "No runtime, deployment, provider, credentials, migrations or policy activation exercised."
+  ]
+}

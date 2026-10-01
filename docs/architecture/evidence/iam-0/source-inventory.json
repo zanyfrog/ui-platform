@@ -1,0 +1,419 @@
+{
+  "review": "IAM-0 read-only source and architecture audit",
+  "capturedUtc": "2026-09-30T14:34:16.9266007Z",
+  "roots": {
+    "uiBase": "C:\\Projects\\Modular\\ui-base",
+    "platform": "C:\\Projects\\Modular\\ui-platform",
+    "dataServices": "C:\\Projects\\Modular\\UI Platform Data Services",
+    "scouts": "C:\\Projects\\scouts\\scouts-i-am\\scouts-i-am-main"
+  },
+  "heads": {
+    "uiBase": "96898f73809272e680fcb3402f064a039fff4350",
+    "platform": "f2d2ae336fc050e096f2209a2d6c9278486832dd",
+    "dataServices": "b5c1466c2825c76a36ea78f986192fefd4f3569b"
+  },
+  "initialWorkingTrees": "All three clean",
+  "archive": "C:\\Projects\\scouts\\scouts-i-am-main.zip",
+  "archiveSha256": "087EF31F19CA409E5F83834DC077DE91BFF1A8D3CE29C95E878E68918845E608",
+  "downloadArchiveMatches": true,
+  "archiveEntries": [
+    {
+      "path": ".dockerignore",
+      "archiveSha256": "6A8B843206E18208079CF8C743D4AB485CFC72717B0DF64A1A48EAC80F88F62E",
+      "checkoutSha256": "6A8B843206E18208079CF8C743D4AB485CFC72717B0DF64A1A48EAC80F88F62E",
+      "matches": true
+    },
+    {
+      "path": ".gitignore",
+      "archiveSha256": "927EB816CADE990593840FFFB54DE21CFC995A003993283031650E1582B316C9",
+      "checkoutSha256": "927EB816CADE990593840FFFB54DE21CFC995A003993283031650E1582B316C9",
+      "matches": true
+    },
+    {
+      "path": "Dockerfile",
+      "archiveSha256": "385F0A472C403EBC9C76BC07E16C73FECFDF211D62EDEAC3C7236B662D3250B5",
+      "checkoutSha256": "385F0A472C403EBC9C76BC07E16C73FECFDF211D62EDEAC3C7236B662D3250B5",
+      "matches": true
+    },
+    {
+      "path": "README.md",
+      "archiveSha256": "3A9DD21E18D7AB29BD1254E1F64CEFB13014DC9E93C521A31E293C45F1EEBEC5",
+      "checkoutSha256": "3A9DD21E18D7AB29BD1254E1F64CEFB13014DC9E93C521A31E293C45F1EEBEC5",
+      "matches": true
+    },
+    {
+      "path": "check-in-and-push.command",
+      "archiveSha256": "FAB28B32F1973AAE18680BA5215F19E122A1A0C53860BE1B9D7256D2A2E87E70",
+      "checkoutSha256": "FAB28B32F1973AAE18680BA5215F19E122A1A0C53860BE1B9D7256D2A2E87E70",
+      "matches": true
+    },
+    {
+      "path": "check-in-and-push.ps1",
+      "archiveSha256": "A35DCBBDFC9F7AAEBA8389A36B60CB0B23A91EE39E44506132C910C5DCCE1B18",
+      "checkoutSha256": "A35DCBBDFC9F7AAEBA8389A36B60CB0B23A91EE39E44506132C910C5DCCE1B18",
+      "matches": true
+    },
+    {
+      "path": "data/store.json",
+      "archiveSha256": "11928AC5BDDB4A22E661DF64F0F39BE0CE33E6309E35A3677DDD03A971903BA2",
+      "checkoutSha256": "11928AC5BDDB4A22E661DF64F0F39BE0CE33E6309E35A3677DDD03A971903BA2",
+      "matches": true
+    },
+    {
+      "path": "docker-compose.yml",
+      "archiveSha256": "DE8843ECCE618A9F982DE738CA2BE5728BA813027E0F3A4E96C0AE62F68E313C",
+      "checkoutSha256": "DE8843ECCE618A9F982DE738CA2BE5728BA813027E0F3A4E96C0AE62F68E313C",
+      "matches": true
+    },
+    {
+      "path": "package.json",
+      "archiveSha256": "AAFE94B643A8D4E044571C736D48F8AB35A9E31000C00E08052151DDB6F4D807",
+      "checkoutSha256": "AAFE94B643A8D4E044571C736D48F8AB35A9E31000C00E08052151DDB6F4D807",
+      "matches": true
+    },
+    {
+      "path": "redeploy-docker.command",
+      "archiveSha256": "B0D96C6F4488FBE04E418EE6A5A6B255AE35C298F1F533B2CE15CCD9AE428B8C",
+      "checkoutSha256": "B0D96C6F4488FBE04E418EE6A5A6B255AE35C298F1F533B2CE15CCD9AE428B8C",
+      "matches": true
+    },
+    {
+      "path": "redeploy-docker.ps1",
+      "archiveSha256": "5C9AC839B0CC56D5ABCB61CD36EB66720FEF4C19980C1C2D61209FCDF68B2F38",
+      "checkoutSha256": "5C9AC839B0CC56D5ABCB61CD36EB66720FEF4C19980C1C2D61209FCDF68B2F38",
+      "matches": true
+    },
+    {
+      "path": "src/auth-system.js",
+      "archiveSha256": "FC29011ED224391D4FD68DDBBD8970A062EABF219D88ECC3F981360B2AA6D450",
+      "checkoutSha256": "FC29011ED224391D4FD68DDBBD8970A062EABF219D88ECC3F981360B2AA6D450",
+      "matches": true
+    },
+    {
+      "path": "src/constants.js",
+      "archiveSha256": "78DEB35E7767C80AA89E0BFBEF6F5BAA9F6B4085A400B4E6E221B274C88C7DC9",
+      "checkoutSha256": "78DEB35E7767C80AA89E0BFBEF6F5BAA9F6B4085A400B4E6E221B274C88C7DC9",
+      "matches": true
+    },
+    {
+      "path": "src/json-store.js",
+      "archiveSha256": "48DBD19718AC3B2BAF7E1F02F1DFED01993F81A10ADB72F740A74384D4205371",
+      "checkoutSha256": "48DBD19718AC3B2BAF7E1F02F1DFED01993F81A10ADB72F740A74384D4205371",
+      "matches": true
+    },
+    {
+      "path": "src/local-demo-sync.js",
+      "archiveSha256": "A9D35D6D6628A37A3FB968F2D42A8B134370BBA816C6CF53016EACC407441BC7",
+      "checkoutSha256": "A9D35D6D6628A37A3FB968F2D42A8B134370BBA816C6CF53016EACC407441BC7",
+      "matches": true
+    },
+    {
+      "path": "src/security-catalog.js",
+      "archiveSha256": "929F54A1FB28D2F39C17DEB3887C0D53361BAF79408A1E83C8F983816DA36FFB",
+      "checkoutSha256": "929F54A1FB28D2F39C17DEB3887C0D53361BAF79408A1E83C8F983816DA36FFB",
+      "matches": true
+    },
+    {
+      "path": "src/security.js",
+      "archiveSha256": "15358C1D9914BC1FCE441943AFE648C50A34548D9FD3383D22DEC2358E204A32",
+      "checkoutSha256": "15358C1D9914BC1FCE441943AFE648C50A34548D9FD3383D22DEC2358E204A32",
+      "matches": true
+    },
+    {
+      "path": "src/server.js",
+      "archiveSha256": "3CF2446CA5AC9B9C3CE7C2B9BB89A17745BEF84475BDEAC1B6CE5EDB9577A219",
+      "checkoutSha256": "3CF2446CA5AC9B9C3CE7C2B9BB89A17745BEF84475BDEAC1B6CE5EDB9577A219",
+      "matches": true
+    },
+    {
+      "path": "tests/auth-system.test.js",
+      "archiveSha256": "659A7BB8529B233971E06908BDA34D52321440BF67E73282F4058D21532834C8",
+      "checkoutSha256": "659A7BB8529B233971E06908BDA34D52321440BF67E73282F4058D21532834C8",
+      "matches": true
+    }
+  ],
+  "sourceFiles": [
+    {
+      "repository": "uiBase",
+      "path": "package.json",
+      "sha256": "711DCE72054AA08F713321B1C62DAC0DDE829D0F59884D3797464EC6B202531F"
+    },
+    {
+      "repository": "uiBase",
+      "path": "package-lock.json",
+      "sha256": "2A8BE906BE643F1DCBD2F33685ED5C3B711E99740F3D19CDB542276608A4673E"
+    },
+    {
+      "repository": "uiBase",
+      "path": "packages/ui-base-forms/src/uib-forms-form.js",
+      "sha256": "BB8707A55200CA9DC3711EBBB9A8F3873E6E2A4177FBBAFF029E02FF08F9483F"
+    },
+    {
+      "repository": "platform",
+      "path": "package.json",
+      "sha256": "12119B498DA03FFE022E85BF077AD0493AA4A61584A4B4654DB79E1BA5D123D9"
+    },
+    {
+      "repository": "platform",
+      "path": "package-lock.json",
+      "sha256": "5E4A3F737256772D16427A4EB78B1E86336E8B11E4F555998BA76882DFC79EFA"
+    },
+    {
+      "repository": "platform",
+      "path": "src/server/index.ts",
+      "sha256": "AE4D0024FB9EC768918CE007F12DB26130A85E3FCBA2883111734F5AD8023F0D"
+    },
+    {
+      "repository": "platform",
+      "path": "src/server/editor-security.ts",
+      "sha256": "9A3585DC604D28EA4BBD3507E715B2E6B17544147568C686D54D3FD9D30A8415"
+    },
+    {
+      "repository": "platform",
+      "path": "src/server/editor-security-config.ts",
+      "sha256": "956A2E1045CCF6F05E05530B49EDB243AD20E8684AC6DC350123856F87565DE3"
+    },
+    {
+      "repository": "platform",
+      "path": "src/shared/editor-security.ts",
+      "sha256": "B92BC11431EC3B2A42996087EADAB41EF1316FC23E3FCCDF274C2860D065B55D"
+    },
+    {
+      "repository": "platform",
+      "path": "src/shared/presentation.ts",
+      "sha256": "9D93DB635D8C6DD1E51E66B44930877907FFCCA304D2BD999BF004E81632BB2E"
+    },
+    {
+      "repository": "platform",
+      "path": "src/server/application-presentation.ts",
+      "sha256": "C57B56F923F46D9EF6D72E26F67E46C13B69DE14A447431E66ABD8DA6BA18CB4"
+    },
+    {
+      "repository": "platform",
+      "path": "src/client/artifact-editor/session.ts",
+      "sha256": "0DFC2FB0D316319B7BC0CBFB1247F30C150347151848713F9124195449A6ECEA"
+    },
+    {
+      "repository": "platform",
+      "path": "src/client/artifact-editor/context.ts",
+      "sha256": "BC5492451C299B9C721842C1DAD16599AC92BD162E532454867D3AB9CD3869E2"
+    },
+    {
+      "repository": "platform",
+      "path": "packages/artifacts/src/artifact-service.ts",
+      "sha256": "B68911F4A81062F5E680D38F3CC4D094A33427792A174B5D249B2146B0A732BA"
+    },
+    {
+      "repository": "platform",
+      "path": "packages/artifacts/src/types.ts",
+      "sha256": "A683F4A6D8E62CFE45EDF97CB05670465BA0EC3AE69535AF2276846230065C3F"
+    },
+    {
+      "repository": "platform",
+      "path": "packages/artifacts/src/cli.ts",
+      "sha256": "F04F6561C0C5AFEE67877F0354B1A54C9132A6158F9D6F4141EE929334DBB242"
+    },
+    {
+      "repository": "platform",
+      "path": "packages/artifacts/src/application/migrations.ts",
+      "sha256": "8B42937F18844DAA45F8C4AE7740D874B1542A35C6BEDC589766704545EFDDE5"
+    },
+    {
+      "repository": "platform",
+      "path": "packages/artifacts/src/application/deployment.ts",
+      "sha256": "3125B64BAE4AAC23033604C0670DF2E5F052D9F9B1E5263ECBBB7BC0AD5AC2A7"
+    },
+    {
+      "repository": "platform",
+      "path": "packages/artifacts/src/application/json-provider.ts",
+      "sha256": "92C95F00364651297A9093EA5E088B9E54D8EFD55F745FE2F621F4BFBD1A6515"
+    },
+    {
+      "repository": "platform",
+      "path": "packages/artifacts/src/definitions.ts",
+      "sha256": "ECC458960409BD2B9EB5ACC48AA9073EEAC89A9AF850F3B165C363DD87B73B2E"
+    },
+    {
+      "repository": "platform",
+      "path": "packages/artifacts/src/application/compiler.ts",
+      "sha256": "8B4789973B315F91886245BE71D698600161E64386FABB120476A8173273A79D"
+    },
+    {
+      "repository": "platform",
+      "path": "tests/editor-security.test.ts",
+      "sha256": "A9C3799DF6129A54D64682CE5C4A69B8925EDE6C38C0233BCBC3E7E10C30F935"
+    },
+    {
+      "repository": "platform",
+      "path": "docs/architecture/artifact-editor-phase2-wp1.md",
+      "sha256": "430C28D89BC5EAD7989441FA80A083D4FA2B16C082FD9EDBABFBE548AEDC6936"
+    },
+    {
+      "repository": "platform",
+      "path": "docs/architecture/ds0-wp2-g5-acceptance-record.md",
+      "sha256": "9080BB2119D5DC6D8B3C2FC497047DB1290180E52FF011EE3F457C5F597BAA78"
+    },
+    {
+      "repository": "platform",
+      "path": "docs/architecture/ds0-wp2-r4-consolidated-g5-report.md",
+      "sha256": "73950716B9C28C1543BE761329477A738705ACA971317C399DCFDF04F2668C49"
+    },
+    {
+      "repository": "platform",
+      "path": "docs/architecture/data-architecture.md",
+      "sha256": "F57E49FE5E99E232308A08E2F055A2CA5FEBADACD998B0E6976D224DE2253BC5"
+    },
+    {
+      "repository": "platform",
+      "path": "docs/architecture/admin-architecture.md",
+      "sha256": "C722EEE5A7BE875D4EE5D0AF0A098811745E2504E4F46BCABEF96E7B927F1802"
+    },
+    {
+      "repository": "platform",
+      "path": "docs/architecture/service-architecture.md",
+      "sha256": "AE152F5603D3656C7A3BAD616C6F3900BAD7B8C490F2E1B5244F026D96003189"
+    },
+    {
+      "repository": "platform",
+      "path": "docs/decisions/architecture-decision-record.md",
+      "sha256": "12FCA6681A79793C3ACD315F3AD10F31CDD1C39FFBA58186231325F0CC1EAFE0"
+    },
+    {
+      "repository": "dataServices",
+      "path": "package.json",
+      "sha256": "AE023970BD83C1C393745090A0749B8AED3D7DE3B2F58F2E79DD83190FB3E55A"
+    },
+    {
+      "repository": "dataServices",
+      "path": "package-lock.json",
+      "sha256": "84C088FD3F0652700B25A3A367CED095A8962229075F49405CF4F3B443A4155F"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/i-am/package.json",
+      "sha256": "7A30068524A7CE6875D315860E3778B57C66DE2DEF7DB88DB8F3F4ECA17B3FE0"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/i-am/README.md",
+      "sha256": "86C529FA5D7801CE22D0E22370920530E19597313DE5177FC94F3B4B0EFAA682"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/i-am/src/index.ts",
+      "sha256": "21A71E9F663BC334B206655DCD50EA0601934325015C6EDE4076A610ABE663A1"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/i-am/src/types.ts",
+      "sha256": "B72D502E005928DE3D8E6D869A91DE9E9B55CAF42BDD896428977C5705FA9E19"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/i-am/src/authorization-service.ts",
+      "sha256": "F9946FCD77F379B6F293149D3D27F1A816600BCC923561C34A67C8787DEE82BC"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/i-am/src/policy-store.ts",
+      "sha256": "235C69FD9D69981E712DB52CF28A899179B8EA8FF9B5BC2DC72775EE8216D2DF"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/i-am/src/token-verifier.ts",
+      "sha256": "26894F1D5DA129D121FBA1D07D76C5EBD91FFF834BB25C4E82249BB488D8F917"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/i-am/src/service.ts",
+      "sha256": "65E0300BAFAA91E7D118312FFA0FA9575413D8B2E757063423A446D710A64207"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/i-am/tests/write-scope-containment.test.ts",
+      "sha256": "A750DEBD05AF6C906E541158DC61A45DB33345318DC67595B70A832D06A33602"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/dataset-operations/src/operation-manager.ts",
+      "sha256": "E93CC4F6CEEE0E332FB3994361E02ECF583EC51B6236A9B3F31E37284D9E6932"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/dataset-operations/src/types.ts",
+      "sha256": "A410A19E4D0E7EB0511CB565560D7DCD19F1CBB5CD1D372B8645FBF117BD1362"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/dataset-operations/src/request-handler.ts",
+      "sha256": "B5966D472CD2ED387A6768D6D575940ED7065DAEC8143A8179CDF15B9E497C4C"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/dataset-operations/src/service.ts",
+      "sha256": "4140CF1D59802B972F36F9260B7F6AC636925F0C9895B6CF037BC5E561902D5A"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/dataset-operations/src/trigger-registry.ts",
+      "sha256": "0E5079408C2FECDECC2F1E15E59AE3672B691CF701A4F6A3DF06661837F5EBA0"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/dataset-operations/tests/operation-manager.test.ts",
+      "sha256": "164200BA83ACEEA09CC2CD44835BC993D6098B9980D04C79142F967183DBDE20"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/dataset-operations/tests/operation-security.test.ts",
+      "sha256": "786CFC3EF519865E28CEFB7829064CFA675E42D66844378F32511D94AD4D9B2D"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/dataset-operations/tests/activation-http.test.ts",
+      "sha256": "04B74ACD584C9078AA7231C4F3236634DD12242F5B5A7571F8D833D84148FDB1"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/orm/src/types.ts",
+      "sha256": "DA332644F871D63982E1B67E2FE9891BE31E5B1420B4EA51F671ADA513BBCC8E"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/orm/src/json-file-orm.ts",
+      "sha256": "773319A3FCE449AE2645DD1BA67C0DAD45CB378C84D56B7C8852A2D95B31D984"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/orm/src/service.ts",
+      "sha256": "AB0E4033010E5A2F13D184368616CCF1C32AE7A530F80ED8AB7A4B7005E12CFB"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/schema-manager/src/service.ts",
+      "sha256": "0728F5C9EB6E56D4B732A57E2157C32109D6D5F073CE9DE348821E8192B4060A"
+    },
+    {
+      "repository": "dataServices",
+      "path": "packages/trigger-manager/src/service.ts",
+      "sha256": "4A1AC5525A0D86A5E3161E3528F98A32ADA0AB51AE1FD55D46FED9D80F550EAA"
+    },
+    {
+      "repository": "dataServices",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/I-AM_Architecture.md",
+      "sha256": "360FE651912D12EB655622098A6C8446F131CAACCAF8EF6A75FC64AD2B0C0173"
+    },
+    {
+      "repository": "dataServices",
+      "path": "_architecture_v2/UI_Platform_Data_Services_Architecture_V2/Dataset_Operation_Manager_Architecture.md",
+      "sha256": "9376E0E95ECA36929A6B427427A9388738A82E285BBC9992E3E5588A95266ECB"
+    }
+  ],
+  "runtimeTestsExecuted": false,
+  "notes": [
+    "No Scouts data/store.json contents were displayed or interpreted; only bytes hashed.",
+    "No source, tests, package manifests or locks changed. No server, installer, build or test was run.",
+    "Scouts reference provenance is archive hash, not an inferred Git commit.",
+    "Source inventory hashes are raw checkout bytes, not Git-normalized blobs."
+  ]
+}
