@@ -1,6 +1,6 @@
 # I-AM WP0 — architecture and contract reconciliation
 
-Date: 2026-10-01. **WP0 contracts/file-editing model approved with D6 clarification. STOP at WP0; WP1 is not authorized.**
+Date: 2026-10-01. **WP0 contracts/file-editing model accepted; WP1 authorized on 2026-10-01. WP2 remains outside this authorization.**
 
 ## Scope and authority
 
@@ -135,4 +135,4 @@ No further information is needed to close the WP0 contract gate. The deployment'
 
 Deliverables complete for review; runtime behavior unchanged. Verification is limited to source/preservation checks, proposal TypeScript strict checking and document checks recorded in evidence. The acceptance matrix describes future required evidence, not passing tests. Existing STAB, G5, editor, watcher and deployment limitations remain open as listed in IAM-0.
 
-**STOP. WP0 contracts and file/editing model are approved with D6 clarification. Await a separate instruction to begin WP1; D1–D7 approval does not authorize implementation of WP1–9.**
+**WP0 accepted. The user separately authorized WP1 only on 2026-10-01. WP1 must stop at its own acceptance gate; WP2–9 are not authorized.**

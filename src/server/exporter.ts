@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, lstat, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { appPath, getApp } from './applications.js';
@@ -35,6 +35,7 @@ function zipFolder(folder: string, zipFile: string): Promise<void> {
 export async function exportApp(key: string): Promise<{ zipFile: string; downloadName: string }> {
   const app = await getApp(key);
   if (!app.valid) throw new Error(`Cannot export invalid app: ${app.issues.join(', ')}`);
+  await assertPortableSecurityBoundary(appPath(key));
   const exportId = `${key}-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
   const exportDir = path.join(runtimeDir, 'exports', exportId);
   const appDir = path.join(exportDir, 'app');
@@ -78,6 +79,17 @@ export async function exportApp(key: string): Promise<{ zipFile: string; downloa
   const zipFile = path.join(runtimeDir, 'exports', `${exportId}.zip`);
   await zipFolder(exportDir, zipFile);
   return { zipFile, downloadName: `${key}-export.zip` };
+}
+
+/** Until Blueprint owns a security-aware allowlist, the broad portable ZIP must
+ * not carry operational security files from an application's security root. */
+export async function assertPortableSecurityBoundary(sourceAppDir: string): Promise<void> {
+  const securityPath = path.join(sourceAppDir, 'security');
+  const entry = await lstat(securityPath).catch((error: NodeJS.ErrnoException) => {
+    if (error.code === 'ENOENT') return null;
+    throw error;
+  });
+  if (entry) throw new Error('Application security content requires Blueprint security export validation.');
 }
 
 async function vendorExternalFileDependencies(

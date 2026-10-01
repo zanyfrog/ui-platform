@@ -45,7 +45,7 @@ const matrix = fs.readFileSync(path.join(root, relativeFiles[4]), 'utf8');
 const cases = [...matrix.matchAll(/^\| (W\d-\d+) \|/gm)].map(m => m[1]);
 const gaps = [...matrix.matchAll(/^\| (IAM-\d+) /gm)].map(m => m[1]);
 const result = {
-  review: 'WP0 D1-D7 approved with D6 recovery clarification; awaiting separate WP1 instruction',
+  review: 'WP0 accepted with D1-D7, D6 recovery clarification, and Blueprint ownership amendment; WP1 authorized separately',
   capturedUtc: new Date().toISOString(),
   baseline: { platform: inventory.heads.platform, dataServices: inventory.heads.dataServices },
   architecture: { path: 'C:/Users/zanyf/Downloads/ui-platform-i-am-architecture-and-implementation-waypoints.md', sha256: sha('C:/Users/zanyf/Downloads/ui-platform-i-am-architecture-and-implementation-waypoints.md') },
