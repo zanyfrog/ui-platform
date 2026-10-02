@@ -3,10 +3,12 @@ import http from 'node:http';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { randomUUID } from 'node:crypto';
 import { ArtifactEditorWorkspace } from '../src/server/artifact-editor.js';
 import { ArtifactEditorSecurity, fixtureAuthorizer, type EditorSecurityOptions } from '../src/server/editor-security.js';
 import { editorSecurityConfig } from '../src/server/editor-security-config.js';
 import type { EditorSessionDto } from '../src/shared/editor-security.js';
+import { SecurityDefinitionService, SecurityDefinitionStore, parseSecurityDocument, reconcileSecurityDirectory, securityChecksum } from '@ui-platform/i-am/definitions';
 
 const cleanups: (() => Promise<unknown>)[] = [];
 afterEach(async () => { vi.restoreAllMocks(); for (const cleanup of cleanups.splice(0).reverse()) await cleanup(); });
@@ -26,7 +28,13 @@ async function fixture(overrides: Partial<EditorSecurityOptions> = {}) {
         files: type === 'form' ? { definition: 'form.json' } : {}, config: type === 'route' ? { path: '/', page: 'secret-trigger' } : {} }));
       if (type === 'form') await writeFile(path.join(bundle, 'form.json'), '{"fields":[]}');
     }
-    workspaces.set(appKey, new ArtifactEditorWorkspace(appRoot, appKey, event => security.publish(event)));
+    workspaces.set(appKey, new ArtifactEditorWorkspace(appRoot, appKey, event => security.publish(event), undefined, console.error, overrides.securityDefinitions ? {
+      stage: (text, actorId) => {
+        const parsed = parseSecurityDocument(text);
+        const old = parsed.document && overrides.securityDefinitions!.active().find(item => item.definition.id === parsed.document!.definition.id);
+        return overrides.securityDefinitions!.stageText({ text, expectedChecksum: old && securityChecksum(old), source: 'ui', actorId, idempotencyKey: randomUUID(), expectedRevision: overrides.securityDefinitions!.revision() });
+      },
+    } : undefined));
   }
   const server = http.createServer((req, res) => { void security.handle(req, res).then(handled => { if (!handled) {
     const url = new URL(req.url ?? '/', 'http://localhost');
@@ -78,6 +86,55 @@ async function fixture(overrides: Partial<EditorSecurityOptions> = {}) {
 }
 
 describe('editor HTTP authorization around the real workspace', () => {
+  it('stages and explicitly activates a WP1 application draft only through a development administrator session', async () => {
+    const dbRoot = await mkdtemp(path.join(os.tmpdir(), 'iam-http-stage-')); cleanups.push(() => rm(dbRoot, { recursive: true, force: true }));
+    const store = new SecurityDefinitionStore(path.join(dbRoot, 'security.sqlite')); cleanups.push(async () => store.close());
+    const service = new SecurityDefinitionService(store), f = await fixture({ securityDefinitions: service });
+    const document = { format: 'ui-platform.security', formatVersion: 1, definition: { kind: 'role', id: 'role-a', key: 'reader', name: 'Reader', status: 'active', owner: { kind: 'application', applicationId: 'alpha' }, permissionSets: [] } };
+    const route = '/api/apps/alpha/security/stage';
+    expect((await f.request(route, { method: 'POST', body: { text: JSON.stringify(document), expectedRevision: 0, idempotencyKey: 'stage-a' } })).status).toBe(401);
+    const editor = await f.client('editor');
+    expect((await editor.call(route, 'POST', { text: JSON.stringify(document), expectedRevision: 0, idempotencyKey: 'stage-editor' })).status).toBe(403);
+    const admin = await f.client('admin');
+    expect((await admin.call(route, 'POST', { text: JSON.stringify(document), expectedRevision: 0, idempotencyKey: 'stage-no-csrf' }, { 'x-editor-csrf': 'wrong' })).status).toBe(403);
+    const staged = await admin.call(route, 'POST', { text: JSON.stringify(document), expectedRevision: 0, idempotencyKey: 'stage-a' });
+    expect(staged.status).toBe(200); expect(staged.body.activatable).toBe(true); expect(service.revision()).toBe(0);
+    expect(service.candidateRequest(staged.body.id)?.actorId).toBe('dev-admin');
+    const activation = await admin.call('/api/apps/alpha/security/activate', 'POST', { candidateId: staged.body.id, checksum: staged.body.checksum });
+    expect(activation.status).toBe(200); expect(activation.body).toMatchObject({ status: 'activated', revision: 1 });
+    expect(service.audit()).toMatchObject([{ actorId: 'dev-admin', source: 'api' }]);
+    expect((await admin.call('/api/apps/beta/security/activate', 'POST', { candidateId: staged.body.id, checksum: staged.body.checksum })).status).toBe(403);
+    const uiBundle = path.join(f.root, 'alpha', 'role-ui'); await mkdir(uiBundle);
+    const uiDocument = { ...document, definition: { ...document.definition, id: 'role-ui', key: 'role-ui', name: 'UI Role' } };
+    await writeFile(path.join(uiBundle, 'artifact.json'), JSON.stringify({ schemaVersion: 1, artifactId: 'role-ui', artifactType: 'security.role', name: 'UI Role', definitionVersion: 1, files: { definition: 'definition.json' } }));
+    await writeFile(path.join(uiBundle, 'definition.json'), JSON.stringify(uiDocument));
+    const uiLocator = await f.locator('role-ui'), uiRoute = `/api/apps/alpha/artifacts/${uiLocator}`;
+    const loaded = await admin.call(uiRoute);
+    const saved = await admin.call(uiRoute, 'PUT', { expectedChecksum: loaded.body.checksum, files: { 'definition.json': JSON.stringify({ ...uiDocument, definition: { ...uiDocument.definition, name: 'Edited UI Role' } }) } });
+    expect(saved.status).toBe(200); expect(saved.body.securityStageStatus).toBe('staged'); expect(saved.body.securityCandidate.activatable).toBe(true);
+    expect(service.candidateRequest(saved.body.securityCandidate.id)?.source).toBe('ui');
+    expect(service.revision()).toBe(1);
+    expect(() => new ArtifactEditorSecurity({ enabled: false, environment: 'production', developmentRuntime: false, origins: [], fixtures: [], workspace: async () => { throw new Error(); }, securityDefinitions: service })).toThrow('requires the authenticated development source server');
+  });
+  it('requires an authenticated explicit activation after filesystem reconciliation', async () => {
+    const dbRoot = await mkdtemp(path.join(os.tmpdir(), 'iam-reconcile-http-')); cleanups.push(() => rm(dbRoot, { recursive: true, force: true }));
+    const store = new SecurityDefinitionStore(path.join(dbRoot, 'security.sqlite')); cleanups.push(async () => store.close());
+    const service = new SecurityDefinitionService(store), f = await fixture({ securityDefinitions: service });
+    const bundle = path.join(dbRoot, 'source', 'role-a'); await mkdir(bundle, { recursive: true });
+    const document = { format: 'ui-platform.security', formatVersion: 1, definition: { kind: 'role', id: 'role-a', key: 'reader', name: 'Reader', status: 'active', owner: { kind: 'application', applicationId: 'alpha' }, permissionSets: [] } };
+    await writeFile(path.join(bundle, 'artifact.json'), JSON.stringify({ schemaVersion: 1, artifactId: 'role-a', artifactType: 'security.role', name: 'Reader', definitionVersion: 1, files: { definition: 'definition.json' } }));
+    await writeFile(path.join(bundle, 'definition.json'), JSON.stringify(document));
+    const candidates: Array<{ id: string; checksum: string }> = [];
+    const watcher = reconcileSecurityDirectory(path.join(dbRoot, 'source'), service, event => { if (event.candidate) candidates.push(event.candidate); });
+    cleanups.push(async () => watcher.close());
+    expect(candidates).toHaveLength(1);
+    expect(service.candidateRequest(candidates[0].id)?.actorId).toBe('unverified-file');
+    expect(service.revision()).toBe(0);
+    const admin = await f.client('admin');
+    const activated = await admin.call('/api/apps/alpha/security/activate', 'POST', { candidateId: candidates[0].id, checksum: candidates[0].checksum });
+    expect(activated.body).toMatchObject({ status: 'activated', revision: 1 });
+    expect(service.audit()).toMatchObject([{ actorId: 'dev-admin', source: 'text-reconcile' }]);
+  });
   it('rejects every unauthenticated artifact endpoint and SSE without trusting identity headers', async () => {
     const f = await fixture(), id = await f.locator('public-form');
     for (const [endpoint, method] of [[`/api/apps/alpha/artifacts`, 'GET'], [`/api/apps/alpha/artifacts/${id}`, 'GET'], [`/api/apps/alpha/artifacts/${id}`, 'PUT'], [`/api/apps/alpha/artifacts/${id}/validation`, 'GET'], [`/api/apps/alpha/artifacts/${id}/references`, 'GET'], ['/api/events', 'GET']]) {

@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { cp, lstat, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, lstat, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { appPath, getApp } from './applications.js';
@@ -84,12 +84,25 @@ export async function exportApp(key: string): Promise<{ zipFile: string; downloa
 /** Until Blueprint owns a security-aware allowlist, the broad portable ZIP must
  * not carry operational security files from an application's security root. */
 export async function assertPortableSecurityBoundary(sourceAppDir: string): Promise<void> {
-  const securityPath = path.join(sourceAppDir, 'security');
-  const entry = await lstat(securityPath).catch((error: NodeJS.ErrnoException) => {
-    if (error.code === 'ENOENT') return null;
-    throw error;
-  });
-  if (entry) throw new Error('Application security content requires Blueprint security export validation.');
+  const excluded = new Set(['node_modules', 'dist', 'dist-server', '.git', '.vite']);
+  const unsafe = () => { throw new Error('Application security content requires Blueprint security export validation.'); };
+  async function inspect(dir: string): Promise<void> {
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+      if (excluded.has(entry.name)) continue;
+      const file = path.join(dir, entry.name);
+      if (/^(security|iam|credentials?|secrets?|sessions?|mfa|assignments?|memberships?|service-approvals?|grant-boundaries?|security-audit)(\.(json|ya?ml|txt))?$/i.test(entry.name)) unsafe();
+      const info = await lstat(file);
+      if (info.isSymbolicLink()) unsafe();
+      if (info.isDirectory()) { await inspect(file); continue; }
+      if (entry.name === 'artifact.json') {
+        const content = await readFile(file, 'utf8');
+        let manifest: unknown;
+        try { manifest = JSON.parse(content); } catch { if (/security\./i.test(content)) unsafe(); continue; }
+        if (manifest && typeof manifest === 'object' && 'artifactType' in manifest && typeof manifest.artifactType === 'string' && manifest.artifactType.startsWith('security.')) unsafe();
+      }
+    }
+  }
+  await inspect(sourceAppDir);
 }
 
 async function vendorExternalFileDependencies(

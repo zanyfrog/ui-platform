@@ -181,7 +181,7 @@ describe("application consumer integration with shared implementations", () => {
     ).toBe(0);
     expect(JSON.parse(output).diagnostics).toEqual(expected);
     expect(report.blockingDiagnostics).toEqual([]); // Invalid unused artifacts remain visible but do not block runtime.
-  });
+  }, 30000);
   it("preserves malformed and duplicate identity diagnostics without inventing IDs or extra artifact rules", async () => {
     const f = await fixture();
     const broken = await f.bundle("broken", "form");

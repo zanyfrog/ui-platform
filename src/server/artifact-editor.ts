@@ -3,6 +3,9 @@ import { randomUUID } from 'node:crypto';
 import { ArtifactConflictError, ArtifactValidationError, FileSystemArtifactService, type EditableArtifact, type ArtifactWatchEvent, type ArtifactValidationResult } from '@ui-platform/artifacts';
 import type { EditorArtifactDto, EditorSaveDto, EditorWatchEvent } from '../shared/artifact-editor.js';
 import { presentationForArtifact } from './editor-presentation.js';
+export interface SecurityDraftStager {
+  stage(text: string, actorId: string, source: 'ui'): { id: string; checksum: string; activatable: boolean; diagnostics: Array<{ code: string; path: string; message: string }> };
+}
 
 export class EditorRequestError extends Error {
   constructor(public status: number, public code: string, message: string) { super(message); }
@@ -15,7 +18,8 @@ export class ArtifactEditorWorkspace {
   constructor(readonly root: string, readonly appKey: string,
     private publish: (event: EditorWatchEvent) => void = () => {},
     private buildQueue?: { onSourceChanged(file: string): Promise<unknown> },
-    private reportError: (error: unknown) => void = console.error) {
+    private reportError: (error: unknown) => void = console.error,
+    private securityDrafts?: SecurityDraftStager) {
     this.service = new FileSystemArtifactService({ root });
   }
   locator(bundle: string): string {
@@ -46,16 +50,23 @@ export class ArtifactEditorWorkspace {
   async load(token: string) { return this.project(await this.service.load(this.location(token))); }
   async validate(token: string) { const bundle = this.location(token); return this.validation(await this.service.validate(bundle), bundle); }
   async references(token: string) { return this.service.getReferences(this.location(token)); }
-  async save(token: string, input: unknown) {
+  async save(token: string, input: unknown, actorId?: string) {
     if (!input || typeof input !== 'object' || Array.isArray(input)) throw new EditorRequestError(400, 'editor.request', 'A save object is required.');
     const value = input as EditorSaveDto;
     if (typeof value.expectedChecksum !== 'string' || !value.expectedChecksum) throw new EditorRequestError(400, 'editor.checksum', 'expectedChecksum is required.');
     if (value.manifest !== undefined && typeof value.manifest !== 'string' && (!value.manifest || typeof value.manifest !== 'object' || Array.isArray(value.manifest))) throw new EditorRequestError(400, 'editor.request', 'Invalid manifest representation.');
     if (value.files !== undefined && (!value.files || typeof value.files !== 'object' || Array.isArray(value.files) || Object.values(value.files).some(v => v !== null && typeof v !== 'string'))) throw new EditorRequestError(400, 'editor.request', 'File contents must be text or null.');
     const result = await this.service.save(this.location(token), { expectedChecksum: value.expectedChecksum, manifest: value.manifest, files: value.files });
+    const securitySource = result.artifact.manifest?.artifactType.startsWith('security.') && result.artifact.files.find(file => file.role === 'definition');
+    let securityCandidate: ReturnType<SecurityDraftStager['stage']> | undefined;
+    let securityStageStatus: 'staged' | 'failed' | 'unavailable' | undefined = securitySource ? 'unavailable' : undefined;
+    if (result.saved && securitySource && actorId && this.securityDrafts) {
+      try { securityCandidate = this.securityDrafts.stage(securitySource.content, actorId, 'ui'); securityStageStatus = 'staged'; }
+      catch (error) { securityStageStatus = 'failed'; this.reportError(error); }
+    }
     if (result.saved) this.changed({ kind: 'changed', bundlePath: result.artifact.bundlePath, artifact: result.artifact });
     const artifact = this.project(result.artifact);
-    return { saved: result.saved, artifact, validation: artifact.validation };
+    return { saved: result.saved, artifact, validation: artifact.validation, ...(securityStageStatus ? { securityStageStatus } : {}), ...(securityCandidate ? { securityCandidate } : {}) };
   }
   changed(event: ArtifactWatchEvent) {
     // A committed save must remain successful even if an observer fails.

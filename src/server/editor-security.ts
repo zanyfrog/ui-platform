@@ -1,6 +1,8 @@
 import { randomBytes } from 'node:crypto';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ArtifactValidationResult } from '@ui-platform/artifacts';
+import type { SecurityDefinitionService } from '@ui-platform/i-am/definitions';
+import { parseSecurityDocument } from '@ui-platform/i-am/definitions/validation';
 import { ArtifactEditorWorkspace, EditorRequestError, editorError } from './artifact-editor.js';
 import type { EditorArtifactDto, EditorWatchEvent } from '../shared/artifact-editor.js';
 import type { EditorOperation, EditorPrincipal, EditorSessionDto } from '../shared/editor-security.js';
@@ -24,6 +26,8 @@ export interface EditorSecurityOptions {
   origins: string[];
   fixtures: EditorPrincipal[];
   workspace(applicationKey: string): Promise<ArtifactEditorWorkspace>;
+  /** Optional isolated WP1 development authority; never accepted in production mode. */
+  securityDefinitions?: SecurityDefinitionService;
   /** Trusted server configuration, never inferred from request paths or emails. */
   ownership?: Record<string, 'application' | 'system' | 'package'>;
   authorizer?: EditorAuthorizer;
@@ -83,6 +87,9 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
   private subscriptions = new Set<{ session: Session; res: ServerResponse; appKey?: string; known: Map<string, EditorScope>; pending: Promise<void> }>();
   readonly enabled: boolean;
   constructor(private options: EditorSecurityOptions) {
+    if (options.securityDefinitions && (!options.enabled || options.environment !== 'development' || !options.developmentRuntime)) {
+      throw new Error('WP1 security authoring requires the authenticated development source server.');
+    }
     if (options.enabled && (options.environment !== 'development' || !options.developmentRuntime)) {
       throw new Error('Fixture authentication requires the development source server.');
     }
@@ -262,11 +269,12 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
     const isSession = url.pathname === '/api/editor/session';
     const isEvents = url.pathname === '/api/events';
     const isArtifact = parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'artifacts';
+    const isSecurity = this.enabled && !!this.options.securityDefinitions && parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'security' && parts.length === 5;
     const isApi = parts[0] === 'api';
-    if (!isSession && !isEvents && !isArtifact && !(this.enabled && isApi)) return false;
+    if (!isSession && !isEvents && !isArtifact && !isSecurity && !(this.enabled && isApi)) return false;
     try {
       this.boundary(req);
-      if (this.enabled && isApi && !isSession && !isEvents && !isArtifact) {
+      if (this.enabled && isApi && !isSession && !isEvents && !isArtifact && !isSecurity) {
         if (req.method === 'GET' && ['/api/health', '/api/templates', '/api/components'].includes(url.pathname)) return false;
         this.requireSession(req);
         const principal = this.currentPrincipal(req);
@@ -300,6 +308,31 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
       const appKey = decodeURIComponent(parts[2]);
       if (!appKeyPattern.test(appKey)) fail(400, 'editor.application', 'Invalid application key.');
       this.authorize(principal, 'discover', { applicationKey: appKey });
+      if (isSecurity) {
+        if (!principal.roleIds.includes('admin') || !this.options.securityDefinitions) fail(403, 'editor.security-forbidden', 'Security authoring requires a development administrator fixture.');
+        if (req.method !== 'POST') fail(405, 'editor.method', 'Method is not supported.');
+        this.csrf(req, session);
+        const input = await readBody(req), service = this.options.securityDefinitions!;
+        if (!service) fail(403, 'editor.security-forbidden', 'Security authoring is unavailable.');
+        this.assertCurrent(req, session, revision);
+        const belongsToApplication = (definition: { kind: string; owner?: { kind: string; applicationId?: string } }) => definition.owner?.kind === 'application' && definition.owner.applicationId === appKey;
+        if (parts[4] === 'stage') {
+          const text = input.text, idempotencyKey = input.idempotencyKey;
+          if (typeof text !== 'string' || !Number.isSafeInteger(input.expectedRevision) || typeof idempotencyKey !== 'string') fail(400, 'editor.request', 'Text, revision and idempotency key are required.');
+          const parsed = parseSecurityDocument(text as string);
+          if (parsed.document && !belongsToApplication(parsed.document.definition)) fail(403, 'editor.security-scope', 'Security definition belongs to another authority.');
+          const candidate = service.stageText({ text: text as string, expectedRevision: input.expectedRevision as number, expectedChecksum: typeof input.expectedChecksum === 'string' ? input.expectedChecksum : undefined, source: 'api', actorId: principal.subjectId, idempotencyKey: idempotencyKey as string });
+          send(res, 200, candidate); return true;
+        }
+        if (parts[4] === 'activate') {
+          const candidateId = input.candidateId, checksum = input.checksum;
+          if (typeof candidateId !== 'string' || typeof checksum !== 'string') fail(400, 'editor.request', 'Candidate ID and checksum are required.');
+          const request = service.candidateRequest(candidateId as string);
+          if (!request || request.changes.length === 0 || request.changes.some(change => !belongsToApplication(change.document.definition))) fail(403, 'editor.security-scope', 'Security candidate does not belong to this application.');
+          send(res, 200, service.activate(candidateId as string, checksum as string, principal.subjectId)); return true;
+        }
+        fail(404, 'editor.not-found', 'Security endpoint was not found.');
+      }
       const workspace = await this.options.workspace(appKey);
       if (parts.length === 4 && req.method === 'GET') {
         const { artifacts, visible, ids } = await this.visible(workspace, principal);
@@ -338,7 +371,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
           if (typeof input.expectedChecksum !== 'string' || !input.expectedChecksum) fail(400, 'editor.checksum', 'expectedChecksum is required.');
           fail(409, 'editor.conflict', 'Artifact changed on disk. Reload or resolve the conflict.');
         }
-        const save = workspace.save(locator, input);
+        const save = workspace.save(locator, input, principal.subjectId);
         const settled = save.then(() => undefined, () => undefined);
         session.writes.add(settled);
         let result;
@@ -347,7 +380,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
         this.assertCurrent(req, session, revision);
         const projected = await this.project(workspace, principal, result.artifact);
         this.assertCurrent(req, session, revision);
-        send(res, 200, { saved: result.saved, artifact: projected, validation: projected.validation }); return true;
+        send(res, 200, { saved: result.saved, artifact: projected, validation: projected.validation, ...('securityStageStatus' in result ? { securityStageStatus: result.securityStageStatus } : {}), ...('securityCandidate' in result ? { securityCandidate: result.securityCandidate } : {}) }); return true;
       }
       // load() already returns authoritative saved-source validation/references.
       // Use that same authorized snapshot: a second read could race an external

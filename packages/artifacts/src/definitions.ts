@@ -2,6 +2,7 @@ import path from "node:path";
 import ts from "typescript";
 import { datasetDefinition, migrationDefinition } from "./application/migration-definition.js";
 import { error, isObject } from "./bundle.js";
+import { securityArtifactDefinitions } from "./security-definitions.js";
 import type {
   ArtifactCapabilities,
   ArtifactDefinition,
@@ -469,6 +470,7 @@ export class ArtifactDefinitionRegistry {
         triggerDefinition,
         datasetDefinition,
         migrationDefinition,
+        ...securityArtifactDefinitions,
       ])
         this.register(definition);
   }

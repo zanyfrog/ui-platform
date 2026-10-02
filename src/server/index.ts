@@ -26,12 +26,17 @@ import { getActivePresentationCss, getApplicationPresentation, getDraftPresentat
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const editorSettings = await editorSecurityConfig();
+const wp1Module = editorSettings.enabled && process.env.NODE_ENV === 'development' && import.meta.url.endsWith('.ts')
+  ? await import('@ui-platform/i-am/definitions') : null;
+const wp1Store = wp1Module ? new wp1Module.SecurityDefinitionStore(path.join(runtimeDir, 'iam-wp1-development.sqlite')) : null;
+const wp1Service = wp1Store && wp1Module ? new wp1Module.SecurityDefinitionService(wp1Store) : null;
 const editorSecurity = new ArtifactEditorSecurity({
   ...editorSettings,
   environment: process.env.NODE_ENV ?? '',
   developmentRuntime: import.meta.url.endsWith('.ts'),
   origins: [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]),
   workspace: async key => { await getApp(key); return editorWorkspace(appPath(key)); },
+  securityDefinitions: wp1Service ?? undefined,
   audit: event => console.info('artifact-editor-security', JSON.stringify(event)),
 });
 const editorWorkspaces = new Map<string, ArtifactEditorWorkspace>();
@@ -40,7 +45,13 @@ function editorWorkspace(root: string) {
   if (!workspace) {
     workspace = new ArtifactEditorWorkspace(root, path.basename(root), event => {
       editorSecurity.publish(event);
-    });
+    }, undefined, console.error, wp1Service && wp1Module ? {
+      stage: (text, actorId) => {
+        const parsed = wp1Module.parseSecurityDocument(text);
+        const old = parsed.document && wp1Service.active().find(doc => doc.definition.id === parsed.document!.definition.id);
+        return wp1Service.stageText({ text, expectedChecksum: old && wp1Module.securityChecksum(old), source: 'ui', actorId, idempotencyKey: crypto.randomUUID(), expectedRevision: wp1Service.revision() });
+      },
+    } : undefined);
     editorWorkspaces.set(root, workspace);
   }
   return workspace;
@@ -334,6 +345,7 @@ async function shutdown() {
   await artifactWatcher?.close();
   stopAllPreviews();
   editorSecurity.close();
+  wp1Store?.close();
   server.close(() => process.exit(0));
 }
 process.on('SIGINT', shutdown);
