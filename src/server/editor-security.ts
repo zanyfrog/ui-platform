@@ -2,6 +2,7 @@ import { randomBytes } from 'node:crypto';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ArtifactValidationResult } from '@ui-platform/artifacts';
 import type { SecurityDefinitionService } from '@ui-platform/i-am/definitions';
+import type { SecurityAdministrationService } from '@ui-platform/i-am/administration';
 import { parseSecurityDocument } from '@ui-platform/i-am/definitions/validation';
 import { ArtifactEditorWorkspace, EditorRequestError, editorError } from './artifact-editor.js';
 import type { EditorArtifactDto, EditorWatchEvent } from '../shared/artifact-editor.js';
@@ -28,6 +29,8 @@ export interface EditorSecurityOptions {
   workspace(applicationKey: string): Promise<ArtifactEditorWorkspace>;
   /** Optional isolated WP1 development authority; never accepted in production mode. */
   securityDefinitions?: SecurityDefinitionService;
+  /** Optional WP3 development-only administrative gate; its trusted host verifies session principal handles. */
+  securityAdministration?: SecurityAdministrationService;
   /** Trusted server configuration, never inferred from request paths or emails. */
   ownership?: Record<string, 'application' | 'system' | 'package'>;
   authorizer?: EditorAuthorizer;
@@ -87,7 +90,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
   private subscriptions = new Set<{ session: Session; res: ServerResponse; appKey?: string; known: Map<string, EditorScope>; pending: Promise<void> }>();
   readonly enabled: boolean;
   constructor(private options: EditorSecurityOptions) {
-    if (options.securityDefinitions && (!options.enabled || options.environment !== 'development' || !options.developmentRuntime)) {
+    if ((options.securityDefinitions || options.securityAdministration) && (!options.enabled || options.environment !== 'development' || !options.developmentRuntime)) {
       throw new Error('WP1 security authoring requires the authenticated development source server.');
     }
     if (options.enabled && (options.environment !== 'development' || !options.developmentRuntime)) {
@@ -269,7 +272,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
     const isSession = url.pathname === '/api/editor/session';
     const isEvents = url.pathname === '/api/events';
     const isArtifact = parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'artifacts';
-    const isSecurity = this.enabled && !!this.options.securityDefinitions && parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'security' && parts.length === 5;
+    const isSecurity = this.enabled && !!(this.options.securityDefinitions || this.options.securityAdministration) && parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'security' && parts.length === 5;
     const isApi = parts[0] === 'api';
     if (!isSession && !isEvents && !isArtifact && !isSecurity && !(this.enabled && isApi)) return false;
     try {
@@ -309,27 +312,36 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
       if (!appKeyPattern.test(appKey)) fail(400, 'editor.application', 'Invalid application key.');
       this.authorize(principal, 'discover', { applicationKey: appKey });
       if (isSecurity) {
-        if (!principal.roleIds.includes('admin') || !this.options.securityDefinitions) fail(403, 'editor.security-forbidden', 'Security authoring requires a development administrator fixture.');
+        if (!this.options.securityAdministration && (!principal.roleIds.includes('admin') || !this.options.securityDefinitions)) fail(403, 'editor.security-forbidden', 'Security authoring requires a development administrator fixture.');
         if (req.method !== 'POST') fail(405, 'editor.method', 'Method is not supported.');
         this.csrf(req, session);
-        const input = await readBody(req), service = this.options.securityDefinitions!;
+        const input = await readBody(req), administration = this.options.securityAdministration, service = administration?.definitions ?? this.options.securityDefinitions;
         if (!service) fail(403, 'editor.security-forbidden', 'Security authoring is unavailable.');
         this.assertCurrent(req, session, revision);
-        const belongsToApplication = (definition: { kind: string; owner?: { kind: string; applicationId?: string } }) => definition.owner?.kind === 'application' && definition.owner.applicationId === appKey;
+        const belongsToApplication = (definition: { kind: string; owner?: { kind: string; applicationId?: string }; scope?: { resource?: { applicationId?: string | null } }; applicationId?: string }) => {
+          if (definition.kind === 'role-assignment' || definition.kind === 'service-assignment') return definition.scope?.resource?.applicationId === appKey;
+          if (definition.kind === 'group-membership' || definition.kind === 'service-use-approval') return definition.applicationId === appKey;
+          return definition.owner?.kind === 'application' && definition.owner.applicationId === appKey;
+        };
         if (parts[4] === 'stage') {
           const text = input.text, idempotencyKey = input.idempotencyKey;
           if (typeof text !== 'string' || !Number.isSafeInteger(input.expectedRevision) || typeof idempotencyKey !== 'string') fail(400, 'editor.request', 'Text, revision and idempotency key are required.');
           const parsed = parseSecurityDocument(text as string);
           if (parsed.document && !belongsToApplication(parsed.document.definition)) fail(403, 'editor.security-scope', 'Security definition belongs to another authority.');
-          const candidate = service.stageText({ text: text as string, expectedRevision: input.expectedRevision as number, expectedChecksum: typeof input.expectedChecksum === 'string' ? input.expectedChecksum : undefined, source: 'api', actorId: principal.subjectId, idempotencyKey: idempotencyKey as string });
+          const candidate = (administration ?? service!).stageText({ text: text as string, expectedRevision: input.expectedRevision as number, expectedChecksum: typeof input.expectedChecksum === 'string' ? input.expectedChecksum : undefined, source: 'api', actorId: principal.subjectId, idempotencyKey: idempotencyKey as string });
           send(res, 200, candidate); return true;
         }
         if (parts[4] === 'activate') {
           const candidateId = input.candidateId, checksum = input.checksum;
           if (typeof candidateId !== 'string' || typeof checksum !== 'string') fail(400, 'editor.request', 'Candidate ID and checksum are required.');
-          const request = service.candidateRequest(candidateId as string);
+          const request = service!.candidateRequest(candidateId as string);
           if (!request || request.changes.length === 0 || request.changes.some(change => !belongsToApplication(change.document.definition))) fail(403, 'editor.security-scope', 'Security candidate does not belong to this application.');
-          send(res, 200, service.activate(candidateId as string, checksum as string, principal.subjectId)); return true;
+          if (administration) {
+            if (!Number.isSafeInteger(input.expectedRevision) || typeof input.reason !== 'string') fail(400, 'editor.request', 'Revision and reason are required.');
+            const result = await administration.activate({ context: principal, candidateId: candidateId as string, checksum: checksum as string, expectedRevision: input.expectedRevision as number, applicationId: appKey, reason: input.reason as string });
+            send(res, 200, result); return true;
+          }
+          send(res, 200, service!.activate(candidateId as string, checksum as string, principal.subjectId)); return true;
         }
         fail(404, 'editor.not-found', 'Security endpoint was not found.');
       }

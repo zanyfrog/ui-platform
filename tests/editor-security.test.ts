@@ -9,6 +9,8 @@ import { ArtifactEditorSecurity, fixtureAuthorizer, type EditorSecurityOptions }
 import { editorSecurityConfig } from '../src/server/editor-security-config.js';
 import type { EditorSessionDto } from '../src/shared/editor-security.js';
 import { SecurityDefinitionService, SecurityDefinitionStore, parseSecurityDocument, reconcileSecurityDirectory, securityChecksum } from '@ui-platform/i-am/definitions';
+import { SecurityAuthorizationEvaluator, wp1StorePolicyAuthority } from '@ui-platform/i-am/evaluator';
+import { SecurityAdministrationService } from '@ui-platform/i-am/administration';
 
 const cleanups: (() => Promise<unknown>)[] = [];
 afterEach(async () => { vi.restoreAllMocks(); for (const cleanup of cleanups.splice(0).reverse()) await cleanup(); });
@@ -86,6 +88,58 @@ async function fixture(overrides: Partial<EditorSecurityOptions> = {}) {
 }
 
 describe('editor HTTP authorization around the real workspace', () => {
+  it('uses the WP3 graph and durable gate for real HTTP security activation, independent of fixture admin labels', async () => {
+    const dbRoot = await mkdtemp(path.join(os.tmpdir(), 'iam-wp3-http-')); cleanups.push(() => rm(dbRoot, { recursive: true, force: true }));
+    const store = new SecurityDefinitionStore(path.join(dbRoot, 'security.sqlite')); cleanups.push(async () => store.close());
+    const definitions = new SecurityDefinitionService(store);
+    const system = { authorityId: 'resources', applicationId: null, kind: 'system' as const, id: 'system' };
+    const application = { authorityId: 'resources', applicationId: 'alpha', kind: 'application' as const, id: 'alpha' };
+    const scope = { resource: application, descendants: true };
+    const owner = { kind: 'application' as const, applicationId: 'alpha' };
+    const initial = [
+      ...['dev-admin', 'dev-editor'].map(id => ({ kind: 'user', id, displayName: id, status: 'active' })),
+      { kind: 'permission', id: 'p-security', key: 'security', name: 'Security', status: 'active', owner, lifecycle: 'active', applicableKinds: ['application'] },
+      { kind: 'permission-set', id: 'set-security', key: 'set-security', name: 'Security', status: 'active', owner, includes: [], rules: [{ id: 'rule-security', permissionId: 'p-security', effect: 'allow', scope: { resource: application, descendants: false } }] },
+      { kind: 'role', id: 'role-security', key: 'role-security', name: 'Security', status: 'active', owner, permissionSets: [{ id: 'set-security' }] },
+      { kind: 'role-assignment', id: 'assignment-editor', userId: 'dev-editor', roleId: 'role-security', status: 'active', scope, startsAt: '2026-01-01T00:00:00Z', endsAt: null },
+      { kind: 'application-security', id: 'alpha', key: 'alpha', name: 'Application', status: 'active', owner, requiredAdministratorPermissionId: 'p-security', sharedPackages: [] },
+      { kind: 'grant-boundary', id: 'boundary-security', key: 'boundary-security', name: 'Boundary', status: 'active', owner: { kind: 'platform' }, beneficiary: { kind: 'role', id: 'role-security' }, scope, operations: ['create', 'edit', 'assign', 'revoke', 'activate', 'archive'], permissions: [{ permissionId: 'p-security', scope, predicateTemplateIds: [] }], serviceUseApprovalIds: [] },
+    ];
+    const seed = definitions.stage({ changes: initial.map(definition => ({ document: { format: 'ui-platform.security', formatVersion: 1, definition } as never })), expectedRevision: 0, source: 'api', actorId: 'trusted-seed', idempotencyKey: randomUUID() });
+    expect(seed.diagnostics).toEqual([]);
+    expect(definitions.activate(seed.id, seed.checksum, 'trusted-seed')).toMatchObject({ status: 'activated', revision: 1 });
+    const attested = new WeakSet<object>();
+    const actorId = (context: any) => { if (!context?.isDevelopmentFixture || !['dev-admin', 'dev-editor'].includes(context.subjectId)) throw new Error('UNTRUSTED'); return context.subjectId as string; };
+    const identity = {
+      async verify(context: unknown) { return { actorId: actorId(context), principalRevision: 'principal-1', sessionRevision: 'session-1' }; },
+      attestDecisionRequest(context: unknown, resource: any, permissionId: string, operationId: string) { const request = { context, resource, permissionId, operationId, fields: [] }; attested.add(request); return request; },
+    };
+    const evaluator = new SecurityAuthorizationEvaluator({ policy: wp1StorePolicyAuthority(store), identity: {
+      async verify(context) { return { principal: { type: 'user' as const, id: actorId(context) }, principalRevision: 'principal-1', sessionRevision: 'session-1' }; },
+      async assertRequest(request) { if (!attested.has(request)) throw new Error('UNATTESTED'); },
+    }, resources: { async revision() { return 'resources-1'; }, async resolve(ref) { for (const item of [{ ref: system }, { ref: application, parent: system }]) if (JSON.stringify(ref) === JSON.stringify(item.ref)) return { ...item, status: 'active' as const }; return undefined; } },
+      facts: { async revision() { return 'facts-1'; }, async resolve() { return { present: false as const }; } }, clock: () => new Date('2026-06-01T00:00:00Z') });
+    const administration = new SecurityAdministrationService(definitions, evaluator, identity, { async verify() { throw new Error('RECOVERY_DISABLED'); } }, {
+      contains(ceiling, requested) { const a = ceiling.resource, b = requested.resource; return a.authorityId === b.authorityId && a.id === b.id && a.kind === b.kind && (ceiling.descendants || !requested.descendants); },
+      permitsPredicate() { return false; },
+    }, { resourceAuthorityId: 'resources', systemResourceId: 'system', platformAdministratorPermissionId: 'p-platform', recoveryCapabilityId: 'recovery-1', deploymentId: 'deployment-1', clock: () => new Date('2026-06-01T00:00:00Z') });
+    const f = await fixture({ securityDefinitions: definitions, securityAdministration: administration });
+    const document = { format: 'ui-platform.security', formatVersion: 1, definition: { kind: 'role', id: 'new-role', key: 'new-role', name: 'New Role', status: 'active', owner, permissionSets: [] } };
+    const appAdmin = await f.client('admin'), securityAdmin = await f.client('editor');
+    const stage = await appAdmin.call('/api/apps/alpha/security/stage', 'POST', { text: JSON.stringify(document), expectedRevision: 1, idempotencyKey: randomUUID() });
+    expect(stage.body.activatable).toBe(true);
+    expect(definitions.revision()).toBe(1);
+    const body = { candidateId: stage.body.id, checksum: stage.body.checksum, expectedRevision: 1, reason: 'reviewed role creation' };
+    expect((await appAdmin.call('/api/apps/alpha/security/activate', 'POST', body)).body.status).toBe('rejected');
+    expect((await securityAdmin.call('/api/apps/alpha/security/activate', 'POST', body)).body.status).toBe('activated');
+    expect(administration.audit()).toMatchObject([{ actorId: 'dev-editor', revision: 2, targetIds: ['new-role'] }]);
+    const assignmentDocument = { format: 'ui-platform.security', formatVersion: 1, definition: { kind: 'role-assignment', id: 'assignment-admin', userId: 'dev-admin', roleId: 'role-security', status: 'active', scope, startsAt: '2026-01-01T00:00:00Z', endsAt: null } };
+    const stagedAssignment = await securityAdmin.call('/api/apps/alpha/security/stage', 'POST', { text: JSON.stringify(assignmentDocument), expectedRevision: 2, idempotencyKey: randomUUID() });
+    expect(stagedAssignment.status).toBe(200);
+    expect(stagedAssignment.body.activatable).toBe(true);
+    expect((await securityAdmin.call('/api/apps/alpha/security/activate', 'POST', { candidateId: stagedAssignment.body.id, checksum: stagedAssignment.body.checksum, expectedRevision: 2, reason: 'approved administrator assignment' })).body.status).toBe('activated');
+    expect(administration.audit()).toMatchObject([{ actorId: 'dev-editor', revision: 2 }, { actorId: 'dev-editor', revision: 3, targetIds: ['assignment-admin'] }]);
+  });
   it('stages and explicitly activates a WP1 application draft only through a development administrator session', async () => {
     const dbRoot = await mkdtemp(path.join(os.tmpdir(), 'iam-http-stage-')); cleanups.push(() => rm(dbRoot, { recursive: true, force: true }));
     const store = new SecurityDefinitionStore(path.join(dbRoot, 'security.sqlite')); cleanups.push(async () => store.close());
