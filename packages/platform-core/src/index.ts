@@ -8,3 +8,5 @@ export * from './manifest-discovery.js';
 export * from './package-catalog.js';
 export * from './service-registry.js';
 export * from './application-presentation.js';
+export * from './application-data.js';
+export * from './dataset-form.js';

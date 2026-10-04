@@ -15,6 +15,7 @@ import {
   ArtifactDefinitionRegistry,
   FileSystemArtifactService,
   createTriggerManifest,
+  compileFoundationArtifact,
   runArtifactCli,
   validateValue,
 } from "../src/index.js";
@@ -549,6 +550,7 @@ describe("definitions and CLI", () => {
       config: { dataset: "customer" },
     });
     expect(trigger.config?.priority).toBe(200);
+    expect(trigger.config?.executionIdentity).toEqual({ mode: "inherit" });
     const dir = await bundle("triggers/wrong-folder/normalize", trigger, {
       "trigger.ts":
         "export function beforeInsert(records: Record<string, unknown>[]) { return records; }",
@@ -579,6 +581,36 @@ describe("definitions and CLI", () => {
         (d) => d.code === "trigger.syntax",
       ),
     ).toBe(true);
+  });
+  it("treats Service execution metadata as a reference, not an implicit privilege", async () => {
+    const manifest = createTriggerManifest({
+      artifactId: "trigger_approved",
+      name: "approved",
+      files: { program: "program.json" },
+      config: { dataset: "customer", datasetId: "dataset-customer", executionIdentity: {
+        mode: "service", serviceId: "svc-approval", approvalId: "approval-1",
+        executionCapabilityId: "cap-approve",
+      } },
+    });
+    const dir = await bundle("triggers/customer/approved", manifest, {
+      "program.json": JSON.stringify({ format: "ui-platform.service-executable", version: 1,
+        steps: [{ id: "write", op: "update", datasetId: "dataset-customer", fields: {
+          "field-id": { kind: "input", fieldId: "field-id" }, "field-status": { kind: "literal", value: "approved" },
+        } }] }),
+    });
+    expect((await service.validate(dir)).valid).toBe(true);
+    expect(Object.keys(await compileFoundationArtifact(await service.load(dir)))).toEqual(["service-program.json"]);
+    await writeFile(path.join(dir, "artifact.json"), JSON.stringify({ ...manifest, files: { source: "trigger.ts" } }));
+    await writeFile(path.join(dir, "trigger.ts"), "export function beforeInsert() {}");
+    expect((await service.validate(dir)).diagnostics.some(d => d.code === "trigger.service-executable-format")).toBe(true);
+    await writeFile(path.join(dir, "artifact.json"), JSON.stringify({
+      ...manifest, config: { ...manifest.config, runAsAdmin: true },
+    }));
+    expect((await service.validate(dir)).diagnostics.some(d => d.code === "trigger.execution-identity")).toBe(true);
+    await writeFile(path.join(dir, "artifact.json"), JSON.stringify({
+      ...manifest, config: { ...manifest.config, executionIdentity: { mode: "service", serviceId: "svc-approval" } },
+    }));
+    expect((await service.validate(dir)).diagnostics.some(d => d.code === "trigger.execution-identity")).toBe(true);
   });
   it("allows definitions to be registered and validates roots with a nonzero exit for any errors", async () => {
     const registry = new ArtifactDefinitionRegistry(false);

@@ -6,6 +6,8 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
+    "./application-data": "./dist/application-data.js",
+    "./dataset-form": "./dist/dataset-form.js",
     "./package-manifest.schema.json": "./src/schemas/package-manifest.schema.json"
   },
   "files": [
@@ -13,6 +15,9 @@
     "src/schemas",
     "platform-core.manifest.json"
   ],
+  "dependencies": {
+    "@ui-platform/dataset-operations": "file:../../../UI Platform Data Services/packages/dataset-operations"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit -p tsconfig.json",

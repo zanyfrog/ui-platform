@@ -20,6 +20,8 @@ export async function compileFoundationArtifact(
     return { "definition.json": JSON.stringify(JSON.parse(file.content)) };
   }
   if (artifactType === "trigger") {
+    const program = artifact.files.find(f => f.role === "program");
+    if (program) return { "service-program.json": JSON.stringify(JSON.parse(program.content)) };
     const file = artifact.files.find((f) => f.role === "source");
     if (!file) throw new Error("Missing trigger source.");
     const source = ts.createSourceFile(

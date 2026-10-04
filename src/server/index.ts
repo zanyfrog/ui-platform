@@ -23,8 +23,11 @@ import { addAppFoundationDependencies, getAppFoundationDependencies, installGitH
 import { getUnifiedPackageCatalog, removeUnusedFoundationSource } from './unified-package-catalog.js';
 import { acquirePackageFromUrl } from './package-acquisition.js';
 import { getActivePresentationCss, getApplicationPresentation, getDraftPresentationCss, getPresentationAssetPath, initializeApplicationPresentation, publishPresentation, removePresentationAsset, rollbackPresentation, savePresentationDraft, uploadPresentationAsset } from './application-presentation.js';
+import { createApplicationDataProxy } from './application-data-proxy.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
+const applicationData = createApplicationDataProxy({ enabled: process.env.UI_PLATFORM_WP5_APPLICATION_DATA === '1',
+  environment: process.env.NODE_ENV ?? '', protectedHostUrl: process.env.UI_PLATFORM_WP5_DATASET_HOST_URL });
 const editorSettings = await editorSecurityConfig();
 const wp1Module = editorSettings.enabled && process.env.NODE_ENV === 'development' && import.meta.url.endsWith('.ts')
   ? await import('@ui-platform/i-am/definitions') : null;
@@ -158,6 +161,8 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
   const parts = url.pathname.split('/').filter(Boolean);
   try {
+    // DOE credentials are separate from the UI editor development session.
+    if (await applicationData(req, res)) return;
     if (await editorSecurity.handle(req, res)) return;
     if (url.pathname === '/api/health') return json(res, 200, { ok: true });
     if (url.pathname === '/api/templates' && method === 'GET') return json(res, 200, await discoverTemplates());

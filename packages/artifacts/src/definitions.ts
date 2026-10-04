@@ -254,12 +254,57 @@ export const triggerLifecycleExports = [
 export const triggerDefinition: ArtifactDefinition = {
   artifactType: "trigger",
   currentDefinitionVersion: 1,
-  fileRoles: { source: { required: true, extensions: [".ts"] } },
+  fileRoles: { source: { required: false, extensions: [".ts"] }, program: { required: false, extensions: [".json"] } },
   capabilities,
   validators: [
     ({ manifest, files, bundlePath }) => {
       const diagnostics = datasetDiagnostics(manifest, true);
       const config = manifest.config ?? {};
+      // The source manifest may request Service execution, but never grants it.
+      // Runtime must resolve the separate Security Admin approval against the
+      // published executable digest before changing actor.
+      const execution = config.executionIdentity;
+      const sourceFile = files.find(file => file.role === "source");
+      const programFile = files.find(file => file.role === "program");
+      if (Boolean(sourceFile) === Boolean(programFile)) diagnostics.push(error(
+        "trigger.executable-format", "Provide exactly one TypeScript source or declarative program.", "artifact.json"));
+      if (execution && isObject(execution) && execution.mode === "service" &&
+        (!programFile || sourceFile || typeof config.datasetId !== "string" || !referenceName.test(config.datasetId)))
+        diagnostics.push(error("trigger.service-executable-format",
+          "Service execution requires a declarative program and permanent Dataset ID; TypeScript source cannot receive Service authority.", "artifact.json"));
+      if (programFile) {
+        try {
+          const program = JSON.parse(programFile.content) as unknown;
+          if (!isObject(program) || program.format !== "ui-platform.service-executable" || program.version !== 1 ||
+            !Array.isArray(program.steps) || program.steps.length < 1 || program.steps.length > 16 ||
+            Object.keys(program).some(key => !["format", "version", "steps"].includes(key)) ||
+            typeof config.datasetId !== "string" || !referenceName.test(config.datasetId)) throw new Error();
+        } catch {
+          diagnostics.push(error("trigger.program-invalid", "Declarative program must use the bounded v1 format and permanent Dataset ID.", programFile.path));
+        }
+      }
+      if (
+        (execution !== undefined &&
+          (!isObject(execution) ||
+            (execution.mode !== "inherit" && execution.mode !== "service") ||
+            (execution.mode === "inherit" && Object.keys(execution).some((key) => key !== "mode")) ||
+            (execution.mode === "service" &&
+              (Object.keys(execution).some((key) =>
+                !["mode", "serviceId", "approvalId", "executionCapabilityId"].includes(key),
+              ) ||
+                ["serviceId", "approvalId", "executionCapabilityId"].some((key) =>
+                  typeof execution[key] !== "string" ||
+                  !referenceName.test(execution[key] as string),
+                ))))) ||
+        ["runAsAdmin", "privileged", "runAs"].some((key) => key in config)
+      )
+        diagnostics.push(
+          error(
+            "trigger.execution-identity",
+            "Use explicit inherit or an approved Service reference; source metadata is not authority.",
+            "artifact.json",
+          ),
+        );
       if (typeof config.active !== "boolean")
         diagnostics.push(
           error("trigger.active", "active must be Boolean.", "artifact.json"),
@@ -284,7 +329,7 @@ export const triggerDefinition: ArtifactDefinition = {
           message: `Folder ${parent} differs from declared dataset ${config.dataset}.`,
           file: "artifact.json",
         });
-      const file = files.find((file) => file.role === "source");
+      const file = sourceFile;
       if (!file) return diagnostics;
       const source = ts.createSourceFile(
         file.path,
@@ -456,7 +501,7 @@ export function createTriggerManifest(
     artifactType: "trigger",
     schemaVersion: 1,
     definitionVersion: 1,
-    config: { priority: 200, active: true, ...input.config },
+    config: { priority: 200, active: true, executionIdentity: { mode: "inherit" }, ...input.config },
   };
 }
 export class ArtifactDefinitionRegistry {
