@@ -27,6 +27,11 @@ export function createHttpApplicationDataTransport(options: ApplicationDataHttpO
   };
 }
 
+/** V1 browser-session transport. The trusted UI server supplies the DOE actor; browser code sends no bearer. */
+export function createSessionApplicationDataTransport(options: Omit<ApplicationDataHttpOptions, 'credential'> = {}): ApplicationDataTransport {
+  return createHttpApplicationDataTransport({ ...options, credential: () => undefined });
+}
+
 /** Shared Page/Form/Component Dataset operation path; no Form-specific persistence semantics. */
 export class ApplicationDataClient {
   constructor(private readonly transport: ApplicationDataTransport) {}

@@ -2,6 +2,37 @@ import { editorSessionSnapshot, refreshEditorSession, selectEditorIdentity, subs
 
 /** Dev-only chrome. Uses no independent artifact state, timer or save mechanism. */
 export async function mountDevelopmentIdentity(container: HTMLElement) {
+  const v1 = await fetch('/api/development-identity/session').then(async response => response.ok ? await response.json() as {
+    csrfToken: string; user: { userId: string; email: string; displayName: string } | null;
+    identities: Array<{ email: string; displayName: string }>;
+  } : null).catch(() => null);
+  if (v1) {
+    const label = document.createElement('label');
+    label.textContent = 'Development identity ';
+    const select = document.createElement('select');
+    select.setAttribute('aria-label', 'Development identity');
+    select.add(new Option('Sign out', ''));
+    for (const user of v1.identities) select.add(new Option(`${user.displayName} (${user.email})`, user.email));
+    select.value = v1.user?.email ?? '';
+    label.append(select); container.append(label);
+    select.addEventListener('change', async () => {
+      select.disabled = true;
+      try {
+        const email = select.value;
+        const response = await fetch('/api/development-identity/session', { method: email ? 'POST' : 'DELETE',
+          headers: { 'content-type': 'application/json', 'x-v1-csrf': v1.csrfToken },
+          body: JSON.stringify(email ? { email } : {}) });
+        if (!response.ok) throw new Error('Development sign-in was denied.');
+        location.reload();
+      } catch (error) {
+        select.disabled = false; select.value = v1.user?.email ?? '';
+        const status = document.createElement('span'); status.setAttribute('role', 'alert');
+        status.textContent = error instanceof Error ? error.message : String(error); label.append(status);
+      }
+    });
+    await refreshEditorSession().catch(() => {});
+    return () => label.remove();
+  }
   try { await refreshEditorSession(); } catch { return () => {}; }
   const label = document.createElement('label');
   label.textContent = 'Development identity ';

@@ -15,7 +15,7 @@ export interface EditorScope {
   ownership?: 'application' | 'system' | 'package';
 }
 export interface EditorAuthorizer {
-  can(principal: EditorPrincipal, operation: EditorOperation, scope: EditorScope): boolean;
+  can(principal: EditorPrincipal, operation: EditorOperation, scope: EditorScope): boolean | Promise<boolean>;
 }
 export interface EditorIdentityProvider {
   currentPrincipal(request: IncomingMessage): EditorPrincipal | null;
@@ -34,6 +34,8 @@ export interface EditorSecurityOptions {
   /** Trusted server configuration, never inferred from request paths or emails. */
   ownership?: Record<string, 'application' | 'system' | 'package'>;
   authorizer?: EditorAuthorizer;
+  /** V1 session is the only identity source; editor cookie remains a revision/CSRF handle. */
+  trustedDevelopmentUser?: (request: IncomingMessage) => string | null;
   audit?: (event: { action: string; actor?: string; applicationKey?: string; operation?: string }) => void;
   sessionLifetimeMs?: number;
 }
@@ -60,6 +62,7 @@ export const fixtureAuthorizer: EditorAuthorizer = {
     if (principal.roleIds.includes('admin')) return true;
     if (!principal.roleIds.some(role => ['editor', 'reviewer', 'viewer'].includes(role))) return false;
     if (scope.ownership && scope.ownership !== 'application') return false;
+    if (operation === 'admin' || operation === 'security') return false;
     return operation !== 'edit' || principal.roleIds.includes('editor');
   },
 };
@@ -87,7 +90,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
   private sessions = new Map<string, Session>();
   private principals = new Map<string, EditorPrincipal>();
   private authorizer: EditorAuthorizer;
-  private subscriptions = new Set<{ session: Session; res: ServerResponse; appKey?: string; known: Map<string, EditorScope>; pending: Promise<void> }>();
+  private subscriptions = new Set<{ request: IncomingMessage; session: Session; res: ServerResponse; appKey?: string; known: Map<string, EditorScope>; pending: Promise<void> }>();
   readonly enabled: boolean;
   constructor(private options: EditorSecurityOptions) {
     if ((options.securityDefinitions || options.securityAdministration) && (!options.enabled || options.environment !== 'development' || !options.developmentRuntime)) {
@@ -137,6 +140,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
   currentPrincipal(req: IncomingMessage): EditorPrincipal | null {
     const session = this.session(req);
     const principal = session?.subjectId ? this.principals.get(session.subjectId) : undefined;
+    if (this.options.trustedDevelopmentUser && session?.subjectId !== this.options.trustedDevelopmentUser(req)) return null;
     return principal && !session?.switching ? structuredClone(principal) : null;
   }
   private requireSession(req: IncomingMessage) {
@@ -154,11 +158,11 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
   private csrf(req: IncomingMessage, session: Session) {
     if (req.headers.origin !== `http://${req.headers.host}` || req.headers['x-editor-csrf'] !== session.csrfToken || !req.headers['content-type']?.startsWith('application/json')) fail(403, 'editor.csrf', 'Editor mutation requires same-origin CSRF protection.');
   }
-  private allowed(principal: EditorPrincipal, operation: EditorOperation, scope: EditorScope) {
+  private async allowed(principal: EditorPrincipal, operation: EditorOperation, scope: EditorScope) {
     return this.authorizer.can(principal, operation, scope);
   }
-  private authorize(principal: EditorPrincipal, operation: EditorOperation, scope: EditorScope) {
-    if (!this.allowed(principal, operation, scope)) { this.audit('denied', principal, scope, operation); fail(403, 'editor.forbidden', 'Editor operation is not permitted.'); }
+  private async authorize(principal: EditorPrincipal, operation: EditorOperation, scope: EditorScope) {
+    if (!await this.allowed(principal, operation, scope)) { this.audit('denied', principal, scope, operation); fail(403, 'editor.forbidden', 'Editor operation is not permitted.'); }
   }
   private scope(appKey: string, artifact: EditorArtifactDto): EditorScope {
     const type = artifact.manifest?.artifactType, id = artifact.manifest?.artifactId;
@@ -171,7 +175,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
   private sessionDto(session: Session): EditorSessionDto {
     return { revision: session.revision, csrfToken: session.csrfToken,
       principal: structuredClone(session.subjectId ? this.principals.get(session.subjectId) ?? null : null),
-      fixtures: [...this.principals.values()].map(value => ({ id: value.subjectId, label: value.label })) };
+      fixtures: this.options.trustedDevelopmentUser ? [] : [...this.principals.values()].map(value => ({ id: value.subjectId, label: value.label })) };
   }
   /** Server-side revocation. Stops admission immediately, then drains admitted writes. */
   async revoke(subjectId: string) {
@@ -201,7 +205,9 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
   }
   private async visible(workspace: ArtifactEditorWorkspace, principal: EditorPrincipal) {
     const artifacts = await Promise.all((await workspace.discover()).map(summary => workspace.load(summary.locator)));
-    const visible = artifacts.filter(artifact => this.allowed(principal, 'read', this.scope(workspace.appKey, artifact)) && this.allowed(principal, 'validate', this.scope(workspace.appKey, artifact)));
+    const visibility = await Promise.all(artifacts.map(async artifact => await this.allowed(principal, 'read', this.scope(workspace.appKey, artifact)) &&
+      await this.allowed(principal, 'validate', this.scope(workspace.appKey, artifact))));
+    const visible = artifacts.filter((_, index) => visibility[index]);
     const counts = new Map<string, number>();
     for (const artifact of artifacts) if (artifact.manifest) counts.set(artifact.manifest.artifactId, (counts.get(artifact.manifest.artifactId) ?? 0) + 1);
     return { artifacts, visible, ids: new Set(visible.flatMap(artifact => artifact.manifest && counts.get(artifact.manifest.artifactId) === 1 ? [artifact.manifest.artifactId] : [])) };
@@ -219,7 +225,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
     const { artifacts, ids } = await this.visible(workspace, principal);
     const hidden = artifacts.flatMap(item => item.manifest && !ids.has(item.manifest.artifactId) ? [item.manifest.artifactId] : []);
     const scope = this.scope(workspace.appKey, artifact);
-    return { ...artifact, capabilities: { ...artifact.capabilities, edit: artifact.capabilities.edit && this.allowed(principal, 'edit', scope) },
+    return { ...artifact, capabilities: { ...artifact.capabilities, edit: artifact.capabilities.edit && await this.allowed(principal, 'edit', scope) },
       references: { outgoing: artifact.references.outgoing.filter(reference => ids.has(reference.artifactId)) },
       validation: this.validation(artifact.validation, workspace, hidden) };
   }
@@ -227,26 +233,28 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
     session.known.set(key, scope);
     for (const subscription of this.subscriptions) if (subscription.session === session) subscription.known.set(key, scope);
   }
-  private subscribe(req: IncomingMessage, res: ServerResponse, session: Session, appKey?: string) {
+  private async subscribe(req: IncomingMessage, res: ServerResponse, session: Session, appKey?: string) {
     const principal = this.currentPrincipal(req);
     if (!principal || session.switching) fail(401, 'editor.unauthorized', 'Select a development identity.');
-    if (appKey) this.authorize(principal!, 'discover', { applicationKey: appKey });
+    if (appKey) await this.authorize(principal!, 'discover', { applicationKey: appKey });
     res.writeHead(200, { 'content-type': 'text/event-stream', 'cache-control': 'no-store', connection: 'keep-alive' });
     res.write('event: ready\ndata: {}\n\n');
-    const subscription = { session, res, appKey, known: new Map(session.known), pending: Promise.resolve() };
+    const subscription = { request: req, session, res, appKey, known: new Map(session.known), pending: Promise.resolve() };
     this.subscriptions.add(subscription); session.streams.add(res);
     const timer = setTimeout(() => { this.expire(session); }, Math.max(1, session.expires - Date.now())); timer.unref();
     res.on('close', () => { clearTimeout(timer); session.streams.delete(res); this.subscriptions.delete(subscription); });
   }
   publish(event: EditorWatchEvent) {
     for (const subscription of this.subscriptions) {
-      const { session, res, appKey } = subscription;
+      const { request, session, res, appKey } = subscription;
       const revision = session.revision;
       if (appKey && appKey !== event.appKey) continue;
       if (event.kind === 'removed') session.known.delete(`${event.appKey}:${event.locator}`);
       subscription.pending = subscription.pending.then(async () => {
         const principal = session.subjectId && this.principals.get(session.subjectId);
-        if (!principal || session.switching || session.expires <= Date.now() || session.revision !== revision || res.writableEnded || !this.allowed(principal, 'discover', { applicationKey: event.appKey })) return;
+        if (!principal || session.switching || session.expires <= Date.now() || session.revision !== revision || res.writableEnded ||
+            this.options.trustedDevelopmentUser && this.options.trustedDevelopmentUser(request) !== session.subjectId ||
+            !await this.allowed(principal, 'discover', { applicationKey: event.appKey })) return;
         const key = `${event.appKey}:${event.locator}`;
         let scope: EditorScope | undefined;
         if (event.kind === 'removed') scope = subscription.known.get(key);
@@ -254,7 +262,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
           const workspace = await this.options.workspace(event.appKey);
           scope = this.scope(event.appKey, await workspace.load(event.locator));
         }
-        if (!scope || !this.allowed(principal, 'read', scope)) { subscription.known.delete(key); return; }
+        if (!scope || !await this.allowed(principal, 'read', scope)) { subscription.known.delete(key); return; }
         if (session.switching || session.revision !== revision || res.writableEnded) return;
         if (event.kind === 'removed') subscription.known.delete(key); else { subscription.known.set(key, scope); session.known.set(key, scope); }
         res.write(`event: artifact-change\ndata: ${JSON.stringify(event)}\n\n`);
@@ -263,7 +271,13 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
   }
   publishWorkspaceChange() {
     // No app details; subscribers still need a live identity. Artifact events use publish().
-    for (const { session, res } of this.subscriptions) if (!session.switching && session.expires > Date.now() && session.subjectId && this.principals.has(session.subjectId)) res.write('event: workspace-change\ndata: {}\n\n');
+    for (const { request, session, res } of this.subscriptions) {
+      let current = false;
+      try { current = !this.options.trustedDevelopmentUser || this.options.trustedDevelopmentUser(request) === session.subjectId; }
+      catch { /* Fail closed when the development identity authority is unavailable. */ }
+      if (current && !session.switching && session.expires > Date.now() && session.subjectId && this.principals.has(session.subjectId))
+        res.write('event: workspace-change\ndata: {}\n\n');
+    }
   }
   close() { for (const session of this.sessions.values()) this.expire(session); }
   async handle(req: IncomingMessage, res: ServerResponse): Promise<boolean> {
@@ -274,10 +288,10 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
     const isArtifact = parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'artifacts';
     const isSecurity = this.enabled && !!(this.options.securityDefinitions || this.options.securityAdministration) && parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'security' && parts.length === 5;
     const isApi = parts[0] === 'api';
-    if (!isSession && !isEvents && !isArtifact && !isSecurity && !(this.enabled && isApi)) return false;
+    if (!isSession && !isEvents && !isArtifact && !isSecurity && !(this.enabled && isApi && !this.options.trustedDevelopmentUser)) return false;
     try {
       this.boundary(req);
-      if (this.enabled && isApi && !isSession && !isEvents && !isArtifact && !isSecurity) {
+      if (this.enabled && !this.options.trustedDevelopmentUser && isApi && !isSession && !isEvents && !isArtifact && !isSecurity) {
         if (req.method === 'GET' && ['/api/health', '/api/templates', '/api/components'].includes(url.pathname)) return false;
         this.requireSession(req);
         const principal = this.currentPrincipal(req);
@@ -295,24 +309,34 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
           this.sessions.set(session.token, session);
           res.setHeader('set-cookie', `${cookieName}=${session.token}; HttpOnly; SameSite=Strict; Path=/api`);
         }
+        if (this.options.trustedDevelopmentUser) {
+          const userId = this.options.trustedDevelopmentUser(req);
+          if (session.subjectId !== (userId ?? undefined)) {
+            session.subjectId = userId ?? undefined;
+            session.revision = token(); session.known.clear();
+            for (const stream of session.streams) stream.end();
+          }
+        }
         if (session.switching) fail(403, 'editor.session-changed', 'Identity change is in progress.');
         send(res, 200, this.sessionDto(session)); return true;
       }
       const session = this.requireSession(req);
       if (isSession) {
+        if (this.options.trustedDevelopmentUser) fail(403, 'editor.identity-source', 'Use the development login.');
         if (req.method !== 'POST' && req.method !== 'DELETE') fail(405, 'editor.method', 'Method is not supported.');
         await this.select(req, res, session); return true;
       }
       if (isEvents) {
         if (req.method !== 'GET') fail(405, 'editor.method', 'Method is not supported.');
-        this.subscribe(req, res, session, url.searchParams.get('appKey') ?? undefined); return true;
+        await this.subscribe(req, res, session, url.searchParams.get('appKey') ?? undefined); return true;
       }
       const principal = this.assertCurrent(req, session), revision = session.revision;
       const appKey = decodeURIComponent(parts[2]);
       if (!appKeyPattern.test(appKey)) fail(400, 'editor.application', 'Invalid application key.');
-      this.authorize(principal, 'discover', { applicationKey: appKey });
+      await this.authorize(principal, 'discover', { applicationKey: appKey });
       if (isSecurity) {
-        if (!this.options.securityAdministration && (!principal.roleIds.includes('admin') || !this.options.securityDefinitions)) fail(403, 'editor.security-forbidden', 'Security authoring requires a development administrator fixture.');
+        if (!this.options.securityAdministration) await this.authorize(principal, 'security', { applicationKey: appKey });
+        if (!this.options.securityAdministration && !this.options.securityDefinitions) fail(403, 'editor.security-forbidden', 'Security authoring is unavailable.');
         if (req.method !== 'POST') fail(405, 'editor.method', 'Method is not supported.');
         this.csrf(req, session);
         const input = await readBody(req), administration = this.options.securityAdministration, service = administration?.definitions ?? this.options.securityDefinitions;
@@ -358,17 +382,17 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
       const operation: EditorOperation = req.method === 'PUT' && parts.length === 5 ? 'edit' : req.method === 'GET' && parts.length === 5 ? 'read' : req.method === 'GET' && parts.length === 6 && parts[5] === 'validation' ? 'validate' : req.method === 'GET' && parts.length === 6 && parts[5] === 'references' ? 'references' : fail(404, 'editor.not-found', 'Editor endpoint was not found.');
       const artifact = await workspace.load(locator);
       const scope = this.scope(appKey, artifact);
-      this.authorize(principal, 'read', scope); this.authorize(principal, operation, scope);
+      await this.authorize(principal, 'read', scope); await this.authorize(principal, operation, scope);
       // Load/save DTOs include both diagnostics and references. Deny the aggregate
       // operation when a custom policy disallows one of those embedded results.
       if (operation === 'read' || operation === 'edit') {
-        this.authorize(principal, 'validate', scope); this.authorize(principal, 'references', scope);
+        await this.authorize(principal, 'validate', scope); await this.authorize(principal, 'references', scope);
       }
       this.remember(session, `${appKey}:${locator}`, scope);
       if (operation === 'edit') {
         this.csrf(req, session);
         const input = await readBody(req);
-        if (!principal.roleIds.includes('admin') && input.manifest !== undefined) {
+        if (!await this.allowed(principal, 'admin', scope) && input.manifest !== undefined) {
           let manifest;
           try { manifest = typeof input.manifest === 'string' ? JSON.parse(input.manifest) : input.manifest; } catch { manifest = null; }
           // Identity/type changes require administrative policy review. Invalid raw
@@ -376,7 +400,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
           if (!manifest || typeof manifest !== 'object' || manifest.artifactId !== artifact.manifest?.artifactId || manifest.artifactType !== artifact.manifest?.artifactType) fail(403, 'editor.identity', 'Changing or invalidating artifact identity requires an administrator.');
         }
         this.assertCurrent(req, session, revision);
-        this.authorize(this.currentPrincipal(req)!, 'edit', scope);
+        await this.authorize(this.currentPrincipal(req)!, 'edit', scope);
         // Use the checksum observed during authorization, preventing a type/identity
         // change between the authorization read and Foundation's atomic save.
         if (input.expectedChecksum !== artifact.checksum) {
@@ -399,7 +423,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
       // change to a restricted artifact type after the scope check.
       const projected = await this.project(workspace, principal, artifact);
       this.assertCurrent(req, session, revision);
-      this.authorize(principal, 'read', scope); this.authorize(principal, operation, scope);
+      await this.authorize(principal, 'read', scope); await this.authorize(principal, operation, scope);
       send(res, 200, operation === 'validate' ? projected.validation : operation === 'references' ? projected.references : projected);
     } catch (error) {
       const failure = editorError(error);

@@ -12,4 +12,4 @@ export interface EditorSessionDto {
   principal: EditorPrincipal | null;
   fixtures: { id: string; label: string }[];
 }
-export type EditorOperation = 'discover' | 'read' | 'validate' | 'references' | 'edit';
+export type EditorOperation = 'discover' | 'read' | 'validate' | 'references' | 'edit' | 'admin' | 'security';

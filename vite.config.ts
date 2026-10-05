@@ -16,7 +16,7 @@ export default defineConfig({
   },
   ssr: { noExternal: ['@ui-base/forms', '@ui-base/core', '@ui-base/ui'] },
   server: {
-    host: process.env.UI_PLATFORM_EDITOR === '1' ? '127.0.0.1' : '0.0.0.0',
+    host: process.env.UI_PLATFORM_EDITOR === '1' || process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1' ? '127.0.0.1' : '0.0.0.0',
     port: Number(process.env.UI_PLATFORM_UI_PORT ?? 5174),
     proxy: {
       // Preserve the browser-facing host for the editor's same-origin checks.
@@ -24,6 +24,6 @@ export default defineConfig({
     },
   },
   test: {
-    exclude: ['**/node_modules/**', '**/dist/**', '**/dist-server/**', 'data/**'],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/dist-server/**', '**/.uib/**', 'data/**'],
   },
 });

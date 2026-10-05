@@ -24,14 +24,33 @@ import { getUnifiedPackageCatalog, removeUnusedFoundationSource } from './unifie
 import { acquirePackageFromUrl } from './package-acquisition.js';
 import { getActivePresentationCss, getApplicationPresentation, getDraftPresentationCss, getPresentationAssetPath, initializeApplicationPresentation, publishPresentation, removePresentationAsset, rollbackPresentation, savePresentationDraft, uploadPresentationAsset } from './application-presentation.js';
 import { createApplicationDataProxy } from './application-data-proxy.js';
+import { V1DevelopmentIdentity } from './v1-development-identity.js';
+import { V1_FIXTURE_APPLICATION_KEY, developmentUsers } from './v1-development-policy.js';
+import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID } from './v1-development-policy.js';
+import { managementCheck } from './v1-management-routes.js';
+import { ensureV1DevelopmentApplication } from './v1-development-app.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
+const v1Enabled = process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1';
+const v1PolicyStorePath = path.resolve(process.env.UI_PLATFORM_V1_POLICY_STORE ?? path.join(runtimeDir, 'iam-v1-development.sqlite'));
+const v1Identity = v1Enabled ? new V1DevelopmentIdentity({ enabled: true, environment: process.env.NODE_ENV ?? '',
+  developmentRuntime: import.meta.url.endsWith('.ts'), policyStorePath: v1PolicyStorePath,
+  origins: [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]) }) : null;
+if (v1Identity) await ensureV1DevelopmentApplication(appsDir);
 const applicationData = createApplicationDataProxy({ enabled: process.env.UI_PLATFORM_WP5_APPLICATION_DATA === '1',
-  environment: process.env.NODE_ENV ?? '', protectedHostUrl: process.env.UI_PLATFORM_WP5_DATASET_HOST_URL });
-const editorSettings = await editorSecurityConfig();
+  environment: process.env.NODE_ENV ?? '', protectedHostUrl: process.env.UI_PLATFORM_WP5_DATASET_HOST_URL,
+  v1Identity: v1Identity && process.env.UI_PLATFORM_WP5_APPLICATION_DATA === '1' ? {
+    resolveUser: request => v1Identity.currentUser(request),
+    policyDigest: () => v1Identity.policyDigest(),
+    trustedUiServerKey: process.env.UI_PLATFORM_V1_TRUSTED_UI_KEY ?? '',
+    applicationId: V1_FIXTURE_APPLICATION_ID, authorityId: V1_AUTHORITY_ID,
+    origins: [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]),
+  } : undefined });
+const editorSettings = v1Identity ? { enabled: true, fixtures: developmentUsers.map(user => ({ subjectId: user.id, label: user.email,
+  roleIds: [], applicationKeys: [V1_FIXTURE_APPLICATION_KEY], isDevelopmentFixture: true })), ownership: {} } : await editorSecurityConfig();
 const wp1Module = editorSettings.enabled && process.env.NODE_ENV === 'development' && import.meta.url.endsWith('.ts')
   ? await import('@ui-platform/i-am/definitions') : null;
-const wp1Store = wp1Module ? new wp1Module.SecurityDefinitionStore(path.join(runtimeDir, 'iam-wp1-development.sqlite')) : null;
+const wp1Store = wp1Module ? new wp1Module.SecurityDefinitionStore(v1Identity ? v1PolicyStorePath : path.join(runtimeDir, 'iam-wp1-development.sqlite')) : null;
 const wp1Service = wp1Store && wp1Module ? new wp1Module.SecurityDefinitionService(wp1Store) : null;
 const editorSecurity = new ArtifactEditorSecurity({
   ...editorSettings,
@@ -39,7 +58,9 @@ const editorSecurity = new ArtifactEditorSecurity({
   developmentRuntime: import.meta.url.endsWith('.ts'),
   origins: [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]),
   workspace: async key => { await getApp(key); return editorWorkspace(appPath(key)); },
-  securityDefinitions: wp1Service ?? undefined,
+  securityDefinitions: v1Identity ? undefined : wp1Service ?? undefined,
+  trustedDevelopmentUser: v1Identity ? request => v1Identity.currentUser(request) : undefined,
+  authorizer: v1Identity ? { can: (principal, operation, scope) => v1Identity.authorizeEditor(principal.subjectId, operation, scope) } : undefined,
   audit: event => console.info('artifact-editor-security', JSON.stringify(event)),
 });
 const editorWorkspaces = new Map<string, ArtifactEditorWorkspace>();
@@ -155,15 +176,55 @@ function appInfoPayload(req: http.IncomingMessage, url: URL, app: Awaited<Return
 }
 
 await mkdir(path.join(runtimeDir, 'exports'), { recursive: true });
+const v1Exports = new Map<string, { userId: string; applicationId: string; expires: number }>();
 
 const server = http.createServer(async (req, res) => {
   const method = req.method ?? 'GET';
   const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
   const parts = url.pathname.split('/').filter(Boolean);
   try {
-    // DOE credentials are separate from the UI editor development session.
+    if (v1Identity && await v1Identity.handle(req, res)) return;
     if (await applicationData(req, res)) return;
     if (await editorSecurity.handle(req, res)) return;
+    if (v1Identity && url.pathname.startsWith('/api/') && url.pathname !== '/api/health') {
+      const publicRead = method === 'GET' && (['/api/templates', '/api/components'].includes(url.pathname) ||
+        parts[1] === 'apps' && parts[2] && (parts[3] === 'package-assets' || parts[3] === 'app-services' ||
+          parts[3] === 'presentation' && (parts[4] === 'active.css' || parts[4] === 'assets')));
+      if (!publicRead) {
+        let userId: string | null;
+        try { userId = v1Identity.currentUser(req); } catch { return json(res, 403, { code: 'V1_IDENTITY_UNAVAILABLE' }); }
+        if (!userId) return json(res, 401, { code: 'V1_LOGIN_REQUIRED' });
+        if (!['GET', 'HEAD'].includes(method) && ![port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)]
+          .flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]).includes(String(req.headers.origin ?? '')))
+          return json(res, 403, { code: 'V1_ORIGIN_DENIED' });
+        if (url.pathname === '/api/apps' && method === 'GET') {
+          const visible = [];
+          for (const app of await discoverApps()) if (app.key === V1_FIXTURE_APPLICATION_KEY && app.appId === V1_FIXTURE_APPLICATION_ID &&
+            await v1Identity.authorize(req, 'ui.application.view', { authorityId: 'ui-platform-development', applicationId: app.appId,
+              kind: 'application', id: app.appId })) visible.push(app);
+          return json(res, 200, visible);
+        }
+        if (parts[1] === 'downloads' && method === 'GET' && parts[2]) {
+          const exportRecord = v1Exports.get(path.basename(decodeURIComponent(parts[2])));
+          if (!exportRecord || exportRecord.userId !== userId || exportRecord.expires <= Date.now() ||
+              !await v1Identity.authorize(req, 'ui.application.view', { authorityId: 'ui-platform-development',
+                applicationId: exportRecord.applicationId, kind: 'application', id: exportRecord.applicationId }))
+            return json(res, 403, { code: 'V1_PERMISSION_DENIED' });
+        } else {
+          let applicationId: string | undefined;
+          if (parts[1] === 'apps' && parts[2]) {
+            const key = decodeURIComponent(parts[2]);
+            if (key !== V1_FIXTURE_APPLICATION_KEY) return json(res, 403, { code: 'V1_APPLICATION_DENIED' });
+            const app = await getApp(key);
+            if (app.appId !== V1_FIXTURE_APPLICATION_ID) return json(res, 403, { code: 'V1_APPLICATION_DENIED' });
+            applicationId = app.appId;
+          }
+          const check = managementCheck(method, url.pathname, applicationId);
+          if (!check || !await v1Identity.authorize(req, check.permissionId, check.resource))
+            return json(res, 403, { code: 'V1_PERMISSION_DENIED' });
+        }
+      }
+    }
     if (url.pathname === '/api/health') return json(res, 200, { ok: true });
     if (url.pathname === '/api/templates' && method === 'GET') return json(res, 200, await discoverTemplates());
     if (url.pathname === '/api/apps' && method === 'GET') return json(res, 200, await discoverApps());
@@ -317,6 +378,8 @@ const server = http.createServer(async (req, res) => {
       if (parts[3] === 'export' && method === 'POST') {
         const exported = await exportApp(key);
         const token = path.basename(exported.zipFile);
+        if (v1Identity) v1Exports.set(token, { userId: v1Identity.currentUser(req)!, applicationId: V1_FIXTURE_APPLICATION_ID,
+          expires: Date.now() + 5 * 60_000 });
         return json(res, 200, { downloadName: exported.downloadName, url: `/api/downloads/${encodeURIComponent(token)}` });
       }
     }
@@ -350,6 +413,7 @@ async function shutdown() {
   await artifactWatcher?.close();
   stopAllPreviews();
   editorSecurity.close();
+  v1Identity?.close();
   wp1Store?.close();
   server.close(() => process.exit(0));
 }

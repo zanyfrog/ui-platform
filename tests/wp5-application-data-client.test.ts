@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ApplicationDataClient, createHttpApplicationDataTransport } from '@uib/platform-core/application-data';
+import { ApplicationDataClient, createHttpApplicationDataTransport, createSessionApplicationDataTransport } from '@uib/platform-core/application-data';
 import { bindDatasetForm } from '@uib/platform-core/dataset-form';
 
 describe('shared application Dataset client', () => {
@@ -45,5 +45,13 @@ describe('shared application Dataset client', () => {
     const request = fetcher.mock.calls[0][1] as RequestInit;
     expect(request.headers).toMatchObject({ authorization: 'Bearer development-token' });
     expect(JSON.parse(String(request.body))).toEqual({ datasetId: 'dataset-a', select: ['name'], mode: 'read' });
+  });
+  it('uses the V1 browser session without a client bearer', async () => {
+    const fetcher = vi.fn(async () => Response.json([{ name: 'A' }]));
+    const client = new ApplicationDataClient(createSessionApplicationDataTransport({ fetch: fetcher as typeof fetch }));
+    expect(await client.read('dataset-a', { select: ['name'] })).toEqual([{ name: 'A' }]);
+    expect((fetcher.mock.calls[0] as unknown[])[0]).toBe('/api/application-data/queries');
+    const request = (fetcher.mock.calls[0] as unknown[])[1] as RequestInit;
+    expect(request.headers).not.toHaveProperty('authorization');
   });
 });
