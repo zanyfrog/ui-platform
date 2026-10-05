@@ -587,7 +587,7 @@ describe("definitions and CLI", () => {
       artifactId: "trigger_approved",
       name: "approved",
       files: { program: "program.json" },
-      config: { dataset: "customer", datasetId: "dataset-customer", executionIdentity: {
+      config: { dataset: "customer", datasetId: "dataset-customer", phase: "afterUpdate", executionIdentity: {
         mode: "service", serviceId: "svc-approval", approvalId: "approval-1",
         executionCapabilityId: "cap-approve",
       } },
@@ -600,6 +600,8 @@ describe("definitions and CLI", () => {
     });
     expect((await service.validate(dir)).valid).toBe(true);
     expect(Object.keys(await compileFoundationArtifact(await service.load(dir)))).toEqual(["service-program.json"]);
+    await writeFile(path.join(dir, "artifact.json"), JSON.stringify({ ...manifest, config: { ...manifest.config, phase: "afterCommit" } }));
+    expect((await service.validate(dir)).diagnostics.some(d => d.code === "trigger.program-phase")).toBe(true);
     await writeFile(path.join(dir, "artifact.json"), JSON.stringify({ ...manifest, files: { source: "trigger.ts" } }));
     await writeFile(path.join(dir, "trigger.ts"), "export function beforeInsert() {}");
     expect((await service.validate(dir)).diagnostics.some(d => d.code === "trigger.service-executable-format")).toBe(true);

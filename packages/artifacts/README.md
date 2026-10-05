@@ -168,6 +168,18 @@ capabilities are removed. Existing `.uib/history` and `.uib/versions` data is le
 untouched and ignored; no new revisions or published snapshots are created.
 No Git commits or other source-control operations are performed automatically.
 
+## WP6 Service Trigger publication
+
+An application owner may call `publishServiceTriggerArtifact` from trusted local
+tooling with its `FileSystemArtifactService`, Data Services `TriggerManager`, and
+central `TriggerRegistry`. It loads and validates the committed `program.json`,
+compiles the canonical `service-program.json`, publishes that exact program to
+the versioned Trigger definition registry, verifies the active publication,
+and creates the runtime index row. Subsequent code changes publish a new digest;
+they never update the separate Security Admin Service-use approval. Draft edits
+remain source only until this explicit publication call succeeds. The runtime
+reads the active publication again before granting Service execution.
+
 ## Verification
 
 `npm run typecheck`, `npm run build`, and `npm test` include this workspace.

@@ -17,4 +17,5 @@ export * from "./application/local-target.js";
 export * from "./application/cli.js";
 export * from "./application/compiler.js";
 export * from "./application/trigger-adapter.js";
+export * from "./application/service-trigger-publication.js";
 export { fingerprint } from "./application/common.js";

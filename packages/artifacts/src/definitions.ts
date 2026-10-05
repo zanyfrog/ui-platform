@@ -273,6 +273,8 @@ export const triggerDefinition: ArtifactDefinition = {
         diagnostics.push(error("trigger.service-executable-format",
           "Service execution requires a declarative program and permanent Dataset ID; TypeScript source cannot receive Service authority.", "artifact.json"));
       if (programFile) {
+        if (typeof config.phase !== "string" || !(triggerLifecycleExports as readonly string[]).includes(config.phase))
+          diagnostics.push(error("trigger.program-phase", "Declarative Trigger requires an explicit lifecycle phase.", "artifact.json"));
         try {
           const program = JSON.parse(programFile.content) as unknown;
           if (!isObject(program) || program.format !== "ui-platform.service-executable" || program.version !== 1 ||
