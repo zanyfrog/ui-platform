@@ -31,7 +31,7 @@ async function pagesFor(appDir: string): Promise<string[]> {
       if (entry.name.startsWith('_')) continue;
       const childRel = path.join(rel, entry.name);
       if (entry.isDirectory()) await walk(path.join(dir, entry.name), childRel);
-      else if (entry.isFile() && /\.(ts|tsx)$/.test(entry.name)) {
+      else if (entry.isFile() && /(?<!\.functions)\.(ts|tsx)$/.test(entry.name)) {
         let route = '/' + childRel.replaceAll('\\', '/').replace(/\.(ts|tsx)$/, '').replace(/\/index$/, '');
         if (route === '/index') route = '/';
         found.push(route);

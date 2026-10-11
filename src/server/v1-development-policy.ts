@@ -37,6 +37,7 @@ export const managementPermissions = [
   { id: 'ui.security.admin', kind: 'security-definition' },
   { id: 'ui.platform.application.create', kind: 'system' },
   { id: 'ui.platform.package.admin', kind: 'system' },
+    { id: 'ui.platform.component.admin', kind: 'system' },
 ] as const satisfies ReadonlyArray<{ id: string; kind: SecurityResourceKind }>;
 
 export const developmentUsers = [
@@ -84,7 +85,7 @@ export function seedV1DevelopmentPolicy(service: SecurityDefinitionService): voi
     ]),
     set('v1.security.admin', 'Security Admin', [], ['ui.security.admin']),
     { kind: 'permission-set', id: 'v1.platform.admin', key: 'v1.platform.admin', name: 'Platform Management', status: 'active',
-      owner: platformOwner, includes: [], rules: ['ui.platform.application.create', 'ui.platform.package.admin'].map(permissionId => ({
+        owner: platformOwner, includes: [], rules: ['ui.platform.application.create', 'ui.platform.package.admin', 'ui.platform.component.admin'].map(permissionId => ({
         id: `v1.platform.admin.${permissionId}.allow`, permissionId, effect: 'allow' as const, scope: systemScope,
       })) },
     { kind: 'role', ...base('v1.role.application-admin', 'Application Admin'), permissionSets: [

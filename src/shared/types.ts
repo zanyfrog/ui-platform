@@ -79,6 +79,9 @@ export interface PageSourcePayload {
 }
 
 export interface ComponentManifestEntry {
+  identity?: { componentId: string; displayName?: string; description?: string };
+  builder?: import('@ui-platform/visual-artifacts').PackageDefinition['builder'];
+  runtime?: import('@ui-platform/visual-artifacts').PackageDefinition['runtime'];
   id?: string;
   tagName: string;
   name?: string;
@@ -102,6 +105,7 @@ export interface ComponentManifestEntry {
 }
 
 export interface ComponentCatalogEntry extends ComponentManifestEntry {
+  definition?: import('@ui-platform/visual-artifacts').PackageDefinition;
   id: string;
   packageName: string;
   packageVersion: string;

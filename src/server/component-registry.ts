@@ -1,7 +1,8 @@
 import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import type { AppPackageListEntry, ComponentCatalogEntry, ComponentManifestEntry } from '../shared/types.js';
-import { uiBasePackagesDir } from './paths.js';
+import { platformRoot, uiBasePackagesDir } from './paths.js';
+import { appPath } from './applications.js';
 import { getActiveAppPackages } from './packages.js';
 
 const ignoredExportNames = new Set(['.', './styles.css', './tokens.css', './default.css', './dark.css', './sample-tour.css', './metadata', './analyzer', './writer', './page-importer', './page-import-artifact', './uib-layout-manager', './uib-layout-editor', './platform-info']);
@@ -61,11 +62,12 @@ function toComponentCatalogEntry(
   source = entry.importPath ?? `package:${packageName}`,
   appKey?: string,
 ): ComponentCatalogEntry {
-  const id = entry.id ?? `${packageName}:${entry.tagName}`;
+  const id = entry.identity?.componentId ?? entry.id ?? `${packageName}:${entry.tagName}`;
   return {
     id,
+    definition: entry.identity && entry.builder && entry.runtime ? entry as unknown as import('@ui-platform/visual-artifacts').PackageDefinition : undefined,
     tagName: entry.tagName,
-    name: entry.name ?? displayName(entry.tagName),
+    name: entry.identity?.displayName ?? entry.name ?? displayName(entry.tagName),
     category: entry.category ?? 'Components',
     description: entry.description,
     module: entry.module,
@@ -80,7 +82,7 @@ function toComponentCatalogEntry(
     source,
     metadataStatus: (entry as ComponentManifestEntry & { metadataStatus?: ComponentCatalogEntry['metadataStatus'] }).metadataStatus ?? 'manifest',
     moduleUrl: appKey && entry.module
-      ? `/api/apps/${encodeURIComponent(appKey)}/package-assets/${encodeURIComponent(packageName)}/${encodeURI(entry.module.slice(2))}`
+      ? `/api/apps/${encodeURIComponent(appKey)}/package-assets/${encodeURIComponent(packageName)}/${encodeURI(entry.module.slice(2))}?bundle=1`
       : undefined,
   };
 }
@@ -93,7 +95,15 @@ async function packageDirs(root: string): Promise<string[]> {
 export async function discoverComponents(appKey?: string): Promise<ComponentCatalogEntry[]> {
   if (appKey) {
     const activePackages = await getActiveAppPackages(appKey);
-    const entries = activePackages.flatMap((pkg) => activatedPackageEntries(pkg, appKey));
+    const entries = (await Promise.all(activePackages.map(async pkg => {
+      const canonical = manifestEntries(await json(path.join(pkg.packageRoot, 'ui.component.json')));
+      return activatedPackageEntries({ ...pkg, components: pkg.components.map(entry => ({ ...entry, ...canonical.find(c => c.tagName === entry.tagName) })) }, appKey);
+    }))).flat();
+    // UI Base's installed web packages have ui.component.json rather than Platform service manifests.
+    for (const pkg of await installedUiBasePackages(appKey)) if (!activePackages.some(active => active.name === pkg.name)) {
+      const manifest = manifestEntries(await json(path.join(pkg.root, 'ui.component.json')));
+      for (const entry of manifest) entries.push(toComponentCatalogEntry(entry, pkg.name, pkg.version, `package:${pkg.name}`, appKey));
+    }
     const tags = new Map<string, ComponentCatalogEntry[]>();
     for (const entry of entries) tags.set(entry.tagName, [...(tags.get(entry.tagName) ?? []), entry]);
     return entries.map((entry) => {
@@ -112,11 +122,30 @@ export async function discoverComponents(appKey?: string): Promise<ComponentCata
 
 export async function getAppPackageAsset(appKey: string, packageName: string, modulePath: string): Promise<{ filePath: string; packageName: string }> {
   const activePackage = (await getActiveAppPackages(appKey)).find((entry) => entry.name === packageName);
-  if (!activePackage) throw new Error(`Active package "${packageName}" was not found.`);
-  const filePath = resolvePackageModulePath(activePackage.packageRoot, modulePath);
+  const installed = activePackage ? undefined : (await installedUiBasePackages(appKey)).find(pkg => pkg.name === packageName);
+  if (!activePackage && !installed) throw new Error(`Active package "${packageName}" was not found.`);
+  const filePath = resolvePackageModulePath(activePackage?.packageRoot ?? installed!.root, modulePath);
   const info = await stat(filePath);
   if (!info.isFile()) throw new Error(`Package asset is not a file: ${modulePath}`);
-  return { filePath, packageName: activePackage.name };
+  return { filePath, packageName };
+}
+
+async function installedUiBasePackages(appKey: string): Promise<Array<{ name: string; root: string; version: string }>> {
+  const root = appPath(appKey);
+  const appPackage = await json<{ dependencies?: Record<string, string> }>(path.join(root, 'package.json'));
+  const platformPackage = await json<{ dependencies?: Record<string, string> }>(path.join(platformRoot, 'package.json'));
+  const appManifest = await json<{ packages?: Record<string, { enabled: boolean }> }>(path.join(root, 'app.manifest.json'));
+  const names = new Set([...Object.keys(platformPackage?.dependencies ?? {}), ...Object.keys(appPackage?.dependencies ?? {})].filter(name => name.startsWith('@ui-base/')));
+  const found: Array<{ name: string; root: string; version: string }> = [];
+  for (const name of names) {
+    if (appManifest?.packages?.[name]?.enabled === false) continue;
+    for (const owner of [root, platformRoot]) {
+      const packageRoot = path.join(owner, 'node_modules', name);
+      const metadata = await json<{ name: string; version: string }>(path.join(packageRoot, 'package.json'));
+      if (metadata?.name === name) { found.push({ name, root: packageRoot, version: metadata.version }); break; }
+    }
+  }
+  return found;
 }
 
 export function resolvePackageModulePath(packageRoot: string, modulePath: string): string {

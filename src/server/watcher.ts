@@ -1,6 +1,7 @@
 import { readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { appsDir, templatesDir, uiBasePackagesDir } from './paths.js';
+import { platformComponentsRoot } from './visual-artifacts.js';
 
 export type ChangeListener = () => void;
 
@@ -29,7 +30,7 @@ export function startWorkspaceWatcher(listener: ChangeListener): () => void {
     if (running) return;
     running = true;
     try {
-      const next = [await signature(appsDir), await signature(templatesDir), await signature(uiBasePackagesDir)].join('::');
+      const next = [await signature(appsDir), await signature(templatesDir), await signature(uiBasePackagesDir), await signature(platformComponentsRoot)].join('::');
       if (previous && next !== previous) listener();
       previous = next;
     } finally { running = false; }

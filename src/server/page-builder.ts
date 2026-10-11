@@ -7,7 +7,7 @@ import { appPath } from './applications.js';
 import { moveToOsTrash } from './trash.js';
 import { atomicWriteText } from './json-files.js';
 
-const pageExtension = /\.(ts|tsx)$/i;
+const pageExtension = /(?<!\.functions)\.(ts|tsx)$/i;
 
 function pageRoot(appKey: string): string {
   return path.join(appPath(appKey), 'src', 'pages');
@@ -69,6 +69,9 @@ async function sourceFiles(appKey: string): Promise<string[]> {
 
 async function descriptor(appKey: string, source: string): Promise<PageDescriptor> {
   const text = await readFile(fileFor(appKey, source), 'utf8');
+  const visual = await readFile(path.join(path.dirname(fileFor(appKey, source)), 'page.visual.json'), 'utf8').then(text => {
+    try { const value = JSON.parse(text); return value.kind === 'page' ? value : undefined; } catch { return undefined; }
+  }).catch(() => undefined);
   const format = source.endsWith('.tsx') ? 'tsx' : 'typescript';
   const hasRender = /export\s+(?:async\s+)?function\s+render\s*\(/.test(text);
   const hasMarkup = /<[a-zA-Z][^>]*>/.test(text);
@@ -80,8 +83,8 @@ async function descriptor(appKey: string, source: string): Promise<PageDescripto
   return {
     id: `page:${source}`,
     source,
-    route: routeFromSource(source),
-    label: titleFromSource(text) ?? defaultLabel,
+    route: visual?.route ?? routeFromSource(source),
+    label: visual?.displayName ?? titleFromSource(text) ?? defaultLabel,
     title: titleFromSource(text),
     format,
     support: hasRender && hasMarkup ? 'partial' : hasRender ? 'supported' : 'code-managed',

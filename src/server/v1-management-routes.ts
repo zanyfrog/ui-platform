@@ -21,7 +21,9 @@ export function managementCheck(method: string, pathname: string, applicationId?
   if (!area || area === 'info' || area === 'components') return {
     permissionId: method === 'DELETE' ? 'ui.application.admin' : read ? 'ui.application.view' : 'ui.application.edit', resource: app(applicationId),
   };
-  if (area === 'pages' || area === 'page') return {
+  if (area === 'visual-components' && !read) return { permissionId: 'ui.platform.component.admin', resource: system };
+  if (area === 'visual-components') return { permissionId: 'ui.application.view', resource: app(applicationId) };
+  if (area === 'pages' || area === 'page' || area === 'visual-pages' || area === 'visual-artifacts') return {
     permissionId: read ? 'ui.page.view' : method === 'DELETE' ? 'ui.page.admin' : 'ui.page.edit',
     resource: child(applicationId, 'page', 'pages'),
   };

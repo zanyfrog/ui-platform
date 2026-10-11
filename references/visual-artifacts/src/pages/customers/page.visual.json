@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "artifactId": "art_customer-page-reference",
+  "kind": "page",
+  "name": "customers",
+  "displayName": "Customer Reference Page",
+  "route": "/customers",
+  "developmentOnly": true,
+  "state": { "selectedCustomer": "None" },
+  "sources": { "query": { "kind": "fixture", "value": { "people": [
+    { "id": "acme", "name": "Acme", "status": "Active", "balance": 125.50 },
+    { "id": "north", "name": "Northwind", "status": "Pending", "balance": 42 }
+  ] } } },
+  "repeaters": [{ "node": "person-wrapper", "collection": "query.people", "item": "person", "index": "personIndex" }],
+  "bindings": [
+    { "node": "person-card", "target": "property:person", "value": "person" },
+    { "node": "selected-label", "target": "text", "value": "local.selectedCustomer" }
+  ],
+  "events": [{ "node": "person-card", "event": "openRequested", "actions": [{ "kind": "set", "state": "selectedCustomer", "value": "event.detail.customerId" }] }],
+  "layout": { "page-grid": { "base": { "display": "grid", "gridTemplateColumns": "repeat(2, minmax(0, 1fr))", "gap": "16px" }, "tablet": { "gridTemplateColumns": "1fr" }, "mobile": { "gap": "8px" } } }
+}

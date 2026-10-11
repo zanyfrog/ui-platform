@@ -1,0 +1,6 @@
+:host { font-family: system-ui, sans-serif; }
+main { max-width: 1000px; margin: auto; padding: 24px; }
+h1 { font-size: 1.6rem; }
+.page-footer { color: #2459a6; }
+/* This deliberately does not penetrate Component shadow roots. */
+uib-heading { --uib-heading-color: red; }

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "artifactId": "art_customer-list-item-reference",
+  "componentId": "cmp_platform_customer-list-item-reference",
+  "kind": "component",
+  "name": "customer-list-item",
+  "displayName": "Customer List Item",
+  "description": "Small reference proving nested Component boundaries and event forwarding.",
+  "public": {
+    "properties": { "person": { "type": "object", "required": true } },
+    "events": { "openRequested": { "payload": { "customerId": { "type": "string", "required": true } } } },
+    "slots": ["footer"]
+  },
+  "bindings": [{ "node": "nested-summary", "target": "property:person", "value": "public.person" }],
+  "events": [{ "node": "nested-summary", "event": "openRequested", "actions": [{ "kind": "emit", "event": "openRequested", "payload": { "customerId": "event.detail.customerId" } }] }]
+}

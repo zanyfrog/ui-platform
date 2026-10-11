@@ -1,0 +1,9 @@
+import source from './page.html?raw';
+import css from './page.css?raw';
+import metadata from './page.visual.json';
+import * as functions from './page.functions';
+import { components, packages } from 'virtual:uip-visual-artifacts';
+import { createVisualPage } from '@ui-platform/visual-artifacts/runtime';
+import type { ArtifactMetadata } from '@ui-platform/visual-artifacts';
+export const route = metadata.route;
+export const { render } = createVisualPage({ source, css, metadata: metadata as ArtifactMetadata, functions }, { components, packages });

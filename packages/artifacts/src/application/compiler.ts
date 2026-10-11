@@ -3,6 +3,13 @@ import type { EditableArtifact } from "../types.js";
 
 /** Include this value in BuildOptions.inputs when using the foundation compiler. */
 export const foundationCompilerVersion = `foundation-runtime-1/typescript-${ts.version}`;
+/** Trusted Visual Artifact functions use the same TypeScript compiler as other source artifacts. */
+export function compileVisualFunctions(source: string): string {
+  const result = ts.transpileModule(source || 'export {};', { fileName: 'artifact.functions.ts', reportDiagnostics: true,
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } });
+  if (result.diagnostics?.some(d => d.category === ts.DiagnosticCategory.Error)) throw new Error('Custom functions contain TypeScript syntax errors.');
+  return result.outputText;
+}
 /** Initial foundation types only. App page/module bundlers supply their own compile hook. */
 export async function compileFoundationArtifact(
   artifact: EditableArtifact,

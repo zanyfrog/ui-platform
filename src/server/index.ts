@@ -29,6 +29,9 @@ import { V1_FIXTURE_APPLICATION_KEY, developmentUsers } from './v1-development-p
 import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID } from './v1-development-policy.js';
 import { managementCheck } from './v1-management-routes.js';
 import { ensureV1DevelopmentApplication } from './v1-development-app.js';
+import { VisualArtifactService, knownVisualArtifacts, platformComponentsRoot, visualWorkspace } from './visual-artifacts.js';
+import { compileVisualFunctions } from '@ui-platform/artifacts';
+import { build as bundleBrowserModule } from 'esbuild';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const v1Enabled = process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1';
@@ -261,6 +264,27 @@ const server = http.createServer(async (req, res) => {
 
     if (parts[0] === 'api' && parts[1] === 'apps' && parts[2]) {
       const key = decodeURIComponent(parts[2]);
+      if (parts.length === 4 && ['visual-artifacts', 'visual-pages', 'visual-components'].includes(parts[3])) {
+        await getApp(key);
+        if (parts[3] === 'visual-artifacts' && method === 'GET') return json(res, 200, await visualWorkspace(key, await discoverComponents(key)));
+        const kind = parts[3] === 'visual-components' ? 'component' : 'page';
+        const service = new VisualArtifactService(kind === 'component' ? platformComponentsRoot : path.join(appPath(key), 'src', 'pages'), kind);
+        const locator = url.searchParams.get('locator');
+        if (parts[3] === 'visual-artifacts') throw new Error('The workspace endpoint supports GET only.');
+        if (method === 'GET') {
+          const bundle = locator ? await service.read(locator) : null;
+          if (bundle && url.searchParams.get('code') === '1') {
+            const code = compileVisualFunctions(bundle.files.code);
+            res.writeHead(200, { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'no-store' }); return res.end(code);
+          }
+          return json(res, 200, bundle ?? await service.list());
+        }
+        const input = await body(req);
+        if (method === 'POST') return json(res, 201, await service.create(String(input.name ?? ''), input.route));
+        if (!locator) throw new Error('Visual Artifact locator is required.');
+        if (method === 'PUT') return json(res, 200, await service.save(locator, input.role, input.content, input.expectedHash));
+        if (method === 'DELETE') { await service.remove(locator, input.expectedHash, await knownVisualArtifacts()); return json(res, 200, { removed: true }); }
+      }
       if (parts.length === 3 && method === 'GET') {
         const app = await getApp(key);
         const template = await getTemplate(app.template).catch(() => null);
@@ -316,6 +340,10 @@ const server = http.createServer(async (req, res) => {
         const packageName = decodeURIComponent(parts[4]);
         const modulePath = `./${decodeURIComponent(parts.slice(5).join('/'))}`;
         const asset = await getAppPackageAsset(key, packageName, modulePath);
+        if (url.searchParams.get('bundle') === '1' && /\.[cm]?js$/.test(asset.filePath)) {
+          const bundled = await bundleBrowserModule({ entryPoints: [asset.filePath], bundle: true, write: false, format: 'esm', platform: 'browser', target: 'es2022' });
+          res.writeHead(200, { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'no-store' }); return res.end(bundled.outputFiles[0].text);
+        }
         const info = await stat(asset.filePath);
         const contentType = asset.filePath.endsWith('.css') ? 'text/css; charset=utf-8' : asset.filePath.endsWith('.json') ? 'application/json; charset=utf-8' : 'text/javascript; charset=utf-8';
         res.writeHead(200, { 'content-type': contentType, 'cache-control': 'no-store', 'content-length': String(info.size) });
