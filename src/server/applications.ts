@@ -8,6 +8,7 @@ import { readJson, atomicWriteJson } from './json-files.js';
 import { appendHistory } from './history.js';
 import { getTemplate } from './templates.js';
 import { spawnNpm } from './npm-process.js';
+import { rebaseApplicationLinks } from './application-links.js';
 
 const REQUIRED = ['package.json', 'tsconfig.json', APP_MANIFEST_FILE, 'app.settings.json', 'app-services.json', 'src/main.ts'];
 const keyPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -96,7 +97,10 @@ async function replaceTokens(root: string, tokens: Record<string, string>): Prom
       const buffer = await readFile(full);
       if (buffer.includes(0)) continue;
       let text = buffer.toString('utf8');
-      for (const [key, value] of Object.entries(tokens)) text = text.replaceAll(`{{${key}}}`, value);
+      for (const [key, value] of Object.entries(tokens)) {
+        const replacement = full.endsWith('.json') ? JSON.stringify(value).slice(1, -1) : value;
+        text = text.replaceAll(`{{${key}}}`, () => replacement);
+      }
       await writeFile(full, text, 'utf8');
     }
   }
@@ -145,6 +149,7 @@ export async function createApp(input: { name: string; key: string; templateId?:
     // Automatic dependency installation is part of creation. It happens before commit/rename.
     await npmInstall(tempDir);
     await npmRun(tempDir, 'build:services');
+    await rebaseApplicationLinks(path.join(tempDir, 'node_modules'), tempDir, finalDir);
     await rename(tempDir, finalDir);
   } catch (error) {
     await rm(tempDir, { recursive: true, force: true }).catch(() => undefined);

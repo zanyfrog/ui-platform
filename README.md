@@ -24,6 +24,12 @@ npm run start:platform
 
 The package uses the uploaded UI Base source through local `file:` dependencies and manages generated apps under `../apps` and auto-discovered templates under `../templates`.
 
+The standard application template is bundled in `templates/standard`, including
+settings, a home page, application services, and build/preview scripts. Templates
+in `../templates` (or `UI_TEMPLATES_DIR`) override bundled templates with the same
+ID. Generated standard applications require Node 22.12 or newer and npm registry
+access for their initial dependency installation.
+
 ## Page Builder
 
 The builder is local and filesystem-first. `src/pages` is the source of truth for static routes:

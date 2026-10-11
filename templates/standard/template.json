@@ -1,0 +1,40 @@
+{
+  "id": "standard",
+  "name": "Standard application",
+  "version": "1.0.0",
+  "description": "A runnable application with a home page and local application services.",
+  "requiredCreationFields": [
+    {
+      "key": "APP_NAME",
+      "label": "Application Name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "key": "APP_KEY",
+      "label": "Folder / URL Name",
+      "type": "slug",
+      "required": true
+    }
+  ],
+  "settings": [
+    {
+      "path": "application.name",
+      "label": "Application Name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "path": "application.status",
+      "label": "Status",
+      "type": "select",
+      "options": [
+        "active",
+        "disabled"
+      ]
+    }
+  ],
+  "defaultPackages": [
+    "@ui-app/app-services"
+  ]
+}
