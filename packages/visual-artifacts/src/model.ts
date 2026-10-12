@@ -34,7 +34,17 @@ export interface ArtifactMetadata {
   onLoad?: Action[];
   layout?: Record<string, { base?: LayoutRule; tablet?: LayoutRule; mobile?: LayoutRule }>;
   dependencies?: string[];
+  capabilities?: Array<'visual' | 'form'>;
+  modes?: { default: string; overrides: Record<string, Record<string, NodeOverride>> };
+  form?: FormDefinition;
 }
+export interface NodeOverride { visible?: boolean; editable?: boolean; required?: boolean; label?: string; help?: string; default?: unknown }
+export interface FormField extends NodeOverride { id: string; node: string; key: string; datasetFieldId: string; type: ValueType; datasetRequired?: boolean; operations?: Array<'create' | 'edit'> }
+export interface FormDefinition {
+  node: string; datasetId: string; primaryKey: string; fields: FormField[];
+  submit: { service: string; readService: string };
+}
+export interface DatasetDefinition { dataset: { id: string; key: string; name: string }; fields: Array<{ id: string; key: string; type: string; required?: boolean; default?: unknown }> }
 export interface ArtifactFiles { source: string; css: string; metadata: string; fixtures: string; code: string }
 export interface ArtifactBundle { locator: string; files: ArtifactFiles; hash: string; diagnostics: Diagnostic[]; metadata?: ArtifactMetadata }
 export interface Diagnostic { severity: 'error' | 'warning'; message: string; node?: string }

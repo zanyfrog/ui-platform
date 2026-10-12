@@ -16,7 +16,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
   const dirty = () => files && JSON.stringify(files) !== JSON.stringify(baseline);
   const url = () => `${base}/visual-${selectedKind === 'page' ? 'pages' : 'components'}?locator=${encodeURIComponent(selected!.locator)}`;
   target.innerHTML = `<div class="stack"><div class="pane-heading"><strong>Visual Artifacts</strong><span data-status aria-live="polite"></span></div>
-    <div class="editor-actions"><button data-create="page">Create Page</button><button data-create="component">Create Platform Component</button><select aria-label="Visual Artifact" data-artifacts><option value="">Select an artifact</option></select></div>
+    <div class="editor-actions"><button data-create="page">Create Page</button><button data-create="component">Create Platform Component</button><button data-create="form-dataset">Create Form from Dataset</button><button data-create="form">Create blank Form</button><select aria-label="Visual Artifact" data-artifacts><option value="">Select an artifact</option></select></div>
     <div data-work hidden><div class="editor-actions"><button data-save>Save changed files</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Preview</button></div>
     <div data-diagnostics></div><div class="builder-layout" style="grid-template-columns:minmax(180px,1fr) minmax(220px,2fr)"><div class="stack"><strong>Structure</strong><select data-nodes size="8" aria-label="Visual node"></select>
     <label>Insert into selected HTML container, or artifact root<select data-insert aria-label="Insert element"></select></label><button data-add>Insert with layout wrapper</button><button data-root>Select artifact root</button><button data-move="up">Move layout item up</button><button data-move="down">Move layout item down</button><div data-inspector></div></div>
@@ -47,6 +47,21 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
     inspector.innerHTML = '';
     if (!node) {
       inspector.innerHTML = '<p class="note">Select a managed node to edit settings and bindings.</p>';
+      const metadata = workingMetadata();
+      if (metadata.form) {
+        for (const [labelText, value, change] of [
+          ['Dataset target', metadata.form.datasetId, (m: ArtifactMetadata, v: string) => { m.form!.datasetId = v; }],
+          ['Submit service', metadata.form.submit.service, (m: ArtifactMetadata, v: string) => { m.form!.submit.service = v; }],
+          ['Read service', metadata.form.submit.readService, (m: ArtifactMetadata, v: string) => { m.form!.submit.readService = v; }],
+          ['Default mode', metadata.modes!.default, (m: ArtifactMetadata, v: string) => { m.modes!.default = v; m.modes!.overrides[v] ??= {}; m.public!.properties.mode.default = v; }],
+        ] as Array<[string, string, (m: ArtifactMetadata, v: string) => void]>) {
+          const label = document.createElement('label'); label.textContent = labelText;
+          const input = document.createElement('input'); input.value = value; input.setAttribute('aria-label', labelText);
+          input.addEventListener('change', safe(() => changeMetadata(m => change(m, input.value)))); label.append(input); inspector.append(label);
+        }
+        const addMode = document.createElement('button'); addMode.textContent = 'Add mode';
+        addMode.addEventListener('click', safe(() => { const name = prompt('Mode name:'); if (name) changeMetadata(m => { m.modes!.overrides[name] ??= {}; }); })); inspector.append(addMode);
+      }
       if (selectedKind === 'component') {
         inspector.insertAdjacentHTML('beforeend', '<button data-public>Add public property</button>');
         inspector.querySelector('[data-public]')!.addEventListener('click', safe(() => {
@@ -60,6 +75,22 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
       return;
     }
     if (node.manual) { inspector.textContent = 'Manual region: edit source directly.'; return; }
+    const field = workingMetadata().form?.fields.find(f => f.node === selectedNode);
+    if (field) {
+      const mode = document.createElement('select'); mode.setAttribute('aria-label', 'Field override mode');
+      for (const name of ['base', ...Object.keys(workingMetadata().modes!.overrides)]) { const option = document.createElement('option'); option.textContent = name; mode.append(option); }
+      inspector.append(mode);
+      for (const key of ['label', 'help', 'visible', 'editable', 'required'] as const) {
+        const label = document.createElement('label'); label.textContent = `Field ${key}`;
+        const input = document.createElement('input'); input.type = ['visible', 'editable', 'required'].includes(key) ? 'checkbox' : 'text';
+        const refresh = () => { const m = workingMetadata(); const value = mode.value === 'base' ? field[key] : m.modes!.overrides[mode.value][field.node]?.[key] ?? field[key]; input.value = String(value ?? ''); input.checked = value !== false && (key !== 'required' || Boolean(value)); };
+        refresh(); mode.addEventListener('change', refresh); input.setAttribute('aria-label', `Field ${key}`);
+        input.addEventListener('change', safe(() => changeMetadata(m => {
+          const target = mode.value === 'base' ? m.form!.fields.find(f => f.id === field.id)! : (m.modes!.overrides[mode.value][field.node] ??= {});
+          Object.assign(target, { [key]: input.type === 'checkbox' ? input.checked : input.value });
+        }))); label.append(input); inspector.append(label);
+      }
+    }
     const pkg = workspace.packages.find(p => p.id === node.attributes['data-uip-component']);
     const component = workspace.components.find(c => c.metadata?.componentId === node.attributes['data-uip-component']);
     const contracts = pkg?.definition?.builder.settings ?? component?.metadata?.public?.properties ?? {};
@@ -123,8 +154,13 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
   target.querySelectorAll<HTMLButtonElement>('[data-create]').forEach(button => button.addEventListener('click', safe(async () => {
     if (dirty()) throw new Error('Save or recover editor changes before creating another artifact.');
     const name = prompt('Artifact name (lowercase-with-hyphens):'); if (!name) return;
-    const kind = button.dataset.create as 'page' | 'component'; const route = kind === 'page' ? prompt('Page route:', `/${name}`) : undefined; if (route === null) return;
-    const bundle = await api<ArtifactBundle>(`${base}/visual-${kind === 'page' ? 'pages' : 'components'}`, { method: 'POST', body: JSON.stringify({ name, route }) });
+    const isForm = button.dataset.create!.startsWith('form');
+    const kind = button.dataset.create === 'page' ? 'page' : 'component'; const route = kind === 'page' ? prompt('Page route:', `/${name}`) : undefined; if (route === null) return;
+    let dataset;
+    if (button.dataset.create === 'form-dataset') {
+      const schema = prompt('Paste the published Dataset schema JSON (dataset and fields with stable IDs):'); if (!schema) return; dataset = JSON.parse(schema);
+    }
+    const bundle = await api<ArtifactBundle>(`${base}/visual-${kind === 'page' ? 'pages' : 'components'}`, { method: 'POST', body: JSON.stringify({ name, route, ...(isForm ? { form: { dataset } } : {}) }) });
     workspace = await api<Workspace>(`${base}/visual-artifacts`); open(bundle, kind);
   })));
   find('[data-file]').addEventListener('change', () => { role = find<HTMLSelectElement>('[data-file]').value as keyof ArtifactFiles; find<HTMLTextAreaElement>('[data-source]').value = files[role]; });

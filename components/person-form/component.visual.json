@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "artifactId": "art_person_form_reference",
+  "componentId": "cmp_platform_person_form_reference",
+  "kind": "component",
+  "name": "person-form",
+  "displayName": "PersonForm",
+  "capabilities": [
+    "visual",
+    "form"
+  ],
+  "modes": {
+    "default": "public",
+    "overrides": {
+      "public": {
+        "control_status": {
+          "visible": false
+        },
+        "control_internalNotes": {
+          "visible": false
+        }
+      },
+      "admin": {
+        "control_status": {
+          "visible": true,
+          "editable": true
+        },
+        "control_internalNotes": {
+          "visible": true,
+          "editable": true
+        }
+      }
+    }
+  },
+  "form": {
+    "node": "form",
+    "datasetId": "dataset-person-form-reference",
+    "primaryKey": "id",
+    "fields": [
+      {
+        "id": "field_person-firstName",
+        "node": "control_firstName",
+        "key": "firstName",
+        "datasetFieldId": "person-firstName",
+        "type": "string",
+        "datasetRequired": true,
+        "required": true,
+        "label": "firstName",
+        "visible": true,
+        "editable": true
+      },
+      {
+        "id": "field_person-lastName",
+        "node": "control_lastName",
+        "key": "lastName",
+        "datasetFieldId": "person-lastName",
+        "type": "string",
+        "datasetRequired": true,
+        "required": true,
+        "label": "lastName",
+        "visible": true,
+        "editable": true
+      },
+      {
+        "id": "field_person-email",
+        "node": "control_email",
+        "key": "email",
+        "datasetFieldId": "person-email",
+        "type": "string",
+        "datasetRequired": true,
+        "required": true,
+        "label": "email",
+        "visible": true,
+        "editable": true
+      },
+      {
+        "id": "field_person-status",
+        "node": "control_status",
+        "key": "status",
+        "datasetFieldId": "person-status",
+        "type": "string",
+        "label": "status",
+        "visible": true,
+        "editable": true
+      },
+      {
+        "id": "field_person-internalNotes",
+        "node": "control_internalNotes",
+        "key": "internalNotes",
+        "datasetFieldId": "person-internalNotes",
+        "type": "string",
+        "label": "internalNotes",
+        "visible": true,
+        "editable": true
+      }
+    ],
+    "submit": {
+      "service": "dataset.write",
+      "readService": "dataset.read"
+    }
+  },
+  "public": {
+    "properties": {
+      "mode": {
+        "type": "string",
+        "default": "public"
+      },
+      "operation": {
+        "type": "string",
+        "enum": [
+          "create",
+          "edit"
+        ],
+        "default": "create"
+      },
+      "recordId": {
+        "type": "string"
+      },
+      "initialRecord": {
+        "type": "object"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "events": {
+      "submitStarted": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "submitSucceeded": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "submitFailed": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "recordCreated": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "recordUpdated": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "cancelRequested": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "slots": []
+  },
+  "state": {
+    "values": {},
+    "dirty": false,
+    "submitting": false,
+    "submitted": false,
+    "submitError": null,
+    "validation": {},
+    "savedRecord": null
+  }
+}

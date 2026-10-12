@@ -42,6 +42,12 @@ try {
   await frame.getByRole('button', { name: 'Show customer details' }).first().click();
   await frame.getByText('Selected customer: acme').waitFor();
   console.log('PASS: live editor preview loads source, custom modules and real installed Package Components through the real API');
+  await page.getByLabel('Visual Artifact', { exact: true }).selectOption('component:person-form/component.visual.json');
+  await page.getByRole('button', { name: 'Preview', exact: true }).click();
+  await frame.getByRole('heading', { name: 'Person form', exact: true }).waitFor();
+  await frame.getByLabel('firstName', { exact: true }).fill('Preview');
+  if (await frame.locator('[data-uip-node="control_status"]').isVisible()) throw new Error('Form preview must use default/public mode.');
+  console.log('PASS: live editor previews PersonForm through the shared runtime and actual Package form controls');
   production = await previewBuild({ configFile: 'references/visual-artifacts/vite.config.ts', preview: { host: '127.0.0.1', port: 0 } });
   await page.goto(`${production.resolvedUrls.local[0]}customers`);
   await page.getByRole('heading', { name: 'Visual Artifact reference' }).waitFor();

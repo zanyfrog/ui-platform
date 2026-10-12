@@ -280,7 +280,7 @@ const server = http.createServer(async (req, res) => {
           return json(res, 200, bundle ?? await service.list());
         }
         const input = await body(req);
-        if (method === 'POST') return json(res, 201, await service.create(String(input.name ?? ''), input.route));
+        if (method === 'POST') return json(res, 201, await service.create(String(input.name ?? ''), input.route, input.form));
         if (!locator) throw new Error('Visual Artifact locator is required.');
         if (method === 'PUT') return json(res, 200, await service.save(locator, input.role, input.content, input.expectedHash));
         if (method === 'DELETE') { await service.remove(locator, input.expectedHash, await knownVisualArtifacts()); return json(res, 200, { removed: true }); }

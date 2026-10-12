@@ -1,8 +1,8 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { lstat, mkdir, readdir, readFile, rename, realpath } from 'node:fs/promises';
 import path from 'node:path';
-import { componentReferences, parseMetadata, validateArtifact } from '@ui-platform/visual-artifacts';
-import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent, RuntimeArtifact } from '@ui-platform/visual-artifacts';
+import { componentReferences, generateForm, parseMetadata, validateArtifact } from '@ui-platform/visual-artifacts';
+import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, DatasetDefinition, PackageComponent, RuntimeArtifact } from '@ui-platform/visual-artifacts';
 import { atomicWriteText } from './json-files.js';
 import { moveToOsTrash } from './trash.js';
 import { appPath } from './applications.js';
@@ -77,15 +77,15 @@ export class VisualArtifactService {
     try { JSON.parse(files.fixtures || '{}'); } catch { diagnostics.push({ severity: 'error', message: 'Preview fixtures are invalid JSON.' }); }
     return { locator, files, hash: hash(files), metadata: parsed.metadata, diagnostics };
   }
-  async create(name: string, route?: string): Promise<ArtifactBundle> {
+  async create(name: string, route?: string, form?: { dataset?: DatasetDefinition }): Promise<ArtifactBundle> {
     if (!/^[a-z][a-z0-9-]*$/.test(name)) throw new Error('Use a lowercase name with letters, numbers, and hyphens.');
     const locator = `${name}/${this.kind}.visual.json`;
     const file = await this.file(locator, true);
     if (await lstat(path.dirname(file)).then(() => true, error => { if (error.code === 'ENOENT') return false; throw error; })) throw new Error('An artifact folder already exists.');
     const temporary = path.join(this.root, `.creating-${randomUUID()}`);
-    await mkdir(temporary);
     const metadata: ArtifactMetadata = { schemaVersion: 1, artifactId: `art_${randomUUID()}`, kind: this.kind, name, displayName: name.replaceAll('-', ' '), ...(this.kind === 'component' ? { componentId: `cmp_platform_${randomUUID()}`, public: { properties: {}, events: {}, slots: [] } } : { route: route ?? `/${name}` }) };
-    const files: ArtifactFiles = { source: `<section class="uip-layout-item" data-uip-node="node_${randomUUID()}"></section>\n`, css: '', metadata: JSON.stringify(metadata, null, 2) + '\n', fixtures: '{}\n', code: 'export {};\n' };
+    const files: ArtifactFiles = form ? generateForm(metadata, form.dataset) : { source: `<section class="uip-layout-item" data-uip-node="node_${randomUUID()}"></section>\n`, css: '', metadata: JSON.stringify(metadata, null, 2) + '\n', fixtures: '{}\n', code: 'export {};\n' };
+    await mkdir(temporary);
     for (const [role, extension] of Object.entries(roles)) await atomicWriteText(path.join(temporary, `${this.kind}${extension}`), files[role as keyof ArtifactFiles]);
     if (this.kind === 'page') await atomicWriteText(path.join(temporary, 'index.ts'), pageEntry());
     await rename(temporary, path.dirname(file));
@@ -123,7 +123,7 @@ export class VisualArtifactService {
   }
 }
 export function pageEntry(): string {
-  return `import source from './page.html?raw';\nimport css from './page.css?raw';\nimport metadata from './page.visual.json';\nimport * as functions from './page.functions';\nimport { components, packages } from 'virtual:uip-visual-artifacts';\nimport { createVisualPage } from '@ui-platform/visual-artifacts/runtime';\nimport type { ArtifactMetadata } from '@ui-platform/visual-artifacts';\nexport const route = metadata.route;\nexport const title = metadata.displayName;\nexport const { render } = createVisualPage({ source, css, metadata: metadata as ArtifactMetadata, functions }, { components, packages });\n`;
+  return `import source from './page.html?raw';\nimport css from './page.css?raw';\nimport metadata from './page.visual.json';\nimport * as functions from './page.functions';\nimport { components, packages } from 'virtual:uip-visual-artifacts';\nimport { createVisualPage } from '@ui-platform/visual-artifacts/runtime';\nimport type { ArtifactMetadata } from '@ui-platform/visual-artifacts';\nexport const route = metadata.route;\nexport const title = metadata.displayName;\nimport { createApplicationDataServices } from '@uib/platform-core/application-data';\nexport const { render } = createVisualPage({ source, css, metadata: metadata as ArtifactMetadata, functions }, { components, packages, services: createApplicationDataServices() });\n`;
 }
 export function toRuntime(bundle: ArtifactBundle): RuntimeArtifact | undefined { return bundle.metadata ? { metadata: bundle.metadata, source: bundle.files.source, css: bundle.files.css } : undefined; }
 export async function visualWorkspace(appKey: string, packages: PackageComponent[]) {

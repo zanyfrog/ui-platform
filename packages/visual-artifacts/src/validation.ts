@@ -36,6 +36,35 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
     if (new Set(m.public?.slots).size !== (m.public?.slots.length ?? 0)) error('Duplicate public slot names.');
     const parsed = parseSource(artifact.source); diagnostics.push(...parsed.diagnostics);
     const nodes = new Map(parsed.nodes.filter(n => n.id).map(n => [n.id!, n]));
+    if (m.modes) {
+      if (!Object.hasOwn(m.modes.overrides, m.modes.default)) error('Default mode must exist.');
+      for (const overrides of Object.values(m.modes.overrides)) for (const [node, override] of Object.entries(overrides)) {
+        if (!nodes.has(node)) error(`Unknown mode node: ${node}.`);
+        if (Object.keys(override).some(key => !['visible', 'editable', 'required', 'label', 'help', 'default'].includes(key))) error('Unsupported mode override.');
+        for (const key of ['visible', 'editable', 'required'] as const) if (override[key] !== undefined && typeof override[key] !== 'boolean') error(`Mode ${key} must be boolean.`);
+      }
+    }
+    if (Boolean(m.capabilities?.includes('form')) !== Boolean(m.form)) error('Form capability and Form definition must be declared together.');
+    if (m.form) {
+      if (m.kind !== 'component') error('A Form must be a Platform Component.');
+      if (!m.form.datasetId) error('Configure a Dataset target before preview/submission.');
+      if (!nodes.has(m.form.node)) error('Unknown Form root node.');
+      if (!/^[A-Za-z][\w]*$/.test(m.form.primaryKey)) error('Invalid Form primary key.');
+      if (!m.modes) error('A Form must declare a restrictive default mode.');
+      if (!m.form.submit.service || !m.form.submit.readService) error('Form write/read adapters must be explicit.');
+      const keys = new Set<string>(), identities = new Set<string>(), fieldNodes = new Set<string>();
+      for (const field of m.form.fields) {
+        if (!/^[A-Za-z][\w-]*$/.test(field.id) || identities.has(field.id) || fieldNodes.has(field.node) || keys.has(field.key)) error('Form field identity, node and mapping must be unique.');
+        identities.add(field.id); fieldNodes.add(field.node); keys.add(field.key);
+        if (!nodes.has(field.node) || !/^[A-Za-z][\w]*$/.test(field.key) || !field.datasetFieldId) error('Form fields require an explicit node and stable Dataset mapping.');
+        if (!['string', 'number', 'boolean', 'object', 'array'].includes(field.type)) error('Invalid Form field value type.');
+        let parent = nodes.get(field.node)?.parent;
+        while (parent && parent.id !== m.form.node) parent = parent.parent;
+        if (!parent) error('Mapped Form controls must belong to the Form root.');
+        if (field.datasetRequired && field.required === false) error('Dataset-required validation cannot be weakened.');
+        for (const overrides of Object.values(m.modes?.overrides ?? {})) if (field.datasetRequired && overrides[field.node]?.required === false) error('A mode cannot weaken Dataset-required validation.');
+      }
+    }
     const sourceNames = new Set(['public', 'local', 'route', 'context', 'event', ...Object.keys(m.sources ?? {}), ...(m.repeaters ?? []).flatMap(r => [r.item, ...(r.index ? [r.index] : [])])]);
     const expression = (expr: Expression) => {
       if (typeof expr === 'string') {

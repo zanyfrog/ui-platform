@@ -1,4 +1,5 @@
 import type { ArtifactInstance } from '@ui-platform/visual-artifacts/runtime';
+import { visualDatasetServices } from './data-services.js';
 import type { ArtifactBundle, PackageComponent, RuntimeArtifact } from '@ui-platform/visual-artifacts';
 const output = document.querySelector('#preview')!;
 const events = document.querySelector('#events')!;
@@ -17,6 +18,7 @@ window.addEventListener('message', async event => {
     const artifact = await runtime(bundle, bundle.metadata!.kind === 'page' ? 'pages' : 'components');
     instance = mountVisualArtifact(artifact, { components: await Promise.all(components.filter(c => c.metadata && !c.diagnostics.some(d => d.severity === 'error')).map(c => runtime(c, 'components'))), packages,
       inputs: fixtures.public, sources: fixtures.sources, context: fixtures.context, route: fixtures.route,
+      services: visualDatasetServices,
       navigate: to => { events.textContent += `Navigation requested: ${to}\n`; }, onError: error => { events.textContent += `Runtime error: ${String(error)}\n`; } });
     for (const name of Object.keys(artifact.metadata.public?.events ?? {})) instance.host.addEventListener(name, event => { events.textContent += `${name}: ${JSON.stringify((event as CustomEvent).detail)}\n`; });
     output.replaceChildren(instance.host);

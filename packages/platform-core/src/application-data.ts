@@ -44,3 +44,11 @@ export class ApplicationDataClient {
   update(datasetId: string, records: ProtectedWrite['records']) { return this.execute({ datasetId, operation: 'update', records }); }
   delete(datasetId: string, records: ProtectedWrite['records']) { return this.execute({ datasetId, operation: 'delete', records }); }
 }
+
+/** Named Visual Artifact adapters reuse the existing Page/Form session transport. */
+export function createApplicationDataServices(client = new ApplicationDataClient(createSessionApplicationDataTransport())): Record<string, (input: unknown) => Promise<unknown>> {
+  return {
+    'dataset.write': input => client.execute(input as ProtectedWrite),
+    'dataset.read': input => client.query({ ...(input as ProtectedRead), mode: 'read' }),
+  };
+}

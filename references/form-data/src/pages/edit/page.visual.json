@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "artifactId": "art_person_edit_reference",
+  "kind": "page",
+  "name": "edit",
+  "displayName": "Person edit",
+  "route": "/people/:id/edit",
+  "developmentOnly": true,
+  "dependencies": [
+    "cmp_platform_person_form_reference"
+  ],
+  "bindings": [
+    {
+      "node": "person",
+      "target": "property:recordId",
+      "value": "route.id"
+    }
+  ]
+}

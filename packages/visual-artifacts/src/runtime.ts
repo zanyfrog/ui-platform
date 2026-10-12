@@ -1,10 +1,14 @@
 import { renderComponentInstance, ComponentRegistry } from '@ui-base/ui/component-reference';
+import '@ui-base/forms';
 import { evaluate } from './expression.js';
+import { resolveMode } from './form.js';
+import { attachFormRuntime } from './form-runtime.js';
+import type { FormRuntimeOptions } from './form-runtime.js';
 import { readPackageSettings, valueErrors } from './model.js';
 import { validateArtifact } from './validation.js';
 import type { Action, FunctionContext, LayoutRule, PackageComponent, RuntimeArtifact } from './model.js';
 
-export interface RuntimeOptions {
+export interface RuntimeOptions extends FormRuntimeOptions {
   components: RuntimeArtifact[]; packages: PackageComponent[];
   inputs?: Record<string, unknown>; sources?: Record<string, unknown>; context?: Record<string, unknown>; route?: Record<string, unknown>;
   slots?: Node[]; navigate?: (to: string) => void;
@@ -78,6 +82,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     } catch (error) { report(error); }
   };
   const template = document.createElement('template'); template.innerHTML = artifact.source;
+  const formRuntime = m.form ? attachFormRuntime(m, root, state, options, () => inputs, () => render(), emit) : undefined;
   for (const child of options.slots ?? []) host.append(child);
   const listeners = new Set(['click', 'dblclick', 'input', 'change', 'submit', 'reset', 'keydown', 'keyup', 'keypress', 'focusin', 'focusout', 'pointerdown', 'pointerup', 'pointermove', 'mousedown', 'mouseup', 'mousemove', 'touchstart', 'touchend', 'contextmenu', ...(m.events ?? []).map(e => e.event), ...options.packages.flatMap(p => [...Object.keys(p.definition?.runtime.events ?? {}), ...(p.events ?? [])])]);
   // Public emissions originate on the host; internal events end at this artifact boundary.
@@ -90,6 +95,12 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     const used = new Set<string>();
     const process = (element: Element, current: Record<string, unknown>, prefix: string, repeating = false): Node[] => {
       const id = element.getAttribute('data-uip-node') ?? '';
+      const override = resolveMode(m, inputs.mode)[id];
+      if (override && !m.form?.fields.some(f => f.node === id)) {
+        if (override.visible !== undefined) (element as HTMLElement).hidden = !override.visible;
+        if (override.editable !== undefined) element.toggleAttribute('readonly', !override.editable);
+        if (override.label !== undefined) element.setAttribute('label', override.label);
+      }
       const repeat = !repeating && m.repeaters?.find(r => r.node === id);
       if (repeat) {
         const collection = evaluate(repeat.collection, current) ?? [];
@@ -155,6 +166,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     for (const child of [...fragment.children]) child.replaceWith(...process(child, scope(), 'root'));
     const style = document.createElement('style'); style.textContent = `:host{display:block}.uip-layout-item{box-sizing:border-box;min-width:0}\n${artifact.css}\n${layoutCss(m.layout)}`;
     root.replaceChildren(style, fragment);
+    formRuntime?.paint();
     for (const [key, instance] of nested) if (!used.has(key)) { instance.destroy(); nested.delete(key); }
   }
   render();
@@ -163,12 +175,12 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     if (service) void Promise.resolve(service(undefined)).then(value => { if (!disposed) { data[name] = value; render(); } }).catch(report);
   }
   if (m.onLoad?.length) void actions(m.onLoad, scope());
-  return { host, root, state, update(next) { inputs = validateInputs(next); render(); }, destroy() { disposed = true; nested.forEach(instance => instance.destroy()); nested.clear(); for (const [element, bindings] of boundEvents) for (const binding of bindings) element.removeEventListener(binding.name, binding.listener); boundEvents.clear(); host.remove(); } };
+  return { host, root, state, update(next) { inputs = validateInputs(next); render(); }, destroy() { disposed = true; formRuntime?.destroy(); nested.forEach(instance => instance.destroy()); nested.clear(); for (const [element, bindings] of boundEvents) for (const binding of bindings) element.removeEventListener(binding.name, binding.listener); boundEvents.clear(); host.remove(); } };
 }
 
 const pageDefinitions = new Map<string, { artifact: RuntimeArtifact; options: RuntimeOptions }>();
 /** Fits existing application routers that render Page modules as HTML strings. */
-export function createVisualPage(artifact: RuntimeArtifact, options: RuntimeOptions): { render: (context?: { navigate?: (to: string) => void; route?: string; settings?: Record<string, unknown> }) => string } {
+export function createVisualPage(artifact: RuntimeArtifact, options: RuntimeOptions): { render: (context?: { navigate?: (to: string) => void; route?: string; params?: Record<string, unknown>; settings?: Record<string, unknown> }) => string } {
   if (artifact.metadata.kind !== 'page') throw new Error('Only Pages register routes.');
   const tag = `uip-page-${artifact.metadata.artifactId.toLowerCase().replaceAll('_', '-')}`;
   pageDefinitions.set(tag, { artifact, options });
@@ -177,5 +189,5 @@ export function createVisualPage(artifact: RuntimeArtifact, options: RuntimeOpti
     connectedCallback() { const current = pageDefinitions.get(tag)!; this.instance = mountVisualArtifact(current.artifact, current.options); this.replaceChildren(this.instance.host); }
     disconnectedCallback() { this.instance?.destroy(); }
   });
-  return { render(context = {}) { pageDefinitions.set(tag, { artifact, options: { ...options, navigate: context.navigate ?? options.navigate, context: context.settings ?? options.context, route: { path: context.route, ...options.route } } }); return `<${tag}></${tag}>`; } };
+  return { render(context = {}) { pageDefinitions.set(tag, { artifact, options: { ...options, navigate: context.navigate ?? options.navigate, context: context.settings ?? options.context, route: { path: context.route, ...options.route, ...context.params } } }); return `<${tag}></${tag}>`; } };
 }

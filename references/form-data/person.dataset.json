@@ -1,0 +1,46 @@
+{
+  "definitionType": "dataset-schema",
+  "definitionFormatVersion": 1,
+  "dataset": {
+    "id": "dataset-person-form-reference",
+    "key": "people",
+    "name": "Person",
+    "pluralName": "People"
+  },
+  "fields": [
+    {
+      "id": "person-id",
+      "key": "id",
+      "type": "id",
+      "required": true
+    },
+    {
+      "id": "person-firstName",
+      "key": "firstName",
+      "type": "string",
+      "required": true
+    },
+    {
+      "id": "person-lastName",
+      "key": "lastName",
+      "type": "string",
+      "required": true
+    },
+    {
+      "id": "person-email",
+      "key": "email",
+      "type": "string",
+      "required": true
+    },
+    {
+      "id": "person-status",
+      "key": "status",
+      "type": "string"
+    },
+    {
+      "id": "person-internalNotes",
+      "key": "internalNotes",
+      "type": "string"
+    }
+  ]
+}

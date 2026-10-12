@@ -21,7 +21,9 @@
     "check:editor-contracts": "node scripts/check-editor-contracts.mjs",
     "check:editor-production": "npm run build && node scripts/check-editor-production.mjs",
     "predev:api": "npm run build --workspace @uib/platform-core && npm run build --workspace @ui-platform/artifacts && npm run build --workspace @ui-platform/visual-artifacts",
-    "dev:api": "tsx src/server/index.ts"
+    "dev:api": "tsx src/server/index.ts",
+    "dev:form-reference": "tsx scripts/dev-form-reference.ts",
+    "test:form-data": "npm run build && vitest run tests/form-data-integration.test.ts"
   },
   "dependencies": {
     "@ui-platform/visual-artifacts": "0.1.0",
