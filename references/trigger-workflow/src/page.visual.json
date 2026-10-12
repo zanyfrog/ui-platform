@@ -1,13 +1,135 @@
 {
-  "schemaVersion": 1, "artifactId": "art_person_activation_reference", "kind": "page", "name": "person-activation", "displayName": "Person activation", "route": "/", "developmentOnly": true,
-  "state": { "primaryId": "", "result": {} },
-  "dependencies": ["cmp_platform_person_form_reference", "wfl_person_activation_v1"],
-  "bindings": [{ "node": "record-id", "target": "text", "value": "local.primaryId" }, { "node": "workflow-success", "target": "text", "value": "local.result.success" }, { "node": "workflow-steps", "target": "text", "value": "local.result.completedSteps" }, { "node": "workflow-error", "target": "text", "value": "local.result.error" }],
+  "schemaVersion": 1,
+  "artifactId": "art_person_activation_reference",
+  "kind": "page",
+  "name": "person-activation",
+  "displayName": "Person activation",
+  "route": "/",
+  "developmentOnly": true,
+  "state": {
+    "primaryId": "",
+    "result": {},
+    "person": {},
+    "busy": false,
+    "message": "Save a person to activate them.",
+    "completedAt": "",
+    "savedJson": ""
+  },
+  "dependencies": [
+    "cmp_platform_person_form_reference"
+  ],
+  "bindings": [
+    {
+      "node": "record-id",
+      "target": "text",
+      "value": "local.primaryId"
+    },
+    {
+      "node": "workflow-success",
+      "target": "text",
+      "value": "local.result.success"
+    },
+    {
+      "node": "workflow-steps",
+      "target": "text",
+      "value": "local.result.completedSteps"
+    },
+    {
+      "node": "workflow-error",
+      "target": "text",
+      "value": "local.result.error"
+    },
+    {
+      "node": "activate",
+      "value": {
+        "op": "or",
+        "args": [
+          "local.busy",
+          {
+            "op": "not",
+            "args": [
+              "local.primaryId"
+            ]
+          }
+        ]
+      },
+      "target": "attribute:disabled"
+    },
+    {
+      "node": "saved-first-name",
+      "value": "local.person.firstName",
+      "target": "text"
+    },
+    {
+      "node": "saved-last-name",
+      "value": "local.person.lastName",
+      "target": "text"
+    },
+    {
+      "node": "saved-email",
+      "value": "local.person.email",
+      "target": "text"
+    },
+    {
+      "node": "activation-message",
+      "value": "local.message",
+      "target": "text"
+    },
+    {
+      "node": "activation-time",
+      "value": "local.completedAt",
+      "target": "text"
+    },
+    {
+      "node": "saved-status",
+      "value": "local.person.status",
+      "target": "text"
+    },
+    {
+      "node": "current-record",
+      "value": "local.savedJson",
+      "target": "text"
+    },
+    {
+      "node": "person",
+      "value": "local.busy",
+      "target": "property:disabled"
+    }
+  ],
   "events": [
-    { "node": "person", "event": "recordCreated", "actions": [
-      { "kind": "set", "state": "primaryId", "value": "event.detail.result.id" },
-      { "kind": "workflow", "workflowId": "wfl_person_activation_v1", "primaryRecordId": "event.detail.result.id", "resultState": "result" }
-    ] },
-    { "node": "activate", "event": "click", "actions": [{ "kind": "workflow", "workflowId": "wfl_person_activation_v1", "primaryRecordId": "local.primaryId", "resultState": "result" }] }
+    {
+      "node": "person",
+      "event": "recordCreated",
+      "actions": [
+        {
+          "state": "person",
+          "kind": "set",
+          "value": "event.detail.result"
+        },
+        {
+          "kind": "set",
+          "state": "primaryId",
+          "value": "event.detail.result.id"
+        },
+        {
+          "name": "showSavedPerson",
+          "kind": "function"
+        },
+        {
+          "name": "activate",
+          "kind": "function"
+        }
+      ]
+    },
+    {
+      "node": "activate",
+      "event": "click",
+      "actions": [
+        {
+          "name": "activate",
+          "kind": "function"
+        }
+      ]
+    }
   ]
 }

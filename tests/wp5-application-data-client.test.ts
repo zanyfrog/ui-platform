@@ -3,6 +3,10 @@ import { ApplicationDataClient, createHttpApplicationDataTransport, createSessio
 import { bindDatasetForm } from '@uib/platform-core/dataset-form';
 
 describe('shared application Dataset client', () => {
+  it.each([401, 403, 503])('handles an empty HTTP %s response without attempting JSON parsing', async status => {
+    const client = new ApplicationDataClient(createSessionApplicationDataTransport({ fetch: async () => new Response(null, { status }) }));
+    await expect(client.create('dataset-a', [{ id: 'a' }])).rejects.toThrow(status === 401 ? 'Sign in before submitting.' : status === 503 ? 'The data service is unavailable' : 'APPLICATION_DATA_REQUEST_DENIED');
+  });
   it('uses one transport for Page reads and all explicit Dataset writes', async () => {
     const send = vi.fn(async () => ({ success: true }));
     const client = new ApplicationDataClient({ send });

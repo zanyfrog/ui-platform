@@ -126,6 +126,10 @@
       "disabled": {
         "type": "boolean",
         "default": false
+      },
+      "showSavedRecord": {
+        "default": true,
+        "type": "boolean"
       }
     },
     "events": {
@@ -182,5 +186,17 @@
     "submitError": null,
     "validation": {},
     "savedRecord": null
-  }
+  },
+  "bindings": [
+    {
+      "node": "saved-result",
+      "value": {
+        "op": "not",
+        "args": [
+          "public.showSavedRecord"
+        ]
+      },
+      "target": "attribute:hidden"
+    }
+  ]
 }

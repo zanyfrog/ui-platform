@@ -52,7 +52,8 @@ export function createApplicationDataProxy(config: ApplicationDataProxyConfig) {
       }
       const path = url.pathname.endsWith('/queries') ? '/queries' : url.pathname.endsWith('/workflows') ? '/workflows' : '/operations';
       const upstream = await fetch(new URL(path, target), { method: 'POST',
-        headers: { authorization: authorization!, 'content-type': 'application/json' }, body: Buffer.concat(chunks), signal: AbortSignal.timeout(path === '/workflows' ? 90_000 : 15_000) });
+        // Writes can run after-commit automation before returning, just like explicit Workflows.
+        headers: { authorization: authorization!, 'content-type': 'application/json' }, body: Buffer.concat(chunks), signal: AbortSignal.timeout(path === '/queries' ? 15_000 : 90_000) });
       const bytes = Buffer.from(await upstream.arrayBuffer());
       if (bytes.length > 1_000_000 || ![200, 401, 403, 404].includes(upstream.status)) throw new Error('UPSTREAM_UNAVAILABLE');
       if (path === '/operations' && upstream.status === 200) {

@@ -17,15 +17,32 @@ async function reference(config = 'references/trigger-workflow/vite.config.ts') 
   const browser = await playwright.chromium.launch({ channel: 'msedge', headless: true }); cleanup.push(() => browser.close());
   const page = await browser.newPage(); return { host, page, origin: `http://127.0.0.1:${port}` };
 }
+it('unsigned Form submission shows a sign-in message without running automation', async () => {
+  const { host, page, origin } = await reference();
+  await page.goto(origin);
+  expect(await page.getByRole('button', { name: 'Activate saved Person' }).isDisabled()).toBe(true);
+  await page.getByLabel('firstName', { exact: true }).fill('Unsigned'); await page.getByLabel('lastName', { exact: true }).fill('Person'); await page.getByLabel('email', { exact: true }).fill('unsigned@example.test');
+  await page.getByRole('button', { name: 'Submit', exact: true }).click();
+  await page.getByText('Sign in before submitting.', { exact: false }).waitFor({ timeout: 15000 });
+  expect(host.runtime.audit.list()).toHaveLength(0);
+  await page.getByRole('button', { name: 'Sign in as development admin' }).click();
+  await page.getByText('Development admin signed in').waitFor({ timeout: 15000 });
+  expect(await page.getByLabel('firstName', { exact: true }).inputValue()).toBe('Unsigned');
+}, 60000);
 it('real browser Form success and Page button invoke the permanent Workflow through trusted identity and protected persisted DOE', async () => {
   const { host, page, origin } = await reference(); const errors: string[] = [];
-  const responses: string[] = []; page.on('response', async (response: any) => { if (/\/api\/application-data\//.test(response.url())) responses.push(`${response.status()} ${await response.text().catch(() => '')}`); });
+  const responses: string[] = []; page.on('response', async (response: any) => { if (/\/api\/application-data\//.test(response.url())) { const index = responses.push(`${response.status()} ${response.url()}`) - 1; responses[index] += ` ${await response.text().catch(() => '')}`; } });
   page.on('pageerror', (e: Error) => errors.push(String(e)));
   await page.goto(origin);
   await page.getByRole('button', { name: 'Sign in as development admin' }).click(); await page.getByText('Development admin signed in').waitFor({ timeout: 45000 });
   await page.getByLabel('firstName', { exact: true }).fill('Ada'); await page.getByLabel('lastName', { exact: true }).fill('Lovelace'); await page.getByLabel('email', { exact: true }).fill('ada@example.test');
   await page.getByRole('button', { name: 'Submit', exact: true }).click();
-  await page.locator('[data-uip-node="saved-result"]').filter({ hasText: 'Ada' }).waitFor({ timeout: 45000 });
+  await page.getByLabel('Current saved record', { exact: true }).filter({ hasText: 'Ada' }).waitFor({ timeout: 45000 }).catch(async (error: Error) => { throw new Error(String(error) + '\n' + responses.join('\n') + '\n' + JSON.stringify(await page.locator('[data-uip-node=submit-error]').allTextContents()) + '\n' + errors.join('\n') + '\n' + await page.locator('body').innerText()); });
+  await expect.poll(() => page.getByLabel('Saved person', { exact: true }).innerText(), { timeout: 45000 }).toContain('Ada Lovelace ada@example.test');
+  await expect.poll(() => page.locator('[data-uip-node="activation-message"]').innerText(), { timeout: 45000 }).toContain('Activation completed for Ada Lovelace.');
+  expect(await page.getByRole('button', { name: 'Activate saved Person' }).isDisabled()).toBe(false);
+  expect(await page.locator('[data-uip-node="saved-status"]').innerText()).toBe('active');
+  expect(await page.getByLabel('Current saved record', { exact: true }).innerText()).toContain('"status": "active"');
   await expect.poll(() => page.locator('[data-uip-node="workflow-success"]').innerText(), { timeout: 90000 }).toBe('true').catch(async (error: Error) => { throw new Error(String(error) + '\n' + responses.join('\n') + '\n' + JSON.stringify(host.runtime.audit.list()) + '\n' + await page.locator('[data-uip-node="workflow-error"]').innerText() + '\n' + errors.join('\n')); });
   expect(await page.locator('[data-uip-node="workflow-steps"]').innerText()).toBe('3');
   const id = await page.locator('[data-uip-node="record-id"]').innerText(); expect(id).not.toBe('');
@@ -34,8 +51,19 @@ it('real browser Form success and Page button invoke the permanent Workflow thro
   expect(rows.filter((r: any) => r.status === 'history')).toHaveLength(2);
   const count = host.runtime.audit.list().filter(a => a.kind === 'workflow' && a.completedSteps === 3 && !a.actionId).length;
   await page.getByRole('button', { name: 'Activate saved Person' }).click();
+  expect(await page.getByRole('button', { name: 'Activate saved Person' }).isDisabled()).toBe(true);
+  expect(await page.locator('[data-uip-node="activation-message"]').innerText()).toContain('Activating Ada Lovelace');
+  expect(await page.locator('[data-uip-node="workflow-success"]').innerText()).toBe('');
   await expect.poll(() => host.runtime.audit.list().filter(a => a.kind === 'workflow' && a.completedSteps === 3 && !a.actionId).length, { timeout: 45000 }).toBe(count + 1);
   rows = JSON.parse(await readFile(dataFile, 'utf8')); expect(rows.filter((r: any) => r.status === 'history')).toHaveLength(4);
+  await expect.poll(() => page.locator('[data-uip-node="activation-message"]').innerText(), { timeout: 45000 }).toContain('Activation completed for Ada Lovelace.');
+  expect(await page.locator('[data-uip-node="activation-time"]').innerText()).not.toBe('');
+  await page.route('**/api/application-data/workflows', (route: any) => route.fulfill({ status: 503, body: '' }));
+  await page.getByRole('button', { name: 'Activate saved Person' }).click();
+  await expect.poll(() => page.locator('[data-uip-node="activation-message"]').innerText()).toContain('Activation could not be confirmed:');
+  expect(await page.getByRole('button', { name: 'Activate saved Person' }).isDisabled()).toBe(false);
+  expect(await page.locator('[data-uip-node="workflow-success"]').innerText()).toBe('');
+  await page.unroute('**/api/application-data/workflows');
   const forged = await page.evaluate(async () => fetch('/api/application-data/workflows', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ workflowId: 'wfl_person_activation_v1', primaryRecordId: 'fake', actor: { type: 'system' }, grants: ['*'] }) }).then(r => r.status)); expect(forged).toBe(403);
   const prohibited = await page.evaluate(async (id: string) => fetch('/api/application-data/operations', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ datasetId: 'dataset-person-form-reference', operation: 'update', records: [{ id, internalNotes: 'forged' }] }) }).then(r => r.json()), id);
   expect(prohibited).toMatchObject({ success: false, committed: false });
@@ -57,8 +85,8 @@ it('management browser creates, edits, reloads disk source, retains conflicts an
   const { host, page, origin } = await reference('vite.config.ts');
   await page.goto(origin); await Promise.all([page.waitForNavigation(), page.getByLabel('Development identity').selectOption('security@example.local')]);
   await page.getByRole('button', { name: 'Manage Triggers and Workflows' }).click();
-  await page.getByLabel('Automation artifact', { exact: true }).waitFor({ timeout: 15000 }).catch(async (error: Error) => { throw new Error(String(error) + '\n' + await page.locator('body').innerText()); });
-  await page.locator('[data-create]').waitFor({ timeout: 10000 }).catch(async (error: Error) => { throw new Error(String(error) + '\n' + await page.locator('body').innerText()); });
+  await page.getByLabel('Automation artifact', { exact: true }).waitFor({ timeout: 15000 }).catch(async (error: Error) => { throw new Error(String(error) + '\n' + JSON.stringify(await page.locator('[data-uip-node=submit-error]').allTextContents()) + '\n' + errors.join('\n') + '\n' + await page.locator('body').innerText()); });
+  await page.locator('[data-create]').waitFor({ timeout: 10000 }).catch(async (error: Error) => { throw new Error(String(error) + '\n' + JSON.stringify(await page.locator('[data-uip-node=submit-error]').allTextContents()) + '\n' + errors.join('\n') + '\n' + await page.locator('body').innerText()); });
   const name = `browser-proof-${Date.now()}`;
   const replies = [name, 'dev-v1-identity-fixture', 'dataset-person-form-reference', 'people'];
   page.on('dialog', (dialog: any) => dialog.type() === 'prompt' ? dialog.accept(replies.shift() ?? '') : dialog.accept());

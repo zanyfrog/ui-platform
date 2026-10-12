@@ -20,8 +20,10 @@ export function createHttpApplicationDataTransport(options: ApplicationDataHttpO
       const response = await request(`${endpoint}/${path}`, { method: 'POST',
         headers: { 'content-type': 'application/json', ...(credential ? { authorization: `Bearer ${credential}` } : {}) },
         body: JSON.stringify(intent) });
-      const value: unknown = await response.json();
+      if (response.status === 401) throw new Error('Sign in before submitting. Your session may have expired.');
+      if (response.status >= 500) throw new Error('The data service is unavailable or took too long to respond. The save outcome is unknown; check the saved records before submitting again.');
       if (!response.ok) throw new Error('APPLICATION_DATA_REQUEST_DENIED');
+      const value: unknown = await response.json();
       return value;
     },
   };
@@ -52,8 +54,10 @@ export function createApplicationDataServices(client = new ApplicationDataClient
     'dataset.read': input => client.query({ ...(input as ProtectedRead), mode: 'read' }),
     'workflow.run': async input => {
       const response = await fetch('/api/application-data/workflows', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input) });
-      const result: unknown = await response.json();
+      if (response.status === 401) throw new Error('Sign in before running the Workflow. Your session may have expired.');
+      if (response.status >= 500) throw new Error('The activation service is unavailable or took too long to respond. Check the person’s status before running activation again.');
       if (!response.ok) throw new Error('WORKFLOW_REQUEST_DENIED');
+      const result: unknown = await response.json();
       return result;
     },
   };

@@ -1,2 +1,9 @@
-<section data-uip-node="activation-page"><uip-component data-uip-node="person" data-uip-component="cmp_platform_person_form_reference" data-uip-settings='{"mode":"public","operation":"create"}'></uip-component>
-<button data-uip-node="activate">Activate saved Person</button><p data-uip-node="record-id"></p><div data-uip-node="workflow-result" aria-label="Workflow result">Success: <span data-uip-node="workflow-success"></span> · Completed steps: <span data-uip-node="workflow-steps"></span><span data-uip-node="workflow-error"></span></div></section>
+<section data-uip-node="activation-page"><uip-component data-uip-node="person" data-uip-component="cmp_platform_person_form_reference" data-uip-settings='{"mode":"public","operation":"create","showSavedRecord":false}'></uip-component>
+<p>Activation applies to the person most recently saved on this page.</p>
+<p aria-label="Saved person">Saved person: <span data-uip-node="saved-first-name"></span> <span data-uip-node="saved-last-name"></span> <span data-uip-node="saved-email"></span></p>
+<p>Status: <strong data-uip-node="saved-status"></strong></p>
+<button data-uip-node="activate" disabled>Activate saved Person</button>
+<p data-uip-node="activation-message" role="status" aria-live="polite"></p>
+<p>Last completed: <span data-uip-node="activation-time"></span></p>
+<pre data-uip-node="current-record" aria-label="Current saved record"></pre>
+<p data-uip-node="record-id"></p><div data-uip-node="workflow-result" aria-label="Workflow result">Success: <span data-uip-node="workflow-success"></span> · Completed steps: <span data-uip-node="workflow-steps"></span><span data-uip-node="workflow-error"></span></div></section>
