@@ -1,0 +1,5 @@
+{
+  "schemaVersion": 1, "kind": "trigger", "id": "trg_person_default_status_v1", "name": "person-default-status", "displayName": "Person default status",
+  "enabled": true, "appId": "dev-v1-identity-fixture", "datasetId": "dataset-person-form-reference", "dataset": "people", "primaryKey": "id", "phase": "beforeInsert", "priority": -10,
+  "actions": [{ "id": "default-status", "type": "set", "scope": "each", "field": "status", "ifMissing": true, "value": { "literal": "pending" } }]
+}

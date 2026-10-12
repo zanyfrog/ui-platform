@@ -133,6 +133,7 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
       }
       else if (item.kind === 'navigate') expression(item.to);
       else if (item.kind === 'service') { if (!services.includes(item.reference)) warning(`Service reference is supported but has no executable adapter: ${item.reference}.`); if (item.input) expression(item.input); }
+      else if (item.kind === 'workflow') { if (!item.workflowId || typeof item.workflowId !== 'string') error('Permanent Workflow identity is required.'); expression(item.primaryRecordId); if (item.resultState && !Object.hasOwn(m.state ?? {}, item.resultState)) error('Workflow result state must be declared.'); }
       else if (item.kind !== 'function') error('Unknown action kind.');
     };
     for (const event of m.events ?? []) {
@@ -144,7 +145,8 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
     m.onLoad?.forEach(action);
     for (const [name, source] of Object.entries(m.sources ?? {})) if (source.kind === 'service' && !services.includes(source.reference ?? '')) warning(`Named source ${name} is supported but has no executable adapter: ${source.reference}.`);
     for (const id of Object.keys(m.layout ?? {})) if (!isWrapper(requireNode(id))) error('Declarative layout requires a Builder wrapper.', id);
-    for (const id of m.dependencies ?? []) if (!components.some(c => c.metadata.componentId === id) && !packages.some(p => p.id === id) && !services.includes(id)) error(`Unknown dependency: ${id}.`);
+    const workflowIds = [...(m.onLoad ?? []), ...(m.events ?? []).flatMap(event => event.actions)].flatMap(action => action.kind === 'workflow' ? [action.workflowId] : []);
+    for (const id of m.dependencies ?? []) if (!components.some(c => c.metadata.componentId === id) && !packages.some(p => p.id === id) && !services.includes(id) && !workflowIds.includes(id)) error(`Unknown dependency: ${id}.`);
     const visit = (current: RuntimeArtifact, path: string[]) => {
       const id = current.metadata.componentId ?? current.metadata.artifactId;
       if (path.includes(id)) { error(`Component dependency cycle: ${[...path, id].join(' → ')}.`); return; }

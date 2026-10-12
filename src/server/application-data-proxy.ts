@@ -19,7 +19,7 @@ export function createApplicationDataProxy(config: ApplicationDataProxyConfig) {
   }
   return async (request: IncomingMessage, response: ServerResponse): Promise<boolean> => {
     const url = new URL(request.url ?? '/', 'http://localhost');
-    if (!['/api/application-data/queries', '/api/application-data/operations'].includes(url.pathname)) return false;
+    if (!['/api/application-data/queries', '/api/application-data/operations', '/api/application-data/workflows'].includes(url.pathname)) return false;
     if (config.environment !== 'development' || !config.enabled) { response.writeHead(404).end(); return true; }
     if (!target) { response.writeHead(503, { 'content-type': 'application/json' }).end(JSON.stringify({ code: 'APPLICATION_DATA_UNAVAILABLE' })); return true; }
     if (request.method !== 'POST' || url.search) { response.writeHead(403).end(); return true; }
@@ -50,11 +50,20 @@ export function createApplicationDataProxy(config: ApplicationDataProxyConfig) {
         const mac = createHmac('sha256', config.v1Identity.trustedUiServerKey).update(payload).digest('base64url');
         authorization = `Bearer v1.${payload}.${mac}`;
       }
-      const path = url.pathname.endsWith('/queries') ? '/queries' : '/operations';
+      const path = url.pathname.endsWith('/queries') ? '/queries' : url.pathname.endsWith('/workflows') ? '/workflows' : '/operations';
       const upstream = await fetch(new URL(path, target), { method: 'POST',
-        headers: { authorization: authorization!, 'content-type': 'application/json' }, body: Buffer.concat(chunks), signal: AbortSignal.timeout(15_000) });
+        headers: { authorization: authorization!, 'content-type': 'application/json' }, body: Buffer.concat(chunks), signal: AbortSignal.timeout(path === '/workflows' ? 90_000 : 15_000) });
       const bytes = Buffer.from(await upstream.arrayBuffer());
       if (bytes.length > 1_000_000 || ![200, 401, 403, 404].includes(upstream.status)) throw new Error('UPSTREAM_UNAVAILABLE');
+      if (path === '/operations' && upstream.status === 200) {
+        const result = JSON.parse(bytes.toString('utf8'));
+        if (result.committed === true && result.success === false) {
+          response.writeHead(200, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
+          response.end(JSON.stringify({ ...result, data: { committed: true, success: true, counts: result.counts },
+            afterCommit: { success: false, errors: result.errors ?? [] }, repeatWriteMayDuplicate: true,
+            message: 'The data transaction committed. Post-commit execution failed. Repeating the write may duplicate data.' })); return true;
+        }
+      }
       response.writeHead(upstream.status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
       response.end(bytes);
     } catch {

@@ -1,0 +1,5 @@
+{
+  "schemaVersion": 1, "kind": "trigger", "id": "trg_person_notification_v1", "name": "person-notification", "displayName": "Person committed notification",
+  "enabled": true, "appId": "dev-v1-identity-fixture", "datasetId": "dataset-person-form-reference", "dataset": "people", "primaryKey": "id", "phase": "afterCommit", "priority": 0,
+  "actions": [{ "id": "notify", "type": "service", "scope": "batch", "service": "reference.notification", "input": { "from": "context", "path": ["recordIds"] } }]
+}

@@ -32,6 +32,8 @@ import { ensureV1DevelopmentApplication } from './v1-development-app.js';
 import { VisualArtifactService, knownVisualArtifacts, platformComponentsRoot, visualWorkspace } from './visual-artifacts.js';
 import { compileVisualFunctions } from '@ui-platform/artifacts';
 import { build as bundleBrowserModule } from 'esbuild';
+import { AutomationStore } from './automation-store.js';
+import { platformRoot } from './paths.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const v1Enabled = process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1';
@@ -229,6 +231,26 @@ const server = http.createServer(async (req, res) => {
       }
     }
     if (url.pathname === '/api/health') return json(res, 200, { ok: true });
+    if (parts[0] === 'api' && parts[1] === 'automation' && ['triggers', 'workflows'].includes(parts[2]) && parts.length === 3) {
+      // Platform-wide authoring requires the existing trusted development session and system permission.
+      if (!v1Identity) return json(res, 403, { error: 'Trusted Platform management identity required.' });
+      const kind = parts[2] === 'triggers' ? 'trigger' : 'workflow';
+      const store = new AutomationStore(path.join(platformRoot, parts[2]), kind);
+      const locator = url.searchParams.get('locator');
+      if (method === 'GET') return json(res, 200, locator ? await store.read(locator) : await store.list());
+      const input = await body(req);
+      if (method === 'POST') return json(res, 201, await store.create(String(input.name ?? ''), input.definition));
+      if (!locator) throw new Error('Artifact locator is required.');
+      if (method === 'PUT') return json(res, 200, await store.save(locator, input.source, input.expectedHash));
+      if (method === 'DELETE') {
+        const other = await new AutomationStore(path.join(platformRoot, kind === 'trigger' ? 'workflows' : 'triggers'), kind === 'trigger' ? 'workflow' : 'trigger').list();
+        const local = (await store.list()).filter(b => b.locator !== locator);
+        const visual = await knownVisualArtifacts();
+        await store.remove(locator, input.expectedHash, [...other, ...local].map(b => ({ name: b.locator, source: b.source })).concat(visual.map(b => ({ name: b.locator, source: b.files.metadata + b.files.code }))));
+        return json(res, 200, { removed: true });
+      }
+      throw new Error('Unsupported automation request.');
+    }
     if (url.pathname === '/api/templates' && method === 'GET') return json(res, 200, await discoverTemplates());
     if (url.pathname === '/api/apps' && method === 'GET') return json(res, 200, await discoverApps());
     if (url.pathname === '/api/apps' && method === 'POST') return json(res, 201, await createApp(await body(req)));

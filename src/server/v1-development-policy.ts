@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { SecurityDocument, SecurityRecord, SecurityResourceKind, SecurityScope } from '@ui-platform/i-am/definitions';
-import { SecurityDefinitionService } from '@ui-platform/i-am/definitions';
+import { SecurityDefinitionService, securityChecksum } from '@ui-platform/i-am/definitions';
 
 /** A security fixture application, never an implicit grant for an unrelated app. */
 export const V1_FIXTURE_APPLICATION_ID = 'dev-v1-identity-fixture';
@@ -37,6 +37,7 @@ export const managementPermissions = [
   { id: 'ui.security.admin', kind: 'security-definition' },
   { id: 'ui.platform.application.create', kind: 'system' },
   { id: 'ui.platform.package.admin', kind: 'system' },
+  { id: 'ui.platform.automation.admin', kind: 'system' },
     { id: 'ui.platform.component.admin', kind: 'system' },
 ] as const satisfies ReadonlyArray<{ id: string; kind: SecurityResourceKind }>;
 
@@ -62,6 +63,18 @@ const set = (id: string, name: string, includes: string[], permissions: string[]
 export function seedV1DevelopmentPolicy(service: SecurityDefinitionService): void {
   if (service.active().length) {
     const records = new Map(service.active().map(doc => [doc.definition.id, doc.definition]));
+    // Add the new management permission only to the established Platform Manager set.
+    if (!records.has('ui.platform.automation.admin') && records.get('v1.platform.admin')?.kind === 'permission-set') {
+      const prior = records.get('v1.platform.admin') as Extract<SecurityRecord, { kind: 'permission-set' }>;
+      const additions: SecurityRecord[] = [
+        { kind: 'permission', id: 'ui.platform.automation.admin', key: 'ui.platform.automation.admin', name: 'Automation management', status: 'active', owner: platformOwner, lifecycle: 'active', applicableKinds: ['system'] },
+        { ...prior, rules: [...prior.rules, { id: 'v1.platform.admin.ui.platform.automation.admin.allow', permissionId: 'ui.platform.automation.admin', effect: 'allow', scope: systemScope }] },
+      ];
+      const changes = additions.map(definition => { const existing = service.active().find(d => d.definition.id === definition.id); return { document: document(definition), ...(existing ? { expectedChecksum: securityChecksum(existing) } : {}) }; });
+      const candidate = service.stage({ changes, actorId: 'v1-development-seed', source: 'cli', expectedRevision: service.revision(), idempotencyKey: randomUUID(), reason: 'Add Platform automation authoring permission' });
+      if (!candidate.activatable || service.activate(candidate.id, candidate.checksum, 'v1-development-seed').status !== 'activated') throw new Error('V1_AUTOMATION_POLICY_CONFLICT');
+      for (const doc of service.active()) records.set(doc.definition.id, doc.definition);
+    }
     if (records.get(V1_FIXTURE_APPLICATION_ID)?.kind !== 'application-security' ||
         developmentUsers.some(user => records.get(user.id)?.kind !== 'user') ||
         managementPermissions.some(permission => records.get(permission.id)?.kind !== 'permission'))
@@ -85,7 +98,7 @@ export function seedV1DevelopmentPolicy(service: SecurityDefinitionService): voi
     ]),
     set('v1.security.admin', 'Security Admin', [], ['ui.security.admin']),
     { kind: 'permission-set', id: 'v1.platform.admin', key: 'v1.platform.admin', name: 'Platform Management', status: 'active',
-        owner: platformOwner, includes: [], rules: ['ui.platform.application.create', 'ui.platform.package.admin', 'ui.platform.component.admin'].map(permissionId => ({
+        owner: platformOwner, includes: [], rules: ['ui.platform.application.create', 'ui.platform.package.admin', 'ui.platform.component.admin', 'ui.platform.automation.admin'].map(permissionId => ({
         id: `v1.platform.admin.${permissionId}.allow`, permissionId, effect: 'allow' as const, scope: systemScope,
       })) },
     { kind: 'role', ...base('v1.role.application-admin', 'Application Admin'), permissionSets: [

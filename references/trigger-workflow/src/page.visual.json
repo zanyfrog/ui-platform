@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1, "artifactId": "art_person_activation_reference", "kind": "page", "name": "person-activation", "displayName": "Person activation", "route": "/", "developmentOnly": true,
+  "state": { "primaryId": "", "result": {} },
+  "dependencies": ["cmp_platform_person_form_reference", "wfl_person_activation_v1"],
+  "bindings": [{ "node": "record-id", "target": "text", "value": "local.primaryId" }, { "node": "workflow-success", "target": "text", "value": "local.result.success" }, { "node": "workflow-steps", "target": "text", "value": "local.result.completedSteps" }, { "node": "workflow-error", "target": "text", "value": "local.result.error" }],
+  "events": [
+    { "node": "person", "event": "recordCreated", "actions": [
+      { "kind": "set", "state": "primaryId", "value": "event.detail.result.id" },
+      { "kind": "workflow", "workflowId": "wfl_person_activation_v1", "primaryRecordId": "event.detail.result.id", "resultState": "result" }
+    ] },
+    { "node": "activate", "event": "click", "actions": [{ "kind": "workflow", "workflowId": "wfl_person_activation_v1", "primaryRecordId": "local.primaryId", "resultState": "result" }] }
+  ]
+}

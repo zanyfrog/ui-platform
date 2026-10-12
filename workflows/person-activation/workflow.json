@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1, "kind": "workflow", "id": "wfl_person_activation_v1", "name": "person-activation", "displayName": "Person activation",
+  "enabled": true, "appId": "dev-v1-identity-fixture", "datasetId": "dataset-person-form-reference", "primaryKey": "id",
+  "actions": [
+    { "id": "activate", "type": "crud", "datasetId": "dataset-person-form-reference", "operation": "update", "records": { "fields": { "id": { "from": "record", "path": ["id"] }, "status": { "literal": "active" } } } },
+    { "id": "notify", "type": "service", "service": "reference.notification", "input": { "from": "context", "path": ["primaryRecordId"] } },
+    { "id": "activation-history", "type": "crud", "datasetId": "dataset-person-form-reference", "operation": "insert", "records": { "fields": {
+      "id": { "from": "context", "path": ["executionId"] }, "firstName": { "literal": "Activation history" }, "lastName": { "literal": "Person" }, "email": { "literal": "audit@example.test" }, "status": { "literal": "history" }
+    } } }
+  ]
+}

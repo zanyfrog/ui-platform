@@ -23,7 +23,11 @@
     "predev:api": "npm run build --workspace @uib/platform-core && npm run build --workspace @ui-platform/artifacts && npm run build --workspace @ui-platform/visual-artifacts",
     "dev:api": "tsx src/server/index.ts",
     "dev:form-reference": "tsx scripts/dev-form-reference.ts",
-    "test:form-data": "npm run build && vitest run tests/form-data-integration.test.ts"
+    "test:form-data": "npm run build && vitest run tests/form-data-integration.test.ts",
+    "predev:automation-reference": "npm --prefix \"../UI Platform Data Services\" run build --workspace @ui-platform/dataset-operations",
+    "dev:automation-reference": "tsx scripts/dev-automation-reference.ts",
+    "pretest:automation": "npm --prefix \"../UI Platform Data Services\" run build --workspace @ui-platform/dataset-operations",
+    "test:automation": "npm run build && vitest run tests/trigger-workflow.test.ts tests/trigger-workflow-browser.test.ts"
   },
   "dependencies": {
     "@ui-platform/visual-artifacts": "0.1.0",

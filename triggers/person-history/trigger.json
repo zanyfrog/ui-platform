@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1, "kind": "trigger", "id": "trg_person_history_v1", "name": "person-history", "displayName": "Person update history",
+  "enabled": true, "appId": "dev-v1-identity-fixture", "datasetId": "dataset-person-form-reference", "dataset": "people", "primaryKey": "id", "phase": "afterUpdate", "priority": 0,
+  "actions": [{ "id": "write-history", "type": "crud", "scope": "each", "datasetId": "dataset-person-form-reference", "operation": "insert", "records": { "fields": {
+    "id": { "from": "context", "path": ["recordExecutionId"] }, "firstName": { "literal": "Update history" }, "lastName": { "literal": "Person" }, "email": { "literal": "audit@example.test" }, "status": { "literal": "history" }
+  } } }]
+}

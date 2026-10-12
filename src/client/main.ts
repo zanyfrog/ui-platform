@@ -25,6 +25,15 @@ if (import.meta.env.DEV) {
   identityHeader.className = 'development-identity';
   root.before(identityHeader);
   await mountDevelopmentIdentity(identityHeader);
+  const automationButton = document.createElement('button'); automationButton.textContent = 'Manage Triggers and Workflows';
+  const automationPanel = document.createElement('div'); automationPanel.hidden = true; root.before(automationButton, automationPanel);
+  let automationCleanup: (() => void) | undefined;
+  automationButton.onclick = async () => {
+    if (automationCleanup) { automationCleanup(); automationCleanup = undefined; automationPanel.hidden = true; return; }
+    automationPanel.hidden = false;
+    try { const { mountAutomationEditor } = await import('./automation/editor'); automationCleanup = await mountAutomationEditor(automationPanel); }
+    catch (error) { automationPanel.textContent = String(error); }
+  };
   const { editorSessionSnapshot } = await import('./artifact-editor/session');
   if (editorSessionSnapshot()) {
     const { mountArtifactEditor } = await import('./artifact-editor/shell');

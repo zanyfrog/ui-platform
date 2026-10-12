@@ -136,6 +136,7 @@ export async function visualWorkspace(appKey: string, packages: PackageComponent
 }
 export async function knownVisualArtifacts(): Promise<ArtifactBundle[]> {
   const all = await new VisualArtifactService(platformComponentsRoot, 'component').list();
+  all.push(...await new VisualArtifactService(path.join(platformRoot, 'references'), 'page').list());
   for (const app of await readdir(appsDir, { withFileTypes: true }).catch(() => [])) if (app.isDirectory() && !app.isSymbolicLink()) all.push(...await new VisualArtifactService(path.join(appsDir, app.name, 'src', 'pages'), 'page').list());
   return all;
 }

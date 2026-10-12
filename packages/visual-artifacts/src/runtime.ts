@@ -73,6 +73,12 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
         else if (item.kind === 'emit') emit(item.event, Object.fromEntries(Object.entries(item.payload ?? {}).map(([key, value]) => [key, evaluate(value, current)])));
         else if (item.kind === 'navigate') { if (!options.navigate) throw new Error('No navigation adapter.'); options.navigate(String(evaluate(item.to, current))); }
         else if (item.kind === 'service') { const service = options.services?.[item.reference]; if (!service) throw new Error(`Service reference has no executable adapter: ${item.reference}.`); await service(item.input ? evaluate(item.input, current) : undefined); }
+        else if (item.kind === 'workflow') {
+          const service = options.services?.['workflow.run']; if (!service) throw new Error('Workflow adapter is unavailable.');
+          const result = await service({ workflowId: item.workflowId, primaryRecordId: evaluate(item.primaryRecordId, current) });
+          if (disposed) return;
+          if (item.resultState) { if (!Object.hasOwn(state, item.resultState)) throw new Error('Unknown Workflow result state.'); state[item.resultState] = result; }
+        }
         else if (item.kind === 'function') {
           const fn = artifact.functions?.[item.name]; if (!fn) throw new Error(`Unknown custom function: ${item.name}.`);
           const context: FunctionContext = { public: inputs, local: state, root, event, setState, emit }; fn(context);

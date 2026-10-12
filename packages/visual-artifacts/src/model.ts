@@ -15,6 +15,7 @@ export type Action =
   | { kind: 'emit'; event: string; payload?: Record<string, Expression> }
   | { kind: 'navigate'; to: Expression }
   | { kind: 'service'; reference: string; input?: Expression }
+  | { kind: 'workflow'; workflowId: string; primaryRecordId: Expression; resultState?: string }
   | { kind: 'function'; name: string };
 export interface LayoutRule {
   width?: string; height?: string; margin?: string; padding?: string; display?: 'grid' | 'flex' | 'block' | 'none';

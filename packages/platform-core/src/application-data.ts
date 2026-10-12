@@ -50,5 +50,11 @@ export function createApplicationDataServices(client = new ApplicationDataClient
   return {
     'dataset.write': input => client.execute(input as ProtectedWrite),
     'dataset.read': input => client.query({ ...(input as ProtectedRead), mode: 'read' }),
+    'workflow.run': async input => {
+      const response = await fetch('/api/application-data/workflows', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input) });
+      const result: unknown = await response.json();
+      if (!response.ok) throw new Error('WORKFLOW_REQUEST_DENIED');
+      return result;
+    },
   };
 }

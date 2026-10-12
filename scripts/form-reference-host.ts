@@ -32,7 +32,7 @@ async function freePort(): Promise<number> {
   const close = cleanup.pop()!; await close();
   return port;
 }
-export async function startFormReference(uiPort?: number) {
+export async function startFormReference(uiPort?: number, configure?: Parameters<typeof createSecuredDevelopmentHost>[2]) {
   const root = await mkdtemp(join(tmpdir(), 'visual-form-data-'));
   cleanup.push(() => rm(root, { recursive: true, force: true }));
   const publications = join(root, 'publications'), stateRoot = join(root, 'state'), ormData = join(root, 'orm');
@@ -93,7 +93,7 @@ export async function startFormReference(uiPort?: number) {
     paths: { policyStore: policyPath, resourceRegistry: join(root, 'resources.sqlite'), schemaPublications: publications, schemaApplicationState: stateRoot, ormData },
     pin, serving: { generation, fingerprint: verified.verification.ormFingerprint }, registration,
     permissions: { operation: { read: 'p-read', create: 'p-create', update: 'p-write' }, field: { read: 'p-read', filter: 'p-read', sort: 'p-read', write: 'p-write' } }, port: 4103 };
-  const protectedHost = createSecuredDevelopmentHost(config, 'development');
+  const protectedHost = createSecuredDevelopmentHost(config, 'development', configure);
   cleanup.push(async () => protectedHost.close());
   const protectedOrigin = await listen(createServer(protectedHost.handler));
   const port = await freePort();
