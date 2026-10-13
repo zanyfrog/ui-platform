@@ -140,6 +140,8 @@ export interface AppManifest {
   appId: string;
   template: string;
   templateVersion: string;
+  templateAppliedVersion?: string;
+  templateProvenance?: string;
   createdAt?: string;
   updatedAt?: string;
   packages: Record<string, AppPackageDeclaration>;

@@ -3,12 +3,14 @@ import { cp, mkdir, readdir, readFile, rename, rm, stat, writeFile } from 'node:
 import path from 'node:path';
 import type { DiscoveredApp } from '../shared/types.js';
 import { APP_MANIFEST_FILE, ensureAppManifest, writeInitialAppManifest } from './app-manifests.js';
-import { appsDir } from './paths.js';
+import { appsDir, platformRoot, uiBasePackagesDir } from './paths.js';
 import { readJson, atomicWriteJson } from './json-files.js';
 import { appendHistory } from './history.js';
 import { getTemplate } from './templates.js';
 import { spawnNpm } from './npm-process.js';
 import { rebaseApplicationLinks } from './application-links.js';
+import { recordTemplateProvenance, substituteTemplate } from './template-updates.js';
+import { withApplicationMutation } from './composition-lock.js';
 
 const REQUIRED = ['package.json', 'tsconfig.json', APP_MANIFEST_FILE, 'app.settings.json', 'app-services.json', 'src/main.ts'];
 const keyPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -28,11 +30,17 @@ async function pagesFor(appDir: string): Promise<string[]> {
   const root = path.join(appDir, 'src', 'pages');
   const found: string[] = [];
   async function walk(dir: string, rel = ''): Promise<void> {
-    for (const entry of await readdir(dir, { withFileTypes: true }).catch(() => [])) {
+    const entries = await readdir(dir, { withFileTypes: true }).catch(() => []);
+    const visual = entries.find(entry => entry.name === 'page.visual.json');
+    if (visual) {
+      try { const metadata = JSON.parse(await readFile(path.join(dir, visual.name), 'utf8')); if (metadata.kind === 'page' && typeof metadata.route === 'string') found.push(metadata.route); } catch { /* Visual workspace reports malformed source. */ }
+    }
+    for (const entry of entries) {
       if (entry.name.startsWith('_')) continue;
       const childRel = path.join(rel, entry.name);
       if (entry.isDirectory()) await walk(path.join(dir, entry.name), childRel);
       else if (entry.isFile() && /(?<!\.functions)\.(ts|tsx)$/.test(entry.name)) {
+        if (visual) continue;
         let route = '/' + childRel.replaceAll('\\', '/').replace(/\.(ts|tsx)$/, '').replace(/\/index$/, '');
         if (route === '/index') route = '/';
         found.push(route);
@@ -40,7 +48,7 @@ async function pagesFor(appDir: string): Promise<string[]> {
     }
   }
   await walk(root);
-  return found.sort();
+  return [...new Set(found)].sort();
 }
 
 export async function getApp(keyInput: string): Promise<DiscoveredApp> {
@@ -95,13 +103,7 @@ async function replaceTokens(root: string, tokens: Record<string, string>): Prom
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) { await walk(full); continue; }
       const buffer = await readFile(full);
-      if (buffer.includes(0)) continue;
-      let text = buffer.toString('utf8');
-      for (const [key, value] of Object.entries(tokens)) {
-        const replacement = full.endsWith('.json') ? JSON.stringify(value).slice(1, -1) : value;
-        text = text.replaceAll(`{{${key}}}`, () => replacement);
-      }
-      await writeFile(full, text, 'utf8');
+      await writeFile(full, substituteTemplate(buffer, full, tokens));
     }
   }
   await walk(root);
@@ -134,12 +136,16 @@ export async function createApp(input: { name: string; key: string; templateId?:
   const tempDir = path.join(appsDir, `.creating-${key}-${crypto.randomUUID()}`);
   const appId = crypto.randomUUID();
   const createdAt = new Date().toISOString();
+  const creationTokens = { APP_NAME: name, APP_KEY: key, APP_ID: appId, CREATED_AT: createdAt,
+    PLATFORM_PACKAGES: path.relative(finalDir, path.join(platformRoot, 'packages')).replaceAll('\\', '/'),
+    UI_BASE_PACKAGES: path.relative(finalDir, uiBasePackagesDir).replaceAll('\\', '/') };
 
   await mkdir(appsDir, { recursive: true });
   try {
     await cp(path.join(folder, 'files'), tempDir, { recursive: true });
-    await replaceTokens(tempDir, { APP_NAME: name, APP_KEY: key, APP_ID: appId, CREATED_AT: createdAt });
+    await replaceTokens(tempDir, creationTokens);
     await writeInitialAppManifest(tempDir, { appId, template: definition.id, templateVersion: definition.version, createdAt });
+    await recordTemplateProvenance(tempDir, path.join(folder, 'files'), definition.id, definition.version, creationTokens);
     await appendHistory(tempDir, { action: 'app.created', appId, appKey: key, template: definition.id, templateVersion: definition.version, actor: 'local-user' });
 
     for (const required of REQUIRED) {
@@ -165,7 +171,11 @@ export async function saveSettings(keyInput: string, settings: Record<string, un
   const manifest = await ensureAppManifest(key);
   const status = (settings as any)?.application?.status;
   if (status !== 'active' && status !== 'disabled') throw new Error('application.status must be active or disabled.');
-  await atomicWriteJson(path.join(appDir, 'app.settings.json'), settings);
+  await withApplicationMutation(appDir, async () => {
+    const current = await readJson<any>(path.join(appDir, 'app.settings.json'));
+    const next = current.presentation?.model === 'composition-v1' ? { ...settings, presentation: current.presentation } : settings;
+    await atomicWriteJson(path.join(appDir, 'app.settings.json'), next);
+  });
   await appendHistory(appDir, { action: 'settings.updated', appId: manifest.appId, actor: 'local-user' });
   return getApp(key);
 }

@@ -15,7 +15,7 @@ const locks = new Map<string, Promise<unknown>>();
 
 /** One file service for Pages and Components; roots and metadata are the specializations. */
 export class VisualArtifactService {
-  constructor(readonly root: string, readonly kind: 'page' | 'component') {}
+  constructor(readonly root: string, readonly kind: 'page' | 'component' | 'shell') {}
   async file(locator: string, create = false): Promise<string> {
     if (!locator.endsWith('.visual.json') || locator.includes('\\') || locator.split('/').some(p => !/^[a-zA-Z0-9_-]+(?:\.visual\.json)?$/.test(p))) throw new Error('Invalid Visual Artifact locator.');
     for (let ancestor = path.resolve(this.root); ; ancestor = path.dirname(ancestor)) {
@@ -77,14 +77,16 @@ export class VisualArtifactService {
     try { JSON.parse(files.fixtures || '{}'); } catch { diagnostics.push({ severity: 'error', message: 'Preview fixtures are invalid JSON.' }); }
     return { locator, files, hash: hash(files), metadata: parsed.metadata, diagnostics };
   }
-  async create(name: string, route?: string, form?: { dataset?: DatasetDefinition }): Promise<ArtifactBundle> {
+  async create(name: string, route?: string, form?: { dataset?: DatasetDefinition }, shellId?: string, initialRegionId: string | null = 'region-main'): Promise<ArtifactBundle> {
     if (!/^[a-z][a-z0-9-]*$/.test(name)) throw new Error('Use a lowercase name with letters, numbers, and hyphens.');
     const locator = `${name}/${this.kind}.visual.json`;
     const file = await this.file(locator, true);
     if (await lstat(path.dirname(file)).then(() => true, error => { if (error.code === 'ENOENT') return false; throw error; })) throw new Error('An artifact folder already exists.');
     const temporary = path.join(this.root, `.creating-${randomUUID()}`);
-    const metadata: ArtifactMetadata = { schemaVersion: 1, artifactId: `art_${randomUUID()}`, kind: this.kind, name, displayName: name.replaceAll('-', ' '), ...(this.kind === 'component' ? { componentId: `cmp_platform_${randomUUID()}`, public: { properties: {}, events: {}, slots: [] } } : { route: route ?? `/${name}` }) };
+    const metadata: ArtifactMetadata = { schemaVersion: 1, artifactId: `art_${randomUUID()}`, kind: this.kind, name, displayName: name.replaceAll('-', ' '), ...(this.kind === 'component' ? { componentId: `cmp_platform_${randomUUID()}`, public: { properties: {}, events: {}, slots: [] } } : this.kind === 'page' ? { route: route ?? `/${name}`, ...(shellId ? { shellId, routeId: `route_${randomUUID()}` } : {}) } : {}) };
     const files: ArtifactFiles = form ? generateForm(metadata, form.dataset) : { source: `<section class="uip-layout-item" data-uip-node="node_${randomUUID()}"></section>\n`, css: '', metadata: JSON.stringify(metadata, null, 2) + '\n', fixtures: '{}\n', code: 'export {};\n' };
+    if (shellId || this.kind === 'shell') files.source = initialRegionId ? `<main class="uip-layout-item" data-uip-node="node_${randomUUID()}" data-uip-region="${initialRegionId}" data-uip-region-name="Main Content"></main>\n` : '<!-- No Page Region overrides; use Shell defaults. -->\n';
+    if (shellId) files.source = '<!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->\n';
     await mkdir(temporary);
     for (const [role, extension] of Object.entries(roles)) await atomicWriteText(path.join(temporary, `${this.kind}${extension}`), files[role as keyof ArtifactFiles]);
     if (this.kind === 'page') await atomicWriteText(path.join(temporary, 'index.ts'), pageEntry());
@@ -101,7 +103,7 @@ export class VisualArtifactService {
       if (role === 'metadata') {
         const incoming = parseMetadata(content).metadata;
         // Malformed source may be saved for repair, but parseable identity changes may not.
-        if (incoming && current.metadata && ((current.metadata.artifactId && incoming.artifactId !== current.metadata.artifactId) || (current.metadata.componentId && incoming.componentId !== current.metadata.componentId) || (['page', 'component'].includes(current.metadata.kind) && incoming.kind !== current.metadata.kind))) throw new Error('Artifact and Component identities and kind are immutable.');
+        if (incoming && current.metadata && ((current.metadata.artifactId && incoming.artifactId !== current.metadata.artifactId) || (current.metadata.componentId && incoming.componentId !== current.metadata.componentId) || (['page', 'component', 'shell'].includes(current.metadata.kind) && incoming.kind !== current.metadata.kind) || (current.metadata.routeId && incoming.routeId !== current.metadata.routeId))) throw new Error('Artifact, Route and Component identities and kind are immutable.');
       }
       const file = await this.file(locator);
       await atomicWriteText(file.slice(0, -'.visual.json'.length) + roles[role], content);
@@ -129,14 +131,17 @@ export function toRuntime(bundle: ArtifactBundle): RuntimeArtifact | undefined {
 export async function visualWorkspace(appKey: string, packages: PackageComponent[]) {
   const pageService = new VisualArtifactService(path.join(appPath(appKey), 'src', 'pages'), 'page');
   const componentService = new VisualArtifactService(platformComponentsRoot, 'component');
-  const [pages, components] = await Promise.all([pageService.list(), componentService.list()]);
+  const [pages, components, shells] = await Promise.all([pageService.list(), componentService.list(), new VisualArtifactService(path.join(appPath(appKey), 'shells'), 'shell').list()]);
   const runtime = components.map(toRuntime).filter((item): item is RuntimeArtifact => Boolean(item));
-  for (const bundle of [...pages, ...components]) if (bundle.metadata) bundle.diagnostics.push(...validateArtifact(toRuntime(bundle)!, runtime, packages));
-  return { pages, components, packages };
+  for (const bundle of [...pages, ...components, ...shells]) if (bundle.metadata) bundle.diagnostics.push(...validateArtifact(toRuntime(bundle)!, runtime, packages));
+  return { pages, components, shells, packages };
 }
 export async function knownVisualArtifacts(): Promise<ArtifactBundle[]> {
   const all = await new VisualArtifactService(platformComponentsRoot, 'component').list();
   all.push(...await new VisualArtifactService(path.join(platformRoot, 'references'), 'page').list());
-  for (const app of await readdir(appsDir, { withFileTypes: true }).catch(() => [])) if (app.isDirectory() && !app.isSymbolicLink()) all.push(...await new VisualArtifactService(path.join(appsDir, app.name, 'src', 'pages'), 'page').list());
+  for (const app of await readdir(appsDir, { withFileTypes: true }).catch(() => [])) if (app.isDirectory() && !app.isSymbolicLink()) {
+    all.push(...await new VisualArtifactService(path.join(appsDir, app.name, 'src', 'pages'), 'page').list());
+    all.push(...await new VisualArtifactService(path.join(appsDir, app.name, 'shells'), 'shell').list());
+  }
   return all;
 }

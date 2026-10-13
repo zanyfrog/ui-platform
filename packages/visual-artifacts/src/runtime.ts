@@ -1,4 +1,5 @@
 import { renderComponentInstance, ComponentRegistry } from '@ui-base/ui/component-reference';
+export { mountComposedPage } from './composition-runtime.js';
 import '@ui-base/forms';
 import { evaluate } from './expression.js';
 import { resolveMode } from './form.js';
@@ -12,6 +13,13 @@ export interface RuntimeOptions extends FormRuntimeOptions {
   components: RuntimeArtifact[]; packages: PackageComponent[];
   inputs?: Record<string, unknown>; sources?: Record<string, unknown>; context?: Record<string, unknown>; route?: Record<string, unknown>;
   slots?: Node[]; navigate?: (to: string) => void;
+  presentationCss?: string;
+  regions?: Record<string, RuntimeArtifact>;
+  /** Internal composition scope: all Regions of one Page share state and sources. */
+  sharedScope?: { state: Record<string, unknown>; data: Record<string, unknown>; subscribers: Set<() => void>; initialized: boolean };
+  regionScope?: RuntimeOptions['sharedScope'];
+  regionInputs?: Record<string, unknown>;
+  assetUrl?: (relative: string) => string;
   services?: Record<string, (input: unknown) => unknown | Promise<unknown>>;
   onError?: (error: unknown) => void;
 }
@@ -36,9 +44,9 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
   const m = artifact.metadata;
   const host = document.createElement('div'); host.dataset.uipArtifact = m.artifactId;
   const root = host.attachShadow({ mode: 'open' });
-  const state = structuredClone(m.state ?? {});
+  const state = options.sharedScope?.state ?? structuredClone(m.state ?? {});
   let inputs: Record<string, unknown> = {}, disposed = false;
-  const data: Record<string, unknown> = {};
+  const data: Record<string, unknown> = options.sharedScope?.data ?? {};
   const nested = new Map<string, ArtifactInstance>();
   const boundEvents = new Map<HTMLElement, Array<{ name: string; listener: EventListener }>>();
   const report = options.onError ?? (error => console.error(error));
@@ -46,15 +54,15 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
   for (const pkg of options.packages) if (pkg.definition) registry.registerManifest({ components: [pkg.definition] }, { packageId: (pkg.definition as unknown as { ownership: { package: { packageId: string } } }).ownership.package.packageId });
   const validateInputs = (next: Record<string, unknown>) => {
     const effective: Record<string, unknown> = {};
-    for (const key of Object.keys(next)) if (m.kind === 'component' && !Object.hasOwn(m.public!.properties, key)) throw new Error(`Unknown public property: ${key}.`);
+    for (const key of Object.keys(next)) if (m.kind !== 'page' && !Object.hasOwn(m.public?.properties ?? {}, key)) throw new Error(`Unknown public property: ${key}.`);
     for (const [key, contract] of Object.entries(m.public?.properties ?? {})) {
       effective[key] = next[key] === undefined ? structuredClone(contract.default) : next[key];
       const issues = valueErrors(effective[key], contract, key); if (issues.length) throw new Error(issues.join('\n'));
     }
-    return m.kind === 'page' ? next : effective;
+    return m.kind !== 'component' ? { ...effective, ...next } : effective;
   };
   inputs = validateInputs(options.inputs ?? {});
-  for (const [name, source] of Object.entries(m.sources ?? {})) data[name] = structuredClone(source.kind === 'fixture' ? source.value : undefined);
+  for (const [name, source] of Object.entries(m.sources ?? {})) if (!Object.hasOwn(data, name)) data[name] = structuredClone(source.kind === 'fixture' ? source.value : undefined);
   Object.assign(data, structuredClone(options.sources ?? {}));
   const scope = () => ({ ...data, public: inputs, local: state, context: options.context ?? {}, route: options.route ?? {} });
   const emit = (name: string, payload: Record<string, unknown>) => {
@@ -64,7 +72,8 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     if (issues.length) throw new Error(issues.join('\n'));
     host.dispatchEvent(new CustomEvent(name, { detail: structuredClone(payload), bubbles: true, composed: true }));
   };
-  const setState = (name: string, value: unknown) => { if (!Object.hasOwn(state, name)) throw new Error(`Unknown local state: ${name}.`); state[name] = value; render(); };
+  const repaint = () => { if (options.sharedScope) for (const render of options.sharedScope.subscribers) render(); else render(); };
+  const setState = (name: string, value: unknown) => { if (!Object.hasOwn(state, name)) throw new Error(`Unknown local state: ${name}.`); state[name] = value; repaint(); };
   const actions = async (items: Action[], current: Record<string, unknown>, event?: Event) => {
     try {
       for (const item of items) {
@@ -84,7 +93,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
           const context: FunctionContext = { public: inputs, local: state, root, event, setState, emit }; fn(context);
         }
       }
-      render();
+      repaint();
     } catch (error) { report(error); }
   };
   const template = document.createElement('template'); template.innerHTML = artifact.source;
@@ -127,7 +136,17 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
         else if (kind === 'attribute') { if (typeof value === 'boolean') element.toggleAttribute(name, value); else if (value == null) element.removeAttribute(name); else element.setAttribute(name, String(value)); }
         else if (kind === 'style') (element as HTMLElement).style.setProperty(name, String(value ?? ''));
       }
-      for (const child of [...element.children]) child.replaceWith(...process(child, current, prefix));
+      if (options.assetUrl) for (const name of ['src', 'href', 'poster']) {
+        const value = element.getAttribute(name)?.replace(/^(?:\.\.\/)+|^\.\//, '');
+        if (value?.startsWith('assets/')) element.setAttribute(name, options.assetUrl(value));
+      }
+      const regionId = element.getAttribute('data-uip-region');
+      if (regionId && Object.hasOwn(options.regions ?? {}, regionId)) {
+        const key = `region/${regionId}`; used.add(key);
+        let instance = nested.get(key);
+        if (!instance) { instance = mountVisualArtifact(options.regions![regionId], { ...options, inputs: options.regionInputs, regionInputs: undefined, regions: undefined, sharedScope: options.regionScope, regionScope: undefined }); nested.set(key, instance); }
+        element.replaceChildren(instance.host);
+      } else for (const child of [...element.children]) child.replaceWith(...process(child, current, prefix));
       if (element.localName === 'uip-slot') { const slot = document.createElement('slot'); slot.name = element.getAttribute('name') ?? ''; if (element.hasAttribute('slot')) slot.slot = element.getAttribute('slot')!; slot.append(...element.childNodes); return [slot]; }
       const componentId = element.getAttribute('data-uip-component');
       let output = element as HTMLElement;
@@ -136,7 +155,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
         if (component) {
           const key = `${prefix}/${id}`; used.add(key);
           let instance = nested.get(key);
-          if (!instance) { instance = mountVisualArtifact(component, { ...options, inputs: publicInputs, slots: [...element.childNodes], sources: undefined }); nested.set(key, instance); }
+          if (!instance) { instance = mountVisualArtifact(component, { ...options, inputs: publicInputs, slots: [...element.childNodes], sources: undefined, presentationCss: undefined, regions: undefined, sharedScope: undefined, regionScope: undefined }); nested.set(key, instance); }
           else { instance.update(publicInputs); instance.host.replaceChildren(...element.childNodes); }
           output = instance.host;
           if (element.hasAttribute('slot')) output.slot = element.getAttribute('slot')!;
@@ -170,18 +189,23 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     };
     const fragment = template.content.cloneNode(true) as DocumentFragment;
     for (const child of [...fragment.children]) child.replaceWith(...process(child, scope(), 'root'));
-    const style = document.createElement('style'); style.textContent = `:host{display:block}.uip-layout-item{box-sizing:border-box;min-width:0}\n${artifact.css}\n${layoutCss(m.layout)}`;
+    const style = document.createElement('style');
+    const css = `:host{display:block}.uip-layout-item{box-sizing:border-box;min-width:0}\n${options.presentationCss ?? ''}\n${artifact.css}\n${layoutCss(m.layout)}`;
+    style.textContent = options.assetUrl ? css.replace(/url\(\s*(['"]?)((?:\.\.\/|\.\/)*assets\/[^)'"\s]+)\1\s*\)/g, (_, _quote, relative: string) => `url("${options.assetUrl!(relative.replace(/^(?:\.\.\/)+|^\.\//, ''))}")`) : css;
     root.replaceChildren(style, fragment);
     formRuntime?.paint();
     for (const [key, instance] of nested) if (!used.has(key)) { instance.destroy(); nested.delete(key); }
   }
   render();
-  for (const [name, source] of Object.entries(m.sources ?? {})) if (source.kind === 'service' && !Object.hasOwn(options.sources ?? {}, name)) {
+  options.sharedScope?.subscribers.add(render);
+  const initialize = !options.sharedScope?.initialized;
+  if (options.sharedScope) options.sharedScope.initialized = true;
+  for (const [name, source] of Object.entries(m.sources ?? {})) if (initialize && source.kind === 'service' && !Object.hasOwn(options.sources ?? {}, name)) {
     const service = options.services?.[source.reference ?? ''];
-    if (service) void Promise.resolve(service(undefined)).then(value => { if (!disposed) { data[name] = value; render(); } }).catch(report);
+    if (service) void Promise.resolve(service(undefined)).then(value => { if (!disposed) { data[name] = value; repaint(); } }).catch(report);
   }
-  if (m.onLoad?.length) void actions(m.onLoad, scope());
-  return { host, root, state, update(next) { inputs = validateInputs(next); render(); }, destroy() { disposed = true; formRuntime?.destroy(); nested.forEach(instance => instance.destroy()); nested.clear(); for (const [element, bindings] of boundEvents) for (const binding of bindings) element.removeEventListener(binding.name, binding.listener); boundEvents.clear(); host.remove(); } };
+  if (initialize && m.onLoad?.length) void actions(m.onLoad, scope());
+  return { host, root, state, update(next) { inputs = validateInputs(next); render(); }, destroy() { disposed = true; options.sharedScope?.subscribers.delete(render); formRuntime?.destroy(); nested.forEach(instance => instance.destroy()); nested.clear(); for (const [element, bindings] of boundEvents) for (const binding of bindings) element.removeEventListener(binding.name, binding.listener); boundEvents.clear(); host.remove(); } };
 }
 
 const pageDefinitions = new Map<string, { artifact: RuntimeArtifact; options: RuntimeOptions }>();

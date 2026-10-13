@@ -141,6 +141,8 @@ function normalizeAppManifest(value: unknown): AppManifest {
     appId: stringOrEmpty(manifest.appId),
     template: stringOrDefault(manifest.template, 'unknown'),
     templateVersion: stringOrDefault(manifest.templateVersion, 'unknown'),
+    ...(typeof manifest.templateAppliedVersion === 'string' ? { templateAppliedVersion: manifest.templateAppliedVersion } : {}),
+    ...(typeof manifest.templateProvenance === 'string' ? { templateProvenance: manifest.templateProvenance } : {}),
     createdAt: typeof manifest.createdAt === 'string' ? manifest.createdAt : undefined,
     updatedAt: typeof manifest.updatedAt === 'string' ? manifest.updatedAt : undefined,
     packages: normalizePackages(manifest.packages),

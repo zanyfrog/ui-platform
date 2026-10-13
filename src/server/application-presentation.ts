@@ -7,6 +7,10 @@ import { appPath, getApp } from './applications.js';
 import { atomicWriteJson, atomicWriteText, readJson } from './json-files.js';
 import { appendHistory } from './history.js';
 import { discoverComponents } from './component-registry.js';
+import { compositionSettings, compositionWorkspace } from './application-composition.js';
+import { compositionSourceFingerprint, copyCompositionSnapshot, copyReferencedSharedComponents } from './composition-snapshots.js';
+import { platformComponentsRoot } from './visual-artifacts.js';
+import { withApplicationMutation } from './composition-lock.js';
 
 const MANIFEST_FILE = 'presentation.manifest.json';
 const DRAFT_DIR = 'draft';
@@ -148,7 +152,9 @@ export async function getApplicationPresentation(key: string): Promise<Applicati
   const draft = await readDraft(key);
   if (!manifest || !draft) return { initialized: false, manifest: null, draft: null, draftDiffersFromActive: false };
   const active = manifest.activeVersion === null ? null : await readVersion(key, manifest.activeVersion);
-  return { initialized: true, manifest, draft, draftDiffersFromActive: !active || checksum(draft) !== checksum(active) };
+  let compositionChanged = false;
+  if (await compositionSettings(key)) compositionChanged = !manifest.activeVersion || await compositionSourceFingerprint(appPath(key), platformComponentsRoot) !== await readFile(path.join(root(key), 'versions', `v${manifest.activeVersion}`, 'composition.source-checksum'), 'utf8').catch(() => '');
+  return { initialized: true, manifest, draft, draftDiffersFromActive: !active || checksum(draft) !== checksum(active) || compositionChanged };
 }
 async function readVersion(key: string, version: number): Promise<ApplicationPresentation | null> {
   try { return validatePresentation(await readJson<unknown>(versionPath(key, version))); } catch { return null; }
@@ -203,6 +209,9 @@ async function validateComponentDefaults(key: string, defaults: ApplicationPrese
   }
 }
 export async function publishPresentation(key: string): Promise<ApplicationPresentationStatus> {
+  return withApplicationMutation(appPath(key), () => publishPresentationSource(key));
+}
+async function publishPresentationSource(key: string): Promise<ApplicationPresentationStatus> {
   const status = await initializeApplicationPresentation(key);
   const draft = status.draft!;
   const manifest = status.manifest!;
@@ -210,6 +219,12 @@ export async function publishPresentation(key: string): Promise<ApplicationPrese
   const now = new Date().toISOString();
   const hash = checksum(draft);
   const css = renderPresentationCss(draft);
+  if (await compositionSettings(key)) {
+    await compositionWorkspace(key, await discoverComponents(key));
+    await copyCompositionSnapshot(appPath(key), path.join(root(key), 'versions', `v${version}`, 'composition'));
+    await copyReferencedSharedComponents(appPath(key), path.join(root(key), 'versions', `v${version}`, 'composition'), platformComponentsRoot);
+    await atomicWriteText(path.join(root(key), 'versions', `v${version}`, 'composition.source-checksum'), await compositionSourceFingerprint(appPath(key), platformComponentsRoot));
+  }
   await atomicWriteJson(versionPath(key, version), draft);
   await atomicWriteText(path.join(root(key), 'versions', `v${version}`, 'application.css'), css);
   await syncDraftAssetsToActive(key);
@@ -231,6 +246,7 @@ export async function publishPresentation(key: string): Promise<ApplicationPrese
  * builds and previews without coupling generated applications to this server.
  */
 async function ensurePresentationRuntimeImport(key: string): Promise<void> {
+  if (await compositionSettings(key)) return;
   const entry = path.join(appPath(key), 'src', 'main.ts');
   const marker = "import '../presentation/active.css';";
   const layoutImport = "import { composeApplicationPresentation } from '../presentation/runtime';";
@@ -248,6 +264,7 @@ async function ensurePresentationRuntimeImport(key: string): Promise<void> {
 }
 
 async function writePresentationRuntime(key: string, presentation: ApplicationPresentation): Promise<void> {
+  if (await compositionSettings(key)) return;
   const app = await getApp(key);
   const routes = app.pages.map((route) => ({ route, label: route === '/' ? 'Home' : route.split('/').filter(Boolean).map((part) => part.replace(/-/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())).join(' ') }));
   const configuredNavigation = new Map(presentation.layout.navigation.map((item) => [item.route, item]));
@@ -267,6 +284,19 @@ export async function rollbackPresentation(key: string, sourceVersion: number): 
   const source = await readVersion(key, sourceVersion);
   if (!source) throw new Error(`Presentation version v${sourceVersion} could not be read.`);
   await cp(path.join(root(key), 'versions', `v${sourceVersion}`, 'assets'), draftAssetsRoot(key), { recursive: true, force: true }).catch(() => undefined);
+  if (await compositionSettings(key)) {
+    const snapshot = path.join(root(key), 'versions', `v${sourceVersion}`, 'composition');
+    const historical = await readJson<any>(path.join(snapshot, 'app.settings.json'));
+    const current = await readJson<any>(path.join(appPath(key), 'app.settings.json'));
+    // Reuse the accepted explicit rollback-to-draft operation. Preserve Application
+    // metadata and source files that did not exist in the historical presentation.
+    const { compositionSources } = await import('./composition-snapshots.js');
+    for (const relative of compositionSources) if (relative !== 'app.settings.json') {
+      const source = path.join(snapshot, relative);
+      if (await stat(source).catch(() => null)) await cp(source, path.join(appPath(key), relative), { recursive: true, force: true });
+    }
+    await atomicWriteJson(path.join(appPath(key), 'app.settings.json'), { ...current, presentation: historical.presentation });
+  }
   await savePresentationDraft(key, source);
   await appendHistory(appPath(key), { action: 'presentation.rollback.requested', sourceVersion, actor: 'local-user' });
   return getApplicationPresentation(key);

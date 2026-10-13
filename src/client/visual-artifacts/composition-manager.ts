@@ -1,0 +1,103 @@
+import type { ApplicationMenu, CompositionDefinition, MenuItem } from '@ui-platform/visual-artifacts';
+import type { TemplateComparison } from '../../server/template-updates.js';
+
+const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
+async function api<T>(url: string, init?: RequestInit): Promise<T> { const response = await fetch(url, { ...init, headers: { 'content-type': 'application/json' } }); const data = await response.json(); if (!response.ok) throw new Error(data.error ?? 'Request failed.'); return data; }
+interface Source { path: string; content: string; hash: string }
+
+export async function mountCompositionManager(target: HTMLElement, appKey: string): Promise<void> {
+  const base = `/api/apps/${encodeURIComponent(appKey)}`;
+  let definition = await api<CompositionDefinition | null>(`${base}/composition`);
+  if (!definition) { target.remove(); return; }
+  let source: Source | undefined, update: TemplateComparison | undefined;
+  target.innerHTML = `<div class="stack"><strong>Application Composition</strong><p data-status aria-live="polite"></p>
+    <label>Application source<select data-files><option value="app.settings.json">Branding, theme and default Shell</option>${definition.menus.map(menu => `<option value="${esc(menu.sourcePath)}">${esc(menu.name)}</option>`).join('')}${definition.settings.siteStyles.map(file => `<option>${esc(file)}</option>`).join('')}</select></label>
+    <div data-settings></div><div data-menu></div><label>Source<textarea data-source class="source-editor" spellcheck="false"></textarea></label>
+    <div class="editor-actions"><button data-save>Save source</button><button data-reload>Reload source</button><button data-recover>Download recovery</button><button data-new-menu>Create Menu</button><button data-template>Update from Application Template</button></div>
+    <label>Application asset<input type="file" data-asset></label><label>Asset source path<input data-asset-path value="assets/images/image.png"></label><button data-upload-asset>Upload Application asset</button><p data-asset-status></p>
+    <p class="note">Saved source appears in development preview. Use the existing Presentation Publish action to update published presentation.</p><div data-update></div></div>`;
+  const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
+  const status = (message: string) => { find('[data-status]').textContent = message; };
+  const safe = (run: () => void | Promise<void>) => async () => { try { await run(); } catch (error) { status(String(error)); } };
+  const text = () => find<HTMLTextAreaElement>('[data-source]').value;
+  const dirty = () => source && source.content !== text();
+  find('[data-asset]').addEventListener('change', () => { const file = find<HTMLInputElement>('[data-asset]').files?.[0]; if (file) find<HTMLInputElement>('[data-asset-path]').value = 'assets/images/' + file.name.toLowerCase().replace(/[^a-z0-9.\-]/g, '-'); });
+  find('[data-upload-asset]').addEventListener('click', safe(async () => {
+    const asset = find<HTMLInputElement>('[data-asset]').files?.[0]; if (!asset) throw new Error('Choose an asset file.');
+    const path = find<HTMLInputElement>('[data-asset-path]').value;
+    const info = await api<{ hash: string | null }>(`${base}/composition-asset?info=1&path=${encodeURIComponent(path)}`);
+    if (info.hash && !confirm(`Replace the existing Application asset at ${path}?`)) return;
+    const data = new FormData(); data.set('asset', asset); data.set('path', path); data.set('expectedHash', info.hash ?? '');
+    const response = await fetch(`${base}/composition-asset`, { method: 'POST', body: data }); const saved = await response.json(); if (!response.ok) throw new Error(saved.error);
+    find('[data-asset-status]').textContent = `Saved ${path}. Use this source path in branding or component settings.`; document.dispatchEvent(new Event('ui-platform-workspace-change'));
+  }));
+  function menu(): ApplicationMenu { return JSON.parse(text()); }
+  function modifyMenu(work: (menu: ApplicationMenu) => void) { const value = menu(); work(value); find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(value, null, 2) + '\n'; renderFields(); status('Unsaved menu changes'); }
+  function renderFields(): void {
+    find('[data-settings]').replaceChildren(); find('[data-menu]').replaceChildren();
+    if (source?.path === 'app.settings.json') {
+      const config = JSON.parse(text());
+      const field = (name: string, value: string, change: (value: string) => void) => {
+        const label = document.createElement('label'); label.textContent = name; const input = document.createElement('input'); input.value = value;
+        input.addEventListener('change', safe(() => { change(input.value); find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(config, null, 2) + '\n'; status('Unsaved settings'); })); label.append(input); find('[data-settings]').append(label);
+      };
+      const label = document.createElement('label'); label.textContent = 'Default Shell for new Pages'; const select = document.createElement('select');
+      select.innerHTML = definition!.shells.map(shell => `<option value="${esc(shell.metadata.artifactId)}">${esc(shell.metadata.displayName)}</option>`).join(''); select.value = config.presentation.defaultShellId;
+      select.addEventListener('change', () => { config.presentation.defaultShellId = select.value; find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(config, null, 2) + '\n'; }); label.append(select); find('[data-settings]').append(label);
+      for (const key of ['applicationName', 'shortName', 'primaryLogo', 'secondaryLogo', 'favicon']) field(key, config.presentation.branding[key] ?? '', value => { config.presentation.branding[key] = value; });
+      for (const [key, value] of Object.entries(config.presentation.theme)) field(key, String(value), value => { config.presentation.theme[key] = value; });
+    } else if (source?.path.startsWith('menus/')) {
+      const value = menu();
+      const list = document.createElement('div');
+      const draw = (items: MenuItem[], parent: HTMLElement) => {
+        const ul = document.createElement('ul'); parent.append(ul);
+        for (const item of items) {
+          const li = document.createElement('li'); li.append(document.createTextNode(`${item.label} (${item.destination.kind}) `)); ul.append(li);
+          const button = (label: string, click: () => void) => { const button = document.createElement('button'); button.textContent = label; button.addEventListener('click', safe(click)); li.append(button); };
+          const locate = (menu: ApplicationMenu): MenuItem => { let found: MenuItem | undefined; const walk = (items: MenuItem[]) => { for (const entry of items) { if (entry.itemId === item.itemId) found = entry; walk(entry.children ?? []); } }; walk(menu.items); return found!; };
+          button('Edit', () => { const label = prompt('Label:', item.label); if (label === null) return; const destination = prompt('Destination JSON: page/pageId, route/routeId, url/url, action/actions', JSON.stringify(item.destination)); if (destination === null) return; const browserTarget = prompt('Browser target: _self, _blank, _parent, _top', item.target ?? '_self'); if (browserTarget === null) return; modifyMenu(menu => { Object.assign(locate(menu), { label, destination: JSON.parse(destination), target: browserTarget }); }); });
+          button(item.hidden ? 'Show' : 'Hide', () => modifyMenu(menu => { locate(menu).hidden = !item.hidden; }));
+          button(item.disabled ? 'Enable' : 'Disable', () => modifyMenu(menu => { locate(menu).disabled = !item.disabled; }));
+          button('Add child', () => addItem(item.itemId));
+          const move = (direction: number) => modifyMenu(menu => { const walk = (items: MenuItem[]) => { const index = items.findIndex(entry => entry.itemId === item.itemId); if (index >= 0) { const target = index + direction; if (target >= 0 && target < items.length) [items[index], items[target]] = [items[target], items[index]]; } else items.forEach(entry => walk(entry.children ?? [])); }; walk(menu.items); });
+          button('Move up', () => move(-1)); button('Move down', () => move(1));
+          button('Remove', () => { if (!confirm('Remove this Menu Item and its children?')) return; modifyMenu(menu => { const remove = (items: MenuItem[]) => { const index = items.findIndex(entry => entry.itemId === item.itemId); if (index >= 0) items.splice(index, 1); else items.forEach(entry => remove(entry.children ?? [])); }; remove(menu.items); }); });
+          if (item.children?.length) draw(item.children, li);
+        }
+      };
+      draw(value.items, list); const add = document.createElement('button'); add.textContent = 'Add root item'; add.addEventListener('click', safe(() => addItem())); list.append(add); find('[data-menu]').append(list);
+    }
+  }
+  function addItem(parentId?: string): void {
+    const label = prompt('Menu Item label:'); if (!label) return;
+    const destination = prompt('Destination as JSON:', '{"kind":"page","pageId":"' + definition!.pages[0]?.metadata.artifactId + '"}'); if (!destination) return;
+    const item: MenuItem = { itemId: `item-${crypto.randomUUID()}`, label, destination: JSON.parse(destination) };
+    modifyMenu(menu => { if (!parentId) menu.items.push(item); else { const walk = (items: MenuItem[]) => { for (const entry of items) { if (entry.itemId === parentId) (entry.children ??= []).push(item); else walk(entry.children ?? []); } }; walk(menu.items); } });
+  }
+  async function load(): Promise<void> {
+    const file = find<HTMLSelectElement>('[data-files]').value;
+    const next = await api<Source>(`${base}/composition-source?path=${encodeURIComponent(file)}`); source = next; find<HTMLTextAreaElement>('[data-source]').value = next.content; renderFields(); status('Source loaded');
+  }
+  find('[data-files]').addEventListener('change', safe(async () => { if (dirty() && !confirm('Discard unsaved source changes? Download recovery first if needed.')) { find<HTMLSelectElement>('[data-files]').value = source!.path; return; } await load(); }));
+  find('[data-reload]').addEventListener('click', safe(async () => { if (!dirty() || confirm('Discard editor changes and reload source?')) await load(); }));
+  find('[data-source]').addEventListener('input', () => status('Unsaved source changes; Save validates the source.'));
+  find('[data-save]').addEventListener('click', safe(async () => { source = await api<Source>(`${base}/composition-source?path=${encodeURIComponent(source!.path)}`, { method: 'PUT', body: JSON.stringify({ content: text(), expectedHash: source!.hash }) }); definition = await api<CompositionDefinition>(`${base}/composition`); renderFields(); status('Saved'); document.dispatchEvent(new Event('ui-platform-workspace-change')); }));
+  find('[data-recover]').addEventListener('click', () => { const url = URL.createObjectURL(new Blob([text()], { type: 'text/plain' })); const link = document.createElement('a'); link.href = url; link.download = 'composition-source-recovery.txt'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); });
+  find('[data-new-menu]').addEventListener('click', safe(async () => {
+    if (dirty()) throw new Error('Save or recover source before creating a Menu.');
+    const name = prompt('Menu name:'); if (!name) return; const id = prompt('Stable lowercase Menu ID:', 'menu-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-')); if (!id) return;
+    const file = `menus/${id.replace(/^menu-/, '')}.json`;
+    await api(`${base}/composition-source?path=${encodeURIComponent(file)}`, { method: 'PUT', body: JSON.stringify({ content: JSON.stringify({ schemaVersion: 1, menuId: id, name, items: [] }, null, 2), expectedHash: null }) });
+    const option = document.createElement('option'); option.value = file; option.textContent = name; find('[data-files]').append(option); find<HTMLSelectElement>('[data-files]').value = file; await load();
+  }));
+  find('[data-template]').addEventListener('click', safe(async () => {
+    if (dirty()) throw new Error('Save or recover source before updating the Application.');
+    update = await api<TemplateComparison>(`${base}/template-update`);
+    find('[data-update]').innerHTML = `<p>Template ${esc(update.templateId)} version ${esc(update.version)}. Omitted files and Application-only files are preserved.</p><table><thead><tr><th>File</th><th>Status</th><th>Decision</th></tr></thead><tbody>${update.items.map((item, index) => `<tr><td>${esc(item.path)}</td><td>${esc(item.category)}</td><td>${['new', 'different'].includes(item.category) ? `<select data-decision="${index}" aria-label="Decision for ${esc(item.path)}"><option value="keep">Keep Application Version${item.category === 'new' ? ' / Skip' : ''}</option>${['app.manifest.json', 'ui.app.json'].includes(item.path) ? '' : `<option value="${item.category === 'new' ? 'add' : 'replace'}">${item.category === 'new' ? 'Add / Copy' : 'Replace with Template Version'}</option>`}</select>` : 'Preserve'}</td></tr>`).join('')}</tbody></table><button data-apply>Apply selected decisions</button>`;
+    find('[data-apply]').addEventListener('click', safe(async () => {
+      const decisions: Record<string, string> = {}; target.querySelectorAll<HTMLSelectElement>('[data-decision]').forEach(select => { decisions[update!.items[Number(select.dataset.decision)].path] = select.value; });
+      await api(`${base}/template-update`, { method: 'POST', body: JSON.stringify({ expectedHash: update!.expectedHash, decisions }) }); find('[data-update]').replaceChildren(); await load(); status('Template version processed; selected files updated.');
+    }));
+  }));
+  await load();
+}

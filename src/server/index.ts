@@ -34,6 +34,10 @@ import { compileVisualFunctions } from '@ui-platform/artifacts';
 import { build as bundleBrowserModule } from 'esbuild';
 import { AutomationStore } from './automation-store.js';
 import { platformRoot } from './paths.js';
+import { regions } from '@ui-platform/visual-artifacts';
+import { withApplicationMutation } from './composition-lock.js';
+import { applyTemplateUpdate, compareTemplate } from './template-updates.js';
+import { assertShellUnused, changePageShell, compositionAssetInfo, compositionSettings, compositionSourcePath, compositionWorkspace, readCompositionSource, saveCompositionAsset, saveCompositionSource, validateCompositionEdit } from './application-composition.js';
 
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const v1Enabled = process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1';
@@ -286,11 +290,38 @@ const server = http.createServer(async (req, res) => {
 
     if (parts[0] === 'api' && parts[1] === 'apps' && parts[2]) {
       const key = decodeURIComponent(parts[2]);
-      if (parts.length === 4 && ['visual-artifacts', 'visual-pages', 'visual-components'].includes(parts[3])) {
+      if (parts.length === 4 && parts[3] === 'composition-asset' && method === 'POST') {
+        const input = await body(req); if (!isMultipartBody(input) || !input.files.asset) throw new Error('Upload an asset file.');
+        return json(res, 201, await saveCompositionAsset(key, String(input.fields.path ?? ''), input.files.asset.content, input.fields.expectedHash || null));
+      }
+      if (parts.length === 4 && parts[3] === 'composition-asset' && method === 'GET') {
+        const relative = url.searchParams.get('path') ?? ''; if (!relative.startsWith('assets/')) throw new Error('Application asset path required.');
+        if (url.searchParams.get('info') === '1') return json(res, 200, await compositionAssetInfo(key, relative));
+        const file = await compositionSourcePath(key, relative), content = await readFile(file);
+        const types: Record<string, string> = { '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.ico': 'image/x-icon', '.pdf': 'application/pdf', '.txt': 'text/plain' };
+        res.writeHead(200, { 'content-type': types[path.extname(file)] ?? 'application/octet-stream', 'cache-control': 'no-store' }); return res.end(content);
+      }
+      if (parts.length === 4 && parts[3] === 'composition') {
+        if (method === 'GET') return json(res, 200, await compositionWorkspace(key, await discoverComponents(key)));
+      }
+      if (parts.length === 4 && parts[3] === 'composition-source') {
+        const file = url.searchParams.get('path'); if (!file) throw new Error('Source path is required.');
+        if (method === 'GET') return json(res, 200, await readCompositionSource(key, file));
+        if (method === 'PUT') { const input = await body(req); return json(res, 200, await saveCompositionSource(key, file, input.content, input.expectedHash)); }
+      }
+      if (parts.length === 4 && parts[3] === 'page-shell' && method === 'POST') {
+        const input = await body(req); return json(res, 200, await changePageShell(key, input.locator, input.shellId, input.decisions ?? {}, input.expectedHash));
+      }
+      if (parts.length === 4 && parts[3] === 'template-update') {
+        const app = await getApp(key), template = await getTemplate(app.template);
+        if (method === 'GET') return json(res, 200, await compareTemplate(appPath(key), path.join(template.folder, 'files'), template.definition.id, template.definition.version));
+        if (method === 'POST') { const input = await body(req); return json(res, 200, await applyTemplateUpdate(appPath(key), path.join(template.folder, 'files'), template.definition.id, template.definition.version, input.expectedHash, input.decisions)); }
+      }
+      if (parts.length === 4 && ['visual-artifacts', 'visual-pages', 'visual-components', 'visual-shells'].includes(parts[3])) {
         await getApp(key);
         if (parts[3] === 'visual-artifacts' && method === 'GET') return json(res, 200, await visualWorkspace(key, await discoverComponents(key)));
-        const kind = parts[3] === 'visual-components' ? 'component' : 'page';
-        const service = new VisualArtifactService(kind === 'component' ? platformComponentsRoot : path.join(appPath(key), 'src', 'pages'), kind);
+        const kind = parts[3] === 'visual-components' ? 'component' : parts[3] === 'visual-shells' ? 'shell' : 'page';
+        const service = new VisualArtifactService(kind === 'component' ? platformComponentsRoot : path.join(appPath(key), kind === 'shell' ? 'shells' : 'src/pages'), kind);
         const locator = url.searchParams.get('locator');
         if (parts[3] === 'visual-artifacts') throw new Error('The workspace endpoint supports GET only.');
         if (method === 'GET') {
@@ -302,10 +333,25 @@ const server = http.createServer(async (req, res) => {
           return json(res, 200, bundle ?? await service.list());
         }
         const input = await body(req);
-        if (method === 'POST') return json(res, 201, await service.create(String(input.name ?? ''), input.route, input.form));
+        if (method === 'POST') return await withApplicationMutation(appPath(key), async () => {
+          const composition = await compositionSettings(key);
+          const shellId = kind === 'page' && composition ? input.shellId || composition.defaultShellId : undefined;
+          const shell = shellId ? (await new VisualArtifactService(path.join(appPath(key), 'shells'), 'shell').list()).find(shell => shell.metadata?.artifactId === shellId) : undefined;
+          if (shellId && !shell) throw new Error('Selected Shell is missing.');
+          const initialRegionId = shell ? regions(shell.files.source).find(region => region.regionId === 'region-main')?.regionId ?? regions(shell.files.source)[0]?.regionId ?? null : 'region-main';
+          if (kind === 'page' && composition && (await service.list()).some(page => page.metadata?.route === (input.route ?? `/${input.name}`))) throw new Error('A Page already owns that primary Route.');
+          const created = await service.create(String(input.name ?? ''), input.route, input.form, shellId, initialRegionId);
+          return json(res, 201, created);
+        });
         if (!locator) throw new Error('Visual Artifact locator is required.');
-        if (method === 'PUT') return json(res, 200, await service.save(locator, input.role, input.content, input.expectedHash));
-        if (method === 'DELETE') { await service.remove(locator, input.expectedHash, await knownVisualArtifacts()); return json(res, 200, { removed: true }); }
+        if (method === 'PUT') {
+          return await withApplicationMutation(appPath(key), async () => {
+            if (kind !== 'component') await validateCompositionEdit(key, kind, locator, input.role, input.content);
+            const saved = await service.save(locator, input.role, input.content, input.expectedHash);
+            return json(res, 200, saved);
+          });
+        }
+        if (method === 'DELETE') return await withApplicationMutation(appPath(key), async () => { if (kind === 'shell') await assertShellUnused(key, (await service.read(locator)).metadata!.artifactId); await service.remove(locator, input.expectedHash, await knownVisualArtifacts()); return json(res, 200, { removed: true }); });
       }
       if (parts.length === 3 && method === 'GET') {
         const app = await getApp(key);

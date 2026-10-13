@@ -4,6 +4,9 @@ import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { appPath, getApp } from './applications.js';
 import { runtimeDir, ormDir } from './paths.js';
+import { compositionSettings } from './application-composition.js';
+import { copyReferencedSharedComponents } from './composition-snapshots.js';
+import { platformComponentsRoot } from './visual-artifacts.js';
 
 async function readPackage(file: string): Promise<any> { return JSON.parse(await readFile(file, 'utf8')); }
 async function copyClean(source: string, destination: string): Promise<void> {
@@ -42,6 +45,7 @@ export async function exportApp(key: string): Promise<{ zipFile: string; downloa
   const packagesDir = path.join(exportDir, 'packages');
   await mkdir(packagesDir, { recursive: true });
   await copyClean(appPath(key), appDir);
+  if (await compositionSettings(key)) await copyReferencedSharedComponents(appPath(key), appDir, platformComponentsRoot);
 
   // Vendor external file dependencies; app-local file dependencies already travel with the app.
   const sourceAppPackage = await readPackage(path.join(appPath(key), 'package.json'));

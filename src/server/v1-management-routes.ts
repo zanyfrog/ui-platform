@@ -20,6 +20,11 @@ export function managementCheck(method: string, pathname: string, applicationId?
   if (parts[1] !== 'apps' || !parts[2] || !applicationId) return null;
   const area = parts[3];
   const read = method === 'GET';
+  if (area === 'page-shell') return { permissionId: 'ui.page.edit', resource: child(applicationId, 'page', 'pages') };
+  if (['composition', 'composition-source', 'composition-asset', 'visual-shells'].includes(area)) return {
+    permissionId: read ? 'ui.presentation.view' : method === 'DELETE' ? 'ui.presentation.admin' : 'ui.presentation.edit', resource: child(applicationId, 'artifact', 'presentation'),
+  };
+  if (area === 'template-update') return { permissionId: read ? 'ui.application.view' : 'ui.application.admin', resource: app(applicationId) };
   if (!area || area === 'info' || area === 'components') return {
     permissionId: method === 'DELETE' ? 'ui.application.admin' : read ? 'ui.application.view' : 'ui.application.edit', resource: app(applicationId),
   };

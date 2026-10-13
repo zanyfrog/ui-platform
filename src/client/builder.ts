@@ -1,6 +1,7 @@
 import type { ComponentCatalogEntry, PageSourcePayload, PageTreePayload } from '../shared/types';
 import './components/tree';
 import { mountVisualEditor } from './visual-artifacts/editor';
+import { mountCompositionManager } from './visual-artifacts/composition-manager';
 
 interface BuilderApp { key: string; name: string; }
 
@@ -27,6 +28,8 @@ export async function mountBuilder(target: HTMLElement, app: BuilderApp): Promis
   const visualEditor = document.createElement('section');
   visualEditor.className = 'panel stack';
   target.prepend(visualEditor);
+  const compositionManager = document.createElement('section'); compositionManager.className = 'panel stack'; target.prepend(compositionManager);
+  void mountCompositionManager(compositionManager, app.key).catch(error => { compositionManager.textContent = `Composition unavailable: ${String(error)}`; });
   void mountVisualEditor(visualEditor, app.key).catch(error => { visualEditor.textContent = `Visual Artifacts unavailable: ${String(error)}`; });
   const pageEditor = target.querySelector<HTMLElement>('#pageEditor')!;
   const componentPreview = target.querySelector<HTMLElement>('#componentPreview')!;

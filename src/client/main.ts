@@ -13,6 +13,7 @@ import '@ui-base/ui-layout';
 import './styles.css';
 import type { DiscoveredApp, TemplateDefinition, TemplateSettingDefinition } from '../shared/types';
 import { mountBuilder } from './builder';
+import { mountCompositionManager } from './visual-artifacts/composition-manager';
 import { mountAppPackages, mountGlobalPackages } from './packages-ui';
 
 const root = document.querySelector<HTMLDivElement>('#app');
@@ -282,9 +283,18 @@ async function mountPresentation(target: HTMLElement, key: string): Promise<void
   const endpoint = `/api/apps/${encodeURIComponent(key)}/presentation`;
   try {
     const status = await api<any>(endpoint);
+    const composition = await api<any>(`/api/apps/${encodeURIComponent(key)}/composition`);
     if (!status.initialized) {
       target.innerHTML = `<section class="presentation-empty"><div><span class="presentation-orb">${icon('calendar')}</span><h2>Establish your application presentation</h2><p>Set shared styling, assets, and application-wide display defaults. Nothing changes in the app until you publish.</p></div>${actionButton('presentation-initialize', 'Initialize Presentation', { variant: 'primary' })}</section>`;
       target.querySelector('[data-action="presentation-initialize"]')?.addEventListener('click', async () => { await api(`${endpoint}/initialize`, { method: 'POST' }); await mountPresentation(target, key); });
+      if (composition) target.querySelector('p')!.textContent = 'Application source is already available in development preview. Initialize the existing presentation lifecycle to publish it.';
+      return;
+    }
+    if (composition) {
+      const active = status.manifest.activeVersion === null ? 'Draft only' : `v${status.manifest.activeVersion} active`;
+      target.innerHTML = `<section class="presentation-overview"><header class="presentation-header"><div><h2>Presentation</h2><p>Shells, Menus, branding and styles belong to this Application. Saved source updates development preview.</p></div><div class="presentation-actions"><span class="presentation-version">${esc(active)}</span>${actionButton('presentation-publish', 'Publish Changes', { variant: 'primary' })}</div></header><p>${status.draftDiffersFromActive ? 'Source differs from published presentation.' : 'Published presentation matches saved source.'}</p><div data-composition-manager></div></section>`;
+      target.querySelector('[data-action="presentation-publish"]')?.addEventListener('click', async () => { try { await api(`${endpoint}/publish`, { method: 'POST' }); await mountPresentation(target, key); } catch (error) { alert(String(error)); } });
+      await mountCompositionManager(target.querySelector<HTMLElement>('[data-composition-manager]')!, key);
       return;
     }
     const draft = status.draft;

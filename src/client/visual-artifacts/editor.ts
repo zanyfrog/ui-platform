@@ -1,8 +1,8 @@
-import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readPackageSettings, setNodeAttribute } from '@ui-platform/visual-artifacts';
+import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readPackageSettings, setNodeAttribute, regions, recommendedRegionIds } from '@ui-platform/visual-artifacts';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
 import type { ComponentCatalogEntry } from '../../shared/types.js';
 
-interface Workspace { pages: ArtifactBundle[]; components: ArtifactBundle[]; packages: ComponentCatalogEntry[] }
+interface Workspace { pages: ArtifactBundle[]; components: ArtifactBundle[]; shells: ArtifactBundle[]; packages: ComponentCatalogEntry[] }
 const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, { ...init, headers: { 'content-type': 'application/json', ...init?.headers } });
@@ -10,23 +10,65 @@ async function api<T>(url: string, init?: RequestInit): Promise<T> {
 }
 export async function mountVisualEditor(target: HTMLElement, appKey: string): Promise<void> {
   const base = `/api/apps/${encodeURIComponent(appKey)}`;
-  let workspace: Workspace, selected: ArtifactBundle | undefined, selectedKind: 'page' | 'component' = 'page';
+  let workspace: Workspace, selected: ArtifactBundle | undefined, selectedKind: 'page' | 'component' | 'shell' = 'page';
   let files: ArtifactFiles, baseline: ArtifactFiles, hash = '', role: keyof ArtifactFiles = 'source', selectedNode = '', conflict = false, saving = false;
   let preview: HTMLIFrameElement | undefined, polling = false;
   const dirty = () => files && JSON.stringify(files) !== JSON.stringify(baseline);
-  const url = () => `${base}/visual-${selectedKind === 'page' ? 'pages' : 'components'}?locator=${encodeURIComponent(selected!.locator)}`;
+  const list = (kind: string) => kind === 'page' ? workspace.pages : kind === 'shell' ? workspace.shells : workspace.components;
+  const plural = (kind: string) => kind === 'page' ? 'pages' : kind === 'shell' ? 'shells' : 'components';
+  const url = () => `${base}/visual-${plural(selectedKind)}?locator=${encodeURIComponent(selected!.locator)}`;
   target.innerHTML = `<div class="stack"><div class="pane-heading"><strong>Visual Artifacts</strong><span data-status aria-live="polite"></span></div>
     <div class="editor-actions"><button data-create="page">Create Page</button><button data-create="component">Create Platform Component</button><button data-create="form-dataset">Create Form from Dataset</button><button data-create="form">Create blank Form</button><select aria-label="Visual Artifact" data-artifacts><option value="">Select an artifact</option></select></div>
-    <div data-work hidden><div class="editor-actions"><button data-save>Save changed files</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Preview</button></div>
+    <div data-work hidden><div class="editor-actions"><button data-save>Save changed files</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Preview</button><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
     <div data-diagnostics></div><div class="builder-layout" style="grid-template-columns:minmax(180px,1fr) minmax(220px,2fr)"><div class="stack"><strong>Structure</strong><select data-nodes size="8" aria-label="Visual node"></select>
     <label>Insert into selected HTML container, or artifact root<select data-insert aria-label="Insert element"></select></label><button data-add>Insert with layout wrapper</button><button data-root>Select artifact root</button><button data-move="up">Move layout item up</button><button data-move="down">Move layout item down</button><div data-inspector></div></div>
     <div class="stack"><label>Source file<select data-file aria-label="Visual source file">${['source', 'css', 'metadata', 'fixtures', 'code'].map(name => `<option>${name}</option>`).join('')}</select></label><textarea data-source aria-label="Visual source" class="source-editor" spellcheck="false"></textarea><p class="note">Manual source is preserved. Conditions, repeaters, events, slots and data sources can be edited in metadata. Optional named functions belong in code.</p></div></div><div data-preview-host></div></div></div>`;
   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
   const status = (message: string) => { find('[data-status]').textContent = message; };
   const safe = (run: () => Promise<void> | void) => async () => { try { await run(); } catch (error) { status(error instanceof Error ? error.message : String(error)); } };
+  find('[data-create="page"]').insertAdjacentHTML('afterend', '<button data-create="shell">Create Shell</button>');
+  find('[data-add-region]').insertAdjacentHTML('afterend', '<button data-place-menu>Place Application Menu</button>');
+  find('[data-place-menu]').addEventListener('click', safe(async () => {
+    const composition = await api<import('@ui-platform/visual-artifacts').CompositionDefinition>(`${base}/composition`);
+    const menuId = prompt('Application Menu ID:\n' + composition.menus.map(menu => `${menu.name}: ${menu.menuId}`).join('\n')); if (!menuId) return;
+    if (!composition.menus.some(menu => menu.menuId === menuId)) throw new Error('Choose an Application Menu.');
+    const wrapperId = `node_${crypto.randomUUID()}`, nodeId = `node_${crypto.randomUUID()}`, ids = [wrapperId, nodeId];
+    files.source = insertNode(files.source, 'nav', undefined, selectedNode || undefined, () => ids.shift()!);
+    files.source = setNodeAttribute(files.source, nodeId, 'data-uip-menu', menuId);
+    files.source = setNodeAttribute(files.source, nodeId, 'aria-label', composition.menus.find(menu => menu.menuId === menuId)!.name);
+    find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
+  }));
+  find('[data-add-region]').addEventListener('click', safe(() => {
+    const shell = selectedKind === 'page' ? workspace.shells.find(shell => shell.metadata?.artifactId === workingMetadata().shellId) : undefined;
+    const choices = shell ? regions(shell.files.source).map(region => region.regionId) : [...recommendedRegionIds];
+    const id = prompt('Region ID (stable; custom region- IDs allowed in Shells):\n' + choices.join('\n'), choices[0]); if (!id) return;
+    if (shell && !choices.includes(id)) throw new Error('Choose a Region from the Page Shell.');
+    if (regions(files.source).some(region => region.regionId === id)) throw new Error('Region already exists.');
+    const name = prompt('Region display name:', id); if (name === null) return;
+    files.source += `\n<section class="uip-layout-item" data-uip-node="node_${crypto.randomUUID()}" data-uip-region="${esc(id)}" data-uip-region-name="${esc(name)}"></section>\n`;
+    regions(files.source); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
+  }));
+  find('[data-remove-node]').addEventListener('click', safe(() => {
+    const node = parseSource(files.source).nodes.find(node => node.id === selectedNode); if (!node) throw new Error('Select a Page-owned or Shell-owned node.');
+    if (!confirm('Remove selected node and its children? Removing a Page Region restores the Shell default; keeping an empty Region suppresses it.')) return;
+    files.source = files.source.slice(0, node.start) + files.source.slice(node.end); selectedNode = ''; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
+  }));
+  find('[data-change-shell]').addEventListener('click', safe(async () => {
+    if (dirty() || conflict) throw new Error('Save or recover changes before changing Shell.');
+    const shellId = prompt('New Shell ID:\n' + workspace.shells.map(shell => `${shell.metadata?.displayName}: ${shell.metadata?.artifactId}`).join('\n')); if (!shellId) return;
+    const shell = workspace.shells.find(shell => shell.metadata?.artifactId === shellId); if (!shell) throw new Error('Shell is missing.');
+    const available = regions(shell.files.source).map(region => region.regionId), decisions: Record<string, string | null> = {};
+    for (const region of regions(files.source)) if (!available.includes(region.regionId)) {
+      const mapping = prompt(`Map ${region.regionId} to one of:\n${available.join('\n')}\nType DISCARD to explicitly discard this Region. Cancel keeps the current Shell.`); if (mapping === null) return;
+      decisions[region.regionId] = mapping === 'DISCARD' ? null : mapping;
+    }
+    const bundle = await api<ArtifactBundle>(`${base}/page-shell`, { method: 'POST', body: JSON.stringify({ locator: selected!.locator, shellId, decisions, expectedHash: hash }) });
+    workspace = await api<Workspace>(`${base}/visual-artifacts`); open(bundle, 'page');
+  }));
   function renderList(): void {
+    find('[data-create="shell"]').hidden = !workspace.shells?.length;
     const select = find<HTMLSelectElement>('[data-artifacts]');
-    select.innerHTML = '<option value="">Select an artifact</option>' + [['Pages', workspace.pages], ['Platform Components', workspace.components]].map(([label, items]) => `<optgroup label="${label}">${(items as ArtifactBundle[]).map(b => `<option value="${label === 'Pages' ? 'page' : 'component'}:${esc(b.locator)}">${esc(b.metadata?.displayName ?? b.locator)}${b.diagnostics.some(d => d.severity === 'error') ? ' (needs repair)' : ''}</option>`).join('')}</optgroup>`).join('');
+    select.innerHTML = '<option value="">Select an artifact</option>' + [['Pages', workspace.pages], ['Shells', workspace.shells ?? []], ['Platform Components', workspace.components]].map(([label, items]) => `<optgroup label="${label}">${(items as ArtifactBundle[]).map(b => `<option value="${label === 'Pages' ? 'page' : label === 'Shells' ? 'shell' : 'component'}:${esc(b.locator)}">${esc(b.metadata?.displayName ?? b.locator)}${b.diagnostics.some(d => d.severity === 'error') ? ' (needs repair)' : ''}</option>`).join('')}</optgroup>`).join('');
     if (selected) select.value = `${selectedKind}:${selected.locator}`;
     find<HTMLSelectElement>('[data-insert]').innerHTML = '<optgroup label="HTML">' + ['section', 'div', 'article', 'p', 'h2', 'a', 'img', 'ul', 'li', 'span'].map(tag => `<option value="html:${tag}">${tag}</option>`).join('') + '</optgroup><optgroup label="Package Components">' + workspace.packages.filter(p => !p.activationIssues?.length).map(p => `<option value="package:${esc(p.id)}">${esc(p.name ?? p.tagName)}</option>`).join('') + '</optgroup><optgroup label="Platform Components">' + workspace.components.filter(b => b.metadata && !b.diagnostics.some(d => d.severity === 'error')).map(b => `<option value="component:${esc(b.metadata!.componentId)}">${esc(b.metadata!.displayName)}</option>`).join('') + '</optgroup>';
   }
@@ -36,7 +78,8 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
   function renderStructure(): void {
     const parsed = parseSource(files.source);
     const selector = find<HTMLSelectElement>('[data-nodes]');
-    selector.innerHTML = parsed.nodes.map((n, index) => `<option value="${esc(n.id ?? `manual:${index}`)}">${esc(`${n.tag} ${n.id ?? '(manual)'}`)}</option>`).join('');
+    const shell = selectedKind === 'page' ? workspace.shells?.find(shell => shell.metadata?.artifactId === workingMetadata().shellId) : undefined;
+    selector.innerHTML = (shell ? '<optgroup label="Shell context — locked; edit the Shell">' + parseSource(shell.files.source).nodes.filter(n => !n.attributes['data-uip-region']).map(n => `<option disabled>🔒 ${esc(n.tag + ' ' + (n.id ?? ''))}</option>`).join('') + '</optgroup>' : '') + parsed.nodes.map((n, index) => `<option value="${esc(n.id ?? `manual:${index}`)}">${esc(`${n.attributes['data-uip-region'] ?? n.tag} ${n.attributes['data-uip-region-name'] ?? n.id ?? '(manual)'}`)}</option>`).join('');
     selector.value = selectedNode;
     find('[data-diagnostics]').innerHTML = [...(selected?.diagnostics ?? []), ...parsed.diagnostics].map(d => `<p class="${d.severity === 'error' ? 'error' : 'note'}">${esc(d.message)}</p>`).join('');
     renderInspector();
@@ -48,6 +91,26 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
     if (!node) {
       inspector.innerHTML = '<p class="note">Select a managed node to edit settings and bindings.</p>';
       const metadata = workingMetadata();
+      if (selectedKind === 'page' && metadata.shellId) {
+        const note = document.createElement('p'); note.textContent = `Shell: ${workspace.shells.find(shell => shell.metadata?.artifactId === metadata.shellId)?.metadata?.displayName ?? metadata.shellId}. Fixed content is edited in the Shell editor.`; inspector.append(note);
+        const override = document.createElement('button'); override.textContent = 'Set Page Menu Item visibility / availability';
+        override.addEventListener('click', safe(() => {
+          const menuId = prompt('Application Menu ID:'); if (!menuId) return;
+          const itemId = prompt('Existing Menu Item ID:'); if (!itemId) return;
+          const setting = prompt('Override: hidden or disabled', 'hidden'); if (!setting || !['hidden', 'disabled'].includes(setting)) return;
+          const value = prompt('true or false', 'true'); if (value !== 'true' && value !== 'false') return;
+          changeMetadata(metadata => { metadata.menuOverrides ??= {}; const menu = metadata.menuOverrides[menuId] ??= {}; menu.items ??= {}; menu.items[itemId] ??= {}; Object.assign(menu.items[itemId], { [setting]: value === 'true' }); });
+        })); inspector.append(override);
+        const local = document.createElement('button'); local.textContent = 'Add Page-local Menu Item';
+        local.addEventListener('click', safe(() => {
+          const menuId = prompt('Application Menu ID:'); if (!menuId) return;
+          const label = prompt('Page-local item label:'); if (!label) return;
+          const destination = prompt('Destination JSON:', '{"kind":"page","pageId":"' + metadata.artifactId + '"}'); if (!destination) return;
+          const parentItemId = prompt('Parent Menu Item ID (empty for root):', ''); if (parentItemId === null) return;
+          const item = { itemId: `local-${crypto.randomUUID()}`, label, destination: JSON.parse(destination) };
+          changeMetadata(metadata => { metadata.menuOverrides ??= {}; const menu = metadata.menuOverrides[menuId] ??= {}; (menu.additions ??= []).push({ ...(parentItemId ? { parentItemId } : {}), item }); });
+        })); inspector.append(local);
+      }
       if (metadata.form) {
         for (const [labelText, value, change] of [
           ['Dataset target', metadata.form.datasetId, (m: ArtifactMetadata, v: string) => { m.form!.datasetId = v; }],
@@ -62,19 +125,26 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
         const addMode = document.createElement('button'); addMode.textContent = 'Add mode';
         addMode.addEventListener('click', safe(() => { const name = prompt('Mode name:'); if (name) changeMetadata(m => { m.modes!.overrides[name] ??= {}; }); })); inspector.append(addMode);
       }
-      if (selectedKind === 'component') {
+      if (selectedKind === 'component' || selectedKind === 'shell') {
         inspector.insertAdjacentHTML('beforeend', '<button data-public>Add public property</button>');
         inspector.querySelector('[data-public]')!.addEventListener('click', safe(() => {
           const name = prompt('Public property name:'); if (!name) return;
           const type = prompt('Type: string, number, boolean, object, array', 'string'); if (!type || !['string', 'number', 'boolean', 'object', 'array'].includes(type)) throw new Error('Choose one of the five supported types.');
           const defaultText = prompt('Default value as JSON (leave blank for no default):', type === 'string' ? '""' : ''); if (defaultText === null) return;
           const required = confirm('Require this property?');
-          changeMetadata(m => { m.public!.properties[name] = { type: type as 'string', required, ...(defaultText ? { default: JSON.parse(defaultText) } : {}) }; });
+          changeMetadata(m => { m.public ??= { properties: {}, events: {}, slots: [] }; m.public.properties[name] = { type: type as 'string', required, ...(defaultText ? { default: JSON.parse(defaultText) } : {}) }; });
         }));
       }
       return;
     }
     if (node.manual) { inspector.textContent = 'Manual region: edit source directly.'; return; }
+    const classLabel = document.createElement('label'); classLabel.textContent = 'CSS classes'; const classInput = document.createElement('input'); classInput.value = node.attributes.class ?? '';
+    classInput.addEventListener('change', safe(() => { files.source = setNodeAttribute(files.source, selectedNode, 'class', classInput.value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })); classLabel.append(classInput); inspector.append(classLabel);
+    if (node.attributes['data-uip-region']) {
+      const label = document.createElement('label'); label.textContent = 'Region display name (stable ID unchanged)';
+      const input = document.createElement('input'); input.value = node.attributes['data-uip-region-name'] ?? node.attributes['data-uip-region'];
+      input.addEventListener('change', safe(() => { files.source = setNodeAttribute(files.source, selectedNode, 'data-uip-region-name', input.value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })); label.append(input); inspector.append(label);
+    }
     const field = workingMetadata().form?.fields.find(f => f.node === selectedNode);
     if (field) {
       const mode = document.createElement('select'); mode.setAttribute('aria-label', 'Field override mode');
@@ -141,26 +211,32 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
     };
     inspector.querySelector('[data-breakpoint]')!.addEventListener('change', renderLayout); renderLayout();
   }
-  function open(bundle: ArtifactBundle, kind: 'page' | 'component'): void {
+  function open(bundle: ArtifactBundle, kind: 'page' | 'component' | 'shell'): void {
     selected = bundle; selectedKind = kind; files = structuredClone(bundle.files); baseline = structuredClone(files); hash = bundle.hash; conflict = false; selectedNode = ''; role = 'source';
     find('[data-work]').hidden = false; find<HTMLSelectElement>('[data-file]').value = role; find<HTMLTextAreaElement>('[data-source]').value = files.source;
     renderList(); changed();
+    find('[data-change-shell]').hidden = kind !== 'page' || !bundle.metadata?.shellId;
+    find('[data-add-region]').hidden = kind === 'component' || kind === 'page' && !bundle.metadata?.shellId;
+    find('[data-place-menu]').hidden = kind !== 'shell';
+    if (kind === 'page' && bundle.metadata?.shellId) void showPreview();
   }
   find('[data-artifacts]').addEventListener('change', safe(() => {
     if (dirty() && !confirm('Discard unsaved editor changes? Download recovery first if needed.')) { renderList(); return; }
     const [kind, ...path] = find<HTMLSelectElement>('[data-artifacts]').value.split(':');
-    const bundle = (kind === 'page' ? workspace.pages : workspace.components).find(b => b.locator === path.join(':')); if (bundle) open(bundle, kind as 'page');
+    const bundle = list(kind).find(b => b.locator === path.join(':')); if (bundle) open(bundle, kind as 'page');
   }));
   target.querySelectorAll<HTMLButtonElement>('[data-create]').forEach(button => button.addEventListener('click', safe(async () => {
     if (dirty()) throw new Error('Save or recover editor changes before creating another artifact.');
     const name = prompt('Artifact name (lowercase-with-hyphens):'); if (!name) return;
     const isForm = button.dataset.create!.startsWith('form');
-    const kind = button.dataset.create === 'page' ? 'page' : 'component'; const route = kind === 'page' ? prompt('Page route:', `/${name}`) : undefined; if (route === null) return;
+    const kind = button.dataset.create === 'page' ? 'page' : button.dataset.create === 'shell' ? 'shell' : 'component'; const route = kind === 'page' ? prompt('Page route:', `/${name}`) : undefined; if (route === null) return;
+    const shellId = kind === 'page' && workspace.shells?.length ? prompt('Shell ID (leave empty for Application default):\n' + workspace.shells.map(shell => `${shell.metadata?.displayName}: ${shell.metadata?.artifactId}`).join('\n'), '') : undefined;
+    if (shellId === null) return;
     let dataset;
     if (button.dataset.create === 'form-dataset') {
       const schema = prompt('Paste the published Dataset schema JSON (dataset and fields with stable IDs):'); if (!schema) return; dataset = JSON.parse(schema);
     }
-    const bundle = await api<ArtifactBundle>(`${base}/visual-${kind === 'page' ? 'pages' : 'components'}`, { method: 'POST', body: JSON.stringify({ name, route, ...(isForm ? { form: { dataset } } : {}) }) });
+    const bundle = await api<ArtifactBundle>(`${base}/visual-${plural(kind)}`, { method: 'POST', body: JSON.stringify({ name, route, shellId, ...(isForm ? { form: { dataset } } : {}) }) });
     workspace = await api<Workspace>(`${base}/visual-artifacts`); open(bundle, kind);
   })));
   find('[data-file]').addEventListener('change', () => { role = find<HTMLSelectElement>('[data-file]').value as keyof ArtifactFiles; find<HTMLTextAreaElement>('[data-source]').value = files[role]; });
@@ -169,6 +245,11 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
   find('[data-root]').addEventListener('click', () => { selectedNode = ''; renderStructure(); });
   target.querySelectorAll<HTMLButtonElement>('[data-move]').forEach(button => button.addEventListener('click', safe(() => { files.source = moveNode(files.source, selectedNode, button.dataset.move as 'up' | 'down'); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })));
   find('[data-add]').addEventListener('click', safe(() => {
+    if (selectedKind === 'page' && workingMetadata().shellId) {
+      let container = parseSource(files.source).nodes.find(node => node.id === selectedNode);
+      while (container && !container.attributes['data-uip-region']) container = container.parent;
+      if (!container) throw new Error('Add or select a Page Region before inserting content. Fixed surrounding content belongs to the Shell.');
+    }
     const [kind, ...rest] = find<HTMLSelectElement>('[data-insert]').value.split(':'); const reference = rest.join(':');
     const pkg = workspace.packages.find(p => p.id === reference);
     const tag = kind === 'html' ? reference : kind === 'package' ? pkg!.tagName : 'uip-component';
@@ -181,7 +262,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
         const saved = await api<ArtifactBundle>(url(), { method: 'PUT', body: JSON.stringify({ role: name, content: files[name], expectedHash: hash }) });
         hash = saved.hash; baseline[name] = files[name]; selected = saved;
       }
-      workspace = await api<Workspace>(`${base}/visual-artifacts`); selected = (selectedKind === 'page' ? workspace.pages : workspace.components).find(b => b.locator === selected!.locator) ?? selected;
+      workspace = await api<Workspace>(`${base}/visual-artifacts`); selected = list(selectedKind).find(b => b.locator === selected!.locator) ?? selected;
       renderList(); changed(); status('Saved and validated');
     } finally { saving = false; find('[data-work]').inert = false; }
   }));
@@ -194,24 +275,28 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string): Pr
     if (dirty() || conflict) throw new Error('Save or recover changes before deletion.'); if (!confirm('Move this artifact bundle to the Recycle Bin?')) return;
     await api(url(), { method: 'DELETE', body: JSON.stringify({ expectedHash: hash }) }); selected = undefined; find('[data-work]').hidden = true; workspace = await api<Workspace>(`${base}/visual-artifacts`); renderList(); status('Deleted');
   }));
-  find('[data-preview]').addEventListener('click', safe(() => {
+  async function showPreview(): Promise<void> {
     if (dirty() || conflict) throw new Error('Save source before previewing.');
     preview?.remove(); preview = document.createElement('iframe'); preview.title = 'Visual Artifact runtime preview'; preview.src = '/visual-preview.html'; preview.style.cssText = 'width:100%;min-height:500px;border:1px solid #ccc';
-    preview.addEventListener('load', () => preview!.contentWindow!.postMessage({ type: 'uip-preview', bundle: selected, components: workspace.components, packages: workspace.packages as PackageComponent[], appKey }, location.origin));
+    const composition = selected?.metadata?.shellId || selectedKind === 'shell' ? await api(`${base}/composition`) : null;
+    preview.addEventListener('load', () => preview!.contentWindow!.postMessage({ type: 'uip-preview', bundle: selected, composition, shells: workspace.shells, components: workspace.components, packages: workspace.packages as PackageComponent[], appKey }, location.origin));
     find('[data-preview-host]').append(preview);
-  }));
-  async function refresh(): Promise<void> {
+  }
+  find('[data-preview]').addEventListener('click', safe(showPreview));
+  async function refresh(event?: Event): Promise<void> {
     if (!target.isConnected) { clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); return; }
     if (polling || saving) return; polling = true;
     try {
-      const next = await api<Workspace>(`${base}/visual-artifacts`); workspace = next; renderList();
+      const next = await api<Workspace>(`${base}/visual-artifacts`);
+      const dependenciesChanged = JSON.stringify([workspace.shells, workspace.components].flat().map(bundle => bundle?.hash)) !== JSON.stringify([next.shells, next.components].flat().map(bundle => bundle?.hash));
+      workspace = next; renderList();
       if (selected) {
-        const disk = (selectedKind === 'page' ? next.pages : next.components).find(b => b.locator === selected!.locator);
+        const disk = list(selectedKind).find(b => b.locator === selected!.locator);
         if (!disk || disk.hash !== hash) {
           if (dirty()) { conflict = true; changed(); }
           else if (disk) { const node = selectedNode; open(disk, selectedKind); selectedNode = node; renderStructure(); status('Reloaded external source changes'); }
           else { conflict = true; status('Artifact was removed externally. Download recovery before changing selection.'); }
-        }
+        } else if (!dirty() && !conflict && selected.metadata?.shellId && (dependenciesChanged || event)) { renderStructure(); await showPreview(); }
       }
     } catch (error) { status(String(error)); } finally { polling = false; }
   }

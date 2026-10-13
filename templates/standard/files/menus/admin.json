@@ -1,0 +1,5 @@
+{ "schemaVersion": 1, "menuId": "menu-admin", "name": "Admin Navigation", "items": [
+  { "itemId": "admin-home", "label": "Overview", "destination": { "kind": "route", "routeId": "route_{{APP_ID}}_admin" }, "children": [
+    { "itemId": "admin-public", "label": "Public site", "destination": { "kind": "page", "pageId": "art_{{APP_ID}}_public_page" } }
+  ] }
+] }

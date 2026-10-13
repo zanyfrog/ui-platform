@@ -23,7 +23,10 @@ export interface LayoutRule {
   flexDirection?: 'row' | 'column'; flex?: string;
 }
 export interface ArtifactMetadata {
-  schemaVersion: 1; artifactId: string; kind: 'page' | 'component'; name: string; displayName: string; description?: string;
+  schemaVersion: 1; artifactId: string; kind: 'page' | 'component' | 'shell'; name: string; displayName: string; description?: string;
+  shellId?: string;
+  routeId?: string;
+  menuOverrides?: import('./composition.js').MenuOverrides;
   componentId?: string; route?: string; developmentOnly?: boolean;
   public?: PublicInterface;
   state?: Record<string, unknown>;

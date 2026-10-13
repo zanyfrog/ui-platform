@@ -15,7 +15,7 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
   const warning = (message: string, node?: string) => diagnostics.push({ severity: 'warning', message, node });
   const m = artifact.metadata;
   try {
-    if (m.schemaVersion !== 1 || !['page', 'component'].includes(m.kind)) error('Expected Visual Artifact schemaVersion 1 and page/component kind.');
+    if (m.schemaVersion !== 1 || !['page', 'component', 'shell'].includes(m.kind)) error('Expected Visual Artifact schemaVersion 1 and page/component/shell kind.');
     if (!/^art_[\w-]+$/.test(m.artifactId ?? '')) error('A permanent art_ artifact identity is required.');
     if (!/^[a-z][a-z0-9-]*$/.test(m.name ?? '') || !m.displayName) error('Name and display name are required.');
     if (m.kind === 'component') {
@@ -23,6 +23,8 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
       if (m.route !== undefined) error('Only Pages may declare routes.');
       if (!m.public) error('A Component must declare its public interface.');
       if (packages.some(pkg => pkg.id === m.componentId) || components.filter(c => c.metadata.componentId === m.componentId).length > 1) error(`Duplicate Component identity: ${m.componentId}.`);
+    } else if (m.kind === 'shell') {
+      if (m.route !== undefined || m.componentId !== undefined) error('Shells cannot declare routes or Component identities.');
     } else if (!m.route?.startsWith('/') || m.componentId !== undefined || m.public !== undefined) error('A Page needs a route and cannot declare a Component identity/public interface.');
     const checkContract = (contract: PropertyContract, name: string) => {
       if (!contract || !['string', 'number', 'boolean', 'object', 'array'].includes(contract.type)) { error(`Invalid property type: ${name}.`); return; }

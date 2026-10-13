@@ -8,6 +8,8 @@
     "packages/*"
   ],
   "scripts": {
+    "dev:composition-reference": "tsx scripts/dev-composition-reference.ts",
+    "test:composition": "npm run build && vitest run tests/application-composition.test.ts && node scripts/test-application-composition.mjs",
     "dev": "node scripts/dev.mjs",
     "build": "npm run build --workspace @uib/platform-core && npm run build --workspace @ui-platform/artifacts && npm run build --workspace @ui-platform/visual-artifacts && vite build && tsc -p tsconfig.server.json",
     "checkin": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-in.ps1",

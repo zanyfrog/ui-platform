@@ -1,4 +1,5 @@
 import { readdir, readFile } from 'node:fs/promises';
+export { applicationComposition } from './composition-vite.js';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import type { Plugin } from 'vite';
@@ -6,7 +7,7 @@ import { validateArtifact } from './validation.js';
 import type { PackageComponent, RuntimeArtifact } from './model.js';
 
 /** Discovery is a build-time source import, not a generated runtime artifact or HTTP dependency. */
-export function visualArtifacts(options: { componentsRoot: string; packageManifests: string[] }): Plugin {
+export function visualArtifacts(options: { componentsRoot?: string; packageManifests?: string[]; applicationRoot?: string }): Plugin {
   const virtualId = 'virtual:uip-visual-artifacts';
   return {
     name: 'ui-platform-visual-artifacts',
@@ -37,8 +38,20 @@ export function visualArtifacts(options: { componentsRoot: string; packageManife
           }
         }
       };
-      await walk(options.componentsRoot);
-      for (const file of options.packageManifests) {
+      if (options.componentsRoot) await walk(options.componentsRoot);
+      const manifests = [...(options.packageManifests ?? [])];
+      if (options.applicationRoot) {
+        const file = path.join(options.applicationRoot, 'package.json'); this.addWatchFile(file);
+        const pkg = JSON.parse(await readFile(file, 'utf8'));
+        const manifestFile = path.join(options.applicationRoot, 'app.manifest.json'); this.addWatchFile(manifestFile);
+        const app = JSON.parse(await readFile(manifestFile, 'utf8').catch(() => '{}'));
+        for (const name of Object.keys(pkg.dependencies ?? {})) {
+          if (app.packages?.[name]?.enabled === false) continue;
+          const candidate = path.join(options.applicationRoot, 'node_modules', name, 'ui.component.json');
+          try { await readFile(candidate); manifests.push(candidate); } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; }
+        }
+      }
+      for (const file of manifests) {
         this.addWatchFile(file);
         const manifest = JSON.parse(await readFile(file, 'utf8'));
         const packageJson = JSON.parse(await readFile(path.join(path.dirname(file), 'package.json'), 'utf8'));
@@ -49,7 +62,7 @@ export function visualArtifacts(options: { componentsRoot: string; packageManife
           // Resolve the package's real module; Vite compiles it with the application's normal dependency graph.
           require.resolve(module);
           imports.push(`import ${JSON.stringify(module)};`);
-          const pkg = { ...entry, id: entry.identity?.componentId ?? entry.id ?? `${packageJson.name}:${entry.tagName}`, definition: entry.identity ? entry : undefined };
+          const pkg = { ...entry, id: entry.identity?.componentId ?? entry.id ?? `${packageJson.name}:${entry.tagName}`, definition: entry.identity && entry.builder && entry.runtime ? entry : undefined };
           packages.push(JSON.stringify(pkg)); sourcePackages.push(pkg);
         }
       }
@@ -62,9 +75,9 @@ export function visualArtifacts(options: { componentsRoot: string; packageManife
       return `${imports.join('\n')}\nexport const components=[${components.join(',')}];\nexport const packages=[${packages.join(',')}];`;
     },
     configureServer(server) {
-      server.watcher.add(options.componentsRoot);
+      if (options.componentsRoot) server.watcher.add(options.componentsRoot);
       const refresh = (file: string) => {
-        if (file.replaceAll('\\', '/').startsWith(options.componentsRoot.replaceAll('\\', '/')) || options.packageManifests.includes(file)) {
+        if (options.componentsRoot && file.replaceAll('\\', '/').startsWith(options.componentsRoot.replaceAll('\\', '/')) || options.packageManifests?.includes(file) || options.applicationRoot && ['package.json', 'app.manifest.json'].some(name => file === path.join(options.applicationRoot!, name))) {
           const module = server.moduleGraph.getModuleById(`\0${virtualId}`); if (module) server.moduleGraph.invalidateModule(module);
           server.ws.send({ type: 'full-reload' });
         }

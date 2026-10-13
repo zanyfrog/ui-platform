@@ -135,11 +135,13 @@ async function installedUiBasePackages(appKey: string): Promise<Array<{ name: st
   const appPackage = await json<{ dependencies?: Record<string, string> }>(path.join(root, 'package.json'));
   const platformPackage = await json<{ dependencies?: Record<string, string> }>(path.join(platformRoot, 'package.json'));
   const appManifest = await json<{ packages?: Record<string, { enabled: boolean }> }>(path.join(root, 'app.manifest.json'));
-  const names = new Set([...Object.keys(platformPackage?.dependencies ?? {}), ...Object.keys(appPackage?.dependencies ?? {})].filter(name => name.startsWith('@ui-base/')));
+  const settings = await json<{ presentation?: { model?: string } }>(path.join(root, 'app.settings.json'));
+  const composed = settings?.presentation?.model === 'composition-v1';
+  const names = new Set([...Object.keys(composed ? {} : platformPackage?.dependencies ?? {}), ...Object.keys(appPackage?.dependencies ?? {})].filter(name => name.startsWith('@ui-base/')));
   const found: Array<{ name: string; root: string; version: string }> = [];
   for (const name of names) {
     if (appManifest?.packages?.[name]?.enabled === false) continue;
-    for (const owner of [root, platformRoot]) {
+    for (const owner of composed ? [root] : [root, platformRoot]) {
       const packageRoot = path.join(owner, 'node_modules', name);
       const metadata = await json<{ name: string; version: string }>(path.join(packageRoot, 'package.json'));
       if (metadata?.name === name) { found.push({ name, root: packageRoot, version: metadata.version }); break; }

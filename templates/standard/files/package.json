@@ -15,7 +15,16 @@
     "test": "node --test"
   },
   "dependencies": {
-    "@ui-app/app-services": "file:packages/app-services"
+    "@ui-app/app-services": "file:packages/app-services",
+    "@ui-platform/visual-artifacts": "file:{{PLATFORM_PACKAGES}}/visual-artifacts",
+    "@uib/platform-core": "file:{{PLATFORM_PACKAGES}}/platform-core",
+    "@ui-base/core": "file:{{UI_BASE_PACKAGES}}/ui-base-core",
+    "@ui-base/ui": "file:{{UI_BASE_PACKAGES}}/ui-base-ui",
+    "@ui-base/forms": "file:{{UI_BASE_PACKAGES}}/ui-base-forms",
+    "@ui-base/hero": "file:{{UI_BASE_PACKAGES}}/ui-base-hero",
+    "@ui-base/ui-layout": "file:{{UI_BASE_PACKAGES}}/ui-layout",
+    "@ui-base/theme": "file:{{UI_BASE_PACKAGES}}/ui-base-theme",
+    "@ui-base/design-system": "file:{{UI_BASE_PACKAGES}}/ui-base-design-system"
   },
   "devDependencies": {
     "vite": "8.2.2",
