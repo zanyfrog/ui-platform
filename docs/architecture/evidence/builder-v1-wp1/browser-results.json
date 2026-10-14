@@ -1,0 +1,14 @@
+{
+  "passed": [
+    "Normal management entry: real Visual Page → generic Dataset → Page retains node, CSS section and unsaved source; independent Dataset close; zero switching writes",
+    "Edit Definition opens the real shared Form Component editor; one permanent identity; invalid metadata survives switching and guarded close",
+    "Real authorization route rejects unknown identity, forged owner, stale revision and forged CSRF",
+    "Identity change suspends retained editors without a reload; denied identity cannot expose cached source; original-author reauthorization recovers the Page draft",
+    "Copied Application source cannot impersonate authoritative WP0 Application registration",
+    "Durable administration revokes Component authority during focus; source quarantined; unrelated authorized Page draft recovers"
+  ],
+  "sourceWritesDuringSwitching": 0,
+  "pageErrors": [],
+  "visualIdentity": "[\"application\",\"dev-v1-identity-fixture\",null,\"visual\",[\"permanent\",\"art_customer-page-reference\"]]",
+  "formIdentity": "[\"platform\",\"ui-platform-development\",null,\"visual\",[\"permanent\",\"art_person_form_reference\"]]"
+}

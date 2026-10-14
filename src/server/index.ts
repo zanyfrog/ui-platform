@@ -41,6 +41,7 @@ import { assertShellUnused, changePageShell, compositionAssetInfo, compositionSe
 
 import { DevelopmentApplicationRegistry } from './development-application-registry.js';
 import { DevelopmentApplicationRuntime } from './development-application-runtime.js';
+import { createBuilderWorkspaceHandler } from './builder-workspace.js';
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const builderWp0Enabled = process.env.UI_PLATFORM_BUILDER_WP0 === '1';
 const v1Enabled = process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1';
@@ -81,6 +82,7 @@ const editorSecurity = new ArtifactEditorSecurity({
   audit: event => console.info('artifact-editor-security', JSON.stringify(event)),
 });
 const editorWorkspaces = new Map<string, ArtifactEditorWorkspace>();
+const builderWorkspace = v1Identity ? createBuilderWorkspaceHandler(v1Identity, editorSecurity) : undefined;
 function editorWorkspace(root: string) {
   let workspace = editorWorkspaces.get(root);
   if (!workspace) {
@@ -205,6 +207,7 @@ const server = http.createServer(async (req, res) => {
     if (developmentRuntime && await developmentRuntime.handle(req, res)) return;
     if (await applicationData(req, res)) return;
     if (await editorSecurity.handle(req, res)) return;
+    if (builderWorkspace && await builderWorkspace(req, res)) return;
     if (v1Identity && url.pathname.startsWith('/api/') && url.pathname !== '/api/health') {
       const publicRead = method === 'GET' && (['/api/templates', '/api/components'].includes(url.pathname) ||
         parts[1] === 'apps' && parts[2] && (parts[3] === 'package-assets' || parts[3] === 'app-services' ||

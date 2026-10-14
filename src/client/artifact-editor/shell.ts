@@ -23,7 +23,7 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string) {
 }
 
 /** Presentation-only adapter; overrides cannot omit protected controls or inject behavior. */
-export function mountEditorShell(container: HTMLElement, context: EditorRuntimeContext, initial: EditorPresentation = {}, plugins: EditorPluginRegistry = createDefaultEditorPlugins()) {
+export function mountEditorShell(container: HTMLElement, context: EditorRuntimeContext, initial: EditorPresentation = {}, plugins: EditorPluginRegistry = createDefaultEditorPlugins(), workspace?: { close(): void }) {
   let presentation = initial, activeTab: EditorTab = 'overview', confirmDiscard = false, message = '';
   const sourceState: SourceEditorState = {};
   let displayedLocator: string | undefined;
@@ -54,7 +54,7 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
     if (snapshot) toolbar.append(button('Suspend editor', () => { context.suspend(); }, context.pending));
     if (context.hasCopy) {
       toolbar.append(button(context.suspended ? 'Authorize and compare for recovery' : 'Compare with server', () => run(() => context.compare()), context.pending || (context.suspended && !context.canRecover)));
-      toolbar.append(button('Close artifact', () => run(async () => { if (!await context.close()) message = 'Navigation stopped. Resolve or discard the retained changes before leaving.'; }), context.pending));
+      toolbar.append(button('Close artifact', workspace ? workspace.close : () => run(async () => { if (!await context.close()) message = 'Navigation stopped. Resolve or discard the retained changes before leaving.'; }), context.pending));
       toolbar.append(button('Discard local copy…', () => { confirmDiscard = true; render(); }, context.pending));
     }
     const diagnostics = element('aside'); diagnostics.setAttribute('aria-label', 'Editor status'); diagnostics.setAttribute('aria-live', 'polite');
@@ -136,6 +136,7 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
   const unsubscribe = context.subscribe(() => { message = ''; render(); });
   const detachPlugins = plugins.subscribe(render); render();
   return {
+    navigate(section?: string) { if (section && ['overview', 'properties', 'source', 'diagnostics'].includes(section)) { activeTab = section as EditorTab; render(); } },
     setPresentation(next: EditorPresentation) { presentation = next; render(); },
     destroy() { destroyed = true; unsubscribe(); detachPlugins(); for (const cleanup of pluginCleanups) cleanup(); pluginCleanups = []; shell.remove(); },
   };

@@ -26,7 +26,7 @@ export async function recoverSuspendedCopy(args: {
   resolution?: RecoveryResolution;
 }): Promise<{ remote: EditorArtifactDto; localChangesRemain: boolean }> {
   const session = await refreshEditorSession();
-  if (!session.principal || session.principal.subjectId !== args.originalSubjectId || !session.principal.applicationKeys.includes(args.applicationKey)) {
+  if (!session.principal || session.principal.subjectId !== args.originalSubjectId || session.fixtures.length !== 0 && !session.principal.applicationKeys.includes(args.applicationKey)) {
     throw new EditorTransportError(403, 'Recovery is available only to the original identity with current application access.', 'editor.recovery-forbidden');
   }
   const local = args.copy.snapshot;

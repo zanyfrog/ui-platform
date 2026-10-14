@@ -161,6 +161,26 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
   private async allowed(principal: EditorPrincipal, operation: EditorOperation, scope: EditorScope) {
     return this.authorizer.can(principal, operation, scope);
   }
+  /** Workspace discovery/focus reuse this same session and artifact authorization gate. */
+  workspacePrincipal(req: IncomingMessage, mutation = false) {
+    this.boundary(req);
+    const session = this.requireSession(req);
+    const principal = this.assertCurrent(req, session);
+    if (mutation) this.csrf(req, session);
+    return principal;
+  }
+  async workspaceArtifacts(req: IncomingMessage, applicationKey: string) {
+    const principal = this.workspacePrincipal(req), workspace = await this.options.workspace(applicationKey);
+    const result = await this.visible(workspace, principal);
+    return result.visible.map(artifact => ({ locator: artifact.locator, artifactId: artifact.manifest?.artifactId, artifactType: artifact.manifest?.artifactType, name: artifact.manifest?.name }));
+  }
+  async workspaceArtifact(req: IncomingMessage, applicationKey: string, locator: string) {
+    const principal = this.workspacePrincipal(req), workspace = await this.options.workspace(applicationKey);
+    const artifact = await workspace.load(locator);
+    await this.authorize(principal, 'read', this.scope(applicationKey, artifact));
+    await this.authorize(principal, 'validate', this.scope(applicationKey, artifact));
+    return this.project(workspace, principal, artifact);
+  }
   private async authorize(principal: EditorPrincipal, operation: EditorOperation, scope: EditorScope) {
     if (!await this.allowed(principal, operation, scope)) { this.audit('denied', principal, scope, operation); fail(403, 'editor.forbidden', 'Editor operation is not permitted.'); }
   }
@@ -169,7 +189,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
     // Unknown/malformed and Trigger artifacts are restricted by default. Ownership
     // is policy metadata, never a path or client-supplied manifest property.
     const ownership = (id && this.options.ownership?.[`${appKey}:${id}`]) ||
-      (type && ['form', 'route', 'routeGroup', 'page', 'schema', 'template', 'email-template', 'hero', 'workflow', 'css'].includes(type) ? 'application' : 'system');
+      (type && ['form', 'route', 'routeGroup', 'page', 'schema', 'dataset', 'template', 'email-template', 'hero', 'workflow', 'css'].includes(type) ? 'application' : 'system');
     return { applicationKey: appKey, artifactId: id, artifactType: type, ownership };
   }
   private sessionDto(session: Session): EditorSessionDto {

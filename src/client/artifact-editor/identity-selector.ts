@@ -1,4 +1,4 @@
-import { editorSessionSnapshot, refreshEditorSession, selectEditorIdentity, subscribeEditorSession } from './session.js';
+import { editorSessionSnapshot, refreshEditorSession, selectEditorIdentity, subscribeEditorSession, invalidateDevelopmentIdentity, hasRetainedWorkspaceSession } from './session.js';
 
 /** Dev-only chrome. Uses no independent artifact state, timer or save mechanism. */
 export async function mountDevelopmentIdentity(container: HTMLElement) {
@@ -19,11 +19,16 @@ export async function mountDevelopmentIdentity(container: HTMLElement) {
       select.disabled = true;
       try {
         const email = select.value;
+        invalidateDevelopmentIdentity();
         const response = await fetch('/api/development-identity/session', { method: email ? 'POST' : 'DELETE',
           headers: { 'content-type': 'application/json', 'x-v1-csrf': v1.csrfToken },
           body: JSON.stringify(email ? { email } : {}) });
         if (!response.ok) throw new Error('Development sign-in was denied.');
-        location.reload();
+        const next = await response.json(); v1.user = next.user;
+        if (!hasRetainedWorkspaceSession()) { location.reload(); return; }
+        await refreshEditorSession();
+        window.dispatchEvent(new Event('ui-platform-development-identity-change'));
+        select.disabled = false;
       } catch (error) {
         select.disabled = false; select.value = v1.user?.email ?? '';
         const status = document.createElement('span'); status.setAttribute('role', 'alert');

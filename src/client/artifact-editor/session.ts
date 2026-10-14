@@ -5,6 +5,9 @@ let current: EditorSessionDto | undefined;
 let generation = 0;
 let loading: Promise<EditorSessionDto> | undefined;
 const listeners = new Set<() => void>();
+let retainedWorkspace = false;
+export function retainDevelopmentWorkspaceSession() { retainedWorkspace = true; }
+export function hasRetainedWorkspaceSession() { return retainedWorkspace; }
 function notify() { for (const listener of listeners) listener(); }
 
 export function editorSessionSnapshot() { return current ? structuredClone(current) : undefined; }
@@ -44,6 +47,7 @@ function broadcastIdentityChange() {
     try { window.localStorage.setItem('uib-editor-identity-change', `${Date.now()}:${Math.random()}`); } catch { /* Server revision remains authoritative. */ }
   }
 }
+export function invalidateDevelopmentIdentity() { invalidateEditorSession(); broadcastIdentityChange(); }
 if (typeof window !== 'undefined') window.addEventListener('storage', event => {
   if (event.key === 'uib-editor-identity-change') { invalidateEditorSession(); void refreshEditorSession().catch(() => {}); }
 });

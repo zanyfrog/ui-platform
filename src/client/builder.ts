@@ -4,6 +4,7 @@ import { mountVisualEditor } from './visual-artifacts/editor';
 import { mountCompositionManager } from './visual-artifacts/composition-manager';
 
 interface BuilderApp { key: string; name: string; }
+let parkApplicationWorkspace: (() => void) | undefined;
 
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, { headers: { 'content-type': 'application/json', ...(init?.headers ?? {}) }, ...init });
@@ -15,6 +16,15 @@ async function api<T>(url: string, init?: RequestInit): Promise<T> {
 function esc(value: unknown): string { return String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;'); }
 
 export async function mountBuilder(target: HTMLElement, app: BuilderApp): Promise<void> {
+  if (import.meta.env.DEV) {
+    const { editorSessionSnapshot } = await import('./artifact-editor/session.js');
+    if (editorSessionSnapshot()?.fixtures.length === 0) {
+      const workspace = await import('./builder-workspace/shell.js');
+      if (!target.isConnected) return;
+      parkApplicationWorkspace = workspace.parkWorkspace;
+      await workspace.mountApplicationWorkspace(target, app); return;
+    }
+  }
   target.innerHTML = `<section class="panel stack builder-panel">
     <div class="builder-heading"><div><uib-heading text="Page Builder" level="2" size="compact"></uib-heading><p class="note">Pages are discovered from <code>src/pages</code>. Changes are written back to the selected source file.</p></div><span id="builderStatus" class="save-status" aria-live="polite">Loading builder...</span></div>
     <div class="builder-layout">
@@ -218,4 +228,8 @@ export async function mountBuilder(target: HTMLElement, app: BuilderApp): Promis
       } catch (error) { updateState(`Move failed: ${error instanceof Error ? error.message : String(error)}`); }
     });
   }
+}
+
+export function parkBuilder() {
+  parkApplicationWorkspace?.();
 }

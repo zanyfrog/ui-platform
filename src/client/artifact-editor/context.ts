@@ -46,7 +46,7 @@ export class EditorRuntimeContext {
   get canEdit() { return !this.locked && !this.busy && !!this.copy?.snapshot.artifact.capabilities.edit; }
   get canRecover() {
     const principal = editorSessionSnapshot()?.principal;
-    return this.locked && !!principal && principal.subjectId === this.owner && principal.applicationKeys.includes(this.applicationKey);
+    return this.locked && !!principal && principal.subjectId === this.owner && (editorSessionSnapshot()?.fixtures.length === 0 || principal.applicationKeys.includes(this.applicationKey));
   }
   get reviewedComparison() {
     const session = editorSessionSnapshot();
@@ -81,7 +81,7 @@ export class EditorRuntimeContext {
         this.release();
       }
       const session = await refreshEditorSession();
-      if (!session.principal?.applicationKeys.includes(this.applicationKey)) throw new Error('Select an identity with access to this application.');
+      if (!session.principal || session.fixtures.length !== 0 && !session.principal.applicationKeys.includes(this.applicationKey)) throw new Error('Select an identity with access to this application.');
       this.transport = this.transportFactory();
       const copy = await this.host.open(locator);
       if (editorSessionSnapshot()?.revision !== session.revision) { await this.host.discard(locator); throw new Error('Identity changed while opening the artifact.'); }
@@ -105,7 +105,7 @@ export class EditorRuntimeContext {
       if (!this.copy) throw new Error('Open an artifact first.');
       await this.settleAdmittedSave(this.copy);
       const session = await refreshEditorSession();
-      if (!session.principal || session.principal.subjectId !== this.owner || !session.principal.applicationKeys.includes(this.applicationKey)) throw new Error('Only the original authorized identity can review this copy.');
+      if (!session.principal || session.principal.subjectId !== this.owner || session.fixtures.length !== 0 && !session.principal.applicationKeys.includes(this.applicationKey)) throw new Error('Only the original authorized identity can review this copy.');
       const local = this.copy.snapshot;
       const remote = this.locked ? await this.transportFactory().load(local.artifact.locator) : (await this.requireCopy().compare()).remote;
       if (editorSessionSnapshot()?.revision !== session.revision) throw new Error('Identity changed during comparison.');

@@ -12,7 +12,7 @@ import '@ui-base/assets';
 import '@ui-base/ui-layout';
 import './styles.css';
 import type { DiscoveredApp, TemplateDefinition, TemplateSettingDefinition } from '../shared/types';
-import { mountBuilder } from './builder';
+import { mountBuilder, parkBuilder } from './builder';
 import { mountCompositionManager } from './visual-artifacts/composition-manager';
 import { mountAppPackages, mountGlobalPackages } from './packages-ui';
 
@@ -36,7 +36,7 @@ if (import.meta.env.DEV) {
     catch (error) { automationPanel.textContent = String(error); }
   };
   const { editorSessionSnapshot } = await import('./artifact-editor/session');
-  if (editorSessionSnapshot()) {
+  if (editorSessionSnapshot()?.fixtures.length) {
     const { mountArtifactEditor } = await import('./artifact-editor/shell');
     await import('./artifact-editor/editor.css');
     mountArtifactEditor(root);
@@ -157,6 +157,7 @@ function sidebar(): string {
 }
 
 function shell(content: string): void {
+  parkBuilder();
   root!.innerHTML = `
     <main class="shell">
       ${sidebar()}
@@ -595,7 +596,11 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
 }
 
 if (!artifactEditorMounted) {
-await refresh();
+await refresh().catch(() => { apps = []; templates = []; });
+if (import.meta.env.DEV) window.addEventListener('ui-platform-development-identity-change', () => {
+  currentKey = null; shell('<p>Select an authorized Application.</p>');
+  void refresh().catch(() => { apps = []; templates = []; }).finally(() => renderHome(false));
+});
 if (window.location.pathname === '/packages') renderPackages(false);
 else renderHome(false);
 window.addEventListener('popstate', () => {

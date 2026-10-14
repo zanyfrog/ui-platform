@@ -1,6 +1,6 @@
 # Builder End-to-End V1 — Implementation Plan
 
-Date: 2026-10-13; acceptance status updated 2026-10-14. **WP0 accepted and closed by the user.** Remaining work packages retain their proposed scope. The next authorized planning target is **WP1 — Application Workspace and Artifact Tabs**; no later planning or implementation is started at this acceptance gate. Accepted WP0 [architecture and limitations](builder-v1-wp0-development-onboarding.md), [verification](builder-v1-wp0-verification.md), and [security/runtime evidence](evidence/builder-v1-wp0/acceptance.json) remain the baseline for later work. Basis: [gap review](builder-end-to-end-v1-gap-review.md). IDs below map directly to its gap register and the [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md).
+Date: 2026-10-13; acceptance status updated 2026-10-14. **WP0 and WP1 accepted and closed by the user.** Remaining work packages retain their proposed scope. Next work package: **WP2 — Consistent Auto-Save and Per-Artifact Undo/Redo**. Do not begin WP2 automatically; no later planning or implementation is started at this acceptance gate. Accepted WP1 [architecture](builder-v1-wp1-workspace-architecture.md), [verification](builder-v1-wp1-verification.md), Windows watcher/rename limitations and all WP0 security boundaries remain the baseline. Accepted WP0 [architecture and limitations](builder-v1-wp0-development-onboarding.md), [verification](builder-v1-wp0-verification.md), and [security/runtime evidence](evidence/builder-v1-wp0/acceptance.json) remain the baseline for later work. Basis: [gap review](builder-end-to-end-v1-gap-review.md). IDs below map directly to its gap register and the [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md).
 
 ## Sequence and dependencies
 
@@ -17,10 +17,12 @@ Dependency chain: WP1 depends on WP0 identity/owner contracts; WP2 on WP1 adapte
 - Dependencies: accepted I-AM WP1–WP6, V1 sessions, Data Services applied-resource contract and Standard template.
 - Acceptance: authorized platform creation followed by scoped administration of the new permanent Application ID; explicit role activation through accepted trusted path; deny unrelated app/forged actor/revoked User. Document partial-onboarding recovery without silent privilege escalation.
 - Regression: management route coverage, identity/session invalidation, Dataset proxy trusted handoff, production exclusion and existing fixture behavior.
-- Risks: a hardcoded fixture restriction exists in the main server, not only seed data. Separate resource ownership resolution must remain authoritative. Review implementation scope if enabling arbitrary Applications exposes unsupported host assumptions.
+- Retained boundaries: accepted WP0 registration enables authorized new development Applications beyond the fixture. Separate authoritative resource ownership and explicit security provisioning remain required; no automatic creator grant or production identity support is implied.
 - Gate: approve proposed development provisioning policy and concrete host adapter contract; production WP7 stays deferred.
 
-## WP1 — Application workspace and artifact adapters
+## WP1 — Application workspace and artifact adapters (accepted and closed)
+
+Authorized implementation completed and accepted by the user 2026-10-14; see [architecture](builder-v1-wp1-workspace-architecture.md), [verification](builder-v1-wp1-verification.md) and [inventory](builder-v1-wp1-files.txt). WP1 is closed. Retain Windows watcher/rename limitations and all WP0 security boundaries. WP2–WP6 have not begun.
 
 **Goal:** one Application workspace with multiple deduplicated open artifacts and one focused editor. **Effort: Medium**. Addresses G03/G06/G08 navigation.
 

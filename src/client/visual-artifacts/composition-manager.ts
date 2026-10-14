@@ -5,9 +5,11 @@ const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').rep
 async function api<T>(url: string, init?: RequestInit): Promise<T> { const response = await fetch(url, { ...init, headers: { 'content-type': 'application/json' } }); const data = await response.json(); if (!response.ok) throw new Error(data.error ?? 'Request failed.'); return data; }
 interface Source { path: string; content: string; hash: string }
 
-export async function mountCompositionManager(target: HTMLElement, appKey: string): Promise<void> {
+export async function mountCompositionManager(target: HTMLElement, appKey: string, options: { request?: typeof api; definition?: CompositionDefinition; source?: Source; onStateChange?: () => void } = {}) {
+  const request = options.request ?? api;
+  let busy = false;
   const base = `/api/apps/${encodeURIComponent(appKey)}`;
-  let definition = await api<CompositionDefinition | null>(`${base}/composition`);
+  let definition = options.definition ?? await request<CompositionDefinition | null>(`${base}/composition`);
   if (!definition) { target.remove(); return; }
   let source: Source | undefined, update: TemplateComparison | undefined;
   target.innerHTML = `<div class="stack"><strong>Application Composition</strong><p data-status aria-live="polite"></p>
@@ -17,15 +19,15 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
     <label>Application asset<input type="file" data-asset></label><label>Asset source path<input data-asset-path value="assets/images/image.png"></label><button data-upload-asset>Upload Application asset</button><p data-asset-status></p>
     <p class="note">Saved source appears in development preview. Use the existing Presentation Publish action to update published presentation.</p><div data-update></div></div>`;
   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
-  const status = (message: string) => { find('[data-status]').textContent = message; };
-  const safe = (run: () => void | Promise<void>) => async () => { try { await run(); } catch (error) { status(String(error)); } };
+  const status = (message: string) => { find('[data-status]').textContent = message; options.onStateChange?.(); };
+  const safe = (run: () => void | Promise<void>) => async () => { if (busy) return; busy = true; try { await run(); } catch (error) { status(String(error)); } finally { busy = false; options.onStateChange?.(); } };
   const text = () => find<HTMLTextAreaElement>('[data-source]').value;
   const dirty = () => source && source.content !== text();
   find('[data-asset]').addEventListener('change', () => { const file = find<HTMLInputElement>('[data-asset]').files?.[0]; if (file) find<HTMLInputElement>('[data-asset-path]').value = 'assets/images/' + file.name.toLowerCase().replace(/[^a-z0-9.\-]/g, '-'); });
   find('[data-upload-asset]').addEventListener('click', safe(async () => {
     const asset = find<HTMLInputElement>('[data-asset]').files?.[0]; if (!asset) throw new Error('Choose an asset file.');
     const path = find<HTMLInputElement>('[data-asset-path]').value;
-    const info = await api<{ hash: string | null }>(`${base}/composition-asset?info=1&path=${encodeURIComponent(path)}`);
+    const info = await request<{ hash: string | null }>(`${base}/composition-asset?info=1&path=${encodeURIComponent(path)}`);
     if (info.hash && !confirm(`Replace the existing Application asset at ${path}?`)) return;
     const data = new FormData(); data.set('asset', asset); data.set('path', path); data.set('expectedHash', info.hash ?? '');
     const response = await fetch(`${base}/composition-asset`, { method: 'POST', body: data }); const saved = await response.json(); if (!response.ok) throw new Error(saved.error);
@@ -76,28 +78,35 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
   }
   async function load(): Promise<void> {
     const file = find<HTMLSelectElement>('[data-files]').value;
-    const next = await api<Source>(`${base}/composition-source?path=${encodeURIComponent(file)}`); source = next; find<HTMLTextAreaElement>('[data-source]').value = next.content; renderFields(); status('Source loaded');
+    const next = await request<Source>(`${base}/composition-source?path=${encodeURIComponent(file)}`); source = next; find<HTMLTextAreaElement>('[data-source]').value = next.content; renderFields(); status('Source loaded');
   }
   find('[data-files]').addEventListener('change', safe(async () => { if (dirty() && !confirm('Discard unsaved source changes? Download recovery first if needed.')) { find<HTMLSelectElement>('[data-files]').value = source!.path; return; } await load(); }));
   find('[data-reload]').addEventListener('click', safe(async () => { if (!dirty() || confirm('Discard editor changes and reload source?')) await load(); }));
   find('[data-source]').addEventListener('input', () => status('Unsaved source changes; Save validates the source.'));
-  find('[data-save]').addEventListener('click', safe(async () => { source = await api<Source>(`${base}/composition-source?path=${encodeURIComponent(source!.path)}`, { method: 'PUT', body: JSON.stringify({ content: text(), expectedHash: source!.hash }) }); definition = await api<CompositionDefinition>(`${base}/composition`); renderFields(); status('Saved'); document.dispatchEvent(new Event('ui-platform-workspace-change')); }));
+  find('[data-save]').addEventListener('click', safe(async () => { source = await request<Source>(`${base}/composition-source?path=${encodeURIComponent(source!.path)}`, { method: 'PUT', body: JSON.stringify({ content: text(), expectedHash: source!.hash }) }); definition = await request<CompositionDefinition>(`${base}/composition`); renderFields(); status('Saved'); document.dispatchEvent(new Event('ui-platform-workspace-change')); }));
   find('[data-recover]').addEventListener('click', () => { const url = URL.createObjectURL(new Blob([text()], { type: 'text/plain' })); const link = document.createElement('a'); link.href = url; link.download = 'composition-source-recovery.txt'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); });
   find('[data-new-menu]').addEventListener('click', safe(async () => {
     if (dirty()) throw new Error('Save or recover source before creating a Menu.');
     const name = prompt('Menu name:'); if (!name) return; const id = prompt('Stable lowercase Menu ID:', 'menu-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-')); if (!id) return;
     const file = `menus/${id.replace(/^menu-/, '')}.json`;
-    await api(`${base}/composition-source?path=${encodeURIComponent(file)}`, { method: 'PUT', body: JSON.stringify({ content: JSON.stringify({ schemaVersion: 1, menuId: id, name, items: [] }, null, 2), expectedHash: null }) });
+    await request(`${base}/composition-source?path=${encodeURIComponent(file)}`, { method: 'PUT', body: JSON.stringify({ content: JSON.stringify({ schemaVersion: 1, menuId: id, name, items: [] }, null, 2), expectedHash: null }) });
     const option = document.createElement('option'); option.value = file; option.textContent = name; find('[data-files]').append(option); find<HTMLSelectElement>('[data-files]').value = file; await load();
   }));
   find('[data-template]').addEventListener('click', safe(async () => {
     if (dirty()) throw new Error('Save or recover source before updating the Application.');
-    update = await api<TemplateComparison>(`${base}/template-update`);
+    update = await request<TemplateComparison>(`${base}/template-update`);
     find('[data-update]').innerHTML = `<p>Template ${esc(update.templateId)} version ${esc(update.version)}. Omitted files and Application-only files are preserved.</p><table><thead><tr><th>File</th><th>Status</th><th>Decision</th></tr></thead><tbody>${update.items.map((item, index) => `<tr><td>${esc(item.path)}</td><td>${esc(item.category)}</td><td>${['new', 'different'].includes(item.category) ? `<select data-decision="${index}" aria-label="Decision for ${esc(item.path)}"><option value="keep">Keep Application Version${item.category === 'new' ? ' / Skip' : ''}</option>${['app.manifest.json', 'ui.app.json'].includes(item.path) ? '' : `<option value="${item.category === 'new' ? 'add' : 'replace'}">${item.category === 'new' ? 'Add / Copy' : 'Replace with Template Version'}</option>`}</select>` : 'Preserve'}</td></tr>`).join('')}</tbody></table><button data-apply>Apply selected decisions</button>`;
     find('[data-apply]').addEventListener('click', safe(async () => {
       const decisions: Record<string, string> = {}; target.querySelectorAll<HTMLSelectElement>('[data-decision]').forEach(select => { decisions[update!.items[Number(select.dataset.decision)].path] = select.value; });
-      await api(`${base}/template-update`, { method: 'POST', body: JSON.stringify({ expectedHash: update!.expectedHash, decisions }) }); find('[data-update]').replaceChildren(); await load(); status('Template version processed; selected files updated.');
+      await request(`${base}/template-update`, { method: 'POST', body: JSON.stringify({ expectedHash: update!.expectedHash, decisions }) }); find('[data-update]').replaceChildren(); await load(); status('Template version processed; selected files updated.');
     }));
   }));
-  await load();
+  if (options.source) {
+    source = options.source; find<HTMLSelectElement>('[data-files]').value = source.path;
+    find<HTMLTextAreaElement>('[data-source]').value = source.content; renderFields();
+    find('[data-files]').parentElement!.hidden = true;
+    for (const selector of ['[data-new-menu]', '[data-template]', '[data-upload-asset]']) find(selector).hidden = true;
+    find('[data-asset]').parentElement!.hidden = true; find('[data-asset-path]').parentElement!.hidden = true;
+  } else await load();
+  return { state: () => ({ dirty: !!dirty(), pending: busy }), dispose: () => target.replaceChildren() };
 }
