@@ -1,4 +1,4 @@
-import { createHash, randomBytes } from 'node:crypto';
+import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { SecurityAuthorizationEvaluator, type AccessRequest, type ResourceAuthority } from '@ui-platform/i-am/evaluator';
 import type { SecurityResourceRef } from '@ui-platform/i-am/definitions';
@@ -7,6 +7,11 @@ import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID, V1_FIXTURE_APPLICATION_KEY,
 import { SecurityDefinitionService } from '@ui-platform/i-am/definitions';
 import type { EditorOperation } from '../shared/editor-security.js';
 import type { EditorScope } from './editor-security.js';
+
+import { SecurityAdministrationService, adminAnchor, type AdministrationIdentityBoundary } from '@ui-platform/i-am/administration';
+import type { SecurityDocument, SecurityRecord, SecurityScope } from '@ui-platform/i-am/definitions';
+import { developmentSecurityConfiguration, developmentSecurityScopes } from './v1-security-administration.js';
+import type { DevelopmentApplicationRegistry } from './development-application-registry.js';
 
 type Session = { token: string; csrf: string; revision: string; userId: string | null; expires: number };
 const cookieName = 'uib_v1_development_session';
@@ -21,6 +26,7 @@ export interface V1DevelopmentIdentityOptions {
   policyStorePath: string;
   origins: string[];
   sessionLifetimeMs?: number;
+  applicationRegistry?: DevelopmentApplicationRegistry;
 }
 
 /** Development authentication only. Every request re-reads I-AM User and policy state. */
@@ -29,6 +35,9 @@ export class V1DevelopmentIdentity {
   private readonly store: SecurityDefinitionStore;
   private readonly evaluator: SecurityAuthorizationEvaluator;
   readonly enabled: boolean;
+  private readonly administration?: SecurityAdministrationService;
+  private withAdministration?: <T>(req: IncomingMessage, action: (service: SecurityAdministrationService, context: object) => Promise<T>) => Promise<T>;
+  private runtimeReady?: (applicationId: string, req: IncomingMessage) => Promise<{ ready: boolean; diagnostic?: string }>;
   constructor(private readonly options: V1DevelopmentIdentityOptions) {
     if (options.enabled && (options.environment !== 'development' || !options.developmentRuntime || !options.origins.length))
       throw new Error('V1_DEVELOPMENT_IDENTITY_UNAVAILABLE');
@@ -40,17 +49,17 @@ export class V1DevelopmentIdentity {
     this.enabled = options.enabled;
     this.store = new SecurityDefinitionStore(options.policyStorePath);
     if (this.enabled) seedV1DevelopmentPolicy(new SecurityDefinitionService(this.store));
-    const contexts = new WeakMap<object, { userId: string; revision: string }>();
+    const contexts = new WeakMap<object, { userId: string; revision: string; session?: Session }>();
     const attested = new WeakSet<AccessRequest>();
     const root: SecurityResourceRef = { authorityId: V1_AUTHORITY_ID, applicationId: null, kind: 'system', id: 'platform' };
     const resources: ResourceAuthority = {
-      revision: async () => `v1-${this.store.revision()}`,
+      revision: async () => `sha256:${createHash('sha256').update(JSON.stringify([this.store.revision(), options.applicationRegistry?.revision() ?? 'fixture'])).digest('hex')}`,
       resolve: async ref => {
         if (ref.authorityId !== V1_AUTHORITY_ID) return undefined;
         if (ref.kind === 'system' && ref.applicationId === null && ref.id === root.id) return { ref: root, status: 'active' };
-        if (ref.kind === 'application' && ref.applicationId === ref.id && ref.id === V1_FIXTURE_APPLICATION_ID)
+        if (ref.kind === 'application' && ref.applicationId === ref.id && (ref.id === V1_FIXTURE_APPLICATION_ID || !!options.applicationRegistry?.provisioning.resolve(ref.id)))
           return { ref, parent: root, status: 'active' };
-        if (ref.applicationId === V1_FIXTURE_APPLICATION_ID && ref.parentId === V1_FIXTURE_APPLICATION_ID &&
+        if ((ref.applicationId === V1_FIXTURE_APPLICATION_ID || !!(ref.applicationId && options.applicationRegistry?.provisioning.resolve(ref.applicationId))) && ref.parentId === ref.applicationId &&
             ['page', 'form', 'workflow', 'artifact', 'security-definition'].includes(ref.kind))
           return { ref, parent: { authorityId: V1_AUTHORITY_ID, applicationId: ref.applicationId, kind: 'application', id: ref.applicationId }, status: 'active' };
         return undefined;
@@ -64,13 +73,36 @@ export class V1DevelopmentIdentity {
         verify: async context => {
           if (!context || typeof context !== 'object') throw new Error('IDENTITY_UNTRUSTED');
           const state = contexts.get(context);
-          if (!state || !this.activeUser(state.userId)) throw new Error('IDENTITY_UNTRUSTED');
+          if (!state || !this.activeUser(state.userId) || state.session && (state.session.revision !== state.revision || state.session.userId !== state.userId || state.session.expires <= Date.now())) throw new Error('IDENTITY_UNTRUSTED');
           return { principal: { type: 'user' as const, id: state.userId }, principalRevision: String(this.store.revision()), sessionRevision: state.revision };
         },
         assertRequest: async request => { if (!attested.has(request)) throw new Error('REQUEST_UNATTESTED'); },
       },
       freshnessMs: 1_000,
     });
+    if (this.enabled && options.applicationRegistry) {
+      const identity: AdministrationIdentityBoundary = {
+        verify: async context => {
+          const state = context && typeof context === 'object' ? contexts.get(context) : undefined;
+          if (!state || !this.activeUser(state.userId) || state.session && (state.session.revision !== state.revision || state.session.userId !== state.userId || state.session.expires <= Date.now())) throw new Error('ADMIN_IDENTITY_INVALID');
+          return { actorId: state.userId, principalRevision: String(this.store.revision()), sessionRevision: state.revision };
+        },
+        attestDecisionRequest: (context, resource, permissionId, operationId) => {
+          const request: AccessRequest = { context, resource, permissionId, operationId, fields: [] };
+          attested.add(request); return request;
+        },
+      };
+      this.administration = new SecurityAdministrationService(new SecurityDefinitionService(this.store), this.evaluator, identity,
+        { async verify() { throw new Error('RECOVERY_LOCAL_SETUP_REQUIRED'); } }, developmentSecurityScopes,
+        { ...developmentSecurityConfiguration, applicationProvisioning: options.applicationRegistry.provisioning });
+      this.withAdministration = async (req, action) => {
+        const userId = this.currentUser(req), session = this.session(req);
+        if (!userId || !session) throw new Error('ADMIN_IDENTITY_INVALID');
+        this.csrf(req, session);
+        const context = Object.freeze({}); contexts.set(context, { userId, revision: session.revision, session });
+        try { return await action(this.administration!, context); } finally { contexts.delete(context); }
+      };
+    }
     this.authorizeUser = async (userId, revision, permissionId, resource) => {
       const context = Object.freeze({});
       contexts.set(context, { userId, revision });
@@ -83,6 +115,83 @@ export class V1DevelopmentIdentity {
   }
   close() { this.sessions.clear(); this.store.close(); }
   policyDigest(): string { return `sha256:${createHash('sha256').update(JSON.stringify(this.store.snapshot().documents)).digest('hex')}`; }
+  setRuntimeReadiness(check: (applicationId: string, req: IncomingMessage) => Promise<{ ready: boolean; diagnostic?: string }>) { this.runtimeReady = check; }
+  registeredApplication(key: string): string | undefined { return this.options.applicationRegistry?.byKey(key)?.applicationId; }
+  async handleAdministration(req: IncomingMessage, res: ServerResponse): Promise<boolean> {
+    const parts = new URL(req.url ?? '/', 'http://localhost').pathname.split('/').filter(Boolean);
+    if (this.administration && parts[0] === 'api' && parts[1] === 'platform' && parts[2] === 'security' && parts.length === 4) {
+      try {
+        if (req.method !== 'POST' || !await this.authorize(req, developmentSecurityConfiguration.platformAdministratorPermissionId,
+          { authorityId: V1_AUTHORITY_ID, applicationId: null, kind: 'system', id: 'platform' })) throw new Error('ADMIN_AUTHORITY_DENIED');
+        let size = 0; const chunks: Buffer[] = [];
+        for await (const chunk of req) { const bytes = Buffer.from(chunk); size += bytes.length; if (size > 100_000) throw new Error('ADMIN_REQUEST_INVALID'); chunks.push(bytes); }
+        const input = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+        const result = await this.withAdministration!(req, async (service, context) => {
+          if (parts[3] === 'stage') return service.stage({ changes: input.changes, expectedRevision: input.expectedRevision,
+            actorId: this.currentUser(req)!, source: 'api', idempotencyKey: randomUUID(), ...(input.reason === undefined ? {} : { reason: input.reason }) });
+          if (parts[3] === 'activate') return service.activate({ context, applicationId: null, candidateId: input.candidateId,
+            checksum: input.checksum, expectedRevision: input.expectedRevision, reason: input.reason });
+          throw new Error('ADMIN_REQUEST_INVALID');
+        });
+        res.writeHead('status' in result && result.status !== 'activated' ? 403 : 200, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify(result));
+      } catch { res.writeHead(403, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify({ code: 'ADMIN_AUTHORITY_DENIED' })); }
+      return true;
+    }
+    if (!this.administration || parts[0] !== 'api' || parts[1] !== 'apps' || !parts[2] || !['onboarding', 'security'].includes(parts[3] ?? '')) return false;
+    try {
+      const applicationId = this.registeredApplication(decodeURIComponent(parts[2]));
+      if (!applicationId) throw new Error('ADMIN_APPLICATION_UNKNOWN');
+      const root: SecurityResourceRef = { authorityId: V1_AUTHORITY_ID, applicationId: null, kind: 'system', id: 'platform' };
+      const resource: SecurityResourceRef = { authorityId: V1_AUTHORITY_ID, applicationId, kind: 'application', id: applicationId };
+      const platform = await this.authorize(req, developmentSecurityConfiguration.platformAdministratorPermissionId, root);
+      const appAdmin = await this.authorize(req, developmentSecurityConfiguration.applicationAdministratorPermissionId, resource);
+      if (!platform && !appAdmin) throw new Error('ADMIN_AUTHORITY_DENIED');
+      if (parts[3] === 'onboarding' && parts.length === 4 && req.method === 'GET') {
+        const configured = !!adminAnchor(this.store.snapshot().documents.map(d => d.definition), applicationId, V1_AUTHORITY_ID, new Date(), developmentSecurityScopes);
+        const readiness = configured ? await this.runtimeReady?.(applicationId, req) : undefined;
+        const runtime = !!readiness?.ready;
+        res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify({ applicationId, sourceCreated: true,
+          authorityConfigured: configured, runtimeConnected: runtime, status: !configured ? 'authority-required' : runtime ? 'ready' : readiness?.diagnostic ? 'failed-incomplete' : 'runtime-required',
+          ...(readiness?.diagnostic ? { diagnostic: readiness.diagnostic } : {}) }));
+        return true;
+      }
+      if (req.method !== 'POST') throw new Error('ADMIN_REQUEST_INVALID');
+      let size = 0; const chunks: Buffer[] = [];
+      for await (const chunk of req) { const bytes = Buffer.from(chunk); size += bytes.length; if (size > 100_000) throw new Error('ADMIN_REQUEST_INVALID'); chunks.push(bytes); }
+      const input = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+      const result = await this.withAdministration!(req, async (service, context) => {
+        if (parts[3] === 'onboarding' && parts.length === 4) {
+          if (!platform || typeof input.administratorUserId !== 'string' || !input.reason?.trim()) throw new Error('ADMIN_REQUEST_INVALID');
+          const owner = { kind: 'application' as const, applicationId };
+          const scope: SecurityScope = { resource, descendants: false };
+          const prefix = `initial.${applicationId}`;
+          const base = (id: string) => ({ id, key: id, name: id, status: 'active' as const });
+          const permissionId = developmentSecurityConfiguration.applicationAdministratorPermissionId;
+          const records: SecurityRecord[] = [
+            { ...base(applicationId), kind: 'application-security', owner, requiredAdministratorPermissionId: permissionId, sharedPackages: [] },
+            { ...base(`${prefix}.set`), kind: 'permission-set', owner, includes: [], rules: [{ id: `${prefix}.rule`, permissionId, effect: 'allow', scope }] },
+            { ...base(`${prefix}.role`), kind: 'role', owner, permissionSets: [{ id: `${prefix}.set` }] },
+            { kind: 'role-assignment', id: `${prefix}.assignment`, status: 'active', userId: input.administratorUserId, roleId: `${prefix}.role`, scope, startsAt: new Date().toISOString(), endsAt: null },
+            { ...base(`${prefix}.boundary`), kind: 'grant-boundary', owner: { kind: 'platform' }, beneficiary: { kind: 'role', id: `${prefix}.role` }, scope,
+              operations: ['create', 'edit', 'assign', 'revoke', 'activate', 'archive'], permissions: [{ permissionId, scope, predicateTemplateIds: [] }], serviceUseApprovalIds: [] },
+          ];
+          const candidate = service.stage({ changes: records.map(definition => ({ document: { format: 'ui-platform.security', formatVersion: 1, definition } as SecurityDocument })),
+            expectedRevision: this.store.revision(), actorId: this.currentUser(req)!, source: 'api', idempotencyKey: randomUUID(), ...(input.reason === undefined ? {} : { reason: input.reason }) });
+          return service.provisionApplication({ context, applicationId, candidateId: candidate.id, checksum: candidate.checksum,
+            expectedRevision: candidate.baseRevision, administratorUserId: input.administratorUserId, administratorAssignmentId: `${prefix}.assignment`, reason: input.reason });
+        }
+        if (parts[3] === 'security' && parts.length === 5 && parts[4] === 'stage') return service.stage({ changes: input.changes,
+          expectedRevision: input.expectedRevision, actorId: this.currentUser(req)!, source: 'api', idempotencyKey: randomUUID(), ...(input.reason === undefined ? {} : { reason: input.reason }) });
+        if (parts[3] === 'security' && parts.length === 5 && parts[4] === 'activate') return service.activate({ context, applicationId,
+          candidateId: input.candidateId, checksum: input.checksum, expectedRevision: input.expectedRevision, reason: input.reason });
+        throw new Error('ADMIN_REQUEST_INVALID');
+      });
+      res.writeHead('status' in result && result.status !== 'activated' ? 403 : 200, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify(result));
+    } catch (error) {
+      res.writeHead(403, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify({ code: error instanceof Error ? error.message : 'ADMIN_AUTHORITY_UNAVAILABLE' }));
+    }
+    return true;
+  }
   private activeUser(userId: string) {
     return this.store.snapshot().documents.map(doc => doc.definition).find(record => record.kind === 'user' && record.id === userId && record.status === 'active');
   }
@@ -116,26 +225,27 @@ export class V1DevelopmentIdentity {
   }
   /** Only trusted server adapters call this after binding the editor principal to the V1 session. */
   async authorizeEditor(userId: string, operation: EditorOperation, scope: EditorScope): Promise<boolean> {
-    if (scope.applicationKey !== V1_FIXTURE_APPLICATION_KEY || !this.activeUser(userId)) return false;
+    const applicationId = scope.applicationKey === V1_FIXTURE_APPLICATION_KEY ? V1_FIXTURE_APPLICATION_ID : this.options.applicationRegistry?.byKey(scope.applicationKey)?.applicationId;
+    if (!applicationId || !this.activeUser(userId)) return false;
     if (operation === 'discover') {
       if (await this.authorizeEditor(userId, 'security', scope)) return true;
       for (const area of ['page', 'form', 'workflow', 'artifact'] as const) {
         if (await this.authorizeUser(userId, String(this.store.revision()), `ui.${area}.view`,
-          { authorityId: V1_AUTHORITY_ID, applicationId: V1_FIXTURE_APPLICATION_ID, kind: area,
-            id: `v1-${area}`, parentId: V1_FIXTURE_APPLICATION_ID })) return true;
+          { authorityId: V1_AUTHORITY_ID, applicationId, kind: area,
+            id: `v1-${area}`, parentId: applicationId })) return true;
       }
       return false;
     }
     if (operation === 'security') return this.authorizeUser(userId, String(this.store.revision()), 'ui.security.admin',
-      { authorityId: V1_AUTHORITY_ID, applicationId: V1_FIXTURE_APPLICATION_ID, kind: 'security-definition',
-        id: 'v1-security', parentId: V1_FIXTURE_APPLICATION_ID });
+      { authorityId: V1_AUTHORITY_ID, applicationId, kind: 'security-definition',
+        id: 'v1-security', parentId: applicationId });
     const area = scope.artifactType === 'form' ? 'form' : scope.artifactType === 'workflow' ? 'workflow' :
       ['page', 'route', 'routeGroup'].includes(scope.artifactType ?? '') ? 'page' : 'artifact';
     const action = operation === 'edit' ? 'edit' : operation === 'admin' ? 'admin' : 'view';
     if (scope.ownership && scope.ownership !== 'application' && action !== 'admin') return false;
     return this.authorizeUser(userId, String(this.store.revision()), `ui.${area}.${action}`,
-      { authorityId: V1_AUTHORITY_ID, applicationId: V1_FIXTURE_APPLICATION_ID, kind: area,
-        id: scope.artifactId ?? `v1-${area}`, parentId: V1_FIXTURE_APPLICATION_ID });
+      { authorityId: V1_AUTHORITY_ID, applicationId, kind: area,
+        id: scope.artifactId ?? `v1-${area}`, parentId: applicationId });
   }
   async handle(req: IncomingMessage, res: ServerResponse): Promise<boolean> {
     if (new URL(req.url ?? '/', 'http://localhost').pathname !== '/api/development-identity/session') return false;

@@ -2,6 +2,7 @@ import type { ChildProcess } from 'node:child_process';
 import net from 'node:net';
 import { appPath, getApp } from './applications.js';
 import { spawnNpm } from './npm-process.js';
+import { spawn } from 'node:child_process';
 
 interface RunningPreview { child: ChildProcess; uiPort: number; apiPort: number; }
 const previews = new Map<string, RunningPreview>();
@@ -65,12 +66,18 @@ async function startPreview(key: string): Promise<{ url: string; apiUrl: string 
   return { url: `http://127.0.0.1:${uiPort}`, apiUrl: `http://127.0.0.1:${apiPort}` };
 }
 
-export function stopPreview(key: string): void {
+export async function stopPreview(key: string): Promise<void> {
   const running = previews.get(key);
-  if (running && !running.child.killed) running.child.kill('SIGTERM');
   previews.delete(key);
+  if (!running || running.child.exitCode !== null || running.child.signalCode !== null) return;
+  if (process.platform === 'win32' && running.child.pid) {
+    await new Promise<void>(resolve => {
+      const stop = spawn('taskkill', ['/PID', String(running.child.pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore' });
+      stop.once('error', () => { running.child.kill('SIGTERM'); resolve(); }); stop.once('exit', () => resolve());
+    });
+  } else running.child.kill('SIGTERM');
 }
 
-export function stopAllPreviews(): void {
-  for (const key of [...previews.keys()]) stopPreview(key);
+export async function stopAllPreviews(): Promise<void> {
+  await Promise.all([...previews.keys()].map(key => stopPreview(key)));
 }

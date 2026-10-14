@@ -1,15 +1,45 @@
-WP0 blocked-pass changed-file inventory, 2026-10-13
+Builder V1 WP0 exact changed-file inventory — 2026-10-14
+Scope: changes from this resume; both repositories were clean before implementation.
+M = modified tracked file; A = new untracked file. Generated ignored build outputs/node_modules are excluded.
+
 Repository: C:/Projects/Modular/ui-platform
+M C:/Projects/Modular/ui-platform/docs/architecture/builder-end-to-end-v1-acceptance-checklist.md
+M C:/Projects/Modular/ui-platform/docs/architecture/builder-v1-wp0-development-onboarding.md
+M C:/Projects/Modular/ui-platform/docs/architecture/builder-v1-wp0-files.txt
+M C:/Projects/Modular/ui-platform/docs/architecture/builder-v1-wp0-verification.md
+M C:/Projects/Modular/ui-platform/package-lock.json
+M C:/Projects/Modular/ui-platform/package.json
+M C:/Projects/Modular/ui-platform/packages/platform-core/src/application-data.ts
+M C:/Projects/Modular/ui-platform/scripts/dev.mjs
+M C:/Projects/Modular/ui-platform/src/server/application-data-proxy.ts
+M C:/Projects/Modular/ui-platform/src/server/index.ts
+M C:/Projects/Modular/ui-platform/src/server/preview.ts
+M C:/Projects/Modular/ui-platform/src/server/v1-development-identity.ts
+M C:/Projects/Modular/ui-platform/templates/standard/files/src/main.ts
+M C:/Projects/Modular/ui-platform/templates/standard/files/vite.config.js
+A C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp0/acceptance.json
+A C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp0/verification.json
+A C:/Projects/Modular/ui-platform/scripts/bootstrap-development-dataset.ts
+A C:/Projects/Modular/ui-platform/scripts/bootstrap-development-security.ts
+A C:/Projects/Modular/ui-platform/scripts/builder-development-host.ts
+A C:/Projects/Modular/ui-platform/src/server/builder-development-host.ts
+A C:/Projects/Modular/ui-platform/src/server/development-application-registry.ts
+A C:/Projects/Modular/ui-platform/src/server/development-application-runtime.ts
+A C:/Projects/Modular/ui-platform/src/server/v1-security-administration.ts
+A C:/Projects/Modular/ui-platform/tests/builder-v1-wp0.test.ts
+A C:/Projects/Modular/ui-platform/tests/development-application-registry.test.ts
 
-Added: docs/architecture/builder-v1-wp0-development-onboarding.md
-Added: docs/architecture/builder-v1-wp0-verification.md
-Added: docs/architecture/builder-v1-wp0-files.txt
-Modified (preexisting untracked user file): docs/architecture/builder-end-to-end-v1-acceptance-checklist.md
+Repository: C:/Projects/Modular/UI Platform Data Services
+M C:/Projects/Modular/UI Platform Data Services/packages/dataset-operations/src/index.ts
+M C:/Projects/Modular/UI Platform Data Services/packages/dataset-operations/src/secured-development-host.ts
+M C:/Projects/Modular/UI Platform Data Services/packages/i-am/src/wp3/README.md
+M C:/Projects/Modular/UI Platform Data Services/packages/i-am/src/wp3/graph.ts
+M C:/Projects/Modular/UI Platform Data Services/packages/i-am/src/wp3/index.ts
+M C:/Projects/Modular/UI Platform Data Services/packages/i-am/src/wp3/service.ts
+M C:/Projects/Modular/UI Platform Data Services/packages/i-am/src/wp3/types.ts
+M C:/Projects/Modular/UI Platform Data Services/packages/i-am/tests/wp3-administration.test.ts
+A C:/Projects/Modular/UI Platform Data Services/packages/dataset-operations/src/development-dataset-bootstrap.ts
+A C:/Projects/Modular/UI Platform Data Services/packages/i-am/src/wp3/bootstrap.ts
 
-Runtime/source/test files changed: none.
-Sibling Data Services/I-AM files changed: none; required prerequisite blocked by session write scope.
-
-Preexisting untracked files left unchanged:
-docs/architecture/builder-end-to-end-v1-gap-review.md
-docs/architecture/builder-end-to-end-v1-implementation-plan.md
-docs/architecture/builder-end-to-end-v1-review-inventory.md
+No WP1 implementation, commit, Publish, deployment, production authority, or portable credential export was performed.
+Disposable acceptance Applications and data are removed after verification; generated identities and audit evidence are preserved in the listed acceptance artifact.

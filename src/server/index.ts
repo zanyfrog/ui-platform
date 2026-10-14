@@ -39,12 +39,20 @@ import { withApplicationMutation } from './composition-lock.js';
 import { applyTemplateUpdate, compareTemplate } from './template-updates.js';
 import { assertShellUnused, changePageShell, compositionAssetInfo, compositionSettings, compositionSourcePath, compositionWorkspace, readCompositionSource, saveCompositionAsset, saveCompositionSource, validateCompositionEdit } from './application-composition.js';
 
+import { DevelopmentApplicationRegistry } from './development-application-registry.js';
+import { DevelopmentApplicationRuntime } from './development-application-runtime.js';
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
+const builderWp0Enabled = process.env.UI_PLATFORM_BUILDER_WP0 === '1';
 const v1Enabled = process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1';
+if (builderWp0Enabled && (!v1Enabled || process.env.NODE_ENV !== 'development' || !import.meta.url.endsWith('.ts'))) throw new Error('BUILDER_WP0_DEVELOPMENT_ONLY');
+const developmentApplications = builderWp0Enabled ? new DevelopmentApplicationRegistry(path.join(runtimeDir, 'development-applications.sqlite'), appsDir) : undefined;
 const v1PolicyStorePath = path.resolve(process.env.UI_PLATFORM_V1_POLICY_STORE ?? path.join(runtimeDir, 'iam-v1-development.sqlite'));
 const v1Identity = v1Enabled ? new V1DevelopmentIdentity({ enabled: true, environment: process.env.NODE_ENV ?? '',
-  developmentRuntime: import.meta.url.endsWith('.ts'), policyStorePath: v1PolicyStorePath,
+  developmentRuntime: import.meta.url.endsWith('.ts'), policyStorePath: v1PolicyStorePath, applicationRegistry: developmentApplications,
   origins: [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]) }) : null;
+const developmentRuntime = developmentApplications && v1Identity ? new DevelopmentApplicationRuntime(process.env.UI_PLATFORM_BUILDER_HOSTS_FILE,
+  v1PolicyStorePath, developmentApplications, v1Identity, [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`])) : undefined;
+if (developmentRuntime) v1Identity!.setRuntimeReadiness((applicationId, req) => developmentRuntime.readiness(applicationId, req));
 if (v1Identity) await ensureV1DevelopmentApplication(appsDir);
 const applicationData = createApplicationDataProxy({ enabled: process.env.UI_PLATFORM_WP5_APPLICATION_DATA === '1',
   environment: process.env.NODE_ENV ?? '', protectedHostUrl: process.env.UI_PLATFORM_WP5_DATASET_HOST_URL,
@@ -193,6 +201,8 @@ const server = http.createServer(async (req, res) => {
   const parts = url.pathname.split('/').filter(Boolean);
   try {
     if (v1Identity && await v1Identity.handle(req, res)) return;
+    if (v1Identity && await v1Identity.handleAdministration(req, res)) return;
+    if (developmentRuntime && await developmentRuntime.handle(req, res)) return;
     if (await applicationData(req, res)) return;
     if (await editorSecurity.handle(req, res)) return;
     if (v1Identity && url.pathname.startsWith('/api/') && url.pathname !== '/api/health') {
@@ -208,7 +218,7 @@ const server = http.createServer(async (req, res) => {
           return json(res, 403, { code: 'V1_ORIGIN_DENIED' });
         if (url.pathname === '/api/apps' && method === 'GET') {
           const visible = [];
-          for (const app of await discoverApps()) if (app.key === V1_FIXTURE_APPLICATION_KEY && app.appId === V1_FIXTURE_APPLICATION_ID &&
+          for (const app of await discoverApps()) if ((app.key === V1_FIXTURE_APPLICATION_KEY && app.appId === V1_FIXTURE_APPLICATION_ID || v1Identity.registeredApplication(app.key) === app.appId) &&
             await v1Identity.authorize(req, 'ui.application.view', { authorityId: 'ui-platform-development', applicationId: app.appId,
               kind: 'application', id: app.appId })) visible.push(app);
           return json(res, 200, visible);
@@ -223,9 +233,8 @@ const server = http.createServer(async (req, res) => {
           let applicationId: string | undefined;
           if (parts[1] === 'apps' && parts[2]) {
             const key = decodeURIComponent(parts[2]);
-            if (key !== V1_FIXTURE_APPLICATION_KEY) return json(res, 403, { code: 'V1_APPLICATION_DENIED' });
             const app = await getApp(key);
-            if (app.appId !== V1_FIXTURE_APPLICATION_ID) return json(res, 403, { code: 'V1_APPLICATION_DENIED' });
+            if (!(key === V1_FIXTURE_APPLICATION_KEY && app.appId === V1_FIXTURE_APPLICATION_ID) && v1Identity.registeredApplication(key) !== app.appId) return json(res, 403, { code: 'V1_APPLICATION_DENIED' });
             applicationId = app.appId;
           }
           const check = managementCheck(method, url.pathname, applicationId);
@@ -257,7 +266,12 @@ const server = http.createServer(async (req, res) => {
     }
     if (url.pathname === '/api/templates' && method === 'GET') return json(res, 200, await discoverTemplates());
     if (url.pathname === '/api/apps' && method === 'GET') return json(res, 200, await discoverApps());
-    if (url.pathname === '/api/apps' && method === 'POST') return json(res, 201, await createApp(await body(req)));
+    if (url.pathname === '/api/apps' && method === 'POST') {
+      const admittedUser = v1Identity?.currentUser(req);
+      const application = await createApp(await body(req));
+      if (developmentApplications) developmentApplications.registerCreated(application, admittedUser!);
+      return json(res, 201, application);
+    }
     if (url.pathname === '/api/components' && method === 'GET') return json(res, 200, await discoverComponents());
     if (url.pathname === '/api/packages' && method === 'GET') return json(res, 200, await getGlobalPackageCatalog());
     if (url.pathname === '/api/package-catalog' && method === 'GET') return json(res, 200, await getUnifiedPackageCatalog());
@@ -456,7 +470,7 @@ const server = http.createServer(async (req, res) => {
         return json(res, 200, { removed: true, mode: 'os-trash' });
       }
       if (parts.length === 3 && method === 'DELETE') {
-        stopPreview(key);
+        await stopPreview(key);
         const app = await getApp(key);
         await appendHistory(appPath(key), { action: 'app.deleted-to-os-trash', appId: app.appId, actor: 'local-user' });
         await moveToOsTrash(appPath(key));
@@ -470,11 +484,21 @@ const server = http.createServer(async (req, res) => {
         return createReadStream(file).pipe(res);
       }
       if (parts[3] === 'settings' && method === 'PUT') return json(res, 200, await saveSettings(key, await body(req)));
-      if (parts[3] === 'preview' && method === 'POST') return json(res, 200, await ensurePreview(key));
+      if (parts[3] === 'preview' && method === 'POST') {
+        const preview = await ensurePreview(key);
+        const applicationId = v1Identity?.registeredApplication(key);
+        if (developmentRuntime && applicationId) {
+          const browserOrigin = new URL(String(req.headers.origin));
+          const previewUrl = new URL(preview.url); previewUrl.hostname = browserOrigin.hostname;
+          developmentRuntime.allowPreview(applicationId, previewUrl.origin);
+          return json(res, 200, { ...preview, url: previewUrl.origin });
+        }
+        return json(res, 200, preview);
+      }
       if (parts[3] === 'export' && method === 'POST') {
         const exported = await exportApp(key);
         const token = path.basename(exported.zipFile);
-        if (v1Identity) v1Exports.set(token, { userId: v1Identity.currentUser(req)!, applicationId: V1_FIXTURE_APPLICATION_ID,
+        if (v1Identity) v1Exports.set(token, { userId: v1Identity.currentUser(req)!, applicationId: (await getApp(key)).appId,
           expires: Date.now() + 5 * 60_000 });
         return json(res, 200, { downloadName: exported.downloadName, url: `/api/downloads/${encodeURIComponent(token)}` });
       }
@@ -507,9 +531,10 @@ server.listen(port, editorSecurity.enabled ? '127.0.0.1' : '0.0.0.0', () => cons
 async function shutdown() {
   stopWatcher();
   await artifactWatcher?.close();
-  stopAllPreviews();
+  await stopAllPreviews();
   editorSecurity.close();
   v1Identity?.close();
+  developmentApplications?.close();
   wp1Store?.close();
   server.close(() => process.exit(0));
 }

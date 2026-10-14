@@ -1,0 +1,30 @@
+import { afterEach, expect, it } from 'vitest';
+import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { DevelopmentApplicationRegistry } from '../src/server/development-application-registry.js';
+
+const cleanup: Array<() => Promise<void>> = [];
+afterEach(async () => { for (const close of cleanup.splice(0).reverse()) await close(); });
+it('requires host registration, immutable permanent identity and active ownership; rejects duplicate capture and survives reopen', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'wp0-owner-')); cleanup.push(() => rm(root, { recursive: true, force: true }));
+  const apps = path.join(root, 'apps'), folder = path.join(apps, 'created'), id = randomUUID(); await mkdir(folder, { recursive: true });
+  await writeFile(path.join(folder, 'app.manifest.json'), JSON.stringify({ appId: id }));
+  await writeFile(path.join(folder, 'app.settings.json'), JSON.stringify({ application: { status: 'active' } }));
+  const file = path.join(root, 'owners.sqlite');
+  const registry = new DevelopmentApplicationRegistry(file, apps); cleanup.push(async () => registry.close());
+  expect(registry.byKey('created')).toBeUndefined(); expect(registry.provisioning.resolve(id)).toBeUndefined();
+  registry.registerCreated({ key: 'created', appId: id, valid: true, status: 'active' }, 'explicit-creator');
+  expect(registry.byKey('created')).toEqual({ key: 'created', applicationId: id, createdBy: 'explicit-creator' });
+  expect(() => registry.registerCreated({ key: 'created', appId: id, valid: true, status: 'active' }, 'captor')).toThrow();
+  expect(() => registry.registerCreated({ key: '../created', appId: id, valid: true, status: 'active' }, 'captor')).toThrow();
+  const reopened = new DevelopmentApplicationRegistry(file, apps); cleanup.push(async () => reopened.close());
+  expect(reopened.byKey('created')?.applicationId).toBe(id);
+  const revision = reopened.revision();
+  await writeFile(path.join(folder, 'app.manifest.json'), JSON.stringify({ appId: randomUUID() }));
+  expect(registry.byKey('created')).toBeUndefined(); expect(reopened.revision()).not.toBe(revision);
+  await writeFile(path.join(folder, 'app.manifest.json'), JSON.stringify({ appId: id }));
+  await writeFile(path.join(folder, 'app.settings.json'), JSON.stringify({ application: { status: 'disabled' } }));
+  expect(registry.provisioning.resolve(id)).toBeUndefined();
+});

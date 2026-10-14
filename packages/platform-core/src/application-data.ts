@@ -48,12 +48,12 @@ export class ApplicationDataClient {
 }
 
 /** Named Visual Artifact adapters reuse the existing Page/Form session transport. */
-export function createApplicationDataServices(client = new ApplicationDataClient(createSessionApplicationDataTransport())): Record<string, (input: unknown) => Promise<unknown>> {
+export function createApplicationDataServices(client = new ApplicationDataClient(createSessionApplicationDataTransport()), options: { endpoint?: string } = {}): Record<string, (input: unknown) => Promise<unknown>> {
   return {
     'dataset.write': input => client.execute(input as ProtectedWrite),
     'dataset.read': input => client.query({ ...(input as ProtectedRead), mode: 'read' }),
     'workflow.run': async input => {
-      const response = await fetch('/api/application-data/workflows', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input) });
+      const response = await fetch(`${(options.endpoint ?? '/api/application-data').replace(/\/$/, '')}/workflows`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input) });
       if (response.status === 401) throw new Error('Sign in before running the Workflow. Your session may have expired.');
       if (response.status >= 500) throw new Error('The activation service is unavailable or took too long to respond. Check the person’s status before running activation again.');
       if (!response.ok) throw new Error('WORKFLOW_REQUEST_DENIED');

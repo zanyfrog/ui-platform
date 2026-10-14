@@ -66,14 +66,14 @@ function waitForPort(port, { host = '127.0.0.1', timeoutMs = 10000 } = {}) {
   });
 }
 
-async function previewForApp(key) {
+async function previewForApp(key, incoming) {
   return new Promise((resolve, reject) => {
     const request = http.request({
       hostname: '127.0.0.1',
       port: apiPort,
       path: `/api/apps/${encodeURIComponent(key)}/preview`,
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', cookie: incoming.headers.cookie ?? '', origin: `http://${incoming.headers.host}` },
     }, (response) => {
       const chunks = [];
       response.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
@@ -145,7 +145,7 @@ function appPreviewProxyMiddleware() {
       return;
     }
 
-    const preview = await previewForApp(key).catch(() => null);
+    const preview = await previewForApp(key, req).catch(() => null);
     if (!preview?.url) {
       next();
       return;

@@ -1,0 +1,567 @@
+{
+  "date": "2026-10-14",
+  "timezone": "America/New_York",
+  "status": "BUILDER V1 WP0 — READY FOR REVIEW",
+  "reports": [
+    {
+      "name": "ui-platform-full",
+      "command": "npm test -- --maxWorkers=1 --testTimeout=15000",
+      "revisionCoverage": "all implementation fixes except final new-domain bootstrap guard",
+      "totalTests": 290,
+      "passedTests": 290,
+      "failedTests": 0,
+      "skippedTests": 0,
+      "testFiles": [
+        {
+          "file": "tests/application-composition.test.ts",
+          "status": "passed",
+          "tests": 9,
+          "passed": 9
+        },
+        {
+          "file": "tests/application-keys.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "tests/application-links.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/application-presentation-lifecycle.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "tests/application-presentation.test.ts",
+          "status": "passed",
+          "tests": 6,
+          "passed": 6
+        },
+        {
+          "file": "tests/artifact-editor.test.ts",
+          "status": "passed",
+          "tests": 14,
+          "passed": 14
+        },
+        {
+          "file": "tests/artifact-watcher.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/builder-v1-wp0.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/component-preview.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "tests/development-application-registry.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/editor-context.test.ts",
+          "status": "passed",
+          "tests": 12,
+          "passed": 12
+        },
+        {
+          "file": "tests/editor-properties.test.ts",
+          "status": "passed",
+          "tests": 16,
+          "passed": 16
+        },
+        {
+          "file": "tests/editor-security-client.test.ts",
+          "status": "passed",
+          "tests": 9,
+          "passed": 9
+        },
+        {
+          "file": "tests/editor-security-server.test.ts",
+          "status": "passed",
+          "tests": 4,
+          "passed": 4
+        },
+        {
+          "file": "tests/editor-security.test.ts",
+          "status": "passed",
+          "tests": 27,
+          "passed": 27
+        },
+        {
+          "file": "tests/exporter-security.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "tests/form-data-integration.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "tests/foundation-sources.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "tests/package-acquisition.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "tests/package-activation.test.ts",
+          "status": "passed",
+          "tests": 5,
+          "passed": 5
+        },
+        {
+          "file": "tests/package-installer.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "tests/smoke.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/templates.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/trigger-workflow-browser.test.ts",
+          "status": "passed",
+          "tests": 4,
+          "passed": 4
+        },
+        {
+          "file": "tests/trigger-workflow.test.ts",
+          "status": "passed",
+          "tests": 24,
+          "passed": 24
+        },
+        {
+          "file": "tests/v1-development-app.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/v1-development-identity.test.ts",
+          "status": "passed",
+          "tests": 4,
+          "passed": 4
+        },
+        {
+          "file": "tests/v1-management-routes.test.ts",
+          "status": "passed",
+          "tests": 17,
+          "passed": 17
+        },
+        {
+          "file": "tests/v1-management-server.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "tests/visual-artifacts-server.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/visual-artifacts.test.ts",
+          "status": "passed",
+          "tests": 22,
+          "passed": 22
+        },
+        {
+          "file": "tests/wp1-ui-staging.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/wp5-application-data-client.test.ts",
+          "status": "passed",
+          "tests": 7,
+          "passed": 7
+        },
+        {
+          "file": "tests/wp5-application-data-proxy.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "tests/wp5-dataset-boundary.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/wp5-form-host-integration.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "packages/artifacts/tests/application-build.test.ts",
+          "status": "passed",
+          "tests": 7,
+          "passed": 7
+        },
+        {
+          "file": "packages/artifacts/tests/artifacts.test.ts",
+          "status": "passed",
+          "tests": 20,
+          "passed": 20
+        },
+        {
+          "file": "packages/artifacts/tests/consumer-contract.test.ts",
+          "status": "passed",
+          "tests": 5,
+          "passed": 5
+        },
+        {
+          "file": "packages/artifacts/tests/editor-package-contract.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "packages/artifacts/tests/migrations-deployment.test.ts",
+          "status": "passed",
+          "tests": 9,
+          "passed": 9
+        },
+        {
+          "file": "packages/artifacts/tests/schema-adapter-compatibility.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "packages/artifacts/tests/security-definitions.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "packages/artifacts/tests/watcher-fallback.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "packages/artifacts/tests/watcher.test.ts",
+          "status": "passed",
+          "tests": 5,
+          "passed": 5
+        },
+        {
+          "file": "packages/artifacts/tests/windows-storage.test.ts",
+          "status": "passed",
+          "tests": 6,
+          "passed": 6
+        },
+        {
+          "file": "packages/platform-core/tests/package-catalog.test.ts",
+          "status": "passed",
+          "tests": 5,
+          "passed": 5
+        },
+        {
+          "file": "packages/platform-core/tests/platform-core.test.ts",
+          "status": "passed",
+          "tests": 7,
+          "passed": 7
+        }
+      ]
+    },
+    {
+      "name": "data-services-full",
+      "command": "npm test",
+      "revisionCoverage": "all I-AM and protected-host changes; final bootstrap guard verified by targeted integration",
+      "totalTests": 747,
+      "passedTests": 747,
+      "failedTests": 0,
+      "skippedTests": 0,
+      "testFiles": [
+        {
+          "file": "packages/dataset-operations/tests/activation-drain.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "packages/dataset-operations/tests/activation-http.test.ts",
+          "status": "passed",
+          "tests": 37,
+          "passed": 37
+        },
+        {
+          "file": "packages/dataset-operations/tests/activation-process.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "packages/dataset-operations/tests/nested-transactions.test.ts",
+          "status": "passed",
+          "tests": 18,
+          "passed": 18
+        },
+        {
+          "file": "packages/dataset-operations/tests/operation-failures.test.ts",
+          "status": "passed",
+          "tests": 17,
+          "passed": 17
+        },
+        {
+          "file": "packages/dataset-operations/tests/operation-manager.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "packages/dataset-operations/tests/operation-security.test.ts",
+          "status": "passed",
+          "tests": 185,
+          "passed": 185
+        },
+        {
+          "file": "packages/dataset-operations/tests/operation-service-contract.test.ts",
+          "status": "passed",
+          "tests": 5,
+          "passed": 5
+        },
+        {
+          "file": "packages/dataset-operations/tests/recovery-failures.test.ts",
+          "status": "passed",
+          "tests": 51,
+          "passed": 51
+        },
+        {
+          "file": "packages/dataset-operations/tests/recovery-process.test.ts",
+          "status": "passed",
+          "tests": 10,
+          "passed": 10
+        },
+        {
+          "file": "packages/dataset-operations/tests/recovery.test.ts",
+          "status": "passed",
+          "tests": 68,
+          "passed": 68
+        },
+        {
+          "file": "packages/dataset-operations/tests/v1-development-assertion.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "packages/dataset-operations/tests/wp5-deployed-host.test.ts",
+          "status": "passed",
+          "tests": 4,
+          "passed": 4
+        },
+        {
+          "file": "packages/dataset-operations/tests/wp5-secured-engine.test.ts",
+          "status": "passed",
+          "tests": 19,
+          "passed": 19
+        },
+        {
+          "file": "packages/dataset-operations/tests/wp6-actor-lease.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "packages/dataset-operations/tests/wp6-closure-runtime.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "packages/i-am/tests/wp1-definitions.test.ts",
+          "status": "passed",
+          "tests": 31,
+          "passed": 31
+        },
+        {
+          "file": "packages/i-am/tests/wp2-evaluator.test.ts",
+          "status": "passed",
+          "tests": 9,
+          "passed": 9
+        },
+        {
+          "file": "packages/i-am/tests/wp3-administration.test.ts",
+          "status": "passed",
+          "tests": 39,
+          "passed": 39
+        },
+        {
+          "file": "packages/i-am/tests/wp4-plan.test.ts",
+          "status": "passed",
+          "tests": 12,
+          "passed": 12
+        },
+        {
+          "file": "packages/i-am/tests/wp6-delegation-policy.test.ts",
+          "status": "passed",
+          "tests": 4,
+          "passed": 4
+        },
+        {
+          "file": "packages/i-am/tests/write-scope-containment.test.ts",
+          "status": "passed",
+          "tests": 32,
+          "passed": 32
+        },
+        {
+          "file": "packages/schema-manager/tests/schema-manager.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "packages/schema-manager/tests/stab1-contracts.test.ts",
+          "status": "passed",
+          "tests": 13,
+          "passed": 13
+        },
+        {
+          "file": "packages/schema-application/tests/fingerprint.test.ts",
+          "status": "passed",
+          "tests": 32,
+          "passed": 32
+        },
+        {
+          "file": "packages/schema-application/tests/resolver.test.ts",
+          "status": "passed",
+          "tests": 25,
+          "passed": 25
+        },
+        {
+          "file": "packages/schema-application/tests/resource-registry.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "packages/schema-application/tests/state-store.test.ts",
+          "status": "passed",
+          "tests": 4,
+          "passed": 4
+        },
+        {
+          "file": "packages/schema-application/tests/verification.test.ts",
+          "status": "passed",
+          "tests": 45,
+          "passed": 45
+        },
+        {
+          "file": "packages/trigger-manager/tests/service-program.test.ts",
+          "status": "passed",
+          "tests": 3,
+          "passed": 3
+        },
+        {
+          "file": "packages/trigger-manager/tests/trigger-manager.test.ts",
+          "status": "passed",
+          "tests": 2,
+          "passed": 2
+        },
+        {
+          "file": "packages/versioned-definition-registry/tests/canonical.test.ts",
+          "status": "passed",
+          "tests": 36,
+          "passed": 36
+        },
+        {
+          "file": "packages/versioned-definition-registry/tests/registry.test.ts",
+          "status": "passed",
+          "tests": 31,
+          "passed": 31
+        }
+      ]
+    },
+    {
+      "name": "wp0-final-targeted",
+      "command": "npx vitest run tests/builder-v1-wp0.test.ts tests/development-application-registry.test.ts tests/wp5-dataset-boundary.test.ts --maxWorkers=1 --testTimeout=15000",
+      "revisionCoverage": "final new-domain guard and changed-update fresh-reader health verification",
+      "totalTests": 3,
+      "passedTests": 3,
+      "failedTests": 0,
+      "skippedTests": 0,
+      "testFiles": [
+        {
+          "file": "tests/builder-v1-wp0.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/development-application-registry.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        },
+        {
+          "file": "tests/wp5-dataset-boundary.test.ts",
+          "status": "passed",
+          "tests": 1,
+          "passed": 1
+        }
+      ]
+    }
+  ],
+  "build": {
+    "dataServices": "passed",
+    "uiPlatform": "passed"
+  },
+  "typecheck": {
+    "dataServices": "passed",
+    "finalDatasetOperations": "passed",
+    "uiPlatform": "passed"
+  },
+  "environment": {
+    "autoReviewRejections": 0,
+    "localLoopback": "approved local execution",
+    "windowsSymlinks": "approved local package link operation",
+    "temporaryStorage": "C:/Projects/Modular/.wp0-test-temp"
+  },
+  "limitations": [
+    "Development-only; production WP7 deferred",
+    "Headless/API and real managed-preview acceptance; no browser-recorded UI-only WP6 journey",
+    "One applied Dataset per configured protected host",
+    "Foreign exact-Dataset references without an available authoritative owner catalog fail closed",
+    "Severe owner-store I/O and activation journals require explicit operator recovery"
+  ],
+  "wp1Started": false
+}

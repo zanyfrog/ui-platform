@@ -46,7 +46,9 @@ export function createApplicationDataProxy(config: ApplicationDataProxyConfig) {
         if (config.v1Identity.resolveUser(request) !== v1UserId) throw new Error('V1_SESSION_CHANGED');
         const payload = Buffer.from(JSON.stringify({ userId: v1UserId, applicationId: config.v1Identity.applicationId,
           authorityId: config.v1Identity.authorityId, policyDigest: config.v1Identity.policyDigest(),
-          issuedAt: Date.now(), nonce: randomBytes(24).toString('hex') })).toString('base64url');
+          // Windows process clocks can differ by a millisecond. A conservative
+          // issuance time shortens the lease; the host still rejects future claims.
+          issuedAt: Date.now() - 100, nonce: randomBytes(24).toString('hex') })).toString('base64url');
         const mac = createHmac('sha256', config.v1Identity.trustedUiServerKey).update(payload).digest('base64url');
         authorization = `Bearer v1.${payload}.${mac}`;
       }
