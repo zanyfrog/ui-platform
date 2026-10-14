@@ -1,14 +1,14 @@
 # Builder End-to-End V1 — Implementation Plan
 
-Date: 2026-10-13. Status: proposed, not executed. Basis: [gap review](builder-end-to-end-v1-gap-review.md). IDs below map directly to its gap register and the [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md).
+Date: 2026-10-13; acceptance status updated 2026-10-14. **WP0 accepted and closed by the user.** Remaining work packages retain their proposed scope. The next authorized planning target is **WP1 — Application Workspace and Artifact Tabs**; no later planning or implementation is started at this acceptance gate. Accepted WP0 [architecture and limitations](builder-v1-wp0-development-onboarding.md), [verification](builder-v1-wp0-verification.md), and [security/runtime evidence](evidence/builder-v1-wp0/acceptance.json) remain the baseline for later work. Basis: [gap review](builder-end-to-end-v1-gap-review.md). IDs below map directly to its gap register and the [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md).
 
 ## Sequence and dependencies
 
-Recommended order: **WP0 development onboarding contracts → WP1 workspace → WP2 editing lifecycle → WP3 data onboarding → WP4 authoring integration → WP5 diagnostics and safe testing → WP6 reference acceptance**. WP0 is an explicit prerequisite because the accepted fixture-only identity and Standard runtime cannot support a newly created protected Application. Workspace work may proceed after its interfaces are agreed; no parallel agent execution is implied.
+Recommended order: **WP0 development onboarding contracts → WP1 workspace → WP2 editing lifecycle → WP3 data onboarding → WP4 authoring integration → WP5 diagnostics and safe testing → WP6 reference acceptance**. WP0 was the explicit prerequisite for new protected development Applications and is now accepted and closed. Its implemented ownership, administration, runtime and recovery contracts are the baseline for WP1 planning; no parallel agent execution is implied.
 
 Dependency chain: WP1 depends on WP0 identity/owner contracts; WP2 on WP1 adapters; WP3 on WP0 and WP2; WP4 on WP1–WP3; WP5 may begin validator mapping after WP0 but completes after WP3/WP4; WP6 requires all earlier gates. A package is complete only when its tests and review gate pass, not when a screen is present.
 
-## WP0 — Development Application authority and host contracts
+## WP0 — Development Application authority and host contracts (accepted and closed)
 
 **Goal:** remove fixture-only integration assumptions without implementing production identity. **Effort: Medium**, potentially Large if existing trusted resource composition cannot serve new development Applications. Addresses G01/G02/G14 prerequisites.
 
@@ -100,4 +100,4 @@ Record each action as **Builder UI**, **direct source edit**, **CLI**, or **fixt
 
 Relative total effort: **Large**; no calendar estimate is defensible before WP0/WP3 contracts are validated. Small work includes grouping/labels and Release placement; these do not offset the large data, lifecycle and validation work. Review at each package gate and stop on discovered architectural prerequisites instead of broadening scope silently.
 
-**STOP: this is a plan. No proposed package was executed in this audit.**
+**STOP: WP0 is accepted and closed. Remaining package descriptions are proposed scope. WP1 — Application Workspace and Artifact Tabs is the next authorized planning target; no later work package has begun.**

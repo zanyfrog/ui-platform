@@ -1,6 +1,6 @@
 # Builder V1 WP0 — Development Application onboarding
 
-Date: 2026-10-14 (America/New_York). Implementation complete; final verification recorded separately. WP1 has not begun.
+Date: 2026-10-14 (America/New_York). **BUILDER V1 WP0 — ACCEPTED AND CLOSED** by the user after architecture and verification review. Accepted evidence and documented limitations are retained below and in the verification record. The next authorized planning target is **WP1 — Application Workspace and Artifact Tabs**; no WP1 planning or implementation is started by this closure.
 
 ## Authority and persistence
 

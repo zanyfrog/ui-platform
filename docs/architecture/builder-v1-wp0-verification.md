@@ -1,6 +1,6 @@
 # Builder V1 WP0 — Verification record
 
-Date: 2026-10-14 (America/New_York). **BUILDER V1 WP0 — READY FOR REVIEW**. This is the development WP0 review gate, not acceptance of WP1 or the UI-only WP6 journey.
+Date: 2026-10-14 (America/New_York). **BUILDER V1 WP0 — ACCEPTED AND CLOSED**. The user completed the architecture and verification review and accepted WP0, its 290/290 UI Platform tests, 747/747 Data Services tests, builds, typechecks and focused security/runtime evidence. Documented limitations are accepted WP0 boundaries; they do not claim completed WP3 or UI-only WP6 functionality. The next authorized planning target is WP1 — Application Workspace and Artifact Tabs. No later work package is begun by this closure.
 
 ## Results
 
@@ -66,4 +66,4 @@ The architecture/runbook is [builder-v1-wp0-development-onboarding.md](builder-v
 
 One configured applied Dataset is served per protected host. Unsupported foreign exact-Dataset references fail closed when that host lacks their authoritative owner catalog. Severe owner-store I/O failures and failed activation journals require explicit operator recovery; no automatic adoption or reseeding is introduced. New service/external-side-effect approval paths, production WP7, Publish/deployment/export changes, Workspace implementation and WP1 were not begun.
 
-**BUILDER V1 WP0 — READY FOR REVIEW**
+**BUILDER V1 WP0 — ACCEPTED AND CLOSED**
