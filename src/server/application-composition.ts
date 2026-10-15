@@ -2,26 +2,31 @@ import { createHash } from 'node:crypto';
 import { lstat, mkdir, readFile, readdir, writeFile, rename } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
-import { regions, remapPageRegions, themeCss, validateMenu, parseSource, parseMetadata, validateArtifact, applyMenuOverrides, composeShellMenus, valueErrors } from '@ui-platform/visual-artifacts';
+import { regions, remapPageRegions, themeCss, validateMenu, parseSource, parseMetadata, validateArtifact, applyMenuOverrides, composeShellMenus, valueErrors, validateCompositionDefinition } from '@ui-platform/visual-artifacts';
 import type { ApplicationMenu, CompositionDefinition, CompositionSettings, PackageComponent } from '@ui-platform/visual-artifacts';
 import { appPath } from './applications.js';
 import { atomicWriteText } from './json-files.js';
 import { VisualArtifactService, toRuntime, platformComponentsRoot } from './visual-artifacts.js';
 import { withApplicationMutation } from './composition-lock.js';
+import { transform } from 'esbuild';
+import { discoverComponents } from './component-registry.js';
 
 const hash = (text: string) => createHash('sha256').update(text).digest('hex');
 export async function compositionSettings(appKey: string): Promise<CompositionSettings | undefined> {
   const settings = JSON.parse(await readFile(path.join(appPath(appKey), 'app.settings.json'), 'utf8'));
   return settings.presentation?.model === 'composition-v1' ? settings.presentation : undefined;
 }
-export async function compositionWorkspace(appKey: string, packages: PackageComponent[] = []): Promise<CompositionDefinition | null> {
-  const settings = await compositionSettings(appKey); if (!settings) return null;
+export async function compositionWorkspace(appKey: string, packages: PackageComponent[] = [], candidate?: { path: string; content: string }): Promise<CompositionDefinition | null> {
+  const settings: CompositionSettings | undefined = candidate?.path === 'app.settings.json' ? JSON.parse(candidate.content).presentation : await compositionSettings(appKey); if (!settings || settings.model !== 'composition-v1') return null;
   if (settings.assetsRoot !== 'assets' || !settings.branding?.applicationName || !Array.isArray(settings.siteStyles)) throw new Error('Composition requires branding, source styles and the Application assets root.');
   const app = appPath(appKey);
   const [shells, pages] = await Promise.all([new VisualArtifactService(path.join(app, 'shells'), 'shell').list(), new VisualArtifactService(path.join(app, 'src/pages'), 'page').list()]);
   const menus: ApplicationMenu[] = [];
-  for (const file of await readdir(path.join(app, 'menus')).catch(() => [])) if (file.endsWith('.json')) {
-    const { content } = await readCompositionSource(appKey, `menus/${file}`);
+  const read = async (relative: string) => candidate?.path === relative ? candidate.content : (await readCompositionSource(appKey, relative)).content;
+  const menuFiles = new Set(await readdir(path.join(app, 'menus')).catch(() => []));
+  if (candidate?.path.startsWith('menus/')) menuFiles.add(candidate.path.slice('menus/'.length));
+  for (const file of menuFiles) if (file.endsWith('.json')) {
+    const content = await read(`menus/${file}`);
     const menu = JSON.parse(content); validateMenu(menu); menus.push({ ...menu, sourcePath: `menus/${file}` });
   }
   const valid = (items: typeof shells) => items.map(item => { if (!item.metadata || item.diagnostics.some(d => d.severity === 'error')) throw new Error(`Repair ${item.locator}.`); return toRuntime(item)!; });
@@ -50,7 +55,7 @@ export async function compositionWorkspace(appKey: string, packages: PackageComp
   });
   const menuIds = new Set<string>(); for (const menu of menus) { if (menuIds.has(menu.menuId)) throw new Error('Duplicate Menu identity.'); menuIds.add(menu.menuId); }
   themeCss(settings);
-  const siteCss = (await Promise.all(settings.siteStyles.map(async file => (await readCompositionSource(appKey, file)).content))).join('\n');
+  const siteCss = (await Promise.all((settings.siteStyles as string[]).map(read))).join('\n');
   const definition = { settings, shells: runtimeShells, pages: runtimePages, routes, menus, siteCss };
   for (const page of runtimePages) {
     const shell = runtimeShells.find(shell => shell.metadata.artifactId === page.metadata.shellId)!;
@@ -73,6 +78,7 @@ export async function compositionWorkspace(appKey: string, packages: PackageComp
   for (const value of [settings.branding.primaryLogo, settings.branding.secondaryLogo, settings.branding.favicon]) if (value) {
     if (!(await compositionAssetInfo(appKey, value)).hash) throw new Error(`Branding asset is missing: ${value}.`);
   }
+  validateCompositionDefinition(definition, components, packages);
   return definition;
 }
 export async function compositionSourcePath(appKey: string, relative: string): Promise<string> {
@@ -95,10 +101,12 @@ export async function compositionAssetInfo(appKey: string, relative: string) {
   const content = await readFile(await compositionSourcePath(appKey, relative)).catch(error => { if (error.code === 'ENOENT') return null; throw error; });
   return { path: relative, hash: content ? createHash('sha256').update(content).digest('hex') : null };
 }
-export async function saveCompositionAsset(appKey: string, relative: string, content: Buffer, expectedHash: string | null) {
+export async function saveCompositionAsset(appKey: string, relative: string, content: Buffer, expectedHash: string | null, admit: () => Promise<void> = async () => {}) {
   return locked(appKey, async () => {
     const current = await compositionAssetInfo(appKey, relative);
     if (current.hash !== expectedHash) throw new Error('Application asset changed. Reload before replacing it.');
+    await admit();
+    if ((await compositionAssetInfo(appKey, relative)).hash !== expectedHash) throw Object.assign(new Error('Application asset changed during admission.'), { status: 409 });
     const file = await compositionSourcePath(appKey, relative); await mkdir(path.dirname(file), { recursive: true });
     const temporary = `${file}.${randomUUID()}.tmp`; await writeFile(temporary, content); await rename(temporary, file);
     return compositionAssetInfo(appKey, relative);
@@ -107,11 +115,12 @@ export async function saveCompositionAsset(appKey: string, relative: string, con
 export async function readCompositionSource(appKey: string, relative: string): Promise<{ path: string; content: string; hash: string }> {
   const content = await readFile(await compositionSourcePath(appKey, relative), 'utf8'); return { path: relative, content, hash: hash(content) };
 }
-export async function saveCompositionSource(appKey: string, relative: string, content: string, expectedHash: string | null) {
+export async function saveCompositionSource(appKey: string, relative: string, content: string, expectedHash: string | null, admit: () => Promise<void> = async () => {}) {
   return locked(appKey, async () => {
     const file = await compositionSourcePath(appKey, relative);
     const current = await readFile(file, 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error; });
-    if (current === null ? expectedHash !== null : !expectedHash || hash(current) !== expectedHash) throw new Error('Composition source changed. Reload or recover before saving.');
+    if (current === null ? expectedHash !== null : !expectedHash || hash(current) !== expectedHash) throw Object.assign(new Error('Composition source changed. Reload or recover before saving.'), { status: 409 });
+    try {
     if (relative.startsWith('menus/')) {
       const menu = JSON.parse(content) as ApplicationMenu; validateMenu(menu);
       if (current && JSON.parse(current).menuId !== menu.menuId) throw new Error('Menu identity is immutable.');
@@ -125,7 +134,17 @@ export async function saveCompositionSource(appKey: string, relative: string, co
       if (!shells.some(shell => shell.metadata?.artifactId === value.presentation.defaultShellId)) throw new Error('Default Shell is missing.');
       for (const style of value.presentation.siteStyles) await compositionSourcePath(appKey, style);
     }
-    await atomicWriteText(file, content); return readCompositionSource(appKey, relative);
+    if (relative.startsWith('styles/')) {
+      const css = await transform(content, { loader: 'css', logLevel: 'silent' });
+      if (css.warnings.length) throw new Error(css.warnings.map(item => item.text).join(' '));
+    }
+    try { await compositionWorkspace(appKey, await discoverComponents(appKey), { path: relative, content }); }
+    catch { throw new Error('The candidate conflicts with Application composition. Check related routes, Menus, Shells and styles before saving.'); }
+    } catch (error) { throw Object.assign(error instanceof Error ? error : new Error(String(error)), { status: 422 }); }
+    await admit();
+    if (await readFile(file, 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error; }) !== current) throw Object.assign(new Error('Composition source changed during save admission.'), { status: 409 });
+    if (content !== current) await atomicWriteText(file, content);
+    return { path: relative, content, hash: hash(content) };
   });
 }
 export async function validateCompositionEdit(appKey: string, kind: 'page' | 'shell', locator: string, role: string, content: string): Promise<void> {
@@ -146,7 +165,7 @@ export async function validateCompositionEdit(appKey: string, kind: 'page' | 'sh
     if (users.length) throw new Error(`Region removal/ID change requires remapping dependent Pages first: ${users.map(page => page.metadata?.name).join(', ')}.`);
   }
 }
-export async function changePageShell(appKey: string, locator: string, shellId: string, decisions: Record<string, string | null>, expectedHash: string) {
+export async function changePageShell(appKey: string, locator: string, shellId: string, decisions: Record<string, string | null>, expectedHash: string, admit: () => Promise<void> = async () => {}) {
   return locked(appKey, async () => {
     const pages = new VisualArtifactService(path.join(appPath(appKey), 'src/pages'), 'page');
     const page = await pages.read(locator); if (page.hash !== expectedHash) throw new Error('Page changed. Reload before changing Shell.');
@@ -158,9 +177,10 @@ export async function changePageShell(appKey: string, locator: string, shellId: 
     for (const key of ['bindings', 'conditions', 'repeaters', 'events'] as const) metadata[key] = metadata[key]?.filter(item => retainedIds.has(item.node)) as never;
     if (metadata.layout) metadata.layout = Object.fromEntries(Object.entries(metadata.layout).filter(([id]) => retainedIds.has(id)));
     if (metadata.modes) for (const [mode, overrides] of Object.entries(metadata.modes.overrides)) metadata.modes.overrides[mode] = Object.fromEntries(Object.entries(overrides).filter(([id]) => retainedIds.has(id)));
-    // Both writes run under the application composition lock and retain stale checks.
-    const saved = await pages.save(locator, 'source', source, expectedHash);
-    return pages.save(locator, 'metadata', JSON.stringify(metadata, null, 2) + '\n', saved.hash);
+    // One Foundation transaction for the complete Shell-remapped Page candidate.
+    const { prepareVisualCandidate } = await import('./visual-candidate.js');
+    const validation = await prepareVisualCandidate(appKey, 'page', locator, await discoverComponents(appKey), true);
+    return pages.saveCandidate(locator, { ...page.files, source, metadata: JSON.stringify(metadata, null, 2) + '\n' }, expectedHash, { validate: candidate => validation.validate(candidate), admit: async () => { await validation.recheck(); await admit(); } });
   });
 }
 export async function assertShellUnused(appKey: string, shellId: string): Promise<void> {

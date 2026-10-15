@@ -1,10 +1,14 @@
 import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readPackageSettings, setNodeAttribute, regions, recommendedRegionIds } from '@ui-platform/visual-artifacts';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
 import type { ComponentCatalogEntry } from '../../shared/types.js';
+import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
+import { specializedTransport, type SourceRequest } from '../artifact-editor/specialized-transport.js';
 
 export interface Workspace { pages: ArtifactBundle[]; components: ArtifactBundle[]; shells: ArtifactBundle[]; packages: ComponentCatalogEntry[] }
 export interface VisualWorkspaceOptions {
   request?: typeof api; workspace?: Workspace; initial?: { kind: 'page' | 'component' | 'shell'; locator: string };
+  captureRequest?: () => SourceRequest;
+  applicationId?: string;
   onDefinition?: (componentId: string) => void; onStateChange?: () => void;
   applicationKey?: () => string;
 }
@@ -14,19 +18,22 @@ async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const data = await response.json(); if (!response.ok) throw new Error(data.error ?? 'Visual Artifact request failed.'); return data;
 }
 export async function mountVisualEditor(target: HTMLElement, appKey: string, options: VisualWorkspaceOptions = {}) {
-  const request = options.request ?? api;
+  const copies = new Map<string, { bundle: ArtifactBundle; kind: 'page' | 'component' | 'shell'; lifecycle: EditingLifecycle<ArtifactFiles>; saveRequest?: SourceRequest }>();
+  let copy: ReturnType<typeof copies.get>;
+  const transport = await specializedTransport(options, () => { for (const item of copies.values()) item.lifecycle.suspend(); target.hidden = true; });
+  const request = transport.request;
   let active = !options.initial, disposed = false, operations = 0;
   const base = `/api/apps/${encodeURIComponent(appKey)}`;
   let workspace: Workspace, selected: ArtifactBundle | undefined, selectedKind: 'page' | 'component' | 'shell' = 'page';
   let files: ArtifactFiles, baseline: ArtifactFiles, hash = '', role: keyof ArtifactFiles = 'source', selectedNode = '', conflict = false, saving = false;
   let preview: HTMLIFrameElement | undefined, polling = false;
-  const dirty = () => files && JSON.stringify(files) !== JSON.stringify(baseline);
+  const dirty = () => !!copy?.lifecycle.dirty;
   const list = (kind: string) => kind === 'page' ? workspace.pages : kind === 'shell' ? workspace.shells : workspace.components;
   const plural = (kind: string) => kind === 'page' ? 'pages' : kind === 'shell' ? 'shells' : 'components';
   const url = () => `${base}/visual-${plural(selectedKind)}?locator=${encodeURIComponent(selected!.locator)}`;
   target.innerHTML = `<div class="stack"><div class="pane-heading"><strong>Visual Artifacts</strong><span data-status aria-live="polite"></span></div>
     <div class="editor-actions"><button data-create="page">Create Page</button><button data-create="component">Create Platform Component</button><button data-create="form-dataset">Create Form from Dataset</button><button data-create="form">Create blank Form</button><select aria-label="Visual Artifact" data-artifacts><option value="">Select an artifact</option></select></div>
-    <div data-work hidden><div class="editor-actions"><button data-save>Save changed files</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Preview</button><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
+    <div data-work hidden><div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-repair>Advanced source repair save</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Preview</button><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
     <div data-diagnostics></div><div class="builder-layout" style="grid-template-columns:minmax(180px,1fr) minmax(220px,2fr)"><div class="stack"><strong>Structure</strong><select data-nodes size="8" aria-label="Visual node"></select>
     <label>Insert into selected HTML container, or artifact root<select data-insert aria-label="Insert element"></select></label><button data-add>Insert with layout wrapper</button><button data-root>Select artifact root</button><button data-move="up">Move layout item up</button><button data-move="down">Move layout item down</button><div data-inspector></div></div>
     <div class="stack"><label>Source file<select data-file aria-label="Visual source file">${['source', 'css', 'metadata', 'fixtures', 'code'].map(name => `<option>${name}</option>`).join('')}</select></label><textarea data-source aria-label="Visual source" class="source-editor" spellcheck="false"></textarea><p class="note">Manual source is preserved. Conditions, repeaters, events, slots and data sources can be edited in metadata. Optional named functions belong in code.</p></div></div><div data-preview-host></div></div></div>`;
@@ -81,7 +88,19 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   }
   function workingMetadata(): ArtifactMetadata { const metadata = parseMetadata(files.metadata).metadata; if (!metadata) throw new Error('Repair metadata JSON first.'); return metadata; }
   function changeMetadata(change: (metadata: ArtifactMetadata) => void): void { const metadata = workingMetadata(); change(metadata); files.metadata = JSON.stringify(metadata, null, 2) + '\n'; changed(); }
-  function changed(): void { status(conflict ? 'External changes conflict with editor work. Recover or reload before saving.' : dirty() ? 'Unsaved changes' : 'No changes'); find<HTMLButtonElement>('[data-save]').disabled = conflict || !dirty(); if (role !== 'source') find<HTMLTextAreaElement>('[data-source]').value = files[role]; try { renderStructure(); } catch { status('Invalid local source retained. Repair source before using structured controls.'); } }
+  function paintState(): void {
+    const lifecycle = copy?.lifecycle;
+    conflict = lifecycle?.state === 'conflict'; saving = lifecycle?.state === 'saving';
+    status(lifecycle ? [editingStatus(lifecycle.state, lifecycle.dirty), lifecycle.failure, lifecycle.notice].filter(Boolean).join(' · ') : 'Select an artifact');
+    find<HTMLButtonElement>('[data-save]').disabled = conflict || !lifecycle?.dirty;
+    find<HTMLButtonElement>('[data-undo]').disabled = !lifecycle?.canUndo;
+    find<HTMLButtonElement>('[data-redo]').disabled = !lifecycle?.canRedo;
+  }
+  function changed(group?: string): void {
+    if (copy && JSON.stringify(files) !== JSON.stringify(copy.lifecycle.current)) { copy.saveRequest = transport.capture(); copy.lifecycle.edit(files, group); }
+    paintState(); if (role !== 'source') find<HTMLTextAreaElement>('[data-source]').value = files[role];
+    try { renderStructure(); } catch { status('Invalid local source retained. Repair source before using structured controls.'); }
+  }
   function renderStructure(): void {
     const parsed = parseSource(files.source);
     const selector = find<HTMLSelectElement>('[data-nodes]');
@@ -223,8 +242,31 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     };
     inspector.querySelector('[data-breakpoint]')!.addEventListener('change', renderLayout); renderLayout();
   }
-  function open(bundle: ArtifactBundle, kind: 'page' | 'component' | 'shell'): void {
-    selected = bundle; selectedKind = kind; files = structuredClone(bundle.files); baseline = structuredClone(files); hash = bundle.hash; conflict = false; selectedNode = ''; role = 'source';
+  function open(bundle: ArtifactBundle, kind: 'page' | 'component' | 'shell', replace = false): void {
+    const key = `${kind}:${bundle.locator}`;
+    let retained = copies.get(key);
+    if (!retained) {
+      const record = { bundle, kind, lifecycle: undefined! as EditingLifecycle<ArtifactFiles>, saveRequest: undefined as SourceRequest | undefined };
+      record.lifecycle = new EditingLifecycle(bundle.files, async candidate => {
+        const authorized = record.saveRequest;
+        if (!authorized) throw new Error('The original authorized editing context is required.');
+        const saved = await authorized<ArtifactBundle>(`${base}/visual-${plural(record.kind)}?locator=${encodeURIComponent(record.bundle.locator)}`, { method: 'PUT', body: JSON.stringify({ mode: 'normal', files: candidate, expectedHash: record.bundle.hash }) });
+        record.bundle = saved; return saved.files;
+      });
+      record.lifecycle.subscribe(() => {
+        if (copy === record) {
+          const changedSource = JSON.stringify(files) !== JSON.stringify(record.lifecycle.current);
+          files = structuredClone(record.lifecycle.current); baseline = structuredClone(record.lifecycle.baseline); selected = record.bundle; hash = record.bundle.hash;
+          if (changedSource) { find<HTMLTextAreaElement>('[data-source]').value = files[role]; try { renderStructure(); } catch { /* Invalid draft remains editable. */ } }
+          paintState();
+        } else options.onStateChange?.();
+      });
+      copies.set(key, record); retained = record;
+    } else if (!retained.lifecycle.inFlight) {
+      if (replace || bundle.hash !== retained.bundle.hash && !retained.lifecycle.dirty) { retained.bundle = bundle; retained.lifecycle.reset(bundle.files); }
+      else if (bundle.hash !== retained.bundle.hash) retained.lifecycle.conflict();
+    }
+    copy = retained; selected = retained.bundle; selectedKind = kind; files = structuredClone(retained.lifecycle.current); baseline = structuredClone(retained.lifecycle.baseline); hash = retained.bundle.hash; conflict = retained.lifecycle.state === 'conflict'; selectedNode = ''; role = 'source';
     find('[data-work]').hidden = false; find<HTMLSelectElement>('[data-file]').value = role; find<HTMLTextAreaElement>('[data-source]').value = files.source;
     renderList(); changed();
     find('[data-change-shell]').hidden = kind !== 'page' || !bundle.metadata?.shellId;
@@ -232,10 +274,13 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     find('[data-place-menu]').hidden = kind !== 'shell';
     if (kind === 'page' && bundle.metadata?.shellId) void showPreview();
   }
-  find('[data-artifacts]').addEventListener('change', safe(() => {
-    if (dirty() && !confirm('Discard unsaved editor changes? Download recovery first if needed.')) { renderList(); return; }
+  let selectionGeneration = 0;
+  find('[data-artifacts]').addEventListener('change', safe(async () => {
+    const generation = ++selectionGeneration;
     const [kind, ...path] = find<HTMLSelectElement>('[data-artifacts]').value.split(':');
-    const bundle = list(kind).find(b => b.locator === path.join(':')); if (bundle) open(bundle, kind as 'page');
+    const locator = path.join(':'); if (!list(kind).some(bundle => bundle.locator === locator)) return;
+    const bundle = await request<ArtifactBundle>(`${base}/visual-${plural(kind)}?locator=${encodeURIComponent(locator)}`);
+    if (generation === selectionGeneration && active && !disposed) open(bundle, kind as 'page');
   }));
   target.querySelectorAll<HTMLButtonElement>('[data-create]').forEach(button => button.addEventListener('click', safe(async () => {
     if (dirty()) throw new Error('Save or recover editor changes before creating another artifact.');
@@ -252,7 +297,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     workspace = await request<Workspace>(`${base}/visual-artifacts`); open(bundle, kind);
   })));
   find('[data-file]').addEventListener('change', () => { role = find<HTMLSelectElement>('[data-file]').value as keyof ArtifactFiles; find<HTMLTextAreaElement>('[data-source]').value = files[role]; });
-  find('[data-source]').addEventListener('input', () => { files[role] = find<HTMLTextAreaElement>('[data-source]').value; changed(); });
+  find('[data-source]').addEventListener('input', () => { files[role] = find<HTMLTextAreaElement>('[data-source]').value; changed(`source:${role}`); });
   find('[data-nodes]').addEventListener('change', () => { selectedNode = find<HTMLSelectElement>('[data-nodes]').value; renderInspector(); });
   find('[data-root]').addEventListener('click', () => { selectedNode = ''; renderStructure(); });
   target.querySelectorAll<HTMLButtonElement>('[data-move]').forEach(button => button.addEventListener('click', safe(() => { files.source = moveNode(files.source, selectedNode, button.dataset.move as 'up' | 'down'); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })));
@@ -268,40 +313,51 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     files.source = insertNode(files.source, tag, kind === 'html' ? undefined : reference, selectedNode || undefined); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
   }));
   find('[data-save]').addEventListener('click', safe(async () => {
-    if (conflict || saving) throw new Error('Resolve external changes before saving.'); saving = true; find('[data-work]').inert = true;
-    try {
-      for (const name of Object.keys(files) as Array<keyof ArtifactFiles>) if (files[name] !== baseline[name]) {
-        const saved = await request<ArtifactBundle>(url(), { method: 'PUT', body: JSON.stringify({ role: name, content: files[name], expectedHash: hash }) });
-        hash = saved.hash; baseline[name] = files[name]; selected = saved;
-      }
-      workspace = await request<Workspace>(`${base}/visual-artifacts`); selected = list(selectedKind).find(b => b.locator === selected!.locator) ?? selected;
-      renderList(); changed(); status('Saved and validated');
-    } finally { saving = false; find('[data-work]').inert = false; options.onStateChange?.(); }
+    if (!copy) return; copy.saveRequest = transport.capture(); await copy.lifecycle.flush();
   }));
-  find('[data-reload]').addEventListener('click', safe(async () => { if (dirty() && !confirm('Discard editor changes and reload disk source?')) return; open(await request<ArtifactBundle>(url()), selectedKind); }));
+  for (const action of ['undo', 'redo'] as const) find(`[data-${action}]`).addEventListener('click', safe(() => { if (!copy) return; copy.saveRequest = transport.capture(); copy.lifecycle[action](); }));
+  find('[data-repair]').addEventListener('click', safe(async () => {
+    if (!copy || conflict || !confirm('Save this complete source candidate through Advanced Repair? Invalid source may block previews.')) return;
+    const original = copy, authorized = transport.capture(); original.lifecycle.suspend(); find('[data-work]').inert = true;
+    try {
+      await original.lifecycle.inFlight;
+      const saved = await authorized<ArtifactBundle>(url(), { method: 'PUT', body: JSON.stringify({ mode: 'repair', files: original.lifecycle.current, expectedHash: original.bundle.hash }) });
+      original.bundle = saved; original.lifecycle.reset(saved.files);
+    } finally { original.lifecycle.resume(); find('[data-work]').inert = false; }
+  }));
+  find('[data-reload]').addEventListener('click', safe(async () => {
+    if (!copy || dirty() && !confirm('Discard editor changes and reload disk source?')) return;
+    const original = copy, kind = selectedKind, section = role, authorized = transport.capture();
+    find('[data-work]').inert = true; original.lifecycle.suspend();
+    try {
+      await original.lifecycle.inFlight;
+      const saved = await authorized<ArtifactBundle>(`${base}/visual-${plural(kind)}?locator=${encodeURIComponent(original.bundle.locator)}`);
+      if (copy === original) { open(saved, kind, true); role = section; find<HTMLSelectElement>('[data-file]').value = role; find<HTMLTextAreaElement>('[data-source]').value = files[role]; }
+      else { original.bundle = saved; original.lifecycle.reset(saved.files); }
+    } finally { original.lifecycle.resume(); find('[data-work]').inert = false; }
+  }));
   find('[data-recover]').addEventListener('click', () => {
     const blob = URL.createObjectURL(new Blob([JSON.stringify({ locator: selected?.locator, files, originalHash: hash }, null, 2)], { type: 'application/json' }));
     const link = document.createElement('a'); link.href = blob; link.download = 'visual-artifact-recovery.json'; link.click(); setTimeout(() => URL.revokeObjectURL(blob), 1000);
   });
   find('[data-delete]').addEventListener('click', safe(async () => {
     if (dirty() || conflict) throw new Error('Save or recover changes before deletion.'); if (!confirm('Move this artifact bundle to the Recycle Bin?')) return;
-    await request(url(), { method: 'DELETE', body: JSON.stringify({ expectedHash: hash }) }); selected = undefined; find('[data-work]').hidden = true; workspace = await request<Workspace>(`${base}/visual-artifacts`); renderList(); status('Deleted');
+    await request(url(), { method: 'DELETE', body: JSON.stringify({ expectedHash: hash }) }); if (copy) { await copy.lifecycle.dispose(); copies.delete(`${selectedKind}:${selected!.locator}`); } copy = undefined; selected = undefined; find('[data-work]').hidden = true; workspace = await request<Workspace>(`${base}/visual-artifacts`); renderList(); status('Deleted');
   }));
   async function showPreview(): Promise<void> {
     if (!active || disposed) return;
     if (dirty() || conflict) throw new Error('Save source before previewing.');
     preview?.remove(); preview = document.createElement('iframe'); preview.title = 'Visual Artifact runtime preview'; preview.src = '/visual-preview.html'; preview.style.cssText = 'width:100%;min-height:500px;border:1px solid #ccc';
-    const composition = selected?.metadata?.shellId || selectedKind === 'shell' ? await request(`${base}/composition`) : null;
     if (!active || disposed || !preview) return;
     const frame = preview, previewApplicationKey = options.applicationKey?.() ?? appKey;
-    frame.addEventListener('load', () => { if (active && !disposed && frame === preview) frame.contentWindow!.postMessage({ type: 'uip-preview', bundle: selected, composition, shells: workspace.shells, components: workspace.components, packages: workspace.packages as PackageComponent[], appKey: previewApplicationKey }, location.origin); });
+    frame.addEventListener('load', () => { if (active && !disposed && frame === preview) frame.contentWindow!.postMessage({ type: 'uip-preview', locator: selected!.locator, kind: selectedKind, hash, appKey: previewApplicationKey }, location.origin); });
     find('[data-preview-host]').append(preview);
   }
   find('[data-preview]').addEventListener('click', safe(showPreview));
   async function refresh(event?: Event): Promise<void> {
     if (disposed || options.initial && !active) return;
-    if (!options.initial && !target.isConnected) { clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); return; }
-    if (polling || saving) return; polling = true;
+    if (!target.isConnected) return;
+    if (polling || saving || operations > 0) return; polling = true;
     try {
       const next = await request<Workspace>(`${base}/visual-artifacts`);
       if (disposed || options.initial && !active) return;
@@ -310,7 +366,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       if (selected) {
         const disk = list(selectedKind).find(b => b.locator === selected!.locator);
         if (!disk || disk.hash !== hash) {
-          if (dirty()) { conflict = true; changed(); }
+          if (dirty()) { copy?.lifecycle.conflict(); changed(); }
           else if (disk) { const node = selectedNode; open(disk, selectedKind); selectedNode = node; renderStructure(); status('Reloaded external source changes'); }
           else { conflict = true; status('Artifact was removed externally. Download recovery before changing selection.'); }
         } else if (!dirty() && !conflict && selected.metadata?.shellId && (dependenciesChanged || event)) { renderStructure(); await showPreview(); }
@@ -319,28 +375,29 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   }
   workspace = options.workspace ?? await request<Workspace>(`${base}/visual-artifacts`); renderList(); status('Select or create a Visual Artifact');
   if (options.initial) { find('[data-artifacts]').parentElement!.hidden = true; const bundle = list(options.initial.kind).find(b => b.locator === options.initial!.locator); if (!bundle) throw new Error('Artifact unavailable.'); open(bundle, options.initial.kind); }
-  const beforeUnload = (event: BeforeUnloadEvent) => { if (dirty()) { event.preventDefault(); event.returnValue = ''; } };
-  window.addEventListener('beforeunload', beforeUnload);
-  const timer = setInterval(() => { if (!options.initial && !target.isConnected) window.removeEventListener('beforeunload', beforeUnload); void refresh(); }, 3000);
+  const unprotect = protectEditingDraft(() => [...copies.values()].some(item => item.lifecycle.dirty || item.lifecycle.state === 'conflict'));
+  const timer = setInterval(() => { void refresh(); }, 3000);
   document.addEventListener('ui-platform-workspace-change', refresh);
   return {
-    state: () => ({ dirty: !!dirty(), pending: saving || operations > 0, conflict }),
+    state: () => ({ dirty: [...copies.values()].some(item => item.lifecycle.dirty), pending: saving || operations > 0, conflict }),
     deactivate() { active = false; preview?.remove(); preview = undefined; },
+    suspend() { for (const item of copies.values()) item.lifecycle.suspend(); target.hidden = true; },
     focus(next: Workspace, navigation: { node?: string; section?: string } = {}) {
       workspace = next;
       const disk = list(selectedKind).find(b => b.locator === selected?.locator);
       if (!disk) throw new Error('Artifact unavailable.');
-      if (disk.hash !== hash) {
-        if (dirty()) { conflict = true; changed(); }
+      if (disk.hash !== hash && !copy?.lifecycle.inFlight) {
+        if (dirty()) { copy?.lifecycle.conflict(); changed(); }
         else { const node = selectedNode, section = role; open(disk, selectedKind); selectedNode = node; role = section; }
       }
       active = true;
+      target.hidden = false; copy?.lifecycle.resume();
       if (navigation.node !== undefined) selectedNode = navigation.node;
       if (navigation.section && ['source', 'css', 'metadata', 'fixtures', 'code'].includes(navigation.section)) role = navigation.section as keyof ArtifactFiles;
       find<HTMLSelectElement>('[data-file]').value = role;
       find<HTMLTextAreaElement>('[data-source]').value = files[role];
       try { renderStructure(); } catch { status('Invalid local source retained. Repair source before using structured controls.'); }
     },
-    dispose() { disposed = true; active = false; clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); window.removeEventListener('beforeunload', beforeUnload); preview?.remove(); target.replaceChildren(); },
+    async dispose() { disposed = true; active = false; clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(item => item.lifecycle.dispose())); preview?.remove(); target.replaceChildren(); },
   };
 }

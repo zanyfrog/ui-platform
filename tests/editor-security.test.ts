@@ -88,6 +88,18 @@ async function fixture(overrides: Partial<EditorSecurityOptions> = {}) {
 }
 
 describe('editor HTTP authorization around the real workspace', () => {
+  it('returns authorized normal-candidate diagnostics without paths or hidden identities and leaves source unchanged', async () => {
+    const f = await fixture(), client = await f.client('editor'), locator = await f.locator('public-form');
+    const endpoint = `/api/apps/alpha/artifacts/${locator}`, before = await client.call(endpoint);
+    const result = await client.call(endpoint, 'PUT', { mode: 'normal', expectedChecksum: before.body.checksum, files: { 'form.json': '{' } });
+    expect(result.status).toBe(422); expect(result.body.validation.valid).toBe(false); expect(result.body.validation.diagnostics.length).toBeGreaterThan(0);
+    expect(JSON.stringify(result.body)).not.toContain(f.root); expect(JSON.stringify(result.body)).not.toContain('secret-trigger');
+    expect(await readFile(path.join(f.root, 'alpha/public-form/form.json'), 'utf8')).toBe('{"fields":[]}');
+    expect((await client.call(endpoint)).body.checksum).toBe(before.body.checksum);
+    await client.select('viewer');
+    const denied = await client.call(endpoint, 'PUT', { mode: 'normal', expectedChecksum: before.body.checksum, files: { 'form.json': '{' } });
+    expect(denied.status).toBe(403); expect(denied.body).not.toHaveProperty('validation');
+  });
   it('uses the WP3 graph and durable gate for real HTTP security activation, independent of fixture admin labels', async () => {
     const dbRoot = await mkdtemp(path.join(os.tmpdir(), 'iam-wp3-http-')); cleanups.push(() => rm(dbRoot, { recursive: true, force: true }));
     const store = new SecurityDefinitionStore(path.join(dbRoot, 'security.sqlite')); cleanups.push(async () => store.close());

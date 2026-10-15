@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from 'node:crypto';
-import { lstat, mkdir, readdir, readFile, rename, realpath } from 'node:fs/promises';
+import { lstat, mkdir, readdir, readFile, rename, realpath, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { componentReferences, generateForm, parseMetadata, validateArtifact } from '@ui-platform/visual-artifacts';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, DatasetDefinition, PackageComponent, RuntimeArtifact } from '@ui-platform/visual-artifacts';
@@ -7,15 +7,19 @@ import { atomicWriteText } from './json-files.js';
 import { moveToOsTrash } from './trash.js';
 import { appPath } from './applications.js';
 import { appsDir, platformRoot } from './paths.js';
+import { readRoleBundle, saveRoleBundle, recoverRoleBundleRoot, type RoleBundleLocation } from '@ui-platform/artifacts/storage';
 
 export const platformComponentsRoot = path.join(platformRoot, 'components');
 const roles = { source: '.html', css: '.css', metadata: '.visual.json', fixtures: '.fixtures.json', code: '.functions.ts' } as const;
 const hash = (files: ArtifactFiles) => createHash('sha256').update(JSON.stringify(files)).digest('hex');
-const locks = new Map<string, Promise<unknown>>();
 
 /** One file service for Pages and Components; roots and metadata are the specializations. */
 export class VisualArtifactService {
-  constructor(readonly root: string, readonly kind: 'page' | 'component' | 'shell') {}
+  constructor(readonly root: string, readonly kind: 'page' | 'component' | 'shell', private faults: Pick<import('@ui-platform/artifacts/storage').RoleBundleSave, 'beforeWrite' | 'beforeRollbackWrite'> = {}) {}
+  private async location(locator: string): Promise<RoleBundleLocation> {
+    const file = await this.file(locator), stem = path.basename(file, '.visual.json');
+    return { root: this.root, directory: path.dirname(file), anchor: path.basename(file), paths: Object.values(roles).map(extension => stem + extension) };
+  }
   async file(locator: string, create = false): Promise<string> {
     if (!locator.endsWith('.visual.json') || locator.includes('\\') || locator.split('/').some(p => !/^[a-zA-Z0-9_-]+(?:\.visual\.json)?$/.test(p))) throw new Error('Invalid Visual Artifact locator.');
     for (let ancestor = path.resolve(this.root); ; ancestor = path.dirname(ancestor)) {
@@ -31,9 +35,10 @@ export class VisualArtifactService {
       const info = await lstat(current).catch(error => { if (error.code === 'ENOENT') return null; throw error; });
       if (info?.isSymbolicLink()) throw new Error('Visual Artifact paths cannot contain symlinks.');
     }
-    return current;
+    return realpath(current).catch(error => { if (error.code === 'ENOENT') return current; throw error; });
   }
   async list(): Promise<ArtifactBundle[]> {
+    await recoverRoleBundleRoot(this.root);
     const locators: string[] = [];
     const walk = async (dir: string, prefix = '') => {
       for (const entry of await readdir(dir, { withFileTypes: true }).catch(error => { if (error.code === 'ENOENT') return []; throw error; })) {
@@ -63,12 +68,8 @@ export class VisualArtifactService {
     const file = await this.file(locator);
     const stem = file.slice(0, -'.visual.json'.length);
     const files = {} as ArtifactFiles;
-    for (const [role, extension] of Object.entries(roles)) {
-      const target = `${stem}${extension}`;
-      const info = await lstat(target).catch(error => { if (error.code === 'ENOENT') return null; throw error; });
-      if (info?.isSymbolicLink()) throw new Error('Visual Artifact files cannot be symlinks.');
-      (files as unknown as Record<string, string>)[role] = info ? await readFile(target, 'utf8') : '';
-    }
+    const snapshot = await readRoleBundle(await this.location(locator));
+    for (const [role, extension] of Object.entries(roles)) files[role as keyof ArtifactFiles] = snapshot.files[path.basename(stem) + extension] ?? '';
     if (!files.metadata) throw new Error('Visual Artifact metadata is missing.');
     const parsed = parseMetadata(files.metadata);
     const diagnostics = [...parsed.diagnostics];
@@ -77,7 +78,7 @@ export class VisualArtifactService {
     try { JSON.parse(files.fixtures || '{}'); } catch { diagnostics.push({ severity: 'error', message: 'Preview fixtures are invalid JSON.' }); }
     return { locator, files, hash: hash(files), metadata: parsed.metadata, diagnostics };
   }
-  async create(name: string, route?: string, form?: { dataset?: DatasetDefinition }, shellId?: string, initialRegionId: string | null = 'region-main'): Promise<ArtifactBundle> {
+  async create(name: string, route?: string, form?: { dataset?: DatasetDefinition }, shellId?: string, initialRegionId: string | null = 'region-main', admit: () => Promise<void> = async () => {}): Promise<ArtifactBundle> {
     if (!/^[a-z][a-z0-9-]*$/.test(name)) throw new Error('Use a lowercase name with letters, numbers, and hyphens.');
     const locator = `${name}/${this.kind}.visual.json`;
     const file = await this.file(locator, true);
@@ -88,31 +89,45 @@ export class VisualArtifactService {
     if (shellId || this.kind === 'shell') files.source = initialRegionId ? `<main class="uip-layout-item" data-uip-node="node_${randomUUID()}" data-uip-region="${initialRegionId}" data-uip-region-name="Main Content"></main>\n` : '<!-- No Page Region overrides; use Shell defaults. -->\n';
     if (shellId) files.source = '<!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->\n';
     await mkdir(temporary);
+    try {
     for (const [role, extension] of Object.entries(roles)) await atomicWriteText(path.join(temporary, `${this.kind}${extension}`), files[role as keyof ArtifactFiles]);
     if (this.kind === 'page') await atomicWriteText(path.join(temporary, 'index.ts'), pageEntry());
-    await rename(temporary, path.dirname(file));
+    await admit(); await rename(temporary, path.dirname(file));
+    } finally { await rm(temporary, { recursive: true, force: true }); }
     return this.read(locator);
   }
-  async save(locator: string, role: keyof ArtifactFiles, content: string, expectedHash: string): Promise<ArtifactBundle> {
+  async save(locator: string, role: keyof ArtifactFiles, content: string, expectedHash: string, admit?: () => Promise<void>): Promise<ArtifactBundle> {
     if (!Object.hasOwn(roles, role) || typeof content !== 'string' || !expectedHash) throw new Error('File role, text, and expected hash are required.');
-    const key = `${this.root}/${locator}`;
-    const previous = locks.get(key) ?? Promise.resolve();
-    const next = previous.catch(() => {}).then(async () => {
-      const current = await this.read(locator);
-      if (current.hash !== expectedHash) throw new Error('Visual Artifact changed on disk. Reload or recover your editor changes before saving.');
-      if (role === 'metadata') {
-        const incoming = parseMetadata(content).metadata;
-        // Malformed source may be saved for repair, but parseable identity changes may not.
-        if (incoming && current.metadata && ((current.metadata.artifactId && incoming.artifactId !== current.metadata.artifactId) || (current.metadata.componentId && incoming.componentId !== current.metadata.componentId) || (['page', 'component', 'shell'].includes(current.metadata.kind) && incoming.kind !== current.metadata.kind) || (current.metadata.routeId && incoming.routeId !== current.metadata.routeId))) throw new Error('Artifact, Route and Component identities and kind are immutable.');
-      }
-      const file = await this.file(locator);
-      await atomicWriteText(file.slice(0, -'.visual.json'.length) + roles[role], content);
-      return this.read(locator);
-    });
-    locks.set(key, next);
-    try { return await next; } finally { if (locks.get(key) === next) locks.delete(key); }
+    const current = await this.read(locator);
+    return this.saveCandidate(locator, { ...current.files, [role]: content }, expectedHash, { repair: true, admit });
   }
-  async remove(locator: string, expectedHash: string, knownArtifacts: ArtifactBundle[]): Promise<void> {
+  /** Complete source candidate; normal callers must supply authority and graph validation. */
+  async saveCandidate(locator: string, files: ArtifactFiles, expectedHash: string, options: {
+    repair?: boolean; validate?: (candidate: ArtifactBundle) => Promise<void>; admit?: () => Promise<void>;
+  }): Promise<ArtifactBundle> {
+    const location = await this.location(locator), original = await readRoleBundle(location), stem = path.basename(location.anchor, '.visual.json');
+    const previousFiles = Object.fromEntries(Object.entries(roles).map(([role, extension]) => [role, original.files[stem + extension] ?? ''])) as unknown as ArtifactFiles;
+    if (!expectedHash || hash(previousFiles) !== expectedHash) throw Object.assign(new Error('Visual Artifact changed on disk. Reload or recover your editor changes before saving.'), { status: 409 });
+    const staged = structuredClone(files);
+    if (Object.keys(staged).length !== Object.keys(roles).length || Object.keys(roles).some(role => typeof staged[role as keyof ArtifactFiles] !== 'string')) throw new Error('A complete Visual role candidate is required.');
+    if (!options.repair && (!options.validate || !options.admit)) throw new Error('Normal Visual saves require complete validation and original authority admission.');
+    await saveRoleBundle(location, { expectedChecksum: original.checksum, files: Object.fromEntries(Object.entries(roles).map(([role, extension]) => [stem + extension, staged[role as keyof ArtifactFiles]])),
+      validate: async () => {
+        const previous = parseMetadata(previousFiles.metadata).metadata, incoming = parseMetadata(staged.metadata);
+        if (incoming.metadata && previous && (['artifactId', 'componentId', 'kind', 'routeId'] as const).some(key => previous[key] && incoming.metadata![key] !== previous[key])) throw new Error('Artifact, Route and Component identities and kind are immutable.');
+        if (!options.repair) {
+          const diagnostics = [...incoming.diagnostics];
+          if (incoming.metadata?.kind !== this.kind) diagnostics.push({ severity: 'error', message: 'Visual kind does not match its owner collection.' });
+          try { JSON.parse(staged.fixtures || '{}'); } catch { diagnostics.push({ severity: 'error', message: 'Preview fixtures are invalid JSON.' }); }
+          if (!previous) diagnostics.push({ severity: 'error', message: 'Restore the authoritative identity through Advanced Repair before normal editing.' });
+          if (diagnostics.some(d => d.severity === 'error')) throw Object.assign(new Error(diagnostics.map(d => d.message).join(' ')), { status: 422 });
+          await options.validate!({ locator, files: staged, metadata: incoming.metadata, diagnostics, hash: hash(staged) });
+        }
+      }, admit: async () => { await options.admit?.(); }, ...this.faults,
+    });
+    return { locator, files: staged, metadata: parseMetadata(staged.metadata).metadata, diagnostics: parseMetadata(staged.metadata).diagnostics, hash: hash(staged) };
+  }
+  async remove(locator: string, expectedHash: string, knownArtifacts: ArtifactBundle[], admit: () => Promise<void> = async () => {}): Promise<void> {
     const current = await this.read(locator);
     if (!expectedHash || current.hash !== expectedHash) throw new Error('Artifact changed. Reload before deletion.');
     const id = current.metadata?.componentId;
@@ -121,6 +136,8 @@ export class VisualArtifactService {
     const file = await this.file(locator);
     // Only service-created dedicated bundles can be deleted as a folder.
     if (path.basename(file) !== `${this.kind}.visual.json`) throw new Error('Delete manually placed artifact files through source control.');
+    await admit();
+    if ((await this.read(locator)).hash !== expectedHash) throw Object.assign(new Error('Artifact changed during deletion admission.'), { status: 409 });
     await moveToOsTrash(path.dirname(file));
   }
 }

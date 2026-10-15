@@ -1,11 +1,13 @@
 import { defineConfig } from 'vitest/config';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { visualArtifacts } from '@ui-platform/visual-artifacts/vite';
 
 const apiPort = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  plugins: [visualArtifacts({ componentsRoot: path.join(projectRoot, 'components') })],
   build: { rollupOptions: { input: { main: path.join(projectRoot, 'index.html'), 'visual-preview': path.join(projectRoot, 'visual-preview.html') } } },
   resolve: {
     // Resolve linked UI Base packages through this project's node_modules.

@@ -14,6 +14,8 @@ import './styles.css';
 import type { DiscoveredApp, TemplateDefinition, TemplateSettingDefinition } from '../shared/types';
 import { mountBuilder, parkBuilder } from './builder';
 import { mountCompositionManager } from './visual-artifacts/composition-manager';
+import { presentationSession } from './artifact-editor/presentation-session';
+import { settingsSession } from './artifact-editor/settings-session';
 import { mountAppPackages, mountGlobalPackages } from './packages-ui';
 
 const root = document.querySelector<HTMLDivElement>('#app');
@@ -28,9 +30,13 @@ if (import.meta.env.DEV) {
   await mountDevelopmentIdentity(identityHeader);
   const automationButton = document.createElement('button'); automationButton.textContent = 'Manage Triggers and Workflows';
   const automationPanel = document.createElement('div'); automationPanel.hidden = true; root.before(automationButton, automationPanel);
-  let automationCleanup: (() => void) | undefined;
+  let automationCleanup: ((() => Promise<void>) & { state: () => { dirty: boolean; pending: boolean; conflict?: boolean } }) | undefined;
   automationButton.onclick = async () => {
-    if (automationCleanup) { automationCleanup(); automationCleanup = undefined; automationPanel.hidden = true; return; }
+    if (automationCleanup) {
+      const state = automationCleanup.state();
+      if (state.pending || (state.dirty || state.conflict) && !confirm('Discard retained automation drafts and close this editor session?')) return;
+      await automationCleanup(); automationCleanup = undefined; automationPanel.hidden = true; return;
+    }
     automationPanel.hidden = false;
     try { const { mountAutomationEditor } = await import('./automation/editor'); automationCleanup = await mountAutomationEditor(automationPanel); }
     catch (error) { automationPanel.textContent = String(error); }
@@ -295,10 +301,11 @@ async function mountPresentation(target: HTMLElement, key: string): Promise<void
       const active = status.manifest.activeVersion === null ? 'Draft only' : `v${status.manifest.activeVersion} active`;
       target.innerHTML = `<section class="presentation-overview"><header class="presentation-header"><div><h2>Presentation</h2><p>Shells, Menus, branding and styles belong to this Application. Saved source updates development preview.</p></div><div class="presentation-actions"><span class="presentation-version">${esc(active)}</span>${actionButton('presentation-publish', 'Publish Changes', { variant: 'primary' })}</div></header><p>${status.draftDiffersFromActive ? 'Source differs from published presentation.' : 'Published presentation matches saved source.'}</p><div data-composition-manager></div></section>`;
       target.querySelector('[data-action="presentation-publish"]')?.addEventListener('click', async () => { try { await api(`${endpoint}/publish`, { method: 'POST' }); await mountPresentation(target, key); } catch (error) { alert(String(error)); } });
-      await mountCompositionManager(target.querySelector<HTMLElement>('[data-composition-manager]')!, key);
+      await mountCompositionManager(target.querySelector<HTMLElement>('[data-composition-manager]')!, key, { applicationId: status.manifest.applicationId });
       return;
     }
-    const draft = status.draft;
+    const editing = await presentationSession(key, status.manifest.applicationId, status);
+    const draft = editing.draft;
     const colors = Object.entries(draft.tokens).filter(([name]) => name.includes('color')).slice(0, 6);
     const active = status.manifest.activeVersion === null ? 'Draft only' : `v${status.manifest.activeVersion} active`;
     target.innerHTML = `<section class="presentation-overview">
@@ -335,27 +342,55 @@ async function mountPresentationAssets(target: HTMLElement, key: string): Promis
 async function mountPresentationLayout(target: HTMLElement, key: string): Promise<void> {
   const endpoint = `/api/apps/${encodeURIComponent(key)}/presentation`;
   const [status, app] = await Promise.all([api<any>(endpoint), api<any>(`/api/apps/${encodeURIComponent(key)}`)]);
-  const draft = status.draft; const layout = draft.layout;
+  const editing = await presentationSession(key, status.manifest.applicationId, status);
+  const draft = editing.draft; const layout = draft.layout;
   const options = (values: string[], selected: string) => values.map((value) => `<option value="${value}"${value === selected ? ' selected' : ''}>${value.replace(/-/g, ' ')}</option>`).join('');
   const configured = new Map<string, any>(layout.navigation.map((item: any) => [item.route, item]));
   target.innerHTML = `<section class="presentation-editor layout-editor"><button type="button" class="back-link" data-presentation-back>‹ Presentation overview</button><h2>Layout &amp; Structure</h2><p class="note">These defaults wrap existing page content without changing page source files.</p><form id="presentationLayoutForm" class="stack"><div class="presentation-quick-fields"><label>Default shell<select name="defaultShell">${options(['public','authenticated','minimal'], layout.defaultShell)}</select></label><label>Default template<select name="defaultTemplate">${options(['standard','two-column','dashboard','form','detail-record'], layout.defaultTemplate)}</select></label></div><h3>Shells</h3><div class="shell-settings">${(['public','authenticated','minimal'] as const).map((shell) => { const settings = layout.shells[shell]; return `<fieldset><legend>${shell}</legend><label>Logo asset ID<input name="${shell}-logo" value="${esc(settings.logoAssetId ?? '')}" placeholder="brand-logo"></label><label><input type="checkbox" name="${shell}-navigation"${settings.showNavigation ? ' checked' : ''}> Show navigation</label><label>Navigation placement<select name="${shell}-placement">${options(['top','side'], settings.navigationPlacement)}</select></label><label><input type="checkbox" name="${shell}-footer"${settings.showFooter ? ' checked' : ''}> Show footer</label><label>Footer text<input name="${shell}-footerText" value="${esc(settings.footerText)}"></label></fieldset>`; }).join('')}</div><h3>Route navigation and overrides</h3><div class="route-layout-list">${app.pages.map((route: string, index: number) => { const item: any = configured.get(route) ?? {}; const assignment = layout.routes[route] ?? {}; return `<fieldset><legend>${esc(route)}</legend><label>Label<input name="route-${index}-label" value="${esc(item.label ?? (route === '/' ? 'Home' : route.split('/').filter(Boolean).join(' ')))}"></label><label>Icon<input name="route-${index}-icon" value="${esc(item.icon ?? '')}" placeholder="semantic icon"></label><label>Order<input name="route-${index}-order" type="number" value="${esc(item.order ?? index)}"></label><label><input type="checkbox" name="route-${index}-visible"${item.visible !== false ? ' checked' : ''}> Show in navigation</label><label>Shell override<select name="route-${index}-shell"><option value="">Use default</option>${options(['public','authenticated','minimal'], assignment.shell ?? '')}</select></label><label>Template override<select name="route-${index}-template"><option value="">Use default</option>${options(['standard','two-column','dashboard','form','detail-record'], assignment.template ?? '')}</select></label></fieldset>`; }).join('')}</div>${actionButton('presentation-layout-save', 'Save Layout Draft', { variant: 'primary', type: 'submit' })}<div id="layoutMessage"></div></form></section>`;
   target.querySelector('[data-presentation-back]')?.addEventListener('click', () => void mountPresentation(target, key));
   const heroesButton = document.createElement('button'); heroesButton.type = 'button'; heroesButton.className = 'back-link'; heroesButton.textContent = 'Manage reusable heroes';
   target.querySelector('h2')?.after(heroesButton); heroesButton.addEventListener('click', () => void mountPresentationHeroes(target, key));
-  target.querySelector<HTMLFormElement>('#presentationLayoutForm')!.addEventListener('submit', async (event) => { event.preventDefault(); const form = event.currentTarget as HTMLFormElement; const data = new FormData(form); const shells = Object.fromEntries(['public','authenticated','minimal'].map((shell) => [shell, { logoAssetId: String(data.get(`${shell}-logo`) ?? '') || undefined, showNavigation: data.has(`${shell}-navigation`), navigationPlacement: String(data.get(`${shell}-placement`)), showFooter: data.has(`${shell}-footer`), footerText: String(data.get(`${shell}-footerText`) ?? '') }])); const navigation = app.pages.map((route: string, index: number) => ({ route, label: String(data.get(`route-${index}-label`) ?? ''), icon: String(data.get(`route-${index}-icon`) ?? '') || undefined, visible: data.has(`route-${index}-visible`), order: Number(data.get(`route-${index}-order`) ?? index) })); const routes = Object.fromEntries(app.pages.map((route: string, index: number) => [route, { ...(data.get(`route-${index}-shell`) ? { shell: String(data.get(`route-${index}-shell`)) } : {}), ...(data.get(`route-${index}-template`) ? { template: String(data.get(`route-${index}-template`)) } : {}) }])); try { await api(endpoint, { method: 'PUT', body: JSON.stringify({ ...draft, layout: { defaultShell: data.get('defaultShell'), defaultTemplate: data.get('defaultTemplate'), shells, navigation, routes } }) }); await mountPresentation(target, key); } catch (error) { target.querySelector('#layoutMessage')!.innerHTML = `<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`; } });
+  const layoutForm = target.querySelector<HTMLFormElement>('#presentationLayoutForm')!;
+  const readLayout = () => { const form = layoutForm; const data = new FormData(form); const shells = Object.fromEntries(['public','authenticated','minimal'].map((shell) => [shell, { logoAssetId: String(data.get(`${shell}-logo`) ?? '') || undefined, showNavigation: data.has(`${shell}-navigation`), navigationPlacement: String(data.get(`${shell}-placement`)), showFooter: data.has(`${shell}-footer`), footerText: String(data.get(`${shell}-footerText`) ?? '') }])); const navigation = app.pages.map((route: string, index: number) => ({ route, label: String(data.get(`route-${index}-label`) ?? ''), icon: String(data.get(`route-${index}-icon`) ?? '') || undefined, visible: data.has(`route-${index}-visible`), order: Number(data.get(`route-${index}-order`) ?? index) })); const routes = Object.fromEntries(app.pages.map((route: string, index: number) => [route, { ...(data.get(`route-${index}-shell`) ? { shell: String(data.get(`route-${index}-shell`)) } : {}), ...(data.get(`route-${index}-template`) ? { template: String(data.get(`route-${index}-template`)) } : {}) }])); return { ...editing.draft, layout: { defaultShell: data.get('defaultShell'), defaultTemplate: data.get('defaultTemplate'), shells, navigation, routes } } as import('../shared/presentation').ApplicationPresentation; };
+  editing.bind(layoutForm, 'layout', readLayout, value => ({
+    defaultShell: value.layout.defaultShell, defaultTemplate: value.layout.defaultTemplate,
+    ...Object.fromEntries(Object.entries(value.layout.shells).flatMap(([shell, item]) => [[shell+'-logo',item.logoAssetId ?? ''],[shell+'-navigation',item.showNavigation],[shell+'-placement',item.navigationPlacement],[shell+'-footer',item.showFooter],[shell+'-footerText',item.footerText]])),
+    ...Object.fromEntries(app.pages.flatMap((route: string, index: number) => { const item = value.layout.navigation.find(item => item.route === route); const assignment = value.layout.routes[route] ?? {}; return [[`route-${index}-label`, item?.label ?? (route === '/' ? 'Home' : route.split('/').filter(Boolean).join(' '))],[`route-${index}-icon`,item?.icon ?? ''],[`route-${index}-order`,String(item?.order ?? index)],[`route-${index}-visible`,item?.visible !== false],[`route-${index}-shell`,assignment.shell ?? ''],[`route-${index}-template`,assignment.template ?? '']]; }))
+  }));
+  layoutForm.addEventListener('submit', event => { event.preventDefault(); void editing.flush(); });
 }
 
 async function mountPresentationHeroes(target: HTMLElement, key: string): Promise<void> {
   const endpoint = `/api/apps/${encodeURIComponent(key)}/presentation`;
   const [status, app] = await Promise.all([api<any>(endpoint), api<any>(`/api/apps/${encodeURIComponent(key)}`)]);
-  const route = app.pages[0] ?? '/'; const heroId = status.draft.layout.routes[route]?.heroId ?? 'default-hero'; const hero = status.draft.heroes[heroId];
+  const editing = await presentationSession(key, status.manifest.applicationId, status);
+  const route = app.pages[0] ?? '/'; const heroId = editing.draft.layout.routes[route]?.heroId ?? 'default-hero'; const hero = editing.draft.heroes[heroId];
   const assetMap = Object.fromEntries(status.draft.assets.filter((asset: any) => asset.active).map((asset: any) => [asset.id, `/api/apps/${encodeURIComponent(key)}/presentation/assets/${encodeURIComponent(asset.id)}`]));
   target.innerHTML = `<section class="presentation-editor"><button type="button" class="back-link" data-presentation-back>‹ Layout &amp; Structure</button><h2>Reusable Heroes</h2><p class="note">The UI Base Hero editor owns the hero authoring controls. Saving stores the definition in this application's presentation draft.</p><label>Apply to route<select id="heroRoute">${app.pages.map((item: string) => `<option value="${esc(item)}"${item === route ? ' selected' : ''}>${esc(item)}</option>`).join('')}</select></label><label><input id="heroEnabled" type="checkbox"${hero?.enabled !== false ? ' checked' : ''}> Show the selected route's hero</label><uib-hero-editor id="presentationHeroEditor" application-key="${esc(key)}"></uib-hero-editor><div id="heroMessage"></div></section>`;
   target.querySelector('[data-presentation-back]')?.addEventListener('click', () => void mountPresentationLayout(target, key));
   const editor = target.querySelector<any>('#presentationHeroEditor')!;
   editor.setAttribute('asset-map', JSON.stringify(assetMap));
   editor.heroData = hero?.data ?? { hero_key: heroId, name: 'Application Hero', headline: 'Welcome', subheadline: '', theme: 'organization', size: 'default', visual_mode: 'panel-right' };
-  editor.addEventListener('uib-hero-editor-save', async (event: Event) => { const record = (event as CustomEvent<any>).detail?.record ?? editor.heroData; const selectedRoute = (target.querySelector('#heroRoute') as HTMLSelectElement).value; const enabled = (target.querySelector('#heroEnabled') as HTMLInputElement).checked; const id = String(record.hero_key || heroId).replace(/[^a-z0-9-]/gi, '-').toLowerCase(); const variant = record.visual_mode === 'background' ? 'image-background' : record.size === 'compact' ? 'compact' : 'standard'; const next = structuredClone(status.draft); next.heroes[id] = { id, enabled, variant, data: record }; next.layout.routes[selectedRoute] = { ...(next.layout.routes[selectedRoute] ?? {}), ...(enabled ? { heroId: id } : {}) }; if (!enabled) delete next.layout.routes[selectedRoute].heroId; await api(endpoint, { method: 'PUT', body: JSON.stringify(next) }); target.querySelector('#heroMessage')!.innerHTML = `<p>Hero ${enabled ? 'saved to' : 'removed from'} the presentation draft for ${esc(selectedRoute)}.</p>`; });
+  const editHero = (event?: Event) => {
+    const record = (event as CustomEvent<any> | undefined)?.detail?.record ?? editor.heroData;
+    const selectedRoute = target.querySelector<HTMLSelectElement>('#heroRoute')!.value;
+    const enabled = target.querySelector<HTMLInputElement>('#heroEnabled')!.checked;
+    const id = String(record.hero_key || heroId).replace(/[^a-z0-9-]/gi, '-').toLowerCase();
+    const variant = record.visual_mode === 'background' ? 'image-background' : record.size === 'compact' ? 'compact' : 'standard';
+    const next = editing.draft; next.heroes[id] = { id, enabled, variant, data: record };
+    next.layout.routes[selectedRoute] = { ...(next.layout.routes[selectedRoute] ?? {}), ...(enabled ? { heroId: id } : {}) };
+    if (!enabled) delete next.layout.routes[selectedRoute].heroId;
+    editing.edit(next, 'hero:' + id);
+  };
+  editor.addEventListener('uib-hero-editor-change', editHero);
+  target.querySelector('#heroEnabled')!.addEventListener('change', () => editHero());
+  editor.addEventListener('uib-hero-editor-save', async (event: Event) => { editHero(event); await editing.flush(); });
+  editing.controls(target, () => {
+    const selectedRoute = target.querySelector<HTMLSelectElement>('#heroRoute')!.value;
+    const current = editing.draft, selected = current.heroes[current.layout.routes[selectedRoute]?.heroId ?? heroId];
+    if (selected && JSON.stringify(editor.heroData) !== JSON.stringify(selected.data)) editor.heroData = selected.data;
+    target.querySelector<HTMLInputElement>('#heroEnabled')!.checked = selected?.enabled !== false;
+  });
 }
 
 async function mountPresentationEditor(target: HTMLElement, key: string): Promise<void> {
@@ -370,7 +405,8 @@ async function mountPresentationEditor(target: HTMLElement, key: string): Promis
       });
       return;
     }
-    const draft = status.draft;
+    const editing = await presentationSession(key, status.manifest.applicationId, status);
+    const draft = editing.draft;
     const active = status.manifest.activeVersion === null ? 'Not published' : `v${status.manifest.activeVersion}`;
     const componentFields = componentCatalog.flatMap((component: any) => Object.entries(component.presentation?.settings ?? {}).flatMap(([name, raw]) => {
       const setting = raw as any;
@@ -407,7 +443,7 @@ async function mountPresentationEditor(target: HTMLElement, key: string): Promis
       const data = new FormData(form);
       const tokens = JSON.parse(String(data.get('tokens') ?? '{}')); const typography = JSON.parse(String(data.get('typography') ?? '{}'));
       tokens['--app-color-primary'] = String(data.get('primaryColor') ?? ''); tokens['--app-color-surface'] = String(data.get('surfaceColor') ?? ''); typography['--app-font-body'] = String(data.get('bodyFont') ?? '');
-      const componentDefaults = structuredClone(draft.componentDefaults) as Record<string, Record<string, string | number | boolean>>;
+      const componentDefaults = structuredClone(editing.draft.componentDefaults) as Record<string, Record<string, string | number | boolean>>;
       componentFields.forEach((field: any, index: number) => {
         const enabled = data.has(`component-${index}-enabled`);
         if (!enabled) { delete componentDefaults[field.tagName]?.[field.name]; if (!Object.keys(componentDefaults[field.tagName] ?? {}).length) delete componentDefaults[field.tagName]; return; }
@@ -415,10 +451,11 @@ async function mountPresentationEditor(target: HTMLElement, key: string): Promis
         const value = field.setting.type === 'number' ? Number(raw) : field.setting.type === 'boolean' ? Boolean(raw) : String(raw ?? '');
         componentDefaults[field.tagName] = { ...(componentDefaults[field.tagName] ?? {}), [field.name]: value };
       });
-      return { name: String(data.get('name') ?? ''), tokens, typography, css: String(data.get('css') ?? ''), componentDefaults, layout: draft.layout, heroes: draft.heroes, assets: JSON.parse(String(data.get('assets') ?? '[]')) };
+      return { ...editing.draft, name: String(data.get('name') ?? ''), tokens, typography, css: String(data.get('css') ?? ''), componentDefaults, assets: JSON.parse(String(data.get('assets') ?? '[]')) };
     };
     const message = (value: string, failure = false) => { target.querySelector('#presentationMessage')!.innerHTML = failure ? `<div class="error">${esc(value)}</div>` : `<p>${esc(value)}</p>`; };
-    const save = async () => { await api(endpoint, { method: 'PUT', body: JSON.stringify(read()) }); };
+    editing.bind(form, 'design', read, value => ({ name: value.name, primaryColor: value.tokens['--app-color-primary'] ?? '#1f4f8f', surfaceColor: value.tokens['--app-color-surface'] ?? '#ffffff', bodyFont: value.typography['--app-font-body'] ?? value.tokens['--app-font-body'] ?? '', css: value.css, tokens: JSON.stringify(value.tokens, null, 2), typography: JSON.stringify(value.typography, null, 2), assets: JSON.stringify(value.assets, null, 2), ...Object.fromEntries(componentFields.flatMap((field: any, index: number) => [[`component-${index}-enabled`, value.componentDefaults[field.tagName]?.[field.name] !== undefined], [`component-${index}-value`, value.componentDefaults[field.tagName]?.[field.name] ?? field.setting.default ?? '']])) }));
+    const save = async () => { if (!await editing.flush()) throw new Error(editing.lifecycle.failure ?? 'Resolve the retained presentation draft before continuing.'); };
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       try { await save(); message('Draft saved.'); }
@@ -495,69 +532,29 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
         </uib-panel>
       </uib-tab-panel>
     </uib-tabs>`);
-  void mountBuilder(root!.querySelector<HTMLElement>('#builderTarget')!, { key: app.key, name: app.name });
+  void mountBuilder(root!.querySelector<HTMLElement>('#builderTarget')!, { key: app.key, name: app.name, appId: app.appId });
   void mountAppPackages(root!.querySelector<HTMLElement>('#appPackagesTarget')!, app.key);
   void mountPresentation(root!.querySelector<HTMLElement>('#presentationTarget')!, app.key);
 
   const form = root!.querySelector<HTMLFormElement>('#settingsForm')!;
-  const saveButton = form.querySelector<HTMLButtonElement>('[data-action="save"]')!;
-  let lastSavedSettings = JSON.stringify(app.settings);
-  let settingsDirty = false;
-  let saveTimer: ReturnType<typeof setTimeout> | undefined;
-  let saveInFlight: Promise<boolean> | null = null;
-  const readSettings = () => {
+  form.querySelector<HTMLElement>('[data-action="save"]')!.hidden = true;
+  const editing = await settingsSession(app, form, () => {
     const next = structuredClone(app.settings);
-    root!.querySelectorAll<any>('[data-setting]').forEach((el) => setPath(next, el.dataset.setting!, el.localName === 'uib-checkbox' ? Boolean(el.checked) : el.localName === 'uib-forms-number' ? Number(el.value) : el.value));
+    form.querySelectorAll<any>('[data-setting]').forEach(el => setPath(next, el.dataset.setting!, el.localName === 'uib-checkbox' ? Boolean(el.checked) : el.localName === 'uib-forms-number' ? Number(el.value) : el.value));
     return next;
-  };
-  const updateSaveButton = () => { saveButton.disabled = !settingsDirty || Boolean(saveInFlight); };
-  const scheduleSave = () => {
-    if (saveTimer) clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => { saveTimer = undefined; void saveSettings(true); }, 2000);
-  };
-  const markSettingsDirty = () => {
-    settingsDirty = JSON.stringify(readSettings()) !== lastSavedSettings;
-    updateSaveButton();
-    if (settingsDirty) scheduleSave();
-    else if (saveTimer) { clearTimeout(saveTimer); saveTimer = undefined; }
-  };
-  const saveSettings = async (automatic = false): Promise<boolean> => {
-    if (saveTimer) { clearTimeout(saveTimer); saveTimer = undefined; }
-    if (saveInFlight) return saveInFlight;
-    if (!settingsDirty) return true;
-    const next = readSettings();
-    const savedSettings = JSON.stringify(next);
-    updateSaveButton();
-    saveInFlight = (async () => {
-      try {
-        const updated = await api<any>(`/api/apps/${encodeURIComponent(key)}/settings`, { method:'PUT', body:JSON.stringify(next) });
-        app.settings = updated.settings ?? next;
-        lastSavedSettings = savedSettings;
-        await refresh();
-        root!.querySelector('#appMessage')!.innerHTML = `<p>${automatic ? 'Changes saved automatically.' : 'Changes saved.'}</p>`;
-        settingsDirty = JSON.stringify(readSettings()) !== lastSavedSettings;
-        return true;
-      } catch(error) {
-        root!.querySelector('#appMessage')!.innerHTML=`<div class="error">${esc(error instanceof Error ? error.message : error)}</div>`;
-        settingsDirty = true;
-        return false;
-      } finally {
-        saveInFlight = null;
-        updateSaveButton();
-      }
-    })();
-    return saveInFlight;
-  };
-  form.addEventListener('submit', (event) => { event.preventDefault(); void saveSettings(); });
-  form.addEventListener('input', markSettingsDirty);
-  form.addEventListener('change', markSettingsDirty);
+  }, value => {
+    app.settings = structuredClone(value);
+    form.querySelectorAll<any>('[data-setting]').forEach(el => { const next = getPath(value, el.dataset.setting!); if (el.localName === 'uib-checkbox') el.checked = Boolean(next); else if (el.value !== next) el.value = next; });
+  });
+  const saveSettings = () => editing.flush();
+  form.addEventListener('submit', event => { event.preventDefault(); void saveSettings(); });
 
   const tabs = root!.querySelector<any>('uib-tabs.app-tabs')!;
   let previewStarted = false;
   let previewStarting = false;
   const preview = async () => {
     if (previewStarting) return;
-    const refreshPreview = settingsDirty || Boolean(saveInFlight) || Boolean(saveTimer);
+    const refreshPreview = editing.lifecycle.dirty || !!editing.lifecycle.inFlight;
     previewStarting = true;
     const target = root!.querySelector('#previewTarget')!;
     try {

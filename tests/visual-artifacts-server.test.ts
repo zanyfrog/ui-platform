@@ -34,7 +34,9 @@ it('real API discovers installed card, creates/reopens a Page, rejects stale wri
     const saved = await fetch(endpoint, { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ role: 'code', content: 'export function value(): number { return 7; }', expectedHash: created.hash }) }).then(r => r.json());
     expect(saved.hash).not.toBe(created.hash);
     const stale = await fetch(endpoint, { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ role: 'source', content: '<p>stale</p>', expectedHash: created.hash }) }); expect(stale.ok).toBe(false);
-    const code = await fetch(endpoint + '&code=1').then(r => r.text()); expect(code).toContain('return 7'); expect(code).not.toContain(': number');
+    expect((await fetch(endpoint + '&code=1')).status).toBe(409);
+    expect((await fetch(endpoint + '&code=1&hash=' + encodeURIComponent(created.hash))).status).toBe(409);
+    const code = await fetch(endpoint + '&code=1&hash=' + encodeURIComponent(saved.hash)).then(r => r.text()); expect(code).toContain('return 7'); expect(code).not.toContain(': number');
     const module = await fetch(origin + card.moduleUrl); expect(module.ok).toBe(true); expect(await module.text()).toContain('uib-card');
     const tree = await fetch(origin + '/api/apps/reference/pages').then(r => r.json()); expect(tree.pages).toHaveLength(1); expect(tree.pages[0].route).toBe('/test-page');
   } finally {

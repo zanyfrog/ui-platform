@@ -53,14 +53,19 @@ export class AutomationStore {
     const next = prior.catch(() => {}).then(action); locks.set(key, next);
     try { return await next; } finally { if (locks.get(key) === next) locks.delete(key); }
   }
-  async save(locator: string, source: string, expectedHash: string) {
+  async save(locator: string, source: string, expectedHash: string, admit: () => Promise<void> = async () => {}) {
     return this.locked(locator, async () => {
       const previous = await this.read(locator);
-      if (!expectedHash || previous.hash !== expectedHash) throw new Error('Source changed on disk. Reload before saving.');
+      if (!expectedHash || previous.hash !== expectedHash) throw Object.assign(new Error('Source changed on disk. Reload before saving.'), { status: 409 });
+      try {
       const incoming = JSON.parse(source) as AutomationDefinition;
       if (incoming.id !== previous.definition?.id || incoming.kind !== this.kind) throw new Error('Permanent identity and kind are immutable.');
       const errors = automationDiagnostics(incoming); if (errors.length) throw new Error(errors.join(' '));
-      await atomicWriteText(await this.file(locator), source); return this.read(locator);
+      } catch (error) { throw Object.assign(error instanceof Error ? error : new Error(String(error)), { status: 422 }); }
+      await admit();
+      if ((await this.read(locator)).hash !== expectedHash) throw Object.assign(new Error('Source changed during save admission.'), { status: 409 });
+      if (source !== previous.source) await atomicWriteText(await this.file(locator), source);
+      return this.read(locator);
     });
   }
   async remove(locator: string, expectedHash: string, references: Array<{ name: string; source: string }>) {

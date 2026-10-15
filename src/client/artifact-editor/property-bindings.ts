@@ -76,7 +76,8 @@ export function writeProperty(context: EditorRuntimeContext, section: EditorSect
   if (serialized === undefined || (typeof value === 'number' && !Number.isFinite(value))) throw new Error('A JSON value is required.');
   const replace = (start: number, end: number, text: string) => {
     const next = source.source.slice(0, start) + text + source.source.slice(end);
-    if (section.target === 'manifest') context.setManifest(next); else context.setFile(source.path, next);
+    const group = ['text', 'long-text', 'number'].includes(field.control) ? `property:${section.id}:${field.id}:${JSON.stringify(path)}` : undefined;
+    if (section.target === 'manifest') context.setManifest(next, group); else context.setFile(source.path, next, undefined, undefined, group);
   };
   for (let index = 0; index < path.length; index++) {
     const part = path[index], next = child(current, part);

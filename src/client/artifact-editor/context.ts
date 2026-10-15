@@ -64,11 +64,13 @@ export class EditorRuntimeContext {
     this.busy = true; this.emit();
     try { return await action(); } finally { this.busy = false; this.emit(); }
   }
-  setManifest(source: string) { if (this.busy) throw new Error('Wait for the current editor action.'); this.requireCopy(true).setManifest(source); }
-  setFile(path: string, content: string | null, role?: string, language?: string) {
+  setManifest(source: string, group?: string) { if (this.busy) throw new Error('Wait for the current editor action.'); this.requireCopy(true).setManifest(source, group); }
+  setFile(path: string, content: string | null, role?: string, language?: string, group?: string) {
     if (this.busy) throw new Error('Wait for the current editor action.');
-    this.requireCopy(true).setFile(path, content, role, language);
+    this.requireCopy(true).setFile(path, content, role, language, group);
   }
+  undo() { this.requireCopy(true).undo(); }
+  redo() { this.requireCopy(true).redo(); }
   private release() {
     this.detachCopy?.(); this.detachUnload?.(); this.detachCopy = this.detachUnload = undefined;
     this.copy = undefined; this.comparison = undefined; this.locked = false; this.owner = this.revision = undefined;
@@ -92,6 +94,7 @@ export class EditorRuntimeContext {
     });
   }
   flush() { return this.operation(async () => { await this.requireCopy(true).flush(); }); }
+  repairSave() { return this.operation(async () => { await this.requireCopy(true).repairSave(); }); }
   suspend() { if (!this.copy) return; this.locked = true; this.comparison = undefined; this.copy.suspend(); this.emit(); }
   private async settleAdmittedSave(copy: EditorWorkingCopy) {
     if (copy.snapshot.saveState !== 'saving') return;

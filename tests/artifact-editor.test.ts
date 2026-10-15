@@ -3,6 +3,7 @@ import { mkdtemp, mkdir, writeFile, rm, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { ArtifactEditorWorkspace, editorError } from '../src/server/artifact-editor.js';
+import { FileSystemArtifactService } from '@ui-platform/artifacts';
 import { EditorWorkingCopy, EditorWorkingCopyHost } from '../src/client/artifact-editor/working-copy.js';
 import { EditorTransportError, type EditorArtifactDto, type ArtifactEditorTransport, type EditorSaveResponse } from '../src/shared/artifact-editor.js';
 
@@ -41,6 +42,39 @@ it('retains invalid source diagnostics and maps stale checksums without overwrit
   try { await workspace.save(locator, { expectedChecksum: artifact.checksum, files: { 'form.json': '{}' } }); throw new Error('Expected conflict'); }
   catch (error) { expect(editorError(error).status).toBe(409); }
   expect(await readFile(path.join(bundle, 'form.json'), 'utf8')).toBe('{broken');
+});
+it('normal saves validate the complete candidate before persistence while explicit repair remains available', async () => {
+  const { workspace, locator, bundle } = await fixture(); const before = await workspace.load(locator);
+  await expect(workspace.save(locator, { mode: 'normal', expectedChecksum: before.checksum, files: { 'form.json': '{broken' } })).rejects.toMatchObject({ validation: { valid: false } });
+  expect(await readFile(path.join(bundle, 'form.json'), 'utf8')).toBe('{"fields":[]}');
+  expect((await workspace.load(locator)).checksum).toBe(before.checksum);
+  const corrected = await workspace.save(locator, { mode: 'normal', expectedChecksum: before.checksum, files: { 'form.json': '{"fields":[],"label":"corrected"}' } });
+  expect(corrected.saved).toBe(true); expect(corrected.validation.valid).toBe(true);
+  const repaired = await workspace.save(locator, { mode: 'repair', expectedChecksum: corrected.artifact.checksum, files: { 'form.json': '{broken' } });
+  expect(repaired.saved).toBe(true); expect(repaired.validation.valid).toBe(false);
+  expect(await readFile(path.join(bundle, 'form.json'), 'utf8')).toBe('{broken');
+});
+it('generic editor defaults to normal validation and repair does not infect subsequent autosaves', async () => {
+  vi.useFakeTimers(); const api = transport(), copy = new EditorWorkingCopy(dto(), api);
+  copy.setFile('form.json', 'repair'); await copy.repairSave(); expect(api.save.mock.calls[0][1]).toMatchObject({ mode: 'repair' });
+  copy.setFile('form.json', 'ordinary'); await vi.advanceTimersByTimeAsync(2000); expect(api.save.mock.calls[1][1]).toMatchObject({ mode: 'normal' });
+  copy.undo(); expect(copy.snapshot.artifact.files[0].content).toBe('repair'); await copy.discard();
+});
+it('reauthorizing an unchanged baseline resumes a failed draft without losing Undo history', async () => {
+  vi.useFakeTimers(); const api = transport(); api.save.mockRejectedValueOnce(new Error('Offline'));
+  const copy = new EditorWorkingCopy(dto(), api); copy.setFile('form.json', 'retained'); await copy.flush(); copy.suspend();
+  const fresh = transport(); copy.recover(fresh, dto()); await vi.advanceTimersByTimeAsync(2000);
+  expect(fresh.save).toHaveBeenCalledOnce(); expect(copy.snapshot.saveState).toBe('saved'); copy.undo();
+  expect(copy.snapshot.artifact.files[0].content).toBe('original'); await copy.discard();
+});
+it('a confirmed unchanged formatted candidate performs no source writes', async () => {
+  const { root, bundle } = await fixture(), beforeWrite = vi.fn();
+  const service = new FileSystemArtifactService({ root, beforeCommitFile: beforeWrite });
+  const before = await service.load(bundle);
+  const normalized = await service.save(bundle, { mode: 'normal', expectedChecksum: before.checksum });
+  beforeWrite.mockClear();
+  const unchanged = await service.save(bundle, { mode: 'normal', expectedChecksum: normalized.artifact.checksum });
+  expect(unchanged.artifact.checksum).toBe(normalized.artifact.checksum); expect(beforeWrite).not.toHaveBeenCalled();
 });
 it('shares the watched service and does not duplicate save notifications', async () => {
   const { workspace, locator, bundle, publish, build } = await fixture();
@@ -123,11 +157,13 @@ it('does not lose edits made while a clean external refresh is loading', async (
 it('adopts formatting for unchanged files while preserving an edit to a different file', async () => {
   const api = transport(); let complete!: (value: EditorSaveResponse) => void;
   api.save.mockImplementationOnce(() => new Promise(resolve => { complete = resolve; }));
-  const copy = new EditorWorkingCopy(dto(), api); copy.setFile('form.json', 'first');
+  const initial = dto(); initial.validation = { valid: false, diagnostics: [] };
+  const copy = new EditorWorkingCopy(initial, api); copy.setFile('form.json', 'first');
   const saving = copy.flush(); copy.setManifest('{broken');
   complete({ saved: true, artifact: dto('formatted first', 'two'), validation: { valid: true, diagnostics: [] } }); await saving;
   expect(copy.snapshot.artifact.files[0].content).toBe('formatted first');
   expect(copy.snapshot.artifact.manifestContent).toBe('{broken'); expect(copy.snapshot.artifact.manifest).toBeNull();
+  expect(copy.snapshot.artifact.validation.valid).toBe(true);
   await copy.close();
 });
 

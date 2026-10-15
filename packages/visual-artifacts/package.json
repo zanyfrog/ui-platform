@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }, "./runtime": { "types": "./dist/runtime.d.ts", "import": "./dist/runtime.js" }, "./vite": { "types": "./dist/vite.d.ts", "import": "./dist/vite.js" }, "./client": "./client.d.ts" },
-  "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc --noEmit -p tsconfig.json" }
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }, "./runtime": { "types": "./dist/runtime.d.ts", "import": "./dist/runtime.js" }, "./revision-guard": { "types": "./dist/revision-guard.d.ts", "import": "./dist/revision-guard.js" }, "./vite": { "types": "./dist/vite.d.ts", "import": "./dist/vite.js" }, "./client": "./client.d.ts" },
+  "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc --noEmit -p tsconfig.json" },
+  "dependencies": { "@ui-platform/artifacts": "0.1.0", "esbuild": "^0.28.2", "typescript": "^6.0.0" }
 }

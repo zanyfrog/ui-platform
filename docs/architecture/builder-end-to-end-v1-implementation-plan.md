@@ -1,10 +1,10 @@
 # Builder End-to-End V1 — Implementation Plan
 
-Date: 2026-10-13; acceptance status updated 2026-10-14. **WP0 and WP1 accepted and closed by the user.** Remaining work packages retain their proposed scope. Next work package: **WP2 — Consistent Auto-Save and Per-Artifact Undo/Redo**. Do not begin WP2 automatically; no later planning or implementation is started at this acceptance gate. Accepted WP1 [architecture](builder-v1-wp1-workspace-architecture.md), [verification](builder-v1-wp1-verification.md), Windows watcher/rename limitations and all WP0 security boundaries remain the baseline. Accepted WP0 [architecture and limitations](builder-v1-wp0-development-onboarding.md), [verification](builder-v1-wp0-verification.md), and [security/runtime evidence](evidence/builder-v1-wp0/acceptance.json) remain the baseline for later work. Basis: [gap review](builder-end-to-end-v1-gap-review.md). IDs below map directly to its gap register and the [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md).
+Date: 2026-10-13; acceptance status updated 2026-10-15. **WP0, WP1 and WP2 are accepted and closed by the user.** Next planning target: **WP3 — Dataset Authoring, Development Apply/Connect, and Runtime Integration**. WP3 has not begun and must not begin automatically. Accepted WP2 [lifecycle](builder-v1-wp2-editing-lifecycle.md), [runtime design](builder-v1-wp2-runtime-design.md), [reader/recovery guarantees](builder-v1-wp2-reader-contract.md) and [verification](builder-v1-wp2-verification.md) join the accepted WP0/WP1 baseline. Retain limitations concerning arbitrary filesystem readers, unsupported helper loading/state patterns, cross-artifact Undo and Windows filesystem behavior. Work-package implementation acceptance does not accept the complete WP6 UI-only journey. Basis: [gap review](builder-end-to-end-v1-gap-review.md); IDs map to the [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md).
 
 ## Sequence and dependencies
 
-Recommended order: **WP0 development onboarding contracts → WP1 workspace → WP2 editing lifecycle → WP3 data onboarding → WP4 authoring integration → WP5 diagnostics and safe testing → WP6 reference acceptance**. WP0 was the explicit prerequisite for new protected development Applications and is now accepted and closed. Its implemented ownership, administration, runtime and recovery contracts are the baseline for WP1 planning; no parallel agent execution is implied.
+Recommended order: **WP0 development onboarding contracts → WP1 workspace → WP2 editing lifecycle → WP3 data onboarding → WP4 authoring integration → WP5 diagnostics and safe testing → WP6 reference acceptance**. WP0 was the explicit prerequisite for new protected development Applications and is now accepted and closed. Its implemented ownership, administration, runtime and recovery contracts remain the baseline for subsequent work packages; no parallel agent execution is implied.
 
 Dependency chain: WP1 depends on WP0 identity/owner contracts; WP2 on WP1 adapters; WP3 on WP0 and WP2; WP4 on WP1–WP3; WP5 may begin validator mapping after WP0 but completes after WP3/WP4; WP6 requires all earlier gates. A package is complete only when its tests and review gate pass, not when a screen is present.
 
@@ -22,7 +22,7 @@ Dependency chain: WP1 depends on WP0 identity/owner contracts; WP2 on WP1 adapte
 
 ## WP1 — Application workspace and artifact adapters (accepted and closed)
 
-Authorized implementation completed and accepted by the user 2026-10-14; see [architecture](builder-v1-wp1-workspace-architecture.md), [verification](builder-v1-wp1-verification.md) and [inventory](builder-v1-wp1-files.txt). WP1 is closed. Retain Windows watcher/rename limitations and all WP0 security boundaries. WP2–WP6 have not begun.
+Authorized implementation completed and accepted by the user 2026-10-14; see [architecture](builder-v1-wp1-workspace-architecture.md), [verification](builder-v1-wp1-verification.md) and [inventory](builder-v1-wp1-files.txt). WP1 is closed. Retain Windows watcher/rename limitations and all WP0 security boundaries. At WP1 acceptance, WP2–WP6 had not begun; WP2 has since been accepted and closed as recorded below.
 
 **Goal:** one Application workspace with multiple deduplicated open artifacts and one focused editor. **Effort: Medium**. Addresses G03/G06/G08 navigation.
 
@@ -34,7 +34,11 @@ Authorized implementation completed and accepted by the user 2026-10-14; see [ar
 - Risks: existing editors close over mutable single selection, DOM and timers; adapters must extract retained state and clean subscriptions without saving/discarding implicitly.
 - Gate: demonstrate workspace behavior with at least two artifact formats and a shared Form definition.
 
-## WP2 — Consistent autosave and per-artifact Undo/Redo
+## WP2 — Consistent autosave and per-artifact Undo/Redo (accepted and closed)
+
+**Status: BUILDER V1 WP2 — ACCEPTED AND CLOSED**, 2026-10-15, following user review of the completed implementation and verification. Accepted evidence: **362/362 UI Platform tests, 143/143 editor/storage contracts**, browser checks, build, typechecks and production exclusion. No additional implementation is authorized at this closure gate.
+
+The accepted implementation supplies one two-second lifecycle across supported standalone/workspace editors; bounded per-artifact Undo/Redo; retained invalid drafts; authoritative normal validation and separate advanced repair; save/conflict/recovery states; original-identity inactive/queued authorization; Foundation multi-role transactions/recovery; coherent revision-pinned Visual dependencies with safe ordinary shared helper identities. Existing Page, Shell, Component/Form, Dataset/generic, automation, Menu, settings, style and presentation compatibility and WP0/WP1 security/workspace boundaries are preserved. See [verification and limitations](builder-v1-wp2-verification.md) and [inventory](builder-v1-wp2-files.txt). Source-level/service/browser acceptance remains distinct from the complete WP6 UI-only acceptance.
 
 **Goal:** reliable local editing independent of focus and save completion. **Effort: Large**. Addresses G04/G05.
 
@@ -46,7 +50,9 @@ Authorized implementation completed and accepted by the user 2026-10-14; see [ar
 - Risks: client validity checks alone cannot enforce source policy; validating single roles independently can reject valid coordinated changes or save invalid intermediate state. Do not assume generic transaction guarantees apply to Visual bundles.
 - Gate: prove pending invalid state never writes normal authoritative source and history survives autosave.
 
-## WP3 — Dataset authoring, development apply/connect and runtime wiring
+## WP3 — Dataset Authoring, Development Apply/Connect, and Runtime Integration
+
+**Next planning target only. Not started; do not begin automatically.** Scope below remains proposed for a separately authorized planning/review step.
 
 **Goal:** connect UI-authored source to real protected development data. **Effort: Large**, highest uncertainty. Addresses G09/G10/G14.
 
@@ -100,6 +106,6 @@ Environment installation, trusted development host bootstrap and predefined deve
 
 Record each action as **Builder UI**, **direct source edit**, **CLI**, or **fixture/host bootstrap**. UI interaction with raw source text counts as source authoring for the primary acceptance assumption. Every source/CLI dependency becomes a gap unless explicitly reviewed and deferred. Record screenshots/recording with artifact IDs, server diagnostics, persisted records and denial results; evidence may redact sensitive paths/data but must remain reproducible.
 
-Relative total effort: **Large**; no calendar estimate is defensible before WP0/WP3 contracts are validated. Small work includes grouping/labels and Release placement; these do not offset the large data, lifecycle and validation work. Review at each package gate and stop on discovered architectural prerequisites instead of broadening scope silently.
+Relative total effort: **Large**; no calendar estimate is defensible before the remaining WP3 contracts are validated. Small work includes grouping/labels and Release placement; these do not offset the large data, lifecycle and validation work. Review at each package gate and stop on discovered architectural prerequisites instead of broadening scope silently.
 
-**STOP: WP0 is accepted and closed. Remaining package descriptions are proposed scope. WP1 — Application Workspace and Artifact Tabs is the next authorized planning target; no later work package has begun.**
+**STOP: WP0, WP1 and WP2 are accepted and closed. WP3 — Dataset Authoring, Development Apply/Connect, and Runtime Integration is the next planning target only. WP3–WP6 have not begun; complete WP6 UI-only acceptance remains pending.**

@@ -22,7 +22,7 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
     disabledControls.clear();
     if (editable || artifact.generic) return;
     for (const control of element.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLButtonElement>('input, select, textarea, button')) {
-      if (control.matches('[data-nodes], [data-file], [data-preview], [data-recover], [data-root]') || control.textContent === 'Edit Definition') continue;
+      if (control.matches('[data-nodes], [data-file], [data-preview], [data-recover], [data-reload], [data-root]') || control.textContent === 'Edit Definition') continue;
       disabledControls.set(control, control.disabled); control.disabled = true;
     }
   }
@@ -33,6 +33,24 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
     binding.assert();
     if (disposed || editorSessionSnapshot()?.principal?.subjectId !== originalSubject) throw new Error('Original authorized identity required.');
   };
+  function captureRequest() {
+    assert();
+    if (!active) throw new Error('Focus and authorize this artifact before editing.');
+    const original = artifact, session = binding;
+    return async <T>(url: string, init?: RequestInit): Promise<T> => {
+      session.assert();
+      if (disposed || editorSessionSnapshot()?.principal?.subjectId !== originalSubject) throw new Error('Original authorized identity required.');
+      url = url.replace(`/api/apps/${encodeURIComponent(originalApp)}/`, `/api/apps/${encodeURIComponent(original.applicationKey)}/`);
+      const endpoint = new URL(url, location.origin);
+      const method = init?.method ?? 'GET';
+      if (!['GET', 'PUT'].includes(method) || method === 'PUT' && !original.editable || (endpoint.searchParams.get('locator') ?? endpoint.searchParams.get('path')) !== original.locator) throw new Error('Queued operation belongs to another artifact or lacks editing authority.');
+      const headers = await session.headers(); session.assert();
+      const response = await fetch(url, { ...init, headers: { ...headers, 'content-type': 'application/json', 'x-editor-application-id': original.applicationId } });
+      const value = await response.json(); session.assert();
+      if (!response.ok) throw Object.assign(new Error(value.error ?? value.code ?? 'Editor request denied.'), { status: response.status, code: value.code });
+      return value as T;
+    };
+  }
   async function request<T>(url: string, init?: RequestInit): Promise<T> {
     assert();
     const requestBinding = binding, applicationKey = artifact.applicationKey;
@@ -59,14 +77,14 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
     const headers = await binding.headers();
     const response = await fetch(url, { ...init, headers: { ...headers, 'content-type': 'application/json', ...init?.headers } });
     const value = await response.json(); assertResponse();
-    if (!response.ok) throw new Error(value.error ?? 'Editor request denied.');
+    if (!response.ok) throw Object.assign(new Error(value.error ?? value.code ?? 'Editor request denied.'), { status: response.status, code: value.code });
     return value;
   }
   try {
     if (initial.visual) {
-      const editor = await mountVisualEditor(element, originalApp, { request, workspace: initial.visual,
+      const editor = await mountVisualEditor(element, originalApp, { request, captureRequest, applicationId: initial.applicationId, workspace: initial.visual,
         initial: { kind: initial.kind as 'page' | 'component' | 'shell', locator: initial.locator }, onDefinition: related, onStateChange: changed, applicationKey: () => artifact.applicationKey });
-      state = editor.state; deactivate = editor.deactivate; dispose = async () => editor.dispose();
+      state = editor.state; deactivate = editor.deactivate; suspend = editor.suspend; dispose = async () => editor.dispose();
       focus = async (next, target) => editor.focus(next.visual!, target);
     } else if (initial.generic) {
       const context = new EditorRuntimeContext(originalApp);
@@ -84,11 +102,12 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
         view.navigate(target.section);
       };
     } else if (initial.composition && initial.source) {
-      const editor = await mountCompositionManager(element, originalApp, { request, definition: initial.composition, source: initial.source, onStateChange: changed });
-      if (!editor) throw new Error('Composition unavailable.'); state = editor.state; dispose = async () => editor.dispose();
+      const editor = await mountCompositionManager(element, originalApp, { request, captureRequest, applicationId: initial.applicationId, definition: initial.composition, source: initial.source, onStateChange: changed });
+      if (!editor) throw new Error('Composition unavailable.'); state = editor.state; deactivate = editor.deactivate; suspend = editor.suspend; dispose = async () => editor.dispose();
+      focus = async (next) => editor.focus(next.source!);
     } else if (initial.automation) {
-      const editor = await mountAutomationEditor(element, { request, kind: initial.kind as 'trigger' | 'workflow', initial: initial.automation, onStateChange: changed });
-      state = editor.state; deactivate = editor.deactivate; dispose = async () => editor();
+      const editor = await mountAutomationEditor(element, { request, captureRequest, kind: initial.kind as 'trigger' | 'workflow', initial: initial.automation, onStateChange: changed });
+      state = editor.state; deactivate = editor.deactivate; suspend = editor.suspend; dispose = async () => editor();
       focus = async (next, target) => editor.focus(next.automation!, target.step);
     } else {
       const source = document.createElement('pre'); source.textContent = initial.legacy?.source ?? JSON.stringify(initial.package?.definition ?? initial.package, null, 2);
@@ -99,7 +118,9 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
     element, state,
     async focus(next, target) {
       if (disposed || editorSessionSnapshot()?.principal?.subjectId !== originalSubject) throw new Error('Original authorized identity required.');
-      artifact = next; binding.revoke(); binding = createEditorSessionBinding(); await binding.headers();
+      artifact = next;
+      try { binding.assert(); } catch { binding = createEditorSessionBinding(); }
+      await binding.headers();
       controls(true); await focus(next, target); assert(); active = true; controls(next.editable);
       element.querySelector('[data-workspace-navigation-note]')?.remove();
       if (target.field || target.step && !next.automation) {

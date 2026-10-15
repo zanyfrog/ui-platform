@@ -1,30 +1,41 @@
 import { createHash } from 'node:crypto';
-import { cp, lstat, readdir, readFile } from 'node:fs/promises';
+import { lstat, readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { componentReferences } from '@ui-platform/visual-artifacts';
 import { VisualArtifactService } from './visual-artifacts.js';
+import { readRoleBundle, recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
 
 export const compositionSources = ['app.settings.json', 'shells', 'menus', 'styles', 'assets', 'src/pages'] as const;
 // Frozen distribution dependencies retain Platform identity; this is not an editable
 // Application Component collection and is never exposed through Component management.
 export const platformComponentSnapshotPath = 'presentation/platform-components';
-export async function compositionChecksum(root: string): Promise<string> {
-  const hash = createHash('sha256');
+export async function compositionSourceFiles(root: string, immutable = /\/presentation\/versions\/v\d+\/composition$/.test(root.replaceAll('\\', '/'))): Promise<Map<string, Buffer>> {
+  const files = new Map<string, Buffer>();
+  if (!immutable) for (const collection of ['shells', 'src/pages']) await recoverRoleBundleRoot(path.join(root, collection));
   const walk = async (file: string, relative: string) => {
     const info = await lstat(file).catch(error => { if (error.code === 'ENOENT') return null; throw error; }); if (!info) return;
     if (info.isSymbolicLink()) throw new Error('Published composition cannot contain symbolic links.');
-    if (info.isDirectory()) for (const entry of (await readdir(file)).sort()) await walk(path.join(file, entry), relative + '/' + entry);
-    else { hash.update(relative); hash.update('\0'); hash.update(await readFile(file)); hash.update('\0'); }
+    if (info.isDirectory()) {
+      const entries = (await readdir(file)).filter(entry => entry !== '.uib').sort();
+      if (!immutable) for (const anchor of entries.filter(entry => entry.endsWith('.visual.json'))) {
+        const stem = anchor.slice(0, -'.visual.json'.length), paths = ['.html', '.css', '.visual.json', '.fixtures.json', '.functions.ts'].map(extension => stem + extension);
+        const owner = relative.startsWith('src/pages') ? path.join(root, 'src/pages') : path.join(root, 'shells');
+        const snapshot = await readRoleBundle({ root: owner, directory: file, anchor, paths });
+        for (const [name, content] of Object.entries(snapshot.files)) if (content !== null) files.set(relative + '/' + name, Buffer.from(content));
+      }
+      for (const entry of entries) if (!files.has(relative + '/' + entry)) await walk(path.join(file, entry), relative + '/' + entry);
+    } else files.set(relative, await readFile(file));
   };
   for (const relative of compositionSources) await walk(path.join(root, relative), relative);
+  return files;
+}
+export async function compositionChecksum(root: string): Promise<string> {
+  const hash = createHash('sha256');
+  for (const [relative, content] of [...await compositionSourceFiles(root)].sort(([a], [b]) => a.localeCompare(b))) { hash.update(relative); hash.update('\0'); hash.update(content); hash.update('\0'); }
   return hash.digest('hex');
 }
 export async function copyCompositionSnapshot(source: string, destination: string): Promise<void> {
-  await compositionChecksum(source);
-  for (const relative of compositionSources) {
-    const file = path.join(source, relative);
-    if (await lstat(file).catch(() => null)) await cp(file, path.join(destination, relative), { recursive: true, force: true });
-  }
+  for (const [relative, content] of await compositionSourceFiles(source)) { const target = path.join(destination, relative); await mkdir(path.dirname(target), { recursive: true }); await writeFile(target, content); }
 }
 async function referencedSharedComponents(source: string, sharedRoot: string) {
   const [pages, shells, shared] = await Promise.all([
@@ -51,12 +62,9 @@ export async function copyReferencedSharedComponents(source: string, destination
   const service = new VisualArtifactService(sharedRoot, 'component');
   for (const [id, bundle] of await referencedSharedComponents(source, sharedRoot)) {
     if (!/^cmp_platform_[\w-]+$/.test(id)) throw new Error('Invalid shared Component identity.');
-    const file = await service.file(bundle.locator);
-    const stem = file.slice(0, -'.visual.json'.length);
-    const { mkdir, copyFile } = await import('node:fs/promises');
+    const { mkdir, writeFile } = await import('node:fs/promises');
     const target = path.join(destination, platformComponentSnapshotPath, id); await mkdir(target, { recursive: true });
-    for (const extension of ['.html', '.css', '.visual.json', '.fixtures.json', '.functions.ts']) {
-      try { await copyFile(stem + extension, path.join(target, 'component' + extension)); } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; }
-    }
+    // Use the recovery-checked captured bytes, never reread roles independently.
+    for (const [role, extension] of Object.entries({ source: '.html', css: '.css', metadata: '.visual.json', fixtures: '.fixtures.json', code: '.functions.ts' })) await writeFile(path.join(target, 'component' + extension), bundle.files[role as keyof typeof bundle.files]);
   }
 }

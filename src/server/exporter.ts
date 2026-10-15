@@ -1,18 +1,20 @@
 import crypto from 'node:crypto';
-import { cp, lstat, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { cp, lstat, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { appPath, getApp } from './applications.js';
 import { runtimeDir, ormDir } from './paths.js';
 import { compositionSettings } from './application-composition.js';
-import { copyReferencedSharedComponents } from './composition-snapshots.js';
+import { compositionSourceFiles, copyReferencedSharedComponents } from './composition-snapshots.js';
+import { withApplicationMutation } from './composition-lock.js';
+import { getApplicationPresentation } from './application-presentation.js';
 import { platformComponentsRoot } from './visual-artifacts.js';
 
 async function readPackage(file: string): Promise<any> { return JSON.parse(await readFile(file, 'utf8')); }
 async function copyClean(source: string, destination: string): Promise<void> {
   await cp(source, destination, {
     recursive: true,
-    filter: (sourcePath) => !sourcePath.split(path.sep).some((part) => ['node_modules', 'dist', 'dist-server', '.git', '.vite'].includes(part)),
+    filter: (sourcePath) => !sourcePath.split(path.sep).some((part) => ['node_modules', 'dist', 'dist-server', '.git', '.vite', '.uib'].includes(part)),
   });
 }
 
@@ -23,7 +25,7 @@ function zipFolder(folder: string, zipFile: string): Promise<void> {
       command = 'powershell.exe';
       const escapedFolder = folder.replaceAll("'", "''");
       const escapedZip = zipFile.replaceAll("'", "''");
-      args = ['-NoProfile', '-NonInteractive', '-Command', `Compress-Archive -Path '${escapedFolder}\*' -DestinationPath '${escapedZip}' -Force`];
+      args = ['-NoProfile', '-NonInteractive', '-Command', `$ErrorActionPreference = 'Stop'; Compress-Archive -Path '${escapedFolder}\\*' -DestinationPath '${escapedZip}' -Force`];
       cwd = path.dirname(folder);
     } else {
       command = 'zip';
@@ -36,15 +38,21 @@ function zipFolder(folder: string, zipFile: string): Promise<void> {
 }
 
 export async function exportApp(key: string): Promise<{ zipFile: string; downloadName: string }> {
+  return withApplicationMutation(appPath(key), () => exportAppSource(key));
+}
+async function exportAppSource(key: string): Promise<{ zipFile: string; downloadName: string }> {
   const app = await getApp(key);
   if (!app.valid) throw new Error(`Cannot export invalid app: ${app.issues.join(', ')}`);
   await assertPortableSecurityBoundary(appPath(key));
+  await getApplicationPresentation(key);
+  const visualSource = await compositionSourceFiles(appPath(key));
   const exportId = `${key}-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
   const exportDir = path.join(runtimeDir, 'exports', exportId);
   const appDir = path.join(exportDir, 'app');
   const packagesDir = path.join(exportDir, 'packages');
   await mkdir(packagesDir, { recursive: true });
   await copyClean(appPath(key), appDir);
+  for (const [relative, content] of visualSource) { const target = path.join(appDir, relative); await mkdir(path.dirname(target), { recursive: true }); await writeFile(target, content); }
   if (await compositionSettings(key)) await copyReferencedSharedComponents(appPath(key), appDir, platformComponentsRoot);
 
   // Vendor external file dependencies; app-local file dependencies already travel with the app.
@@ -82,6 +90,7 @@ export async function exportApp(key: string): Promise<{ zipFile: string; downloa
 
   const zipFile = path.join(runtimeDir, 'exports', `${exportId}.zip`);
   await zipFolder(exportDir, zipFile);
+  if (!(await stat(zipFile)).isFile()) throw new Error('ZIP creation did not produce an archive.');
   return { zipFile, downloadName: `${key}-export.zip` };
 }
 

@@ -56,7 +56,11 @@ export class ArtifactEditorWorkspace {
     if (typeof value.expectedChecksum !== 'string' || !value.expectedChecksum) throw new EditorRequestError(400, 'editor.checksum', 'expectedChecksum is required.');
     if (value.manifest !== undefined && typeof value.manifest !== 'string' && (!value.manifest || typeof value.manifest !== 'object' || Array.isArray(value.manifest))) throw new EditorRequestError(400, 'editor.request', 'Invalid manifest representation.');
     if (value.files !== undefined && (!value.files || typeof value.files !== 'object' || Array.isArray(value.files) || Object.values(value.files).some(v => v !== null && typeof v !== 'string'))) throw new EditorRequestError(400, 'editor.request', 'File contents must be text or null.');
-    const result = await this.service.save(this.location(token), { expectedChecksum: value.expectedChecksum, manifest: value.manifest, files: value.files });
+    if (value.mode !== undefined && value.mode !== 'normal' && value.mode !== 'repair') throw new EditorRequestError(400, 'editor.request', 'Unknown save mode.');
+    const result = await this.service.save(this.location(token), { expectedChecksum: value.expectedChecksum, manifest: value.manifest, files: value.files, mode: value.mode }).catch(error => {
+      if (error instanceof ArtifactValidationError) throw new ArtifactValidationError(error.message, this.validation(error.validation, this.location(token)));
+      throw error;
+    });
     const securitySource = result.artifact.manifest?.artifactType.startsWith('security.') && result.artifact.files.find(file => file.role === 'definition');
     let securityCandidate: ReturnType<SecurityDraftStager['stage']> | undefined;
     let securityStageStatus: 'staged' | 'failed' | 'unavailable' | undefined = securitySource ? 'unavailable' : undefined;

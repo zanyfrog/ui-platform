@@ -77,6 +77,7 @@ export interface ApplicationPresentationManifest {
 }
 
 export interface ApplicationPresentationStatus {
+  sourceRevision?: string;
   initialized: boolean;
   manifest: ApplicationPresentationManifest | null;
   draft: ApplicationPresentation | null;

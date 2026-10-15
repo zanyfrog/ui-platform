@@ -1,5 +1,8 @@
 import { renderComponentInstance, ComponentRegistry } from '@ui-base/ui/component-reference';
-export { mountComposedPage } from './composition-runtime.js';
+import { mountComposedPage } from './composition-runtime.js';
+export { mountComposedPage };
+import { assertManagedVisualRevision, managedVisualComposition } from './revision-guard.js';
+import type { CompositionDefinition } from './composition.js';
 import '@ui-base/forms';
 import { evaluate } from './expression.js';
 import { resolveMode } from './form.js';
@@ -39,6 +42,7 @@ export function layoutCss(layout: RuntimeArtifact['metadata']['layout']): string
 
 /** Both preview and application pages call this renderer. Shadow roots are artifact/instance CSS boundaries. */
 export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeOptions): ArtifactInstance {
+  assertManagedVisualRevision(artifact, options.components);
   const errors = validateArtifact(artifact, options.components, options.packages, Object.keys(options.services ?? {})).filter(d => d.severity === 'error');
   if (errors.length) throw new Error(errors.map(d => d.message).join('\n'));
   const m = artifact.metadata;
@@ -216,7 +220,7 @@ export function createVisualPage(artifact: RuntimeArtifact, options: RuntimeOpti
   pageDefinitions.set(tag, { artifact, options });
   if (!customElements.get(tag)) customElements.define(tag, class extends HTMLElement {
     instance?: ArtifactInstance;
-    connectedCallback() { const current = pageDefinitions.get(tag)!; this.instance = mountVisualArtifact(current.artifact, current.options); this.replaceChildren(this.instance.host); }
+    connectedCallback() { const current = pageDefinitions.get(tag)!, graph = managedVisualComposition(current.artifact); this.instance = graph ? mountComposedPage(graph.definition as CompositionDefinition, current.artifact, { ...current.options, routeId: current.artifact.metadata.routeId, assetUrl: graph.assetUrl }) : mountVisualArtifact(current.artifact, current.options); this.replaceChildren(this.instance.host); }
     disconnectedCallback() { this.instance?.destroy(); }
   });
   return { render(context = {}) { pageDefinitions.set(tag, { artifact, options: { ...options, navigate: context.navigate ?? options.navigate, context: context.settings ?? options.context, route: { path: context.route, ...options.route, ...context.params } } }); return `<${tag}></${tag}>`; } };

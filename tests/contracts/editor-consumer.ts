@@ -2,6 +2,7 @@
 // Phase 1 adapters; deliberately avoid replacement host/snapshot interfaces.
 import type { ArtifactService, ArtifactValidationResult, ArtifactReferenceSummary } from '@ui-platform/artifacts';
 import { validateValue } from '@ui-platform/artifacts/validation';
+import { readRoleBundle, saveRoleBundle, type RoleBundleLocation, type RoleBundleSnapshot } from '@ui-platform/artifacts/storage';
 import { ArtifactEditorWorkspace } from '../../src/server/artifact-editor.js';
 import { createArtifactEditorTransport, discoverEditorArtifacts } from '../../src/client/artifact-editor/transport.js';
 import { EditorWorkingCopyHost, protectPendingChanges } from '../../src/client/artifact-editor/working-copy.js';
@@ -54,4 +55,10 @@ export function consumeExistingWorkspace(root: string, appKey: string) {
   }, { onSourceChanged: async (_file: string) => undefined });
   const service: ArtifactService = workspace.service;
   return { workspace, service };
+}
+/** Compile-only server-side consumer of the additive explicit-role storage API. */
+export async function consumeRoleBundle(location: RoleBundleLocation) {
+  const previous: RoleBundleSnapshot = await readRoleBundle(location);
+  return saveRoleBundle(location, { expectedChecksum: previous.checksum, files: previous.files,
+    validate(candidate, baseline) { void [candidate.checksum, baseline.files]; }, admit() {} });
 }

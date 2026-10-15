@@ -72,6 +72,19 @@ it('creates missing optional paths while preserving manifest extensions and iden
   expect(f.context.snapshot?.artifact.manifest?.config?.['x:unknown']).toEqual({ keep: 'yes' });
   expect(() => writeProperty(f.context, section, section.fields[0], ['artifactId'], 'changed')).toThrow('read-only');
 });
+it('groups typing within one stable property binding while separating another property operation', async () => {
+  const f = await fixture(), section = f.descriptor!.sections[2], fields = section.fields[0].fields!;
+  const label = fields.find(field => field.id === 'field-label')!, type = fields.find(field => field.id === 'field-type')!;
+  const row = { key: 'id', value: 'stable-a' };
+  writeProperty(f.context, section, label, ['fields', row, 'label'], 'N');
+  writeProperty(f.context, section, label, ['fields', row, 'label'], 'New');
+  writeProperty(f.context, section, type, ['fields', row, 'type'], 'number');
+  f.context.undo(); expect(readProperty(f.context, section, ['fields', row, 'type']).value).toBe('text');
+  expect(readProperty(f.context, section, ['fields', row, 'label']).value).toBe('New');
+  f.context.undo(); expect(readProperty(f.context, section, ['fields', row, 'label']).value).toBe('Last name');
+  f.context.redo(); expect(readProperty(f.context, section, ['fields', row, 'label']).value).toBe('New');
+  expect(f.context.snapshot!.artifact.files[0].content).toContain('"id":"stable-a"');
+});
 it('resolves stable collection IDs after another panel reorders items, refusing ambiguous identities', async () => {
   const f = await fixture(); const section = f.descriptor!.sections[2], field = section.fields[0].fields![3];
   f.context.setFile('form.json', '{"fields":[{"id":"stable-b","field":"other","type":"text","label":"Other"},{"id":"stable-a","field":"lastName","type":"text","label":"Original"}]}');
@@ -94,18 +107,18 @@ it('rejects stale scalar writes if another panel replaced that field with an obj
   expect(() => writeProperty(f.context, section, field, ['fields', { key: 'id', value: 'stable-a' }, 'label'], 'overwrite')).toThrow('latest source');
   expect(f.context.snapshot!.artifact.files[0].content).toContain('"extension":true');
 });
-it('allows invalid numeric drafts, autosaves through Phase 1, and retains authoritative saved diagnostics', async () => {
+it('allows invalid numeric drafts and retains authoritative diagnostics through explicit advanced repair saves', async () => {
   const f = await fixture('trigger'); const section = f.descriptor!.sections[1], field = section.fields.find(field => field.id === 'priority')!;
   const oldDiagnostics = f.context.snapshot!.artifact.validation;
   writeProperty(f.context, section, field, field.path, '-');
   expect(f.context.snapshot?.artifact.manifest?.config?.priority).toBe('-'); expect(f.context.snapshot?.artifact.validation).toEqual(oldDiagnostics);
-  await f.context.flush(); expect(f.context.snapshot?.saveState).toBe('saved');
+  await f.context.repairSave(); expect(f.context.snapshot?.saveState).toBe('saved');
   expect(f.context.snapshot?.artifact.validation.diagnostics.some(issue => issue.code === 'trigger.priority')).toBe(true);
-  writeProperty(f.context, section, field, field.path, 300); await f.context.flush();
+  writeProperty(f.context, section, field, field.path, 300); await f.context.repairSave();
   expect(f.context.snapshot?.artifact.validation.diagnostics.some(issue => issue.code === 'trigger.priority')).toBe(false);
 });
 it('keeps malformed manifests available as source without inventing descriptors', async () => {
-  const f = await fixture(); f.context.setManifest('{broken'); await f.context.flush();
+  const f = await fixture(); f.context.setManifest('{broken'); await f.context.repairSave();
   expect(f.context.snapshot?.artifact.presentation).toBeUndefined(); expect(f.context.snapshot?.artifact.manifest).toBeNull(); expect(f.context.snapshot?.artifact.manifestContent).toBe('{broken');
 });
 it('prevents field writes after permission changes and recovers the same dirty source only for the original user', async () => {

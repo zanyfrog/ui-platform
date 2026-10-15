@@ -10,6 +10,8 @@ The package is currently version **0.1.0**. “Ready” means the consumption co
 
 ## Schema adapter decision
 
+WP2 additive storage extension, 2026-10-15: the Node-only `@ui-platform/artifacts/storage` facade exposes explicit-role read/save, graph coordination, root recovery and typed recovery-required results. It reuses Foundation locking, journal, rollback and stale checks without implicit `artifact.json`. Default Visual/Vite loaders now capture validated coherent revisions and block raw role bypasses; normal Visual auto-save is enabled. Arbitrary filesystem readers still have no whole-bundle atomic visibility guarantee. See [the WP2 reader contract](builder-v1-wp2-reader-contract.md) and [verification](builder-v1-wp2-verification.md).
+
 Retain the adapter for now. The authoritative `DatasetSchema` interface is exported by the sibling `@ui-platform/schema-manager` root. There is no contracts-only subpath. Adding that package as a dependency would also bring `@ui-platform/orm` and `@ui-platform/versioned-definition-registry` into this independent artifact package's dependency graph. A type-only import would erase runtime execution, but its declarations still reference those packages and require the sibling package to be built/resolved. A relative source import would couple this package to an external checkout layout. Neither is necessary for editor operation.
 
 The upstream schema validator is private to its versioned-definition adapter. The compatibility test reads the actual upstream TypeScript source, extracts the interface, checks structural equality through the TypeScript compiler, and evaluates only its pure adapter expression. It does not import the publication/ORM runtime or maintain a copied reference validator. Changes or missing upstream sources fail the check, not silently skip it. The default checkout location is `../UI Platform Data Services`; CI can set `UI_DATA_SERVICES_ROOT` to that checkout.
@@ -52,7 +54,7 @@ This is a logical all-or-rollback transaction for cooperating service consumers 
 | `ValidatorRegistry`, `validateValue`, `requiredValidator`, `maxLengthValidator` | root and `./validation` | Same implementations in server and browser; browser runtime has no imports. |
 | `validationResult`, `validateReferences` | root | Shared server aggregation/reference checks; not a browser filesystem validator. |
 | `ArtifactConflictError` | root | Reload/reconcile instead of overwriting a stale working copy. |
-| `ArtifactValidationError` | root | Operational rejection retaining the original validation result; invalid source Save itself still succeeds. |
+| `ArtifactValidationError` | root | Operational rejection retaining validation diagnostics. Normal-mode Save rejects an invalid candidate before persistence; omitted-mode and explicit repair saves preserve the accepted source-repair behavior. |
 | `ArtifactWatchEvent`, `ArtifactWatchOptions`, `ArtifactWatcher` | root, types | Refresh after external change/removal and close subscriptions during shutdown. |
 | `atomicWriteText`, `retryWindowsFileOperation` | `./storage`, Node-only | Shared persistence infrastructure; editors should use ArtifactService.save instead of writing bundles directly. |
 
@@ -176,6 +178,8 @@ export interface ArtifactSummary {
     validation: ArtifactValidationResult;
 }
 export interface ArtifactChanges {
+    /** Normal authoring rejects an invalid complete candidate before committing. */
+    mode?: 'normal' | 'repair';
     manifest?: ArtifactManifest | string;
     /** Bundle-relative paths. Null deletes a declared file. */
     files?: Record<string, string | null>;

@@ -183,10 +183,11 @@ export function declaredPaths(content: string | null): string[] {
 export async function capture(
   bundle: string,
   extra: string[] = [],
+  options: { includeManifest?: boolean } = {},
 ): Promise<Snapshot> {
-  const manifest = await readOptional(await safeFile(bundle, "artifact.json"));
+  const manifest = options.includeManifest === false ? null : await readOptional(await safeFile(bundle, "artifact.json"));
   const snapshot: Snapshot = Object.create(null);
-  snapshot["artifact.json"] = manifest;
+  if (options.includeManifest !== false) snapshot["artifact.json"] = manifest;
   for (const name of new Set([...declaredPaths(manifest), ...extra]))
     snapshot[name] = await readOptional(await safeFile(bundle, name));
   return snapshot;

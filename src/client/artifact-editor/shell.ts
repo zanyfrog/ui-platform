@@ -1,4 +1,5 @@
 import { EditorRuntimeContext } from './context.js';
+import { editingStatus } from './editing-lifecycle.js';
 import { discoverEditorArtifacts } from './transport.js';
 import { editorSessionSnapshot, subscribeEditorSession } from './session.js';
 import { renderProperties } from './properties.js';
@@ -49,8 +50,12 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
     const header = element('header'); header.append(element('h2', context.suspended ? 'Editor access suspended' : snapshot?.artifact.manifest?.name ?? 'Generic Artifact Editor'));
     header.append(element('p', context.suspended ? 'Source is hidden. Return to the original identity to compare and recover, or deliberately discard this copy.' : snapshot ? `${snapshot.artifact.manifest?.artifactType ?? 'Unknown artifact'} · ${snapshot.artifact.capabilities.edit ? 'Editing permitted' : 'Read-only'}` : 'Choose an authorized artifact.'));
     const toolbar = element('div'); toolbar.className = 'editor-toolbar'; toolbar.setAttribute('aria-label', 'Editor actions');
-    const state = element('span', context.suspended ? 'Access revoked / suspended' : snapshot?.saveState === 'saving' ? 'Saving' : snapshot?.saveState === 'conflict' ? 'Conflict — local changes preserved' : snapshot?.saveState === 'error' ? 'Save failed' : snapshot?.dirty ? 'Editing — unsaved changes' : snapshot?.saveState === 'saved' ? 'Saved' : 'No pending changes'); state.setAttribute('role', 'status'); toolbar.append(state);
+    const state = element('span', context.suspended ? 'Access revoked / suspended' : snapshot ? !snapshot.dirty && !snapshot.artifact.validation.valid ? 'Source repair required' : editingStatus(snapshot.saveState, snapshot.dirty) : 'No artifact'); state.setAttribute('role', 'status'); toolbar.append(state);
+    if (snapshot?.artifact.capabilities.edit) toolbar.append(button('Undo', () => context.undo(), !context.canEdit || !snapshot.canUndo), button('Redo', () => context.redo(), !context.canEdit || !snapshot.canRedo));
     if (snapshot?.artifact.capabilities.edit) toolbar.append(button(snapshot.saveState === 'error' ? 'Retry save' : 'Save now', () => run(() => context.flush()), !context.canEdit || snapshot.saveState === 'conflict'));
+    if (snapshot?.artifact.capabilities.edit && activeTab === 'source') toolbar.append(button('Advanced repair save…', () => {
+      if (confirm('Save this source for repair? This advanced action can persist invalid source and does not publish or activate it.')) run(() => context.repairSave());
+    }, !context.canEdit || snapshot.saveState === 'conflict' || snapshot.saveState === 'saving'));
     if (snapshot) toolbar.append(button('Suspend editor', () => { context.suspend(); }, context.pending));
     if (context.hasCopy) {
       toolbar.append(button(context.suspended ? 'Authorize and compare for recovery' : 'Compare with server', () => run(() => context.compare()), context.pending || (context.suspended && !context.canRecover)));
@@ -60,6 +65,8 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
     const diagnostics = element('aside'); diagnostics.setAttribute('aria-label', 'Editor status'); diagnostics.setAttribute('aria-live', 'polite');
     if (message) diagnostics.append(element('p', message));
     if (snapshot?.error) diagnostics.append(element('p', snapshot.error));
+    if (snapshot?.notice) diagnostics.append(element('p', snapshot.notice));
+    for (const diagnostic of snapshot?.localValidation?.diagnostics ?? []) diagnostics.append(element('p', `${diagnostic.message} Changes retained locally.`));
     if (snapshot) {
       diagnostics.append(element('p', `Saved-source validation: ${snapshot.artifact.validation.diagnostics.length} issue(s).${snapshot.dirty ? ' These results do not validate unsaved edits.' : ''}`));
     }
@@ -145,6 +152,9 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
 /** Fixture-mode entry point: application grants come from the session, never legacy management discovery. */
 export function mountArtifactEditor(container: HTMLElement, presentationByApp: Readonly<Record<string, EditorPresentation>> = {}) {
   const contexts = new Map<string, EditorRuntimeContext>();
+  const identities = new Map<string, string>();
+  const ownerKey = (key: string) => `${editorSessionSnapshot()?.principal?.subjectId ?? ''}:${key}`;
+  const lastContexts = new Map<string, EditorRuntimeContext>();
   let context: EditorRuntimeContext | undefined, view: ReturnType<typeof mountEditorShell> | undefined, sequence = 0;
   let detachNavigation: (() => void) | undefined;
   const navigation = element('nav'); navigation.setAttribute('aria-label', 'Artifact navigation');
@@ -163,7 +173,7 @@ export function mountArtifactEditor(container: HTMLElement, presentationByApp: R
     try {
       const results = await discoverEditorArtifacts(key);
       if (current !== sequence || editorSessionSnapshot()?.revision !== session.revision) return;
-      for (const result of results) artifacts.add(new Option(result.name ?? result.artifactId ?? 'Unknown artifact', result.locator));
+      for (const result of results) { identities.set(`${ownerKey(key)}:${result.locator}`, result.artifactId ?? result.locator); artifacts.add(new Option(result.name ?? result.artifactId ?? 'Unknown artifact', result.locator)); }
       artifacts.value = context?.snapshot?.artifact.locator ?? ''; artifacts.disabled = false; status.textContent = results.length ? '' : 'No authorized artifacts found.';
     } catch (error) { if (current === sequence) status.textContent = error instanceof Error ? error.message : String(error); }
   }
@@ -176,8 +186,7 @@ export function mountArtifactEditor(container: HTMLElement, presentationByApp: R
   applications.addEventListener('change', async () => {
     const key = applications.value; applications.disabled = artifacts.disabled = true;
     try {
-      if (context && !await context.close()) { applications.value = context.applicationKey; status.textContent = 'Navigation stopped. Recover or discard the retained copy first.'; return; }
-      if (key) { let next = contexts.get(key); if (!next) { next = new EditorRuntimeContext(key); contexts.set(key, next); } show(next); }
+      if (key) { const owner = ownerKey(key); let next = lastContexts.get(owner); if (!next) { next = new EditorRuntimeContext(key); contexts.set(`${owner}:`, next); lastContexts.set(owner, next); } show(next); }
       else { detachNavigation?.(); view?.destroy(); view = undefined; context = undefined; }
       await discover();
     } catch (error) { status.textContent = error instanceof Error ? error.message : String(error); }
@@ -186,7 +195,12 @@ export function mountArtifactEditor(container: HTMLElement, presentationByApp: R
   artifacts.addEventListener('change', async () => {
     if (!context || !artifacts.value) return;
     const locator = artifacts.value; artifacts.disabled = applications.disabled = true;
-    try { if (!await context.open(locator)) status.textContent = 'Navigation stopped. Resolve or discard the retained changes first.'; }
+    try {
+      const key = applications.value, owner = ownerKey(key), identity = `${owner}:${identities.get(`${owner}:${locator}`) ?? locator}`;
+      let next = contexts.get(identity);
+      if (!next) { next = new EditorRuntimeContext(key); await next.open(locator); contexts.set(identity, next); }
+      show(next); lastContexts.set(owner, next);
+    }
     catch (error) { status.textContent = error instanceof Error ? error.message : String(error); }
     finally { artifacts.value = context.snapshot?.artifact.locator ?? ''; artifacts.disabled = applications.disabled = false; }
   });

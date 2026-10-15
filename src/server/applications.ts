@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { cp, mkdir, readdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readdir, readFile, rename, rm, stat, writeFile, lstat } from 'node:fs/promises';
 import path from 'node:path';
 import type { DiscoveredApp } from '../shared/types.js';
 import { APP_MANIFEST_FILE, ensureAppManifest, writeInitialAppManifest } from './app-manifests.js';
@@ -11,6 +11,7 @@ import { spawnNpm } from './npm-process.js';
 import { rebaseApplicationLinks } from './application-links.js';
 import { recordTemplateProvenance, substituteTemplate } from './template-updates.js';
 import { withApplicationMutation } from './composition-lock.js';
+import { VisualArtifactService } from './visual-artifacts.js';
 
 const REQUIRED = ['package.json', 'tsconfig.json', APP_MANIFEST_FILE, 'app.settings.json', 'app-services.json', 'src/main.ts'];
 const keyPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -29,14 +30,13 @@ async function exists(file: string): Promise<boolean> {
 async function pagesFor(appDir: string): Promise<string[]> {
   const root = path.join(appDir, 'src', 'pages');
   const found: string[] = [];
+  const visualPages = await new VisualArtifactService(root, 'page').list();
+  for (const bundle of visualPages) if (typeof bundle.metadata?.route === 'string') found.push(bundle.metadata.route);
   async function walk(dir: string, rel = ''): Promise<void> {
     const entries = await readdir(dir, { withFileTypes: true }).catch(() => []);
-    const visual = entries.find(entry => entry.name === 'page.visual.json');
-    if (visual) {
-      try { const metadata = JSON.parse(await readFile(path.join(dir, visual.name), 'utf8')); if (metadata.kind === 'page' && typeof metadata.route === 'string') found.push(metadata.route); } catch { /* Visual workspace reports malformed source. */ }
-    }
+    const visual = entries.some(entry => entry.name.endsWith('.visual.json'));
     for (const entry of entries) {
-      if (entry.name.startsWith('_')) continue;
+      if (entry.name.startsWith('_') || entry.name.startsWith('.') || entry.isSymbolicLink()) continue;
       const childRel = path.join(rel, entry.name);
       if (entry.isDirectory()) await walk(path.join(dir, entry.name), childRel);
       else if (entry.isFile() && /(?<!\.functions)\.(ts|tsx)$/.test(entry.name)) {
@@ -50,6 +50,21 @@ async function pagesFor(appDir: string): Promise<string[]> {
   await walk(root);
   return [...new Set(found)].sort();
 }
+/** Admission needs only permanent ownership, never a recursive Visual read while
+ * the target role lock is already held. Missing/unsafe owner source fails closed.
+ */
+export async function readApplicationOwnerId(key: string): Promise<string> {
+  const directory = appPath(key);
+  for (let ancestor = directory; ; ancestor = path.dirname(ancestor)) {
+    if ((await lstat(ancestor)).isSymbolicLink()) throw new Error('Application ownership cannot use symbolic links.');
+    if (path.dirname(ancestor) === ancestor) break;
+  }
+  const file = path.join(directory, APP_MANIFEST_FILE);
+  if ((await lstat(file)).isSymbolicLink()) throw new Error('Application ownership cannot use symbolic links.');
+  const owner = JSON.parse(await readFile(file, 'utf8')).appId;
+  if (typeof owner !== 'string' || !owner) throw new Error('Original Application owner is unavailable.');
+  return owner;
+}
 
 export async function getApp(keyInput: string): Promise<DiscoveredApp> {
   const key = safeKey(keyInput);
@@ -58,6 +73,7 @@ export async function getApp(keyInput: string): Promise<DiscoveredApp> {
 
   let manifest: any = {};
   let settings: any = {};
+  let settingsRevision: string | undefined;
   let appServices: DiscoveredApp['appServices'] = null;
   try { manifest = await ensureAppManifest(key); } catch {
     issues.push('Invalid app.manifest.json');
@@ -66,7 +82,7 @@ export async function getApp(keyInput: string): Promise<DiscoveredApp> {
 
   for (const required of REQUIRED) if (!(await exists(path.join(appDir, required)))) issues.push(`Missing ${required}`);
 
-  try { settings = await readJson(path.join(appDir, 'app.settings.json')); } catch { issues.push('Invalid app.settings.json'); }
+  try { const text = await readFile(path.join(appDir, 'app.settings.json'), 'utf8'); settings = JSON.parse(text); settingsRevision = crypto.createHash('sha256').update(text).digest('hex'); } catch { issues.push('Invalid app.settings.json'); }
   try { appServices = await readJson(path.join(appDir, 'app-services.json')); } catch { appServices = null; }
 
   return {
@@ -80,6 +96,7 @@ export async function getApp(keyInput: string): Promise<DiscoveredApp> {
     issues,
     pages: await pagesFor(appDir),
     settings,
+    settingsRevision,
     appServices,
   };
 }
@@ -165,16 +182,20 @@ export async function createApp(input: { name: string; key: string; templateId?:
   return getApp(key);
 }
 
-export async function saveSettings(keyInput: string, settings: Record<string, unknown>): Promise<DiscoveredApp> {
+export async function saveSettings(keyInput: string, settings: Record<string, unknown>, expectedHash?: string, admit: () => Promise<void> = async () => {}): Promise<DiscoveredApp> {
   const key = safeKey(keyInput);
   const appDir = path.join(appsDir, key);
   const manifest = await ensureAppManifest(key);
   const status = (settings as any)?.application?.status;
-  if (status !== 'active' && status !== 'disabled') throw new Error('application.status must be active or disabled.');
+  if (status !== 'active' && status !== 'disabled') throw Object.assign(new Error('application.status must be active or disabled.'), { status: 422 });
   await withApplicationMutation(appDir, async () => {
-    const current = await readJson<any>(path.join(appDir, 'app.settings.json'));
+    const file = path.join(appDir, 'app.settings.json'), original = await readFile(file, 'utf8');
+    if (expectedHash && crypto.createHash('sha256').update(original).digest('hex') !== expectedHash) throw Object.assign(new Error('Application settings changed. Reload or recover before saving.'), { status: 409 });
+    const current = JSON.parse(original);
     const next = current.presentation?.model === 'composition-v1' ? { ...settings, presentation: current.presentation } : settings;
-    await atomicWriteJson(path.join(appDir, 'app.settings.json'), next);
+    await admit();
+    if (await readFile(file, 'utf8') !== original) throw Object.assign(new Error('Application settings changed during admission.'), { status: 409 });
+    if (JSON.stringify(next) !== JSON.stringify(current)) await atomicWriteJson(file, next);
   });
   await appendHistory(appDir, { action: 'settings.updated', appId: manifest.appId, actor: 'local-user' });
   return getApp(key);

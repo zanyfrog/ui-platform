@@ -1,9 +1,10 @@
 import http from 'node:http';
+import { isolatedPreviewCode, visualPreviewRevision } from './visual-preview.js';
 import { createReadStream } from 'node:fs';
 import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import crypto from 'node:crypto';
 import path from 'node:path';
-import { discoverApps, createApp, getApp, saveSettings, appPath } from './applications.js';
+import { discoverApps, createApp, getApp, saveSettings, appPath, readApplicationOwnerId } from './applications.js';
 import { discoverTemplates, getTemplate } from './templates.js';
 import { moveToOsTrash } from './trash.js';
 import { ensurePreview, stopAllPreviews, stopPreview } from './preview.js';
@@ -36,6 +37,7 @@ import { AutomationStore } from './automation-store.js';
 import { platformRoot } from './paths.js';
 import { regions } from '@ui-platform/visual-artifacts';
 import { withApplicationMutation } from './composition-lock.js';
+import { prepareVisualCandidate, VisualCandidateError } from './visual-candidate.js';
 import { applyTemplateUpdate, compareTemplate } from './template-updates.js';
 import { assertShellUnused, changePageShell, compositionAssetInfo, compositionSettings, compositionSourcePath, compositionWorkspace, readCompositionSource, saveCompositionAsset, saveCompositionSource, validateCompositionEdit } from './application-composition.js';
 
@@ -176,7 +178,10 @@ function isMultipartBody(input: MultipartBody | Record<string, unknown>): input 
 
 function error(res: http.ServerResponse, err: unknown): void {
   console.error(err);
-  json(res, 500, { error: err instanceof Error ? err.message : String(err) });
+  const failure = err as { status?: number; code?: string; message?: string; name?: string; committed?: string[]; recoveryRequired?: boolean };
+  const authority = failure.message?.startsWith('V1_');
+  const status = failure.status ?? (authority ? 403 : failure.code === 'source.recovery-required' || failure.name === 'ArtifactConflictError' ? 409 : 500);
+  json(res, status, { error: authority ? 'Original editing authority is no longer valid.' : failure.message ?? String(err), code: failure.code ?? (authority ? 'editor.authority-revoked' : undefined), ...(!authority && failure.committed ? { committed: failure.committed, recoveryRequired: !!failure.recoveryRequired } : {}) });
 }
 
 function appInfoPayload(req: http.IncomingMessage, url: URL, app: Awaited<ReturnType<typeof getApp>>): Record<string, string> {
@@ -201,6 +206,7 @@ const server = http.createServer(async (req, res) => {
   const method = req.method ?? 'GET';
   const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
   const parts = url.pathname.split('/').filter(Boolean);
+  let admitManagement = async () => {};
   try {
     if (v1Identity && await v1Identity.handle(req, res)) return;
     if (v1Identity && await v1Identity.handleAdministration(req, res)) return;
@@ -236,13 +242,19 @@ const server = http.createServer(async (req, res) => {
           let applicationId: string | undefined;
           if (parts[1] === 'apps' && parts[2]) {
             const key = decodeURIComponent(parts[2]);
-            const app = await getApp(key);
-            if (!(key === V1_FIXTURE_APPLICATION_KEY && app.appId === V1_FIXTURE_APPLICATION_ID) && v1Identity.registeredApplication(key) !== app.appId) return json(res, 403, { code: 'V1_APPLICATION_DENIED' });
-            applicationId = app.appId;
+            const appId = await readApplicationOwnerId(key);
+            if (!(key === V1_FIXTURE_APPLICATION_KEY && appId === V1_FIXTURE_APPLICATION_ID) && v1Identity.registeredApplication(key) !== appId) return json(res, 403, { code: 'V1_APPLICATION_DENIED' });
+            applicationId = appId;
           }
           const check = managementCheck(method, url.pathname, applicationId);
           if (!check || !await v1Identity.authorize(req, check.permissionId, check.resource))
             return json(res, 403, { code: 'V1_PERMISSION_DENIED' });
+          const authority = v1Identity.captureAdmission(req, check.permissionId, check.resource), originalApplicationId = applicationId;
+          admitManagement = async () => {
+            if (originalApplicationId && parts[1] === 'apps' && await readApplicationOwnerId(decodeURIComponent(parts[2])) !== originalApplicationId) throw new Error('V1_ORIGINAL_OWNER_CHANGED');
+            await authority();
+            if (originalApplicationId && parts[1] === 'apps' && await readApplicationOwnerId(decodeURIComponent(parts[2])) !== originalApplicationId) throw new Error('V1_ORIGINAL_OWNER_CHANGED');
+          };
         }
       }
     }
@@ -257,7 +269,7 @@ const server = http.createServer(async (req, res) => {
       const input = await body(req);
       if (method === 'POST') return json(res, 201, await store.create(String(input.name ?? ''), input.definition));
       if (!locator) throw new Error('Artifact locator is required.');
-      if (method === 'PUT') return json(res, 200, await store.save(locator, input.source, input.expectedHash));
+      if (method === 'PUT') { if (input.mode === 'normal' && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); return json(res, 200, await store.save(locator, input.source, input.expectedHash, async () => { if (input.mode === 'normal' && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); await admitManagement(); })); }
       if (method === 'DELETE') {
         const other = await new AutomationStore(path.join(platformRoot, kind === 'trigger' ? 'workflows' : 'triggers'), kind === 'trigger' ? 'workflow' : 'trigger').list();
         const local = (await store.list()).filter(b => b.locator !== locator);
@@ -307,9 +319,15 @@ const server = http.createServer(async (req, res) => {
 
     if (parts[0] === 'api' && parts[1] === 'apps' && parts[2]) {
       const key = decodeURIComponent(parts[2]);
+      const expectedOwner = req.headers['x-editor-application-id'];
+      if (expectedOwner !== undefined) {
+        const originalAdmission = admitManagement;
+        const owner = async () => { if (typeof expectedOwner !== 'string' || await readApplicationOwnerId(key) !== expectedOwner) throw Object.assign(new Error('The original Application owner changed. Recover before continuing.'), { status: 409, code: 'editor.owner-changed' }); };
+        await owner(); admitManagement = async () => { await owner(); await originalAdmission(); await owner(); };
+      }
       if (parts.length === 4 && parts[3] === 'composition-asset' && method === 'POST') {
         const input = await body(req); if (!isMultipartBody(input) || !input.files.asset) throw new Error('Upload an asset file.');
-        return json(res, 201, await saveCompositionAsset(key, String(input.fields.path ?? ''), input.files.asset.content, input.fields.expectedHash || null));
+        return json(res, 201, await saveCompositionAsset(key, String(input.fields.path ?? ''), input.files.asset.content, input.fields.expectedHash || null, admitManagement));
       }
       if (parts.length === 4 && parts[3] === 'composition-asset' && method === 'GET') {
         const relative = url.searchParams.get('path') ?? ''; if (!relative.startsWith('assets/')) throw new Error('Application asset path required.');
@@ -324,27 +342,36 @@ const server = http.createServer(async (req, res) => {
       if (parts.length === 4 && parts[3] === 'composition-source') {
         const file = url.searchParams.get('path'); if (!file) throw new Error('Source path is required.');
         if (method === 'GET') return json(res, 200, await readCompositionSource(key, file));
-        if (method === 'PUT') { const input = await body(req); return json(res, 200, await saveCompositionSource(key, file, input.content, input.expectedHash)); }
+        if (method === 'PUT') { const input = await body(req); if (input.mode === 'normal' && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); return json(res, 200, await saveCompositionSource(key, file, input.content, input.expectedHash, async () => { if (input.mode === 'normal' && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); await admitManagement(); })); }
       }
       if (parts.length === 4 && parts[3] === 'page-shell' && method === 'POST') {
-        const input = await body(req); return json(res, 200, await changePageShell(key, input.locator, input.shellId, input.decisions ?? {}, input.expectedHash));
+        const input = await body(req); return json(res, 200, await changePageShell(key, input.locator, input.shellId, input.decisions ?? {}, input.expectedHash, admitManagement));
       }
       if (parts.length === 4 && parts[3] === 'template-update') {
         const app = await getApp(key), template = await getTemplate(app.template);
         if (method === 'GET') return json(res, 200, await compareTemplate(appPath(key), path.join(template.folder, 'files'), template.definition.id, template.definition.version));
-        if (method === 'POST') { const input = await body(req); return json(res, 200, await applyTemplateUpdate(appPath(key), path.join(template.folder, 'files'), template.definition.id, template.definition.version, input.expectedHash, input.decisions)); }
+        if (method === 'POST') { const input = await body(req); return json(res, 200, await applyTemplateUpdate(appPath(key), path.join(template.folder, 'files'), template.definition.id, template.definition.version, input.expectedHash, input.decisions, { packages: await discoverComponents(key), admit: admitManagement })); }
       }
       if (parts.length === 4 && ['visual-artifacts', 'visual-pages', 'visual-components', 'visual-shells'].includes(parts[3])) {
         await getApp(key);
-        if (parts[3] === 'visual-artifacts' && method === 'GET') return json(res, 200, await visualWorkspace(key, await discoverComponents(key)));
+        if (parts[3] === 'visual-artifacts' && method === 'GET') {
+          return json(res, 200, await withApplicationMutation(appPath(key), async () => visualWorkspace(key, await discoverComponents(key))));
+        }
         const kind = parts[3] === 'visual-components' ? 'component' : parts[3] === 'visual-shells' ? 'shell' : 'page';
         const service = new VisualArtifactService(kind === 'component' ? platformComponentsRoot : path.join(appPath(key), kind === 'shell' ? 'shells' : 'src/pages'), kind);
         const locator = url.searchParams.get('locator');
         if (parts[3] === 'visual-artifacts') throw new Error('The workspace endpoint supports GET only.');
         if (method === 'GET') {
+          if (locator && url.searchParams.get('preview') === '1') {
+            const owner = (await getApp(key)).appId;
+            return json(res, 200, await visualPreviewRevision(key, kind, locator, url.searchParams.get('hash') ?? '', async related => {
+              if (v1Identity && !await v1Identity.authorize(req, related === 'shell' ? 'ui.presentation.view' : 'ui.application.view', { authorityId: 'ui-platform-development', applicationId: owner, kind: related === 'shell' ? 'artifact' : 'application', id: related === 'shell' ? 'presentation' : owner, ...(related === 'shell' ? { parentId: owner } : {}) })) throw Object.assign(new Error('Preview dependencies require current source read authority.'), { status: 403 });
+            }));
+          }
           const bundle = locator ? await service.read(locator) : null;
           if (bundle && url.searchParams.get('code') === '1') {
-            const code = compileVisualFunctions(bundle.files.code);
+            if (url.searchParams.get('hash') !== bundle.hash) throw Object.assign(new Error('Preview code revision changed. Reload the complete preview.'), { status: 409 });
+            const code = isolatedPreviewCode(bundle);
             res.writeHead(200, { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'no-store' }); return res.end(code);
           }
           return json(res, 200, bundle ?? await service.list());
@@ -357,18 +384,30 @@ const server = http.createServer(async (req, res) => {
           if (shellId && !shell) throw new Error('Selected Shell is missing.');
           const initialRegionId = shell ? regions(shell.files.source).find(region => region.regionId === 'region-main')?.regionId ?? regions(shell.files.source)[0]?.regionId ?? null : 'region-main';
           if (kind === 'page' && composition && (await service.list()).some(page => page.metadata?.route === (input.route ?? `/${input.name}`))) throw new Error('A Page already owns that primary Route.');
-          const created = await service.create(String(input.name ?? ''), input.route, input.form, shellId, initialRegionId);
+          const created = await service.create(String(input.name ?? ''), input.route, input.form, shellId, initialRegionId, admitManagement);
           return json(res, 201, created);
         });
         if (!locator) throw new Error('Visual Artifact locator is required.');
         if (method === 'PUT') {
+          if (input.mode === 'normal' && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true);
           return await withApplicationMutation(appPath(key), async () => {
-            if (kind !== 'component') await validateCompositionEdit(key, kind, locator, input.role, input.content);
-            const saved = await service.save(locator, input.role, input.content, input.expectedHash);
+            if (input.mode === 'normal') {
+              const validation = await prepareVisualCandidate(key, kind, locator, await discoverComponents(key));
+              const saved = await service.saveCandidate(locator, input.files, input.expectedHash, { validate: candidate => validation.validate(candidate), admit: async () => { await validation.recheck(); if (editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); await admitManagement(); } });
+              return json(res, 200, saved);
+            }
+            if (input.mode !== undefined && input.mode !== 'repair') throw new VisualCandidateError('Unknown Visual save mode.');
+            if (kind !== 'component') {
+              if (input.files) { for (const role of ['source', 'metadata'] as const) await validateCompositionEdit(key, kind, locator, role, input.files[role]); }
+              else await validateCompositionEdit(key, kind, locator, input.role, input.content);
+            }
+            const saved = input.files
+              ? await service.saveCandidate(locator, input.files, input.expectedHash, { repair: true, admit: admitManagement })
+              : await service.save(locator, input.role, input.content, input.expectedHash, admitManagement);
             return json(res, 200, saved);
           });
         }
-        if (method === 'DELETE') return await withApplicationMutation(appPath(key), async () => { if (kind === 'shell') await assertShellUnused(key, (await service.read(locator)).metadata!.artifactId); await service.remove(locator, input.expectedHash, await knownVisualArtifacts()); return json(res, 200, { removed: true }); });
+        if (method === 'DELETE') return await withApplicationMutation(appPath(key), async () => { if (kind === 'shell') await assertShellUnused(key, (await service.read(locator)).metadata!.artifactId); await service.remove(locator, input.expectedHash, await knownVisualArtifacts(), admitManagement); return json(res, 200, { removed: true }); });
       }
       if (parts.length === 3 && method === 'GET') {
         const app = await getApp(key);
@@ -387,12 +426,17 @@ const server = http.createServer(async (req, res) => {
       }
       if (parts.length === 4 && parts[3] === 'components' && method === 'GET') return json(res, 200, await discoverComponents(key));
       if (parts.length === 4 && parts[3] === 'presentation' && method === 'GET') return json(res, 200, await getApplicationPresentation(key));
-      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'initialize' && method === 'POST') return json(res, 201, await initializeApplicationPresentation(key));
-      if (parts.length === 4 && parts[3] === 'presentation' && method === 'PUT') return json(res, 200, await savePresentationDraft(key, await body(req)));
-      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'publish' && method === 'POST') return json(res, 200, await publishPresentation(key));
+      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'initialize' && method === 'POST') return json(res, 201, await initializeApplicationPresentation(key, admitManagement));
+      if (parts.length === 4 && parts[3] === 'presentation' && method === 'PUT') {
+        const input = await body(req), normal = input.mode === 'normal';
+        if (normal && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true);
+        if (normal && !input.expectedRevision) throw new VisualCandidateError('The original presentation revision is required.');
+        return json(res, 200, await savePresentationDraft(key, normal ? input.value : input, normal ? input.expectedRevision : undefined, async () => { if (normal && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); await admitManagement(); }));
+      }
+      if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'publish' && method === 'POST') return json(res, 200, await publishPresentation(key, admitManagement));
       if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'rollback' && method === 'POST') {
         const input = await body(req);
-        return json(res, 200, await rollbackPresentation(key, Number(input.version)));
+        return json(res, 200, await rollbackPresentation(key, Number(input.version), admitManagement));
       }
       if (parts.length === 5 && parts[3] === 'presentation' && parts[4] === 'active.css' && method === 'GET') {
         const css = await getActivePresentationCss(key);
@@ -486,7 +530,12 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(200, { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'no-store', 'content-length': String(info.size) });
         return createReadStream(file).pipe(res);
       }
-      if (parts[3] === 'settings' && method === 'PUT') return json(res, 200, await saveSettings(key, await body(req)));
+      if (parts[3] === 'settings' && method === 'PUT') {
+        const input = await body(req), normal = input.mode === 'normal';
+        if (normal && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true);
+        if (normal && !input.expectedHash) throw new VisualCandidateError('Original settings source revision is required.');
+        return json(res, 200, await saveSettings(key, normal ? input.settings : input, normal ? input.expectedHash : undefined, async () => { if (normal && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); await admitManagement(); }));
+      }
       if (parts[3] === 'preview' && method === 'POST') {
         const preview = await ensurePreview(key);
         const applicationId = v1Identity?.registeredApplication(key);

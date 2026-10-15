@@ -3,6 +3,9 @@ import { lstat, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { atomicWriteJson, atomicWriteText } from './json-files.js';
 import { withApplicationMutation } from './composition-lock.js';
+import { prepareVisualSourcePlan, partialSourceOperation } from './visual-source-plan.js';
+import type { PackageComponent } from '@ui-platform/visual-artifacts';
+import { compositionSourceFiles } from './composition-snapshots.js';
 
 const digest = (value: Buffer | string) => createHash('sha256').update(value).digest('hex');
 const provenanceFile = 'template.provenance.json';
@@ -17,13 +20,14 @@ export interface TemplateComparison {
 }
 async function sourceTree(root: string): Promise<Map<string, Buffer>> {
   const result = new Map<string, Buffer>();
+  const coordinated = await compositionSourceFiles(root);
   const walk = async (dir: string, prefix = '') => {
     for (const entry of await readdir(dir, { withFileTypes: true })) {
       if (['node_modules', 'dist', 'dist-server', '.git', '.vite', '.uib', 'presentation'].includes(entry.name)) continue;
       if (entry.isSymbolicLink()) throw new Error('Template comparison does not follow symbolic links.');
       const relative = prefix + entry.name;
       if (entry.isDirectory()) await walk(path.join(dir, entry.name), relative + '/');
-      else if (entry.isFile() && relative !== provenanceFile) result.set(relative, await readFile(path.join(dir, entry.name)));
+      else if (entry.isFile() && relative !== provenanceFile) result.set(relative, coordinated.get(relative) ?? await readFile(path.join(dir, entry.name)));
     }
   };
   await walk(root); return result;
@@ -67,7 +71,7 @@ async function comparison(appRoot: string, templateRoot: string, templateId: str
 export async function compareTemplate(appRoot: string, templateRoot: string, templateId: string, version: string): Promise<TemplateComparison> {
   return (await comparison(appRoot, templateRoot, templateId, version)).plan;
 }
-export async function applyTemplateUpdate(appRoot: string, templateRoot: string, templateId: string, version: string, expectedHash: string, decisions: Record<string, 'add' | 'keep' | 'replace'>): Promise<TemplateComparison> {
+export async function applyTemplateUpdate(appRoot: string, templateRoot: string, templateId: string, version: string, expectedHash: string, decisions: Record<string, 'add' | 'keep' | 'replace'>, options: { packages?: PackageComponent[]; admit?: () => Promise<void> } = {}): Promise<TemplateComparison> {
   return withApplicationMutation(appRoot, async () => {
     const { plan, provenance, template } = await comparison(appRoot, templateRoot, templateId, version);
     if (!expectedHash || plan.expectedHash !== expectedHash) throw new Error('Application or template changed. Reload the comparison before updating.');
@@ -78,8 +82,16 @@ export async function applyTemplateUpdate(appRoot: string, templateRoot: string,
       if (item.category === 'new' && !['keep', 'add'].includes(decision)) throw new Error(`Choose Add or Keep for ${item.path}.`);
       if (['app.manifest.json', 'ui.app.json'].includes(item.path) && ['replace', 'add'].includes(decision)) throw new Error('Application identity files must be kept.');
     }
-    // Validate all decisions before the first write. Each file uses the existing atomic writer.
+    const changes = new Map(plan.items.filter(item => ['add', 'replace'].includes(decisions[item.path])).map(item => [item.path, substituteTemplate(template.get(item.path)!, item.path, provenance.tokens)]));
+    const visual = await prepareVisualSourcePlan(appRoot, changes, options.packages);
+    await options.admit?.();
+    if ((await comparison(appRoot, templateRoot, templateId, version)).plan.expectedHash !== expectedHash) throw new Error('Application or template changed during operation admission.');
+    const committed = await visual.commit(options.admit);
+    try {
+    // Complete Visual candidates were validated and journaled before these
+    // ordinary files. This explicit operation has no cross-artifact Undo.
     for (const item of plan.items) if (['add', 'replace'].includes(decisions[item.path])) {
+      if (visual.managedPaths.has(item.path)) continue;
       const content = substituteTemplate(template.get(item.path)!, item.path, provenance.tokens);
       const target = path.join(appRoot, item.path);
       // Tree inventory above rejects symlinks; recheck the destination before mutation.
@@ -91,12 +103,14 @@ export async function applyTemplateUpdate(appRoot: string, templateRoot: string,
         await mkdir(path.dirname(target), { recursive: true });
         const temporary = target + '.template-update'; await writeFile(temporary, content); await rename(temporary, target);
       }
+      committed.push(item.path);
     }
     // Retain historical paths so omissions remain identifiable on later comparisons.
     for (const [file, content] of template) provenance.files[file] = { checksum: digest(content), version };
     provenance.templateAppliedVersion = version;
     await atomicWriteJson(path.join(appRoot, provenanceFile), provenance);
     await recordProcessedVersion(appRoot, version);
+    } catch (error) { if (committed.length) throw partialSourceOperation(error, committed); throw error; }
     return compareTemplate(appRoot, templateRoot, templateId, version);
   });
 }

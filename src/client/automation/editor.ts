@@ -1,35 +1,37 @@
 import { automationDiagnostics, triggerPhases, type AutomationBundle, type AutomationDefinition } from '../../shared/automation';
-import { createEditorSessionBinding, subscribeEditorSession } from '../artifact-editor/session';
+import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
+import { specializedTransport, type SourceRequest, type SourceTransportOptions } from '../artifact-editor/specialized-transport.js';
 const esc = (v: unknown) => String(v ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
-export async function mountAutomationEditor(target: HTMLElement, options: { kind?: 'trigger' | 'workflow'; initial?: AutomationBundle; request?: <T>(url: string, init?: RequestInit) => Promise<T>; onStateChange?: () => void } = {}) {
+export async function mountAutomationEditor(target: HTMLElement, options: SourceTransportOptions & { kind?: 'trigger' | 'workflow'; initial?: AutomationBundle; onStateChange?: () => void } = {}) {
   let kind: 'trigger' | 'workflow' = options.kind ?? 'trigger', selected: AutomationBundle | undefined, source = '', conflict = false, busy = false, polling = false, invalidActions = false, active = !options.initial;
-  const binding = createEditorSessionBinding();
+  type Draft = { source: string; invalidActions?: string };
+  const copies = new Map<string, { bundle: AutomationBundle; lifecycle: EditingLifecycle<Draft>; saveRequest?: SourceRequest }>();
+  let copy: ReturnType<typeof copies.get>;
+  const transport = await specializedTransport(options, () => { for (const record of copies.values()) record.lifecycle.suspend(); target.hidden = true; });
+  const request = transport.request;
   target.innerHTML = `<section class="stack" aria-label="Trigger and Workflow management"><h2>Triggers and Workflows</h2>
     <p>Platform definitions. Actions run in the order shown.</p><div><select aria-label="Automation type"><option value="trigger">Triggers</option><option value="workflow">Workflows</option></select>
     <button data-create>Create</button><button data-list>Refresh list</button><select data-listing aria-label="Automation artifact"></select></div>
-    <p data-status role="status"></p><div data-work hidden><div><button data-save>Save</button><button data-reload>Reload / discard local edits</button><button data-recover>Download local copy</button><button data-delete>Delete</button></div>
+    <p data-status role="status"></p><div data-work hidden><div><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-reload>Reload / discard local edits</button><button data-recover>Download local copy</button><button data-delete>Delete</button></div>
     <div data-properties></div><h3>Ordered actions</h3><div data-action-list></div><button data-add-action>Add service action</button><label>Action configuration (source)<textarea data-actions aria-label="Ordered automation actions" rows="10"></textarea></label>
     <label>Authoritative JSON source<textarea data-source aria-label="Automation source" rows="20" spellcheck="false"></textarea></label><p data-validation></p></div></section>`;
   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
   const status = (text: string) => { find('[data-status]').textContent = text; options.onStateChange?.(); };
   const endpoint = () => `/api/automation/${kind}s`;
   const url = () => endpoint() + `?locator=${encodeURIComponent(selected!.locator)}`;
-  async function request<T>(url: string, init?: RequestInit): Promise<T> {
-    if (options.request) return options.request<T>(url, init);
-    const headers = await binding.headers(); binding.assert();
-    const response = await fetch(url, { ...init, headers: { ...headers, 'content-type': 'application/json' } });
-    const result = await response.json(); binding.assert();
-    if (!response.ok) { if (response.status === 401 || response.status === 403) find('[data-work]').hidden = true; throw new Error(result.error ?? result.code ?? 'Request failed.'); } return result;
-  }
   const run = (action: () => Promise<void>) => { if (busy || options.initial && !active) return; busy = true; void action().catch(e => status(String(e.message ?? e))).finally(() => { busy = false; options.onStateChange?.(); }); };
-  function changed() {
+  function changed(group?: string) {
+    const draft = { source, ...(invalidActions ? { invalidActions: find<HTMLTextAreaElement>('[data-actions]').value } : {}) };
+    if (copy && JSON.stringify(draft) !== JSON.stringify(copy.lifecycle.current)) { copy.saveRequest = transport.capture(); copy.lifecycle.edit(draft, group); }
     try { find('[data-validation]').textContent = automationDiagnostics(JSON.parse(source)).join(' '); } catch { find('[data-validation]').textContent = 'Invalid JSON. Repair the source before editing properties.'; }
-    status(conflict ? 'Source changed on disk. Local edits preserved; download or reload before saving.' : source !== selected?.source ? 'Unsaved changes' : 'Saved source');
+    const lifecycle = copy?.lifecycle; conflict = lifecycle?.state === 'conflict';
+    status(lifecycle ? [editingStatus(lifecycle.state, lifecycle.dirty), lifecycle.failure, lifecycle.notice].filter(Boolean).join(' · ') : 'Select an artifact');
     find<HTMLButtonElement>('[data-save]').disabled = conflict;
+    find<HTMLButtonElement>('[data-undo]').disabled = !lifecycle?.canUndo; find<HTMLButtonElement>('[data-redo]').disabled = !lifecycle?.canRedo;
   }
-  function mutate(change: (definition: AutomationDefinition) => void) {
+  function mutate(change: (definition: AutomationDefinition) => void, group?: string) {
     const definition = JSON.parse(source); change(definition); source = JSON.stringify(definition, null, 2) + '\n';
-    find<HTMLTextAreaElement>('[data-source]').value = source; find<HTMLTextAreaElement>('[data-actions]').value = JSON.stringify(definition.actions, null, 2); renderActions(definition); changed();
+    invalidActions = false; find<HTMLTextAreaElement>('[data-source]').value = source; find<HTMLTextAreaElement>('[data-actions]').value = JSON.stringify(definition.actions, null, 2); renderActions(definition); changed(group);
   }
   function renderActions(definition: AutomationDefinition) {
     find('[data-action-list]').innerHTML = definition.actions.map((action, index) => `<div data-action-index="${index}"><strong>${index + 1}. ${esc(action.id)} · ${esc(action.type)}</strong>${kind === 'trigger' ? `<label>Scope<select data-scope><option value="each" ${action.scope !== 'batch' ? 'selected' : ''}>Each record</option><option value="batch" ${action.scope === 'batch' ? 'selected' : ''}>Entire batch</option></select></label>` : ''}<button data-up ${index === 0 ? 'disabled' : ''}>Move up</button><button data-down ${index === definition.actions.length - 1 ? 'disabled' : ''}>Move down</button><button data-remove>Remove action</button></div>`).join('');
@@ -41,15 +43,41 @@ export async function mountAutomationEditor(target: HTMLElement, options: { kind
       row.querySelector<HTMLButtonElement>('[data-remove]')!.onclick = () => mutate(d => { d.actions.splice(index, 1); });
     });
   }
-  function open(bundle: AutomationBundle) {
-    selected = bundle; source = bundle.source; conflict = false; invalidActions = false; find('[data-work]').hidden = false;
+  function open(bundle: AutomationBundle, replace = false) {
+    const key = `${kind}:${bundle.locator}`; let record = copies.get(key);
+    if (!record) {
+      const capturedKind = kind;
+      record = { bundle, lifecycle: undefined! as EditingLifecycle<Draft> };
+      const original = record;
+      original.lifecycle = new EditingLifecycle<Draft>({ source: bundle.source }, async candidate => {
+        if (candidate.invalidActions !== undefined) throw Object.assign(new Error('Repair actions JSON before saving.'), { status: 422 });
+        let errors: string[]; try { errors = automationDiagnostics(JSON.parse(candidate.source)); } catch { errors = ['Invalid JSON.']; }
+        if (errors.length) throw Object.assign(new Error(errors.join(' ')), { status: 422 });
+        if (!original.saveRequest) throw new Error('Original editing authority is required.');
+        const saved = await original.saveRequest<AutomationBundle>(`/api/automation/${capturedKind}s?locator=${encodeURIComponent(original.bundle.locator)}`, { method: 'PUT', body: JSON.stringify({ mode: 'normal', source: candidate.source, expectedHash: original.bundle.hash }) });
+        original.bundle = saved; return { source: saved.source };
+      });
+      original.lifecycle.subscribe(() => {
+        if (copy !== original) { options.onStateChange?.(); return; }
+        source = original.lifecycle.current.source; selected = original.bundle; invalidActions = original.lifecycle.current.invalidActions !== undefined;
+        find<HTMLTextAreaElement>('[data-source]').value = source;
+        if (invalidActions) find<HTMLTextAreaElement>('[data-actions]').value = original.lifecycle.current.invalidActions!;
+        changed();
+      });
+      copies.set(key, original);
+    } else if (!record.lifecycle.inFlight) {
+      if (replace || record.bundle.hash !== bundle.hash && !record.lifecycle.dirty) { record.bundle = bundle; record.lifecycle.reset({ source: bundle.source }); }
+      else if (record.bundle.hash !== bundle.hash) record.lifecycle.conflict();
+    }
+    copy = record; selected = record.bundle; source = record.lifecycle.current.source; conflict = record.lifecycle.state === 'conflict'; invalidActions = record.lifecycle.current.invalidActions !== undefined; find('[data-work]').hidden = false;
     find<HTMLTextAreaElement>('[data-source]').value = source;
-    const d = bundle.definition;
+    let d: AutomationDefinition | undefined; try { d = JSON.parse(source); } catch { /* Retained raw invalid source. */ }
     find('[data-properties]').innerHTML = d ? `<p>Permanent ID: ${esc(d.id)}</p>${['name', 'displayName', 'appId', 'datasetId', 'primaryKey', ...(kind === 'trigger' ? ['dataset'] : [])].map(key => `<label>${esc(key)}<input data-property="${key}" value="${esc(d[key as keyof AutomationDefinition])}"></label>`).join('')}
       <label><input type="checkbox" data-enabled ${d.enabled ? 'checked' : ''}> Enabled</label>${kind === 'trigger' ? `<label>Phase<select data-phase>${triggerPhases.map(p => `<option ${p === d.phase ? 'selected' : ''}>${p}</option>`).join('')}</select></label><label>Priority<input type="number" data-priority value="${d.priority ?? 0}"></label>` : ''}` : '';
     find<HTMLTextAreaElement>('[data-actions]').value = JSON.stringify(d?.actions ?? [], null, 2);
+    if (invalidActions) find<HTMLTextAreaElement>('[data-actions]').value = record.lifecycle.current.invalidActions!;
     if (d && Array.isArray(d.actions)) renderActions(d); else find('[data-action-list]').replaceChildren();
-    target.querySelectorAll<HTMLInputElement>('[data-property]').forEach(input => input.oninput = () => { try { mutate(d => { (d as unknown as Record<string, unknown>)[input.dataset.property!] = input.value; }); } catch (e) { status(String(e)); } });
+    target.querySelectorAll<HTMLInputElement>('[data-property]').forEach(input => input.oninput = () => { try { mutate(d => { (d as unknown as Record<string, unknown>)[input.dataset.property!] = input.value; }, `property:${input.dataset.property}`); } catch (e) { status(String(e)); } });
     find<HTMLInputElement>('[data-enabled]')?.addEventListener('change', e => mutate(d => { d.enabled = (e.target as HTMLInputElement).checked; }));
     find<HTMLSelectElement>('[data-phase]')?.addEventListener('change', e => mutate(d => { d.phase = (e.target as HTMLSelectElement).value as AutomationDefinition['phase']; }));
     find<HTMLInputElement>('[data-priority]')?.addEventListener('input', e => mutate(d => { d.priority = Number((e.target as HTMLInputElement).value); })); changed();
@@ -60,8 +88,7 @@ export async function mountAutomationEditor(target: HTMLElement, options: { kind
     find<HTMLSelectElement>('[data-listing]').value = selected?.locator ?? '';
   }
   find<HTMLSelectElement>('[aria-label="Automation type"]').onchange = e => run(async () => {
-    if (selected && source !== selected.source && !confirm('Discard local edits?')) { (e.target as HTMLSelectElement).value = kind; return; }
-    kind = (e.target as HTMLSelectElement).value as typeof kind; selected = undefined; find('[data-work]').hidden = true; await list();
+    kind = (e.target as HTMLSelectElement).value as typeof kind; copy = undefined; selected = undefined; find('[data-work]').hidden = true; await list();
   });
   find('[data-create]').onclick = () => run(async () => {
     if (selected && source !== selected.source) throw new Error('Save or reload the current artifact first.');
@@ -74,36 +101,44 @@ export async function mountAutomationEditor(target: HTMLElement, options: { kind
   find('[data-add-action]').onclick = () => { try { mutate(d => { d.actions.push({ id: `action-${crypto.randomUUID()}`, type: 'service', service: 'reference.notification', input: { literal: null }, ...(kind === 'trigger' ? { scope: 'each' as const } : {}) }); }); } catch (error) { status(String(error)); } };
   find<HTMLSelectElement>('[data-listing]').onchange = e => run(async () => {
     const locator = (e.target as HTMLSelectElement).value; if (!locator) return;
-    if (selected && source !== selected.source && !confirm('Discard local edits?')) { (e.target as HTMLSelectElement).value = selected.locator; return; }
     open(await request<AutomationBundle>(endpoint() + `?locator=${encodeURIComponent(locator)}`));
   });
-  find<HTMLTextAreaElement>('[data-source]').oninput = e => { source = (e.target as HTMLTextAreaElement).value; changed(); };
-  find<HTMLTextAreaElement>('[data-actions]').oninput = e => { try { const actions = JSON.parse((e.target as HTMLTextAreaElement).value); invalidActions = false; mutate(d => { d.actions = actions; }); } catch { invalidActions = true; status('Repair actions JSON before saving.'); } };
-  find('[data-save]').onclick = () => run(async () => { if (!selected || conflict || invalidActions) return; open(await request<AutomationBundle>(url(), { method: 'PUT', body: JSON.stringify({ source, expectedHash: selected.hash }) })); await list(); });
-  find('[data-reload]').onclick = () => run(async () => { if (selected && (source === selected.source || confirm('Discard local edits and reload disk source?'))) open(await request<AutomationBundle>(url())); });
-  find('[data-delete]').onclick = () => run(async () => { if (!selected || !confirm('Delete this source artifact?')) return; await request(url(), { method: 'DELETE', body: JSON.stringify({ expectedHash: selected.hash }) }); selected = undefined; find('[data-work]').hidden = true; await list(); });
-  find('[data-recover]').onclick = () => { const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([source], { type: 'application/json' })); link.download = `${kind}-recovery.json`; link.click(); URL.revokeObjectURL(link.href); };
+  find<HTMLTextAreaElement>('[data-source]').oninput = e => { source = (e.target as HTMLTextAreaElement).value; changed('source'); };
+  find<HTMLTextAreaElement>('[data-actions]').oninput = e => { try { const actions = JSON.parse((e.target as HTMLTextAreaElement).value); invalidActions = false; mutate(d => { d.actions = actions; }, 'actions'); } catch { invalidActions = true; changed('actions'); } };
+  find('[data-save]').onclick = () => run(async () => { if (!copy) return; copy.saveRequest = transport.capture(); await copy.lifecycle.flush(); });
+  for (const action of ['undo', 'redo'] as const) find(`[data-${action}]`).onclick = () => { if (!copy || !active) return; copy.saveRequest = transport.capture(); copy.lifecycle[action](); open(copy.bundle); };
+  find('[data-reload]').onclick = () => run(async () => { if (copy?.lifecycle.inFlight) return; if (selected && (!copy?.lifecycle.dirty || confirm('Discard local edits and reload disk source?'))) open(await request<AutomationBundle>(url()), true); });
+  find('[data-delete]').onclick = () => run(async () => {
+    if (!selected || !copy || copy.lifecycle.inFlight || !confirm('Delete this source artifact and discard its local history?')) return;
+    const original = copy, identity = `${kind}:${selected.locator}`;
+    original.lifecycle.suspend();
+    try { await request(url(), { method: 'DELETE', body: JSON.stringify({ expectedHash: selected.hash }) }); }
+    catch (error) { original.lifecycle.resume(); throw error; }
+    await original.lifecycle.dispose(); copies.delete(identity); copy = undefined; selected = undefined; find('[data-work]').hidden = true; await list();
+  });
+  find('[data-recover]').onclick = () => { const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([invalidActions ? JSON.stringify(copy?.lifecycle.current) : source], { type: 'application/json' })); link.download = `${kind}-recovery.json`; link.click(); URL.revokeObjectURL(link.href); };
   const timer = setInterval(() => {
     if (options.initial && !active) return;
-    if (!options.initial && !target.isConnected) { clearInterval(timer); return; }
-    if (!selected || busy || polling) return;
+    if (!target.isConnected) return;
+    if (!selected || busy || polling || copy?.lifecycle.inFlight) return;
     const observed = selected; polling = true;
     void request<AutomationBundle>(url()).then(remote => {
       if (busy || selected !== observed || options.initial && !active) return;
-      if (remote.hash !== observed.hash) { if (source === observed.source && !invalidActions) open(remote); else { conflict = true; changed(); } }
+      if (remote.hash !== observed.hash) { if (!copy?.lifecycle.dirty) open(remote); else { copy.lifecycle.conflict(); changed(); } }
     }).catch(error => status(String(error.message ?? error))).finally(() => { polling = false; });
   }, 1500);
-  const unsubscribe = options.request ? () => {} : subscribeEditorSession(() => { binding.revoke(); find('[data-work]').hidden = true; status('Identity changed. Local copy retained for recovery; reopen this editor under the current identity.'); });
+  const unprotect = protectEditingDraft(() => [...copies.values()].some(record => record.lifecycle.dirty || record.lifecycle.state === 'conflict'));
   try {
     if (options.initial) { open(options.initial); find('[data-listing]').parentElement!.hidden = true; }
     else await list();
-  } catch (error) { clearInterval(timer); unsubscribe(); throw error; }
-  return Object.assign(() => { active = false; clearInterval(timer); unsubscribe(); target.replaceChildren(); }, {
-    state: () => ({ dirty: invalidActions || source !== selected?.source, pending: busy, conflict }),
+  } catch (error) { clearInterval(timer); unprotect(); transport.dispose(); throw error; }
+  return Object.assign(async () => { active = false; clearInterval(timer); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(record => record.lifecycle.dispose())); target.replaceChildren(); }, {
+    state: () => ({ dirty: [...copies.values()].some(record => record.lifecycle.dirty), pending: busy || !!copy?.lifecycle.inFlight, conflict }),
     deactivate() { active = false; },
+    suspend() { for (const record of copies.values()) record.lifecycle.suspend(); target.hidden = true; },
     focus(remote: AutomationBundle, step?: string) {
-      if (remote.hash !== selected?.hash) { if (source !== selected?.source || invalidActions) { conflict = true; changed(); } else open(remote); }
-      active = true;
+      if (remote.hash !== selected?.hash && !copy?.lifecycle.inFlight) { if (copy?.lifecycle.dirty) { copy.lifecycle.conflict(); changed(); } else open(remote); }
+      active = true; target.hidden = false; copy?.lifecycle.resume();
       if (step) [...target.querySelectorAll<HTMLElement>('[data-action-index]')].find(row => row.textContent?.includes(step))?.scrollIntoView();
     },
   });

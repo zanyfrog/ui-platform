@@ -14,6 +14,8 @@ export interface EditorArtifactDto {
   presentation?: EditorPresentationDescriptor;
 }
 export interface EditorSaveDto {
+  /** Omitted mode preserves the established advanced source-repair contract. */
+  mode?: 'normal' | 'repair';
   manifest?: ArtifactManifest | string;
   files?: Record<string, string | null>;
   expectedChecksum: string;

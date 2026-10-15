@@ -5,13 +5,23 @@ import type { CompositionDefinition } from '@ui-platform/visual-artifacts';
 const output = document.querySelector('#preview')!;
 const events = document.querySelector('#events')!;
 let instance: ArtifactInstance | undefined;
+let sequence = 0;
 window.addEventListener('message', async event => {
   if (event.origin !== location.origin || event.source !== parent || event.data?.type !== 'uip-preview') return;
-  const { bundle, components, packages, appKey, composition, shells } = event.data as { bundle: ArtifactBundle; components: ArtifactBundle[]; shells?: ArtifactBundle[]; packages: PackageComponent[]; appKey: string; composition?: CompositionDefinition };
+  const current = ++sequence;
+  const { locator, kind, hash, appKey } = event.data as { locator: string; kind: string; hash: string; appKey: string };
   try {
+    const collection = kind === 'page' ? 'pages' : kind === 'shell' ? 'shells' : 'components';
+    const response = await fetch(`/api/apps/${encodeURIComponent(appKey)}/visual-${collection}?preview=1&locator=${encodeURIComponent(locator)}&hash=${encodeURIComponent(hash)}`, { cache: 'no-store' });
+    const revision = await response.json(); if (!response.ok) throw new Error(revision.error ?? 'Preview revision unavailable.');
+    if (current !== sequence) return;
+    const { bundle, components, packages, composition, shells, code } = revision as { bundle: ArtifactBundle; components: ArtifactBundle[]; shells: ArtifactBundle[]; packages: PackageComponent[]; composition?: CompositionDefinition; code: Record<string, string> };
     instance?.destroy(); events.textContent = '';
-    const runtime = async (item: ArtifactBundle, kind: 'pages' | 'components' | 'shells'): Promise<RuntimeArtifact> => ({ metadata: item.metadata!, source: item.files.source, css: item.files.css,
-      functions: item.files.code.trim() ? await import(/* @vite-ignore */ `/api/apps/${encodeURIComponent(appKey)}/visual-${kind}?locator=${encodeURIComponent(item.locator)}&code=1&hash=${item.hash}`) : undefined });
+    const runtime = async (item: ArtifactBundle, _kind: 'pages' | 'components' | 'shells'): Promise<RuntimeArtifact> => {
+      const url = URL.createObjectURL(new Blob([code[item.hash]], { type: 'text/javascript' }));
+      try { return { metadata: item.metadata!, source: item.files.source, css: item.files.css, functions: await import(/* @vite-ignore */ url) }; }
+      finally { URL.revokeObjectURL(url); }
+    };
     // Register the application's installed implementations before loading the shared renderer.
     for (const pkg of packages) if (pkg.moduleUrl) await import(/* @vite-ignore */ pkg.moduleUrl);
     const { mountVisualArtifact, mountComposedPage } = await import('@ui-platform/visual-artifacts/runtime');
@@ -22,9 +32,10 @@ window.addEventListener('message', async event => {
       services: visualDatasetServices,
       navigate: (to: string) => { events.textContent += `Navigation requested: ${to}\n`; }, onError: (error: unknown) => { events.textContent += `Runtime error: ${String(error)}\n`; } };
     if (composition) composition.shells = await Promise.all((shells ?? []).map(shell => runtime(shell, 'shells')));
+    if (current !== sequence) return;
     const page = artifact.metadata.kind === 'shell' ? { metadata: { schemaVersion: 1 as const, artifactId: 'art_shell_preview', kind: 'page' as const, name: 'shell-preview', displayName: 'Shell Preview', route: '/', shellId: artifact.metadata.artifactId }, source: '', css: '' } : artifact;
     instance = composition && page.metadata.shellId ? mountComposedPage(composition, page, { ...options, editor: true, routeId: page.metadata.routeId, assetUrl: relative => `/api/apps/${encodeURIComponent(appKey)}/composition-asset?path=${encodeURIComponent(relative)}` }) : mountVisualArtifact(artifact, options);
     for (const name of Object.keys(artifact.metadata.public?.events ?? {})) instance.host.addEventListener(name, event => { events.textContent += `${name}: ${JSON.stringify((event as CustomEvent).detail)}\n`; });
     output.replaceChildren(instance.host);
-  } catch (error) { output.textContent = `Preview blocked: ${String(error)}`; }
+  } catch (error) { if (current === sequence) output.textContent = `Preview blocked: ${String(error)}`; }
 });

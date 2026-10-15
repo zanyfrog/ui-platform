@@ -3,8 +3,9 @@ import './components/tree';
 import { mountVisualEditor } from './visual-artifacts/editor';
 import { mountCompositionManager } from './visual-artifacts/composition-manager';
 
-interface BuilderApp { key: string; name: string; }
+interface BuilderApp { key: string; name: string; appId?: string; }
 let parkApplicationWorkspace: (() => void) | undefined;
+const retainedLegacyBuilders = new Map<string, HTMLElement>();
 
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, { headers: { 'content-type': 'application/json', ...(init?.headers ?? {}) }, ...init });
@@ -16,8 +17,10 @@ async function api<T>(url: string, init?: RequestInit): Promise<T> {
 function esc(value: unknown): string { return String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;'); }
 
 export async function mountBuilder(target: HTMLElement, app: BuilderApp): Promise<void> {
+  let subject = 'local';
   if (import.meta.env.DEV) {
     const { editorSessionSnapshot } = await import('./artifact-editor/session.js');
+    subject = editorSessionSnapshot()?.principal?.subjectId ?? 'local';
     if (editorSessionSnapshot()?.fixtures.length === 0) {
       const workspace = await import('./builder-workspace/shell.js');
       if (!target.isConnected) return;
@@ -25,6 +28,15 @@ export async function mountBuilder(target: HTMLElement, app: BuilderApp): Promis
       await workspace.mountApplicationWorkspace(target, app); return;
     }
   }
+  // Keep the existing standalone editors and their common lifecycle when the
+  // Application view is parked. They retain their original owner and transport.
+  const identity = `${subject}:${app.appId ?? app.key}`;
+  const previous = retainedLegacyBuilders.get(identity);
+  if (previous) { target.replaceChildren(previous); return; }
+  const content = document.createElement('div'); retainedLegacyBuilders.set(identity, content); target.replaceChildren(content);
+  return mountLegacyBuilder(content, app);
+}
+async function mountLegacyBuilder(target: HTMLElement, app: BuilderApp): Promise<void> {
   target.innerHTML = `<section class="panel stack builder-panel">
     <div class="builder-heading"><div><uib-heading text="Page Builder" level="2" size="compact"></uib-heading><p class="note">Pages are discovered from <code>src/pages</code>. Changes are written back to the selected source file.</p></div><span id="builderStatus" class="save-status" aria-live="polite">Loading builder...</span></div>
     <div class="builder-layout">
@@ -39,8 +51,8 @@ export async function mountBuilder(target: HTMLElement, app: BuilderApp): Promis
   visualEditor.className = 'panel stack';
   target.prepend(visualEditor);
   const compositionManager = document.createElement('section'); compositionManager.className = 'panel stack'; target.prepend(compositionManager);
-  void mountCompositionManager(compositionManager, app.key).catch(error => { compositionManager.textContent = `Composition unavailable: ${String(error)}`; });
-  void mountVisualEditor(visualEditor, app.key).catch(error => { visualEditor.textContent = `Visual Artifacts unavailable: ${String(error)}`; });
+  void mountCompositionManager(compositionManager, app.key, { applicationId: app.appId }).catch(error => { compositionManager.textContent = `Composition unavailable: ${String(error)}`; });
+  void mountVisualEditor(visualEditor, app.key, { applicationId: app.appId }).catch(error => { visualEditor.textContent = `Visual Artifacts unavailable: ${String(error)}`; });
   const pageEditor = target.querySelector<HTMLElement>('#pageEditor')!;
   const componentPreview = target.querySelector<HTMLElement>('#componentPreview')!;
   const siteTree = target.querySelector<HTMLElement>('#siteTree')!;

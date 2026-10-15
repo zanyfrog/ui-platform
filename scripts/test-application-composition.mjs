@@ -8,8 +8,10 @@ import { once } from 'node:events';
 import path from 'node:path';
 import { createServer, build, preview } from 'vite';
 let playwright;
+const proof = [], print = console.log.bind(console);
+console.log = (...values) => { for (const line of values.join(' ').split('\n')) if (line.startsWith('PASS:')) proof.push(line.slice(6).trim()); print(...values); };
 try { playwright = createRequire(import.meta.url)('playwright'); } catch { playwright = createRequire(path.resolve('../ui-base/package.json'))('playwright'); }
-const temporary = await mkdtemp(path.join(tmpdir(), 'composition-browser-')), apps = path.join(temporary, 'apps'); await mkdir(apps);
+const temporary = await mkdtemp(path.join(tmpdir(), 'c-')), apps = path.join(temporary, 'apps'); await mkdir(apps);
 const probe = httpServer(); await new Promise(resolve => probe.listen(0, '127.0.0.1', resolve)); const port = probe.address().port; await new Promise(resolve => probe.close(resolve));
 const apiEnvironment = { ...process.env, UI_APPS_DIR: apps, UI_RUNTIME_DIR: path.join(temporary, 'runtime'), UI_PLATFORM_API_PORT: String(port), UI_PLATFORM_EDITOR: '0', UI_PLATFORM_V1_DEVELOPMENT_IDENTITY: '0', NODE_ENV: 'test' };
 // A PowerShell 7 test host can inject incompatible Core modules into the exporter's
@@ -89,7 +91,12 @@ try {
   await tab.goto(appOrigin); await tab.getByRole('heading', { name: 'Your Application is ready' }).waitFor(); await tab.getByRole('heading', { name: 'Shared Platform Component', exact: true }).waitFor();
   await tab.goto(appOrigin + 'admin'); await tab.getByRole('heading', { name: 'Administration', exact: true }).waitFor(); assert.equal(await tab.getByText('Admin overview', { exact: true }).count(), 0); await tab.getByRole('heading', { name: 'Shared Platform Component', exact: true }).waitFor();
   console.log('PASS: Public/Admin Pages use separate Shells and the same shared Platform Component with explicit empty Hero suppression');
-  await request(base + '/presentation/publish', 'POST', {});
+  // A separate Vite process can still be finishing validated graph capture.
+  // Foundation rejects admission before Publish starts; retry only that exact busy result.
+  for (let attempt = 0; ; attempt++) {
+    try { await request(base + '/presentation/publish', 'POST', {}); break; }
+    catch (error) { if (attempt >= 30 || error.message !== '{"error":"Artifact is locked by another writer."}') throw error; await new Promise(resolve => setTimeout(resolve, 100)); }
+  }
   const frozen = path.join(root, 'presentation/versions/v1/composition/presentation/platform-components', sharedId, 'component.visual.json');
   assert.equal(JSON.parse(await readFile(frozen, 'utf8')).componentId, sharedId);
   const exported = await request(base + '/export', 'POST', {});
@@ -107,5 +114,9 @@ try {
   await tab.getByRole('heading', { name: 'Shared Platform Component', exact: true }).waitFor();
   console.log('PASS: saved source updates development immediately; production build keeps the existing published composition snapshot');
   assert.deepEqual(errors, [], 'Browser errors');
+  if (process.env.UI_BUILDER_WP2_EVIDENCE) await writeFile(path.join(process.env.UI_BUILDER_WP2_EVIDENCE, 'composition-browser-results.json'), JSON.stringify({ passed: proof, pageErrors: errors, shortWindowsFixturePath: true }, null, 2));
 } catch (error) { console.error(output); throw error; }
 finally { await browser?.close(); await manager?.close(); await application?.close(); if (production) await new Promise(resolve => production.httpServer.close(resolve)); if (api.exitCode === null) { const closed = once(api, 'exit'); api.kill(); await closed; } await rm(temporary, { recursive: true, force: true }).catch(error => { if (error.code !== 'EPERM') throw error; console.log(`Windows holds the loaded native build library until process exit; temporary fixture: ${temporary}`); }); }
+// All assertions and owned-server cleanup completed. Vite's production preview
+// can retain build/plugin handles on Windows after its HTTP server is closed.
+process.exit(0);

@@ -1,4 +1,5 @@
 import path from "node:path";
+import { ArtifactValidationError } from './validation/artifact-validation-error.js';
 import { startArtifactWatcher } from "./watcher.js";
 import { appendFile, realpath } from "node:fs/promises";
 import {
@@ -341,6 +342,16 @@ export class FileSystemArtifactService implements ArtifactService {
         checksum(original)
       )
         throw new ArtifactConflictError();
+      if (changes.mode === 'normal') {
+        const candidate = await this.normalized(bundle, staged, formatting);
+        if (!candidate.validation.valid) throw new ArtifactValidationError('Correct the candidate before saving. Changes retained locally.', candidate.validation);
+      }
+      if (checksum(staged) === checksum(original)) {
+        const unchanged = await this.normalized(bundle, original, formatting);
+        if (checksum(await capture(bundle, Object.keys(original))) !== checksum(original)) throw new ArtifactConflictError();
+        this.observed.set(bundle, original); this.savedChecksums.set(bundle, unchanged.checksum);
+        return { saved: true, artifact: unchanged, validation: unchanged.validation };
+      }
       try {
         await commitTransaction(this.root, bundle, original, staged, {
           beforeWrite: this.options.beforeCommitFile,

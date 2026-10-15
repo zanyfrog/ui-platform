@@ -1,28 +1,63 @@
 import type { ApplicationMenu, CompositionDefinition, MenuItem } from '@ui-platform/visual-artifacts';
 import type { TemplateComparison } from '../../server/template-updates.js';
+import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
+import { specializedTransport, type SourceRequest, type SourceTransportOptions } from '../artifact-editor/specialized-transport.js';
 
 const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 async function api<T>(url: string, init?: RequestInit): Promise<T> { const response = await fetch(url, { ...init, headers: { 'content-type': 'application/json' } }); const data = await response.json(); if (!response.ok) throw new Error(data.error ?? 'Request failed.'); return data; }
 interface Source { path: string; content: string; hash: string }
 
-export async function mountCompositionManager(target: HTMLElement, appKey: string, options: { request?: typeof api; definition?: CompositionDefinition; source?: Source; onStateChange?: () => void } = {}) {
-  const request = options.request ?? api;
+export async function mountCompositionManager(target: HTMLElement, appKey: string, options: SourceTransportOptions & { definition?: CompositionDefinition; source?: Source; onStateChange?: () => void } = {}) {
+  const copies = new Map<string, { source: Source; lifecycle: EditingLifecycle<string>; saveRequest?: SourceRequest }>();
+  let copy: ReturnType<typeof copies.get>, active = !options.source, disposed = false;
+  const transport = await specializedTransport(options, () => { for (const record of copies.values()) record.lifecycle.suspend(); target.hidden = true; });
+  const request = transport.request;
   let busy = false;
   const base = `/api/apps/${encodeURIComponent(appKey)}`;
   let definition = options.definition ?? await request<CompositionDefinition | null>(`${base}/composition`);
-  if (!definition) { target.remove(); return; }
+  if (!definition) { transport.dispose(); target.remove(); return; }
   let source: Source | undefined, update: TemplateComparison | undefined;
   target.innerHTML = `<div class="stack"><strong>Application Composition</strong><p data-status aria-live="polite"></p>
     <label>Application source<select data-files><option value="app.settings.json">Branding, theme and default Shell</option>${definition.menus.map(menu => `<option value="${esc(menu.sourcePath)}">${esc(menu.name)}</option>`).join('')}${definition.settings.siteStyles.map(file => `<option>${esc(file)}</option>`).join('')}</select></label>
     <div data-settings></div><div data-menu></div><label>Source<textarea data-source class="source-editor" spellcheck="false"></textarea></label>
-    <div class="editor-actions"><button data-save>Save source</button><button data-reload>Reload source</button><button data-recover>Download recovery</button><button data-new-menu>Create Menu</button><button data-template>Update from Application Template</button></div>
+    <div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-reload>Reload source</button><button data-recover>Download recovery</button><button data-new-menu>Create Menu</button><button data-template>Update from Application Template</button></div>
     <label>Application asset<input type="file" data-asset></label><label>Asset source path<input data-asset-path value="assets/images/image.png"></label><button data-upload-asset>Upload Application asset</button><p data-asset-status></p>
     <p class="note">Saved source appears in development preview. Use the existing Presentation Publish action to update published presentation.</p><div data-update></div></div>`;
   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
   const status = (message: string) => { find('[data-status]').textContent = message; options.onStateChange?.(); };
-  const safe = (run: () => void | Promise<void>) => async () => { if (busy) return; busy = true; try { await run(); } catch (error) { status(String(error)); } finally { busy = false; options.onStateChange?.(); } };
+  const safe = (run: () => void | Promise<void>) => async () => { if (busy || !active || disposed) return; busy = true; try { await run(); } catch (error) { status(String(error)); } finally { busy = false; options.onStateChange?.(); } };
   const text = () => find<HTMLTextAreaElement>('[data-source]').value;
-  const dirty = () => source && source.content !== text();
+  const dirty = () => !!copy?.lifecycle.dirty;
+  function paintState() {
+    const lifecycle = copy?.lifecycle;
+    status(lifecycle ? [editingStatus(lifecycle.state, lifecycle.dirty), lifecycle.failure, lifecycle.notice].filter(Boolean).join(' · ') : 'Select source');
+    find<HTMLButtonElement>('[data-undo]').disabled = !lifecycle?.canUndo; find<HTMLButtonElement>('[data-redo]').disabled = !lifecycle?.canRedo;
+    find<HTMLButtonElement>('[data-save]').disabled = lifecycle?.state === 'conflict';
+  }
+  function changed(group?: string) { if (copy && text() !== copy.lifecycle.current) { copy.saveRequest = transport.capture(); copy.lifecycle.edit(text(), group); } paintState(); }
+  function openSource(next: Source, replace = false) {
+    let record = copies.get(next.path);
+    if (!record) {
+      record = { source: next, lifecycle: undefined! as EditingLifecycle<string> }; const original = record;
+      original.lifecycle = new EditingLifecycle(next.content, async content => {
+        if (!original.saveRequest) throw new Error('Original editing authority is required.');
+        const saved = await original.saveRequest<Source>(`${base}/composition-source?path=${encodeURIComponent(original.source.path)}`, { method: 'PUT', body: JSON.stringify({ mode: 'normal', content, expectedHash: original.source.hash }) });
+        original.source = saved; return saved.content;
+      });
+      original.lifecycle.subscribe(() => {
+        if (copy !== original) { options.onStateChange?.(); return; }
+        source = original.source;
+        if (text() !== original.lifecycle.current) { find<HTMLTextAreaElement>('[data-source]').value = original.lifecycle.current; try { renderFields(); } catch { /* Retain invalid source. */ } }
+        paintState();
+      }); copies.set(next.path, record);
+    } else if (!record.lifecycle.inFlight) {
+      if (replace || next.hash !== record.source.hash && !record.lifecycle.dirty) { record.source = next; record.lifecycle.reset(next.content); }
+      else if (next.hash !== record.source.hash) record.lifecycle.conflict();
+    }
+    copy = record; source = record.source; find<HTMLTextAreaElement>('[data-source]').value = record.lifecycle.current;
+    find<HTMLSelectElement>('[data-files]').value = source.path;
+    try { renderFields(); } catch { /* Retain invalid source. */ } paintState();
+  }
   find('[data-asset]').addEventListener('change', () => { const file = find<HTMLInputElement>('[data-asset]').files?.[0]; if (file) find<HTMLInputElement>('[data-asset-path]').value = 'assets/images/' + file.name.toLowerCase().replace(/[^a-z0-9.\-]/g, '-'); });
   find('[data-upload-asset]').addEventListener('click', safe(async () => {
     const asset = find<HTMLInputElement>('[data-asset]').files?.[0]; if (!asset) throw new Error('Choose an asset file.');
@@ -30,22 +65,22 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
     const info = await request<{ hash: string | null }>(`${base}/composition-asset?info=1&path=${encodeURIComponent(path)}`);
     if (info.hash && !confirm(`Replace the existing Application asset at ${path}?`)) return;
     const data = new FormData(); data.set('asset', asset); data.set('path', path); data.set('expectedHash', info.hash ?? '');
-    const response = await fetch(`${base}/composition-asset`, { method: 'POST', body: data }); const saved = await response.json(); if (!response.ok) throw new Error(saved.error);
+    await request(`${base}/composition-asset`, { method: 'POST', body: data });
     find('[data-asset-status]').textContent = `Saved ${path}. Use this source path in branding or component settings.`; document.dispatchEvent(new Event('ui-platform-workspace-change'));
   }));
   function menu(): ApplicationMenu { return JSON.parse(text()); }
-  function modifyMenu(work: (menu: ApplicationMenu) => void) { const value = menu(); work(value); find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(value, null, 2) + '\n'; renderFields(); status('Unsaved menu changes'); }
+  function modifyMenu(work: (menu: ApplicationMenu) => void) { const value = menu(); work(value); find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(value, null, 2) + '\n'; renderFields(); changed(); }
   function renderFields(): void {
     find('[data-settings]').replaceChildren(); find('[data-menu]').replaceChildren();
     if (source?.path === 'app.settings.json') {
       const config = JSON.parse(text());
       const field = (name: string, value: string, change: (value: string) => void) => {
         const label = document.createElement('label'); label.textContent = name; const input = document.createElement('input'); input.value = value;
-        input.addEventListener('change', safe(() => { change(input.value); find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(config, null, 2) + '\n'; status('Unsaved settings'); })); label.append(input); find('[data-settings]').append(label);
+        input.addEventListener('input', safe(() => { change(input.value); find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(config, null, 2) + '\n'; changed(`setting:${name}`); })); label.append(input); find('[data-settings]').append(label);
       };
       const label = document.createElement('label'); label.textContent = 'Default Shell for new Pages'; const select = document.createElement('select');
       select.innerHTML = definition!.shells.map(shell => `<option value="${esc(shell.metadata.artifactId)}">${esc(shell.metadata.displayName)}</option>`).join(''); select.value = config.presentation.defaultShellId;
-      select.addEventListener('change', () => { config.presentation.defaultShellId = select.value; find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(config, null, 2) + '\n'; }); label.append(select); find('[data-settings]').append(label);
+      select.addEventListener('change', safe(() => { config.presentation.defaultShellId = select.value; find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(config, null, 2) + '\n'; changed(); })); label.append(select); find('[data-settings]').append(label);
       for (const key of ['applicationName', 'shortName', 'primaryLogo', 'secondaryLogo', 'favicon']) field(key, config.presentation.branding[key] ?? '', value => { config.presentation.branding[key] = value; });
       for (const [key, value] of Object.entries(config.presentation.theme)) field(key, String(value), value => { config.presentation.theme[key] = value; });
     } else if (source?.path.startsWith('menus/')) {
@@ -76,14 +111,15 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
     const item: MenuItem = { itemId: `item-${crypto.randomUUID()}`, label, destination: JSON.parse(destination) };
     modifyMenu(menu => { if (!parentId) menu.items.push(item); else { const walk = (items: MenuItem[]) => { for (const entry of items) { if (entry.itemId === parentId) (entry.children ??= []).push(item); else walk(entry.children ?? []); } }; walk(menu.items); } });
   }
-  async function load(): Promise<void> {
+  async function load(replace = false): Promise<void> {
     const file = find<HTMLSelectElement>('[data-files]').value;
-    const next = await request<Source>(`${base}/composition-source?path=${encodeURIComponent(file)}`); source = next; find<HTMLTextAreaElement>('[data-source]').value = next.content; renderFields(); status('Source loaded');
+    const next = await request<Source>(`${base}/composition-source?path=${encodeURIComponent(file)}`); openSource(next, replace);
   }
-  find('[data-files]').addEventListener('change', safe(async () => { if (dirty() && !confirm('Discard unsaved source changes? Download recovery first if needed.')) { find<HTMLSelectElement>('[data-files]').value = source!.path; return; } await load(); }));
-  find('[data-reload]').addEventListener('click', safe(async () => { if (!dirty() || confirm('Discard editor changes and reload source?')) await load(); }));
-  find('[data-source]').addEventListener('input', () => status('Unsaved source changes; Save validates the source.'));
-  find('[data-save]').addEventListener('click', safe(async () => { source = await request<Source>(`${base}/composition-source?path=${encodeURIComponent(source!.path)}`, { method: 'PUT', body: JSON.stringify({ content: text(), expectedHash: source!.hash }) }); definition = await request<CompositionDefinition>(`${base}/composition`); renderFields(); status('Saved'); document.dispatchEvent(new Event('ui-platform-workspace-change')); }));
+  find('[data-files]').addEventListener('change', safe(async () => { await load(); }));
+  find('[data-reload]').addEventListener('click', safe(async () => { if (copy?.lifecycle.inFlight) return; if (!dirty() || confirm('Discard editor changes and reload source?')) await load(true); }));
+  find('[data-source]').addEventListener('input', () => changed('source'));
+  find('[data-save]').addEventListener('click', safe(async () => { if (!copy) return; copy.saveRequest = transport.capture(); await copy.lifecycle.flush(); }));
+  for (const action of ['undo', 'redo'] as const) find(`[data-${action}]`).addEventListener('click', safe(() => { if (!copy) return; copy.saveRequest = transport.capture(); copy.lifecycle[action](); try { renderFields(); } catch { /* Retain invalid source. */ } }));
   find('[data-recover]').addEventListener('click', () => { const url = URL.createObjectURL(new Blob([text()], { type: 'text/plain' })); const link = document.createElement('a'); link.href = url; link.download = 'composition-source-recovery.txt'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); });
   find('[data-new-menu]').addEventListener('click', safe(async () => {
     if (dirty()) throw new Error('Save or recover source before creating a Menu.');
@@ -102,11 +138,23 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
     }));
   }));
   if (options.source) {
-    source = options.source; find<HTMLSelectElement>('[data-files]').value = source.path;
-    find<HTMLTextAreaElement>('[data-source]').value = source.content; renderFields();
+    openSource(options.source);
     find('[data-files]').parentElement!.hidden = true;
     for (const selector of ['[data-new-menu]', '[data-template]', '[data-upload-asset]']) find(selector).hidden = true;
     find('[data-asset]').parentElement!.hidden = true; find('[data-asset-path]').parentElement!.hidden = true;
   } else await load();
-  return { state: () => ({ dirty: !!dirty(), pending: busy }), dispose: () => target.replaceChildren() };
+  const unprotect = protectEditingDraft(() => [...copies.values()].some(record => record.lifecycle.dirty || record.lifecycle.state === 'conflict'));
+  let polling = false;
+  const timer = setInterval(() => {
+    if (disposed || !active || !target.isConnected || !copy || polling || copy.lifecycle.inFlight) return;
+    const observed = copy; polling = true;
+    void request<Source>(`${base}/composition-source?path=${encodeURIComponent(observed.source.path)}`).then(remote => { if (copy === observed && active) openSource(remote); }).catch(error => status(String(error))).finally(() => { polling = false; });
+  }, 1500);
+  return {
+    state: () => ({ dirty: [...copies.values()].some(record => record.lifecycle.dirty), pending: busy || !!copy?.lifecycle.inFlight, conflict: copy?.lifecycle.state === 'conflict', error: copy?.lifecycle.failure }),
+    deactivate() { active = false; },
+    suspend() { for (const record of copies.values()) record.lifecycle.suspend(); target.hidden = true; },
+    focus(remote: Source) { openSource(remote); active = true; target.hidden = false; copy?.lifecycle.resume(); },
+    async dispose() { disposed = true; active = false; clearInterval(timer); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(record => record.lifecycle.dispose())); target.replaceChildren(); },
+  };
 }

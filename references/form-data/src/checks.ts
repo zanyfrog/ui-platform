@@ -1,12 +1,11 @@
 import '@ui-base/forms';
-import metadata from '../../../components/person-form/component.visual.json';
-import source from '../../../components/person-form/component.html?raw';
-import css from '../../../components/person-form/component.css?raw';
+import { components } from 'virtual:uip-visual-artifacts';
 import { mountVisualArtifact } from '@ui-platform/visual-artifacts/runtime';
 import type { ArtifactMetadata, RuntimeArtifact } from '@ui-platform/visual-artifacts';
 const results: string[] = [];
 const check = (condition: unknown, message: string) => { if (!condition) throw new Error(message); results.push(`PASS: ${message}`); };
-const artifact: RuntimeArtifact = { metadata: metadata as ArtifactMetadata, source, css };
+const artifact = components.find(component => component.metadata.componentId === 'cmp_platform_person_form_reference')!;
+const metadata = artifact.metadata as ArtifactMetadata & { form: NonNullable<ArtifactMetadata['form']>; public: NonNullable<ArtifactMetadata['public']> };
 const wait = (event: Promise<void>, instance: { state: Record<string, unknown> }) => Promise.race([event, new Promise<void>((_, reject) => setTimeout(() => reject(new Error('Submit event missing: ' + JSON.stringify(instance.state))), 5000))]);
 async function run() {
   const initialRecord = { id: 'person-one', firstName: 'Ada', lastName: 'Lovelace', email: 'ada@example.test', status: 'pending', internalNotes: 'retain' };

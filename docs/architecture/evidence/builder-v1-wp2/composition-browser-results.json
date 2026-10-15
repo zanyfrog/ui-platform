@@ -1,0 +1,20 @@
+{
+  "passed": [
+    "Public/Admin Pages reference the same Platform-owned Component; no Application Component catalog or creation endpoint exists",
+    "actual Application creation copies the Standard tree, records identity/provenance, installs dependencies and builds services",
+    "Pages persist resolved Shell identities; default changes affect new Pages only; stale source saves are rejected",
+    "Shell switching requires explicit unmatched Region decisions, retains matching content and blocks destructive Shell edits/deletion",
+    "Application asset uploads preserve binary bytes and require a current checksum for replacement",
+    "absent Region uses Shell default, fixed context is locked, and Page replaces main default",
+    "explicit empty Region suppresses defaults, supplied content replaces defaults",
+    "Menu current state, active ancestors, branding, Shell configuration and theme/site/Page CSS",
+    "Page Regions share state and normal Visual Artifact events; Component CSS remains isolated",
+    "Menu Action targets execute through existing service actions and disabled items do not execute",
+    "real API editor opens Pages in rendered Shell context with locked fixed nodes and edits Shells through the same Visual Artifact editor",
+    "Public/Admin Pages use separate Shells and the same shared Platform Component with explicit empty Hero suppression",
+    "Publish and portable export freeze referenced Platform Components without creating an Application-owned Component collection",
+    "saved source updates development immediately; production build keeps the existing published composition snapshot"
+  ],
+  "pageErrors": [],
+  "shortWindowsFixturePath": true
+}

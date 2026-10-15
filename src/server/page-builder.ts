@@ -6,6 +6,7 @@ import { appendHistory } from './history.js';
 import { appPath } from './applications.js';
 import { moveToOsTrash } from './trash.js';
 import { atomicWriteText } from './json-files.js';
+import { recoverRoleBundleRoot, readRoleBundle } from '@ui-platform/artifacts/storage';
 
 const pageExtension = /(?<!\.functions)\.(ts|tsx)$/i;
 
@@ -69,9 +70,13 @@ async function sourceFiles(appKey: string): Promise<string[]> {
 
 async function descriptor(appKey: string, source: string): Promise<PageDescriptor> {
   const text = await readFile(fileFor(appKey, source), 'utf8');
-  const visual = await readFile(path.join(path.dirname(fileFor(appKey, source)), 'page.visual.json'), 'utf8').then(text => {
-    try { const value = JSON.parse(text); return value.kind === 'page' ? value : undefined; } catch { return undefined; }
-  }).catch(() => undefined);
+  await recoverRoleBundleRoot(pageRoot(appKey));
+  const directory = path.dirname(fileFor(appKey, source)), anchor = 'page.visual.json';
+  let visual;
+  if (await stat(path.join(directory, anchor)).catch(error => { if (error.code === 'ENOENT') return undefined; throw error; })) {
+    const snapshot = await readRoleBundle({ root: pageRoot(appKey), directory, anchor, paths: ['page.html', 'page.css', anchor, 'page.fixtures.json', 'page.functions.ts'] });
+    try { const value = JSON.parse(snapshot.files[anchor]!); if (value.kind === 'page') visual = value; } catch { /* Repair diagnostics belong to the Visual editor. */ }
+  }
   const format = source.endsWith('.tsx') ? 'tsx' : 'typescript';
   const hasRender = /export\s+(?:async\s+)?function\s+render\s*\(/.test(text);
   const hasMarkup = /<[a-zA-Z][^>]*>/.test(text);

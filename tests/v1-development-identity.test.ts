@@ -1,5 +1,6 @@
 import { afterEach, expect, it } from 'vitest';
-import { createServer } from 'node:http';
+import { createServer, type IncomingMessage } from 'node:http';
+import { VisualArtifactService } from '../src/server/visual-artifacts.js';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -10,7 +11,7 @@ import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID, developmentUsers } from '..
 const cleanup: Array<() => Promise<void>> = [];
 afterEach(async () => { for (const close of cleanup.splice(0)) await close(); });
 
-async function host() {
+async function host(onAuthorized?: (req: IncomingMessage, identity: V1DevelopmentIdentity) => Promise<void>) {
   const root = await mkdtemp(path.join(tmpdir(), 'uib-v1-identity-'));
   const file = path.join(root, 'policy.sqlite');
   const origin = 'http://localhost:5174';
@@ -22,6 +23,7 @@ async function host() {
     const kind = area === 'workflow' ? 'workflow' : 'page';
     const allowed = await identity.authorize(req, `ui.${kind}.edit`, { authorityId: V1_AUTHORITY_ID,
       applicationId: V1_FIXTURE_APPLICATION_ID, kind, id: kind === 'page' ? 'fixture-page' : 'fixture-workflow', parentId: V1_FIXTURE_APPLICATION_ID });
+    if (allowed && onAuthorized) { try { await onAuthorized(req, identity); } catch { res.writeHead(403).end(); return; } }
     res.writeHead(allowed ? 200 : 403).end();
   });
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve));
@@ -67,6 +69,34 @@ it('rejects a disabled User on the next request without rebuilding the session',
   } finally { store.close(); }
   expect((await fetch(`${base}/check?area=page`, { headers: { cookie } })).status).toBe(403);
   expect((await fetch(`${base}/api/development-identity/session`, { headers: { cookie } }).then(response => response.json())).user).toBeNull();
+});
+it.each(['policy', 'session'])('blocks a queued real Visual service save when original %s authority is revoked before admission', async revocation => {
+  let enter!: () => void, release!: () => void;
+  const entered = new Promise<void>(resolve => { enter = resolve; }), waiting = new Promise<void>(resolve => { release = resolve; });
+  let service!: VisualArtifactService, before!: Awaited<ReturnType<VisualArtifactService['create']>>;
+  const { base, file, origin } = await host(async (req, identity) => {
+    const admit = identity.captureAdmission(req, 'ui.page.edit', { authorityId: V1_AUTHORITY_ID, applicationId: V1_FIXTURE_APPLICATION_ID, kind: 'page', id: 'fixture-page', parentId: V1_FIXTURE_APPLICATION_ID });
+    await service.saveCandidate(before.locator, { ...before.files, metadata: JSON.stringify({ ...before.metadata!, displayName: 'Queued change' }) }, before.hash, { validate: async () => { enter(); await waiting; }, admit });
+  });
+  service = new VisualArtifactService(path.join(path.dirname(file), 'pages'), 'page'); before = await service.create('queued');
+  const anonymous = await fetch(base + '/api/development-identity/session'), cookie = anonymous.headers.get('set-cookie')!.split(';')[0];
+  const csrf = (await anonymous.json()).csrfToken;
+  const login = await fetch(base + '/api/development-identity/session', { method: 'POST', headers: { cookie, origin, 'x-v1-csrf': csrf, 'content-type': 'application/json' }, body: JSON.stringify({ email: 'mixed@example.local' }) }); expect(login.status).toBe(200);
+  const queued = fetch(base + '/check?area=page', { headers: { cookie } }); await entered;
+  try {
+    if (revocation === 'session') {
+      const current = await fetch(base + '/api/development-identity/session', { headers: { cookie } }).then(response => response.json());
+      const switched = await fetch(base + '/api/development-identity/session', { method: 'POST', headers: { cookie, origin, 'x-v1-csrf': current.csrfToken, 'content-type': 'application/json' }, body: JSON.stringify({ email: developmentUsers[0].email }) }); expect(switched.status).toBe(200);
+    } else {
+      const store = new SecurityDefinitionStore(file);
+      try {
+        const definitions = new SecurityDefinitionService(store), previous = definitions.active().find(document => document.definition.id === developmentUsers[4].id)!;
+        const candidate = definitions.stage({ changes: [{ document: { ...previous, definition: { ...previous.definition, status: 'inactive' } }, expectedChecksum: securityChecksum(previous) }], expectedRevision: definitions.revision(), actorId: 'v1-test-admin', source: 'cli', idempotencyKey: 'queued-save-revoke' });
+        expect(candidate.activatable).toBe(true); expect(definitions.activate(candidate.id, candidate.checksum, 'v1-test-admin').status).toBe('activated');
+      } finally { store.close(); }
+    }
+  } finally { release(); }
+  expect((await queued).status).toBe(403); expect((await service.read(before.locator)).hash).toBe(before.hash);
 });
 
 it('refuses development login outside a development source runtime', async () => {

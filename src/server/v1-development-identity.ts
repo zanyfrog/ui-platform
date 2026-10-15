@@ -223,6 +223,12 @@ export class V1DevelopmentIdentity {
     if (!session || !userId) return false;
     return this.authorizeUser(userId, session.revision, permissionId, resource);
   }
+  captureAdmission(req: IncomingMessage, permissionId: string, resource: SecurityResourceRef): () => Promise<void> {
+    const session = this.session(req), userId = this.currentUser(req), revision = session?.revision, scope = structuredClone(resource);
+    const assert = () => { this.boundary(req); if (!session || !userId || this.session(req) !== session || session.revision !== revision || this.currentUser(req) !== userId) throw new Error('V1_ORIGINAL_AUTHORITY_REVOKED'); };
+    assert();
+    return async () => { assert(); if (!await this.authorizeUser(userId!, revision!, permissionId, scope)) throw new Error('V1_PERMISSION_DENIED'); assert(); };
+  }
   /** Only trusted server adapters call this after binding the editor principal to the V1 session. */
   async authorizeEditor(userId: string, operation: EditorOperation, scope: EditorScope): Promise<boolean> {
     const applicationId = scope.applicationKey === V1_FIXTURE_APPLICATION_KEY ? V1_FIXTURE_APPLICATION_ID : this.options.applicationRegistry?.byKey(scope.applicationKey)?.applicationId;

@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import type { ArtifactValidationResult } from '@ui-platform/artifacts';
+import { ArtifactValidationError, type ArtifactValidationResult } from '@ui-platform/artifacts';
 import type { SecurityDefinitionService } from '@ui-platform/i-am/definitions';
 import type { SecurityAdministrationService } from '@ui-platform/i-am/administration';
 import { parseSecurityDocument } from '@ui-platform/i-am/definitions/validation';
@@ -432,6 +432,18 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
         session.writes.add(settled);
         let result;
         try { result = await save; this.audit('mutation', principal, scope, 'edit'); }
+        catch (error) {
+          if (!(error instanceof ArtifactValidationError)) throw error;
+          // Return only freshly authorized, projected candidate diagnostics. The outer
+          // error handler must continue stripping unprojected Foundation failures.
+          this.assertCurrent(req, session, revision);
+          await this.authorize(principal, 'read', scope); await this.authorize(principal, 'validate', scope);
+          const { artifacts, ids } = await this.visible(workspace, principal);
+          const hidden = artifacts.flatMap(item => item.manifest && !ids.has(item.manifest.artifactId) ? [item.manifest.artifactId] : []);
+          this.assertCurrent(req, session, revision);
+          send(res, 422, { code: 'editor.validation', error: 'Correct the candidate before saving. Changes retained locally.', validation: this.validation(error.validation, workspace, hidden) });
+          return true;
+        }
         finally { session.writes.delete(settled); }
         this.assertCurrent(req, session, revision);
         const projected = await this.project(workspace, principal, result.artifact);

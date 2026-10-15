@@ -30,7 +30,8 @@ describe("built package contract for Generic Artifact Editor consumers", () => {
         sameValidator: server.validateValue === browser.validateValue,
         browserExports: Object.keys(browser).sort(),
         invalid: browser.validateValue('', [{validator:'required'}]),
-        atomicWrite: typeof storage.atomicWriteText
+        atomicWrite: typeof storage.atomicWriteText,
+        roleBundles: ['readRoleBundle','saveRoleBundle','RoleBundleRecoveryRequiredError'].every(key => typeof storage[key] === 'function')
       }));`;
     const result = JSON.parse(
       (
@@ -50,6 +51,7 @@ describe("built package contract for Generic Artifact Editor consumers", () => {
     ]);
     expect(result.invalid[0].code).toBe("value.required");
     expect(result.atomicWrite).toBe("function");
+    expect(result.roleBundles).toBe(true);
   });
   it("type-checks editor operations through published TypeScript entry points", () => {
     const file = path.join(root, "tests", "__editor-consumer__.mts");

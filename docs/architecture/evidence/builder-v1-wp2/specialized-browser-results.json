@@ -1,0 +1,31 @@
+{
+  "passed": [
+    "Focus switches and unchanged candidates do not write source",
+    "Page inactivity autosave completes after switching tabs with its original artifact context",
+    "Page structural Undo/Redo and Shell styling retain independent histories across autosave and switching",
+    "Platform Component property and Form configuration edits autosave and preserve independent Undo/Redo and permanent IDs",
+    "Trigger and Workflow ordered action edits use normal autosave and independent retained Undo/Redo",
+    "Menus, composition settings and editable CSS autosave with per-source history",
+    "Invalid Visual candidates are rejected by the real server, survive switching, and trigger the native leave warning",
+    "External source changes retain the local draft; explicit reload resets only that artifact history with visible notification",
+    "A delayed committed response cannot replace a newer edit; its subsequent inactive save uses the correct source revision",
+    "Failed saves remain recoverable and explicit Save Now retries the validated normal pathway",
+    "Ordinary editing leaves all bytes of the explicitly published immutable snapshot unchanged and never publishes automatically",
+    "Standalone Visual picker uses the same lifecycle: inactive saves complete and per-artifact Undo/Redo survives switching",
+    "A queued save is rejected after identity revocation, and the next User cannot see or inherit the previous draft"
+  ],
+  "pageErrors": [],
+  "normalSaveRequests": 29,
+  "publishRequests": 1,
+  "identities": [
+    "[\"application\",\"dev-v1-identity-fixture\",null,\"visual\",[\"permanent\",\"art_wp2_page\"]]",
+    "[\"application\",\"dev-v1-identity-fixture\",null,\"visual\",[\"permanent\",\"art_wp2_shell\"]]",
+    "[\"platform\",\"ui-platform-development\",null,\"visual\",[\"permanent\",\"art_ae079a36-d563-4bdd-b669-41ba04eed9db\"]]",
+    "[\"platform\",\"ui-platform-development\",null,\"visual\",[\"permanent\",\"art_29049119-bcf7-4ea9-ae05-94d434f2918b\"]]",
+    "[\"application\",\"dev-v1-identity-fixture\",null,\"composition\",[\"permanent\",\"menu-wp2\"]]",
+    "[\"application\",\"dev-v1-identity-fixture\",null,\"composition\",[\"permanent\",\"application-presentation-settings\"]]",
+    "[\"application\",\"dev-v1-identity-fixture\",null,\"composition\",[\"repair-only\",\"styles/site.css\"]]",
+    "[\"platform\",\"ui-platform-development\",null,\"automation\",[\"permanent\",\"trigger_12ec9016-720a-4acf-868b-13965d7972d0\"]]",
+    "[\"platform\",\"ui-platform-development\",null,\"automation\",[\"permanent\",\"workflow_ef1d4998-e61c-42cc-8ac8-9c7cb65fd9d9\"]]"
+  ]
+}

@@ -63,7 +63,7 @@ try {
   });
   await test('Failed navigation retains the current artifact and exposes retry state', async () => {
     failedSave = true; assert(!await context.open('two'), 'Navigation should fail');
-    assert(context.snapshot?.artifact.locator === 'one' && fixture.textContent?.includes('Save failed'), 'Copy or error lost');
+    assert(context.snapshot?.artifact.locator === 'one' && fixture.textContent?.includes('Save Failed'), 'Copy or error lost');
   });
   await test('Identity changes immediately remove source and comparison from DOM', async () => {
     invalidateEditorSession(); subject = 'reviewer'; revision++; await refreshEditorSession();

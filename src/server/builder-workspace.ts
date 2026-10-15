@@ -12,6 +12,7 @@ import { platformRoot } from './paths.js';
 import type { V1DevelopmentIdentity } from './v1-development-identity.js';
 import type { ArtifactEditorSecurity } from './editor-security.js';
 import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID, V1_FIXTURE_APPLICATION_KEY } from './v1-development-policy.js';
+import { withApplicationMutation } from './composition-lock.js';
 
 /** Read-only orchestration over owner services. No second discovery registry. */
 export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, security: ArtifactEditorSecurity) {
@@ -22,6 +23,7 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
     try {
       if (process.env.NODE_ENV !== 'development' || !import.meta.url.endsWith('.ts')) throw new Error('WORKSPACE_DEVELOPMENT_ONLY');
       security.workspacePrincipal(req, req.method === 'POST');
+      return await withApplicationMutation(appPath(decodeURIComponent(parts[2])), async () => {
       const policyDigest = identity.policyDigest();
       const key = decodeURIComponent(parts[2]), app = await getApp(key);
       if (!(key === V1_FIXTURE_APPLICATION_KEY && app.appId === V1_FIXTURE_APPLICATION_ID) && identity.registeredApplication(key) !== app.appId) throw new Error('WORKSPACE_OWNER_DENIED');
@@ -100,6 +102,7 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
       // Owner identity is checked again after asynchronous reads.
       if ((await application(key)).appId !== app.appId || key !== V1_FIXTURE_APPLICATION_KEY && identity.registeredApplication(key) !== app.appId) throw new Error('WORKSPACE_OWNER_CHANGED');
       send(200, { ...item.summary, ...payload }); return true;
+      });
     } catch { send(403, { code: 'WORKSPACE_TARGET_DENIED', error: 'Workspace access denied. Refresh authorization or recover under the original identity.' }); return true; }
   };
 }

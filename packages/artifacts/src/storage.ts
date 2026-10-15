@@ -81,8 +81,9 @@ export async function withArtifactLock<T>(
   root: string,
   bundle: string,
   run: () => Promise<T>,
+  identity = bundle,
 ): Promise<T> {
-  const key = path.join(root, storageKey(bundle));
+  const key = path.join(root, storageKey(identity));
   const previous = localLocks.get(key) ?? Promise.resolve();
   let release!: () => void;
   const current = new Promise<void>((resolve) => {
@@ -91,7 +92,7 @@ export async function withArtifactLock<T>(
   localLocks.set(key, current);
   await previous;
   try {
-    return await acquireArtifactLock(root, bundle, run);
+    return await acquireArtifactLock(root, bundle, run, identity);
   } finally {
     release();
     if (localLocks.get(key) === current) localLocks.delete(key);
@@ -101,16 +102,23 @@ async function acquireArtifactLock<T>(
   root: string,
   bundle: string,
   run: () => Promise<T>,
+  identity: string,
 ): Promise<T> {
   const directory = await storageDirectory(root, "locks");
-  const file = path.join(directory, `${storageKey(bundle)}.lock`);
+  const file = path.join(directory, `${storageKey(identity)}.lock`);
   // No timed lock stealing: slow writers must not lose their locks.
   let handle;
   try {
     handle = await open(file, "wx");
   } catch (e) {
     if ((e as NodeJS.ErrnoException).code !== "EEXIST") throw e;
-    const owner = Number(await readFile(file, "utf8"));
+    let owner = Number(await readFile(file, "utf8"));
+    // Exclusive creation precedes PID publication by a few asynchronous writes.
+    // Wait briefly for a live creator; never remove or steal an incomplete lock.
+    for (let attempt = 0; (!Number.isInteger(owner) || owner <= 0) && attempt < 3; attempt++) {
+      await new Promise(resolve => setTimeout(resolve, 20));
+      owner = Number(await readFile(file, "utf8"));
+    }
     if (!Number.isInteger(owner) || owner <= 0)
       throw new Error(
         "Artifact lock is incomplete; operator recovery is required.",
@@ -146,21 +154,26 @@ async function acquireArtifactLock<T>(
 export async function recoverTransaction(
   root: string,
   bundle: string,
+  options: { identity?: string; validate?: (snapshot: Snapshot) => void; beforeWrite?: (file: string, index: number) => void | Promise<void> } = {},
 ): Promise<boolean> {
   const directory = await storageDirectory(
     root,
     "transactions",
-    storageKey(bundle),
+    storageKey(options.identity ?? bundle),
   );
   const journal = path.join(directory, "pending.json");
-  let pending: { original: Snapshot };
+  let pending: { original: Snapshot; bundle?: string; identity?: string };
   try {
     pending = JSON.parse(await readFile(journal, "utf8"));
   } catch (e) {
     if ((e as NodeJS.ErrnoException).code === "ENOENT") return false;
     throw e;
   }
-  await writeSnapshot(bundle, pending.original);
+  if ((pending.bundle !== undefined && pending.bundle !== bundle) ||
+      (pending.identity !== undefined && pending.identity !== options.identity))
+    throw new Error("Source journal location does not match its recovery lock.");
+  options.validate?.(pending.original);
+  await writeSnapshot(bundle, pending.original, options.beforeWrite);
   await rm(journal);
   return true;
 }
@@ -173,26 +186,29 @@ export async function commitTransaction(
   options: {
     beforeWrite?: (file: string, index: number) => void | Promise<void>;
     rollback?: () => void;
+    identity?: string;
+    capture?: () => Promise<Snapshot>;
+    beforeRollbackWrite?: (file: string, index: number) => void | Promise<void>;
   } = {},
 ): Promise<void> {
   if (
-    checksum(await capture(bundle, Object.keys(original))) !==
+    checksum(await (options.capture?.() ?? capture(bundle, Object.keys(original)))) !==
     checksum(original)
   )
     throw new ArtifactConflictError();
   const directory = await storageDirectory(
     root,
     "transactions",
-    storageKey(bundle),
+    storageKey(options.identity ?? bundle),
   );
   const journal = path.join(directory, "pending.json");
-  await atomicWrite(journal, JSON.stringify({ original }));
+  await atomicWrite(journal, JSON.stringify({ original, ...(options.identity ? { bundle, identity: options.identity } : {}) }));
   try {
     await writeSnapshot(bundle, staged, options.beforeWrite);
     await rm(journal);
   } catch (cause) {
     try {
-      await writeSnapshot(bundle, original);
+      await writeSnapshot(bundle, original, options.beforeRollbackWrite);
       await rm(journal);
     } catch (rollbackError) {
       throw new AggregateError(

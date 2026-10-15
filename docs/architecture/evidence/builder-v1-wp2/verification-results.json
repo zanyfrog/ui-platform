@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-15",
+  "scope": "WP2 only",
+  "gate": "BUILDER V1 WP2 — ACCEPTED AND CLOSED",
+  "implementationGate": "BUILDER V1 WP2 — READY FOR REVIEW",
+  "userAccepted": true,
+  "acceptanceDate": "2026-10-15",
+  "nextPlanningTarget": "WP3 — Dataset Authoring, Development Apply/Connect, and Runtime Integration",
+  "fullRegression": {
+    "passed": 362,
+    "failed": 0,
+    "pending": 0,
+    "files": 53,
+    "report": "ui-results.json",
+    "command": "npm test -- --maxWorkers=1 --testTimeout=15000 --retry=1 --reporter=json --outputFile=docs/architecture/evidence/builder-v1-wp2/ui-results.json"
+  },
+  "editorContracts": {
+    "passed": 143,
+    "failed": 0,
+    "files": 15,
+    "command": "npm run check:editor-contracts"
+  },
+  "typecheck": {
+    "passed": true,
+    "command": "npm run typecheck"
+  },
+  "productionBuild": {
+    "passed": true,
+    "command": "npm run build"
+  },
+  "productionEditorExclusion": {
+    "passed": true,
+    "command": "node scripts/check-editor-production.mjs"
+  },
+  "browser": {
+    "genericAndLegacy": {
+      "groups": 7,
+      "realServiceGroups": 4,
+      "deterministicHarnesses": 3,
+      "report": "browser-results.json"
+    },
+    "specialized": {
+      "groups": 13,
+      "artifactKinds": 9,
+      "standalonePicker": true,
+      "report": "specialized-browser-results.json"
+    },
+    "composition": {
+      "groups": 14,
+      "report": "composition-browser-results.json"
+    },
+    "pageErrors": []
+  },
+  "explicitRoleStorage": {
+    "filesystemTests": 16,
+    "serviceTests": 9,
+    "runtimeViteTests": 15,
+    "realRuntimeBrowserFaultInjection": true,
+    "realHttpPolicyAndSessionRevocation": true,
+    "wholeBundleAtomicFilesystemVisibility": false,
+    "record": "../../builder-v1-wp2-reader-contract.md"
+  },
+  "runtimeRevisions": {
+    "defaultEnabled": true,
+    "normalVisualAutosave": true,
+    "ordinaryHelpersRemainShared": true,
+    "managedRoleEdgesPinnedOrBlocked": true,
+    "computedOpaqueImportsBlocked": true,
+    "revisionSpecificSharedStateBlocked": true,
+    "transientAndBounded": true,
+    "record": "../../builder-v1-wp2-runtime-design.md"
+  },
+  "commonLifecycle": {
+    "autoSaveDebounceMs": 2000,
+    "typingGroupMs": 750,
+    "historyEntries": 100,
+    "historyBytes": 8388608,
+    "nativeLeaveWarning": true,
+    "explicitBaselineResetNotice": true,
+    "normalValidation": true,
+    "separateAdvancedRepair": true,
+    "standaloneAndWorkspace": true,
+    "record": "../../builder-v1-wp2-editing-lifecycle.md"
+  },
+  "limitations": [
+    "No whole-bundle atomic visibility for arbitrary filesystem readers or raw servers outside participating plugins.",
+    "Explicit multi-artifact operations may partly complete and report committed items/recovery; no cross-artifact Undo.",
+    "Opaque/computed helper loading and revision-specific retained shared state are rejected locally.",
+    "Isolated inspector helpers needing Application modules require Current Preview.",
+    "Browser restart history deferred; active ESM modules live until their realm is disposed within bounded registries.",
+    "Windows watcher rename EPERM and archive long-path limitations remain documented."
+  ],
+  "failedAttempts": [
+    {
+      "check": "Earlier 360-test regression",
+      "failed": 2,
+      "resolution": "Three-role Page entry adaptation and exact-hash preview contract tests corrected; final full regression passes."
+    },
+    {
+      "check": "Composition browser",
+      "resolution": "Busy admission retained fail-closed; bounded explicit test retry, PID-publication wait, immutable-output refresh suppression, honest ZIP failure and short fixture path; final browser passes."
+    },
+    {
+      "check": "Final contracts first attempt",
+      "passed": 142,
+      "failed": 1,
+      "reason": "Existing watcher directory rename EPERM",
+      "resolution": "Unchanged complete suite rerun: 143 passed; no skipped/weakened assertion."
+    },
+    {
+      "check": "Generic browser earlier attempt",
+      "resolution": "Navigation helper now awaits completed authorized focus; unchanged draft-retention assertions pass."
+    }
+  ],
+  "blockers": [],
+  "siblingSourceOrContractChanges": false,
+  "laterWorkPackagesStarted": false,
+  "deployment": false,
+  "automaticCommitOrPush": false,
+  "newPublishingInfrastructure": false
+}

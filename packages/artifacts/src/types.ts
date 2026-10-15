@@ -98,6 +98,8 @@ export interface ArtifactSummary {
   validation: ArtifactValidationResult;
 }
 export interface ArtifactChanges {
+  /** Normal authoring rejects an invalid complete candidate before committing. */
+  mode?: 'normal' | 'repair';
   manifest?: ArtifactManifest | string;
   /** Bundle-relative paths. Null deletes a declared file. */
   files?: Record<string, string | null>;

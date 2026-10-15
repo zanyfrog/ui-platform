@@ -8,9 +8,12 @@ import { atomicWriteJson, atomicWriteText, readJson } from './json-files.js';
 import { appendHistory } from './history.js';
 import { discoverComponents } from './component-registry.js';
 import { compositionSettings, compositionWorkspace } from './application-composition.js';
-import { compositionSourceFingerprint, copyCompositionSnapshot, copyReferencedSharedComponents } from './composition-snapshots.js';
+import { compositionSourceFingerprint, compositionSourceFiles, copyCompositionSnapshot, copyReferencedSharedComponents } from './composition-snapshots.js';
+import { prepareVisualSourcePlan, partialSourceOperation } from './visual-source-plan.js';
 import { platformComponentsRoot } from './visual-artifacts.js';
 import { withApplicationMutation } from './composition-lock.js';
+import { readRoleBundle, saveRoleBundle } from '@ui-platform/artifacts/storage';
+import { transform } from 'esbuild';
 
 const MANIFEST_FILE = 'presentation.manifest.json';
 const DRAFT_DIR = 'draft';
@@ -142,24 +145,36 @@ function normalizeShell(value: Partial<ApplicationPresentation['layout']['shells
 }
 
 async function readManifest(key: string): Promise<ApplicationPresentationManifest | null> {
-  try { return await readJson<ApplicationPresentationManifest>(manifestPath(key)); } catch { return null; }
+  const snapshot = await presentationSource(key);
+  return snapshot?.files[MANIFEST_FILE] ? JSON.parse(snapshot.files[MANIFEST_FILE]!) : null;
 }
 async function readDraft(key: string): Promise<ApplicationPresentation | null> {
-  try { return validatePresentation(await readJson<unknown>(draftPath(key))); } catch { return null; }
+  const snapshot = await presentationSource(key);
+  return snapshot?.files[`${DRAFT_DIR}/${PRESENTATION_FILE}`] ? validatePresentation(JSON.parse(snapshot.files[`${DRAFT_DIR}/${PRESENTATION_FILE}`]!)) : null;
+}
+const presentationLocation = (key: string) => ({ root: root(key), directory: root(key), anchor: MANIFEST_FILE, paths: [MANIFEST_FILE, `${DRAFT_DIR}/${PRESENTATION_FILE}`] });
+async function presentationSource(key: string) {
+  if (!await stat(root(key)).catch(error => { if (error.code === 'ENOENT') return null; throw error; })) return undefined;
+  return readRoleBundle(presentationLocation(key));
 }
 export async function getApplicationPresentation(key: string): Promise<ApplicationPresentationStatus> {
-  const manifest = await readManifest(key);
-  const draft = await readDraft(key);
+  const snapshot = await presentationSource(key);
+  const manifest = snapshot?.files[MANIFEST_FILE] ? JSON.parse(snapshot.files[MANIFEST_FILE]!) as ApplicationPresentationManifest : null;
+  const rawDraft = snapshot?.files[`${DRAFT_DIR}/${PRESENTATION_FILE}`];
+  const draft = rawDraft ? validatePresentation(JSON.parse(rawDraft)) : null;
   if (!manifest || !draft) return { initialized: false, manifest: null, draft: null, draftDiffersFromActive: false };
   const active = manifest.activeVersion === null ? null : await readVersion(key, manifest.activeVersion);
   let compositionChanged = false;
   if (await compositionSettings(key)) compositionChanged = !manifest.activeVersion || await compositionSourceFingerprint(appPath(key), platformComponentsRoot) !== await readFile(path.join(root(key), 'versions', `v${manifest.activeVersion}`, 'composition.source-checksum'), 'utf8').catch(() => '');
-  return { initialized: true, manifest, draft, draftDiffersFromActive: !active || checksum(draft) !== checksum(active) || compositionChanged };
+  return { initialized: true, manifest, draft, sourceRevision: snapshot!.checksum, draftDiffersFromActive: !active || checksum(draft) !== checksum(active) || compositionChanged };
 }
 async function readVersion(key: string, version: number): Promise<ApplicationPresentation | null> {
   try { return validatePresentation(await readJson<unknown>(versionPath(key, version))); } catch { return null; }
 }
-export async function initializeApplicationPresentation(key: string): Promise<ApplicationPresentationStatus> {
+export async function initializeApplicationPresentation(key: string, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
+  return withApplicationMutation(appPath(key), async () => { await admit(); return initializePresentationSource(key); });
+}
+async function initializePresentationSource(key: string): Promise<ApplicationPresentationStatus> {
   const app = await getApp(key);
   const existing = await getApplicationPresentation(key);
   if (existing.initialized) {
@@ -169,25 +184,45 @@ export async function initializeApplicationPresentation(key: string): Promise<Ap
   const draft = defaultPresentation();
   const now = new Date().toISOString();
   const manifest: ApplicationPresentationManifest = { type: 'ui-platform.presentation', schemaVersion: APPLICATION_PRESENTATION_VERSION, applicationId: app.appId, activeVersion: null, draft: { exists: true, modifiedAt: now, checksum: checksum(draft) }, versions: [] };
-  await atomicWriteJson(draftPath(key), draft);
+  await mkdir(path.dirname(draftPath(key)), { recursive: true });
+  const original = await readRoleBundle(presentationLocation(key));
   await mkdir(activeAssetsRoot(key), { recursive: true });
   await mkdir(draftAssetsRoot(key), { recursive: true });
   await atomicWriteText(activeCssPath(key), '/* Application Presentation has not been published yet. */\n');
   await writePresentationRuntime(key, draft);
   await ensurePresentationRuntimeImport(key);
-  await atomicWriteJson(manifestPath(key), manifest);
+  await saveRoleBundle(presentationLocation(key), { expectedChecksum: original.checksum, files: { [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n', [`${DRAFT_DIR}/${PRESENTATION_FILE}`]: JSON.stringify(draft, null, 2) + '\n' }, validate() { validatePresentation(draft); }, admit() {} });
   await appendHistory(appPath(key), { action: 'presentation.initialized', appId: app.appId, actor: 'local-user' });
   return getApplicationPresentation(key);
 }
-export async function savePresentationDraft(key: string, value: unknown): Promise<ApplicationPresentationStatus> {
-  const presentation = validatePresentation(value);
+export async function savePresentationDraft(key: string, value: unknown, expectedRevision?: string, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
+  return withApplicationMutation(appPath(key), () => savePresentationDraftSource(key, value, expectedRevision, admit));
+}
+async function savePresentationDraftSource(key: string, value: unknown, expectedRevision?: string, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
+  let presentation: ApplicationPresentation;
+  try {
+  presentation = validatePresentation(value);
   await validateComponentDefaults(key, presentation.componentDefaults);
-  const status = await initializeApplicationPresentation(key);
+  const css = await transform(renderPresentationCss(presentation), { loader: 'css', logLevel: 'silent' });
+  if (css.warnings.length) throw new Error(css.warnings.map(item => item.text).join(' '));
+  } catch (error) { throw Object.assign(error instanceof Error ? error : new Error(String(error)), { status: 422 }); }
+  let status = await getApplicationPresentation(key);
+  if (!status.initialized) {
+    if (expectedRevision) throw Object.assign(new Error('Presentation baseline was removed. Recover before saving.'), { status: 409 });
+    await admit(); status = await initializePresentationSource(key);
+  }
+  if (expectedRevision && expectedRevision !== status.sourceRevision) throw Object.assign(new Error('Presentation source changed. Reload or recover before saving.'), { status: 409 });
   const manifest = status.manifest!;
+  if (manifest.applicationId !== (await getApp(key)).appId) throw Object.assign(new Error('Original presentation owner changed.'), { status: 409 });
+  if (checksum(presentation) === checksum(status.draft)) {
+    await admit();
+    if ((await readRoleBundle(presentationLocation(key))).checksum !== status.sourceRevision) throw Object.assign(new Error('Presentation source changed during admission.'), { status: 409 });
+    return status;
+  }
   const now = new Date().toISOString();
   manifest.draft = { exists: true, modifiedAt: now, checksum: checksum(presentation) };
-  await atomicWriteJson(draftPath(key), presentation);
-  await atomicWriteJson(manifestPath(key), manifest);
+  const original = await readRoleBundle(presentationLocation(key));
+  await saveRoleBundle(presentationLocation(key), { expectedChecksum: expectedRevision ?? original.checksum, files: { [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n', [`${DRAFT_DIR}/${PRESENTATION_FILE}`]: JSON.stringify(presentation, null, 2) + '\n' }, validate() { validatePresentation(presentation); }, admit });
   await appendHistory(appPath(key), { action: 'presentation.draft.updated', actor: 'local-user' });
   return getApplicationPresentation(key);
 }
@@ -208,11 +243,11 @@ async function validateComponentDefaults(key: string, defaults: ApplicationPrese
     }
   }
 }
-export async function publishPresentation(key: string): Promise<ApplicationPresentationStatus> {
-  return withApplicationMutation(appPath(key), () => publishPresentationSource(key));
+export async function publishPresentation(key: string, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
+  return withApplicationMutation(appPath(key), async () => { await admit(); return publishPresentationSource(key, admit); });
 }
-async function publishPresentationSource(key: string): Promise<ApplicationPresentationStatus> {
-  const status = await initializeApplicationPresentation(key);
+async function publishPresentationSource(key: string, admit: () => Promise<void>): Promise<ApplicationPresentationStatus> {
+  const status = await initializePresentationSource(key);
   const draft = status.draft!;
   const manifest = status.manifest!;
   const version = Math.max(0, ...manifest.versions.map((item) => item.version)) + 1;
@@ -235,7 +270,9 @@ async function publishPresentationSource(key: string): Promise<ApplicationPresen
   manifest.activeVersion = version;
   manifest.versions.push({ version, checksum: hash, publishedAt: now, actor: 'local-user' });
   manifest.draft = { exists: true, modifiedAt: now, checksum: hash };
-  await atomicWriteJson(manifestPath(key), manifest);
+  const baseline = await readRoleBundle(presentationLocation(key));
+  if (baseline.checksum !== status.sourceRevision) throw Object.assign(new Error('Presentation changed while preparing Publish. The active pointer was not advanced.'), { status: 409 });
+  await saveRoleBundle(presentationLocation(key), { expectedChecksum: baseline.checksum, files: { ...baseline.files, [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n' }, validate() { validatePresentation(draft); }, admit });
   await appendHistory(appPath(key), { action: 'presentation.published', version, checksum: hash, actor: 'local-user' });
   return getApplicationPresentation(key);
 }
@@ -278,8 +315,11 @@ async function writePresentationRuntime(key: string, presentation: ApplicationPr
   );
   await atomicWriteText(path.join(root(key), 'runtime.ts'), runtimeModule);
 }
-export async function rollbackPresentation(key: string, sourceVersion: number): Promise<ApplicationPresentationStatus> {
-  const status = await initializeApplicationPresentation(key);
+export async function rollbackPresentation(key: string, sourceVersion: number, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
+  return withApplicationMutation(appPath(key), async () => { await admit(); return rollbackPresentationSource(key, sourceVersion, admit); });
+}
+async function rollbackPresentationSource(key: string, sourceVersion: number, admit: () => Promise<void>): Promise<ApplicationPresentationStatus> {
+  const status = await initializePresentationSource(key);
   if (!status.manifest!.versions.some((item) => item.version === sourceVersion)) throw new Error(`Presentation version v${sourceVersion} does not exist.`);
   const source = await readVersion(key, sourceVersion);
   if (!source) throw new Error(`Presentation version v${sourceVersion} could not be read.`);
@@ -290,14 +330,20 @@ export async function rollbackPresentation(key: string, sourceVersion: number): 
     const current = await readJson<any>(path.join(appPath(key), 'app.settings.json'));
     // Reuse the accepted explicit rollback-to-draft operation. Preserve Application
     // metadata and source files that did not exist in the historical presentation.
-    const { compositionSources } = await import('./composition-snapshots.js');
-    for (const relative of compositionSources) if (relative !== 'app.settings.json') {
-      const source = path.join(snapshot, relative);
-      if (await stat(source).catch(() => null)) await cp(source, path.join(appPath(key), relative), { recursive: true, force: true });
+    const changes = await compositionSourceFiles(snapshot, true);
+    changes.set('app.settings.json', Buffer.from(JSON.stringify({ ...current, presentation: historical.presentation }, null, 2) + '\n'));
+    const visual = await prepareVisualSourcePlan(appPath(key), changes, await discoverComponents(key));
+    const committed = await visual.commit(admit);
+    try {
+    for (const [relative, content] of changes) if (!visual.managedPaths.has(relative)) {
+      const target = path.join(appPath(key), relative); await mkdir(path.dirname(target), { recursive: true });
+      if (Buffer.from(content.toString('utf8')).equals(content)) await atomicWriteText(target, content.toString('utf8'));
+      else await writeFile(target, content);
+      committed.push(relative);
     }
-    await atomicWriteJson(path.join(appPath(key), 'app.settings.json'), { ...current, presentation: historical.presentation });
+    } catch (error) { if (committed.length) throw partialSourceOperation(error, committed); throw error; }
   }
-  await savePresentationDraft(key, source);
+  await savePresentationDraftSource(key, source, status.sourceRevision, admit);
   await appendHistory(appPath(key), { action: 'presentation.rollback.requested', sourceVersion, actor: 'local-user' });
   return getApplicationPresentation(key);
 }

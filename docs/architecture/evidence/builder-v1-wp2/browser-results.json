@@ -1,0 +1,15 @@
+{
+  "passed": [
+    "WP2 generic normal autosave rejects invalid source through the real service; disk unchanged and diagnostics/draft survive switching",
+    "WP2 generic correction autosaves after inactivity; Undo survives save, Redo survives tab switching, Save Now persists real source",
+    "WP2 native browser refresh warning protects an invalid local draft; successfully saved state leaves without a warning",
+    "Legacy Application settings and presentation design/layout adapters use real common controls, validated services and retained independent Undo/Redo",
+    "Existing editor-shell browser presentation harness passes (deterministic transport; separate from real-service proof)",
+    "Existing editor-properties browser presentation harness passes (deterministic transport; separate from real-service proof)",
+    "Existing editor-route browser presentation harness passes (deterministic transport; separate from real-service proof)"
+  ],
+  "sourceWritesIncludingWP2Editing": 13,
+  "pageErrors": [],
+  "visualIdentity": "[\"application\",\"dev-v1-identity-fixture\",null,\"visual\",[\"permanent\",\"art_customer-page-reference\"]]",
+  "formIdentity": "[\"platform\",\"ui-platform-development\",null,\"visual\",[\"permanent\",\"art_person_form_reference\"]]"
+}

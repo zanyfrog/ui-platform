@@ -31,6 +31,7 @@ export interface DiscoveredApp {
   issues: string[];
   pages: string[];
   settings: Record<string, unknown>;
+  settingsRevision?: string;
   appServices?: {
     package: string;
     components?: {

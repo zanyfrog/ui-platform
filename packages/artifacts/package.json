@@ -6,8 +6,8 @@
   "types": "./dist/index.d.ts",
   "exports": {
     "./storage": {
-      "types": "./dist/file-operations.d.ts",
-      "import": "./dist/file-operations.js"
+      "types": "./dist/storage-api.d.ts",
+      "import": "./dist/storage-api.js"
     },
     ".": {
       "types": "./dist/index.d.ts",

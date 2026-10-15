@@ -96,13 +96,13 @@ it('management browser creates, edits, reloads disk source, retains conflicts an
   if (!file.startsWith(path.resolve('triggers') + path.sep) || !/^browser-proof-\d+$/.test(name)) throw new Error('Unexpected test artifact path.');
   cleanup.push(() => rm(path.dirname(file), { recursive: true, force: true }));
   const created = JSON.parse(await readFile(file, 'utf8'));
-  await page.locator('input[data-property="displayName"]').fill('Browser edited Trigger'); await page.getByRole('button', { name: 'Save', exact: true }).click();
+  await page.locator('input[data-property="displayName"]').fill('Browser edited Trigger'); await page.getByRole('button', { name: 'Save Now', exact: true }).click();
   await expect.poll(async () => JSON.parse(await readFile(file, 'utf8')).displayName, { timeout: 45000 }).toBe('Browser edited Trigger');
   const disk = JSON.parse(await readFile(file, 'utf8')); await writeFile(file, JSON.stringify({ ...disk, displayName: 'External edit' }, null, 2));
   await expect.poll(() => page.locator('input[data-property="displayName"]').inputValue(), { timeout: 45000 }).toBe('External edit');
   await page.locator('input[data-property="displayName"]').fill('Local retained'); await writeFile(file, JSON.stringify({ ...disk, displayName: 'Conflict disk edit' }, null, 2));
-  await expect.poll(() => page.locator('[data-status]').innerText(), { timeout: 45000 }).toContain('Local edits preserved');
-  expect(await page.getByRole('button', { name: 'Save', exact: true }).isDisabled()).toBe(true);
+  await expect.poll(() => page.locator('[data-status]').innerText(), { timeout: 45000 }).toContain('Conflict');
+  expect(await page.getByRole('button', { name: 'Save Now', exact: true }).isDisabled()).toBe(true);
   await page.getByRole('button', { name: 'Reload / discard local edits' }).click();
   await expect.poll(() => page.locator('input[data-property="displayName"]').inputValue(), { timeout: 45000 }).toBe('Conflict disk edit');
   expect(JSON.parse(await readFile(file, 'utf8')).id).toBe(created.id);
