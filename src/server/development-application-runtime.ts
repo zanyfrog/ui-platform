@@ -14,6 +14,14 @@ export interface DevelopmentRuntimeConnection {
  * resources or grants policy; the protected host must independently bind the Dataset. */
 export class DevelopmentApplicationRuntime {
   private readonly previewOrigins = new Map<string, Set<string>>();
+  private readonly managed = new Map<string, DevelopmentRuntimeConnection>();
+  connectManaged(config: DevelopmentRuntimeConnection) {
+    const existing = this.connection(config.applicationId);
+    if (existing && existing.datasetId !== config.datasetId) throw new Error('ONE_DATASET_HOST_LIMIT');
+    this.managed.set(config.applicationId, structuredClone(config));
+  }
+  connectedDataset(applicationId: string) { return this.connection(applicationId)?.datasetId; }
+  disconnectManaged(applicationId: string) { this.managed.delete(applicationId); }
   constructor(private readonly file: string | undefined, private readonly policyStore: string,
     private readonly registry: DevelopmentApplicationRegistry, private readonly identity: V1DevelopmentIdentity,
     private readonly origins: string[]) {}
@@ -23,6 +31,8 @@ export class DevelopmentApplicationRuntime {
     this.previewOrigins.set(applicationId, new Set([origin]));
   }
   private connection(applicationId: string): DevelopmentRuntimeConnection | undefined {
+    const managed = this.managed.get(applicationId);
+    if (managed) return structuredClone(managed);
     if (!this.file) return undefined;
     let connections: DevelopmentRuntimeConnection[];
     try { connections = JSON.parse(readFileSync(this.file, 'utf8')) as DevelopmentRuntimeConnection[]; }
@@ -34,7 +44,7 @@ export class DevelopmentApplicationRuntime {
     const config = matches[0]!;
     const host = new URL(config.hostUrl);
     if (host.protocol !== 'http:' || !['127.0.0.1', 'localhost'].includes(host.hostname) || host.pathname !== '/' || host.username || host.password || host.search || host.hash ||
-        config.trustedUiServerKey.length < 32 || !config.datasetId || !Array.isArray(config.workflowIds) || !config.workflowIds.length ||
+        config.trustedUiServerKey.length < 32 || !config.datasetId || !Array.isArray(config.workflowIds) ||
         new Set(config.workflowIds).size !== config.workflowIds.length || realpathSync(config.policyStore) !== realpathSync(this.policyStore) ||
         this.registry.byKey(config.key)?.applicationId !== applicationId) throw new Error('DEVELOPMENT_RUNTIME_CONFIG_INVALID');
     return config;

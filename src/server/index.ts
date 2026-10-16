@@ -44,6 +44,8 @@ import { assertShellUnused, changePageShell, compositionAssetInfo, compositionSe
 import { DevelopmentApplicationRegistry } from './development-application-registry.js';
 import { DevelopmentApplicationRuntime } from './development-application-runtime.js';
 import { createBuilderWorkspaceHandler } from './builder-workspace.js';
+import { DatasetDevelopment } from './dataset-development.js';
+import { FormSubmissionTesting } from './form-submission-testing.js';
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const builderWp0Enabled = process.env.UI_PLATFORM_BUILDER_WP0 === '1';
 const v1Enabled = process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1';
@@ -85,6 +87,14 @@ const editorSecurity = new ArtifactEditorSecurity({
 });
 const editorWorkspaces = new Map<string, ArtifactEditorWorkspace>();
 const builderWorkspace = v1Identity ? createBuilderWorkspaceHandler(v1Identity, editorSecurity) : undefined;
+const datasetDevelopment = developmentApplications && developmentRuntime && v1Identity ? new DatasetDevelopment({
+  root: path.join(runtimeDir, 'builder-datasets'), policyStore: v1PolicyStorePath,
+  registryFile: path.join(runtimeDir, 'development-applications.sqlite'), applicationsRoot: appsDir,
+  identity: v1Identity, security: editorSecurity, registry: developmentApplications, runtime: developmentRuntime,
+  workspace: key => editorWorkspace(appPath(key)),
+}) : undefined;
+const formTesting = developmentApplications && v1Identity ? new FormSubmissionTesting({ root: path.join(runtimeDir, 'form-submission-tests'), datasetsRoot: path.join(runtimeDir, 'builder-datasets'), policyStore: v1PolicyStorePath,
+  registry: developmentApplications, identity: v1Identity, security: editorSecurity, origins: [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]) }) : undefined;
 function editorWorkspace(root: string) {
   let workspace = editorWorkspaces.get(root);
   if (!workspace) {
@@ -213,6 +223,8 @@ const server = http.createServer(async (req, res) => {
     if (developmentRuntime && await developmentRuntime.handle(req, res)) return;
     if (await applicationData(req, res)) return;
     if (await editorSecurity.handle(req, res)) return;
+    if (datasetDevelopment && await datasetDevelopment.handle(req, res)) return;
+    if (formTesting && await formTesting.handle(req, res)) return;
     if (builderWorkspace && await builderWorkspace(req, res)) return;
     if (v1Identity && url.pathname.startsWith('/api/') && url.pathname !== '/api/health') {
       const publicRead = method === 'GET' && (['/api/templates', '/api/components'].includes(url.pathname) ||
@@ -384,7 +396,7 @@ const server = http.createServer(async (req, res) => {
           if (shellId && !shell) throw new Error('Selected Shell is missing.');
           const initialRegionId = shell ? regions(shell.files.source).find(region => region.regionId === 'region-main')?.regionId ?? regions(shell.files.source)[0]?.regionId ?? null : 'region-main';
           if (kind === 'page' && composition && (await service.list()).some(page => page.metadata?.route === (input.route ?? `/${input.name}`))) throw new Error('A Page already owns that primary Route.');
-          const created = await service.create(String(input.name ?? ''), input.route, input.form, shellId, initialRegionId, admitManagement);
+          const created = await service.create(String(input.name ?? ''), input.route, input.form ? { ...input.form, authoring: true } : undefined, shellId, initialRegionId, admitManagement);
           return json(res, 201, created);
         });
         if (!locator) throw new Error('Visual Artifact locator is required.');
@@ -584,6 +596,8 @@ async function shutdown() {
   stopWatcher();
   await artifactWatcher?.close();
   await stopAllPreviews();
+  await datasetDevelopment?.close();
+  await formTesting?.close();
   editorSecurity.close();
   v1Identity?.close();
   developmentApplications?.close();

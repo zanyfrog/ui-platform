@@ -10,7 +10,7 @@ function documents(context: EditorRuntimeContext): SourceDocument[] {
   const artifact = context.snapshot?.artifact;
   if (!artifact) return [];
   return [
-    { key: 'artifact.json', label: 'artifact.json (manifest)', source: artifact.manifestContent, set: source => context.setManifest(source, 'source:artifact.json') },
+    ...artifact.visualForm ? [] : [{ key: 'artifact.json', label: 'artifact.json (manifest)', source: artifact.manifestContent, set: (source: string) => context.setManifest(source, 'source:artifact.json') }],
     ...artifact.files.map(file => ({ key: file.path, label: `${file.path} (${file.role})`, source: file.content, set: (source: string) => context.setFile(file.path, source, file.role, file.language, `source:${file.path}`) })),
   ];
 }

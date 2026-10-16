@@ -1,0 +1,45 @@
+{
+  "applicationId": "f21db7a7-1659-4ce2-b2b8-95afa3ef3cfb",
+  "datasetId": "32e1bfff-4142-437a-9707-803be88f3079",
+  "formId": "cmp_platform_ef99d13a-f643-4e50-9d57-7cf38cc4c9db",
+  "formArtifactId": "art_4a8c7a83-8cec-4540-83aa-de85c4d00a26",
+  "fieldIds": [
+    "3b92c396-e6e6-4c53-9a63-0f3e6011ca31",
+    "33c390b6-4e31-4b52-83b9-dcd1361f72b2",
+    "c5659ea2-2f0a-4afa-8aa0-11b32abdc802",
+    "fda97830-7525-48af-b3cf-0c90c90a59ff",
+    "d67cb6c0-1dc1-4ce6-ab55-85af69fbbacd",
+    "44a1a5c6-2339-4cc1-b4c7-f4fae0d3b695",
+    "c2ae93a7-0611-48f9-adab-3b31dab80d7d"
+  ],
+  "testId": "73053395-4801-4cc0-8725-13eb5dff3361",
+  "tests": [
+    "actual-builder-blank-form",
+    "cancel-dataset-create-no-link",
+    "failed-dataset-create-no-link",
+    "stale-origin-refuses-link",
+    "A18-create-configure-apply-connect-return-link",
+    "generic-editor-five-roles",
+    "identity-stable-undo-redo",
+    "applied-ID-mapping",
+    "explicit-date-json-handling",
+    "typed-calculation-and-condition-authoring",
+    "nonpersisting-design-preview",
+    "isolated-protected-submission",
+    "invalid-json-draft-preserved-and-blocked",
+    "crafted-calculation-rejected",
+    "isolated-versus-normal-storage",
+    "protected-normal-create-update-read",
+    "actual-builder-from-dataset-form",
+    "actual-page-form-insertion",
+    "running-application-browser-submit-reload"
+  ],
+  "provenance": {
+    "application": "Normal Standard API creation",
+    "permissions": "Explicit existing trusted setup/stage/activate APIs",
+    "authoring": "Actual browser controls; no source JSON editing",
+    "normalSubmission": "Actual running Application browser submission and reload, supplemented by protected create/update/read API checks"
+  },
+  "browserErrors": [],
+  "verifiedAt": "2026-10-16T19:20:29.621Z"
+}

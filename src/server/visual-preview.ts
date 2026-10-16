@@ -1,12 +1,11 @@
-import { assertIsolatedPreviewFunctions } from '@ui-platform/visual-artifacts/vite';
+import { assertIsolatedPreviewFunctions, withRuntimeGraphRead } from '@ui-platform/visual-artifacts/vite';
 import { compileVisualFunctions } from '@ui-platform/artifacts';
 import type { ArtifactBundle } from '@ui-platform/visual-artifacts';
 import { componentReferences } from '@ui-platform/visual-artifacts';
 import { visualWorkspace } from './visual-artifacts.js';
 import { compositionWorkspace } from './application-composition.js';
 import { discoverComponents } from './component-registry.js';
-import { withApplicationMutation } from './composition-lock.js';
-import { appPath } from './applications.js';
+import { platformComponentsRoot } from './visual-artifacts.js';
 
 /** The isolated inspector preview has no Application Vite helper graph.
  * Helpers continue to work in the Application runtime; explicitly block an
@@ -17,7 +16,7 @@ export function isolatedPreviewCode(bundle: ArtifactBundle): string {
   return compileVisualFunctions(bundle.files.code);
 }
 export function visualPreviewRevision(key: string, kind: string, locator: string, expectedHash: string, authorizeRelated: (kind: 'shell' | 'component') => Promise<void> = async () => {}) {
-  return withApplicationMutation(appPath(key), async () => {
+  return withRuntimeGraphRead(platformComponentsRoot, async () => {
     const packages = await discoverComponents(key), workspace = await visualWorkspace(key, packages);
     const selected = (kind === 'page' ? workspace.pages : kind === 'shell' ? workspace.shells : kind === 'component' ? workspace.components : []).find(bundle => bundle.locator === locator);
     if (!selected || selected.hash !== expectedHash) throw Object.assign(new Error('Preview source changed. Reload its complete revision before previewing.'), { status: 409 });

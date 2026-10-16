@@ -64,6 +64,11 @@ it('shares the latest copy across panel subscriptions and flushes it before arti
   expect(f.added).toHaveBeenCalledTimes(2); expect(f.removed).toHaveBeenCalledTimes(1);
   detaches.forEach(detach => detach());
 });
+it('WP4: unchanged authority polling preserves stateful panels while revocation still suspends synchronously', async () => {
+  const f = await setup(), changed = vi.fn(), detach = f.context.subscribe(changed);
+  await f.session.refreshEditorSession(); await f.session.refreshEditorSession(); expect(changed).not.toHaveBeenCalled();
+  await f.switch('reviewer', 'r2'); expect(changed).toHaveBeenCalled(); expect(f.context.snapshot).toBeUndefined(); detach();
+});
 it('retains failed unsaved copies on navigation and cleanup until deliberate discard', async () => {
   const f = await setup(); f.fail(500); f.context.setFile('form.json', 'retained');
   expect(await f.context.open('two')).toBe(false); expect(f.context.snapshot?.artifact.locator).toBe('one');

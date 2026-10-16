@@ -1,0 +1,47 @@
+{
+  "stage": "BUILDER V1 WP3 — READY FOR REVIEW",
+  "verifiedAt": "2026-10-16T00:23:17.0698971Z",
+  "ui": {
+    "exitCode": 0,
+    "files": 56,
+    "pending": 0,
+    "failed": 0,
+    "passed": 370
+  },
+  "finalFocused": {
+    "exitCode": 0,
+    "files": 3,
+    "failed": 0,
+    "passed": 19
+  },
+  "sibling": {
+    "exitCode": 0,
+    "pending": 0,
+    "failed": 0,
+    "passed": 750
+  },
+  "editorContracts": {
+    "exitCode": 0,
+    "files": 15,
+    "failed": 0,
+    "passed": 143
+  },
+  "builds": {
+    "ui": "pass",
+    "sibling": "pass"
+  },
+  "typechecks": {
+    "ui": "pass",
+    "sibling": "pass"
+  },
+  "productionEditorExclusion": "pass",
+  "fullWp6UiOnlyAcceptance": false,
+  "wp4Started": false,
+  "limitations": [
+    "First apply only; changed source cannot migrate an applied Dataset",
+    "One configured Dataset per protected development host",
+    "Relationships, field labels and extra schema validation/permission properties unsupported",
+    "Trusted security setup and configured Form preparation disclosed; full visual authoring remains deferred",
+    "Incomplete activation requires existing explicit Data Services recovery"
+  ]
+}

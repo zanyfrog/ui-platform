@@ -1,6 +1,9 @@
 import type { ArtifactFiles, ArtifactMetadata, DatasetDefinition, FormField, NodeOverride } from './model.js';
 import { escapeAttribute } from './source.js';
 import { valueErrors } from './model.js';
+import type { CalculatedField, ScalarType } from '@ui-platform/dataset-operations/expression';
+export function formCalculations(metadata: ArtifactMetadata): CalculatedField[] { return (metadata.form?.fields ?? []).flatMap(f => f.calculation ? [{ fieldId: f.datasetFieldId, type: f.type as ScalarType, ...f.calculation }] : []); }
+export function formExpressionFields(metadata: ArtifactMetadata) { return (metadata.form?.fields ?? []).map(f => ({ fieldId: f.datasetFieldId, key: f.key, type: f.type, required: !!f.datasetRequired })); }
 
 /** Modes override nodes, never own a second tree. Unknown selections fail closed. */
 export function resolveMode(metadata: ArtifactMetadata, selected?: unknown): Record<string, NodeOverride> {
@@ -29,7 +32,7 @@ export function formPayload(metadata: ArtifactMetadata, values: Record<string, u
     record[form.primaryKey] = original[form.primaryKey];
   }
   for (const field of fields) {
-    if (!field.editable || field.visible === false || field.key === form.primaryKey && operation === 'edit') continue;
+    if ((!field.editable && !field.calculation?.persist) || field.calculation && !field.calculation.persist || field.visible === false || field.key === form.primaryKey && operation === 'edit') continue;
     if (operation === 'create' || JSON.stringify(values[field.key]) !== JSON.stringify(original[field.key])) {
       if (values[field.key] !== undefined) record[field.key] = values[field.key];
     }
@@ -42,6 +45,7 @@ export function formValueErrors(values: Record<string, unknown>, fields: FormFie
     const value = values[field.key];
     const required = field.datasetRequired || field.required;
     const issues = valueErrors(value, { type: field.type, required }, field.label ?? field.key);
+    if (field.codec === 'date' && value !== undefined) { let valid = false; try { valid = typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value) && new Date(value).toISOString() === value; } catch { /* Invalid dates remain validation errors. */ } if (!valid) issues.push(`${field.label ?? field.key} requires a UTC ISO timestamp.`); }
     if (required && value === '') issues.push(`${field.label ?? field.key} is required.`);
     if (issues.length) errors[field.id] = issues.join(' ');
   }
@@ -51,11 +55,11 @@ export function formValueErrors(values: Record<string, unknown>, fields: FormFie
 export function generateForm(metadata: ArtifactMetadata, dataset?: DatasetDefinition): ArtifactFiles {
   if (metadata.kind !== 'component') throw new Error('Forms must be Platform Components.');
   if (dataset && (!dataset.dataset?.id || !Array.isArray(dataset.fields) || dataset.fields.some(f => !/^[A-Za-z][\w]*$/.test(f.key) || !f.id))) throw new Error('Import a published Dataset schema with stable field IDs.');
-  if (dataset?.fields.some(f => !['id', 'string', 'number', 'integer', 'boolean'].includes(f.type))) throw new Error('V1 generation supports scalar Dataset fields only. Configure complex fields explicitly in source.');
-  const fields: FormField[] = (dataset?.fields ?? []).filter(f => f.type !== 'id').map(f => ({
+  const fields: FormField[] = (dataset?.fields ?? []).filter(f => ['string', 'number', 'integer', 'boolean', 'date'].includes(f.type)).map(f => ({
     id: `field_${f.id}`, node: `control_${f.key}`, key: f.key, datasetFieldId: f.id,
     type: f.type === 'number' || f.type === 'integer' ? 'number' : f.type === 'boolean' ? 'boolean' : 'string',
     datasetRequired: f.required, required: f.required, label: f.key, default: f.default, visible: true, editable: true,
+    ...(f.type === 'date' ? { codec: 'date' as const, help: 'UTC timestamp, e.g. 2026-01-01T00:00:00.000Z. No date/time conversion is performed.' } : {}),
   }));
   metadata.capabilities = ['visual', 'form'];
   metadata.modes = { default: 'public', overrides: { public: {} } };

@@ -2,6 +2,8 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import { createHmac, randomBytes } from 'node:crypto';
 
 export interface ApplicationDataProxyConfig { enabled: boolean; environment: string; protectedHostUrl?: string;
+  /** Trusted host adapter may narrow intent; it cannot supply actor or grants. */
+  prepareIntent?: (path: string, intent: unknown) => unknown;
   v1Identity?: { resolveUser(request: IncomingMessage): string | null; trustedUiServerKey: string;
     applicationId: string; authorityId: string; policyDigest(): string; origins: string[] } }
 
@@ -53,9 +55,10 @@ export function createApplicationDataProxy(config: ApplicationDataProxyConfig) {
         authorization = `Bearer v1.${payload}.${mac}`;
       }
       const path = url.pathname.endsWith('/queries') ? '/queries' : url.pathname.endsWith('/workflows') ? '/workflows' : '/operations';
+      const intentBytes = config.prepareIntent ? Buffer.from(JSON.stringify(config.prepareIntent(path, JSON.parse(Buffer.concat(chunks).toString('utf8'))))) : Buffer.concat(chunks);
       const upstream = await fetch(new URL(path, target), { method: 'POST',
         // Writes can run after-commit automation before returning, just like explicit Workflows.
-        headers: { authorization: authorization!, 'content-type': 'application/json' }, body: Buffer.concat(chunks), signal: AbortSignal.timeout(path === '/queries' ? 15_000 : 90_000) });
+        headers: { authorization: authorization!, 'content-type': 'application/json' }, body: intentBytes, signal: AbortSignal.timeout(path === '/queries' ? 15_000 : 90_000) });
       const bytes = Buffer.from(await upstream.arrayBuffer());
       if (bytes.length > 1_000_000 || ![200, 401, 403, 404].includes(upstream.status)) throw new Error('UPSTREAM_UNAVAILABLE');
       if (path === '/operations' && upstream.status === 200) {

@@ -1,6 +1,6 @@
 # Builder End-to-End V1 — Implementation Plan
 
-Date: 2026-10-13; acceptance status updated 2026-10-15. **WP0, WP1 and WP2 are accepted and closed by the user.** Next planning target: **WP3 — Dataset Authoring, Development Apply/Connect, and Runtime Integration**. WP3 has not begun and must not begin automatically. Accepted WP2 [lifecycle](builder-v1-wp2-editing-lifecycle.md), [runtime design](builder-v1-wp2-runtime-design.md), [reader/recovery guarantees](builder-v1-wp2-reader-contract.md) and [verification](builder-v1-wp2-verification.md) join the accepted WP0/WP1 baseline. Retain limitations concerning arbitrary filesystem readers, unsupported helper loading/state patterns, cross-artifact Undo and Windows filesystem behavior. Work-package implementation acceptance does not accept the complete WP6 UI-only journey. Basis: [gap review](builder-end-to-end-v1-gap-review.md); IDs map to the [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md).
+Date: 2026-10-13; planning status updated 2026-10-15. **WP0–WP2 remain accepted and closed. WP3 is accepted for planning purposes, with machine evidence subject to independent confirmation.** Retain all documented V1 limitations. **WP4 architecture decisions D1–D5 are approved; implementation is authorized in package order with verification and acceptance gates.** See the [WP4 plan and architecture reconciliation](builder-v1-wp4-plan.md). The current user instruction narrows the earlier broad WP4 scope; unrelated composition/automation work remains outstanding and separately gated. Work-package acceptance does not accept the complete WP6 UI-only journey. Basis: [gap review](builder-end-to-end-v1-gap-review.md) and [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md). Accepted WP2 [lifecycle](builder-v1-wp2-editing-lifecycle.md), [runtime design](builder-v1-wp2-runtime-design.md), [reader/recovery guarantees](builder-v1-wp2-reader-contract.md) and [verification](builder-v1-wp2-verification.md) remain the baseline.
 
 ## Sequence and dependencies
 
@@ -52,7 +52,7 @@ The accepted implementation supplies one two-second lifecycle across supported s
 
 ## WP3 — Dataset Authoring, Development Apply/Connect, and Runtime Integration
 
-**Next planning target only. Not started; do not begin automatically.** Scope below remains proposed for a separately authorized planning/review step.
+**Accepted for planning purposes, 2026-10-15.** Implementation and reported verification are documented in the [architecture](builder-v1-wp3-dataset-authoring.md) and [verification](builder-v1-wp3-verification.md). Machine evidence remains subject to independent confirmation. The scope below records the original target; unsupported relationships and other documented V1 limitations remain accepted without expansion. This does not authorize Dataset migration or multi-Dataset hosting.
 
 **Goal:** connect UI-authored source to real protected development data. **Effort: Large**, highest uncertainty. Addresses G09/G10/G14.
 
@@ -64,17 +64,16 @@ The accepted implementation supplies one two-second lifecycle across supported s
 - Risks: current reference seeds publication, activation state, ORM and permissions in code; offline provider does not create Datasets. If existing onboarding cannot be safely exposed, report a blocker and revise scope at the gate rather than substitute a fixture.
 - Gate: newly created Standard Application performs real protected data operations through normal managed runtime.
 
-## WP4 — Palette, properties, automation and create/link flows
+## WP4 — Visual Form authoring and protected submission (implemented; acceptance review pending)
 
-**Goal:** author the reference Application's composition and behavior entirely through controls. **Effort: Large**. Addresses G06–G13/G18.
+**Goal:** author Forms from a Dataset or blank, map fields, configure validation and declarative presentation, preview with the existing renderer and explicitly submit through protected DOE/Data Services. **Effort: Large**, subject to contract reconciliation.
 
-- Included: existing unified insertion upgraded with Content/Package/Platform/Forms grouping; public instance properties/bindings/events/slots, visibility and layout using existing contracts; Edit Definition; Form Dataset/mode/operation/record mapping/submission; route controls; Menu destinations; approved Trigger/Workflow action inputs and pickers; cross-artifact create-and-link with origin preservation; assets/branding/theme controls.
-- Excluded: second Form artifact/registry, Application Component ownership, arbitrary service code creation, workflow graph/branching, advanced theme designer and broad expression language.
-- Dependencies: WP1–WP3; accepted component metadata, automation source and runtime.
-- Acceptance: shared Form instance edits do not mutate definition; definition focus returns to original Page; create Dataset from Form and link after valid save; cancel/stale origin handled; Form success and Page button invoke permanent Workflow ID; Menu navigation and route parameters work; no source-panel editing in primary reference journey.
-- Regression: private internals, public contract validation, mandatory Form rule precedence, stable IDs, ordered automation, unknown service/Workflow, disabled definition, reference-aware deletion, cross-app/Platform authority.
-- Risks: runtime supports more than inspector; keep supported UI subset explicit. Shared Platform changes affect multiple consumers and need dependency refresh/diagnostics.
-- Gate: complete composition/data/automation authoring walkthrough through controls, with no resource assembly via fixtures.
+- Authoritative scope, reuse inventory, gaps, dependencies, acceptance checklist and decisions: [WP4 plan](builder-v1-wp4-plan.md).
+- Reuse the generic Artifact Editor and WP2 lifecycle through a narrow adapter for existing Form-capable Platform Components. Preserve permanent identities, Platform ownership, Dataset applied authority and existing expression/validation/runtime services.
+- Reconcile the authoritative calculated-field contract before implementing calculation controls; the inspected bounded expression model alone does not establish one.
+- Exclude Dataset migration/multi-host expansion and second schema, authorization or expression engines. Earlier broad palette, route, Menu, automation, branding and generic create/link work is deferred; it is not implicitly completed or reassigned.
+- Dependencies: WP0–WP2 baseline; WP3 planning acceptance, with independent confirmation of relevant machine evidence required for final runtime acceptance.
+- Gate: D1–D5 are approved and WP4-A through WP4-F implementation/evidence is ready for review. See [verification](builder-v1-wp4-verification.md) and [changed files](builder-v1-wp4-files.txt). Stop at WP4 acceptance review; machine checks do not constitute reviewer acceptance.
 
 ## WP5 — Application Problems, focused preview and isolated tests
 
@@ -106,6 +105,6 @@ Environment installation, trusted development host bootstrap and predefined deve
 
 Record each action as **Builder UI**, **direct source edit**, **CLI**, or **fixture/host bootstrap**. UI interaction with raw source text counts as source authoring for the primary acceptance assumption. Every source/CLI dependency becomes a gap unless explicitly reviewed and deferred. Record screenshots/recording with artifact IDs, server diagnostics, persisted records and denial results; evidence may redact sensitive paths/data but must remain reproducible.
 
-Relative total effort: **Large**; no calendar estimate is defensible before the remaining WP3 contracts are validated. Small work includes grouping/labels and Release placement; these do not offset the large data, lifecycle and validation work. Review at each package gate and stop on discovered architectural prerequisites instead of broadening scope silently.
+Relative total effort: **Large**; no calendar estimate is defensible before WP4 contract reconciliation and review. Small work includes grouping/labels and Release placement; these do not offset the large data, lifecycle and validation work. Review at each package gate and stop on discovered architectural prerequisites instead of broadening scope silently.
 
-**STOP: WP0, WP1 and WP2 are accepted and closed. WP3 — Dataset Authoring, Development Apply/Connect, and Runtime Integration is the next planning target only. WP3–WP6 have not begun; complete WP6 UI-only acceptance remains pending.**
+**STOP: WP0–WP2 remain accepted and closed. WP3 is accepted for planning purposes, with machine evidence subject to independent confirmation and documented V1 limitations retained. WP4 implementation is authorized under the approved decisions; stop at its verification and acceptance gates. WP5/WP6 and complete UI-only acceptance remain pending.**

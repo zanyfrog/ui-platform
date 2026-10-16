@@ -7,10 +7,12 @@ import { mountVisualEditor } from '../visual-artifacts/editor.js';
 import { mountCompositionManager } from '../visual-artifacts/composition-manager.js';
 import { mountAutomationEditor } from '../automation/editor.js';
 import { authorizeWorkspace } from './requests.js';
+import { createVisualFormTransport } from '../artifact-editor/visual-form-transport.js';
+import { bindFormEditor } from '../artifact-editor/form-editor.js';
 
 /** Drafts remain inside their authoritative editors. This adapter holds only lifecycle and authority. */
 export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact, changed: () => void,
-  related: (componentId: string) => void, close: () => void): Promise<WorkspaceEditorAdapter> {
+  related: (componentId: string) => void, close: () => void, createDataset?: (context: EditorRuntimeContext) => Promise<void>): Promise<WorkspaceEditorAdapter> {
   const element = document.createElement('article'); element.className = 'workspace-editor';
   element.setAttribute('aria-label', `${initial.kind} editor`);
   const originalSubject = editorSessionSnapshot()?.principal?.subjectId;
@@ -81,7 +83,17 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
     return value;
   }
   try {
-    if (initial.visual) {
+    if (initial.visual?.components.find(b => b.locator === initial.locator && b.metadata?.form)) {
+      const context = new EditorRuntimeContext(originalApp, () => createVisualFormTransport(() => artifact), window, () => artifact.applicationKey);
+      const previewHost = document.createElement('section'); previewHost.setAttribute('aria-label', 'Form preview surface'); previewHost.hidden = true;
+      bindFormEditor(context, { applicationKey: () => artifact.applicationKey, previewHost, createDataset: async () => { if (!createDataset) throw new Error('Dataset creation coordinator unavailable.'); await createDataset(context); } });
+      const view = mountEditorShell(element, context, {}, undefined, { close, previewHost }); element.append(previewHost); const unsubscribe = context.subscribe(changed);
+      await context.open(initial.locator);
+      state = () => ({ dirty: !!context.snapshot?.dirty, pending: context.pending || context.snapshot?.saveState === 'saving', conflict: context.snapshot?.saveState === 'conflict', error: context.snapshot?.error });
+      suspend = () => context.suspend();
+      dispose = async () => { unsubscribe(); view.destroy(); await context.discard(); await context.dispose(); };
+      focus = async (next, target) => { if (!context.hasCopy) await context.open(next.locator); if (!next.editable && context.snapshot?.artifact.capabilities.edit) context.suspend(); view.navigate(target.section); context.refreshPresentation(); };
+    } else if (initial.visual) {
       const editor = await mountVisualEditor(element, originalApp, { request, captureRequest, applicationId: initial.applicationId, workspace: initial.visual,
         initial: { kind: initial.kind as 'page' | 'component' | 'shell', locator: initial.locator }, onDefinition: related, onStateChange: changed, applicationKey: () => artifact.applicationKey });
       state = editor.state; deactivate = editor.deactivate; suspend = editor.suspend; dispose = async () => editor.dispose();

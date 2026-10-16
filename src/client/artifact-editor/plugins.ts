@@ -37,10 +37,10 @@ export class EditorPluginRegistry {
     const artifact = context.snapshot?.artifact, manifest = artifact?.manifest;
     const issues: string[] = [];
     const selected: { key: string; contribution: EditorPluginDescriptor['contributes'][number]; render: EditorPluginRenderer }[] = [];
-    if (!manifest) return { selected, issues };
+    if (!manifest && !artifact?.visualForm) return { selected, issues };
     for (const { descriptor, renderers } of this.entries.values()) {
-      if (!descriptor.artifactTypes.includes(manifest.artifactType)) continue;
-      if (!descriptor.definitionVersions.includes(manifest.definitionVersion)) { issues.push(`${descriptor.id}: incompatible definition version; source is preserved.`); continue; }
+      if (!descriptor.artifactTypes.includes(artifact?.visualForm ? 'visual-form' : manifest!.artifactType)) continue;
+      if (!descriptor.definitionVersions.includes(artifact?.visualForm?.version ?? manifest!.definitionVersion)) { issues.push(`${descriptor.id}: incompatible definition version; source is preserved.`); continue; }
       for (const contribution of descriptor.contributes) if (!contribution.requiresEdit || artifact!.capabilities.edit) selected.push({ key: `plugin:${descriptor.id}:${contribution.id}`, contribution, render: renderers[contribution.id] });
     }
     for (const id of artifact?.presentation?.preferredEditorIds ?? []) if (!this.entries.has(id)) issues.push(`${id}: optional editor plugin is not installed; source is preserved.`);

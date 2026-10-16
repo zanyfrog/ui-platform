@@ -7,7 +7,8 @@ import { regions, themeCss, validateMenu, applyMenuOverrides, composeShellMenus 
 import { RuntimeRevision, runtimeLiteral, runtimeReaderServer, runtimeRevisionRefresh, assertNotVisualRole, runtimePackageDefinitions, validateRuntimeCss, type CapturedVisual } from './runtime-revision.js';
 import { validateCompositionDefinition } from './composition-validation.js';
 import type { CompositionDefinition } from './composition.js';
-import { withRoleBundleGraph, recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
+import { recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
+import { withRuntimeGraphRead } from './runtime-read-admission.js';
 
 /** Development reads source; builds read the composition snapshot selected by existing Publish. */
 export function revisionApplicationComposition(options: { revisionPinned?: true; root: string; sharedComponentsRoot?: string }): Plugin {
@@ -92,7 +93,7 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
       const code = await revision.finish(`${imports.join('\n')}\nconst pages=[${pages.join(',')}];\nexport const platformComponents=[${components.join(',')}];\nexport const packages=${JSON.stringify(packages)};\nexport const assetUrls={${assetEntries.join(',')}};\nexport const definition={settings:${JSON.stringify(settings)},shells:[${shells.join(',')}],pages,menus:[${menus.join(',')}],siteCss:${JSON.stringify(styles.join('\n'))},routes:pages.map(p=>({pageId:p.metadata.artifactId,routeId:p.metadata.routeId,path:p.metadata.route}))};\nregisterManagedVisualGraph(runtimeRevision,[...definition.pages,...definition.shells,...platformComponents],definition,assetUrls);`, captured, helpers);
       return (viteServer ? `import '${watchId}';\n` : '') + code;
       };
-      return production ? compile() : withRoleBundleGraph(options.sharedComponentsRoot ?? options.root, compile);
+      return production ? compile() : withRuntimeGraphRead(options.sharedComponentsRoot ?? options.root, compile);
     },
     transform(code, id) { if (boundary?.isHelper(id)) boundary.check(code, id); },
     configureServer(server) {

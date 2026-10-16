@@ -22,7 +22,8 @@ export class EditorRuntimeContext {
 
   constructor(readonly applicationKey: string,
     private readonly transportFactory = () => createArtifactEditorTransport(applicationKey),
-    private readonly browserWindow: Window | undefined = typeof window === 'undefined' ? undefined : window) {
+    private readonly browserWindow: Window | undefined = typeof window === 'undefined' ? undefined : window,
+    private readonly applicationContext: () => string = () => applicationKey) {
     this.transport = transportFactory();
     // A stable application host. Switching transport cannot resume suspended copies.
     this.host = new EditorWorkingCopyHost({
@@ -32,6 +33,8 @@ export class EditorRuntimeContext {
     });
     this.detachSession = subscribeEditorSession(() => {
       const session = editorSessionSnapshot();
+      // Routine authority polling must not rebuild stateful panels (including preview iframes).
+      if (this.copy && !this.locked && session && session.principal?.subjectId === this.owner && session.revision === this.revision) return;
       if (this.copy && (!session?.principal || session.revision !== this.revision || session.principal.subjectId !== this.owner)) {
         this.locked = true; this.comparison = undefined; this.copy.suspend();
       }
@@ -46,7 +49,7 @@ export class EditorRuntimeContext {
   get canEdit() { return !this.locked && !this.busy && !!this.copy?.snapshot.artifact.capabilities.edit; }
   get canRecover() {
     const principal = editorSessionSnapshot()?.principal;
-    return this.locked && !!principal && principal.subjectId === this.owner && (editorSessionSnapshot()?.fixtures.length === 0 || principal.applicationKeys.includes(this.applicationKey));
+    return this.locked && !!principal && principal.subjectId === this.owner && (editorSessionSnapshot()?.fixtures.length === 0 || principal.applicationKeys.includes(this.applicationContext()));
   }
   get reviewedComparison() {
     const session = editorSessionSnapshot();
@@ -54,6 +57,7 @@ export class EditorRuntimeContext {
       ? structuredClone(this.comparison) : undefined;
   }
   subscribe(listener: () => void) { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; }
+  refreshPresentation() { this.emit(); }
   private emit() { for (const listener of this.listeners) listener(); }
   private requireCopy(edit = false) {
     if (this.disposed || !this.copy || this.locked || (edit && !this.copy.snapshot.artifact.capabilities.edit)) throw new Error('This editor action is not authorized.');
@@ -70,6 +74,9 @@ export class EditorRuntimeContext {
     this.requireCopy(true).setFile(path, content, role, language, group);
   }
   undo() { this.requireCopy(true).undo(); }
+  setFiles(changes: Record<string, string>, group?: string) {
+    if (this.busy) throw new Error('Wait for the current editor action.'); this.requireCopy(true).setFiles(changes, group);
+  }
   redo() { this.requireCopy(true).redo(); }
   private release() {
     this.detachCopy?.(); this.detachUnload?.(); this.detachCopy = this.detachUnload = undefined;
@@ -83,7 +90,7 @@ export class EditorRuntimeContext {
         this.release();
       }
       const session = await refreshEditorSession();
-      if (!session.principal || session.fixtures.length !== 0 && !session.principal.applicationKeys.includes(this.applicationKey)) throw new Error('Select an identity with access to this application.');
+      if (!session.principal || session.fixtures.length !== 0 && !session.principal.applicationKeys.includes(this.applicationContext())) throw new Error('Select an identity with access to this application.');
       this.transport = this.transportFactory();
       const copy = await this.host.open(locator);
       if (editorSessionSnapshot()?.revision !== session.revision) { await this.host.discard(locator); throw new Error('Identity changed while opening the artifact.'); }
@@ -94,6 +101,8 @@ export class EditorRuntimeContext {
     });
   }
   flush() { return this.operation(async () => { await this.requireCopy(true).flush(); }); }
+  /** Explicit service actions share pending/suspension state, without entering source history. */
+  perform<T>(action: () => Promise<T>) { this.requireCopy(); return this.operation(action); }
   repairSave() { return this.operation(async () => { await this.requireCopy(true).repairSave(); }); }
   suspend() { if (!this.copy) return; this.locked = true; this.comparison = undefined; this.copy.suspend(); this.emit(); }
   private async settleAdmittedSave(copy: EditorWorkingCopy) {
@@ -108,7 +117,7 @@ export class EditorRuntimeContext {
       if (!this.copy) throw new Error('Open an artifact first.');
       await this.settleAdmittedSave(this.copy);
       const session = await refreshEditorSession();
-      if (!session.principal || session.principal.subjectId !== this.owner || session.fixtures.length !== 0 && !session.principal.applicationKeys.includes(this.applicationKey)) throw new Error('Only the original authorized identity can review this copy.');
+      if (!session.principal || session.principal.subjectId !== this.owner || session.fixtures.length !== 0 && !session.principal.applicationKeys.includes(this.applicationContext())) throw new Error('Only the original authorized identity can review this copy.');
       const local = this.copy.snapshot;
       const remote = this.locked ? await this.transportFactory().load(local.artifact.locator) : (await this.requireCopy().compare()).remote;
       if (editorSessionSnapshot()?.revision !== session.revision) throw new Error('Identity changed during comparison.');
@@ -131,7 +140,7 @@ export class EditorRuntimeContext {
         return remote;
       } };
       if (this.locked) {
-        await recoverSuspendedCopy({ copy, originalSubjectId: this.owner!, applicationKey: this.applicationKey, transport: checked,
+        await recoverSuspendedCopy({ copy, originalSubjectId: this.owner!, applicationKey: this.applicationContext(), transport: checked,
           resolution: choice === 'reload' ? 'reload' : choice === 'keep-local' ? { merged: { ...review.local, capabilities: review.remote.capabilities } } : undefined });
         this.revision = editorSessionSnapshot()!.revision; this.locked = false;
       } else {

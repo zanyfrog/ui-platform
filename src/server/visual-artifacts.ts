@@ -78,7 +78,7 @@ export class VisualArtifactService {
     try { JSON.parse(files.fixtures || '{}'); } catch { diagnostics.push({ severity: 'error', message: 'Preview fixtures are invalid JSON.' }); }
     return { locator, files, hash: hash(files), metadata: parsed.metadata, diagnostics };
   }
-  async create(name: string, route?: string, form?: { dataset?: DatasetDefinition }, shellId?: string, initialRegionId: string | null = 'region-main', admit: () => Promise<void> = async () => {}): Promise<ArtifactBundle> {
+  async create(name: string, route?: string, form?: { dataset?: DatasetDefinition; authoring?: boolean }, shellId?: string, initialRegionId: string | null = 'region-main', admit: () => Promise<void> = async () => {}): Promise<ArtifactBundle> {
     if (!/^[a-z][a-z0-9-]*$/.test(name)) throw new Error('Use a lowercase name with letters, numbers, and hyphens.');
     const locator = `${name}/${this.kind}.visual.json`;
     const file = await this.file(locator, true);
@@ -86,6 +86,7 @@ export class VisualArtifactService {
     const temporary = path.join(this.root, `.creating-${randomUUID()}`);
     const metadata: ArtifactMetadata = { schemaVersion: 1, artifactId: `art_${randomUUID()}`, kind: this.kind, name, displayName: name.replaceAll('-', ' '), ...(this.kind === 'component' ? { componentId: `cmp_platform_${randomUUID()}`, public: { properties: {}, events: {}, slots: [] } } : this.kind === 'page' ? { route: route ?? `/${name}`, ...(shellId ? { shellId, routeId: `route_${randomUUID()}` } : {}) } : {}) };
     const files: ArtifactFiles = form ? generateForm(metadata, form.dataset) : { source: `<section class="uip-layout-item" data-uip-node="node_${randomUUID()}"></section>\n`, css: '', metadata: JSON.stringify(metadata, null, 2) + '\n', fixtures: '{}\n', code: 'export {};\n' };
+    if (form?.authoring) { metadata.form!.contractVersion = 1; files.metadata = JSON.stringify(metadata, null, 2) + '\n'; }
     if (shellId || this.kind === 'shell') files.source = initialRegionId ? `<main class="uip-layout-item" data-uip-node="node_${randomUUID()}" data-uip-region="${initialRegionId}" data-uip-region-name="Main Content"></main>\n` : '<!-- No Page Region overrides; use Shell defaults. -->\n';
     if (shellId) files.source = '<!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->\n';
     await mkdir(temporary);

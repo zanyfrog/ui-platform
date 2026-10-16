@@ -41,14 +41,14 @@ function records(value: unknown): Row[] {
 export class AutomationRuntime {
   constructor(readonly triggers: AutomationStore, readonly workflows: AutomationStore,
     readonly services: ReadonlyMap<string, RegisteredAutomationService>, readonly audit = new AutomationAuditLog()) {}
-  private async definitions(store: AutomationStore) {
-    const bundles = await store.list();
+  private async definitions(store: AutomationStore, target?: { appId: string; datasetId: string }) {
+    const bundles = (await store.list()).filter(b => !target || !b.definition || b.definition.appId === target.appId && b.definition.datasetId === target.datasetId);
     if (bundles.some(b => b.diagnostics.length && b.definition?.enabled !== false)) throw new Error('AUTOMATION_SOURCE_INVALID');
     return bundles.filter(b => !b.diagnostics.length).map(b => b.definition!);
   }
-  connect(registry: TriggerRegistry, resolveDataset: (appId: string, datasetId: string) => Promise<string>) {
+  connect(registry: TriggerRegistry, resolveDataset: (appId: string, datasetId: string) => Promise<string>, target?: { appId: string; datasetId: string }) {
     registry.registerSourceProvider(async () => {
-      const definitions = await this.definitions(this.triggers);
+      const definitions = await this.definitions(this.triggers, target);
       const rows = [];
       for (const definition of definitions) {
         if (!definition.enabled) continue;

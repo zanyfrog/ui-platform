@@ -8,7 +8,7 @@ export interface PublicInterface {
   events: Record<string, { payload: Record<string, PropertyContract> }>;
   slots: string[];
 }
-export type Expression = string | { literal: unknown } | { op: 'not' | 'eq' | 'and' | 'or'; args: Expression[] };
+export type Expression = import('@ui-platform/dataset-operations/expression').PresentationExpression;
 export interface Binding { node: string; target: string; value: Expression }
 export type Action =
   | { kind: 'set'; state: string; value: Expression }
@@ -43,8 +43,9 @@ export interface ArtifactMetadata {
   form?: FormDefinition;
 }
 export interface NodeOverride { visible?: boolean; editable?: boolean; required?: boolean; label?: string; help?: string; default?: unknown }
-export interface FormField extends NodeOverride { id: string; node: string; key: string; datasetFieldId: string; type: ValueType; datasetRequired?: boolean; operations?: Array<'create' | 'edit'> }
+export interface FormField extends NodeOverride { id: string; node: string; key: string; datasetFieldId: string; type: ValueType; datasetRequired?: boolean; operations?: Array<'create' | 'edit'>; calculation?: { expression: import('@ui-platform/dataset-operations/expression').DeclarativeExpression; persist: boolean }; codec?: 'date' | 'json' }
 export interface FormDefinition {
+  contractVersion?: 1;
   node: string; datasetId: string; primaryKey: string; fields: FormField[];
   submit: { service: string; readService: string };
 }

@@ -19,6 +19,14 @@ function harness() {
   return { host, authorize, mount, editors, subject: (next: string | undefined) => { subject = next; } };
 }
 const deferred = <T>() => { let resolve!: (value: T) => void; const promise = new Promise<T>(done => { resolve = done; }); return { promise, resolve }; };
+it('WP4 A18 retains an owner-qualified link origin and rejects canceled ownership, closed tabs and identity changes', async () => {
+  const h = harness(), form = artifact('form'); form.identity.owner = { kind:'platform', id:'platform' };
+  await h.host.open('a', form); const origin = h.host.captureLinkOrigin();
+  await h.host.open('a', artifact('dataset', 'a', 'generic')); expect(h.host.assertLinkOrigin(origin).key).toBe(origin.key);
+  h.subject('another'); expect(() => h.host.assertLinkOrigin(origin)).toThrow('STALE'); h.subject('original');
+  await h.host.close(origin.key); expect(() => h.host.assertLinkOrigin(origin)).toThrow('STALE');
+  await h.host.open('a', form); const next = h.host.captureLinkOrigin(); h.host.suspend(); expect(() => h.host.assertLinkOrigin(next)).toThrow('STALE'); await h.host.dispose();
+});
 
 it('A/B/A reuses independent editors and retains selected node, section and invalid local draft without saving', async () => {
   const h = harness(), a = artifact('page'), b = artifact('dataset', 'a', 'generic');

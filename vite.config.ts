@@ -19,6 +19,9 @@ export default defineConfig({
   },
   ssr: { noExternal: ['@ui-base/forms', '@ui-base/core', '@ui-base/ui'] },
   server: {
+    // Builder reads authoring bundles through owner services. Vite HTML reloads would discard retained editors.
+    // Running Applications have their own revision-aware watchers; focused preview is explicitly refreshed.
+    watch: { ignored: [path.join(projectRoot, 'components', '**').replaceAll('\\', '/')] },
     host: process.env.UI_PLATFORM_EDITOR === '1' || process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1' ? '127.0.0.1' : '0.0.0.0',
     port: Number(process.env.UI_PLATFORM_UI_PORT ?? 5174),
     proxy: {

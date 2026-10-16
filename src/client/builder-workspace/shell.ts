@@ -2,12 +2,16 @@ import { workspaceIdentityKey, type WorkspaceArtifact, type WorkspaceTarget } fr
 import { BuilderWorkspaceCoordinator } from './coordinator.js';
 import { mountWorkspaceEditor } from './adapters.js';
 import { authorizeWorkspace, workspaceRequest } from './requests.js';
-import { editorSessionSnapshot, subscribeEditorSession, retainDevelopmentWorkspaceSession } from '../artifact-editor/session.js';
+import { editorSessionSnapshot, subscribeEditorSession, retainDevelopmentWorkspaceSession, createEditorSessionBinding } from '../artifact-editor/session.js';
 import '../artifact-editor/editor.css';
 import './workspace.css';
+import type { EditorRuntimeContext } from '../artifact-editor/context.js';
+import { editForm, formSource } from '../artifact-editor/form-editor.js';
+import type { WorkspaceLinkOrigin } from './coordinator.js';
+import { chooseFormCreation } from '../artifact-editor/form-creation.js';
 
 const shell = document.createElement('section'); shell.className = 'builder-workspace'; shell.setAttribute('aria-label', 'Application Builder workspace');
-shell.innerHTML = `<header><button data-collapse aria-expanded="true">Application navigation</button><strong data-title></strong><button data-refresh>Refresh artifacts</button></header>
+shell.innerHTML = `<header><button data-collapse aria-expanded="true">Application navigation</button><strong data-title></strong><button data-refresh>Refresh artifacts</button><button data-create-dataset>Create Dataset</button><button data-create-form>Create Form</button><button data-return-link hidden>Return and link Dataset to Form</button><button data-cancel-link hidden>Cancel Dataset link</button></header>
   <p data-status role="status"></p><div class="workspace-layout"><nav aria-label="Application artifacts"></nav><section class="workspace-main"><div role="tablist" aria-label="Open artifacts"></div><div data-stage></div></section></div>`;
 const find = <T extends HTMLElement>(selector: string) => shell.querySelector<T>(selector)!;
 let applicationKey = '', discovery: WorkspaceArtifact[] = [], navigationSequence = 0, parked = true;
@@ -17,7 +21,53 @@ const run = (action: () => Promise<unknown>) => { void action().catch(error => s
 const coordinator = new BuilderWorkspaceCoordinator(authorizeWorkspace, artifact => mountWorkspaceEditor(artifact, renderTabs, componentId => {
   const related = discovery.find(item => item.componentId === componentId || item.locator === componentId);
   if (related) run(() => navigate({ identity: related.identity })); else status('Definition is unavailable in this authorized Application context.');
-}, () => run(() => coordinator.close(workspaceIdentityKey(artifact.identity)))), () => editorSessionSnapshot()?.principal?.subjectId);
+}, () => run(() => coordinator.close(workspaceIdentityKey(artifact.identity))), createDatasetFromForm), () => editorSessionSnapshot()?.principal?.subjectId);
+let pendingLink: { origin: WorkspaceLinkOrigin; context: EditorRuntimeContext; generation: number; componentId: string; dataset: WorkspaceArtifact } | undefined;
+function showLink() { find('[data-return-link]').hidden = find('[data-cancel-link]').hidden = !pendingLink; }
+async function createDataset(key: string, name: string) {
+  const binding = createEditorSessionBinding(), headers = await binding.headers();
+  const response = await fetch(`/api/apps/${encodeURIComponent(key)}/datasets/create`, { method: 'POST', headers: { ...headers, 'content-type': 'application/json' }, body: JSON.stringify({ name }) });
+  const value = await response.json(); binding.assert();
+  if (!response.ok) throw new Error(value.error ?? 'Dataset creation denied.');
+  if (parked || key !== applicationKey) throw new Error('Application changed during Dataset creation. No link was made.');
+  await discover(); const created = discovery.find(item => item.kind === 'dataset' && item.identity.id === value.manifest.artifactId);
+  if (!created) throw new Error('Created Dataset is unavailable. No link was made.'); return created;
+}
+async function createDatasetFromForm(context: EditorRuntimeContext) {
+  const name = prompt('Dataset name'); if (!name?.trim()) return;
+  await context.flush(); if (context.snapshot?.dirty) throw new Error('Save a valid originating Form first.');
+  const origin = coordinator.captureLinkOrigin(), generation = context.snapshot!.localGeneration, componentId = formSource(context).metadata.componentId!;
+  pendingLink = undefined; showLink();
+  const dataset = await createDataset(origin.applicationKey, name);
+  coordinator.assertLinkOrigin(origin);
+  if (context.snapshot?.localGeneration !== generation || formSource(context).metadata.componentId !== componentId) throw new Error('Origin changed during creation. Dataset is retained without a link.');
+  pendingLink = { origin, context, generation, componentId, dataset }; showLink(); await navigate({ identity: dataset.identity });
+  status('Configure and save the Dataset. Apply/Connect remain explicit. Return and link when ready, or cancel the link.');
+}
+find('[data-cancel-link]').onclick = () => { pendingLink = undefined; showLink(); status('Dataset link canceled. Originating Form is unchanged.'); };
+find('[data-return-link]').onclick = () => run(async () => {
+  const pending = pendingLink; if (!pending) return;
+  const { origin, context } = pending; coordinator.assertLinkOrigin(origin);
+  const target = await authorizeWorkspace(origin.applicationKey, { identity: pending.dataset.identity });
+  if (!target.generic?.validation.valid || target.applicationId !== origin.applicationId || target.identity.owner.kind !== 'application' || target.identity.owner.id !== origin.applicationId) throw new Error('Save a valid Dataset under the original Application before linking.');
+  const schema = JSON.parse(target.generic.files.find(f => f.role === 'definition')!.content);
+  if (schema.dataset.id !== pending.dataset.identity.id) throw new Error('Dataset identity changed. No link was made.');
+  await navigate({ identity: coordinator.assertLinkOrigin(origin).artifact.identity }, origin.applicationKey);
+  coordinator.assertLinkOrigin(origin);
+  const currentTarget = await authorizeWorkspace(origin.applicationKey, { identity: pending.dataset.identity });
+  coordinator.assertLinkOrigin(origin);
+  if (currentTarget.generic?.checksum !== target.generic.checksum) throw new Error('Dataset changed while linking. Review and retry explicitly.');
+  if (pendingLink !== pending || context.snapshot?.localGeneration !== pending.generation || formSource(context).metadata.componentId !== pending.componentId) throw new Error('Origin changed. No link was made.');
+  if (formSource(context).metadata.form!.fields.length) throw new Error('Remove existing mappings explicitly before linking a different Dataset.');
+  editForm(context, `link/${schema.dataset.id}`, m => { m.form!.datasetId = schema.dataset.id; m.form!.primaryKey = schema.fields.find((f: { type: string }) => f.type === 'id')?.key ?? 'id'; });
+  pendingLink = undefined; showLink(); status('Dataset linked. Use Dataset Mapping after Apply/Connect to map verified fields.');
+});
+find('[data-create-form]').onclick = () => run(async () => {
+  const key = applicationKey, binding = createEditorSessionBinding(), input = await chooseFormCreation(key); if (!input || parked || key !== applicationKey) return;
+  const response = await fetch(`/api/apps/${encodeURIComponent(key)}/visual-components`, { method: 'POST', headers: { ...await binding.headers(), 'content-type': 'application/json' }, body: JSON.stringify(input) });
+  const value = await response.json(); binding.assert(); if (!response.ok) throw new Error(value.error ?? 'Form creation denied.');
+  if (parked || applicationKey !== key) return; await discover(); const created = discovery.find(d => d.componentId === value.metadata?.componentId); if (created) await navigate({ identity: created.identity });
+});
 
 function renderTabs() {
   const tabs = find('[role="tablist"]'); tabs.replaceChildren();
@@ -69,6 +119,16 @@ export async function navigate(target: WorkspaceTarget, key = applicationKey) {
   return opened;
 }
 find('[data-refresh]').onclick = () => run(discover);
+find('[data-create-dataset]').onclick = () => run(async () => {
+  const name = prompt('Dataset name'); if (!name?.trim()) return;
+  const key = applicationKey, binding = createEditorSessionBinding(), headers = await binding.headers();
+  const response = await fetch(`/api/apps/${encodeURIComponent(key)}/datasets/create`, { method: 'POST', headers: { ...headers, 'content-type': 'application/json' }, body: JSON.stringify({ name }) });
+  const value = await response.json(); binding.assert();
+  if (!response.ok) throw new Error(value.error ?? 'Dataset creation denied.');
+  if (parked || key !== applicationKey) return;
+  await discover(); const created = discovery.find(item => item.kind === 'dataset' && item.identity.id === value.manifest.artifactId);
+  if (created) await navigate({ identity: created.identity });
+});
 find('[data-collapse]').onclick = () => { const nav = find('nav'); nav.hidden = !nav.hidden; find('[data-collapse]').setAttribute('aria-expanded', String(!nav.hidden)); shell.classList.toggle('navigation-collapsed', nav.hidden); };
 subscribeEditorSession(() => {
   const next = editorSessionSnapshot()?.revision;

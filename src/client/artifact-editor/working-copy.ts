@@ -62,6 +62,14 @@ export class EditorWorkingCopy {
     else next.files.push({ path: filePath, role: role ?? filePath, language, content });
     this.validation = undefined; this.lifecycle.edit(next, group);
   }
+  setFiles(changes: Record<string, string>, group?: string) {
+    const next = structuredClone(this.lifecycle.current);
+    for (const [filePath, content] of Object.entries(changes)) {
+      const file = next.files.find(f => f.path === filePath);
+      if (!file) throw new Error('Unknown authoritative file role.'); file.content = content;
+    }
+    this.validation = undefined; this.lifecycle.edit(next, group);
+  }
   undo() { this.validation = undefined; this.lifecycle.undo(); }
   redo() { this.validation = undefined; this.lifecycle.redo(); }
   async flush() {

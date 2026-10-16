@@ -48,6 +48,10 @@ export class DevelopmentApplicationRegistry {
     try { this.manifest(key, row.application_id); } catch { return undefined; }
     return { applicationId: row.application_id, key: row.application_key, createdBy: row.created_by };
   }
+  byApplicationId(applicationId: string): Registration | undefined {
+    const row = this.db.prepare('SELECT application_key FROM development_applications WHERE application_id=?').get(applicationId) as { application_key: string } | undefined;
+    return row ? this.byKey(row.application_key) : undefined;
+  }
   readonly provisioning: NonNullable<AdministrationConfiguration['applicationProvisioning']> = {
     resolve: applicationId => {
       const row = this.db.prepare('SELECT application_key FROM development_applications WHERE application_id=?').get(applicationId) as { application_key: string } | undefined;

@@ -6,7 +6,8 @@ import { VisualHelperBoundary } from './helper-boundary.js';
 import { revisionPageEntry } from './page-entry.js';
 import { validateArtifact } from './validation.js';
 import type { PackageComponent, RuntimeArtifact } from './model.js';
-import { withRoleBundleGraph, recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
+import { recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
+import { withRuntimeGraphRead } from './runtime-read-admission.js';
 import { RuntimeRevision, runtimeLiteral, assertNotVisualRole, runtimeReaderServer, runtimeRevisionRefresh, type CapturedVisual } from './runtime-revision.js';
 
 /** Discovery is a build-time source import, not a generated runtime artifact or HTTP dependency. */
@@ -51,7 +52,7 @@ export function revisionVisualArtifacts(options: { revisionPinned?: true; compon
       }
       if (id !== `\0${virtualId}` && !pageFile) { if (!id.startsWith('\0')) await assertNotVisualRole(id, managedRoots()); return; }
       if (!pageFile && compositionAvailable && options.applicationRoot && !options.componentsRoot) return "export { packages } from 'virtual:uip-application-composition'; export const components=[];";
-      return withRoleBundleGraph(options.componentsRoot ?? options.applicationRoot ?? projectRoot, async () => {
+      return withRuntimeGraphRead(options.componentsRoot ?? options.applicationRoot ?? projectRoot, async () => {
       if (options.componentsRoot) await recoverRoleBundleRoot(options.componentsRoot);
       if (pageFile) await recoverRoleBundleRoot(pageOwner());
       const helpers = boundary ??= new VisualHelperBoundary(async (request, importer) => {

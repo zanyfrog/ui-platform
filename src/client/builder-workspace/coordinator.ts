@@ -11,6 +11,7 @@ export interface WorkspaceEditorAdapter {
   dispose(): Promise<void>;
 }
 export interface WorkspaceTab { key: string; artifact: WorkspaceArtifact; editor: WorkspaceEditorAdapter; suspended: boolean; ownerSubject: string }
+export interface WorkspaceLinkOrigin { key: string; subject: string; applicationId: string; applicationKey: string; editor: WorkspaceEditorAdapter }
 
 /** Navigation only. Editors retain their own drafts, save semantics and selection. */
 export class BuilderWorkspaceCoordinator {
@@ -21,6 +22,16 @@ export class BuilderWorkspaceCoordinator {
   private requested?: string;
   private listeners = new Set<() => void>();
   private opening = new Map<string, { promise: Promise<WorkspaceTab>; consumers: Set<number> }>();
+  captureLinkOrigin(): WorkspaceLinkOrigin {
+    const tab = this.focused && this.tabs.get(this.focused), subject = this.subject();
+    if (!tab || !subject || tab.suspended || tab.ownerSubject !== subject || !tab.artifact.editable) throw new Error('LINK_ORIGIN_UNAVAILABLE');
+    return { key: tab.key, subject, applicationId: tab.artifact.applicationId, applicationKey: tab.artifact.applicationKey, editor: tab.editor };
+  }
+  assertLinkOrigin(origin: WorkspaceLinkOrigin) {
+    const tab = this.tabs.get(origin.key);
+    if (this.disposed || this.subject() !== origin.subject || !tab || tab.suspended || tab.ownerSubject !== origin.subject || tab.editor !== origin.editor || tab.artifact.applicationId !== origin.applicationId || tab.artifact.applicationKey !== origin.applicationKey) throw new Error('LINK_ORIGIN_STALE');
+    return tab;
+  }
   constructor(private readonly authorize: (applicationKey: string, target: WorkspaceTarget) => Promise<AuthorizedWorkspaceArtifact>,
     private readonly mount: (artifact: AuthorizedWorkspaceArtifact) => Promise<WorkspaceEditorAdapter>, private readonly subject: () => string | undefined) {}
   subscribe(listener: () => void) { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; }

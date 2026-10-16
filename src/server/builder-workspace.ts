@@ -103,6 +103,11 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
       if ((await application(key)).appId !== app.appId || key !== V1_FIXTURE_APPLICATION_KEY && identity.registeredApplication(key) !== app.appId) throw new Error('WORKSPACE_OWNER_CHANGED');
       send(200, { ...item.summary, ...payload }); return true;
       });
-    } catch { send(403, { code: 'WORKSPACE_TARGET_DENIED', error: 'Workspace access denied. Refresh authorization or recover under the original identity.' }); return true; }
+    } catch (error) {
+      if (error instanceof Error && error.message === 'Artifact is locked by another writer.') {
+        send(503, { code: 'WORKSPACE_SOURCE_BUSY', error: 'Source is busy. Authorization has not completed; retry the read.' }); return true;
+      }
+      send(403, { code: 'WORKSPACE_TARGET_DENIED', error: 'Workspace access denied. Refresh authorization or recover under the original identity.' }); return true;
+    }
   };
 }

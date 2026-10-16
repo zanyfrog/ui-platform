@@ -2,6 +2,8 @@ import type { ArtifactCapabilities, ArtifactManifest, ArtifactValidationResult, 
 import type { EditorPresentationDescriptor } from './editor-presentation.js';
 
 export interface EditorArtifactDto {
+  /** A view over the existing Visual roles; no generic manifest is created or persisted. */
+  visualForm?: { artifactId: string; componentId: string; name: string; version: number };
   locator: string;
   manifest: ArtifactManifest | null;
   manifestContent: string;

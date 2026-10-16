@@ -68,7 +68,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
   inputs = validateInputs(options.inputs ?? {});
   for (const [name, source] of Object.entries(m.sources ?? {})) if (!Object.hasOwn(data, name)) data[name] = structuredClone(source.kind === 'fixture' ? source.value : undefined);
   Object.assign(data, structuredClone(options.sources ?? {}));
-  const scope = () => ({ ...data, public: inputs, local: state, context: options.context ?? {}, route: options.route ?? {} });
+  const scope = () => ({ ...data, public: inputs, local: state, fields: Object.fromEntries((m.form?.fields ?? []).filter(f => options.fieldAuthorization?.[m.form!.datasetId]?.[f.key]?.read !== false).map(f => [f.datasetFieldId, (state.values as Record<string, unknown>)?.[f.key]])), context: options.context ?? {}, route: options.route ?? {} });
   const emit = (name: string, payload: Record<string, unknown>) => {
     const contract = m.public?.events[name]; if (!contract) throw new Error(`Undeclared event: ${name}.`);
     const issues = Object.entries(contract.payload).flatMap(([key, field]) => valueErrors(payload[key], field, key));
@@ -108,6 +108,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
   for (const name of listeners) root.addEventListener(name, event => event.stopPropagation());
   function render(): void {
     if (disposed) return;
+    formRuntime?.prepare();
     // Nested hosts survive parent renders; their parent-owned listeners must not accumulate.
     for (const [element, bindings] of boundEvents) for (const binding of bindings) element.removeEventListener(binding.name, binding.listener);
     boundEvents.clear();
@@ -126,7 +127,11 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
         if (!Array.isArray(collection)) throw new Error(`Repeater ${id} requires an array.`);
         return collection.flatMap((value, index) => process(element.cloneNode(true) as Element, { ...current, [repeat.item]: value, ...(repeat.index ? { [repeat.index]: index } : {}) }, `${prefix}/${id}:${index}`, true));
       }
-      if (m.conditions?.some(condition => condition.node === id && !evaluate(condition.when, current))) return [];
+      if (m.conditions?.some(condition => {
+        if (condition.node !== id) return false;
+        try { return !evaluate(condition.when, current); }
+        catch { state.presentationError = 'A conditional field is unavailable until its dependencies are valid and readable.'; return true; }
+      })) return [];
       const settings = JSON.parse(element.getAttribute('data-uip-settings') ?? '{}') as Record<string, unknown>;
       const packageDefinition = options.packages.find(pkg => pkg.id === element.getAttribute('data-uip-component'))?.definition;
       if (packageDefinition) Object.assign(settings, readPackageSettings(packageDefinition, Object.fromEntries([...element.attributes].map(attr => [attr.name, attr.value])), settings));

@@ -1,5 +1,7 @@
 import { parseSource, isWrapper } from './source.js';
 import { packageSettingErrors, readPackageSettings } from './model.js';
+import { calculationOrder, expressionType } from './expression.js';
+import { formCalculations, formExpressionFields } from './form.js';
 import type { ArtifactMetadata, Diagnostic, Expression, PackageComponent, PropertyContract, RuntimeArtifact } from './model.js';
 
 export function parseMetadata(text: string): { metadata?: ArtifactMetadata; diagnostics: Diagnostic[] } {
@@ -49,7 +51,7 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
     if (Boolean(m.capabilities?.includes('form')) !== Boolean(m.form)) error('Form capability and Form definition must be declared together.');
     if (m.form) {
       if (m.kind !== 'component') error('A Form must be a Platform Component.');
-      if (!m.form.datasetId) error('Configure a Dataset target before preview/submission.');
+      if (!m.form.datasetId) warning('Configure a Dataset target before submission.');
       if (!nodes.has(m.form.node)) error('Unknown Form root node.');
       if (!/^[A-Za-z][\w]*$/.test(m.form.primaryKey)) error('Invalid Form primary key.');
       if (!m.modes) error('A Form must declare a restrictive default mode.');
@@ -66,6 +68,7 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
         if (field.datasetRequired && field.required === false) error('Dataset-required validation cannot be weakened.');
         for (const overrides of Object.values(m.modes?.overrides ?? {})) if (field.datasetRequired && overrides[field.node]?.required === false) error('A mode cannot weaken Dataset-required validation.');
       }
+      calculationOrder(formCalculations(m), formExpressionFields(m));
     }
     const sourceNames = new Set(['public', 'local', 'route', 'context', 'event', ...Object.keys(m.sources ?? {}), ...(m.repeaters ?? []).flatMap(r => [r.item, ...(r.index ? [r.index] : [])])]);
     const expression = (expr: Expression) => {
@@ -73,7 +76,8 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
         if (!/^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\.[0-9]+)*$/.test(expr) || expr.split('.').some(p => ['constructor', 'prototype', '__proto__'].includes(p))) error(`Invalid named-source path: ${expr}.`);
         else if (!sourceNames.has(expr.split('.')[0])) error(`Unknown named source: ${expr}.`);
         else if (expr.startsWith('public.') && !Object.hasOwn(m.public?.properties ?? {}, expr.split('.')[1])) error(`Undeclared public input: ${expr}.`);
-      } else if (expr && 'literal' in expr) return;
+      } else if (expr && 'version' in expr) { expressionType(expr, new Map(formExpressionFields(m).map(f => [f.fieldId, f.type]))); }
+      else if (expr && 'literal' in expr) return;
       else if (expr && ['not', 'eq', 'and', 'or'].includes(expr.op) && Array.isArray(expr.args)) expr.args.forEach(expression);
       else error('Invalid declarative expression.');
     };
@@ -120,7 +124,7 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
       const pkg = packages.find(p => p.id === node?.attributes['data-uip-component']);
       if (pkg && binding.target.startsWith('setting:') && !pkg.definition?.builder.settings[binding.target.slice(8)]) error('Unknown installed Package setting binding.', binding.node);
     }
-    for (const condition of m.conditions ?? []) { requireNode(condition.node); expression(condition.when); }
+    for (const condition of m.conditions ?? []) { requireNode(condition.node); expression(condition.when); if (typeof condition.when !== 'string' && 'version' in condition.when && expressionType(condition.when, new Map(formExpressionFields(m).map(f => [f.fieldId, f.type]))) !== 'boolean') error('Versioned conditions must return Boolean values.', condition.node); }
     for (const repeater of m.repeaters ?? []) { requireNode(repeater.node); expression(repeater.collection); if (!/^[A-Za-z]\w*$/.test(repeater.item) || ['public', 'local', 'route', 'context', 'event', ...Object.keys(m.sources ?? {})].includes(repeater.item)) error('Repeater alias conflicts with a named source.'); }
     const action = (item: import('./model.js').Action) => {
       if (item.kind === 'set') { if (!Object.hasOwn(m.state ?? {}, item.state)) error(`Unknown local state: ${item.state}.`); expression(item.value); }

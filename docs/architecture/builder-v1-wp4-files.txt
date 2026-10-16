@@ -1,0 +1,82 @@
+WP4 changed-file inventory — 2026-10-16
+Paths relative to the repository headings. Pre-existing WP3 work is preserved.
+
+ui-platform — WP4 implementation and verification
+package-lock.json
+packages/visual-artifacts/package.json
+packages/visual-artifacts/src/expression.ts
+packages/visual-artifacts/src/form-runtime.ts
+packages/visual-artifacts/src/form.ts
+packages/visual-artifacts/src/model.ts
+packages/visual-artifacts/src/runtime.ts
+packages/visual-artifacts/src/validation.ts
+packages/visual-artifacts/src/vite.ts
+src/client/artifact-editor/context.ts
+src/client/artifact-editor/default-plugins.ts
+src/client/artifact-editor/form-creation.ts
+src/client/artifact-editor/form-editor.ts
+src/client/artifact-editor/form-preview.ts
+src/client/artifact-editor/plugins.ts
+src/client/artifact-editor/shell.ts
+src/client/artifact-editor/source-editor.ts
+src/client/artifact-editor/visual-form-transport.ts
+src/client/artifact-editor/working-copy.ts
+src/client/builder-workspace/adapters.ts
+src/client/builder-workspace/coordinator.ts
+src/client/builder-workspace/shell.ts
+src/client/visual-artifacts/preview.ts
+src/server/application-data-proxy.ts
+src/server/builder-development-host.ts
+src/server/development-application-registry.ts
+src/server/form-contract.ts
+src/server/form-submission-testing.ts
+src/server/index.ts
+src/server/visual-artifacts.ts
+src/server/visual-preview.ts
+src/shared/artifact-editor.ts
+tests/builder-workspace.test.ts
+tests/editor-context.test.ts
+tests/builder-v1-wp4.test.ts
+tests/wp4-form-contract.test.ts
+vite.config.ts
+docs/architecture/builder-end-to-end-v1-implementation-plan.md
+docs/architecture/builder-end-to-end-v1-acceptance-checklist.md
+docs/architecture/builder-v1-wp3-verification.md (planning acceptance status only)
+docs/architecture/builder-v1-wp4-plan.md
+docs/architecture/builder-v1-wp4-expression-contract.md
+docs/architecture/builder-v1-wp4-form-authoring.md
+docs/architecture/builder-v1-wp4-verification.md
+docs/architecture/builder-v1-wp4-files.txt
+docs/architecture/evidence/builder-v1-wp4/acceptance.json
+docs/architecture/evidence/builder-v1-wp4/browser-regression.log
+docs/architecture/evidence/builder-v1-wp4/browser-results.json
+docs/architecture/evidence/builder-v1-wp4/build-production.log
+docs/architecture/evidence/builder-v1-wp4/data-services-build.log
+docs/architecture/evidence/builder-v1-wp4/data-services-typecheck.log
+docs/architecture/evidence/builder-v1-wp4/editor-contracts.log
+docs/architecture/evidence/builder-v1-wp4/editor-focused-results.json
+docs/architecture/evidence/builder-v1-wp4/environment.json
+docs/architecture/evidence/builder-v1-wp4/failed-editor-contracts.log
+docs/architecture/evidence/builder-v1-wp4/failed-parallel-ui-results.json
+docs/architecture/evidence/builder-v1-wp4/failed-serial-ui-results.json
+docs/architecture/evidence/builder-v1-wp4/form-rules.png
+docs/architecture/evidence/builder-v1-wp4/isolated-submission.png
+docs/architecture/evidence/builder-v1-wp4/prior-evidence-preservation.json
+docs/architecture/evidence/builder-v1-wp4/running-application.png
+docs/architecture/evidence/builder-v1-wp4/sibling-results.json
+docs/architecture/evidence/builder-v1-wp4/typecheck.log
+docs/architecture/evidence/builder-v1-wp4/ui-regression.log
+docs/architecture/evidence/builder-v1-wp4/ui-results.json
+
+UI Platform Data Services — WP4 implementation and tests
+packages/dataset-operations/package.json
+packages/dataset-operations/src/declarative-expression.ts
+packages/dataset-operations/src/secured-engine.ts
+packages/dataset-operations/src/secured-request-handler.ts
+packages/dataset-operations/tests/declarative-expression.test.ts
+packages/dataset-operations/tests/wp5-secured-engine.test.ts
+
+WP3 overlaps: context.ts, default-plugins.ts, builder-workspace/shell.ts,
+builder-development-host.ts and index.ts contain both prior WP3 and WP4 changes.
+All other WP3-only dirty files and prior evidence are excluded from this WP4 inventory.
+No WP4 changes to ui-base. No commit, publication or WP4 acceptance is implied.

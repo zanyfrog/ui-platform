@@ -24,7 +24,7 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string) {
 }
 
 /** Presentation-only adapter; overrides cannot omit protected controls or inject behavior. */
-export function mountEditorShell(container: HTMLElement, context: EditorRuntimeContext, initial: EditorPresentation = {}, plugins: EditorPluginRegistry = createDefaultEditorPlugins(), workspace?: { close(): void }) {
+export function mountEditorShell(container: HTMLElement, context: EditorRuntimeContext, initial: EditorPresentation = {}, plugins: EditorPluginRegistry = createDefaultEditorPlugins(), workspace?: { close(): void; previewHost?: HTMLElement }) {
   let presentation = initial, activeTab: EditorTab = 'overview', confirmDiscard = false, message = '';
   const sourceState: SourceEditorState = {};
   let displayedLocator: string | undefined;
@@ -44,11 +44,12 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
     const selection = focused instanceof HTMLInputElement || focused instanceof HTMLTextAreaElement ? [focused.selectionStart, focused.selectionEnd] : undefined;
     for (const cleanup of pluginCleanups) cleanup(); pluginCleanups = [];
     const snapshot = context.snapshot;
+    if (workspace?.previewHost) workspace.previewHost.hidden = !snapshot || context.suspended || activeTab !== 'plugin:visual-form:preview';
     if (snapshot?.artifact.locator !== displayedLocator || !context.hasCopy) confirmDiscard = false;
     displayedLocator = snapshot?.artifact.locator;
     shell.dataset.density = presentation.density === 'compact' ? 'compact' : 'comfortable';
-    const header = element('header'); header.append(element('h2', context.suspended ? 'Editor access suspended' : snapshot?.artifact.manifest?.name ?? 'Generic Artifact Editor'));
-    header.append(element('p', context.suspended ? 'Source is hidden. Return to the original identity to compare and recover, or deliberately discard this copy.' : snapshot ? `${snapshot.artifact.manifest?.artifactType ?? 'Unknown artifact'} · ${snapshot.artifact.capabilities.edit ? 'Editing permitted' : 'Read-only'}` : 'Choose an authorized artifact.'));
+    const header = element('header'); header.append(element('h2', context.suspended ? 'Editor access suspended' : snapshot?.artifact.visualForm?.name ?? snapshot?.artifact.manifest?.name ?? 'Generic Artifact Editor'));
+    header.append(element('p', context.suspended ? 'Source is hidden. Return to the original identity to compare and recover, or deliberately discard this copy.' : snapshot ? `${snapshot.artifact.visualForm ? 'Shared Form' : snapshot.artifact.manifest?.artifactType ?? 'Unknown artifact'} · ${snapshot.artifact.capabilities.edit ? 'Editing permitted' : 'Read-only'}` : 'Choose an authorized artifact.'));
     const toolbar = element('div'); toolbar.className = 'editor-toolbar'; toolbar.setAttribute('aria-label', 'Editor actions');
     const state = element('span', context.suspended ? 'Access revoked / suspended' : snapshot ? !snapshot.dirty && !snapshot.artifact.validation.valid ? 'Source repair required' : editingStatus(snapshot.saveState, snapshot.dirty) : 'No artifact'); state.setAttribute('role', 'status'); toolbar.append(state);
     if (snapshot?.artifact.capabilities.edit) toolbar.append(button('Undo', () => context.undo(), !context.canEdit || !snapshot.canUndo), button('Redo', () => context.redo(), !context.canEdit || !snapshot.canRedo));
@@ -103,8 +104,12 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
       const plugin = pluginTabs.find(value => value.key === id);
       const tab = document.createElement('uib-tab'); tab.textContent = tabLabels[id] ?? plugin?.contribution.label ?? id;
       const panel = document.createElement('uib-tab-panel'); panel.dataset.editorPanel = id;
-      if (id === 'overview') {
+      if (id === 'overview' && snapshot.artifact.visualForm) {
+        panel.append(element('p', `Shared Form: ${snapshot.artifact.visualForm.componentId}. Definition changes affect all consumers. Source remains the existing Visual bundle.`));
+      } else if (id === 'overview') {
         panel.append(element('p', `Artifact: ${snapshot.artifact.manifest?.artifactId ?? 'Malformed manifest'}`), element('p', `Working generation ${snapshot.localGeneration}; saved generation ${snapshot.lastSavedGeneration}.`));
+      } else if (id === 'properties' && snapshot.artifact.visualForm) {
+        panel.append(element('p', 'Use Dataset Mapping, Structure and Fields, Validation and Calculations, and Modes to edit this shared Form.'));
       } else if (id === 'properties') {
         renderProperties(panel, context, openSource);
       } else if (plugin) {
@@ -125,7 +130,7 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
       }
       tabs.append(tab, panel);
     }
-    tabs.addEventListener('uib-tabs-change', event => { activeTab = tabOrder[Number((event as CustomEvent).detail?.newValue)] ?? activeTab; });
+    tabs.addEventListener('uib-tabs-change', event => { activeTab = tabOrder[Number((event as CustomEvent).detail?.newValue)] ?? activeTab; if (workspace?.previewHost) workspace.previewHost.hidden = !context.snapshot || context.suspended || activeTab !== 'plugin:visual-form:preview'; });
     const extras = element('footer', 'Build integration not configured. Git history and reverse references are not available.');
     for (const plugin of contributions.selected.filter(value => value.contribution.slot !== 'tab')) {
       const target = element('div'); target.dataset.editorContribution = plugin.key;
