@@ -1,0 +1,1121 @@
+{
+  "basis": "Clean working tree at turn start. These are recoverable Git blob hashes, not working-copy line-ending assertions. Exact byte preservation uses the reviewed 41-file SHA256 record; only changed browser output paths are restored.",
+  "files": [
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp0/acceptance.json",
+      "sha256": "f26d18071547c3c0fada58dea22a544bbe39d729f9f27fa846e164bdb7dd62c0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp0/verification.json",
+      "sha256": "689c373ed0affa41a3ad9cbb46bcc3e86eb26206774c64f2ec537d0236c16d0c"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp1/browser-results.json",
+      "sha256": "020d047c1dc70701f916f6eb2fb20076845f8c19b3655fcb7565fd02886e3991"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp1/verification-results.json",
+      "sha256": "16a50197de265bb9a1c80b158667b3a88e3168659e4a3978fb6b968b630e1379"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp1/workspace-retained-page.png",
+      "sha256": "573e8c3fcff6b946971c973208665c9c277c5bbd8e7018ea95feed35b971d918"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp2/browser-results.json",
+      "sha256": "cf90a9c54be9f4218869bb282f24e7d9d900bcdd9938cdd13e433eb3db865e72"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp2/composition-browser-results.json",
+      "sha256": "a113a7cd5c21a8b61083f39495bcc12f7fa82dd2539cf529e5bcae925d9fe319"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp2/specialized-browser-results.json",
+      "sha256": "877e0d0a3460aa73e9250833298e39b4a24a31bdf6b3feb76f484eef69050734"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp2/ui-results.json",
+      "sha256": "597d46b3d14c8caf1fbf1a757fa5a20d3511d6b0785dea1531a7a2b6d6c56cfd"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp2/verification-results.json",
+      "sha256": "e60a5fc8b96899bc4ae3564a950245fed2659d512c30232bd39de89bda2ff0f7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp2/workspace-retained-page.png",
+      "sha256": "4501f9d09d47fb3b6c56fcd8a0febfac2010a2a47899b6f14eefa992a32367cd"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp2/wp0-regression.json",
+      "sha256": "0727b0ab7429a5f4d3f43c49435a6b42a0524bba48470346d9312c0918555606"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp3/acceptance.json",
+      "sha256": "31c0c9b0f268b97ea358abe199ffc3c8b444a4a0cc65d54bfd103c18be4d1b2f"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp3/builder-records.png",
+      "sha256": "9b443d291c54976693a802783e4f1fcb2bf98c15cae30be50664e880087cd5b7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp3/configured-form.png",
+      "sha256": "a412c43fdc12c23f9cbb8951c7ce0d641030862fc9c1805751abbae7eddc493f"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp3/editor-contracts.txt",
+      "sha256": "bd6ce48dac6f66327aa8cd231107fdf6b3b4711511b88d5bf29e3df3c3b8a962"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp3/final-focused-results.json",
+      "sha256": "29facd77e1e98733eacf58f772ffd8f8914d07c657186f189350887dc231a11f"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp3/sibling-results.json",
+      "sha256": "030aa72556401e66174717f8abb6d2ba4a9a4f8182459bdf455323fd3feb3a8b"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp3/standard-preview.png",
+      "sha256": "b9e30a6f8002008a4e33eb1e643fb15c4f5562af0ea81d7a0f5215b239a45c71"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp3/ui-results.json",
+      "sha256": "7e3de41d0cd551286401d876b3012e223288727615bbb8b062012719bbcd0a08"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp3/verification-results.json",
+      "sha256": "32f86eae84d49aa10c5172041b9261ee208e51f37155a1dfda08230e3b88e50e"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/acceptance.json",
+      "sha256": "0caf603e51414bc5a9fb40a82809ae9bcd47668bb708ab9ec14a496ad11a45e1"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/data-services-results.json",
+      "sha256": "4c1b93059cf96b88d3c07315fae19deef346b3bed56b361c619e2661c663765e"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/environment.json",
+      "sha256": "9516821838032fc1ffcd2b053f9fbc86a3d5017e3cd99725aa32418863ee677d"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/failed-browser-timing-results.json",
+      "sha256": "608e575f5eebaa16c572467f8c0aae9d02016916ac33b0dbaac1609e3d31f85c"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/failed-focused-results.json",
+      "sha256": "1d59041a39192114c3a71524673030bf0354498a5561d0dfe03c934b754aae17"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/failed-focused-second-results.json",
+      "sha256": "690d98457eb4d37cd2015def575411ce9cf65c570e931a8f169cd9272f9ce022"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/failed-ui-before-reader-close-results.json",
+      "sha256": "bdde0f58648e5d1a0feca6960503a453713c32fb12f4ef3879d9785d7a8ac380"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/failed-ui-results.json",
+      "sha256": "b7b2e8779792bdc19d40fd8422d6090907fb5dcebd4f9f8e2b04ecceef446654"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/failed-ui-second-results.json",
+      "sha256": "7b7ed0aca6ffdbd8370fd0402d1e4e0740fe99c912644200e45dbf09fe71ef81"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/focused-results.json",
+      "sha256": "a9f5a0511ab559a3ee1bffdc324b6dc20399d0044ae462d89bff83903d96a1a5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/form-rules.png",
+      "sha256": "32037b56137321357a3c0937ec6f492ee687a3b6dc70a03fb7b1e1c1c92cd3a7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/host-suspension-results.json",
+      "sha256": "5d81433c021cc0b084426c33a33a81d7768fb3b850be2abddeb113cc825076ca"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/implementation-hashes.json",
+      "sha256": "498eaa6f5b11459122dbe8a30ddc7e15bfb48c6473adb589b935a1a8a52e1e0f"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/isolated-submission.png",
+      "sha256": "e8f029abbd138324008ad8a9152cfd02d111525bf6b9a973686375b182934be2"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/prior-evidence-preservation.json",
+      "sha256": "3d814ddc5f9d698f943afdc82f2e70851085146b877a754ebf1cfd9f12eff7ba"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/renderer-checks.txt",
+      "sha256": "d1357547365f06d86e394ed8d1ccb69c90ab7493f6572d109eca4498085f783e"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/running-application.png",
+      "sha256": "4bc587a1976b4d0eeb84051db4d6442007f705f8ed5eca37d0064de804b1689e"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/running-failure.png",
+      "sha256": "6e8eb5caa07085ee338e276c3cfce29a5f5607bcc62cb0ad26ad55b5948d4f3f"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/scope-reconciliation.json",
+      "sha256": "6327b3c02217c766b140a3efe28971ff8cc399d2308c5eab46223d502bae0024"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/source-busy-failure.png",
+      "sha256": "6e8eb5caa07085ee338e276c3cfce29a5f5607bcc62cb0ad26ad55b5948d4f3f"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/source-contention-results.json",
+      "sha256": "bdde0f58648e5d1a0feca6960503a453713c32fb12f4ef3879d9785d7a8ac380"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4-hidden-fields/ui-results.json",
+      "sha256": "b4e57f08605c018db98f1ed2dcca07c52a288d47c0f64ec357b571be3e28b9b9"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/acceptance.json",
+      "sha256": "894b15442c336257371f3f6f83c276a60f2bce50b66bf543de309db457bb1ed4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/browser-results.json",
+      "sha256": "64303c8a88dc446a088c73d83d089294b75c6d65d1e5a6a4849c0ed899e29225"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/editor-focused-results.json",
+      "sha256": "35cc7b445ac4b445ab02ae3c763b3079255468cd791b0a9cb5b0601feab574cd"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/environment.json",
+      "sha256": "12fd79d11991b6080350597e4814b9aaf695974669f651b148fc9c7202610c35"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/failed-parallel-ui-results.json",
+      "sha256": "2ef05b7662b516185210e5c13db21850167bcb2498f5764c9d8a5ac9a77799db"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/failed-serial-ui-results.json",
+      "sha256": "0a9134b7d985dfb9f0ec3c2cee6e1da9d4ef2b90f0d5cc1e0aa3009cbcbd7b1b"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/form-rules.png",
+      "sha256": "aa6baf95cbac6f42128de910d6e11ea1909e54f72ca64874318d86baa733bd7b"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/isolated-submission.png",
+      "sha256": "82515810211976b5f111ece865404534963a6985dafb962d7dbd5a9c41916a64"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/prior-evidence-preservation.json",
+      "sha256": "ea7c8917ea106d0bc44c039c2e2fe622c7e79e48849dc39a7e228028fcf139ee"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/running-application.png",
+      "sha256": "aea01a259b441ee95dab32984d579ffcaa0da4b8778ac1a71e3a8fb2cffd5207"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/sibling-results.json",
+      "sha256": "f1a67ee5df58a8825a967e629ace94b72add10ea7090521e876bbf1db7774174"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp4/ui-results.json",
+      "sha256": "d9d0c2ea8e52a1b11b4d931c3470fec11a373feac801c8cd890faff96e17b082"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/build.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/commands.json",
+      "sha256": "f23629cdb2f0c3544d8a8c1aa8e2b0ff9a9ba6ea18a9b95056fe8c10e6d08828"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/data-services-before.json",
+      "sha256": "b72f9174c80a72cb522814827f16f3c8f06b32ac263e00970441955571b7d1eb"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/dependencies.txt",
+      "sha256": "b1285c8eb46a2459a46736f7c06ad3e6a4ee36b09e5827207d0efc4f546d8ee6"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/direct-child-npm-version-first-attempt.txt",
+      "sha256": "18741fc9475763d6073572b5e17b6b8413e99f4c8924f8a94e01847b3cdd2685"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/direct-child-npm-version.txt",
+      "sha256": "457af6bcb860725c02c36308c43603dd9dd50fdae02abe4d09b1f85541b6431f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/execution-runner.ps1",
+      "sha256": "876ffdc298ff0ecc3caacafe5bc5979243d6c82c643b38c379f25c0d19bd25ad"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/git-and-tools-after.txt",
+      "sha256": "925796c61a729b0962103c925f73d5126e59b3e2d9e6cf00d53b70659ed9f34d"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/git-and-tools-before.txt",
+      "sha256": "9533fa04a5510eeb93357bb838acdeb01d986a4a29c1d13c11faa2dcffe2ce55"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/global-npm-before.json",
+      "sha256": "0f4b074e57818cf80ee5f546ace6ed98daa810c082643bd8fd53848f5e4e9bc1"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/initial-runner.ps1",
+      "sha256": "5674d5cd5202de755438c1f924174bd7f198f9eebb9f565e3f68dac13bf36a6a"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/install.txt",
+      "sha256": "2347739c50e677e300cc096e0fcdc9e8d14cb058c9f09080a2e47d1d152cf5a9"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/local-npm-launcher.txt",
+      "sha256": "fa6d085728bf31e75044ed8806bf32d2dde14cb7498019836037ae14748bce10"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/nested-npm-version.txt",
+      "sha256": "9e9767f4477a31716aa9adac0470639c484d6e77e1e3dfc1a3aaf30ec93ff6c7"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-invocations.txt",
+      "sha256": "7f20e2b08a80a131702b19f1ab1cbfa3c771c3e01f2b728ea86701f08e01d33f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-metadata.json",
+      "sha256": "692d2aa282fd9677e32c138d97716d9d7fd2502771baacd9f04b61e2b1c497eb"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-trace-source.txt",
+      "sha256": "580e485942fbcac1c47040d934578cf71fec8f9a9a79cce5975e78a337946894"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/npm-version.txt",
+      "sha256": "457af6bcb860725c02c36308c43603dd9dd50fdae02abe4d09b1f85541b6431f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/preservation-after.json",
+      "sha256": "0e54e14f6b516a1cd88044cfeb2a0b0d7ddc08e397ba53a80e8ae2ec1e9ce3de"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/schema-application-tests.txt",
+      "sha256": "663adefabbc8fbd01b0fea595af2a0542a10cc499c4216522f1b7e6b4c53ba6e"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/source-reports-after.json",
+      "sha256": "7c30468a81a59ccfe5707102be2cf8b64f2e4a827fff180671e9b8f4aaaaec2d"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/tests.txt",
+      "sha256": "6838027702ec862d5eb70fca2da68f649ac137f3ff67646c86b596406416f693"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/toolchain-verification.txt",
+      "sha256": "3ca41a75970b7a44eea5e0d04b5aff71a0a03c95be919a79db678caecbb05630"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-0/typecheck.txt",
+      "sha256": "ccd0caf737121589bc2ce209e36c841d6b9941560d75926e3e763fd906a537a2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/01-tests-initial.txt",
+      "sha256": "632e13fa15f8c2a11b926c74ad27f710f80e79e39d1b7ecc6fb65aa5c749b451"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/02-build.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/03-tests.txt",
+      "sha256": "6e27dab082ed8daf58e4abde7612b4f581faa663429f3f21c85843bc7a907dec"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/04-platform-compatibility.txt",
+      "sha256": "f46c949b5fa31e1aedc2cdd845f55c4496ed713271ecde1d894c26c02e14b1a0"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/05-build-final.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/06-typecheck-final.txt",
+      "sha256": "ccd0caf737121589bc2ce209e36c841d6b9941560d75926e3e763fd906a537a2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/07-tests-final.txt",
+      "sha256": "a5f01b109ac2d31771d191aaaf491cd61804ddf9e0915ba67b733786ab2621bc"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/08-platform-editor-contracts.txt",
+      "sha256": "57b3777c1c6161293bed2685f6fd923528041e5b285fdd54efbc4db61f97920b"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/09-tests-acceptance.txt",
+      "sha256": "3830c12513ebc054689b70116555a0814fa076c56a7b4a293e19f78c3aaec8c0"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/data-services-before.json",
+      "sha256": "84b3d7c75483a045b83512aa918b4a498acca4b02bb4bec9dbe6eb4a944afa2c"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/diff-check.txt",
+      "sha256": "0f3ad2eedc00a711db79cb68a3a05cd492123cdd8c7949a46d2f2b95b937b766"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/implementation-file-hashes.json",
+      "sha256": "b9547e8b9e2cb490c003645ac2c75be6ebcd57722a390586259d88cb329a7d76"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/preservation-and-repositories.json",
+      "sha256": "f1170cc15b9221833d93da67d27a8ba7b87b083c772b45f3fbf6c48bac86a286"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/record-preservation.ps1",
+      "sha256": "5d33de0eb6ba62aa873bd155b2ae7888684c624b6a76d0c92507df61408caeca"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-1/tracked-file-preservation.json",
+      "sha256": "b64484bed58fe59def3ab3c8409e7c52687de8d3176c1688c5d62324f87539d9"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/01-build.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/02-focused-tests.txt",
+      "sha256": "1ca22f78c6fa71ccf54729f92d8690243aaa8dbbd7cb95537246a0d572e92e49"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/03-build-corrected.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/04-focused-corrected.txt",
+      "sha256": "be958a446cd0692b986f521907752fe25527cac57b060e8408b04205a98eb9f7"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/05-build-final.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/06-typecheck.txt",
+      "sha256": "ccd0caf737121589bc2ce209e36c841d6b9941560d75926e3e763fd906a537a2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/07-consumer-typecheck.txt",
+      "sha256": "67c15e84f57913ab86a41f64c41b359d4e5cbd1ffff696d7ac6311772394c93b"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/08-full-tests.txt",
+      "sha256": "b54852458266690b3e8c46c899e8cea5d1cdf2ecc1134e63bc5685bc75461a3b"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/09-platform-production-build.txt",
+      "sha256": "2be15c14e69fad5d5798cf75910b60af71d78a6e9698e55bd0a8f0c0a075431c"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/10-platform-typecheck.txt",
+      "sha256": "2cfb21951342ab1f03c42627db6c9f8600d9c39822eafea678f53231e135269f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/11-platform-focused.txt",
+      "sha256": "ab2cf9b1a852fe6b108cdfbedfb4bc4b49e28d16257f0432e626a8b4a9501395"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/12-platform-contracts.txt",
+      "sha256": "040edee8f76cb98d7c628dda274148b6fd6e89be2e3e945e4cdab0032077c08f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/before.json",
+      "sha256": "d23c2925938a6f14861fb7a57c4e4c8a33ad8e270fc6f218e9a19c781b4f8ae4"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/diff-check.txt",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/preservation.json",
+      "sha256": "6ac2b5f1d5787249133895fba75d26888f802bb489ec25f93bf929c1168be1ea"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2-implementation/record-preservation.cjs",
+      "sha256": "4d5defd86a3824d81a836f70344fb9841dd443dee091752b729223a47a270d7a"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2/baseline-review.json",
+      "sha256": "04796f689b8295fd27f2b7bb332919f866941b6777ce58ff1ffdabd36138c6fe"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-2/review-baseline.cjs",
+      "sha256": "312b93c0b65c4d7451a4ad1c9c12f285c698dabcbd610d6eb6e365f2c0224220"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-design/record-review.cjs",
+      "sha256": "bc223d7af21aca10a2fd3f61c8822686f020b75c2bf3678f4a87b8199f65d1a1"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-design/review.json",
+      "sha256": "f0db8794181ebeec60d5422b346b5858c85f48dc02dc2b5532038159af448459"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/01-build.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/02-focused.txt",
+      "sha256": "69b3931d0bea82580f666a1ba7fbc3fc53b3a1205c3bd271c9522d3be384fbef"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/03-focused-corrected.txt",
+      "sha256": "c56e93bf36e27ae1f967784a859546173c9f5adcd0340a17cf54534339698711"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/04-test-typecheck.txt",
+      "sha256": "7c43a012b6508b24a32a23ca0f5ec21454a01c613553e31935adcab9e56164e4"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/05-test-typecheck-corrected.txt",
+      "sha256": "0710e520f5344f14f31480b751bb71cfa9a26ad392ef9f5457606140a92e3c21"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/06-build-final.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/07-typecheck.txt",
+      "sha256": "ccd0caf737121589bc2ce209e36c841d6b9941560d75926e3e763fd906a537a2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/08-focused-final.txt",
+      "sha256": "619218783356f272f8cf783a6d405c97443c753d11d8953efaba62ed8f12acbf"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/09-full-tests.txt",
+      "sha256": "a6a05a3fa870d5da3ab3d65da3adab0678b00c61e8357904497f36b971d798e8"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/10-test-consumer-typecheck.txt",
+      "sha256": "0710e520f5344f14f31480b751bb71cfa9a26ad392ef9f5457606140a92e3c21"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/11-platform-focused.txt",
+      "sha256": "b8732cd08bf47f52070a37e80407f4fac6e8a9274498d66d23210566010148f9"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/12-platform-typecheck.txt",
+      "sha256": "2cfb21951342ab1f03c42627db6c9f8600d9c39822eafea678f53231e135269f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/13-platform-production-build.txt",
+      "sha256": "67cf2e577e72086b117d14d511d1a1adb9c4e430b4d4e38c21822cee120ca868"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/14-platform-contracts.txt",
+      "sha256": "8095fff4df823d96e851e394206456cdb05491baa77222e89ee65a7acbada056"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/15-preservation-check.txt",
+      "sha256": "0d38667c2e73a440d4d4a3c1965254d45c1748e263c42104ba23c424c9c73ec1"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/before.json",
+      "sha256": "de23c4dd57cba62026d1795ed0d60dc030cfce5a22862e43df75ba9d7df7b555"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/preservation.json",
+      "sha256": "26d564a3e2f3ad6f49299b55de3f7b9a3b3005c27eddb7ea7955ff27bb8a7a11"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-3-implementation/record-preservation.cjs",
+      "sha256": "07f4ae21e9726f116e242305ebc93bee984a174763948b667bdf97b0b24f49cb"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/01-dependencies.txt",
+      "sha256": "b1285c8eb46a2459a46736f7c06ad3e6a4ee36b09e5827207d0efc4f546d8ee6"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/02-build.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/03-typecheck.txt",
+      "sha256": "ccd0caf737121589bc2ce209e36c841d6b9941560d75926e3e763fd906a537a2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/04-full-tests.txt",
+      "sha256": "4c79e4461727ed2fe0477d498e306785cef2b586b574b01d04de49166e66ce66"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/05-consumer-tests-compilation.txt",
+      "sha256": "0710e520f5344f14f31480b751bb71cfa9a26ad392ef9f5457606140a92e3c21"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/06-platform-focused.txt",
+      "sha256": "4ad919c55ce4f93db5d765536d2559288be1e9765359c651e1b09b952840c1fb"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/07-platform-typecheck.txt",
+      "sha256": "2cfb21951342ab1f03c42627db6c9f8600d9c39822eafea678f53231e135269f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/08-platform-production.txt",
+      "sha256": "658c7e36c78728057c2c5ba89a232a4a2a215625d71c3b24dbe0914bfdebcfca"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/09-platform-contracts.txt",
+      "sha256": "be290cc3a5b5dcd1090a5249b1d4bd90be70a7622c8cad47bffcb631ad1dff9c"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/10-preservation-check.txt",
+      "sha256": "17636b3286ae6570b80918b8d2c74adc82eac85700fc715421e42d9a40560b82"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/before.json",
+      "sha256": "4dfd51fff07a25e374e781b72b22cadc413a0e1ed60ddf652adbea00532c02da"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/review.cjs",
+      "sha256": "9ede781a9196db10f60d049e15bedc98143b5ca2c685536e644a433fd0f4da4e"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-stab-4/review.json",
+      "sha256": "cafd38cb058d403addd9af4b98cb8253b4c9f4cd1bd91d590869793e11a22f98"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r0/review.json",
+      "sha256": "c2099fde17e558111825fc7fd78302bb31da9fd8e9f167bdf8804985df8a74e7"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/01-initial-build.txt",
+      "sha256": "df6e2aff334bb9a2db9ebcfb1a045055d0df55fac4e392ebc7124492a95190b2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/02-initial-focused.txt",
+      "sha256": "eb03549fd409e3030eb5f98ba917de73587a1939c38cee0f01b9a0e4071ac2a7"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/03-initial-strict.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/04-focused.txt",
+      "sha256": "4d8b5ab3fcb3c7167dbe80aedcac75b6f5736146cc4417418c17c0142db2e6ce"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/05-strict.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/06-build.txt",
+      "sha256": "378229874d14600e25fd743966d6ddd45f2c8e191308fc6af871d9f190d1a8b9"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/07-typecheck.txt",
+      "sha256": "09de33047b5287bf085ed58a1973dfff3c7264a6057957a15e4aa83fa6f496c6"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/08-strict.txt",
+      "sha256": "d6732640453b3f06c0d9176998a39356ab0107b69ddec6ec01c28b4ee67ad2dc"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/09-full-tests.txt",
+      "sha256": "f44c412ca7ab5967709b9e51834015ff4113ba5df09b3382f2a028e93f62f530"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/10-platform-focused.txt",
+      "sha256": "faf92ef04c7f1c0c9c5a174d83a74dda197c82d6a14a06a0185288ba66ec38d1"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/11-platform-typecheck.txt",
+      "sha256": "c890a1232a2a72f3dd9ebd1acc2ebf77af64fe35e3cb0c28811f7f852f7a359a"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/12-platform-production.txt",
+      "sha256": "1f497aa46cb5de8577e19dd08f65e3cfe25f2d3fcb5962ca368683e2a28ca34b"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/13-platform-contracts.txt",
+      "sha256": "7e1090246dcb54e7335e7f6a7f3e600aa1f4a0a806b29a11fde50dd2c669b382"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/14-preservation.txt",
+      "sha256": "db780840e3019a4df1b2c7a6b67cb360bb3261650096e56323158db100c068ed"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/artifact-hashes.json",
+      "sha256": "6584669eaf0ef09c92924345c7ea058461e81c00fc73d7d30a0149260562aa7e"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/before.json",
+      "sha256": "d57eed2242957b674581f78ab5fc584b5bcf43e59c33e96dd1b41b144e665ea1"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/commands.json",
+      "sha256": "c846275e2205e19ce78cb13c06701d09fe2dabe3af671545af1c300ecfec5dd6"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/corrected-06-build.txt",
+      "sha256": "f37878c5765a2ce54bc342f6d3dde3e6dc4bb043c5b074a969cd00274a843f77"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/corrected-07-typecheck.txt",
+      "sha256": "36d4cb0cd96b07965d9e8669a085ecdad1a32189f0956f9110b1e21cf2b49c3b"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/corrected-08-strict.txt",
+      "sha256": "d2cda9654d83ee7cb928f931b7ac276ee9770bfacff8df6c6ac2ecc1d9004b46"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/corrected-11-platform-typecheck.txt",
+      "sha256": "1374eb8620a506ec27575e045052bd26be304a3855d5ceeb2ef5501da4708d7d"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/corrected-12-platform-production.txt",
+      "sha256": "ad3fe9c6dd5315a6da1b4e3c9fa9e2665fe5a62e24b2254791207beac9a0d646"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/corrected-commands.json",
+      "sha256": "7bc41f92c987a424323c4ae1643895143dc20a38745b0600ada7aef0a70666ea"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/npm-invocations.jsonl",
+      "sha256": "3dfd63c4290dcda0e6ca02d5c5873140ab14dbf5f6bfa1bcbf1e177c2aaa7426"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/preservation.cjs",
+      "sha256": "46a670e03e598750d1bdba58b2a0ad379bb5874a7868647db0df0af7e44255bb"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/preservation.json",
+      "sha256": "f11782135f28b92caade5a1c9e4980efe94ee84acc0b85691b6ef52689cb5633"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/retry.cjs",
+      "sha256": "bfb119274ee14629874d69ad1fc42640217fb6f29255ec009ec276d07f82bb57"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/run.cjs",
+      "sha256": "77291f65f1f423a59ee15d26c87018aa233b8166a4f4367bec8a3676f02ada79"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r1/trace-npm.cjs",
+      "sha256": "566de9bef67bd35746c58899d29fb8b2fe193a79c2c7611756e5341e9115c106"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/01-initial-focused.txt",
+      "sha256": "642cf0271898d5a73c36eaec308b4cb94cda125e681f9e3e3114d95adef769a5"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/02-initial-strict.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/03-focused.txt",
+      "sha256": "db3f50c897d816364f1f75570e257adda2f0c81cc9cc35f8410977dc73f02025"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/04-process-tests.txt",
+      "sha256": "0a6c173a74769af46391f3aae804639f90466719c253832f42179220ebc468ef"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/05-expanded-focused.txt",
+      "sha256": "e8edd5837b8c1d7586368ab346bdc23a2a87fa4ef0e1294fa1690e108cd47221"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/06-expanded-strict.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/07-build.txt",
+      "sha256": "ee22b928dfc10f70aace5225773b4de946582fe56d9d5d58ef57d8422bd288fb"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/08-typecheck.txt",
+      "sha256": "83ea45e1c673bbb0eba37c134be916846a4b2a5ddd8bde3c387067940ed8791f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/09-strict.txt",
+      "sha256": "02053e1b9297a83939f0ed1677209b7bfbc84e62a847b4ad93f4ff87235090f6"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/10-full-tests.txt",
+      "sha256": "911228938efe7375734af0e4d478b20f49b773fb7dded624fec8a49743119a83"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/11-platform-focused.txt",
+      "sha256": "42ff0ab4b4df905a6a7d562847990e4a770e143e95b4f767c2750e696975435a"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/12-platform-typecheck.txt",
+      "sha256": "4c83ef05e1ec31f893e6bf5dbad64b6038d230268f446376e945b5f65740c46f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/13-platform-production.txt",
+      "sha256": "9d2a17216ed49a277e208c1148d63c4f949190912e8353b79f043eb82e802e4c"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/14-platform-contracts.txt",
+      "sha256": "7ff4ef96a007a631353ee4cea0960d6abb0909820c98b41b2de7825c8ac1fa71"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/15-final-strict.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/16-preservation.txt",
+      "sha256": "7430acef3250f6430627cef23315fb6480ad38683e7469e98040f5e4c07a16ed"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/artifact-hashes.json",
+      "sha256": "78e6bcc702c195b100c94e2d9815178ab11a1b014b6c99c3233cc5b8c1481a1e"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/before.json",
+      "sha256": "1cddceffac99b9dbdab333f0570a4989ed6f3bf4682c188eb0ac1862524112d9"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/commands.json",
+      "sha256": "5d9a9c20edc13baa1cee0cb572337263e160aab7ae0a77557158db9bb1c6c4ea"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/final-07-build.txt",
+      "sha256": "e6f74861a9493cd98fced880a794d79e4c230aae0fed93130b77b443b9ca594f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/final-08-typecheck.txt",
+      "sha256": "df3163f01395829d2242fd74e34db4941f6cd6c9617c6bfef355e1d5ebc6dcdc"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/final-09-strict.txt",
+      "sha256": "8e21a5b68e9c00ff86146f3795b43359389f832f913e21b66598e82988b96787"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/final-10-full-tests.txt",
+      "sha256": "fbb30411a895159340dd6e78a321c7701c16536e8a9de915ccb3c4c02b08b14b"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/final-commands.json",
+      "sha256": "71b0cea055dbe5b9651576a85b8944387e8ef0d06d13b1340b6510fbf4058a3f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/final-run.cjs",
+      "sha256": "28f4df13d1bfe6e4dc5da91876882470ae4cdf013be4a2cb5071f28e1f13f1e0"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/npm-invocations.jsonl",
+      "sha256": "a0f227fd8c070cbd277d84f52c1e4cd81aabeb396f3c9e606eff6ebc97d0a523"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/preservation.cjs",
+      "sha256": "895a2987d2fb387383ed0ab92344dbe0ad537643d4badfc7f01940f875f02e16"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/preservation.json",
+      "sha256": "66a745753e08a87cf03174e6c31707a0757ca2cda4abd16eb2ecf90c03d5f523"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/run.cjs",
+      "sha256": "bedb2c197250daa6eca572b56b026a1a5682738817dc43a1be1bb6f922fc797c"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/trace-npm.cjs",
+      "sha256": "566de9bef67bd35746c58899d29fb8b2fe193a79c2c7611756e5341e9115c106"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/verified-07-build.txt",
+      "sha256": "d51a5777944ac1a70b79a1ba57fe80bce42c10916a5a0261acf0fa69a25964c9"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/verified-08-typecheck.txt",
+      "sha256": "384a02a22108640334bcaa89183ba0781378637a7d4501bf9622448561236245"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/verified-09-strict.txt",
+      "sha256": "e64e258ed5a54babc621ecd35d96c71f6621c0ec524a07db70f0ad8fc21fad34"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/verified-10-full-tests.txt",
+      "sha256": "4c199f6e892b8422c59613bf5fe22187b13fc2cc3be90b6a3a965f99d0a04803"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/verified-commands.json",
+      "sha256": "90e73509b5a97f38dfa9e527c5dddac6e7853b8a77f50d1ee814bfd655d0767d"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r2/verified-run.cjs",
+      "sha256": "442db3379e3e4bc43108e6fd881accfacd08a9d7547b3b606dd6017aabb4ee75"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/02-initial-focused.txt",
+      "sha256": "934aac93663685c43add992d81fafb721e62b1cf00758a0581b3f5a4b3048d34"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/03-test-strict.txt",
+      "sha256": "af5f2ac2bfba4f14c7b7efdbe9c398114e6e3ccd4f9d299f948b7f2289e21b5c"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/05-expanded-focused.txt",
+      "sha256": "69e75374a6ffbddd9f35c4687644beeed7ca4f4110260f26c93144bd50a22e59"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/07-build.txt",
+      "sha256": "d00f84d47d909ee2ef6d66af677b4b53304930a7b2bbdce25d3726e4aceb8dbd"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/07-focused.txt",
+      "sha256": "97dc813f69ca5161de093bfc0c571392685aed4edf50f7caab1d8c52bf5144f0"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/08-typecheck.txt",
+      "sha256": "dedd4a9af9717579c9303682072178bdf68e88c4e981fde83f748e07b91ab782"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/09-expanded-focused.txt",
+      "sha256": "c3930a25699225ec1e01965dda1ecf7c5c32503d01230072382d472bb0279988"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/09-strict.txt",
+      "sha256": "30090654a1df9c0d4a6999660d31ca9d9fe84063301b21146f674e51899e7a90"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/10-full-tests.txt",
+      "sha256": "ef06c5a85e4cf7a6e5aac42b21ec8557d7fb0efeec3d57a11e1a07a4f6de0d45"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/11-platform-focused.txt",
+      "sha256": "06485e6613d5c30b8b10baaa76aa38695ce0235c4ddb12fc9d753a14b5aa4a1e"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/12-platform-typecheck.txt",
+      "sha256": "e1f6749dd27dcd0be0bcf3ddee76bd128183162153c1c91c3040bb58f10b0409"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/13-platform-production.txt",
+      "sha256": "fb1582d8b6cd74796d0fbec973d2915b76b2103b8ff4b449bb20aab068b77ac4"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/14-platform-contracts.txt",
+      "sha256": "681d5ce56148515b05ed8a7f8eb9ea7037787947e30e0c84304a6aad6d0379ec"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/15-preservation.txt",
+      "sha256": "c4fe60bba119ec4f9d2f4938d68f20d9184dc72bdb1fe57bc4e466376410b610"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/16-preservation.txt",
+      "sha256": "1d2bf12359d01290ccf658b9fe3b32633ae29eac8139ab68ab1129279bbc5488"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/17-consumer-isolated.txt",
+      "sha256": "21a19c9ef4f2d64f04f450afd801ca47a33b469ad620dca7d354a96d13432915"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/18-watcher-isolated.txt",
+      "sha256": "2d560f363b143823fa324d15249e19a6cc2eb2d06f174c22f470862a072539f2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/19-platform-contracts-serial.txt",
+      "sha256": "9fa2d89d446c4a55ce3394df69804c38996687ce083dedd0aa8ece6325416b0c"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/20-final-preservation.txt",
+      "sha256": "1d2bf12359d01290ccf658b9fe3b32633ae29eac8139ab68ab1129279bbc5488"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/artifact-hashes.json",
+      "sha256": "0b1b923a2d58d4759b74414a99a1a758be582aff2591312bbc3209fd44c98fca"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/before.json",
+      "sha256": "2c9a186dbd8f2cc59b05b71d46ad3e400ff5e6fd5e10d09722f165a0c5e03430"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/commands.json",
+      "sha256": "7b4b05f7343dac2265cfa67e7ecd2425338ead59f8b8413ed298ff74a3e8caba"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/isolated-commands.json",
+      "sha256": "9090c1e7d1c2fefcf152b74d414c1701f9d792320c7751883171f2e8f5c33e8b"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/isolated.cjs",
+      "sha256": "883b7134566221c4e29e3755e026d25632f05eb3884d88658446ab0d38ac8f6d"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/npm-invocations.jsonl",
+      "sha256": "3e7f3d7ebfbf955c91b387f021975e64e669c0019bd10f7a7120498c39d793b9"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/preservation.json",
+      "sha256": "da1c5c5a206d6c46fdde16e5319ab52972ea31ccb97aafb28e603c312b10f17a"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/preserve.cjs",
+      "sha256": "b48d20cf234371294bcc84d920b43c9e2f5af110456c997a98d52c7b1dfdfd67"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/retry-14-platform-contracts.txt",
+      "sha256": "df753251fb3775596bd9595c2acac78b4074ef286ac0f27e8184c89d8a34623f"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/retry-commands.json",
+      "sha256": "7ff363505a295f71c215403f520eb722e1276ac365e78813bd7803ebfe516e11"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/retry.cjs",
+      "sha256": "87578ef0bac3b5a393c2fc78681ebba9c35bb811fa164f695947b9a62983ddf5"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/run.cjs",
+      "sha256": "e3c73e93b0135139b8d7f189729e1346aec9baafc24aaf413471c0b815528743"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/serial-command.json",
+      "sha256": "a4e666c1e0a9152b529b8047f0436e1bb81b98a8ef3c69fb07b90c2253dda225"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/serial.cjs",
+      "sha256": "2be47c43b614460ce91662972c583565cb99d88b40b8bcf7348df0fef2214496"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r3/trace-npm.cjs",
+      "sha256": "566de9bef67bd35746c58899d29fb8b2fe193a79c2c7611756e5341e9115c106"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/01-review.txt",
+      "sha256": "505d7e279c7cbdda57ef33dc57491ade22454af89bf8962d64d1567c63ad7913"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/02-reviewed-preservation.txt",
+      "sha256": "10d3c3a31dd6a6578ea0a7b64974e5303f810ced7220d924f05592a18dd42999"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/03-preserved-stop-report.md",
+      "sha256": "29a153b763589c22fdf816d91c09d820f2631a3fea345bdb20548dff23683260"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/04-c2-strict.txt",
+      "sha256": "57f6d8fcbcab035300b2200c4a9121f129242f0ee604dde5ca150736d6c5b61c"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/05-c2-focused.txt",
+      "sha256": "9f7932feb739e1707760cfa427d1c4139bc7b271a9dc685cf75edd1bf9fcf448"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/07-build.txt",
+      "sha256": "ca512e59385fd45043491284517bab58eacdc30423327b05bdd36b6538886738"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/08-typecheck.txt",
+      "sha256": "548caaa802eed975ff92693bedac1c33b5826819f44f719a930901939bc9a1a2"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/09-strict.txt",
+      "sha256": "27ce339cfb64cd7fa1e519e22a58d10c1805070c65fb2eaaf7250154dbcc0903"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/10-full-tests.txt",
+      "sha256": "daaa6862320873c32db6e80d590620135430a61faca131309fa950dbfe47c741"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/11-platform-focused.txt",
+      "sha256": "b0476bd2c8a7797aa6dd68aaf1a1d2a504d6bd25499fd2154b2b1473e0c760f5"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/12-platform-typecheck.txt",
+      "sha256": "212e79cf72f4fce5d12a47d5ed95592b1d1f04c764906974d1ba5e6f20fba00b"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/13-platform-production.txt",
+      "sha256": "1b102c6f1d45661e37a73ab03e3442e60be9f226a9fc2548400046f6df025291"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/14-platform-contracts.txt",
+      "sha256": "db488c8c727adc2532cd88335984a95429cea4d65a31520d5c22b5741556ce9d"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/15-final-preservation.txt",
+      "sha256": "6903f56bd21a879ab7403aa87f78b0528743a2fbdd086e4210178d34d28f4604"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/16-final-review.txt",
+      "sha256": "6903f56bd21a879ab7403aa87f78b0528743a2fbdd086e4210178d34d28f4604"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/artifact-hashes.json",
+      "sha256": "367494652d0c4e7f11d5020eff28b7eef1a291ad08292ba974e88f3b37ad1607"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/c2-commands.json",
+      "sha256": "8863b30c0a8bb6e0e77307b1c4c767bc42dbc3a53f74708a185cf94911b15e05"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/c2-run.cjs",
+      "sha256": "3d82dcdc8567cc6d35b5f3aadcc0118e1a3f6746cf8ea5cfd876c6e076ca25cc"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/commands.json",
+      "sha256": "da2d9b2155fada9a4044e0eb21dd0c393ed6bfd8aec04a909f5a768aa944eae4"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/final-artifact-hashes.json",
+      "sha256": "7ca17a895335ae13b4a5606ec38f719d9cb15959ddf4d323bbd88b02535ed112"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/final-preservation.json",
+      "sha256": "32b3b060a83fd146249b22c023be0b79184d2c9258c2019b338db850168828df"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/final-preserve.cjs",
+      "sha256": "d4f62a2096f6d69d966fc083a90b29b4013ac69b97b08274514699fe466d2401"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/g5-commit-verification.json",
+      "sha256": "53b2eb58bc3a8a1b456f6463a5ccf66479afec8cfe9791fcdd658481a3798eaa"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/npm-invocations.jsonl",
+      "sha256": "c022d5bf34e06f617a4d2be5e3a70e81eac193117196b76b2799637b306450ed"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/review.cjs",
+      "sha256": "5b5cda4d5b8e144869ee815bf0594a0187c36d59b467313bc04c672dfc13b26d"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/review.json",
+      "sha256": "18fdbf1e9403fbc3ac1db889185fc509ee853058ad4db2ab6406e2f251bc3910"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/run.cjs",
+      "sha256": "e3c73e93b0135139b8d7f189729e1346aec9baafc24aaf413471c0b815528743"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-r4/trace-npm.cjs",
+      "sha256": "566de9bef67bd35746c58899d29fb8b2fe193a79c2c7611756e5341e9115c106"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-reconciliation/review.cjs",
+      "sha256": "6a27aba90a4f18c29a2eca1043d01d2ed6b1f05bf076e28631a8f9a63009a565"
+    },
+    {
+      "path": "docs/architecture/evidence/ds0-wp2-reconciliation/review.json",
+      "sha256": "f48371f27c4e69b03c4efd8f0e902d4c63ba43ca63a3780268fe3aa4f51858a2"
+    },
+    {
+      "path": "docs/architecture/evidence/iam-0/review-verification.json",
+      "sha256": "6e8ef18d27776355f0cd0c303a8b968328136f478a125223d2473653626fc65c"
+    },
+    {
+      "path": "docs/architecture/evidence/iam-0/source-inventory.json",
+      "sha256": "3783b6074a7b0001077406e4166f5200f24eadb88f7419f8a8a246c264290512"
+    },
+    {
+      "path": "docs/architecture/evidence/iam-wp0/verification.json",
+      "sha256": "10d83dd092024a1607a8d2e30122d2de95d91657296b72e006a89ac013b9b784"
+    },
+    {
+      "path": "docs/architecture/evidence/iam-wp0/verify.mjs",
+      "sha256": "c518d8a0b25afd72873eb3026606920ae85a4ec570bf4af6c5efc34258bb14f7"
+    }
+  ]
+}

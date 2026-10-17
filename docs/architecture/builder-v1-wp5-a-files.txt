@@ -1,0 +1,37 @@
+Builder V1 WP5-A — changed-file inventory
+Date: 2026-10-17
+Workspace: C:/Projects/Modular/ui-platform
+Scope: Contracts and Diagnostic Foundation only; stop at WP5-A review.
+
+Implementation (four source files and one test file):
+packages/visual-artifacts/src/composition-validation.ts
+src/shared/application-diagnostics.ts
+src/server/application-diagnostics.ts
+src/server/application-diagnostic-adapters.ts
+tests/builder-v1-wp5-a.test.ts
+
+Architecture, approval, verification and acceptance records:
+docs/architecture/builder-v1-wp5-plan.md
+docs/architecture/builder-end-to-end-v1-implementation-plan.md
+docs/architecture/builder-end-to-end-v1-acceptance-checklist.md
+docs/architecture/builder-v1-wp5-a-diagnostic-foundation.md
+docs/architecture/builder-v1-wp5-a-verification.md
+docs/architecture/builder-v1-wp5-a-files.txt
+
+Retained evidence:
+docs/architecture/evidence/builder-v1-wp5-a/
+Includes final and unsuccessful/transitional machine results, implementation hashes,
+scope reconciliation, prior-evidence preservation, fresh compatibility browser outputs,
+and local build/typecheck/contract/production/browser/regression logs.
+The final evidence manifest enumerates the retained evidence files and SHA256 hashes.
+Logs matching the repository's *.log ignore rule remain local verification artifacts.
+
+Excluded generated outputs:
+Ignored build outputs (dist/, dist-server/, package dist/), .uib/ caches and temporary
+test domains are not source changes. Test-created source fixtures are removed by
+their existing cleanup; no reference Application is shipped by this increment.
+
+No sibling Data Services source, schema, authorization rules or source format changed.
+Accepted WP0–WP4 evidence is retained/restored separately from fresh WP5-A outputs.
+Historical WP4 inventories and the WP5 planning-verification record are unchanged.
+All 40 umbrella acceptance requirements remain unchecked. WP5-B has not begun.
