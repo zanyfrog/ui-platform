@@ -15,15 +15,18 @@ export function resolveMode(metadata: ArtifactMetadata, selected?: unknown): Rec
   for (const [node, override] of Object.entries(modes.overrides[name])) result[node] = { ...result[node], ...override };
   return result;
 }
-export function effectiveField(field: FormField, overrides: Record<string, NodeOverride>, operation: string, readOnly = false, authorization?: { read?: boolean; write?: boolean }): FormField {
-  const result = { ...field, ...overrides[field.node] };
-  result.visible = result.visible !== false && (!field.operations || field.operations.includes(operation as 'create' | 'edit')) && authorization?.read !== false;
+/** Runtime-only eligibility derived from existing host restrictions; never part of the saved Form format. */
+export type EffectiveFormField = FormField & { submissionAllowed: boolean };
+export function effectiveField(field: FormField, overrides: Record<string, NodeOverride>, operation: string, readOnly = false, authorization?: { read?: boolean; write?: boolean }): EffectiveFormField {
+  const operationAllowed = !field.operations || field.operations.includes(operation as 'create' | 'edit');
+  const result = { ...field, ...overrides[field.node], submissionAllowed: operationAllowed && !readOnly && authorization?.read !== false && authorization?.write !== false };
+  result.visible = result.visible !== false && operationAllowed && authorization?.read !== false;
   result.editable = result.editable !== false && !readOnly && authorization?.write !== false;
   result.required = field.datasetRequired || result.required;
   return result;
 }
 /** UI state and write payloads deliberately have separate lifecycles. */
-export function formPayload(metadata: ArtifactMetadata, values: Record<string, unknown>, original: Record<string, unknown>, fields: FormField[], operation: string): Record<string, unknown> {
+export function formPayload(metadata: ArtifactMetadata, values: Record<string, unknown>, original: Record<string, unknown>, fields: Array<FormField & { submissionAllowed?: boolean }>, operation: string): Record<string, unknown> {
   const form = metadata.form!;
   if (!['create', 'edit'].includes(operation)) throw new Error('Unknown Form operation.');
   const record: Record<string, unknown> = {};
@@ -32,7 +35,7 @@ export function formPayload(metadata: ArtifactMetadata, values: Record<string, u
     record[form.primaryKey] = original[form.primaryKey];
   }
   for (const field of fields) {
-    if ((!field.editable && !field.calculation?.persist) || field.calculation && !field.calculation.persist || field.visible === false || field.key === form.primaryKey && operation === 'edit') continue;
+    if (field.submissionAllowed === false || (!field.editable && !field.calculation?.persist) || field.calculation && !field.calculation.persist || field.key === form.primaryKey && operation === 'edit') continue;
     if (operation === 'create' || JSON.stringify(values[field.key]) !== JSON.stringify(original[field.key])) {
       if (values[field.key] !== undefined) record[field.key] = values[field.key];
     }

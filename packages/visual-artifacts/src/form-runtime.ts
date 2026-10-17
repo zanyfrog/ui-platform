@@ -85,10 +85,9 @@ export function attachFormRuntime(metadata: ArtifactMetadata, root: ShadowRoot, 
       if (!form.datasetId) throw new Error('Map a connected Dataset before submitting.');
       if (state.calculationError || Object.keys(state.conversionErrors as object).length) throw new Error(String(state.calculationError ?? 'Correct invalid JSON before submitting.'));
       state.commitOutcome = undefined;
-      const active = fields().map(field => {
-        const control = root.querySelector<HTMLElement>(`[data-uip-node="${field.node}"]`);
-        return { ...field, visible: field.visible !== false && Boolean(control) && !control?.closest('[hidden]') };
-      });
+      // Conditions may remove a control or ancestor from the DOM. Retained values
+      // still submit; only existing operation/read-only/host restrictions narrow writes.
+      const active = fields();
       state.validation = formValueErrors(values(), active);
       if ((event as CustomEvent).detail?.valid === false || Object.keys(state.validation as object).length) throw new Error('Correct the validation errors before submitting.');
       const record = formPayload(metadata, values(), original, active, operation());

@@ -129,7 +129,7 @@ it('WP4: actual Form authoring, A18, declarative rules, isolated protected submi
   await page.locator('[data-app="wp4-created"]').first().click();
   await page.locator('uib-tabs.app-tabs > uib-tab').nth(1).click();
   const workspace = page.getByRole('region', { name: 'Application Builder workspace' });
-  const reportRoot = path.resolve('docs/architecture/evidence/builder-v1-wp4'); await mkdir(reportRoot, { recursive: true });
+  const reportRoot = path.resolve(process.env.UI_PLATFORM_WP4_EVIDENCE_ROOT ?? 'docs/architecture/evidence/builder-v1-wp4'); await mkdir(reportRoot, { recursive: true });
   const formName = `wp4-form-${randomUUID().slice(0,8)}`;
   cleanup.push(async () => { const folder = path.resolve('components', formName); if (path.dirname(folder) !== path.resolve('components') || !path.basename(folder).startsWith('wp4-form-')) throw new Error('Unsafe test cleanup'); await rm(folder, { recursive: true, force: true }); });
   await workspace.getByRole('button', { name: 'Create Form', exact: true }).click();
@@ -167,7 +167,7 @@ it('WP4: actual Form authoring, A18, declarative rules, isolated protected submi
     await editor.getByLabel('Data type', { exact: true }).nth(i+1).selectOption(type);
     if (required) await editor.getByLabel('Required', { exact: true }).nth(i+1).check();
   }
-  const saved = async () => { await editor.getByRole('button', { name: 'Save now', exact: true }).click(); await page.waitForFunction(() => document.querySelector('.artifact-editor [role=status]')?.textContent === 'Saved').catch(async (error: Error) => { throw new Error(String(error) + '\nEditor: ' + await editor.textContent() + '\nServer: ' + output); }); };
+  const saved = async () => { await editor.getByRole('button', { name: 'Save now', exact: true }).click(); await page.waitForFunction(() => document.querySelector('.artifact-editor [role=status]')?.textContent === 'Saved', undefined, { timeout: 60000 }).catch(async (error: Error) => { throw new Error(String(error) + '\nEditor: ' + await editor.textContent() + '\nServer: ' + output); }); };
   await saved(); const schemaFile = path.join(apps, 'wp4-created', 'datasets', datasetId, 'dataset.json'), schema = JSON.parse(await readFile(schemaFile, 'utf8'));
   await editor.getByRole('tab', { name: 'Development Apply/Connect', exact: true }).click();
   await editor.getByRole('button', { name: 'Validate saved definition', exact: true }).click(); await editor.getByText('validate completed.', { exact: true }).first().waitFor();
@@ -175,6 +175,7 @@ it('WP4: actual Form authoring, A18, declarative rules, isolated protected submi
   page.once('dialog', (dialog: any) => dialog.accept()); await editor.getByRole('button', { name: 'Connect Runtime…', exact: true }).click(); await editor.getByText('connect completed.', { exact: true }).first().waitFor();
   console.log('WP4 checkpoint: Dataset applied and connected');
   await workspace.getByRole('button', { name: 'Return and link Dataset to Form', exact: true }).click();
+  await workspace.getByText('Dataset linked. Use Dataset Mapping after Apply/Connect to map verified fields.', { exact: true }).waitFor();
   await editor.getByRole('tab', { name: 'Dataset Mapping', exact: true }).click();
   await editor.getByRole('button', { name: 'Refresh Datasets', exact: true }).click();
   await editor.getByRole('button', { name: 'Generate supported mappings', exact: true }).click(); await saved();
@@ -218,6 +219,9 @@ it('WP4: actual Form authoring, A18, declarative rules, isolated protected submi
   const testInfo = await (await testResponse).json(); expect(testInfo, output).toMatchObject({ mode: 'isolated-development', storageIsolated: true });
   frame = page.frameLocator('iframe[title="Isolated Form submission test"]');
   await frame.getByLabel('Person name', { exact: true }).fill('Isolated person'); await frame.getByLabel('quantity', { exact: true }).fill('4'); await frame.getByLabel('price', { exact: true }).fill('5');
+  const retainedDate = '2026-10-16T12:34:56.000Z';
+  await frame.getByLabel('showDate', { exact: true }).check(); await frame.getByLabel('when', { exact: true }).fill(retainedDate);
+  await frame.getByLabel('showDate', { exact: true }).uncheck(); await expect.poll(() => frame.getByLabel('when', { exact: true }).count()).toBe(0);
   await frame.getByLabel('details', { exact: true }).fill('{"note":"safe"}');
   await frame.getByLabel('details',{exact:true}).fill('{'); await frame.getByLabel('quantity',{exact:true}).fill('5'); expect(await frame.getByLabel('details',{exact:true}).inputValue()).toBe('{');
   await frame.getByRole('button',{name:'Submit',exact:true}).click(); await frame.locator('[data-uip-node="submit-error"]').filter({hasText:'Correct invalid JSON'}).waitFor();
@@ -226,7 +230,7 @@ it('WP4: actual Form authoring, A18, declarative rules, isolated protected submi
   await frame.getByRole('button', { name: 'Submit', exact: true }).click();
   console.log('After test Submit:', await frame.locator('[data-uip-node="submit-error"]').textContent(), await frame.locator('#events').textContent(), await frame.locator('[data-uip-node="saved-result"]').textContent());
   await frame.locator('[data-uip-node="saved-result"]').filter({ hasText: 'Isolated person' }).waitFor({ timeout: 45000 }).catch(async (e: Error) => { throw new Error(String(e) + '\nFrame: ' + await frame.locator('body').innerText({ timeout: 2000 }).catch(() => 'Frame unavailable') + '\nBuilder: ' + await workspace.textContent() + '\nBrowser: ' + browserErrors.join('\n') + '\nServer: ' + output); });
-  const testRecord = JSON.parse(await frame.locator('[data-uip-node="saved-result"]').innerText()); expect(testRecord.total).toBe(20); expect(testRecord.details).toEqual({ note: 'safe' });
+  const testRecord = JSON.parse(await frame.locator('[data-uip-node="saved-result"]').innerText()); expect(testRecord.total).toBe(20); expect(testRecord.details).toEqual({ note: 'safe' }); expect(testRecord.when).toBe(retainedDate);
   expect(await readFile(storage, 'utf8')).toBe(beforeTesting);
   const testStorage = path.join(runtime, 'form-submission-tests', applicationId, testInfo.testId, 'domain', 'orm', `${applicationId}__default__${schema.dataset.key}.json`); expect(await readFile(testStorage, 'utf8')).toContain('Isolated person');
   await page.screenshot({ path: path.join(reportRoot, 'isolated-submission.png'), fullPage: true });
@@ -238,9 +242,13 @@ it('WP4: actual Form authoring, A18, declarative rules, isolated protected submi
   await editor.getByRole('button', { name: 'Refresh isolated test view', exact: true }).click();
   frame = page.frameLocator('iframe[title="Isolated Form submission test"]');
   await expect.poll(() => frame.getByLabel('Person name', { exact: true }).inputValue(), { timeout: 45000 }).toBe('Isolated person');
+  await frame.getByLabel('showDate', { exact: true }).check(); await expect.poll(() => frame.getByLabel('when', { exact: true }).inputValue()).toBe(retainedDate);
+  const editedDate = '2026-10-17T12:34:56.000Z'; await frame.getByLabel('when', { exact: true }).fill(editedDate);
+  await frame.getByLabel('showDate', { exact: true }).uncheck(); await expect.poll(() => frame.getByLabel('when', { exact: true }).count()).toBe(0);
   await frame.getByLabel('Person name', { exact: true }).fill('Isolated edited');
   await frame.getByRole('button', { name: 'Submit', exact: true }).click();
   await frame.locator('[data-uip-node="saved-result"]').filter({ hasText: 'Isolated edited' }).waitFor({ timeout: 45000 });
+  expect(JSON.parse(await frame.locator('[data-uip-node="saved-result"]').innerText()).when).toBe(editedDate); expect(await readFile(testStorage, 'utf8')).toContain(editedDate);
   expect(await readFile(storage, 'utf8')).toBe(beforeTesting);
   // Protected normal Application submission uses the same Form contract and client path.
   const data = '/api/apps/wp4-created/application-data';
@@ -264,8 +272,14 @@ it('WP4: actual Form authoring, A18, declarative rules, isolated protected submi
   expect(regionValue).toBeTruthy(); await nodes.selectOption(regionValue!);
   await workspace.getByLabel('Insert element',{exact:true}).selectOption(`component:${formId}`); await workspace.getByRole('button',{name:'Insert with layout wrapper',exact:true}).click();
   const pageSave = page.waitForResponse((r:any) => r.request().method()==='PUT' && r.url().includes('/visual-pages?')); await workspace.getByRole('button',{name:'Save Now',exact:true}).click(); expect((await pageSave).status()).toBe(200);
+  // Authoring is complete and source saves are confirmed. Close the Builder
+  // reader before launching the Application so its polling graph captures do
+  // not compete with initial runtime compilation in this bounded-reader test.
+  await page.close();
   const managed = await post('/api/apps/wp4-created/preview',{},creator); expect(managed.status,JSON.stringify(managed.value)+output).toBe(200);
+  const normalBeforeNavigation = await readFile(storage, 'utf8');
   const running = await browserContext.newPage(); running.on('pageerror',(e:Error)=>browserErrors.push(e.message)); await running.goto(managed.value.url);
+  expect(await readFile(storage, 'utf8')).toBe(normalBeforeNavigation);
   await running.getByLabel('Person name',{exact:true}).fill('Browser Application').catch(async (error: Error) => { await running.screenshot({path:path.join(reportRoot,'running-failure.png'),fullPage:true}); throw new Error(String(error)+'\nRunning: '+await running.locator('body').innerText()+'\nBrowser: '+browserErrors.join('\n')+'\nServer: '+output); }); await running.getByLabel('quantity',{exact:true}).fill('3'); await running.getByLabel('price',{exact:true}).fill('9');
   await running.getByRole('button',{name:'Submit',exact:true}).click(); await running.locator('[data-uip-node="saved-result"]').filter({hasText:'Browser Application'}).waitFor({timeout:45000});
   const normalBrowserRecord = JSON.parse(await running.locator('[data-uip-node="saved-result"]').innerText()); expect(normalBrowserRecord.total).toBe(27);
@@ -273,6 +287,6 @@ it('WP4: actual Form authoring, A18, declarative rules, isolated protected submi
   await running.screenshot({path:path.join(reportRoot,'running-application.png'),fullPage:true}); await running.reload(); await running.getByLabel('Person name',{exact:true}).waitFor(); expect(await running.locator('vite-error-overlay').count()).toBe(0);
   await running.close();
   expect(browserErrors).toEqual([]);
-  await writeFile(path.join(reportRoot,'acceptance.json'), JSON.stringify({ applicationId,datasetId,formId, formArtifactId:finalMetadata.artifactId, fieldIds:finalMetadata.form.fields.map((f:any) => f.datasetFieldId), testId:testInfo.testId, tests:['actual-builder-blank-form','cancel-dataset-create-no-link','failed-dataset-create-no-link','stale-origin-refuses-link','A18-create-configure-apply-connect-return-link','generic-editor-five-roles','identity-stable-undo-redo','applied-ID-mapping','explicit-date-json-handling','typed-calculation-and-condition-authoring','nonpersisting-design-preview','isolated-protected-submission','invalid-json-draft-preserved-and-blocked','crafted-calculation-rejected','isolated-versus-normal-storage','protected-normal-create-update-read','actual-builder-from-dataset-form','actual-page-form-insertion','running-application-browser-submit-reload'], provenance:{ application:'Normal Standard API creation', permissions:'Explicit existing trusted setup/stage/activate APIs', authoring:'Actual browser controls; no source JSON editing', normalSubmission:'Actual running Application browser submission and reload, supplemented by protected create/update/read API checks' }, browserErrors, verifiedAt:new Date().toISOString() },null,2));
+  await writeFile(path.join(reportRoot,'acceptance.json'), JSON.stringify({ applicationId,datasetId,formId, formArtifactId:finalMetadata.artifactId, fieldIds:finalMetadata.form.fields.map((f:any) => f.datasetFieldId), testId:testInfo.testId, builderReaderClosedBeforeApplicationLaunch:true, hiddenField:{ fieldId:finalMetadata.form.fields.find((f:any)=>f.key==='when').datasetFieldId, createdValue:retainedDate, editedValue:editedDate, controlAbsentAtSubmission:true }, tests:['actual-builder-blank-form','cancel-dataset-create-no-link','failed-dataset-create-no-link','stale-origin-refuses-link','A18-create-configure-apply-connect-return-link','generic-editor-five-roles','identity-stable-undo-redo','applied-ID-mapping','explicit-date-json-handling','typed-calculation-and-condition-authoring','nonpersisting-design-preview','isolated-protected-submission','hidden-date-create-edit-persists','invalid-json-draft-preserved-and-blocked','crafted-calculation-rejected','isolated-versus-normal-storage','protected-normal-create-update-read','actual-builder-from-dataset-form','actual-page-form-insertion','running-application-browser-submit-reload'], provenance:{ application:'Normal Standard API creation', permissions:'Explicit existing trusted setup/stage/activate APIs', authoring:'Actual browser controls; no source JSON editing', normalSubmission:'Actual running Application browser submission and reload, supplemented by protected create/update/read API checks' }, browserErrors, verifiedAt:new Date().toISOString() },null,2));
 }, 600_000);
 

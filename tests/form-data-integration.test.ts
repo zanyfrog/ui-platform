@@ -2,7 +2,7 @@ import { afterEach, expect, it } from 'vitest';
 import { createServer } from 'vite';
 import { createServer as httpServer } from 'node:http';
 import { createRequire } from 'node:module';
-import { readFile, mkdtemp, rm } from 'node:fs/promises';
+import { readFile, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
 import { startFormReference, closeFormReference } from '../scripts/form-reference-host.js';
@@ -30,7 +30,7 @@ it('creates both Form paths through VisualArtifactService and preserves source a
   await expect(service.save(generated.locator, 'source', 'stale', generated.hash)).rejects.toThrow('changed on disk');
   expect((await service.read(generated.locator)).files.source).toBe(saved.files.source);
 });
-it('inherits public restrictions, separates operations and preserves values outside payloads', () => {
+it('keeps host restrictions independent from modes and preserves denied values outside payloads', () => {
   const m = structuredClone(metadata), overrides = resolveMode(m, 'admin');
   expect(resolveMode(m).control_status.visible).toBe(false);
   expect(overrides.control_status.visible).toBe(true);
@@ -89,4 +89,5 @@ it('renders routed public/admin reuse, persists create/read/update through V1 id
   await page.waitForFunction(() => document.body.dataset.result, { timeout: 30000 });
   expect(await page.locator('#results').innerText()).not.toContain('FAIL:');
   expect(await page.locator('body').getAttribute('data-result')).toBe('passed');
+  if (process.env.UI_PLATFORM_WP4_EVIDENCE_ROOT) await writeFile(path.resolve(process.env.UI_PLATFORM_WP4_EVIDENCE_ROOT, 'renderer-checks.txt'), await page.locator('#results').innerText());
 }, 180_000);

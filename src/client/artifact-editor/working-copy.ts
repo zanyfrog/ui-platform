@@ -86,12 +86,12 @@ export class EditorWorkingCopy {
     if (c.disposed || c.suspended) return;
     if (c.inFlight) { this.deferredEvent = event; return; }
     if (event.kind === 'changed' && event.checksum === c.baseline.checksum) return;
-    const sequence = ++this.refreshSequence, generation = c.generation, previousState = c.state;
+    const sequence = ++this.refreshSequence, generation = c.generation, previousState = c.state, previousFailure = c.failure;
     if (c.dirty) c.conflict();
     try {
       const remote = event.kind === 'removed' ? undefined : await this.transport.load(c.current.locator);
       if (c.disposed || c.suspended || sequence !== this.refreshSequence) return;
-      if (remote?.checksum === c.baseline.checksum) { c.state = previousState; c.schedule(); c.emit(); return; }
+      if (remote?.checksum === c.baseline.checksum) { c.state = previousState; c.failure = previousFailure; c.schedule(); c.emit(); return; }
       if (!remote || c.dirty || generation !== c.generation || c.inFlight) c.conflict(); else c.reset(remote);
     } catch (error) { c.failure = error instanceof Error ? error.message : String(error); c.state = 'error'; c.emit(); }
   }

@@ -1,12 +1,12 @@
 # Builder End-to-End V1 — Implementation Plan
 
-Date: 2026-10-13; planning status updated 2026-10-15. **WP0–WP2 remain accepted and closed. WP3 is accepted for planning purposes, with machine evidence subject to independent confirmation.** Retain all documented V1 limitations. **WP4 architecture decisions D1–D5 are approved; implementation is authorized in package order with verification and acceptance gates.** See the [WP4 plan and architecture reconciliation](builder-v1-wp4-plan.md). The current user instruction narrows the earlier broad WP4 scope; unrelated composition/automation work remains outstanding and separately gated. Work-package acceptance does not accept the complete WP6 UI-only journey. Basis: [gap review](builder-end-to-end-v1-gap-review.md) and [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md). Accepted WP2 [lifecycle](builder-v1-wp2-editing-lifecycle.md), [runtime design](builder-v1-wp2-runtime-design.md), [reader/recovery guarantees](builder-v1-wp2-reader-contract.md) and [verification](builder-v1-wp2-verification.md) remain the baseline.
+Date: 2026-10-13; status updated 2026-10-16. **WP0–WP2 remain accepted and closed. WP3 remains accepted for planning purposes, with machine evidence subject to independent confirmation. BUILDER V1 WP4 — ACCEPTED AND CLOSED.** Preserve accepted contracts and limitations. **WP5 planning only is authorized; implementation requires planning review approval.** See the [WP5 plan](builder-v1-wp5-plan.md), [gap review](builder-end-to-end-v1-gap-review.md) and [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md). All 40 end-to-end boxes remain unchecked.
 
 ## Sequence and dependencies
 
 Recommended order: **WP0 development onboarding contracts → WP1 workspace → WP2 editing lifecycle → WP3 data onboarding → WP4 authoring integration → WP5 diagnostics and safe testing → WP6 reference acceptance**. WP0 was the explicit prerequisite for new protected development Applications and is now accepted and closed. Its implemented ownership, administration, runtime and recovery contracts remain the baseline for subsequent work packages; no parallel agent execution is implied.
 
-Dependency chain: WP1 depends on WP0 identity/owner contracts; WP2 on WP1 adapters; WP3 on WP0 and WP2; WP4 on WP1–WP3; WP5 may begin validator mapping after WP0 but completes after WP3/WP4; WP6 requires all earlier gates. A package is complete only when its tests and review gate pass, not when a screen is present.
+Dependency chain: WP1 depends on WP0 identity/owner contracts; WP2 on WP1 adapters; WP3 on WP0 and WP2; WP4 on WP1–WP3. WP4 is now closed. WP5 planning is authorized; its implementation depends on approval of the proposed allocation and decisions. WP6 requires all preceding implementation and acceptance gates. A package is complete only when its tests and review gate pass, not when a screen is present.
 
 ## WP0 — Development Application authority and host contracts (accepted and closed)
 
@@ -64,28 +64,25 @@ The accepted implementation supplies one two-second lifecycle across supported s
 - Risks: current reference seeds publication, activation state, ORM and permissions in code; offline provider does not create Datasets. If existing onboarding cannot be safely exposed, report a blocker and revise scope at the gate rather than substitute a fixture.
 - Gate: newly created Standard Application performs real protected data operations through normal managed runtime.
 
-## WP4 — Visual Form authoring and protected submission (implemented; acceptance review pending)
+## WP4 — Visual Form authoring and protected submission (accepted and closed)
 
-**Goal:** author Forms from a Dataset or blank, map fields, configure validation and declarative presentation, preview with the existing renderer and explicitly submit through protected DOE/Data Services. **Effort: Large**, subject to contract reconciliation.
+**BUILDER V1 WP4 — ACCEPTED AND CLOSED**, 2026-10-16, by the user following final hidden-field reconciliation review.
 
-- Authoritative scope, reuse inventory, gaps, dependencies, acceptance checklist and decisions: [WP4 plan](builder-v1-wp4-plan.md).
-- Reuse the generic Artifact Editor and WP2 lifecycle through a narrow adapter for existing Form-capable Platform Components. Preserve permanent identities, Platform ownership, Dataset applied authority and existing expression/validation/runtime services.
-- Reconcile the authoritative calculated-field contract before implementing calculation controls; the inspected bounded expression model alone does not establish one.
-- Exclude Dataset migration/multi-host expansion and second schema, authorization or expression engines. Earlier broad palette, route, Menu, automation, branding and generic create/link work is deferred; it is not implicitly completed or reassigned.
-- Dependencies: WP0–WP2 baseline; WP3 planning acceptance, with independent confirmation of relevant machine evidence required for final runtime acceptance.
-- Gate: D1–D5 are approved and WP4-A through WP4-F implementation/evidence is ready for review. See [verification](builder-v1-wp4-verification.md) and [changed files](builder-v1-wp4-files.txt). Stop at WP4 acceptance review; machine checks do not constitute reviewer acceptance.
+Accepted evidence: **387/387 UI Platform, 756/756 Data Services, 146/146 editor/storage contracts**; builds, typechecks, production exclusion and focused hidden-field renderer/protected persistence tests passed.
 
-## WP5 — Application Problems, focused preview and isolated tests
+Conditional visibility alone does not exclude retained mapped values from submission. Host restrictions, operation applicability, read-only behavior, calculated-field persistence and DOE/I-AM authorization retain separate semantics; mandatory Dataset validation is preserved.
 
-**Goal:** usable diagnostics and safe artifact testing over actual runtime/engines. **Effort: Large**. Addresses G15–G17/G19.
+Retain the concurrent source-reader contention limitation. Closing Builder before Application startup is not proof of contention-free simultaneous operation. WP3 restart tests plus WP4 Application reload suffice for WP4; A37 full management-restart/browser evidence remains required at final acceptance.
 
-- Included: aggregate existing subsystem validators without duplicating rules; preserve all severities/codes/locations; stable navigation target and artifact fallback; save-driven dependency invalidation; full on-demand and pre-Publish validation; focus-following saved-source preview; Menu/theme/sample Shell adapters; disposable Dataset/Workflow/Trigger execution environment and deterministic approved service substitutes; minimal Application Release area retaining publisher/rollback.
-- Excluded: parallel renderer, durable audit/retry system, production test writes, new release product, automatic Git commits.
-- Dependencies: WP0, WP3/WP4 completed for test-host wiring and complete dependency graph.
-- Acceptance: simultaneous independent errors all reported; warning/info do not block ordinary editing; reachable errors block Publish; diagnostics jump to node/field/step when provided; artifact-only fallback honest; focused tests leave ordinary development and production stores unchanged; full Application Preview reads development source before Publish; published snapshot remains unchanged.
-- Regression: missing Shell/Route/Menu/Component/Dataset/Workflow/service/assets, invalid source/conflicts, shared dependency invalidation, disabled/unknown actions, workflow earlier commits, afterCommit committed failure, isolation target tampering and external-service suppression.
-- Risks: composition throws early; adapting only the top exception cannot aggregate. Separate test storage is mandatory because Workflow and afterCommit behavior cannot be made safe by wrapping everything in a fake rollback.
-- Gate: demonstrate safe mutation tests and actionable multi-subsystem Problems before release gating is considered complete.
+Accepted scope, decisions and evidence remain in the [WP4 plan](builder-v1-wp4-plan.md), [architecture](builder-v1-wp4-form-authoring.md), [verification](builder-v1-wp4-verification.md), [hidden-field reconciliation history](builder-v1-wp4-hidden-field-reconciliation.md) and their original inventories/evidence. Do not reopen or expand WP4 without a separately reviewed reason. Deferred composition/automation work remains outstanding.
+
+## WP5 — Planning and architecture reconciliation only
+
+**STOP AT PLANNING REVIEW. No implementation is authorized.** The [WP5 plan](builder-v1-wp5-plan.md) defines scope, reuse, architectural gaps/solutions, acceptance criteria, risks and decisions D1–D6.
+
+The proposed allocation completes deferred UI-only controls before WP6: WP5-A validator/catalog contracts; B Page/Shell/palette/public instance/binding/Admin controls; C Trigger/Workflow/invocation; D Menu/branding; E Problems/navigation/refresh; F nonpersisting focused preview; G isolated protected tests; H existing Release integration; I pre-WP6 readiness review. This expands the earlier WP5 allocation and requires explicit review approval, with verification and acceptance gates for each increment.
+
+Dependencies: accepted WP0–WP4 contracts/limitations, authoritative validators/renderers/DOE/I-AM, source/publish admission and approved registered services. No second renderer, schema, expression, authorization or publishing authority; no Dataset migration or multi-Dataset hosting. Retain every umbrella requirement and separate subsystem acceptance from final UI-only proof.
 
 ## WP6 — UI-only reference Application and acceptance
 
@@ -107,4 +104,6 @@ Record each action as **Builder UI**, **direct source edit**, **CLI**, or **fixt
 
 Relative total effort: **Large**; no calendar estimate is defensible before WP4 contract reconciliation and review. Small work includes grouping/labels and Release placement; these do not offset the large data, lifecycle and validation work. Review at each package gate and stop on discovered architectural prerequisites instead of broadening scope silently.
 
-**STOP: WP0–WP2 remain accepted and closed. WP3 is accepted for planning purposes, with machine evidence subject to independent confirmation and documented V1 limitations retained. WP4 implementation is authorized under the approved decisions; stop at its verification and acceptance gates. WP5/WP6 and complete UI-only acceptance remain pending.**
+**STOP: WP0–WP2 remain accepted and closed. WP3 remains accepted for planning purposes, with machine evidence subject to independent confirmation and V1 limitations retained. BUILDER V1 WP4 — ACCEPTED AND CLOSED. WP5 planning only is authorized. Stop at WP5 planning review; no WP5 implementation or WP6 work is authorized. Complete UI-only acceptance remains pending.**
+
+The [umbrella scope ledger](builder-end-to-end-v1-acceptance-checklist.md#deferred-program-scope-after-wp4) retains deferred requirements and maps the proposed pre-WP6 allocation. WP3 restart plus WP4 reload suffice for WP4 only; A37 full management-restart/browser verification remains mandatory. Concurrent source-reader contention remains documented.

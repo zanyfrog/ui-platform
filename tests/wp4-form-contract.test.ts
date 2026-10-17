@@ -1,10 +1,43 @@
 import { expect, it } from 'vitest';
-import { generateForm, formValueErrors, formCalculations, validateArtifact } from '@ui-platform/visual-artifacts';
+import { generateForm, formValueErrors, formCalculations, validateArtifact, effectiveField, formPayload } from '@ui-platform/visual-artifacts';
 import { visualFormDto } from '../src/client/artifact-editor/visual-form-transport.js';
 import { EditorWorkingCopy } from '../src/client/artifact-editor/working-copy.js';
 import type { ArtifactMetadata } from '@ui-platform/visual-artifacts';
 const metadata = (): ArtifactMetadata => ({ schemaVersion: 1, artifactId: 'art_test', componentId: 'cmp_platform_test', kind: 'component', name: 'test', displayName: 'Test' });
 const schema = { dataset: { id: 'dataset', key: 'records', name: 'Records' }, fields: [{ id: 'id', key: 'id', type: 'id', required: true }, { id: 'name', key: 'name', type: 'string', required: true }, { id: 'when', key: 'when', type: 'date' }, { id: 'json', key: 'details', type: 'json', required: true }] };
+it('submits retained presentation-hidden values on create and changed hidden values on edit', () => {
+  const m = metadata(); generateForm(m, schema);
+  const fields = m.form!.fields.map(f => effectiveField(f, { [f.node]: { visible: false } }, 'create'));
+  const values = { name: 'Retained', when: '2026-10-16T12:34:56.000Z' };
+  expect(formPayload(m, values, {}, fields, 'create')).toEqual(values);
+  expect(formPayload(m, values, { id: 'one', name: 'Before', when: values.when }, fields, 'edit')).toEqual({ id: 'one', name: 'Retained' });
+  expect(values).toEqual({ name: 'Retained', when: '2026-10-16T12:34:56.000Z' });
+});
+it.each(['read-denied', 'write-denied', 'host-readonly', 'operation-inapplicable', 'presentation-readonly'] as const)('visibility cannot override %s', restriction => {
+  const m = metadata(); generateForm(m, schema); const field = m.form!.fields[0];
+  if (restriction === 'operation-inapplicable') field.operations = ['edit'];
+  const effective = effectiveField(field, { [field.node]: { visible: false, editable: restriction !== 'presentation-readonly' } }, 'create', restriction === 'host-readonly', restriction === 'read-denied' ? { read: false } : restriction === 'write-denied' ? { write: false } : undefined);
+  expect(formPayload(m, { name: 'Retained' }, {}, [effective], 'create')).toEqual({});
+});
+it('includes hidden persisted calculations but excludes display-only calculations and host-denied calculated writes', () => {
+  const m = metadata(); generateForm(m, schema); const field = m.form!.fields[0];
+  field.editable = false; field.visible = false;
+  field.calculation = { persist: true, expression: { version: 1, expression: { kind: 'literal', value: 'Computed' } } };
+  const values = { name: 'Computed' };
+  expect(formPayload(m, values, {}, [effectiveField(field, {}, 'create')], 'create')).toEqual(values);
+  for (const authorization of [{ read: false }, { write: false }]) expect(formPayload(m, values, {}, [effectiveField(field, {}, 'create', false, authorization)], 'create')).toEqual({});
+  expect(formPayload(m, values, {}, [effectiveField(field, {}, 'create', true)], 'create')).toEqual({});
+  field.operations = ['edit']; expect(formPayload(m, values, {}, [effectiveField(field, {}, 'create')], 'create')).toEqual({});
+  delete field.operations; field.calculation.persist = false;
+  expect(formPayload(m, values, {}, [effectiveField(field, {}, 'create')], 'create')).toEqual({});
+});
+it('keeps required Dataset and type validation active for presentation-hidden fields', () => {
+  const m = metadata(); generateForm(m, schema);
+  const fields = m.form!.fields.map(f => effectiveField(f, { [f.node]: { visible: false, required: false } }, 'create'));
+  expect(formValueErrors({ when: 'invalid' }, fields)).toHaveProperty(fields[0].id);
+  expect(formValueErrors({ when: 'invalid' }, fields)).toHaveProperty(fields[1].id);
+  expect(formValueErrors({ name: 'Retained', when: '2026-10-16T12:34:56.000Z' }, fields)).toEqual({});
+});
 it('projects the authoritative Visual roles without inventing a generic manifest or definition', () => {
   const m = metadata(), files = generateForm(m, schema), dto = visualFormDto({ locator: 'test/component.visual.json', metadata: m, files, hash: 'hash', diagnostics: [] }, true);
   expect(dto.manifest).toBeNull(); expect(dto.manifestContent).toBe(''); expect(dto.files.map(f => f.role)).toEqual(['source', 'css', 'metadata', 'fixtures', 'code']);

@@ -178,6 +178,19 @@ it('does not treat its own save notification as an external conflict', async () 
   await copy.close();
 });
 
+it.each([false, true])('restores the prior failure after an unchanged stale watch event (existing failure: %s)', async priorFailure => {
+  vi.useFakeTimers(); const api = transport(), copy = new EditorWorkingCopy(dto(), api);
+  copy.setFile('form.json', 'retained');
+  if (priorFailure) { api.save.mockRejectedValueOnce(new Error('Offline')); await copy.flush(); }
+  await copy.externalChange({ appKey: 'test', locator: 'opaque', kind: 'changed', checksum: 'stale-notification' });
+  expect(copy.snapshot.error).toBe(priorFailure ? 'Offline' : undefined);
+  expect(copy.snapshot.saveState).toBe(priorFailure ? 'error' : 'pending');
+  await vi.advanceTimersByTimeAsync(2000);
+  expect(api.save).toHaveBeenCalledOnce();
+  expect(copy.snapshot.saveState).toBe(priorFailure ? 'error' : 'saved');
+  expect(copy.snapshot.artifact.files[0].content).toBe('retained'); await copy.discard();
+});
+
 it('suspends a dirty copy without running queued saves, then recovers against a fresh checksum', async () => {
   vi.useFakeTimers(); const original = transport(), host = new EditorWorkingCopyHost(original), copy = await host.open('opaque');
   copy.setFile('form.json', 'private local recovery'); copy.suspend();

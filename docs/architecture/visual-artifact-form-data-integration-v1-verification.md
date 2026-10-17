@@ -58,7 +58,7 @@ no production data or identity authority is used.
 | Fixed and dynamically bound mode | Routed Pages use constants; browser check changes an existing local-state binding through an event action |
 | Create/edit and field population | Real browser flow checks new record creation and route-driven reload/edit |
 | Hidden/read-only preservation | Browser mode switches preserve internalNotes in local state; authorization metadata disables its control |
-| Changed permitted update set | Browser adapter check receives exactly identity plus changed firstName; hidden/read-only fields excluded |
+| Changed permitted update set | Original browser adapter check received identity plus changed firstName while the other fields were unchanged or host-denied; it did not prove editable hidden-field submission. Superseded for visibility semantics by [WP4 reconciliation](builder-v1-wp4-hidden-field-reconciliation.md) |
 | Mandatory validation cannot be weakened | Source validation rejects a required override; runtime prevents invalid adapter calls; protected backend rejects missing required fields |
 | Authorization precedence | Host-provided restriction overrides admin editability in browser; crafted field write independently rejected by real DOE |
 | Submission state and events | Browser checks submitStarted, submitSucceeded, recordUpdated, submitFailed, dirty/submitting/submitted, validation and error state |

@@ -60,8 +60,8 @@ queries the Dataset and displays that returned record, rather than a local echo.
 Form state lives in Visual Artifact local state: values, dirty, submitting,
 submitted, submitError, validation and savedRecord. It is not automatically
 persisted. Mode/visibility changes retain values. Update payload construction
-includes identity and changed visible/editable mapped values. Hidden/read-only
-values remain in state but are excluded from writes. The backend independently
+includes identity and changed eligible mapped values, including retained condition-hidden and mode-hidden values. Visibility alone never filters submission. Ordinary read-only
+values remain in state but are excluded from ordinary writes. Persisted calculated values are included even when hidden/read-only, subject to host read/write restrictions; display-only calculations are excluded. Operation applicability and host restrictions remain independent of visibility. These semantics were reconciled at the conditional WP4 review; see [closure evidence](builder-v1-wp4-hidden-field-reconciliation.md). The backend independently
 rejects crafted prohibited fields.
 
 Validation combines the existing Package control validity, mapped scalar and

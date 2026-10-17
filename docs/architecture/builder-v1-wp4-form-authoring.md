@@ -1,6 +1,16 @@
 # Builder V1 WP4 — Visual Form authoring
 
-2026-10-16. Implementation follows the approved [WP4 decisions and plan](builder-v1-wp4-plan.md). WP4 acceptance and the complete Builder V1 journey are separate review gates. WP0–WP3 ownership, security, schema application, lifecycle and documented V1 limitations remain the baseline.
+**BUILDER V1 WP4 — ACCEPTED AND CLOSED**, 2026-10-16, by the user following final hidden-field reconciliation review.
+
+## Final closure record
+
+Accepted evidence: **387/387 UI Platform, 756/756 Data Services, 146/146 editor/storage contracts**; builds, typechecks, production exclusion and focused hidden-field renderer/protected persistence tests passed.
+
+Conditional visibility alone does not exclude retained mapped values from submission. Host restrictions, operation applicability, read-only behavior, calculated-field persistence and DOE/I-AM authorization retain separate semantics; mandatory Dataset validation is preserved.
+
+Retain the concurrent source-reader contention limitation. Closing Builder before Application startup is not proof of contention-free simultaneous operation. WP3 restart tests plus WP4 Application reload suffice for WP4; A37 full management-restart/browser evidence remains required at final acceptance.
+
+WP5 is authorized for [planning and architecture reconciliation only](builder-v1-wp5-plan.md). Stop at planning review; no WP5 implementation is authorized. Complete Builder V1 acceptance remains separate. Do not reopen or expand WP4 without a separately reviewed reason. Historical planning, review and unsuccessful verification records below are retained; earlier gates are superseded by this user closure.
 
 ## Shared definition and generic editor
 
@@ -22,7 +32,7 @@ Date fields use exact UTC ISO text so time/zone information is preserved. Unsupp
 
 The [canonical versioned expression contract](builder-v1-wp4-expression-contract.md) reconciles the existing bounded presentation evaluator, Form model and DOE. One pure browser/server module handles legacy presentation expressions and typed version-1 declarations. There is no second expression, schema or authorization engine. Versioned conditions require Boolean results; calculations use stable field references, deterministic typed operators, bounded declarations, topological dependency ordering and cycle detection.
 
-The common Form runtime recalculates and re-renders conditions on actual value changes, preserves values across presentation changes, and excludes hidden/read-only values from ordinary writes. Calculated controls remain read-only even under mode overrides. Invalid JSON text remains a per-field runtime draft until corrected. Unchanged blur/change events do not rebuild a Form during its Submit click. UI Base checkbox reflection is consumed through its existing checkbox-change event.
+The common Form runtime recalculates and re-renders conditions on actual value changes, preserves values across presentation changes. Conditional visibility, ancestor conditions, mode visibility and control presence in the DOM do not exclude retained mapped values from submission. Create sends defined eligible values; edit sends identity and changed eligible values. Ordinary read-only fields remain excluded. Calculated controls remain read-only even under mode overrides; persisted calculations are included even when hidden, and display-only calculations remain excluded. Operation applicability and host read/write/global read-only restrictions independently narrow submission eligibility for ordinary and persisted calculated fields. This eligibility is derived runtime state, never a new saved policy or authorization engine. Host-unreadable calculation dependencies fail closed; DOE/I-AM independently authorizes every request and validates persisted calculations. Hidden required/type-invalid values still fail validation; hiding cannot waive mandatory Dataset constraints. Invalid JSON text remains a per-field runtime draft until corrected. Unchanged blur/change events do not rebuild a Form during its Submit click. UI Base checkbox reflection is consumed through its existing checkbox-change event.
 
 Builder-authored definitions select Form contract version 1. Submission supplies a permanent Form reference; the protected host resolves the authoritative source rather than trusting client declarations. DOE checks applied field identities/types/required hints and required mappings. Persisted calculations require separately authorized dependency READ and normal target WRITE authority, and the same evaluator validates final values after defaults and before-Trigger transformations have been applied. Tampering, missing/unreadable dependencies and stale definitions fail without committing.
 
@@ -41,3 +51,5 @@ Normal Application submissions continue through ApplicationDataClient, the Appli
 ## Verification boundary
 
 See [verification](builder-v1-wp4-verification.md) and [changed-file inventory](builder-v1-wp4-files.txt) for actual results, browser provenance, unsuccessful attempts and retained limitations. Complete program-level route/Menu/automation authoring, application-wide diagnostics, general isolated test infrastructure and WP6 acceptance remain outside WP4. WP3 migration and multi-Dataset hosting limitations remain unchanged.
+
+The conditional acceptance [hidden-field reconciliation and closure evidence](builder-v1-wp4-hidden-field-reconciliation.md) supersedes the earlier visibility-based payload exclusion. It also records the verified stale-watch status repair and retained deferred program scope.

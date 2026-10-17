@@ -1,8 +1,24 @@
 # Builder V1 WP4 — Verification
 
-2026-10-16. **READY FOR ACCEPTANCE REVIEW — WP4 is not accepted.** The approved plan authorizes implementation and verification, with final acceptance reserved for review. WP0–WP3 contracts and documented limitations remain intact; complete Builder V1 acceptance is not claimed.
+**BUILDER V1 WP4 — ACCEPTED AND CLOSED**, 2026-10-16, by the user following final hidden-field reconciliation review.
 
-## Recorded checks
+## Final closure record
+
+Accepted evidence: **387/387 UI Platform, 756/756 Data Services, 146/146 editor/storage contracts**; builds, typechecks, production exclusion and focused hidden-field renderer/protected persistence tests passed.
+
+Conditional visibility alone does not exclude retained mapped values from submission. Host restrictions, operation applicability, read-only behavior, calculated-field persistence and DOE/I-AM authorization retain separate semantics; mandatory Dataset validation is preserved.
+
+Retain the concurrent source-reader contention limitation. Closing Builder before Application startup is not proof of contention-free simultaneous operation. WP3 restart tests plus WP4 Application reload suffice for WP4; A37 full management-restart/browser evidence remains required at final acceptance.
+
+WP5 is authorized for [planning and architecture reconciliation only](builder-v1-wp5-plan.md). Stop at planning review; no WP5 implementation is authorized. Complete Builder V1 acceptance remains separate. Do not reopen or expand WP4 without a separately reviewed reason. Historical planning, review and unsuccessful verification records below are retained; earlier gates are superseded by this user closure.
+
+## Conditional acceptance reconciliation
+
+The user reviewed the original evidence below and conditionally accepted D1–D5, requiring correction of hidden-field submission semantics. Inspection found a real visibility-based omission in the payload and DOM-derived eligibility. The reconciliation is verified: 387/387 UI tests, 756/756 Data Services tests, 146/146 editor/storage contracts, builds/typechecks and production exclusion passed. See [hidden-field reconciliation and affected verification](builder-v1-wp4-hidden-field-reconciliation.md). The results below retain their original provenance; new executions are stored in `evidence/builder-v1-wp4-hidden-fields/` rather than replacing reviewed evidence.
+
+Existing WP3 restart plus WP4 Application reload are accepted as sufficient package evidence. Full management-restart/browser proof is retained for the final A37 reference journey. WP4 is formally closed by user review; complete Builder V1 acceptance remains separate. WP5 planning only is authorized.
+
+## Recorded checks (original review evidence)
 
 | Check | Current result |
 | --- | --- |
