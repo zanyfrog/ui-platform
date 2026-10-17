@@ -1,6 +1,14 @@
 # Builder V1 WP5-A — Verification and Review
 
-2026-10-17. **IMPLEMENTATION VERIFIED — RETURNED FOR WP5-A REVIEW.** WP5-A is not accepted, WP5-B has not begun, WP4 remains accepted and closed, and complete Builder V1 acceptance remains pending.
+**BUILDER V1 WP5-A — ACCEPTED AND CLOSED**, 2026-10-17, by user review of the diagnostic foundation and final reported evidence.
+
+## User review decision
+
+Accepted evidence: **401/401 UI Platform tests across 59 suites, 14/14 focused checks and 146/146 editor/storage contracts**; final builds, typechecks, production exclusion and browser compatibility checks passed. Original successful, unsuccessful/transitional and historical WP0–WP4 evidence remains preserved.
+
+The normal-host service contract and concurrent graph-lock contention remain open. Before WP5-C, submit a proposed typed, authorized, trusted registration contract for the existing reference.notification candidate (or another existing approved service) for review; do not invent/register services. D6 remediation planning is allocated to WP5-F, with admission/locking design review before implementation and reliable simultaneous Builder/runtime operation required before WP5-I acceptance. A37 full management-restart/browser evidence remains in WP6.
+
+WP5-B is authorized under the approved architecture, with existing Component reuse mandatory. Stop at WP5-B verification/review and do not automatically begin WP5-C. The [WP5-B inventory and contract review](builder-v1-wp5-b-component-reuse.md) records the discovered Admin target blocker; UI implementation is stopped for architectural review. All 40 umbrella requirements remain unchecked. Historical implementation/review instructions below record the completed WP5-A phase and are superseded by this user decision.
 
 ## Evidence and execution scope
 
@@ -62,4 +70,4 @@ Actual UI-only authoring evidence remains required in the increments delivering 
 
 The [changed-file inventory](builder-v1-wp5-a-files.txt) identifies this increment and retained local evidence. All 40 ordered umbrella rows remain unchecked. Historical planning verification and WP4 machine records are preserved.
 
-**STOP AT WP5-A VERIFICATION/REVIEW. Do not automatically begin WP5-B or claim WP5/Builder V1 acceptance.**
+**WP5-A CLOSED BY USER REVIEW. Stop at WP5-B verification/review; do not begin WP5-C automatically or claim complete Builder V1 acceptance.**

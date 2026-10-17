@@ -1,0 +1,14 @@
+{
+  "contract": "Existing PresentationExpression / Action service input",
+  "namedPath": "42",
+  "literalRequest": {
+    "datasetId": "dataset-example",
+    "operation": "delete",
+    "records": [
+      {
+        "id": "route.id"
+      }
+    ]
+  },
+  "note": "Paths evaluate as a whole expression; literal objects are cloned without recursively evaluating strings. No object-construction operation exists in the authoritative union."
+}

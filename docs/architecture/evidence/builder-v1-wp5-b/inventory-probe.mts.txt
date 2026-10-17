@@ -1,0 +1,25 @@
+import {readFile,writeFile,readdir,stat} from 'node:fs/promises';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {ComponentRegistry} from '@ui-base/ui/component-registry';
+import {evaluatePresentation} from '@ui-platform/dataset-operations/expression';
+import {discoverComponents} from '../src/server/component-registry.ts';
+const packages:any[]=[]; const registry=new ComponentRegistry();
+for(const directory of await readdir('node_modules/@ui-base')) {
+ const root=path.resolve('node_modules/@ui-base',directory); const p=JSON.parse(await readFile(path.join(root,'package.json'),'utf8'));
+ const text=await readFile(path.join(root,'ui.component.json'),'utf8').catch(e=>{if(e.code==='ENOENT')return null;throw e;});
+ const components=text?JSON.parse(text).components:[];
+ for(const c of components.filter((c:any)=>c.identity&&c.builder&&c.runtime))registry.registerManifest({components:[c]},{packageId:c.ownership.package.packageId,scope:c.ownership.scope});
+ const entries=[];
+ for(const c of components)entries.push({tag:c.tagName,id:c.identity?.componentId??c.id??`${p.name}:${c.tagName}`,module:c.module,moduleExists:!!c.module&&await stat(path.join(root,c.module)).then(s=>s.isFile()).catch(()=>false),canonical:!!(c.identity&&c.builder&&c.runtime),settings:c.builder?.settings??{},presentation:c.presentation?.settings??{},properties:c.properties??[],slots:c.runtime?.slots??c.slots??[],events:c.runtime?.events??c.events??[],capabilities:c.capabilities??[]});
+ packages.push({name:p.name,version:p.version,root,manifestSha256:text?createHash('sha256').update(text).digest('hex'):null,components:entries});
+}
+const catalog=await discoverComponents('test-my-app');
+const platform=[];
+for(const directory of await readdir('components')){const text=await readFile(path.join('components',directory,'component.visual.json'),'utf8').catch(e=>{if(e.code==='ENOENT')return null;throw e;});if(text){const m=JSON.parse(text);platform.push({name:m.displayName,artifactId:m.artifactId,componentId:m.componentId,public:m.public,form:!!m.form,sha256:createHash('sha256').update(text).digest('hex')});}}
+const record={date:'2026-10-17',scope:'Inventory only; no WP5-B UI implementation or browser acceptance claimed',installed:packages,applicationCatalog:{application:'test-my-app',note:'Existing non-composition Application inherits installed platform ui-base dependencies. Composition Applications require their own enabled installed dependencies; source authorization is separate.',entries:catalog.map(c=>({id:c.id,tag:c.tagName,package:c.packageName,version:c.packageVersion,module:c.module,moduleUrl:c.moduleUrl,metadata:c.metadataStatus,canonical:!!c.definition,activationIssues:c.activationIssues??[]}))},registeredCanonicalDefinitions:registry.discover().map((d:any)=>({id:d.identity.componentId,packageId:d.ownership.package.packageId,scope:d.ownership.scope,immutable:Object.isFrozen(d)})),platformComponents:platform};
+await writeFile('docs/architecture/evidence/builder-v1-wp5-b/component-inventory.json',JSON.stringify(record,null,2));
+const scope={route:{id:'42'}};
+const proof={contract:'Existing PresentationExpression / Action service input',namedPath:evaluatePresentation('route.id',scope),literalRequest:evaluatePresentation({literal:{datasetId:'dataset-example',operation:'delete',records:[{id:'route.id'}]}},scope),note:'Paths evaluate as a whole expression; literal objects are cloned without recursively evaluating strings. No object-construction operation exists in the authoritative union.'};
+await writeFile('docs/architecture/evidence/builder-v1-wp5-b/admin-target-contract-probe.json',JSON.stringify(proof,null,2));
+console.log(JSON.stringify({installedPackages:packages.length,manifestEntries:packages.reduce((n,p)=>n+p.components.length,0),canonicalRegistered:registry.discover().length,applicationInsertable:catalog.filter(c=>!c.activationIssues?.length).map(c=>c.tagName),platformComponents:platform.length,probe:proof},null,2));

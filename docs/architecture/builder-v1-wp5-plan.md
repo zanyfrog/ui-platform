@@ -1,6 +1,6 @@
 # Builder V1 WP5 — Planning and Architecture Reconciliation
 
-2026-10-17. **WP5 ARCHITECTURE APPROVED — IMPLEMENTATION AUTHORIZED. D1–D6 and WP5-A through WP5-I approved by the user. Begin WP5-A only and stop at its verification/review gate; do not automatically proceed to WP5-B.**
+2026-10-17. **WP5 ARCHITECTURE APPROVED — IMPLEMENTATION AUTHORIZED. D1–D6 and WP5-A through WP5-I approved by the user. WP5-A is accepted and closed by user review. WP5-B is authorized; stop at its verification/review gate and do not automatically begin WP5-C.**
 
 **BUILDER V1 WP4 — ACCEPTED AND CLOSED** by the user. Preserve WP0–WP3 contracts, WP3 planning acceptance and its evidence qualification, WP4 evidence and hidden-field reconciliation. Do not reopen WP4 without a separately reviewed reason. All 40 [umbrella acceptance requirements](builder-end-to-end-v1-acceptance-checklist.md) remain unchecked; package acceptance does not establish complete Builder V1 acceptance.
 
@@ -75,7 +75,7 @@ Preserve published snapshot immutability, composition/shared Component closure, 
 
 ## Approved work packages and dependencies before WP6
 
-Every increment below is architecturally approved, with implementation and verification in dependency order. The current execution instruction authorizes WP5-A and requires review before WP5-B. At each gate provide affected regression/contracts/build evidence, actual browser interactions, changed-file inventory and limitations. Stop for review on a new authority/format/runtime prerequisite rather than expanding scope.
+Every increment below is architecturally approved, with implementation and verification in dependency order. The current user review closes WP5-A and authorizes WP5-B with a verification/review gate before WP5-C. At each gate provide affected regression/contracts/build evidence, actual browser interactions, changed-file inventory and limitations. Stop for review on a new authority/format/runtime prerequisite rather than expanding scope.
 
 | Increment | Deliverable and umbrella allocation | Dependencies / verification gate |
 | --- | --- | --- |
@@ -124,4 +124,12 @@ Additional risks: validator early exits require careful shared reporting changes
 
 The original [planning verification](builder-v1-wp5-planning-verification.md) remains historical. WP4 evidence/history remains preserved. WP5-A implementation and current verification are recorded separately in [WP5-A verification](builder-v1-wp5-a-verification.md). No WP5 or Builder V1 acceptance is inferred from subsystem checks.
 
-**STOP AT WP5-A VERIFICATION/REVIEW. Do not automatically begin WP5-B. WP4 remains accepted and closed; complete Builder V1 acceptance remains pending.**
+**WP5-A ACCEPTED AND CLOSED. WP5-B AUTHORIZED; STOP AT WP5-B VERIFICATION/REVIEW. Do not automatically begin WP5-C. WP4 remains closed and complete Builder V1 acceptance remains pending.**
+
+## WP5-B user clarification and current review boundary
+
+**BUILDER V1 WP5-A — ACCEPTED AND CLOSED**, 2026-10-17, by user review of the diagnostic foundation and final reported evidence. WP5-B is authorized under the approved architecture, with existing Component reuse mandatory. Stop at WP5-B verification/review and do not automatically begin WP5-C. The [WP5-B inventory and contract review](builder-v1-wp5-b-component-reuse.md) records the discovered Admin target blocker; UI implementation is stopped for architectural review.
+
+Reuse ui-base, installed package Components, Platform Components and the shared Component Registry. Implement missing controls/adapters only; no duplicate runtime library, renderer or definition format. Package definitions remain separate from Page instances; independent instances must leave shared definition bytes unchanged. Missing metadata is explicit, and a missing contract requiring architecture changes returns for review.
+
+The normal-host service contract and concurrent graph-lock contention remain open. Before WP5-C, submit a proposed typed, authorized, trusted registration contract for the existing reference.notification candidate (or another existing approved service) for review; do not invent/register services. D6 remediation planning is allocated to WP5-F, with admission/locking design review before implementation and reliable simultaneous Builder/runtime operation required before WP5-I acceptance. A37 full management-restart/browser evidence remains in WP6.

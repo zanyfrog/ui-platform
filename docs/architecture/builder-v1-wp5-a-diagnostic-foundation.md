@@ -1,8 +1,16 @@
 # Builder V1 WP5-A — Contracts and Diagnostic Foundation
 
-2026-10-17. **IMPLEMENTED — VERIFICATION/REVIEW GATE. Not accepted. Do not automatically begin WP5-B.**
+**BUILDER V1 WP5-A — ACCEPTED AND CLOSED**, 2026-10-17, by user review of the diagnostic foundation and final reported evidence.
 
 The user approved WP5-A through WP5-I and D1–D6 on 2026-10-17, with execution stopping at this increment. WP4 remains accepted and closed. All 40 umbrella acceptance requirements remain unchecked until final WP6 review.
+
+## User review decision
+
+Accepted evidence: **401/401 UI Platform tests across 59 suites, 14/14 focused checks and 146/146 editor/storage contracts**; final builds, typechecks, production exclusion and browser compatibility checks passed. Original successful, unsuccessful/transitional and historical WP0–WP4 evidence remains preserved.
+
+The normal-host service contract and concurrent graph-lock contention remain open. Before WP5-C, submit a proposed typed, authorized, trusted registration contract for the existing reference.notification candidate (or another existing approved service) for review; do not invent/register services. D6 remediation planning is allocated to WP5-F, with admission/locking design review before implementation and reliable simultaneous Builder/runtime operation required before WP5-I acceptance. A37 full management-restart/browser evidence remains in WP6.
+
+WP5-B is authorized under the approved architecture, with existing Component reuse mandatory. Stop at WP5-B verification/review and do not automatically begin WP5-C. The [WP5-B inventory and contract review](builder-v1-wp5-b-component-reuse.md) records the discovered Admin target blocker; UI implementation is stopped for architectural review. All 40 umbrella requirements remain unchecked. Historical implementation/review instructions below record the completed WP5-A phase and are superseded by this user decision.
 
 ## Implemented boundary
 
@@ -53,4 +61,4 @@ No locking implementation changes are made in WP5-A. Ordinary simultaneous Build
 
 See [verification, unsuccessful attempts and limitations](builder-v1-wp5-a-verification.md) and [changed-file inventory](builder-v1-wp5-a-files.txt). Existing browser regression evidence protects accepted behavior; new UI-only authoring evidence belongs to the increments implementing those controls. WP5-A supplies no new authoring UI and claims no new UI-only journey completion.
 
-**STOP AT WP5-A VERIFICATION/REVIEW. No automatic WP5-B execution, WP5 acceptance or complete Builder V1 acceptance.**
+**WP5-A CLOSED BY USER REVIEW. WP5-B is authorized with its own review gate; complete Builder V1 acceptance remains pending.**

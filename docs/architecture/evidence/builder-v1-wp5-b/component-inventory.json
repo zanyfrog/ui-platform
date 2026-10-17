@@ -1,0 +1,907 @@
+{
+  "date": "2026-10-17",
+  "scope": "Inventory only; no WP5-B UI implementation or browser acceptance claimed",
+  "installed": [
+    {
+      "name": "@ui-base/assets",
+      "version": "0.1.17",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\assets",
+      "manifestSha256": null,
+      "components": []
+    },
+    {
+      "name": "@ui-base/calendar",
+      "version": "0.2.0",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\calendar",
+      "manifestSha256": null,
+      "components": []
+    },
+    {
+      "name": "@ui-base/core",
+      "version": "0.1.0",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\core",
+      "manifestSha256": null,
+      "components": []
+    },
+    {
+      "name": "@ui-base/design-system",
+      "version": "0.1.0",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\design-system",
+      "manifestSha256": null,
+      "components": []
+    },
+    {
+      "name": "@ui-base/forms",
+      "version": "0.1.0",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\forms",
+      "manifestSha256": null,
+      "components": []
+    },
+    {
+      "name": "@ui-base/hero",
+      "version": "0.2.3",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\hero",
+      "manifestSha256": "3cf098a5434fc1393afa0300e4f1336a72d49fe1a3cb9d62cec177facd4a5d47",
+      "components": [
+        {
+          "tag": "uib-hero",
+          "id": "@ui-base/hero:uib-hero",
+          "module": "./src/uib-hero.js",
+          "moduleExists": true,
+          "canonical": false,
+          "settings": {},
+          "presentation": {
+            "theme": {
+              "type": "select",
+              "options": [
+                "organization",
+                "light",
+                "dark"
+              ],
+              "inheritable": true
+            },
+            "size": {
+              "type": "select",
+              "options": [
+                "compact",
+                "default",
+                "large"
+              ],
+              "inheritable": true
+            },
+            "visual_mode": {
+              "type": "select",
+              "options": [
+                "panel-right",
+                "panel-left",
+                "background"
+              ],
+              "inheritable": true
+            }
+          },
+          "properties": [],
+          "slots": [],
+          "events": [],
+          "capabilities": []
+        }
+      ]
+    },
+    {
+      "name": "@ui-base/icons",
+      "version": "0.1.0",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\icons",
+      "manifestSha256": null,
+      "components": []
+    },
+    {
+      "name": "@ui-base/theme",
+      "version": "0.1.0",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\theme",
+      "manifestSha256": null,
+      "components": []
+    },
+    {
+      "name": "@ui-base/tour-ui",
+      "version": "0.1.1",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\tour-ui",
+      "manifestSha256": null,
+      "components": []
+    },
+    {
+      "name": "@ui-base/ui",
+      "version": "0.5.1",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\ui",
+      "manifestSha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469",
+      "components": [
+        {
+          "tag": "uib-heading",
+          "id": "@ui-base/ui:uib-heading",
+          "module": "./src/content/uib-heading.js",
+          "moduleExists": true,
+          "canonical": false,
+          "settings": {},
+          "presentation": {
+            "size": {
+              "type": "select",
+              "options": [
+                "compact",
+                "default",
+                "large"
+              ],
+              "inheritable": true
+            },
+            "align": {
+              "type": "select",
+              "options": [
+                "start",
+                "center",
+                "end"
+              ],
+              "inheritable": true
+            }
+          },
+          "properties": [],
+          "slots": [],
+          "events": [],
+          "capabilities": []
+        },
+        {
+          "tag": "uib-heading-block",
+          "id": "@ui-base/ui:uib-heading-block",
+          "module": "./src/content/uib-heading-block.js",
+          "moduleExists": true,
+          "canonical": false,
+          "settings": {},
+          "presentation": {
+            "size": {
+              "type": "select",
+              "options": [
+                "compact",
+                "default",
+                "large"
+              ],
+              "inheritable": true
+            },
+            "align": {
+              "type": "select",
+              "options": [
+                "start",
+                "center",
+                "end"
+              ],
+              "inheritable": true
+            }
+          },
+          "properties": [],
+          "slots": [],
+          "events": [],
+          "capabilities": []
+        },
+        {
+          "tag": "uib-card",
+          "id": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+          "module": "./src/layout/uib-card.js",
+          "moduleExists": true,
+          "canonical": true,
+          "settings": {
+            "heading": {
+              "label": "Heading",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "heading"
+              }
+            },
+            "label": {
+              "label": "Fallback label",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "label"
+              }
+            },
+            "body": {
+              "label": "Body",
+              "type": "string",
+              "group": "content",
+              "default": "Card body",
+              "binding": {
+                "kind": "slot",
+                "name": "default",
+                "content": "text"
+              },
+              "editor": "textarea"
+            },
+            "header": {
+              "label": "Header content",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "slot",
+                "name": "header",
+                "content": "text"
+              }
+            },
+            "footer": {
+              "label": "Footer",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "slot",
+                "name": "footer",
+                "content": "text"
+              }
+            },
+            "mediaSrc": {
+              "label": "Image URL",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "slot",
+                "name": "media",
+                "content": "image",
+                "altSetting": "mediaAlt"
+              },
+              "format": "image-url"
+            },
+            "mediaAlt": {
+              "label": "Image description",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "slotMetadata",
+                "slot": "media",
+                "name": "alt"
+              }
+            },
+            "variant": {
+              "label": "Variant",
+              "type": "string",
+              "group": "appearance",
+              "default": "elevated",
+              "binding": {
+                "kind": "attribute",
+                "name": "variant"
+              },
+              "editor": "select",
+              "enum": [
+                "elevated",
+                "outlined",
+                "flat"
+              ]
+            },
+            "density": {
+              "label": "Density",
+              "type": "string",
+              "group": "appearance",
+              "default": "comfortable",
+              "binding": {
+                "kind": "attribute",
+                "name": "density"
+              },
+              "editor": "select",
+              "enum": [
+                "comfortable",
+                "compact"
+              ]
+            },
+            "cssClass": {
+              "label": "CSS classes",
+              "type": "string",
+              "group": "appearance",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "css-class"
+              }
+            },
+            "interactionMode": {
+              "label": "Interaction mode",
+              "type": "string",
+              "group": "interaction",
+              "default": "none",
+              "binding": {
+                "kind": "mode"
+              },
+              "editor": "select",
+              "enum": [
+                "none",
+                "link",
+                "action",
+                "selectable"
+              ]
+            },
+            "href": {
+              "label": "Link URL",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "href"
+              },
+              "format": "url",
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "link"
+              }
+            },
+            "target": {
+              "label": "Link target",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "target"
+              },
+              "editor": "select",
+              "enum": [
+                "",
+                "_self",
+                "_blank",
+                "_parent",
+                "_top"
+              ],
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "link"
+              }
+            },
+            "rel": {
+              "label": "Link relationship",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "rel"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "link"
+              }
+            },
+            "action": {
+              "label": "Action",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "action"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "action"
+              }
+            },
+            "actionToken": {
+              "label": "Action token",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "action-token"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "action"
+              }
+            },
+            "selected": {
+              "label": "Initially selected",
+              "type": "boolean",
+              "group": "state",
+              "default": false,
+              "binding": {
+                "kind": "attribute",
+                "name": "selected"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "selectable"
+              }
+            },
+            "disabled": {
+              "label": "Disabled",
+              "type": "boolean",
+              "group": "state",
+              "default": false,
+              "binding": {
+                "kind": "attribute",
+                "name": "disabled"
+              }
+            },
+            "name": {
+              "label": "Event name",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "name"
+              }
+            },
+            "ariaLabel": {
+              "label": "Accessible name",
+              "type": "string",
+              "group": "accessibility",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "aria-label"
+              }
+            },
+            "ariaDescribedBy": {
+              "label": "Description IDs",
+              "type": "string",
+              "group": "accessibility",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "aria-describedby"
+              }
+            },
+            "actionHandler": {
+              "label": "Action handler ID",
+              "type": "string",
+              "group": "events",
+              "default": "",
+              "binding": {
+                "kind": "event",
+                "name": "uib-card-action"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "action"
+              }
+            },
+            "selectionHandler": {
+              "label": "Selection handler ID",
+              "type": "string",
+              "group": "events",
+              "default": "",
+              "binding": {
+                "kind": "event",
+                "name": "uib-card-select"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "selectable"
+              }
+            }
+          },
+          "presentation": {
+            "variant": {
+              "type": "select",
+              "options": [
+                "elevated",
+                "outlined",
+                "flat"
+              ],
+              "inheritable": true
+            },
+            "density": {
+              "type": "select",
+              "options": [
+                "comfortable",
+                "compact"
+              ],
+              "inheritable": true
+            }
+          },
+          "properties": [],
+          "slots": [
+            {
+              "name": "default",
+              "content": "text-or-elements"
+            },
+            {
+              "name": "media",
+              "content": "text-or-elements"
+            },
+            {
+              "name": "header",
+              "content": "text-or-elements"
+            },
+            {
+              "name": "footer",
+              "content": "text-or-elements"
+            }
+          ],
+          "events": {
+            "change": {
+              "detail": {
+                "name": "string",
+                "oldValue": "boolean",
+                "newValue": "boolean",
+                "selected": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false,
+              "selectionAliasOf": "uib-card-select",
+              "order": 1
+            },
+            "uib-card-select": {
+              "detail": {
+                "name": "string",
+                "oldValue": "boolean",
+                "newValue": "boolean",
+                "selected": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false,
+              "order": 2
+            },
+            "uib-card-action": {
+              "detail": {
+                "name": "string",
+                "action": "string",
+                "actionToken": "string",
+                "selected": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": true,
+              "order": 3,
+              "cancellation": "prevent-original-event-default-after-selection"
+            }
+          },
+          "capabilities": [
+            "surface",
+            "container",
+            "interactive",
+            "selectable",
+            "linkable"
+          ]
+        },
+        {
+          "tag": "uib-panel",
+          "id": "@ui-base/ui:uib-panel",
+          "module": "./src/layout/uib-panel.js",
+          "moduleExists": true,
+          "canonical": false,
+          "settings": {},
+          "presentation": {
+            "variant": {
+              "type": "select",
+              "options": [
+                "elevated",
+                "outlined",
+                "flat"
+              ],
+              "inheritable": true
+            },
+            "density": {
+              "type": "select",
+              "options": [
+                "comfortable",
+                "compact"
+              ],
+              "inheritable": true
+            }
+          },
+          "properties": [],
+          "slots": [],
+          "events": [],
+          "capabilities": []
+        },
+        {
+          "tag": "uib-instruction",
+          "id": "@ui-base/ui:uib-instruction",
+          "module": "./src/content/uib-instruction.js",
+          "moduleExists": true,
+          "canonical": false,
+          "settings": {},
+          "presentation": {
+            "density": {
+              "type": "select",
+              "options": [
+                "comfortable",
+                "compact"
+              ],
+              "inheritable": true
+            }
+          },
+          "properties": [],
+          "slots": [],
+          "events": [],
+          "capabilities": []
+        },
+        {
+          "tag": "uib-action-group",
+          "id": "@ui-base/ui:uib-action-group",
+          "module": "./src/actions/uib-action-group.js",
+          "moduleExists": true,
+          "canonical": false,
+          "settings": {},
+          "presentation": {
+            "align": {
+              "type": "select",
+              "options": [
+                "start",
+                "center",
+                "end"
+              ],
+              "inheritable": true
+            }
+          },
+          "properties": [],
+          "slots": [],
+          "events": [],
+          "capabilities": []
+        }
+      ]
+    },
+    {
+      "name": "@ui-base/ui-layout",
+      "version": "0.1.0",
+      "root": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@ui-base\\ui-layout",
+      "manifestSha256": null,
+      "components": []
+    }
+  ],
+  "applicationCatalog": {
+    "application": "test-my-app",
+    "note": "Existing non-composition Application inherits installed platform ui-base dependencies. Composition Applications require their own enabled installed dependencies; source authorization is separate.",
+    "entries": [
+      {
+        "id": "@ui-base/hero:uib-hero",
+        "tag": "uib-hero",
+        "package": "@ui-base/hero",
+        "version": "0.2.3",
+        "module": "./src/uib-hero.js",
+        "moduleUrl": "/api/apps/test-my-app/package-assets/%40ui-base%2Fhero/src/uib-hero.js?bundle=1",
+        "metadata": "manifest",
+        "canonical": false,
+        "activationIssues": []
+      },
+      {
+        "id": "@ui-base/ui:uib-action-group",
+        "tag": "uib-action-group",
+        "package": "@ui-base/ui",
+        "version": "0.5.1",
+        "module": "./src/actions/uib-action-group.js",
+        "moduleUrl": "/api/apps/test-my-app/package-assets/%40ui-base%2Fui/src/actions/uib-action-group.js?bundle=1",
+        "metadata": "manifest",
+        "canonical": false,
+        "activationIssues": []
+      },
+      {
+        "id": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+        "tag": "uib-card",
+        "package": "@ui-base/ui",
+        "version": "0.5.1",
+        "module": "./src/layout/uib-card.js",
+        "moduleUrl": "/api/apps/test-my-app/package-assets/%40ui-base%2Fui/src/layout/uib-card.js?bundle=1",
+        "metadata": "manifest",
+        "canonical": true,
+        "activationIssues": []
+      },
+      {
+        "id": "@ui-base/ui:uib-heading",
+        "tag": "uib-heading",
+        "package": "@ui-base/ui",
+        "version": "0.5.1",
+        "module": "./src/content/uib-heading.js",
+        "moduleUrl": "/api/apps/test-my-app/package-assets/%40ui-base%2Fui/src/content/uib-heading.js?bundle=1",
+        "metadata": "manifest",
+        "canonical": false,
+        "activationIssues": []
+      },
+      {
+        "id": "@ui-base/ui:uib-heading-block",
+        "tag": "uib-heading-block",
+        "package": "@ui-base/ui",
+        "version": "0.5.1",
+        "module": "./src/content/uib-heading-block.js",
+        "moduleUrl": "/api/apps/test-my-app/package-assets/%40ui-base%2Fui/src/content/uib-heading-block.js?bundle=1",
+        "metadata": "manifest",
+        "canonical": false,
+        "activationIssues": []
+      },
+      {
+        "id": "@ui-base/ui:uib-instruction",
+        "tag": "uib-instruction",
+        "package": "@ui-base/ui",
+        "version": "0.5.1",
+        "module": "./src/content/uib-instruction.js",
+        "moduleUrl": "/api/apps/test-my-app/package-assets/%40ui-base%2Fui/src/content/uib-instruction.js?bundle=1",
+        "metadata": "manifest",
+        "canonical": false,
+        "activationIssues": []
+      },
+      {
+        "id": "@ui-base/ui:uib-panel",
+        "tag": "uib-panel",
+        "package": "@ui-base/ui",
+        "version": "0.5.1",
+        "module": "./src/layout/uib-panel.js",
+        "moduleUrl": "/api/apps/test-my-app/package-assets/%40ui-base%2Fui/src/layout/uib-panel.js?bundle=1",
+        "metadata": "manifest",
+        "canonical": false,
+        "activationIssues": []
+      }
+    ]
+  },
+  "registeredCanonicalDefinitions": [
+    {
+      "id": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+      "packageId": "@ui-base/ui",
+      "scope": "platform",
+      "immutable": true
+    }
+  ],
+  "platformComponents": [
+    {
+      "name": "Composition Shared Help",
+      "artifactId": "art_composition-shared-help-reference",
+      "componentId": "cmp_platform_composition-shared-help-reference",
+      "public": {
+        "properties": {},
+        "events": {},
+        "slots": []
+      },
+      "form": false,
+      "sha256": "38147557bdb2ed1cd7dbc144105e63cf377d507bc4c79c7ecb0b2f6123197fc0"
+    },
+    {
+      "name": "Customer List Item",
+      "artifactId": "art_customer-list-item-reference",
+      "componentId": "cmp_platform_customer-list-item-reference",
+      "public": {
+        "properties": {
+          "person": {
+            "type": "object",
+            "required": true
+          }
+        },
+        "events": {
+          "openRequested": {
+            "payload": {
+              "customerId": {
+                "type": "string",
+                "required": true
+              }
+            }
+          }
+        },
+        "slots": [
+          "footer"
+        ]
+      },
+      "form": false,
+      "sha256": "a221039fe0b9e70ebfbc42e1e50e9f984cab3aa1037f33697469a48dc1608287"
+    },
+    {
+      "name": "Customer Summary Card",
+      "artifactId": "art_customer-summary-reference",
+      "componentId": "cmp_platform_customer-summary-reference",
+      "public": {
+        "properties": {
+          "person": {
+            "type": "object",
+            "required": true
+          },
+          "disabled": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "events": {
+          "openRequested": {
+            "payload": {
+              "customerId": {
+                "type": "string",
+                "required": true
+              }
+            }
+          }
+        },
+        "slots": [
+          "footer"
+        ]
+      },
+      "form": false,
+      "sha256": "aeeeb0b05ad0388de9b1c5f373c30aa7ed2a69eb44e349d8aff8bde7086f18bf"
+    },
+    {
+      "name": "PersonForm",
+      "artifactId": "art_person_form_reference",
+      "componentId": "cmp_platform_person_form_reference",
+      "public": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "default": "public"
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "create",
+              "edit"
+            ],
+            "default": "create"
+          },
+          "recordId": {
+            "type": "string"
+          },
+          "initialRecord": {
+            "type": "object"
+          },
+          "readOnly": {
+            "type": "boolean",
+            "default": false
+          },
+          "disabled": {
+            "type": "boolean",
+            "default": false
+          },
+          "showSavedRecord": {
+            "default": true,
+            "type": "boolean"
+          }
+        },
+        "events": {
+          "submitStarted": {
+            "payload": {
+              "result": {
+                "type": "object"
+              }
+            }
+          },
+          "submitSucceeded": {
+            "payload": {
+              "result": {
+                "type": "object"
+              }
+            }
+          },
+          "submitFailed": {
+            "payload": {
+              "result": {
+                "type": "object"
+              }
+            }
+          },
+          "recordCreated": {
+            "payload": {
+              "result": {
+                "type": "object"
+              }
+            }
+          },
+          "recordUpdated": {
+            "payload": {
+              "result": {
+                "type": "object"
+              }
+            }
+          },
+          "cancelRequested": {
+            "payload": {
+              "result": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "slots": []
+      },
+      "form": true,
+      "sha256": "16f5f2b5312a83a788aeb07ec871c7d53bc6105d99f255622b454b40e09244a4"
+    }
+  ]
+}
