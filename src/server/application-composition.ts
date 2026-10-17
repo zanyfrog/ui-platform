@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { lstat, mkdir, readFile, readdir, writeFile, rename } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
-import { regions, remapPageRegions, themeCss, validateMenu, parseSource, parseMetadata, validateArtifact, applyMenuOverrides, composeShellMenus, valueErrors, validateCompositionDefinition } from '@ui-platform/visual-artifacts';
+import { regions, remapPageRegions, themeCss, validateMenu, parseSource, parseMetadata, validateArtifact, applyMenuOverrides, composeShellMenus, valueErrors, validateCompositionDefinition, primaryRouteSignature } from '@ui-platform/visual-artifacts';
 import type { ApplicationMenu, CompositionDefinition, CompositionSettings, PackageComponent } from '@ui-platform/visual-artifacts';
 import { appPath } from './applications.js';
 import { atomicWriteText } from './json-files.js';
@@ -48,8 +48,7 @@ export async function compositionWorkspace(appKey: string, packages: PackageComp
   const routes = runtimePages.map(page => {
     const m = page.metadata;
     if (!m.routeId || !m.shellId || !runtimeShells.some(shell => shell.metadata.artifactId === m.shellId)) throw new Error(`Page requires permanent Route and Shell identities: ${m.name}.`);
-    if (!m.route?.startsWith('/') || /[\s?#\\]/.test(m.route) || m.route.includes('//') || m.route.split('/').some(part => part === '.' || part === '..')) throw new Error('Primary Route path is invalid.');
-    const signature = m.route.replace(/:[A-Za-z][\w]*|\[[A-Za-z][\w]*\]/g, ':parameter').replace(/\/$/, '') || '/';
+    const signature = primaryRouteSignature(m.route!);
     if (routeIds.has(m.routeId) || paths.has(signature)) throw new Error('Each Page requires a unique primary Route.'); routeIds.add(m.routeId); paths.add(signature);
     return { pageId: m.artifactId, routeId: m.routeId, path: m.route! };
   });

@@ -1,0 +1,52 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ✓ tests/wp5-b-contract.test.ts (15 tests) 20ms
+ ❯ tests/builder-v1-wp5-a.test.ts (14 tests | 1 failed) 2387ms
+   ✓ collects independent composition failures in the authoritative validator and keeps the throwing API 5ms
+   ✓ reports route collisions, separate Menu failures and independent property failures 1ms
+   × retains independent diagnostics when parsed metadata has malformed types 5ms
+   ✓ retains unrelated draft errors while blocking only reachable failures with owner-qualified identities 2ms
+   ✓ continues after unreadable sources and suppresses raw exceptions and denied source identities 1ms
+   ✓ does not add a denied unrelated draft to release closure 1ms
+   ✓ fails closed for missing roots, ambiguous identities and cyclic references without recursion failure 1ms
+   ✓ reproduces cross-process graph contention without stale capture, then reads current source after release  2175ms
+   ✓ drops stale results and returns no source after revocation during reads or final revision checks 1ms
+   ✓ preserves native severities/codes/locations, and never fabricates step precision 1ms
+   ✓ uses real generic, Visual and Automation services to aggregate independent invalid artifacts without writes 176ms
+   ✓ captures native Visual references and marks unresolved owners/services incomplete rather than guessing 0ms
+   ✓ catalog projects only actual registrations, does not invoke effects or infer approved signatures 0ms
+   ✓ captured adapters retain their revision and typed dependency identities when caller objects change 18ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/builder-v1-wp5-a.test.ts > retains independent diagnostics when parsed metadata has malformed types
+AssertionError: expected [ 'composition.dependencies', …(6) ] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+- ArrayContaining [
++ [
+    "composition.dependencies",
+-   "composition.page-validation",
++   "visual.validation",
+    "composition.default-shell",
++   "composition.route-path",
++   "composition.route-capture",
++   "composition.rendered-shell",
+    "composition.shell-configuration",
+  ]
+
+ ❯ tests/builder-v1-wp5-a.test.ts:68:40
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 28 passed (29)
+   Start at  08:02:11
+   Duration  3.09s (transform 292ms, setup 0ms, import 1.07s, tests 2.41s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-b/focused-closure.json

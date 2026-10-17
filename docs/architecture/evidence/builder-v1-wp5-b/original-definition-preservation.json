@@ -1,0 +1,42 @@
+{
+  "installedManifests": [
+    {
+      "package": "@ui-base/hero",
+      "sha256": "3cf098a5434fc1393afa0300e4f1336a72d49fe1a3cb9d62cec177facd4a5d47",
+      "matchesInventory": true
+    },
+    {
+      "package": "@ui-base/ui",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469",
+      "matchesInventory": true
+    }
+  ],
+  "originalPlatformMetadata": [
+    {
+      "path": "components/composition-shared-help/component.visual.json",
+      "componentId": "cmp_platform_composition-shared-help-reference",
+      "sha256": "38147557bdb2ed1cd7dbc144105e63cf377d507bc4c79c7ecb0b2f6123197fc0",
+      "matchesInventory": true
+    },
+    {
+      "path": "components/customer-list-item/component.visual.json",
+      "componentId": "cmp_platform_customer-list-item-reference",
+      "sha256": "a221039fe0b9e70ebfbc42e1e50e9f984cab3aa1037f33697469a48dc1608287",
+      "matchesInventory": true
+    },
+    {
+      "path": "components/customer-summary-card/component.visual.json",
+      "componentId": "cmp_platform_customer-summary-reference",
+      "sha256": "aeeeb0b05ad0388de9b1c5f373c30aa7ed2a69eb44e349d8aff8bde7086f18bf",
+      "matchesInventory": true
+    },
+    {
+      "path": "components/person-form/component.visual.json",
+      "componentId": "cmp_platform_person_form_reference",
+      "sha256": "16f5f2b5312a83a788aeb07ec871c7d53bc6105d99f255622b454b40e09244a4",
+      "matchesInventory": true
+    }
+  ],
+  "allMatch": true,
+  "additionalProof": "Browser assertions compare every source role of the newly authored shared Component and Form, plus the installed Card module and manifest, before and after independent Page instance edits."
+}

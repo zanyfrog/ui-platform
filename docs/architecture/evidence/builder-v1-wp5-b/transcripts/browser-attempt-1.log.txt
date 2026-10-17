@@ -1,0 +1,100 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+stdout | tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+7:29:32 AM [vite] (client) [optimizer] scanning dependencies...
+
+ ❯ tests/builder-v1-wp5-b.test.ts (1 test | 1 failed) 23637ms
+   × WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete 23637ms
+ ❯ tests/wp5-b-contract.test.ts (8 tests | 1 failed) 8ms
+   × validates the additive versioned declaration and extracts the permanent Dataset dependency 6ms
+   ✓ rejects malformed delete declaration {"version":2} 0ms
+   ✓ rejects malformed delete declaration {"primaryFieldId":""} 0ms
+   ✓ rejects malformed delete declaration {"datasetId":""} 0ms
+   ✓ rejects malformed delete declaration {"resultState":"undeclared"} 0ms
+   ✓ rejects malformed delete declaration {"recordId":"route.__proto__.id"} 0ms
+   ✓ rejects malformed delete declaration {"actor":"admin"} 0ms
+   ✓ uses the existing ApplicationDataClient operations transport without constructing client row keys 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+AssertionError: {"code":"V1_PERMISSION_DENIED"}UI Platform API listening on http://localhost:63022
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5b-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5b-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+artifact-editor-security {"action":"request-denied","operation":"GET"}
+artifact-editor-security {"action":"mutation","actor":"usr_80831c82612048e9bca61a5012dc7063","applicationKey":"wp5b-created","operation":"edit"}
+: expected 403 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 403
+
+ ❯ createVisual tests/builder-v1-wp5-b.test.ts:156:59
+    154|     const response = page.waitForResponse((r: any) => r.request().meth…
+    155|     await dialog.getByRole('button', { name: 'Create', exact: true }).…
+    156|     expect(http.status(), JSON.stringify(value) + output).toBe(201); a…
+       |                                                           ^
+    157|   };
+    158|   const saveVisual = async () => {
+ ❯ tests/builder-v1-wp5-b.test.ts:180:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/wp5-b-contract.test.ts > validates the additive versioned declaration and extracts the permanent Dataset dependency
+AssertionError: expected [ { severity: 'warning', …(2) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "message": "Layout is manual because this node has no Builder wrapper.",
++     "node": "delete",
++     "severity": "warning",
++   },
++ ]
+
+ ❯ tests/wp5-b-contract.test.ts:7:53
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 7 passed (9)
+   Start at  07:29:22
+   Duration  24.71s (transform 246ms, setup 0ms, import 768ms, tests 23.65s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-b/browser-attempt-1.json

@@ -7,6 +7,10 @@ export interface CompositionDiagnostic {
   severity: 'error' | 'warning'; code: string; message: string;
   artifactId?: string; menuId?: string; node?: string; field?: string;
 }
+export function primaryRouteSignature(path: string): string {
+  if (!path?.startsWith('/') || /[\s?#\\]/.test(path) || path.includes('//') || path.split('/').some(part => part === '.' || part === '..')) throw new Error('Primary Route path is invalid.');
+  return path.replace(/:[A-Za-z][\w]*|\[[A-Za-z][\w]*\]/g, ':parameter').replace(/\/$/, '') || '/';
+}
 
 /** Shared complete-graph rules, with independent failures retained for Problems.
  * Dependent checks are skipped only when their prerequisites are unavailable. */
@@ -49,12 +53,11 @@ export function compositionDiagnostics(definition: CompositionDefinition, compon
     check('composition.page-validation', () => {
       const shell = shells.find(shell => shell.metadata.artifactId === m.shellId);
       if (!m.routeId || !m.shellId || !shell) issue('composition.page-identities', `Page requires permanent Route and Shell identities: ${m.name}.`, location);
-      if (!m.route?.startsWith('/') || /[\s?#\\]/.test(m.route) || m.route.includes('//') || m.route.split('/').some(part => part === '.' || part === '..')) issue('composition.route-path', 'Primary Route path is invalid.', { ...location, field: 'route' });
-      if (m.route !== undefined) {
-        const signature = m.route.replace(/:[A-Za-z][\w]*|\[[A-Za-z][\w]*\]/g, ':parameter').replace(/\/$/, '') || '/';
-        if (routeIds.has(m.routeId ?? '') || paths.has(signature)) issue('composition.route-duplicate', 'Each Page requires a unique primary Route.', location);
-        routeIds.add(m.routeId ?? ''); paths.add(signature);
-      }
+      let signature: string | undefined;
+      try { signature = primaryRouteSignature(m.route!); }
+      catch { issue(m.route !== undefined && typeof m.route !== 'string' ? 'composition.page-validation' : 'composition.route-path', 'Primary Route path is invalid.', { ...location, field: 'route' }); }
+      if (routeIds.has(m.routeId ?? '') || signature !== undefined && paths.has(signature)) issue('composition.route-duplicate', 'Each Page requires a unique primary Route.', location);
+      routeIds.add(m.routeId ?? ''); if (signature !== undefined) paths.add(signature);
       if (!routes.some(route => route.routeId === m.routeId && route.pageId === m.artifactId && route.path === m.route)) issue('composition.route-capture', 'Runtime Route does not match its captured Page.', location);
       for (const node of parseSource(page.source).nodes) {
         let parent: typeof node | undefined = node;

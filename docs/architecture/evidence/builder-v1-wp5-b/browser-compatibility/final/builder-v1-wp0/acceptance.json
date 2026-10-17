@@ -1,0 +1,211 @@
+{
+  "verifiedAt": "2026-10-17T12:22:59.234Z",
+  "applicationId": "5c0beadd-321b-47da-aef9-f60d7d562b9a",
+  "otherApplicationId": "c7336998-fc15-4db3-b262-4317734a42e3",
+  "datasetId": "dataset-d07b8359-1788-48eb-a363-1eaa65dafe93",
+  "fieldIds": [
+    "field-ad603bfd-b009-401b-9759-9b10cbd0fb7e",
+    "field-4c3f6846-f4be-471a-9ac8-1d5009724662",
+    "field-408d08f8-0b46-46cf-b63e-929ec01d512f"
+  ],
+  "workflowId": "workflow_5e93a293-e5a5-4f83-8b91-b5493e99414e",
+  "applicationCreator": "usr_80831c82612048e9bca61a5012dc7063",
+  "platformSecurityAdministrator": "usr_06fefc50791f4f15ac0139de699701b9",
+  "applicationSecurityAdministrator": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+  "policyRevision": 6,
+  "activation": {
+    "attemptId": "f496423f-c488-44f6-a6a8-e95dd9acd204",
+    "pin": {
+      "environmentId": "development",
+      "appId": "5c0beadd-321b-47da-aef9-f60d7d562b9a",
+      "datasetId": "dataset-d07b8359-1788-48eb-a363-1eaa65dafe93",
+      "reference": {
+        "appId": "5c0beadd-321b-47da-aef9-f60d7d562b9a",
+        "dataset": "records"
+      },
+      "publication": {
+        "definitionType": "dataset-schema",
+        "definitionFormatVersion": 1,
+        "version": 1,
+        "checksumFormat": "canonical-json-v1",
+        "checksum": "sha256:8f46a2fbd1f3d582998456b269ab426c74c739cd5d3b74b2682a6550024fc298"
+      }
+    },
+    "stage": "serving",
+    "readiness": "verified-serving",
+    "stateWriteOutcome": "confirmed",
+    "errors": [],
+    "evidenceIds": [
+      "f496423f-c488-44f6-a6a8-e95dd9acd204"
+    ],
+    "runtimeGeneration": "d296b56a-8674-4b83-96bd-939adfe3d0b8"
+  },
+  "publication": {
+    "definitionType": "dataset-schema",
+    "definitionFormatVersion": 1,
+    "version": 1,
+    "checksumFormat": "canonical-json-v1",
+    "checksum": "sha256:8f46a2fbd1f3d582998456b269ab426c74c739cd5d3b74b2682a6550024fc298"
+  },
+  "serving": {
+    "generation": "d296b56a-8674-4b83-96bd-939adfe3d0b8",
+    "fingerprint": "ds0-orm-verification-v1:sha256:d1f956b986a4be290bd117be757c43ed2d35e6ce9a5100f97fa2c70bce4da803"
+  },
+  "workflowInvocation": {
+    "success": true,
+    "workflowId": "workflow_5e93a293-e5a5-4f83-8b91-b5493e99414e",
+    "primaryRecordId": "record-a",
+    "executionId": "28f4d2fb-09c5-4e3f-8a57-6ae13fc7179e",
+    "completedSteps": 1,
+    "committedSteps": 1
+  },
+  "administrationAudit": [
+    {
+      "id": "6fa30fb1-1ae6-4cc3-8085-7b1e428c1705",
+      "revision": 2,
+      "kind": "administration",
+      "operation": "initialize-platform-security",
+      "actorId": "explicit-local-test-operator",
+      "targetIds": [
+        "dataset.read",
+        "dataset.create",
+        "dataset.update",
+        "dataset.write",
+        "ui.platform.security.admin",
+        "ui.application.security.admin",
+        "development.platform-security.set",
+        "development.platform-security.role",
+        "development.platform-security.assignment",
+        "development.platform-security.boundary",
+        "development.anchor.dev-v1-identity-fixture.set",
+        "development.anchor.dev-v1-identity-fixture.role",
+        "development.anchor.dev-v1-identity-fixture.assignment",
+        "development.anchor.dev-v1-identity-fixture.boundary"
+      ],
+      "applicationId": null,
+      "authorityPath": [
+        "development.security.local-setup"
+      ],
+      "reason": "Explicit local WP0 development setup",
+      "beforeDigest": "sha256:40769fc2f09c831ed15868d38569c85f68edb42a56d6768e6a4f568eca8f61c9",
+      "afterDigest": "sha256:d171140f00ebaeac75cf57d44732b1318f0f4155668ba60d20453c39136e0787",
+      "occurredAt": "2026-10-17T12:22:45.491Z",
+      "candidateId": "71cbb508-6dce-4762-a159-d02bfd6e6c50"
+    },
+    {
+      "id": "91adda02-b327-4029-9c6e-d8f172417fc1",
+      "revision": 3,
+      "kind": "administration",
+      "operation": "assign+create",
+      "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+      "targetIds": [
+        "wp0.creator-set",
+        "wp0.creator-role",
+        "wp0.creator-assignment"
+      ],
+      "applicationId": null,
+      "authorityPath": [
+        "development.platform-security.assignment",
+        "development.platform-security.boundary"
+      ],
+      "reason": "Explicit WP0 role administration",
+      "beforeDigest": "sha256:d171140f00ebaeac75cf57d44732b1318f0f4155668ba60d20453c39136e0787",
+      "afterDigest": "sha256:d09c09e6e42a3d96d7711a0ff1ccb022f302340cadf779e891617bad481fbff0",
+      "occurredAt": "2026-10-17T12:22:46.737Z",
+      "candidateId": "2a7df697-6539-4ccf-ae68-bd8ad52203ed"
+    },
+    {
+      "id": "f24458fe-2e8e-4c66-a321-371e6383b62e",
+      "revision": 4,
+      "kind": "administration",
+      "operation": "provision-application",
+      "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+      "targetIds": [
+        "5c0beadd-321b-47da-aef9-f60d7d562b9a",
+        "initial.5c0beadd-321b-47da-aef9-f60d7d562b9a.set",
+        "initial.5c0beadd-321b-47da-aef9-f60d7d562b9a.role",
+        "initial.5c0beadd-321b-47da-aef9-f60d7d562b9a.assignment",
+        "initial.5c0beadd-321b-47da-aef9-f60d7d562b9a.boundary"
+      ],
+      "applicationId": "5c0beadd-321b-47da-aef9-f60d7d562b9a",
+      "authorityPath": [
+        "development.platform-security.assignment",
+        "development.platform-security.boundary"
+      ],
+      "reason": "Explicit initial Application security administrator",
+      "beforeDigest": "sha256:d09c09e6e42a3d96d7711a0ff1ccb022f302340cadf779e891617bad481fbff0",
+      "afterDigest": "sha256:c6e58826e873248765ff7be037e490a2399d54cbeef98af99eb60dd862509859",
+      "occurredAt": "2026-10-17T12:22:53.072Z",
+      "candidateId": "433dd241-2a06-4379-a6a2-19a77cfc4ff4"
+    },
+    {
+      "id": "3c1649ee-4aaa-45ee-986d-140125969ca1",
+      "revision": 5,
+      "kind": "administration",
+      "operation": "assign+create",
+      "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+      "targetIds": [
+        "wp0.developer-set",
+        "wp0.developer-role",
+        "wp0.developer-assignment"
+      ],
+      "applicationId": "5c0beadd-321b-47da-aef9-f60d7d562b9a",
+      "authorityPath": [
+        "development.platform-security.assignment",
+        "development.platform-security.boundary"
+      ],
+      "reason": "Explicit WP0 role administration",
+      "beforeDigest": "sha256:c6e58826e873248765ff7be037e490a2399d54cbeef98af99eb60dd862509859",
+      "afterDigest": "sha256:2204524a14aa02a40f1638f54f2dcb40f62c857fd7b8102111e82d2156583b39",
+      "occurredAt": "2026-10-17T12:22:53.340Z",
+      "candidateId": "b8b968c1-c926-4b92-afac-4d2bcfae3492"
+    },
+    {
+      "id": "33008847-b2e3-4449-ad63-d3a790e4ac85",
+      "revision": 6,
+      "kind": "administration",
+      "operation": "revoke",
+      "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+      "targetIds": [
+        "wp0.developer-assignment"
+      ],
+      "applicationId": "5c0beadd-321b-47da-aef9-f60d7d562b9a",
+      "authorityPath": [
+        "development.platform-security.assignment",
+        "development.platform-security.boundary"
+      ],
+      "reason": "Explicit WP0 role administration",
+      "beforeDigest": "sha256:2204524a14aa02a40f1638f54f2dcb40f62c857fd7b8102111e82d2156583b39",
+      "afterDigest": "sha256:b3a918fac52df93bdd0a89576fa28496d5c0cced82b19b04d09de25d257b2763",
+      "occurredAt": "2026-10-17T12:22:58.830Z",
+      "candidateId": "2df6f57b-16ac-4bd2-b77f-11cd00b33429"
+    }
+  ],
+  "checks": [
+    "normal-standard-creation",
+    "no-automatic-creator-access",
+    "explicit-platform-bootstrap",
+    "explicit-first-application-anchor",
+    "protected-read",
+    "committed-write",
+    "denied-write-unchanged-storage",
+    "mandatory-workflow-success",
+    "unauthorized-workflow-denial",
+    "cross-application-owner-rejection",
+    "forged-actor-and-bearer-rejection",
+    "unknown-dataset-and-workflow-rejection",
+    "role-revocation-unchanged-storage",
+    "bootstrap-replay-rejection",
+    "provision-replay-rejection",
+    "failed-onboarding-and-reconnection",
+    "normal-managed-preview"
+  ],
+  "provenance": {
+    "applications": "normal creation API from Standard",
+    "security": "trusted local one-time setup, then WP3 protected HTTP activation",
+    "dataset": "explicit local owner bootstrap using real ActivationController CRUD health probes and AppliedResourceRegistry",
+    "workflow": "existing AutomationStore source creation; host-approved inherited protected CRUD",
+    "preview": "normal managed preview API and actual Standard HTML response"
+  },
+  "disposableTestEnvironment": true
+}

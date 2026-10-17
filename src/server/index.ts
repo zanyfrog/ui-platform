@@ -35,7 +35,7 @@ import { compileVisualFunctions } from '@ui-platform/artifacts';
 import { build as bundleBrowserModule } from 'esbuild';
 import { AutomationStore } from './automation-store.js';
 import { platformRoot } from './paths.js';
-import { regions } from '@ui-platform/visual-artifacts';
+import { regions, primaryRouteSignature } from '@ui-platform/visual-artifacts';
 import { withApplicationMutation } from './composition-lock.js';
 import { prepareVisualCandidate, VisualCandidateError } from './visual-candidate.js';
 import { applyTemplateUpdate, compareTemplate } from './template-updates.js';
@@ -395,7 +395,10 @@ const server = http.createServer(async (req, res) => {
           const shell = shellId ? (await new VisualArtifactService(path.join(appPath(key), 'shells'), 'shell').list()).find(shell => shell.metadata?.artifactId === shellId) : undefined;
           if (shellId && !shell) throw new Error('Selected Shell is missing.');
           const initialRegionId = shell ? regions(shell.files.source).find(region => region.regionId === 'region-main')?.regionId ?? regions(shell.files.source)[0]?.regionId ?? null : 'region-main';
-          if (kind === 'page' && composition && (await service.list()).some(page => page.metadata?.route === (input.route ?? `/${input.name}`))) throw new Error('A Page already owns that primary Route.');
+            if (kind === 'page' && composition) {
+              const signature = primaryRouteSignature(input.route ?? `/${input.name}`);
+              if ((await service.list()).some(page => page.metadata?.route && primaryRouteSignature(page.metadata.route) === signature)) throw new Error('A Page already owns that primary Route.');
+            }
           const created = await service.create(String(input.name ?? ''), input.route, input.form ? { ...input.form, authoring: true } : undefined, shellId, initialRegionId, admitManagement);
           return json(res, 201, created);
         });

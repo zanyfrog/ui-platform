@@ -1,5 +1,5 @@
 import { parseSource, isWrapper } from './source.js';
-import { packageSettingErrors, readPackageSettings } from './model.js';
+import { packageSettingErrors, readPackageSettings, legacyPackageSettingContracts } from './model.js';
 import { calculationOrder, expressionType } from './expression.js';
 import { formCalculations, formExpressionFields } from './form.js';
 import type { ArtifactMetadata, Diagnostic, Expression, PackageComponent, PropertyContract, RuntimeArtifact } from './model.js';
@@ -106,12 +106,14 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
         if (pkg[0].tagName !== node.tag) error('Component tag does not match its installed identity.', node.id);
         pkg[0].activationIssues?.forEach(issue => error(issue, node.id));
         const definitions = pkg[0].definition?.builder.settings;
+        if (pkg[0].definition) for (const child of node.children) if (!pkg[0].definition.runtime.slots.some(slot => slot.name === (child.attributes.slot || 'default'))) error(`Unknown installed Package slot: ${child.attributes.slot}.`, node.id);
         if (pkg[0].definition) settings = readPackageSettings(pkg[0].definition, node.attributes, settings);
         if (pkg[0].definition && !(m.bindings ?? []).some(binding => binding.node === node.id && binding.target.startsWith('setting:'))) packageSettingErrors(pkg[0].definition, settings).forEach(message => error(message, node.id));
         for (const [key, value] of Object.entries(settings)) {
           const contract = definitions?.[key];
           if (definitions && !contract) error(`Unknown installed Package setting: ${key}.`, node.id);
           else if (contract) valueErrors(value, contract, key).forEach(message => error(message, node.id));
+          else if (legacyPackageSettingContracts(pkg[0])[key]) valueErrors(value, legacyPackageSettingContracts(pkg[0])[key], key).forEach(message => error(message, node.id));
           else if (![...(pkg[0].properties ?? []), ...(pkg[0].attributes ?? [])].includes(key)) error(`Package setting is not declared: ${key}.`, node.id);
         }
       }
@@ -140,6 +142,12 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
       else if (item.kind === 'navigate') expression(item.to);
       else if (item.kind === 'service') { if (!services.includes(item.reference)) warning(`Service reference is supported but has no executable adapter: ${item.reference}.`); if (item.input) expression(item.input); }
       else if (item.kind === 'workflow') { if (!item.workflowId || typeof item.workflowId !== 'string') error('Permanent Workflow identity is required.'); expression(item.primaryRecordId); if (item.resultState && !Object.hasOwn(m.state ?? {}, item.resultState)) error('Workflow result state must be declared.'); }
+      else if (item.kind === 'record-delete') {
+        if (item.version !== 1 || !item.datasetId || typeof item.datasetId !== 'string' || !item.primaryFieldId || typeof item.primaryFieldId !== 'string' ||
+            Object.keys(item).some(key => !['kind', 'version', 'datasetId', 'primaryFieldId', 'recordId', 'resultState'].includes(key))) error('Invalid versioned single-record delete declaration.');
+        expression(item.recordId);
+        if (typeof item.resultState !== 'string' || !item.resultState || !m.state || typeof m.state !== 'object' || Array.isArray(m.state) || !Object.hasOwn(m.state, item.resultState)) error('Record delete result state must be explicitly declared.');
+      }
       else if (item.kind !== 'function') error('Unknown action kind.');
     };
     for (const event of m.events ?? []) {

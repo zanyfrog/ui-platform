@@ -1,0 +1,67 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ❯ tests/builder-v1-wp5-b.test.ts (1 test | 1 failed) 47234ms
+   × WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete 47234ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+Error: TimeoutError: locator.selectOption: Timeout 15000ms exceeded.
+Call log:
+  - waiting for getByRole('region', { name: 'Application Builder workspace' }).getByLabel('Delete Dataset', { exact: true })
+
+Workspace: Application navigationWP4 Dataset ApplicationRefresh artifactsCreate DatasetCreate FormReturn and link Dataset to FormCancel Dataset linkCreate PageCreate ShellCreate Platform Component
+  Artifact authorized. Existing editor save behavior applies.Pagesadmin 30460f5aAdministrationWelcomeHome (source inspection) (repair-only locator) (read-only)ShellsAdmin Shellalternate 30460f5aPublic ShellComponents and FormsComposition Shared HelpCustomer List ItemCustomer Summary CardPersonFormwp5b shared 30460f5aDatasetsWP5-B RecordsMenusAdmin NavigationMain NavigationApplication presentation/settingsApplication presentation/settingsstyles/site.css (repair-only locator)WP5-B Records×wp5b shared 30460f5a×Admin Shell×admin 30460f5a×Visual ArtifactsSaved
+    Create PageCreate ShellCreate Platform ComponentCreate Form from DatasetCreate blank FormSelect an artifactadmin 30460f5aAdministrationWelcomeAdmin Shellalternate 30460f5aPublic ShellComposition Shared HelpCustomer List ItemCustomer Summary Card (needs repair)PersonFormwp5b shared 30460f5a
+    UndoRedoSave NowAdvanced source repair saveReload / discard editor changesDownload editor recoveryDelete artifactPreviewChange Page ShellAdd RegionPlace Application MenuRemove selected node
+    Structure🔒 div public_shell🔒 header public_header🔒 img public_logo🔒 strong public_name🔒 nav public_nav🔒 uib-hero public_default_hero🔒 footer public_footer
+    Insert into selected HTML container, or artifact rootsectiondivarticleph2abuttonimgullispanuip-slotHeroAction GroupCardHeadingHeading BlockInstructionPanelComposition Shared HelpCustomer List ItemPersonFormwp5b shared 30460f5aInsert with layout wrapperSelect artifact rootMove layout item upMove layout item downSelect a managed node to edit settings and bindings.Artifact display namePage routeLocal stateNew local stateDeclare local stateShell: Public Shell. Fixed content is edited in the Shell editor.Set Page Menu Item visibility / availabilityAdd Page-local Menu Item
+    Source filesourcecssmetadatafixturescodeManual source is preserved. Conditions, repeaters, events, slots and data sources can be edited in metadata. Optional named functions belong in code.
+Server: UI Platform API listening on http://localhost:51129
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5b-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5b-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+artifact-editor-security {"action":"request-denied","operation":"GET"}
+artifact-editor-security {"action":"mutation","actor":"usr_80831c82612048e9bca61a5012dc7063","applicationKey":"wp5b-created","operation":"edit"}
+
+ ❯ tests/builder-v1-wp5-b.test.ts:194:127
+
+ ❯ tests/builder-v1-wp5-b.test.ts:194:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  07:32:13
+   Duration  47.58s (transform 77ms, setup 0ms, import 207ms, tests 47.23s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-b/browser-attempt-3.json

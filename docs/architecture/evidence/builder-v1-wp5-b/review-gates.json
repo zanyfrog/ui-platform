@@ -1,0 +1,29 @@
+{
+  "verifiedAt": "2026-10-17T12:29:27.294859+00:00",
+  "status": "WP5-B verification-review gate; not accepted",
+  "counts": {
+    "ui": 417,
+    "data": 760,
+    "focused": 29
+  },
+  "editorContracts": 146,
+  "builds": {
+    "ui": true,
+    "dataServices": true
+  },
+  "typechecks": {
+    "ui": true,
+    "dataServices": true
+  },
+  "productionExclusion": true,
+  "priorEvidenceFiles": 351,
+  "all40UmbrellaUnchecked": true,
+  "wp5CStarted": false,
+  "sourceRevision": "Current uncommitted implementation; exact file hashes are in the changed-file inventory",
+  "limitations": [
+    "D5 normal-host service contract still requires approval before WP5-C",
+    "D6 source contention remains open; no simultaneous-use proof",
+    "A37 full management restart/browser remains WP6",
+    "Legacy metadata and unavailable executable handlers are explicit"
+  ]
+}

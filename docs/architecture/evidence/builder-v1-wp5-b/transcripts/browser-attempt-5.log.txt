@@ -1,0 +1,62 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+stdout | tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+7:37:58 AM [vite] (client) [optimizer] scanning dependencies...
+
+ ❯ tests/builder-v1-wp5-b.test.ts (1 test | 1 failed) 89146ms
+   × WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete 89145ms
+ ✓ tests/wp5-b-contract.test.ts (10 tests) 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+TimeoutError: page.waitForResponse: Timeout 15000ms exceeded while waiting for event "response"
+ ❯ tests/builder-v1-wp5-b.test.ts:224:32
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 2 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: dialog.accept: Cannot accept dialog which is already handled!
+ ❯ _Page.onDialog tests/builder-v1-wp5-b.test.ts:169:96
+    167|     const id = await nodes.locator('option').evaluateAll((options: HTM…
+    168|     if (!id) {
+    169|       let count = 0; page.on('dialog', onDialog); function onDialog(di…
+       |                                                                                                ^
+    170|       await workspace.getByRole('button', { name: 'Add Region', exact:…
+    171|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { log: [] }
+This error originated in "tests/builder-v1-wp5-b.test.ts" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: dialog.accept: Cannot accept dialog which is already handled!
+ ❯ _Page.mapDialog tests/builder-v1-wp5-b.test.ts:223:122
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { log: [] }
+This error originated in "tests/builder-v1-wp5-b.test.ts" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 10 passed (11)
+     Errors  2 errors
+   Start at  07:37:48
+   Duration  90.17s (transform 239ms, setup 0ms, import 734ms, tests 89.15s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-b/browser-attempt-5.json

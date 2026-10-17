@@ -9,11 +9,26 @@ import type { EditorRuntimeContext } from '../artifact-editor/context.js';
 import { editForm, formSource } from '../artifact-editor/form-editor.js';
 import type { WorkspaceLinkOrigin } from './coordinator.js';
 import { chooseFormCreation } from '../artifact-editor/form-creation.js';
+import { chooseVisualCreation } from '../visual-artifacts/creation.js';
 
 const shell = document.createElement('section'); shell.className = 'builder-workspace'; shell.setAttribute('aria-label', 'Application Builder workspace');
 shell.innerHTML = `<header><button data-collapse aria-expanded="true">Application navigation</button><strong data-title></strong><button data-refresh>Refresh artifacts</button><button data-create-dataset>Create Dataset</button><button data-create-form>Create Form</button><button data-return-link hidden>Return and link Dataset to Form</button><button data-cancel-link hidden>Cancel Dataset link</button></header>
   <p data-status role="status"></p><div class="workspace-layout"><nav aria-label="Application artifacts"></nav><section class="workspace-main"><div role="tablist" aria-label="Open artifacts"></div><div data-stage></div></section></div>`;
 const find = <T extends HTMLElement>(selector: string) => shell.querySelector<T>(selector)!;
+for (const [kind, label] of [['page', 'Create Page'], ['shell', 'Create Shell'], ['component', 'Create Platform Component']] as const) {
+  const create = document.createElement('button'); create.textContent = label; create.dataset.createVisual = kind;
+  create.onclick = () => run(async () => {
+    const key = applicationKey, binding = createEditorSessionBinding();
+    const input = await chooseVisualCreation(kind, discovery.filter(item => item.kind === 'shell' && item.identity.id).map(item => ({ id: item.identity.id!, name: item.name })));
+    if (!input || parked || key !== applicationKey) return;
+    const response = await fetch(`/api/apps/${encodeURIComponent(key)}/visual-${kind === 'page' ? 'pages' : kind === 'shell' ? 'shells' : 'components'}`, { method: 'POST', headers: { ...await binding.headers(), 'content-type': 'application/json' }, body: JSON.stringify(input) });
+    const value = await response.json(); binding.assert(); if (!response.ok) throw new Error(value.error ?? 'Visual creation denied.');
+    if (parked || key !== applicationKey) return;
+    await discover(); const created = discovery.find(item => item.kind === kind && (item.identity.id === value.metadata?.artifactId || !!value.metadata?.componentId && item.componentId === value.metadata.componentId));
+    if (created) await navigate({ identity: created.identity });
+  });
+  find('header').append(create);
+}
 let applicationKey = '', discovery: WorkspaceArtifact[] = [], navigationSequence = 0, parked = true;
 let revision = editorSessionSnapshot()?.revision, checking = false;
 const status = (message: string) => { find('[data-status]').textContent = message; };

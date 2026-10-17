@@ -1,0 +1,16 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+stdout | tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+Preview failure: 409 {"error":"Preview source changed. Reload its complete revision before previewing."}
+
+ ✓ tests/builder-v1-wp5-b.test.ts (1 test) 104451ms
+   ✓ WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete  104451ms
+ ✓ tests/wp5-b-contract.test.ts (10 tests) 7ms
+
+ Test Files  2 passed (2)
+      Tests  11 passed (11)
+   Start at  07:47:19
+   Duration  105.62s (transform 262ms, setup 0ms, import 820ms, tests 104.46s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-b/browser-attempt-8.json

@@ -1,0 +1,23 @@
+PASS: default/public mode is restrictive
+PASS: initial record populates Package control
+PASS: selected admin mode overrides default visibility
+PASS: host authorization overrides admin editability
+PASS: hidden/read-only values survive mode changes
+PASS: update submits only permitted changed fields and identity
+PASS: success state emits declared public events
+PASS: success updates local state
+PASS: backend failure produces state and public failure event
+PASS: required validation prevents adapter invocation
+PASS: create: direct and ancestor conditions remove controls
+PASS: create: mode hides the retained email
+PASS: create: condition-hidden and mode-hidden values submit
+PASS: create: hidden calculated value submits while host-denied value is excluded
+PASS: create: revealing the field preserves its value
+PASS: create: hidden required field still blocks invalid submission
+PASS: edit: direct and ancestor conditions remove controls
+PASS: edit: mode hides the retained email
+PASS: edit: condition-hidden and mode-hidden values submit
+PASS: edit: hidden calculated value submits while host-denied value is excluded
+PASS: edit: revealing the field preserves its value
+PASS: edit: hidden required field still blocks invalid submission
+PASS: existing expression/event model dynamically binds mode without duplicating Form

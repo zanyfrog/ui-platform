@@ -1,8 +1,8 @@
 # Builder V1 WP5-B — Component Reuse Inventory and Contract Review
 
-2026-10-17. **WP5-A ACCEPTED AND CLOSED. WP5-B AUTHORIZED; IMPLEMENTATION STOPPED AT A DISCOVERED ARCHITECTURAL CONTRACT GAP.** No WP5-B UI implementation or browser acceptance is claimed. Stop for this review rather than silently extending an expression/action contract.
+2026-10-17. **WP5-A ACCEPTED AND CLOSED. WP5-B IMPLEMENTED AND VERIFIED UNDER THE APPROVED BOUNDED NATIVE ADAPTER; USER REVIEW REQUIRED.** The initial stopped contract review below is retained as history. WP5-B is not accepted or closed; no WP5-C implementation has begun.
 
-## Completed work and gate
+## Initial inventory and contract-review history
 
 The user accepted WP5-A's reported 401/401 UI tests, 14/14 focused checks, 146/146 editor/storage contracts, builds, typechecks, production exclusion and browser compatibility evidence. Closure is recorded in its architecture/verification, the implementation plan and umbrella checklist. Historical unsuccessful/transitional runs and prior WP0–WP4 records remain preserved; all 40 umbrella requirements remain unchecked.
 
@@ -91,3 +91,43 @@ This update's inventory: WP5-A architecture and verification closure records; `b
 D5 remains open before WP5-C: submit a typed, authorized trusted normal-host registration contract for existing `reference.notification` (or another existing approved service) for review; do not register/invent services. D6 planning is allocated to WP5-F, with design review before lock changes and reliable simultaneous Builder/runtime proof required before WP5-I acceptance. Neither prerequisite was resolved by WP5-A acceptance.
 
 **STOP FOR THE DISCOVERED WP5-B CONTRACT REVIEW. Do not claim WP5-B complete, advance to WP5-C/F/WP6, or check any umbrella requirement.**
+
+## WP5-B implementation and verification review gate — 2026-10-17
+
+The user approved the bounded native single-record delete adapter after the documented Component inventory and expression-contract probe. **WP5-B is implemented and verified, pending user review; it is not accepted or closed. STOP AT WP5-B VERIFICATION/REVIEW. WP5-C has not begun.** See [architecture and retained review history](builder-v1-wp5-b-component-reuse.md), [verification and browser evidence](builder-v1-wp5-b-verification.md), and [changed-file inventory](builder-v1-wp5-b-files.md).
+
+Final reported evidence: **417/417 UI Platform, 760/760 Data Services, 146/146 editor/storage contracts, 29/29 focused WP5-A/WP5-B checks**, builds, typechecks and production exclusion passed. The actual Builder browser journey authors two Shells, Regions, Pages/routes, installed Card settings/slots/events, independent shared Component/Form consumers, route-bound protected Form read/edit and explicit single-record delete. Native collision, identity, denial, revocation and unchanged-definition checks pass. These results do not establish complete Builder V1 acceptance.
+
+WP0–WP5-A historical records and unsuccessful/transitional WP5-B evidence are retained. All 351 prior evidence files match their original bytes after compatibility runs; all 40 umbrella requirements remain unchecked. WP4 and WP5-A remain accepted and closed. D5 trusted normal-host service-contract review remains required before WP5-C; D6 admission/locking design review and remediation remain WP5-F, with simultaneous-use reliability required before WP5-I. Closing Builder before runtime startup is not concurrency proof. A37 full management-restart/browser evidence remains WP6. No WP5-C, WP5-F or WP6 implementation is authorized by this review record.
+
+
+## Implemented native contract (normative)
+
+The approved extension remains in Visual schemaVersion 1. An action uses:
+
+```json
+{
+  "kind": "record-delete",
+  "version": 1,
+  "datasetId": "permanent-Dataset-ID",
+  "primaryFieldId": "permanent-applied-primary-field-ID",
+  "recordId": "route.id",
+  "resultState": "deleteResult"
+}
+```
+
+The same artifact must explicitly declare `state.deleteResult`, normally initialized to null. State must be an object, and the result-state name must be a nonempty string naming its own declared member. Arrays, string state containers, numeric result-state names, unknown action versions/keys and invalid expressions fail native validation before rendering/execution. No state is silently invented by the action. `recordId` uses the unchanged existing path/literal/versioned expression contract; literal objects still do not interpolate nested strings. Existing Form create/edit modes and generic service actions are unchanged.
+
+The shared runtime evaluates the scalar target once and sends a versioned intent through `ApplicationDataClient`'s existing operations transport. It supplies no physical key, rows, actor, grant or schema. The existing authenticated request handler invokes the bounded adapter inside the existing protected engine. That adapter clones the intent, binds the Dataset through its qualified applied authority, resolves the ORM primary key to the applied permanent field identity, rejects mismatched identities and incorrect scalar types, and constructs exactly one protected delete row. It compares the fresh write binding with the captured binding and retains the direct target through the existing write/Trigger pipeline. Operation/record eligibility, current authorization, applied schema, atomic persistence and commit outcome remain DOE/I-AM responsibilities. Unknown, cross-Application, missing, stale, denied, revoked or malformed targets cannot create an alternate write path.
+
+The declared local state retains the actual protected result, including operation IDs, counts, errors and commit outcome. Missing-or-denied is a failure, never a reported deletion. A committed after-commit failure remains committed with its errors. Known HTTP denial is not committed; transport/server uncertainty remains unknown and is not automatically retried. An unavailable adapter or expression-evaluation failure is known not to have executed. Design preview has no executable service adapters or named custom functions. Normal running Applications retain the same renderer and protected client path.
+
+Reference extraction records the permanent Dataset dependency through the existing owner-qualified diagnostic graph. A field is checked within that Dataset's applied identity mapping, rather than invented as another source artifact. The extension requires matching updated runtime/host support: older validators reject the unknown action kind, and older protected handlers reject the unknown intent. There is no fallback to generic CRUD, new source format, expression engine, authorization engine, Component library or renderer.
+
+## Implemented authoring adapters and limits
+
+Workspace-coordinated dialogs create Shells, Pages and Platform Components using the existing native services and server-allocated identities. Focused tabs retain WP2 working copies, history, source roles, expected revisions and original authorized saves. Display names/routes, Region names, public members/local state, typed scalar/enum/structured values, named-source bindings, existing modes, public slots/events and the protected delete target are authored through controls. Page instance changes affect its own source/metadata; shared definition navigation and return retain consumer context. Slot insertion requires a declared public contract. Package definitions do not receive a writable Platform Edit Definition command.
+
+Card uses its actual registered metadata, interaction modes, settings, slots and events. Registered executable-handler selection is unavailable in this host; public declarative event actions are available without fabricating handlers. The six legacy entries retain their limited presentation metadata: direct supported names include Heading/Heading Block size/align, Panel variant/density, Instruction density, Action Group align, and Hero theme/size. Missing typed public property/slot/event contracts remain explicit. Hero `visual_mode` is a presentation-record field without a declared direct instance binding; it is unavailable here and is not silently renamed to `visual-mode`. There is no manifest-backed package Button; HTML buttons are ordinary content.
+
+The [verification record](builder-v1-wp5-b-verification.md) and [file inventory](builder-v1-wp5-b-files.md) describe the review evidence. This package does not implement WP5-C service registration/automation, WP5-D Menu/branding completion, WP5-F locking remediation or WP6 final acceptance. All accepted earlier contracts and all 40 unchecked umbrella requirements remain preserved.

@@ -64,7 +64,7 @@ export function visualSourceReferences(artifact: RuntimeArtifact): NativeReferen
     ...(m.shellId ? [{ kind: 'shell' as const, id: m.shellId }] : []),
     ...(m.form ? [{ kind: 'dataset' as const, id: m.form.datasetId }, ...[m.form.submit.service, m.form.submit.readService].map(id => ({ kind: 'service' as const, id }))] : []),
     ...Object.values(m.sources ?? {}).flatMap(source => source.kind === 'service' && source.reference ? [{ kind: 'service' as const, id: source.reference }] : []),
-    ...actions.flatMap<NativeReference>(action => action.kind === 'workflow' ? [{ kind: 'workflow', id: action.workflowId }] : action.kind === 'service' ? [{ kind: 'service', id: action.reference }] : []),
+    ...actions.flatMap<NativeReference>(action => action.kind === 'record-delete' ? [{ kind: 'dataset', id: action.datasetId }] : action.kind === 'workflow' ? [{ kind: 'workflow', id: action.workflowId }] : action.kind === 'service' ? [{ kind: 'service', id: action.reference }] : []),
   ];
 }
 export function capturedAutomationSource(identity: WorkspaceIdentity, bundle: AutomationBundle, resolve: (reference: NativeReference) => WorkspaceIdentity | undefined): CapturedValidationSource {

@@ -1,0 +1,33 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+stdout | tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+7:34:59 AM [vite] (client) [optimizer] scanning dependencies...
+
+ ❯ tests/builder-v1-wp5-b.test.ts (1 test | 1 failed) 82309ms
+   × WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete 82309ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: 'Delete selected record', exact: true })
+
+ ❯ tests/builder-v1-wp5-b.test.ts:214:86
+    212|   const running = await browserContext.newPage(); running.on('pageerro…
+    213|   const targetUrl = new URL(managed.value.url); targetUrl.pathname = '…
+    214|   await running.getByRole('button', { name: 'Delete selected record', …
+       |                                                                                      ^
+    215|   await expect.poll(async () => JSON.parse(await readFile(storage, 'ut…
+    216|   const finalRows = JSON.parse(await readFile(storage, 'utf8')); expec…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  07:34:50
+   Duration  82.66s (transform 81ms, setup 0ms, import 212ms, tests 82.31s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-b/browser-attempt-4.json

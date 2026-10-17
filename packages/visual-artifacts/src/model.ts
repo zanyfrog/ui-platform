@@ -16,6 +16,7 @@ export type Action =
   | { kind: 'navigate'; to: Expression }
   | { kind: 'service'; reference: string; input?: Expression }
   | { kind: 'workflow'; workflowId: string; primaryRecordId: Expression; resultState?: string }
+  | { kind: 'record-delete'; version: 1; datasetId: string; primaryFieldId: string; recordId: Expression; resultState: string }
   | { kind: 'function'; name: string };
 export interface LayoutRule {
   width?: string; height?: string; margin?: string; padding?: string; display?: 'grid' | 'flex' | 'block' | 'none';
@@ -65,6 +66,16 @@ export interface PackageDefinition {
 export interface PackageComponent {
   id: string; tagName: string; name?: string; moduleUrl?: string; definition?: PackageDefinition;
   properties?: string[]; attributes?: string[]; events?: string[]; slots?: string[]; activationIssues?: string[];
+  presentation?: { settings: Record<string, { type: 'string' | 'number' | 'boolean' | 'select'; options?: Array<string | number>; default?: string | number | boolean }> };
+}
+/** Adapt existing legacy presentation declarations into the native value validator. */
+export function legacyPackageSettingContracts(pkg: PackageComponent): Record<string, PropertyContract> {
+  return Object.fromEntries(Object.entries(pkg.presentation?.settings ?? {}).flatMap(([key, value]) => {
+    // Presentation record keys do not establish aliases for instance attributes.
+    if (!/^[a-z][a-z0-9-]*$/.test(key)) return [];
+    if (value.type === 'select') return value.options?.length ? [[key, { type: typeof value.options[0] === 'number' ? 'number' : 'string', enum: value.options, default: value.default }]] : [];
+    return ['string', 'number', 'boolean'].includes(value.type) ? [[key, { type: value.type, default: value.default }]] : [];
+  })) as Record<string, PropertyContract>;
 }
 export interface RuntimeArtifact { metadata: ArtifactMetadata; source: string; css: string; functions?: Record<string, (context: FunctionContext) => void> }
 export interface FunctionContext { public: Record<string, unknown>; local: Record<string, unknown>; root: ShadowRoot; event?: Event; setState: (name: string, value: unknown) => void; emit: (name: string, payload: Record<string, unknown>) => void }

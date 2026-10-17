@@ -68,14 +68,14 @@ export function setNodeAttribute(source: string, id: string, name: string, value
   const next = pattern.test(opening) ? opening.replace(pattern, () => attr) : opening.replace(/\s*\/?>$/, end => attr + end);
   return source.slice(0, node.start) + next + source.slice(node.openEnd);
 }
-export function insertNode(source: string, tag: string, componentId?: string, parentId?: string, newId = () => `node_${globalThis.crypto.randomUUID()}`): string {
+export function insertNode(source: string, tag: string, componentId?: string, parentId?: string, newId = () => `node_${globalThis.crypto.randomUUID()}`, slot?: string): string {
   if (!/^[a-z][a-z0-9-]*$/.test(tag) || ['script', 'style', 'iframe'].includes(tag)) throw new Error('Unsupported insertion tag.');
   const parsed = parseSource(source);
   if (parsed.diagnostics.some(d => d.severity === 'error')) throw new Error('Repair source structure before inserting.');
   const parent = parentId ? parsed.nodes.find(n => n.id === parentId) : undefined;
-  if (parentId && (!parent || parent.attributes['data-uip-component'] || voidTags.has(parent.tag))) throw new Error('Insert into an ordinary HTML container or layout wrapper.');
+  if (parentId && (!parent || parent.attributes['data-uip-component'] && slot === undefined || voidTags.has(parent.tag))) throw new Error('Insert into an ordinary HTML container or layout wrapper.');
   const offset = parent?.closeStart ?? source.length;
-  const markup = `\n<div class="uip-layout-item" data-uip-node="${newId()}">\n  <${tag} data-uip-node="${newId()}"${componentId ? ` data-uip-component="${escapeAttribute(componentId)}"` : ''}>${voidTags.has(tag) ? '' : `</${tag}>`}\n</div>\n`;
+  const markup = `\n<div class="uip-layout-item" data-uip-node="${newId()}"${slot !== undefined ? ` slot="${escapeAttribute(slot)}"` : ''}>\n  <${tag} data-uip-node="${newId()}"${componentId ? ` data-uip-component="${escapeAttribute(componentId)}"` : ''}>${voidTags.has(tag) ? '' : `</${tag}>`}\n</div>\n`;
   return source.slice(0, offset) + markup + source.slice(offset);
 }
 

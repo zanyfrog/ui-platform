@@ -1,8 +1,8 @@
-import type { ProtectedRead, ProtectedWrite } from '@ui-platform/dataset-operations';
+import type { ProtectedRead, ProtectedWrite, ProtectedRecordDelete } from '@ui-platform/dataset-operations';
 
 export type ApplicationDataPath = 'queries' | 'operations';
 export interface ApplicationDataTransport {
-  send(path: ApplicationDataPath, intent: ProtectedRead | ProtectedWrite): Promise<unknown>;
+  send(path: ApplicationDataPath, intent: ProtectedRead | ProtectedWrite | ProtectedRecordDelete): Promise<unknown>;
 }
 export interface ApplicationDataHttpOptions {
   endpoint?: string;
@@ -20,9 +20,9 @@ export function createHttpApplicationDataTransport(options: ApplicationDataHttpO
       const response = await request(`${endpoint}/${path}`, { method: 'POST',
         headers: { 'content-type': 'application/json', ...(credential ? { authorization: `Bearer ${credential}` } : {}) },
         body: JSON.stringify(intent) });
-      if (response.status === 401) throw new Error('Sign in before submitting. Your session may have expired.');
+      if (response.status === 401) throw Object.assign(new Error('Sign in before submitting. Your session may have expired.'), { code: 'APPLICATION_DATA_UNAUTHENTICATED', commitOutcome: 'not-committed' });
       if (response.status >= 500) throw new Error('The data service is unavailable or took too long to respond. The save outcome is unknown; check the saved records before submitting again.');
-      if (!response.ok) throw new Error('APPLICATION_DATA_REQUEST_DENIED');
+      if (!response.ok) throw Object.assign(new Error('APPLICATION_DATA_REQUEST_DENIED'), { code: 'APPLICATION_DATA_REQUEST_DENIED', commitOutcome: 'not-committed' });
       const value: unknown = await response.json();
       return value;
     },
@@ -39,6 +39,7 @@ export class ApplicationDataClient {
   constructor(private readonly transport: ApplicationDataTransport) {}
   query(intent: ProtectedRead): Promise<unknown> { return this.transport.send('queries', intent); }
   execute(intent: ProtectedWrite): Promise<unknown> { return this.transport.send('operations', intent); }
+  deleteRecordTarget(intent: ProtectedRecordDelete): Promise<unknown> { return this.transport.send('operations', intent); }
   read(datasetId: string, options: Omit<ProtectedRead, 'datasetId' | 'mode'> = {}) { return this.query({ datasetId, ...options, mode: 'read' }); }
   count(datasetId: string, where?: ProtectedRead['where']) { return this.query({ datasetId, ...(where ? { where } : {}), mode: 'count' }); }
   exists(datasetId: string, where?: ProtectedRead['where']) { return this.query({ datasetId, ...(where ? { where } : {}), mode: 'exists' }); }
@@ -50,6 +51,7 @@ export class ApplicationDataClient {
 /** Named Visual Artifact adapters reuse the existing Page/Form session transport. */
 export function createApplicationDataServices(client = new ApplicationDataClient(createSessionApplicationDataTransport()), options: { endpoint?: string } = {}): Record<string, (input: unknown) => Promise<unknown>> {
   return {
+    'dataset.deleteRecord': input => client.deleteRecordTarget(input as ProtectedRecordDelete),
     'dataset.write': input => client.execute(input as ProtectedWrite),
     'dataset.read': input => client.query({ ...(input as ProtectedRead), mode: 'read' }),
     'workflow.run': async input => {

@@ -1,0 +1,13 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ✓ tests/wp5-b-contract.test.ts (15 tests) 20ms
+ ✓ tests/builder-v1-wp5-a.test.ts (14 tests) 2375ms
+   ✓ reproduces cross-process graph contention without stale capture, then reads current source after release  2168ms
+
+ Test Files  2 passed (2)
+      Tests  29 passed (29)
+   Start at  08:05:02
+   Duration  3.07s (transform 295ms, setup 0ms, import 1.07s, tests 2.40s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-b/focused-closure-rerun.json

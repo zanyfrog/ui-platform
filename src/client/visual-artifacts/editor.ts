@@ -1,8 +1,9 @@
-import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readPackageSettings, setNodeAttribute, regions, recommendedRegionIds } from '@ui-platform/visual-artifacts';
+import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readPackageSettings, setNodeAttribute, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
 import type { ComponentCatalogEntry } from '../../shared/types.js';
 import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
 import { specializedTransport, type SourceRequest } from '../artifact-editor/specialized-transport.js';
+import { compositionAuthoring, valueControls } from './authoring-controls.js';
 
 export interface Workspace { pages: ArtifactBundle[]; components: ArtifactBundle[]; shells: ArtifactBundle[]; packages: ComponentCatalogEntry[] }
 export interface VisualWorkspaceOptions {
@@ -27,16 +28,17 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   let workspace: Workspace, selected: ArtifactBundle | undefined, selectedKind: 'page' | 'component' | 'shell' = 'page';
   let files: ArtifactFiles, baseline: ArtifactFiles, hash = '', role: keyof ArtifactFiles = 'source', selectedNode = '', conflict = false, saving = false;
   let preview: HTMLIFrameElement | undefined, polling = false;
+  const actionDrafts = new Map<string, NonNullable<import('./authoring-controls.js').AuthoringOptions['draft']>>();
   const dirty = () => !!copy?.lifecycle.dirty;
   const list = (kind: string) => kind === 'page' ? workspace.pages : kind === 'shell' ? workspace.shells : workspace.components;
   const plural = (kind: string) => kind === 'page' ? 'pages' : kind === 'shell' ? 'shells' : 'components';
   const url = () => `${base}/visual-${plural(selectedKind)}?locator=${encodeURIComponent(selected!.locator)}`;
   target.innerHTML = `<div class="stack"><div class="pane-heading"><strong>Visual Artifacts</strong><span data-status aria-live="polite"></span></div>
     <div class="editor-actions"><button data-create="page">Create Page</button><button data-create="component">Create Platform Component</button><button data-create="form-dataset">Create Form from Dataset</button><button data-create="form">Create blank Form</button><select aria-label="Visual Artifact" data-artifacts><option value="">Select an artifact</option></select></div>
-    <div data-work hidden><div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-repair>Advanced source repair save</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Preview</button><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
+    <div data-work hidden><div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-repair>Advanced source repair save</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Design preview</button><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
     <div data-diagnostics></div><div class="builder-layout" style="grid-template-columns:minmax(180px,1fr) minmax(220px,2fr)"><div class="stack"><strong>Structure</strong><select data-nodes size="8" aria-label="Visual node"></select>
     <label>Insert into selected HTML container, or artifact root<select data-insert aria-label="Insert element"></select></label><button data-add>Insert with layout wrapper</button><button data-root>Select artifact root</button><button data-move="up">Move layout item up</button><button data-move="down">Move layout item down</button><div data-inspector></div></div>
-    <div class="stack"><label>Source file<select data-file aria-label="Visual source file">${['source', 'css', 'metadata', 'fixtures', 'code'].map(name => `<option>${name}</option>`).join('')}</select></label><textarea data-source aria-label="Visual source" class="source-editor" spellcheck="false"></textarea><p class="note">Manual source is preserved. Conditions, repeaters, events, slots and data sources can be edited in metadata. Optional named functions belong in code.</p></div></div><div data-preview-host></div></div></div>`;
+    <div class="stack"><label>Source file<select data-file aria-label="Visual source file">${['source', 'css', 'metadata', 'fixtures', 'code'].map(name => `<option>${name}</option>`).join('')}</select></label><textarea data-source aria-label="Visual source" class="source-editor" spellcheck="false"></textarea><p class="note">Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.</p></div></div><div data-preview-host></div></div></div>`;
   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
   const status = (message: string) => { find('[data-status]').textContent = message; options.onStateChange?.(); };
   const safe = (run: () => Promise<void> | void) => async () => { if (disposed || !active) return; operations++; try { await run(); } catch (error) { status(error instanceof Error ? error.message : String(error)); } finally { operations--; options.onStateChange?.(); } };
@@ -84,7 +86,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     const select = find<HTMLSelectElement>('[data-artifacts]');
     select.innerHTML = '<option value="">Select an artifact</option>' + [['Pages', workspace.pages], ['Shells', workspace.shells ?? []], ['Platform Components', workspace.components]].map(([label, items]) => `<optgroup label="${label}">${(items as ArtifactBundle[]).map(b => `<option value="${label === 'Pages' ? 'page' : label === 'Shells' ? 'shell' : 'component'}:${esc(b.locator)}">${esc(b.metadata?.displayName ?? b.locator)}${b.diagnostics.some(d => d.severity === 'error') ? ' (needs repair)' : ''}</option>`).join('')}</optgroup>`).join('');
     if (selected) select.value = `${selectedKind}:${selected.locator}`;
-    find<HTMLSelectElement>('[data-insert]').innerHTML = '<optgroup label="HTML">' + ['section', 'div', 'article', 'p', 'h2', 'a', 'img', 'ul', 'li', 'span'].map(tag => `<option value="html:${tag}">${tag}</option>`).join('') + '</optgroup><optgroup label="Package Components">' + workspace.packages.filter(p => !p.activationIssues?.length).map(p => `<option value="package:${esc(p.id)}">${esc(p.name ?? p.tagName)}</option>`).join('') + '</optgroup><optgroup label="Platform Components">' + workspace.components.filter(b => b.metadata && !b.diagnostics.some(d => d.severity === 'error')).map(b => `<option value="component:${esc(b.metadata!.componentId)}">${esc(b.metadata!.displayName)}</option>`).join('') + '</optgroup>';
+    find<HTMLSelectElement>('[data-insert]').innerHTML = '<optgroup label="HTML">' + ['section', 'div', 'article', 'p', 'h2', 'a', 'button', 'img', 'ul', 'li', 'span', 'uip-slot'].map(tag => `<option value="html:${tag}">${tag}</option>`).join('') + '</optgroup><optgroup label="Package Components">' + workspace.packages.filter(p => !p.activationIssues?.length).map(p => `<option value="package:${esc(p.id)}">${esc(p.name ?? p.tagName)}</option>`).join('') + '</optgroup><optgroup label="Platform Components">' + workspace.components.filter(b => b.metadata && !b.diagnostics.some(d => d.severity === 'error')).map(b => `<option value="component:${esc(b.metadata!.componentId)}">${esc(b.metadata!.displayName)}</option>`).join('') + '</optgroup>';
   }
   function workingMetadata(): ArtifactMetadata { const metadata = parseMetadata(files.metadata).metadata; if (!metadata) throw new Error('Repair metadata JSON first.'); return metadata; }
   function changeMetadata(change: (metadata: ArtifactMetadata) => void): void { const metadata = workingMetadata(); change(metadata); files.metadata = JSON.stringify(metadata, null, 2) + '\n'; changed(); }
@@ -115,13 +117,14 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     const node = parsed.nodes.find(n => n.id === selectedNode);
     inspector.innerHTML = '';
     const definitionId = node?.attributes['data-uip-component'];
-    if (definitionId && options.onDefinition) {
+    if (definitionId && workspace.components.some(component => component.metadata?.componentId === definitionId) && options.onDefinition) {
       const edit = document.createElement('button'); edit.textContent = 'Edit Definition';
       edit.onclick = () => options.onDefinition!(definitionId); inspector.append(edit);
     }
     if (!node) {
       inspector.innerHTML = '<p class="note">Select a managed node to edit settings and bindings.</p>';
       const metadata = workingMetadata();
+      compositionAuthoring(inspector, { metadata, change: changeMetadata, datasets: () => request(`${base}/datasets/discovery`), error: cause => status(String(cause)) });
       if (selectedKind === 'page' && metadata.shellId) {
         const note = document.createElement('p'); note.textContent = `Shell: ${workspace.shells.find(shell => shell.metadata?.artifactId === metadata.shellId)?.metadata?.displayName ?? metadata.shellId}. Fixed content is edited in the Shell editor.`; inspector.append(note);
         const override = document.createElement('button'); override.textContent = 'Set Page Menu Item visibility / availability';
@@ -156,16 +159,6 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
         const addMode = document.createElement('button'); addMode.textContent = 'Add mode';
         addMode.addEventListener('click', safe(() => { const name = prompt('Mode name:'); if (name) changeMetadata(m => { m.modes!.overrides[name] ??= {}; }); })); inspector.append(addMode);
       }
-      if (selectedKind === 'component' || selectedKind === 'shell') {
-        inspector.insertAdjacentHTML('beforeend', '<button data-public>Add public property</button>');
-        inspector.querySelector('[data-public]')!.addEventListener('click', safe(() => {
-          const name = prompt('Public property name:'); if (!name) return;
-          const type = prompt('Type: string, number, boolean, object, array', 'string'); if (!type || !['string', 'number', 'boolean', 'object', 'array'].includes(type)) throw new Error('Choose one of the five supported types.');
-          const defaultText = prompt('Default value as JSON (leave blank for no default):', type === 'string' ? '""' : ''); if (defaultText === null) return;
-          const required = confirm('Require this property?');
-          changeMetadata(m => { m.public ??= { properties: {}, events: {}, slots: [] }; m.public.properties[name] = { type: type as 'string', required, ...(defaultText ? { default: JSON.parse(defaultText) } : {}) }; });
-        }));
-      }
       return;
     }
     if (node.manual) { inspector.textContent = 'Manual region: edit source directly.'; return; }
@@ -194,14 +187,35 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     }
     const pkg = workspace.packages.find(p => p.id === node.attributes['data-uip-component']);
     const component = workspace.components.find(c => c.metadata?.componentId === node.attributes['data-uip-component']);
-    const contracts = pkg?.definition?.builder.settings ?? component?.metadata?.public?.properties ?? {};
+    const contracts = pkg?.definition?.builder.settings ?? (pkg ? legacyPackageSettingContracts(pkg) : component?.metadata?.public?.properties ?? {});
     let settings: Record<string, unknown>;
     try { settings = JSON.parse(node.attributes['data-uip-settings'] ?? '{}'); } catch { inspector.textContent = 'Repair settings JSON in source first.'; return; }
     if (pkg?.definition) settings = readPackageSettings(pkg.definition, node.attributes, settings);
+    if (pkg && !pkg.definition) {
+      inspector.append(Object.assign(document.createElement('p'), { textContent: 'Legacy package metadata: only declared attributes/properties are configurable. Typed public slots/events are unavailable unless explicitly declared.' }));
+      const unavailable = Object.keys(pkg.presentation?.settings ?? {}).filter(key => !contracts[key]);
+      if (unavailable.length) inspector.append(Object.assign(document.createElement('p'), { textContent: `No declared direct instance mapping: ${unavailable.join(', ')}. These presentation record fields are unavailable here; no attribute conversion is inferred.` }));
+      for (const key of new Set([...(pkg.attributes ?? []), ...(pkg.properties ?? [])])) {
+        if (contracts[key]) continue;
+        const label = document.createElement('label'); label.textContent = key; const input = document.createElement('input'); input.setAttribute('aria-label', `Setting ${key}`); input.value = String(settings[key] ?? node.attributes[key] ?? '');
+        input.onchange = safe(() => { settings[key] = input.value; files.source = setNodeAttribute(files.source, selectedNode, 'data-uip-settings', JSON.stringify(settings)); changed(); }); label.append(input); inspector.append(label);
+      }
+    }
     for (const [key, contract] of Object.entries(contracts)) {
+      const packageSetting = pkg?.definition?.builder.settings[key];
+      if (packageSetting?.binding?.kind === 'event') {
+        inspector.append(Object.assign(document.createElement('p'), { textContent: `${key}: registered handler selection is unavailable in this host. Use the declared public event action controls.` })); continue;
+      }
+      if (packageSetting?.visibleWhen && (settings[packageSetting.visibleWhen.setting] ?? contracts[packageSetting.visibleWhen.setting]?.default) !== packageSetting.visibleWhen.equals) continue;
+      if (contract.type === 'object' || contract.type === 'array') {
+        valueControls(inspector, `Setting ${key}`, settings[key] ?? contract.default ?? (contract.type === 'array' ? [] : {}), value => {
+          settings[key] = value; files.source = setNodeAttribute(files.source, selectedNode, 'data-uip-settings', JSON.stringify(settings)); changed();
+        }); continue;
+      }
       const label = document.createElement('label'); label.textContent = key;
-      const input = contract.enum ? document.createElement('select') : document.createElement('input');
-      if (input instanceof HTMLSelectElement) contract.enum!.forEach(value => { const option = document.createElement('option'); option.value = JSON.stringify(value); option.textContent = String(value); input.append(option); });
+      const values = key === 'mode' && component?.metadata?.modes ? Object.keys(component.metadata.modes.overrides) : contract.enum;
+      const input = values ? document.createElement('select') : document.createElement('input');
+      if (input instanceof HTMLSelectElement) values!.forEach(value => { const option = document.createElement('option'); option.value = JSON.stringify(value); option.textContent = String(value); input.append(option); });
       if (input instanceof HTMLInputElement) input.type = contract.type === 'boolean' ? 'checkbox' : contract.type === 'number' ? 'number' : 'text';
       const value = settings[key] ?? contract.default;
       if (input instanceof HTMLSelectElement) input.value = JSON.stringify(value);
@@ -221,12 +235,25 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       const label = document.createElement('label'); label.textContent = 'Text content'; const input = document.createElement('input'); input.value = files.source.slice(node.openEnd, node.closeStart);
       input.addEventListener('change', safe(() => { if (node.children.length) throw new Error('Edit nested content in source or select a leaf.'); files.source = files.source.slice(0, node.openEnd) + esc(input.value) + files.source.slice(node.closeStart); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })); label.append(input); inspector.append(label);
     }
-    inspector.insertAdjacentHTML('beforeend', '<button data-bind>Add basic binding</button>');
-    inspector.querySelector('[data-bind]')!.addEventListener('click', safe(() => {
-      const targetName = prompt('Target: text, attribute:name, property:name, or setting:name', component ? 'property:' : pkg?.definition ? 'setting:heading' : 'text'); if (!targetName) return;
-      const path = prompt('Named source path (for example public.person.name or local.isExpanded):'); if (!path) return;
-      changeMetadata(m => { m.bindings = [...(m.bindings ?? []).filter(b => !(b.node === selectedNode && b.target === targetName)), { node: selectedNode, target: targetName, value: path }]; });
-    }));
+    let slotChild = node, ancestor = node.parent;
+    while (ancestor && !ancestor.attributes['data-uip-component']) { slotChild = ancestor; ancestor = ancestor.parent; }
+    const parentComponent = workspace.components.find(item => item.metadata?.componentId === ancestor?.attributes['data-uip-component']);
+    const parentPackage = workspace.packages.find(item => item.id === ancestor?.attributes['data-uip-component']);
+    const slots = component?.metadata?.public?.slots ?? pkg?.definition?.runtime.slots.map(slot => slot.name) ?? pkg?.slots;
+    const parentSlots = parentComponent?.metadata?.public?.slots ?? parentPackage?.definition?.runtime.slots.map(slot => slot.name) ?? parentPackage?.slots;
+    compositionAuthoring(inspector, {
+      metadata: workingMetadata(), node: selectedNode, change: changeMetadata, slots,
+      draft: actionDrafts.get(selectedNode) ?? (() => { const draft = {}; actionDrafts.set(selectedNode, draft); return draft; })(), refresh: () => { if (active && !disposed) renderInspector(); },
+      bindingTargets: component ? Object.keys(contracts).map(key => `property:${key}`) : pkg?.definition ? Object.keys(contracts).filter(key => contracts[key] && pkg.definition!.builder.settings[key].binding?.kind !== 'event').map(key => `setting:${key}`) : pkg ? [...new Set([...(pkg.attributes ?? []), ...Object.keys(contracts)])].map(key => `attribute:${key}`) : ['text', 'attribute:href', 'attribute:aria-label', 'property:disabled'],
+      events: component ? Object.keys(component.metadata!.public?.events ?? {}) : pkg ? Object.keys(pkg.definition?.runtime.events ?? {}).concat(pkg.events ?? []) : ['click', 'change', 'input', 'submit'],
+      ...(parentSlots && slotChild.id ? { slot: { value: slotChild.attributes.slot || (parentPackage ? 'default' : ''), choices: parentSlots, change: value => { files.source = setNodeAttribute(files.source, slotChild.id!, 'slot', parentPackage && value === 'default' ? '' : value); changed(); } } } : {}),
+      datasets: () => request(`${base}/datasets/discovery`), error: cause => status(String(cause)),
+    });
+    if (node.tag === 'uip-slot') {
+      const label = document.createElement('label'); label.textContent = 'Public slot outlet'; const slot = document.createElement('select'); slot.setAttribute('aria-label', 'Public slot outlet');
+      for (const name of workingMetadata().public?.slots ?? []) slot.add(new Option(name, name)); slot.value = node.attributes.name ?? '';
+      slot.onchange = safe(() => { files.source = setNodeAttribute(files.source, selectedNode, 'name', slot.value); changed(); }); label.append(slot); inspector.append(label);
+    }
     const wrapper = isWrapper(node) ? node : isWrapper(node.parent) ? node.parent : undefined;
     if (!wrapper?.id) { inspector.insertAdjacentHTML('beforeend', '<p class="note">Layout is manual for this node.</p>'); return; }
     inspector.insertAdjacentHTML('beforeend', '<label>Breakpoint<select data-breakpoint><option>base</option><option>tablet</option><option>mobile</option></select></label><div data-layout></div>');
@@ -310,7 +337,14 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     const [kind, ...rest] = find<HTMLSelectElement>('[data-insert]').value.split(':'); const reference = rest.join(':');
     const pkg = workspace.packages.find(p => p.id === reference);
     const tag = kind === 'html' ? reference : kind === 'package' ? pkg!.tagName : 'uip-component';
-    files.source = insertNode(files.source, tag, kind === 'html' ? undefined : reference, selectedNode || undefined); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
+    const ids = [`node_${crypto.randomUUID()}`, `node_${crypto.randomUUID()}`], childId = ids[1];
+    const parent = parseSource(files.source).nodes.find(node => node.id === selectedNode), parentReference = parent?.attributes['data-uip-component'];
+    const parentSlots = workspace.components.find(item => item.metadata?.componentId === parentReference)?.metadata?.public?.slots ?? workspace.packages.find(item => item.id === parentReference)?.definition?.runtime.slots.map(slot => slot.name);
+    if (parentReference && !parentSlots?.length) throw new Error('This Component has no declared public insertion slots.');
+    const slot = parentReference ? parentSlots![0] : undefined;
+    files.source = insertNode(files.source, tag, kind === 'html' ? undefined : reference, selectedNode || undefined, () => ids.shift()!, workspace.packages.some(item => item.id === parentReference) && slot === 'default' ? '' : slot);
+    if (tag === 'uip-slot') files.source = setNodeAttribute(files.source, childId, 'name', workingMetadata().public?.slots[0] ?? '');
+    selectedNode = childId; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
   }));
   find('[data-save]').addEventListener('click', safe(async () => {
     if (!copy) return; copy.saveRequest = transport.capture(); await copy.lifecycle.flush();
@@ -347,10 +381,10 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   async function showPreview(): Promise<void> {
     if (!active || disposed) return;
     if (dirty() || conflict) throw new Error('Save source before previewing.');
-    preview?.remove(); preview = document.createElement('iframe'); preview.title = 'Visual Artifact runtime preview'; preview.src = '/visual-preview.html'; preview.style.cssText = 'width:100%;min-height:500px;border:1px solid #ccc';
+    preview?.remove(); preview = document.createElement('iframe'); preview.title = 'Nonpersisting Visual Artifact design preview'; preview.src = '/visual-preview.html'; preview.style.cssText = 'width:100%;min-height:500px;border:1px solid #ccc';
     if (!active || disposed || !preview) return;
     const frame = preview, previewApplicationKey = options.applicationKey?.() ?? appKey;
-    frame.addEventListener('load', () => { if (active && !disposed && frame === preview) frame.contentWindow!.postMessage({ type: 'uip-preview', locator: selected!.locator, kind: selectedKind, hash, appKey: previewApplicationKey }, location.origin); });
+    frame.addEventListener('load', () => { if (active && !disposed && frame === preview) frame.contentWindow!.postMessage({ type: 'uip-preview', design: true, locator: selected!.locator, kind: selectedKind, hash, appKey: previewApplicationKey }, location.origin); });
     find('[data-preview-host]').append(preview);
   }
   find('[data-preview]').addEventListener('click', safe(showPreview));
@@ -381,7 +415,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   return {
     state: () => ({ dirty: [...copies.values()].some(item => item.lifecycle.dirty), pending: saving || operations > 0, conflict }),
     deactivate() { active = false; preview?.remove(); preview = undefined; },
-    suspend() { for (const item of copies.values()) item.lifecycle.suspend(); target.hidden = true; },
+    suspend() { actionDrafts.clear(); for (const item of copies.values()) item.lifecycle.suspend(); target.hidden = true; },
     focus(next: Workspace, navigation: { node?: string; section?: string } = {}) {
       workspace = next;
       const disk = list(selectedKind).find(b => b.locator === selected?.locator);

@@ -1,0 +1,29 @@
+{
+  "installedPackages": 11,
+  "manifestEntries": 7,
+  "canonicalRegistered": 1,
+  "applicationInsertable": [
+    "uib-hero",
+    "uib-action-group",
+    "uib-card",
+    "uib-heading",
+    "uib-heading-block",
+    "uib-instruction",
+    "uib-panel"
+  ],
+  "platformComponents": 4,
+  "probe": {
+    "contract": "Existing PresentationExpression / Action service input",
+    "namedPath": "42",
+    "literalRequest": {
+      "datasetId": "dataset-example",
+      "operation": "delete",
+      "records": [
+        {
+          "id": "route.id"
+        }
+      ]
+    },
+    "note": "Paths evaluate as a whole expression; literal objects are cloned without recursively evaluating strings. No object-construction operation exists in the authoritative union."
+  }
+}

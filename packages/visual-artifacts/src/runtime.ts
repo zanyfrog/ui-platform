@@ -86,6 +86,21 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
         else if (item.kind === 'emit') emit(item.event, Object.fromEntries(Object.entries(item.payload ?? {}).map(([key, value]) => [key, evaluate(value, current)])));
         else if (item.kind === 'navigate') { if (!options.navigate) throw new Error('No navigation adapter.'); options.navigate(String(evaluate(item.to, current))); }
         else if (item.kind === 'service') { const service = options.services?.[item.reference]; if (!service) throw new Error(`Service reference has no executable adapter: ${item.reference}.`); await service(item.input ? evaluate(item.input, current) : undefined); }
+        else if (item.kind === 'record-delete') {
+          const service = options.services?.['dataset.deleteRecord'];
+          if (!service) { state[item.resultState] = { success: false, committed: false, commitOutcome: 'not-committed', code: 'RECORD_DELETE_UNAVAILABLE' }; repaint(); return; }
+          let recordId: unknown;
+          try { recordId = evaluate(item.recordId, current); }
+          catch { state[item.resultState] = { success: false, committed: false, commitOutcome: 'not-committed', code: 'RECORD_TARGET_EVALUATION_FAILED' }; repaint(); return; }
+          try {
+            const result = await service({ kind: item.kind, version: item.version, datasetId: item.datasetId, primaryFieldId: item.primaryFieldId, recordId });
+            if (!disposed) state[item.resultState] = result;
+          } catch (cause) {
+            // Transport failure cannot establish whether a write committed.
+            const rejected = cause && typeof cause === 'object' && 'commitOutcome' in cause && cause.commitOutcome === 'not-committed';
+            if (!disposed) state[item.resultState] = { success: false, committed: false, commitOutcome: rejected ? 'not-committed' : 'unknown', message: cause instanceof Error ? cause.message : String(cause) };
+          }
+        }
         else if (item.kind === 'workflow') {
           const service = options.services?.['workflow.run']; if (!service) throw new Error('Workflow adapter is unavailable.');
           const result = await service({ workflowId: item.workflowId, primaryRecordId: evaluate(item.primaryRecordId, current) });
