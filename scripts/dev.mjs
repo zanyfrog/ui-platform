@@ -197,7 +197,10 @@ await waitForPort(apiPort);
 // Start Vite programmatically in this process.
 // This avoids spawning a second npm/npx/.cmd process on Windows.
 const vite = await createViteServer({
-  server: { middlewareMode: true },
+  server: {
+    middlewareMode: true,
+    ...(process.env.UI_PLATFORM_HMR_PORT ? { ws: { host: '127.0.0.1', port: Number(process.env.UI_PLATFORM_HMR_PORT) } } : {}),
+  },
 });
 
 const appPreviewProxy = appPreviewProxyMiddleware();

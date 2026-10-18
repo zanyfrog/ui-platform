@@ -8,6 +8,8 @@
     "packages/*"
   ],
   "scripts": {
+    "demo": "tsx scripts/dev-demo.ts",
+    "demo:preview": "tsx scripts/dev-demo.ts --preview",
     "dev:composition-reference": "tsx scripts/dev-composition-reference.ts",
     "test:composition": "npm run build && vitest run tests/application-composition.test.ts && node scripts/test-application-composition.mjs",
     "dev": "node scripts/dev.mjs",

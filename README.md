@@ -2,6 +2,10 @@
 
 Filesystem-first lifecycle/orchestration package for dynamically generated UI applications.
 
+For the persistent local site shared by manual users and Codex, double-click **Start Demo.cmd**
+in this repository and open **http://localhost:5274**. **Stop Demo.cmd** stops its services without removing the site. See the [demo guide](docs/demo-site.md)
+for identity selection, runtime preview, saved files and safe testing rules.
+
 ## Architecture waypoints
 
 Use these companion specifications together:
