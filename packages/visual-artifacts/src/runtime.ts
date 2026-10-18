@@ -102,10 +102,15 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
           }
         }
         else if (item.kind === 'workflow') {
-          const service = options.services?.['workflow.run']; if (!service) throw new Error('Workflow adapter is unavailable.');
-          const result = await service({ workflowId: item.workflowId, primaryRecordId: evaluate(item.primaryRecordId, current) });
-          if (disposed) return;
-          if (item.resultState) { if (!Object.hasOwn(state, item.resultState)) throw new Error('Unknown Workflow result state.'); state[item.resultState] = result; }
+          if (item.resultState && !Object.hasOwn(state, item.resultState)) throw new Error('Unknown Workflow result state.');
+          const service = options.services?.['workflow.run'];
+          if (!service) { if (item.resultState) state[item.resultState] = { success: false, error: 'WORKFLOW_UNAVAILABLE', commitOutcome: 'not-committed' }; else throw new Error('Workflow adapter is unavailable.'); }
+          else {
+            let primaryRecordId: unknown;
+            try { primaryRecordId = evaluate(item.primaryRecordId, current); } catch { if (item.resultState) state[item.resultState] = { success: false, error: 'WORKFLOW_TARGET_INVALID', commitOutcome: 'not-committed' }; repaint(); return; }
+            try { const result = await service({ workflowId: item.workflowId, primaryRecordId }); if (!disposed && item.resultState) state[item.resultState] = result; }
+            catch (cause) { if (!item.resultState) throw cause; if (!disposed) state[item.resultState] = { success: false, error: cause instanceof Error ? cause.message : 'WORKFLOW_OUTCOME_UNKNOWN', commitOutcome: cause instanceof Error && (cause.message === 'WORKFLOW_REQUEST_DENIED' || (cause as Error & { commitOutcome?: string }).commitOutcome === 'not-committed') ? 'not-committed' : 'unknown' }; }
+          }
         }
         else if (item.kind === 'function') {
           const fn = artifact.functions?.[item.name]; if (!fn) throw new Error(`Unknown custom function: ${item.name}.`);

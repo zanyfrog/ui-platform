@@ -1,0 +1,87 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 checkpoint: blank Form created
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Dataset error: 422 {"code":"DATASET_NAME_REQUIRED","error":"DATASET NAME REQUIRED","recovery":"Source and permanent identities are retained. Incomplete activation requires the existing Data Services recovery procedure; no automatic retry or rollback is claimed."}
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 checkpoint: Dataset applied and connected
+
+ ❯ tests/builder-v1-wp4.test.ts (1 test | 1 failed) 68332ms
+   × WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence 68330ms
+stdout | tests/form-data-integration.test.ts > renders routed public/admin reuse, persists create/read/update through V1 identity and protected DOE, and rejects crafted fields
+4:00:42 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+ ❯ tests/form-data-integration.test.ts (3 tests | 1 failed) 51903ms
+   ✓ creates both Form paths through VisualArtifactService and preserves source authority 163ms
+   ✓ inherits public restrictions, separates operations and preserves values outside payloads 2ms
+   × renders routed public/admin reuse, persists create/read/update through V1 identity and protected DOE, and rejects crafted fields 51737ms
+ ✓ tests/wp4-form-contract.test.ts (12 tests) 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Error: TimeoutError: page.waitForFunction: Timeout 15000ms exceeded.
+Editor: wp4 form b16be71aShared Form · Editing permittedUnsavedUndoRedoSave nowSuspend editorCompare with serverClose artifactDiscard local copy…OverviewShared Form: cmp_platform_5cb3cc32-a18d-4b85-8ddd-2e9f07d847e4. Definition changes affect all consumers. Source remains the existing Visual bundle.PropertiesUse Dataset Mapping, Structure and Fields, Validation and Calculations, and Modes to edit this shared Form.Dataset MappingMapping uses permanent field identities from the verified applied Dataset. Source drafts cannot change runtime authority.Read adapterProtected Dataset readWrite adapterProtected Dataset writeDATASET NAME REQUIREDRefresh DatasetsCreate Dataset from FormForm DatasetSelect DatasetUnlinked Dataset (not applied)WP4 Records (applied)name · string · required · mapped · 24198272-ebaa-41f7-9066-de511d322dc4quantity · number · required · mapped · 18390812-c150-4ab8-acdb-f391166f1decprice · number · required · mapped · 136637a5-2269-4b2e-b24c-40683aa2f330total · number · optional · mapped · 78a5efa9-85db-437c-b3d2-ba8d56c69153showDate · boolean · optional · mapped · 2b6d63e0-8eb0-4450-a547-a5922eac4d32when · date · optional · mapped · 4286a424-e1e8-4761-9a06-8b49cdc44220details · json · optional · unmapped · 6a7bde6f-fc4b-4aef-9640-5b038f89c8d1No automatic control/conversion is available. This field is exposed and remains unmapped; required unmapped fields block submission.Manually map details as JSON objectGenerate supported mappingsStructure and FieldsnameForm field field_c7d9f99b-e6f3-4f31-ade8-9a589c20c020; Dataset field 24198272-ebaa-41f7-9066-de511d322dc4Field labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlquantityForm field field_aa17c17c-7e9c-4159-92ff-49a9cb9d36e8; Dataset field 18390812-c150-4ab8-acdb-f391166f1decField labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlpriceForm field field_d81662e1-cb1a-48cc-9c9a-3a0d586dd27f; Dataset field 136637a5-2269-4b2e-b24c-40683aa2f330Field labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controltotalForm field field_7825953c-f262-4ef0-bfe3-fa016c1f9a24; Dataset field 78a5efa9-85db-437c-b3d2-ba8d56c69153Field labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlshowDateForm field field_1421b678-d9e1-470b-8f8b-5c482cc40e08; Dataset field 2b6d63e0-8eb0-4450-a547-a5922eac4d32Field labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlwhenForm field field_e63d189e-3b50-43bf-807d-40ee8cf444a2; Dataset field 4286a424-e1e8-4761-9a06-8b49cdc44220Field labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlUse Dataset Mapping to add fields. Dataset-required rules remain mandatory even when presentation hides a control.Validation and CalculationsnameForm field field_c7d9f99b-e6f3-4f31-ade8-9a589c20c020; Dataset field 24198272-ebaa-41f7-9066-de511d322dc4Conditional visibilityCalculated fieldquantityForm field field_aa17c17c-7e9c-4159-92ff-49a9cb9d36e8; Dataset field 18390812-c150-4ab8-acdb-f391166f1decConditional visibilityCalculated fieldpriceForm field field_d81662e1-cb1a-48cc-9c9a-3a0d586dd27f; Dataset field 136637a5-2269-4b2e-b24c-40683aa2f330Conditional visibilityCalculated fieldtotalForm field field_7825953c-f262-4ef0-bfe3-fa016c1f9a24; Dataset field 78a5efa9-85db-437c-b3d2-ba8d56c69153Conditional visibilityCalculated fieldshowDateForm field field_1421b678-d9e1-470b-8f8b-5c482cc40e08; Dataset field 2b6d63e0-8eb0-4450-a547-a5922eac4d32Conditional visibilityCalculated fieldwhenForm field field_e63d189e-3b50-43bf-807d-40ee8cf444a2; Dataset field 4286a424-e1e8-4761-9a06-8b49cdc44220Conditional visibilityCalculated fieldCalculations are deterministic typed declarations. Missing/unreadable dependencies, invalid types, cycles and non-finite results block submission. Persisted results are validated by protected DOE.ModesDefault Form modepublicalternateAdd modepublicnamepublic name visibleInheritYesNopublic name editableInheritYesNopublic name requiredInheritYesNoquantitypublic quantity visibleInheritYesNopublic quantity editableInheritYesNopublic quantity requiredInheritYesNopricepublic price visibleInheritYesNopublic price editableInheritYesNopublic price requiredInheritYesNototalpublic total visibleInheritYesNopublic total editableInheritYesNopublic total requiredInheritYesNoshowDatepublic showDate visibleInheritYesNopublic showDate editableInheritYesNopublic showDate requiredInheritYesNowhenpublic when visibleInheritYesNopublic when editableInheritYesNopublic when requiredInheritYesNoalternatenamealternate name visibleInheritYesNoalternate name editableInheritYesNoalternate name requiredInheritYesNoquantityalternate quantity visibleInheritYesNoalternate quantity editableInheritYesNoalternate quantity requiredInheritYesNopricealternate price visibleInheritYesNoalternate price editableInheritYesNoalternate price requiredInheritYesNototalalternate total visibleInheritYesNoalternate total editableInheritYesNoalternate total requiredInheritYesNoshowDatealternate showDate visibleInheritYesNoalternate showDate editableInheritYesNoalternate showDate requiredInheritYesNowhenalternate when visibleInheritYesNoalternate when editableInheritYesNoalternate when requiredInheritYesNoPreview and Submission TestDesign preview uses fixtures and cannot persist. Submission Test uses a separate isolated development store. Normal running Applications use their connected protected Dataset.publicalternateCreateEditOpen nonpersisting design previewStart isolated submission testSourceSource filecomponent.html (source)component.visual.json (metadata)component.css (css)component.fixtures.json (fixtures)component.functions.ts (code)Raw edits share the Properties and plugin working copy. Save now uses Foundation’s existing transactional formatter and validation.Saved diagnosticsAuthoritative saved-source diagnostics. Select a diagnostic with a location to navigate to that source.No saved-source diagnostics.Source changed outside Builder. Compare or reload; local changes retained.Saved-source validation: 0 issue(s). These results do not validate unsaved edits.Build integration not configured. Git history and reverse references are not available.
+Server: UI Platform API listening on http://localhost:53934
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp4-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 3s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp4-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+artifact-editor-security {"action":"request-denied","operation":"GET"}
+artifact-editor-security {"action":"mutation","actor":"usr_80831c82612048e9bca61a5012dc7063","applicationKey":"wp4-created","operation":"edit"}
+
+ ❯ tests/builder-v1-wp4.test.ts:170:262
+
+ ❯ saved tests/builder-v1-wp4.test.ts:170:108
+ ❯ tests/builder-v1-wp4.test.ts:180:99
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/form-data-integration.test.ts > renders routed public/admin reuse, persists create/read/update through V1 identity and protected DOE, and rejects crafted fields
+Error: TimeoutError: locator.waitFor: Timeout 45000ms exceeded.
+Call log:
+  - waiting for locator('[data-uip-node="saved-result"]').filter({ hasText: 'Augusta' }) to be visible
+
+ ❯ tests/form-data-integration.test.ts:75:149
+
+ ❯ tests/form-data-integration.test.ts:75:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  2 failed | 14 passed (16)
+   Start at  15:59:26
+   Duration  121.79s (transform 409ms, setup 0ms, import 1.10s, tests 120.25s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp4-hidden-fields/focused-results.json

@@ -1,0 +1,71 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ❯ tests/builder-v1-wp5-a.test.ts (11 tests | 1 failed) 263ms
+   × collects independent composition failures in the authoritative validator and keeps the throwing API 9ms
+   ✓ reports route collisions, separate Menu failures and independent property failures 2ms
+   ✓ retains unrelated draft errors while blocking only reachable failures with owner-qualified identities 2ms
+   ✓ continues after unreadable sources and suppresses raw exceptions and denied source identities 1ms
+   ✓ does not add a denied unrelated draft to release closure 1ms
+   ✓ fails closed for missing roots, ambiguous identities and cyclic references without recursion failure 1ms
+   ✓ drops stale results and returns no source after revocation during reads or final revision checks 2ms
+   ✓ preserves native severities/codes/locations, and never fabricates step precision 1ms
+   ✓ uses real generic, Visual and Automation services to aggregate independent invalid artifacts without writes 244ms
+   ✓ captures native Visual references and marks unresolved owners/services incomplete rather than guessing 1ms
+   ✓ catalog projects only actual registrations, does not invoke effects or infer approved signatures 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/builder-v1-wp5-a.test.ts > collects independent composition failures in the authoritative validator and keeps the throwing API
+AssertionError: expected [ { severity: 'error', …(4) }, …(3) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "artifactId": "page-one",
++     "code": "visual.validation",
++     "message": "A permanent art_ artifact identity is required.",
++     "node": undefined,
++     "severity": "error",
++   },
++   {
++     "artifactId": "shell-one",
++     "code": "visual.validation",
++     "message": "A permanent art_ artifact identity is required.",
++     "node": undefined,
++     "severity": "error",
++   },
++   {
++     "artifactId": "page-one",
++     "code": "visual.validation",
++     "message": "A permanent art_ artifact identity is required.",
++     "node": undefined,
++     "severity": "error",
++   },
++   {
++     "code": "composition.theme",
++     "message": "Cannot convert undefined or null to object",
++     "severity": "error",
++   },
++ ]
+
+ ❯ tests/builder-v1-wp5-a.test.ts:30:50
+     28| it('collects independent composition failures in the authoritative val…
+     29|   const definition = composition();
+     30|   expect(compositionDiagnostics(definition, [])).toEqual([]);
+       |                                                  ^
+     31|   definition.settings.defaultShellId = 'missing';
+     32|   definition.pages[0].metadata.shellId = 'missing';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  01:40:01
+   Duration  1.27s (transform 315ms, setup 0ms, import 790ms, tests 263ms, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-a/focused-results.json

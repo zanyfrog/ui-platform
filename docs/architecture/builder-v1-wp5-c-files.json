@@ -1,0 +1,801 @@
+{
+  "gate": "STOP AT WP5-C IMPLEMENTATION VERIFICATION/REVIEW",
+  "accepted": false,
+  "selfExcluded": [
+    "docs/architecture/builder-v1-wp5-c-files.md",
+    "docs/architecture/builder-v1-wp5-c-files.json"
+  ],
+  "implementationAndTestFiles": 23,
+  "documentationFiles": 7,
+  "evidenceFiles": 80,
+  "files": [
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/dataset-operations/src/secured-development-host.ts",
+      "kind": "implementation",
+      "sha256": "6a8a556cad73f4ba1f5d001b05f0641ef351ddc5a8ca275b280c43b97852cf14",
+      "beforeWp5cSha256": "4884257178f2ce4afa73ac72d03c2cc7c215595e3c40e649a060edb0feb29df7",
+      "bytes": 17272
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/dataset-operations/src/secured-engine.ts",
+      "kind": "implementation",
+      "sha256": "85044b023a65949b5f92c20657e78017782a5419e48f3fc1504e60ff3cbf4d93",
+      "beforeWp5cSha256": "63e6ad5a3cb2de3ac0ae0c87fd34a14e60122b2ef2463688ed71c04ff3fe01ca",
+      "bytes": 40604
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/dataset-operations/src/types.ts",
+      "kind": "implementation",
+      "sha256": "32bfaa49db353f4554efd045b8e53931d78fcb7906da857ab565b1dfcd828185",
+      "beforeWp5cSha256": "485ba14bf4a5756eec93fb762ea1a36746cba73cc26b2e30e30e9e12e49834a0",
+      "bytes": 3695
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/builder-end-to-end-v1-acceptance-checklist.md",
+      "kind": "documentation",
+      "sha256": "d22b5b749d64df799e2e7ed56bdaf64924b76291f90aa6cc98ec5d8f4d094eb5",
+      "bytes": 33278
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/builder-end-to-end-v1-implementation-plan.md",
+      "kind": "documentation",
+      "sha256": "eec4dadaaef1fd718cb101df504c1ed87e138bf214a75a24b55fa75c4606997e",
+      "bytes": 25708
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/builder-v1-wp5-c-d5-service-contract.md",
+      "kind": "documentation",
+      "sha256": "d3990c9a4cf99fe8641671a249a937cb72da4cf00036cd58f96ff74746770e88",
+      "bytes": 19703
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/builder-v1-wp5-c-implementation.md",
+      "kind": "documentation",
+      "sha256": "ce9bcadef368f4102146434e4c212dcb2551391c85ba585f1466d97da6e6cb62",
+      "bytes": 10040
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/builder-v1-wp5-c-plan.md",
+      "kind": "documentation",
+      "sha256": "f73bdb4f1d6ff2e877a1b5a301e6cbe7b00d2b0dbbc900e8a7c3b2b5d787a759",
+      "bytes": 16006
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/builder-v1-wp5-c-verification.md",
+      "kind": "documentation",
+      "sha256": "e1265f4774d5161f792c17dfa8b143b22988e04de37d2a63107ad07a8c8d00d2",
+      "bytes": 10732
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/builder-v1-wp5-plan.md",
+      "kind": "documentation",
+      "sha256": "ae3ac607b77da551a1f9eecd20cb13b1fac7515e17803948ef2192c45b21133b",
+      "bytes": 31543
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-acceptance.json",
+      "kind": "evidence",
+      "sha256": "de170f09da3a396734eb22e4eb68a42d2ba198a7814c1e131bfe0a3be7f78db8",
+      "bytes": 1568
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792254961854.png",
+      "kind": "evidence",
+      "sha256": "3beb4531b7cf99ba72bc06ba81c5e4525c649551f0d1c18f5df34ced904e127a",
+      "bytes": 283749
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792254961854.txt",
+      "kind": "evidence",
+      "sha256": "26d1d36327c3b6bc4d28ff0e87e93b9b15a4f9c44f45885300a7a5452e3b7d88",
+      "bytes": 3146
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792255109173.png",
+      "kind": "evidence",
+      "sha256": "26d6677136fa67ec39297f1e1d507e97ee9987c669b869599f151de43e60882c",
+      "bytes": 358485
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792255109173.txt",
+      "kind": "evidence",
+      "sha256": "b16d6e8d6ebe9c0aa901692b54d98413742928b9254abee8614e30b729b564b2",
+      "bytes": 3953
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792255215423.png",
+      "kind": "evidence",
+      "sha256": "06ac96fc592eed1325655117a55782ba8d0eadc9f6873da04c21ad67d2200edc",
+      "bytes": 450240
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792255215423.txt",
+      "kind": "evidence",
+      "sha256": "aa0bf5db4a9e5aeeb9022c71f8bf16b2ee96753aaacd783fb892338282127d8b",
+      "bytes": 4011
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792255289950.png",
+      "kind": "evidence",
+      "sha256": "0b30230b3e71df243ca5fadd1220b06fcf8dabe37a3ce2c9f4da24a751eb63ab",
+      "bytes": 414704
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792255289950.txt",
+      "kind": "evidence",
+      "sha256": "1b00cb9d14171ebec73f9deee1dd04ed231855e20414dfe88d24720a957aa08e",
+      "bytes": 5467
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792255485394.png",
+      "kind": "evidence",
+      "sha256": "a0908b76f265912792a855e61da518c266b39c6f3b1234f632b111bc7b3b6d5d",
+      "bytes": 261375
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792255485394.txt",
+      "kind": "evidence",
+      "sha256": "d54e00b145099d831b7f69b0c17c5eb98f7184fe506791078e75a989cec858b3",
+      "bytes": 2844
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792257170395.png",
+      "kind": "evidence",
+      "sha256": "d54892b5e30e4e56cdf6a439cedb51ecce4a3b9dbd2dfdc8e1036b70d42345eb",
+      "bytes": 467919
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792257170395.txt",
+      "kind": "evidence",
+      "sha256": "dc25fbf27022ac2ff545778418a91d80da85a9ba0cb0c8db4db06d86043e1ce1",
+      "bytes": 4324
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792271908796.png",
+      "kind": "evidence",
+      "sha256": "59b4131d91a214778fc1aab96c4b2fd93eec62eed27b513655b97a7ec03c73f3",
+      "bytes": 301518
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792271908796.txt",
+      "kind": "evidence",
+      "sha256": "f11063fde161d63d4cb9ec295876cf4397023e15c4c1340dc7b018b25d978142",
+      "bytes": 4508
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792271959906.png",
+      "kind": "evidence",
+      "sha256": "c13ed59ed338da7b564b2897497aa29170136647656bd0c7db58d2d078db77e7",
+      "bytes": 301231
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/browser-attempt-1792271959906.txt",
+      "kind": "evidence",
+      "sha256": "07e7ea1281aeac537d6819ff5e29d311f3a9d09b475c3a89b114c81732c322ea",
+      "bytes": 4508
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/historical-preservation.json",
+      "kind": "evidence",
+      "sha256": "ce8ca57724b6b4eacea9e35665f7451a9dbda1a71985e5be7782492ed8f3b5dc",
+      "bytes": 96291
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/interrupted-test-lock.bin",
+      "kind": "evidence",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/nonpersisting-preview.png",
+      "kind": "evidence",
+      "sha256": "2dbfee86c51607a5ca8f6d6cee0c79116cd7cfefd45d5caa56aa4d6a16146c68",
+      "bytes": 546873
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/operator-recovery.json",
+      "kind": "evidence",
+      "sha256": "fa08b801ddcd834812d7e3323f15d8eb80e0d49da293228033a7e50dff57fa74",
+      "bytes": 905
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/data-services-wp5-c-full.json",
+      "kind": "evidence",
+      "sha256": "a257b1fa43d57264773b0eb29b550e06f0add3d96424a1bcf6a46f3f390dc4f0",
+      "bytes": 228897
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-browser-1.json",
+      "kind": "evidence",
+      "sha256": "6d3853dbd38dfb277acf088fca6c43ce7655006d7bfb5509db94dc48002368fd",
+      "bytes": 1496
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-browser-2.json",
+      "kind": "evidence",
+      "sha256": "abf590185ba9e243bd8705ef6cf288e7cf05cbfd7577c3d35b9cd2817ef58c89",
+      "bytes": 1400
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-browser-3.json",
+      "kind": "evidence",
+      "sha256": "5c9e155123ddf145ac2faa462f094b4f3e0fb7e1d1abd94088dfe5739a9a2d33",
+      "bytes": 2265
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-browser-4.json",
+      "kind": "evidence",
+      "sha256": "424d2d799311d992929023920082b9003959986d21acad0b42175e29b2f670f1",
+      "bytes": 1394
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-browser-5.json",
+      "kind": "evidence",
+      "sha256": "0f0d6fd9a260a79983ff718bb09db6df9d661fb1867713bbc542be77119288d4",
+      "bytes": 6020
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-browser-6.json",
+      "kind": "evidence",
+      "sha256": "95dd742c525d62c9f0966b078a6469ecad3147e6a6710d77760d547dc46089b7",
+      "bytes": 1010
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-c1-initial.json",
+      "kind": "evidence",
+      "sha256": "d1004acebb5358b769ed69ca0257c1d3d05a827c3c557fcc8f6d6f3ee703168a",
+      "bytes": 1045
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-c1-rerun.json",
+      "kind": "evidence",
+      "sha256": "d86ae98fa292ac18de19c78d72c901591eb4d0e89fe80f394c284c71ec017278",
+      "bytes": 9465
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-final-affected.json",
+      "kind": "evidence",
+      "sha256": "feb75830dfee60cc9d00a3a1c10f205c39b72ba489ed1cdd00717756e1d54dd0",
+      "bytes": 13473
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-focused-1.json",
+      "kind": "evidence",
+      "sha256": "355860b32df3901cffcfcd6872e49b4c58cf21140cd243e57ee6c2cd15bca97a",
+      "bytes": 27611
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-legacy-browser-update.json",
+      "kind": "evidence",
+      "sha256": "9dee6c3f839e57695c75f14320ffa106ec9c772eaa3332f7c6f39f9abe2f231f",
+      "bytes": 2649
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-ui-full-1.json",
+      "kind": "evidence",
+      "sha256": "3809ed447cedf111993645e631a3b9ff57a21fa4d1f2e8ddc43de69769c92a85",
+      "bytes": 164521
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-ui-full-confirmed.json",
+      "kind": "evidence",
+      "sha256": "7f1aa4bcc3134ca8f85d18b7db21b43534c2651c3fd69ad23f3d77d158ef5a7d",
+      "bytes": 169169
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-ui-full-final.json",
+      "kind": "evidence",
+      "sha256": "1d050dccd7abee804ee306bceb5e33e0eec22cbdfa2d4e0d9f313c09e93b0fde",
+      "bytes": 158754
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-ui-full-review.json",
+      "kind": "evidence",
+      "sha256": "396944ab330bebb9b402b706007790cc58b89bd1ec7fb4c3ae1c41054b1e4bd9",
+      "bytes": 159501
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-ui-full-serial.json",
+      "kind": "evidence",
+      "sha256": "235f254d6f85bb499cfb8b4845faabdbe1afd92200fb92a035798585012327e8",
+      "bytes": 158603
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/reports/wp5-c-ui-post-recovery.json",
+      "kind": "evidence",
+      "sha256": "996a91f914575b20b6b29c12141cd503171e5a9135d003d6c8cd7239196745fd",
+      "bytes": 158514
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/review-summary.json",
+      "kind": "evidence",
+      "sha256": "2038f3fa63a146a2573a5d4866cfbf2998e3cabd111c33db209b2b8939c94300",
+      "bytes": 1860
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/runtime-workflow-denied.png",
+      "kind": "evidence",
+      "sha256": "851dde94985b19174e543d6790b83859adbe55b71aba65b5ff62a85b15cf4748",
+      "bytes": 39993
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/runtime-workflow-success.png",
+      "kind": "evidence",
+      "sha256": "6d0b6d28a8f319a324b153a9a61c0a9fb4082f1284bd90ef13538557f184505b",
+      "bytes": 36077
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/runtime-workflow-unknown.png",
+      "kind": "evidence",
+      "sha256": "cc616177762a33b0e7f779f616cc89ebdb40948645faaf9260dd88668623b297",
+      "bytes": 39479
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/data-services-wp5-c-build-final.log.txt",
+      "kind": "evidence",
+      "sha256": "eea2e958c2f7aa3ec50c455e9622359c9ef489bc8cdf9ff8e8a407beae12992e",
+      "bytes": 947
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/data-services-wp5-c-build.log.txt",
+      "kind": "evidence",
+      "sha256": "eea2e958c2f7aa3ec50c455e9622359c9ef489bc8cdf9ff8e8a407beae12992e",
+      "bytes": 947
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/data-services-wp5-c-full.log.txt",
+      "kind": "evidence",
+      "sha256": "3a8a8a3a6235ebeb7de31ceff37ae6e8bc60de97ab0bf8830f4ae9c534912334",
+      "bytes": 191
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/data-services-wp5-c-typecheck.log.txt",
+      "kind": "evidence",
+      "sha256": "3571769be27c7a65708992888f81fe2d825cb4f5fe6b3127b7b95de65029b8ef",
+      "bytes": 568
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-browser-1.log.txt",
+      "kind": "evidence",
+      "sha256": "96671bc546127c01521329495fb643f8758cc15dfb4a646838af7d199db33650",
+      "bytes": 82
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-browser-2.log.txt",
+      "kind": "evidence",
+      "sha256": "b996bda941dac6e01b86c5db81836dc8fd8b35e2ab1a4eeef25654a502de2838",
+      "bytes": 82
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-browser-3.log.txt",
+      "kind": "evidence",
+      "sha256": "d33caf264d49b484408e433d8832e5b09dbdbbb6748ad5a6cad0e62455858a48",
+      "bytes": 82
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-browser-4.log.txt",
+      "kind": "evidence",
+      "sha256": "9cd4f4177248282ea7a411237ef36cf647097b7854c81f97aa6df8bca35ce7a7",
+      "bytes": 82
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-browser-5.log.txt",
+      "kind": "evidence",
+      "sha256": "f2e131b449b86ea1ae5f6a23d67da2a79dedb22586232d645382d51fb174f59c",
+      "bytes": 82
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-browser-6.log.txt",
+      "kind": "evidence",
+      "sha256": "e5bf2d0c7ae0a331cd8d28def0744e6b4988d6446ea543ece5bb24d27805ff63",
+      "bytes": 82
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-c1-initial.log.txt",
+      "kind": "evidence",
+      "sha256": "808037e4f3fe8242758a356cff7a3b9ce774ea86a4783c811208c1b19d1bff85",
+      "bytes": 83
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-c1-rerun.log.txt",
+      "kind": "evidence",
+      "sha256": "814fc95136dc67cafa9063d77f64ff9bdd40b760733e33d788ef68524e8f5e5e",
+      "bytes": 81
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-editor-contracts.log.txt",
+      "kind": "evidence",
+      "sha256": "62510f85c1b39d59aa2ab6bbcb3a6bfc063774e2f2bc9488604403df9437db9f",
+      "bytes": 324
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-final-affected.log.txt",
+      "kind": "evidence",
+      "sha256": "80fe5d917b847274001c033a46fa48eb0c35bfb27d1f72f76619aa87eab31a60",
+      "bytes": 87
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-focused-1.log.txt",
+      "kind": "evidence",
+      "sha256": "818e5d92df4a8dba406063eaab986b11649777a703fb18dc7a72af5e84997e08",
+      "bytes": 82
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-legacy-browser-update.log.txt",
+      "kind": "evidence",
+      "sha256": "d603000275ea67ac4860827d14028a93c1f6e846c41487ac9b7a5e5199a52fcf",
+      "bytes": 94
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-post-recovery-focused.log.txt",
+      "kind": "evidence",
+      "sha256": "5bcf003770f6ebfd206bc4d2dbf791a5394e3a2f747c7bb28a61b07cd55cf0c1",
+      "bytes": 8570
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-production-exclusion.log.txt",
+      "kind": "evidence",
+      "sha256": "06687f7fd6d8de8b13a3fc20d00e937fd5700632ca5370e5ea0b4e18ee504cb7",
+      "bytes": 1446
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-production-final.log.txt",
+      "kind": "evidence",
+      "sha256": "568ad319dabab9e354d454035b0a10640e0a32dc59b8e50e0d46c29cd7c7cd7a",
+      "bytes": 85
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-typecheck-2.log.txt",
+      "kind": "evidence",
+      "sha256": "9a47d6b11c8defb8b50504382363f678f618f5a69575a45c6c6e425431c4ed39",
+      "bytes": 572
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-typecheck-3.log.txt",
+      "kind": "evidence",
+      "sha256": "7de30532b99df328ec4505db5daf4a4044714a7e335abb5d6a1c6c1aae95f900",
+      "bytes": 431
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-typecheck-4.log.txt",
+      "kind": "evidence",
+      "sha256": "7de30532b99df328ec4505db5daf4a4044714a7e335abb5d6a1c6c1aae95f900",
+      "bytes": 431
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-typecheck-5.log.txt",
+      "kind": "evidence",
+      "sha256": "7de30532b99df328ec4505db5daf4a4044714a7e335abb5d6a1c6c1aae95f900",
+      "bytes": 431
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-typecheck-final.log.txt",
+      "kind": "evidence",
+      "sha256": "7de30532b99df328ec4505db5daf4a4044714a7e335abb5d6a1c6c1aae95f900",
+      "bytes": 431
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-typecheck-initial.log.txt",
+      "kind": "evidence",
+      "sha256": "23f0a2c235c09bb10257c8b199aa394531d6941439c2e3b706ca1623e0cd716e",
+      "bytes": 682
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-ui-build-1.log.txt",
+      "kind": "evidence",
+      "sha256": "67b7cf9d132e41dcf04a502cf4d09fa25154a6e0aa38a4635112ae53bbffafb7",
+      "bytes": 1251
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-ui-build-final.log.txt",
+      "kind": "evidence",
+      "sha256": "20673cf585c0353ac7a21ed26af7963b53ce70b6778002a040b766a5221a3ec2",
+      "bytes": 1251
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-ui-full-1.log.txt",
+      "kind": "evidence",
+      "sha256": "9f54341a9dfac57358e9b4e942cd41521a39168327a1fb62864108ddb90700f5",
+      "bytes": 290
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-ui-full-confirmed.log.txt",
+      "kind": "evidence",
+      "sha256": "4fee910c14ba0a561174175b2da3ce3276e8b0d49e3d114b2d21dd74b8614c72",
+      "bytes": 284
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-ui-full-final.log.txt",
+      "kind": "evidence",
+      "sha256": "731bedb85078600d91388e15cc54695aee79aaccdb9921d75b7ebef0fa5a3508",
+      "bytes": 226
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-ui-full-review.log.txt",
+      "kind": "evidence",
+      "sha256": "0c89a73ca7cf5bc8badb428612250c46c1f04bb6214b457b6416667380d2541e",
+      "bytes": 238
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-ui-full-serial.log.txt",
+      "kind": "evidence",
+      "sha256": "838ea4d8e6a442fbf7b4d1b28df81948e7982750d7f11f2f05a3a25f5be5c1d1",
+      "bytes": 228
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-ui-post-recovery.log.txt",
+      "kind": "evidence",
+      "sha256": "c3041b58bf66a74ed32f1c22cab62e744c7b1341470cb388308ea241ce45fe64",
+      "bytes": 282
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/transcripts/wp5-c-v1-server-rerun.log.txt",
+      "kind": "evidence",
+      "sha256": "1598ba84e8691f9aa088dbe77a5f1361b50873cb42d383494d460890172697b9",
+      "bytes": 499
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/typed-automation.png",
+      "kind": "evidence",
+      "sha256": "6a615517ccb28fdfd40ca7300408a924fccd38822f28827f001a94123bbe4426",
+      "bytes": 138722
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/unsuccessful-source/attempt-2-workflow.json",
+      "kind": "evidence",
+      "sha256": "bcc86173fa7fc30bd213c549df8c4d2e374e6c487083f16e3dd9f2d565e337eb",
+      "bytes": 346
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/evidence/builder-v1-wp5-c/workflow-event-authoring.png",
+      "kind": "evidence",
+      "sha256": "a0883276c9670c64417bcded052e7f214ba088735f88916257ffaafe4e30498a",
+      "bytes": 218979
+    },
+    {
+      "repository": "ui-platform",
+      "path": "packages/platform-core/src/application-data.ts",
+      "kind": "implementation",
+      "sha256": "89506ab954303c730971df9537778913a6f22ce3ec72ddd2ffae3edc6d598e49",
+      "beforeWp5cSha256": "5bd0f96ae891ec10bb57626f55114ecbb6345fd969cabe64866f00f0fcc32cc9",
+      "bytes": 5010
+    },
+    {
+      "repository": "ui-platform",
+      "path": "packages/visual-artifacts/src/runtime.ts",
+      "kind": "implementation",
+      "sha256": "4b0e7bd680d89a21ad264c9857139e9848fbfd396a0f471a8b2a558071961958",
+      "beforeWp5cSha256": "0fd9820944f57a319d8a68a6deb441d32408c7ab44c0dc9dd69938c3f2462719",
+      "bytes": 21829
+    },
+    {
+      "repository": "ui-platform",
+      "path": "scripts/trigger-workflow-reference-host.ts",
+      "kind": "implementation",
+      "sha256": "3f30daf63ab6deb3e5c121cf25ab921e68bb262d871720437aa0d7bae89ed22c",
+      "beforeWp5cSha256": "fc4082a396d5931a4ceb680c9da4d5b13846bc392ee5148613bc47112b9fb817",
+      "bytes": 2562
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/client/automation/authoring-controls.ts",
+      "kind": "implementation",
+      "sha256": "22e169ab33c86e974ced06b08d818c14f946cbb63f30dd02c5095c3df2dc5491",
+      "bytes": 8426
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/client/automation/editor.ts",
+      "kind": "implementation",
+      "sha256": "0c5618f2379aafb6d84861c672d626a00033a31b57e85b42a5381ba1cf7c0422",
+      "beforeWp5cSha256": "2db335bd2e9f337f72caa4e40c701b2a66f70a1fc88b6a46304df1d0a8ce48ca",
+      "bytes": 17292
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/client/visual-artifacts/authoring-controls.ts",
+      "kind": "implementation",
+      "sha256": "79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f",
+      "beforeWp5cSha256": "f713579e4abce432997cad30e3d6a17b8f06f4d9635c16eb0c2c5f62b71916bb",
+      "bytes": 16247
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/client/visual-artifacts/editor.ts",
+      "kind": "implementation",
+      "sha256": "78b920ab544fc70437633ccb081299d21d99766a570051cbdd066c8a9060f391",
+      "beforeWp5cSha256": "734cfcbb2677ada26b799cab09f8c6f42e8ef3fce96e82881db92451540d56e2",
+      "bytes": 46647
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/automation-runtime.ts",
+      "kind": "implementation",
+      "sha256": "b9023dac77e28f7f35b6fa5eac7bce6d37d6b1cc427e736d96eec66a0700bf34",
+      "beforeWp5cSha256": "90280896c460c94bf5b5d01cf0045045556d8484a76f464f399f52a53532a866",
+      "bytes": 17534
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/automation-services.ts",
+      "kind": "implementation",
+      "sha256": "71734ea476f153ea40773a428fe6ba962004aa07863eee9ae14eb1e3cac0c5cd",
+      "bytes": 1481
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/automation-store.ts",
+      "kind": "implementation",
+      "sha256": "72661b41a836b60d2e2f96b0b0bb3082bca9c9eeda1ca697b2b7aec95f5f532e",
+      "beforeWp5cSha256": "26b4efc0c5218a609bb2dd4d1cf9a243f145b59a29f27e9b32ba83fa94687d4e",
+      "bytes": 5757
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/builder-development-host.ts",
+      "kind": "implementation",
+      "sha256": "6af0117774497e26a3cb673f560f143587ce551744daf239d78a2fd98bf85694",
+      "beforeWp5cSha256": "dc831ed59d218cd299c24a55fab59a422b681a16a1f29367dc80d3ee75956378",
+      "bytes": 8043
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/dataset-development.ts",
+      "kind": "implementation",
+      "sha256": "f4889ec27f3139e2a0ddde1499aacc7ff22849aea516feb6fab1180dbed7ad4b",
+      "beforeWp5cSha256": "6f45f832c0f720680aad7a60e5cbcf3fb9d34cd4a580d96c03cd9332a13a951c",
+      "bytes": 16972
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/development-application-runtime.ts",
+      "kind": "implementation",
+      "sha256": "75b16679d3cf6d013d9e61de8b2263ca7104d264f8a33017ff5057ae4bcd8b1e",
+      "beforeWp5cSha256": "f23e1aa0f27978e6938b70c8811b2232f2cc72294672de9b59989a06727770f8",
+      "bytes": 7566
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/index.ts",
+      "kind": "implementation",
+      "sha256": "d47d4d7384e87c66724c6ede55bb5facf6875f7fa205c07b2786e131e56fef7b",
+      "beforeWp5cSha256": "2aed40dd36dfb4ee51a4acf5654186a80fc37d04653fdc939bf9701e2c5b82b9",
+      "bytes": 47187
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/v1-management-routes.ts",
+      "kind": "implementation",
+      "sha256": "212d685b718951066215483106becd919289177a5fe6e0d8ef238a76ac0277bb",
+      "beforeWp5cSha256": "9f6657015084f77f9f81ea9ff679ab778dc8bf02bd71f4c8a35c981edb9af829",
+      "bytes": 3794
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/shared/automation-service-contract.ts",
+      "kind": "implementation",
+      "sha256": "645e9414f8faba73df0a81ec0f26ea12d54de17d376c6b90e54a9953f28325b2",
+      "bytes": 1795
+    },
+    {
+      "repository": "ui-platform",
+      "path": "tests/builder-v1-wp5-c-browser.test.ts",
+      "kind": "test",
+      "sha256": "e05136f37bfee98ef371a6ca5253151bc89e200a5019159296ecda504df6c98f",
+      "bytes": 38048
+    },
+    {
+      "repository": "ui-platform",
+      "path": "tests/builder-v1-wp5-c-services.test.ts",
+      "kind": "test",
+      "sha256": "41870639413e3d2d4b529997aa2852449966a3cbf962722b70d9e459856ede41",
+      "bytes": 11042
+    },
+    {
+      "repository": "ui-platform",
+      "path": "tests/helpers/automation-fixture.ts",
+      "kind": "test",
+      "sha256": "7b196801bfe81e5e729f39129247bdd920d69fabc75bc9cf903ccff3ed3ea907",
+      "beforeWp5cSha256": "b25b8ebeb353b02950830680208acae5b2387fc4678ae182ceebab83abb05ecd",
+      "bytes": 6020
+    },
+    {
+      "repository": "ui-platform",
+      "path": "tests/trigger-workflow-browser.test.ts",
+      "kind": "test",
+      "sha256": "9130d48e06a0774aa0996c055c3aaf23811be5e035de6b7b0f8a461392c0667c",
+      "beforeWp5cSha256": "d217ac03221f450193087ffc59559d92f5edea41ae32828a70f69da2ea04e604",
+      "bytes": 13720
+    }
+  ]
+}

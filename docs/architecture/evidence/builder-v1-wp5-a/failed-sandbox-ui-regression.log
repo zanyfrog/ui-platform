@@ -1,0 +1,2142 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ❯ tests/builder-v1-wp4.test.ts (1 test | 1 failed) 12579ms
+   × WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence 12578ms
+ ❯ tests/builder-v1-wp3.test.ts (2 tests | 1 failed) 12565ms
+   × WP3: Builder authoring, activation, serving, protected CRUD, security and restart 12560ms
+   ✓ WP3: authoritative capabilities reject unsupported relationships, labels and types before application 4ms
+ ❯ tests/trigger-workflow-browser.test.ts (4 tests | 4 failed) 25613ms
+   × unsigned Form submission shows a sign-in message without running automation 6429ms
+   × real browser Form success and Page button invoke the permanent Workflow through trusted identity and protected persisted DOE 6401ms
+   × reference launcher exposes its protected management page 6392ms
+   × management browser creates, edits, reloads disk source, retains conflicts and deletes under Platform authorization 6389ms
+ ❯ tests/builder-v1-wp0.test.ts (1 test | 1 failed) 12576ms
+   × WP0: normal creation, explicit authority, applied protected Dataset, mandatory Workflow, isolation, revocation, recovery and managed preview 12575ms
+ ❯ packages/artifacts/tests/consumer-contract.test.ts (5 tests | 5 failed) 158ms
+     × returns the same normalized artifact, definition, references and validation through every foundation entry point 31ms
+     × recognizes every registered type, including an extension, and preserves every diagnostic field 54ms
+     × preserves malformed and duplicate identity diagnostics without inventing IDs or extra artifact rules 30ms
+     × uses identical shared reference messages, locations and codes without duplicating them 22ms
+     × retains shared diagnostics when migration consumption rejects an invalid artifact 20ms
+ ❯ tests/form-data-integration.test.ts (3 tests | 1 failed) 6719ms
+   ✓ creates both Form paths through VisualArtifactService and preserves source authority 285ms
+   ✓ keeps host restrictions independent from modes and preserves denied values outside payloads 3ms
+   × renders routed public/admin reuse, persists create/read/update through V1 identity and protected DOE, and rejects crafted fields 6430ms
+ ❯ tests/editor-security.test.ts (28 tests | 26 failed) 535ms
+     × returns authorized normal-candidate diagnostics without paths or hidden identities and leaves source unchanged 36ms
+     × uses the WP3 graph and durable gate for real HTTP security activation, independent of fixture admin labels 51ms
+     × stages and explicitly activates a WP1 application draft only through a development administrator session 29ms
+     × requires an authenticated explicit activation after filesystem reconciliation 38ms
+     × rejects every unauthenticated artifact endpoint and SSE without trusting identity headers 34ms
+     × viewer reads and validates but cannot mutate even with a valid checksum 16ms
+     × reviewer reads and validates but cannot mutate even with a valid checksum 16ms
+     × filters discovery, references and diagnostics and denies restricted operations 13ms
+     × allows admin system edits and preserves 400/409 and safe failures 15ms
+     × allows app editor invalid-file saves but prevents identity/type promotion 15ms
+     × denies cross-application access before workspace lookup and isolates locators for multi-app admins 15ms
+     × fails closed on legacy source, export, download and mutation route families for every identity 15ms
+     × keeps the explicitly safe unrelated development endpoints available 15ms
+     × requires same-origin CSRF and rejects hostile hosts and forwarded connections 16ms
+     × filters SSE by app and artifact, handles authorized removals, and closes on identity switch 15ms
+     × invalidates old request revisions even if the new identity also permits editing 16ms
+     × rejects a request still preparing a write when identity changes 14ms
+     × drains an admitted save before acknowledging a switch and rejects later old-session writes 15ms
+     × revokes an identity across sessions and closes its streams 15ms
+     × honors an independent server policy on every operation 16ms
+     × expires idle sessions and streams without allowing a delayed write 14ms
+     × does not emit an event whose authorization read finishes after revocation 37ms
+     × keeps malformed raw manifests repairable by administrators and hidden from other roles 16ms
+     × honors server ownership overrides without trusting a manifest ownership field 16ms
+     × denies editor APIs in 'development' when disabled 14ms
+     × denies editor APIs in 'production' when disabled 19ms
+     ✓ refuses fixture activation in production or in the emitted server even with a development environment 1ms
+     ✓ requires explicit opt-in and server-only settings 1ms
+stderr | tests/visual-role-reader.test.ts > validates one captured Page, Shell and shared Component graph and refuses incompatible external revisions
+WebSocket server error: Port 24678 is already in use
+
+ ❯ tests/visual-role-reader.test.ts (15 tests | 3 failed) 12950ms
+   ✓ pins metadata and HTML together while a real transaction is paused between roles  347ms
+   × rechecks cached HTTP modules for new readers and blocks direct HTTP raw requests 56ms
+   ✓ blocks both the pinned runtime and raw Vite bypass when recovery is required 119ms
+   ✓ validates one captured Page, Shell and shared Component graph and refuses incompatible external revisions  560ms
+   ✓ preserves the same ordinary helper module instance for Application code and pinned Visual functions 211ms
+   ✓ protects the default loader against the original mixed cached-metadata and new-HTML counterexample 146ms
+   ✓ blocks static helper imports of managed Visual roles 87ms
+   ✓ blocks transitive helper imports of managed Visual roles 84ms
+   ✓ blocks dynamic helper imports of managed Visual roles 79ms
+   ✓ blocks cached helper imports of managed Visual roles 93ms
+   ✓ preserves literal dynamic helper imports and rejects computed or cached-graph imports 202ms
+   ✓ rejects retaining context, callbacks and managed metadata through helper aliases before mutation 129ms
+   ✓ rejects a particular helper with private mutable cache state and offers a local-state adjustment 74ms
+   × recovers a lost metadata anchor before runtime discovery and blocks orphan/journal HTTP bypasses 88ms
+   × renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure 10672ms
+ ❯ tests/editor-security-server.test.ts (4 tests | 3 failed) 19789ms
+   × preserves same-origin session authorization through the configured Vite proxy 6222ms
+   × routes the real server through authorization, accepts a configured fixture, and scopes application access 6260ms
+   × disables editor routes in the production server composition 6260ms
+   ✓ refuses fixture enablement in the emitted server even if NODE_ENV is development  765ms
+ ❯ tests/v1-management-server.test.ts (2 tests | 2 failed) 10107ms
+   × uses one V1 session for real Page and Form APIs and denies direct Workflow and application mutation 5046ms
+   × propagates the same signed-in User through the protected DOE and real ORM 5060ms
+ ❯ packages/artifacts/tests/windows-storage.test.ts (6 tests | 2 failed) 1477ms
+     ✓ survives a real Windows handle that temporarily denies replacement  462ms
+     ✓ retries transient sharing errors without deleting the destination 109ms
+     ✓ preserves the destination and cleans temporary files when replacement fails permanently  828ms
+     × rolls back a partial multi-file save after the replacement retry budget is exhausted 42ms
+     × retains the journal when rollback is also locked and recovers through a fresh service 26ms
+     ✓ does not retry unrelated filesystem errors 9ms
+EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-IHeqUm\.uib\bundles\9d99f0aa1fe61a8187bae5ca450a79f544c1842971d30d1b0c7350fc22c474e0.json.8709e9e3-a0ff-44b7-9177-00db2cb4ae0b.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-IHeqUm\.uib\bundles\9d99f0aa1fe61a8187bae5ca450a79f544c1842971d30d1b0c7350fc22c474e0.json'
+ ❯ packages/artifacts/tests/application-build.test.ts (7 tests | 7 failed) 5181ms
+     × orders dependencies, reuses current cache and invalidates on source/toolchain changes 37ms
+     × coalesces changes during compilation and never returns superseded output 5010ms
+     × keeps independent branches working and reports unused errors without blocking 33ms
+     × rejects missing dependencies and cycles, while distinguishing runtime-only edges 27ms
+     × keeps CLI and application validation diagnostics identical 24ms
+     × packages a runnable production bundle and rejects source changes during packaging 24ms
+     × runs independent ready branches concurrently 25ms
+ ✓ tests/trigger-workflow.test.ts (24 tests) 3786ms
+     ✓ trigger CRUD, stable identity, reload, conflict, disable and dependency deletion  663ms
+     ✓ workflow CRUD, stable identity, reload, conflict, disable and dependency deletion  607ms
+     ✓ runs all phases, each/batch arrays, old/new/change context and default transforms  495ms
+ ✓ tests/builder-v1-wp5-a.test.ts (13 tests) 2451ms
+   ✓ reproduces cross-process graph contention without stale capture, then reads current source after release  2179ms
+ ❯ packages/artifacts/tests/watcher.test.ts (5 tests | 5 failed) 5111ms
+   × actively detects edits, logs validation, debounces bursts and never formats external source 31ms
+   × ignores system storage and its own saves, but does not lose a following external edit 18ms
+   × discovers new bundles and reports missing files, removed manifests and directory moves 5016ms
+   × stops callbacks after close and isolates subscriber failures 24ms
+   × validates the committed source, rather than a precommit working copy 21ms
+ ❯ tests/wp5-form-host-integration.test.ts (1 test | 1 failed) 6398ms
+   × routes the existing Form submit event through UI Platform and protected DOE, including crafted bypasses 6397ms
+ ❯ packages/artifacts/tests/migrations-deployment.test.ts (9 tests | 9 failed) 377ms
+     × source edits and previews do not mutate data or persist migration artifacts; confirmation does 69ms
+     × rejects stale source and applied baseline previews 36ms
+     × requires custom handling for type changes and required fields without backfill 38ms
+     × a backup failure stops before mutation and an execution failure prevents retries 41ms
+     × rejects changed content under an applied migration ID 39ms
+     × requires fresh destructive approval, applies in order, checks health then promotes 40ms
+     × holds maintenance and leaves pointer unchanged when staged health fails after migration 37ms
+     × refuses tampered candidates and missing environment values 35ms
+     × local target keeps releases immutable and atomically changes its pointer 40ms
+ ❯ tests/artifact-watcher.test.ts (1 test | 1 failed) 5017ms
+   × automatically watches application sources with identities scoped per application 5016ms
+ ❯ packages/artifacts/tests/artifacts.test.ts (20 tests | 19 failed) 483ms
+     × saves invalid source, shares CLI diagnostics, and formats corrected source without history 48ms
+     ✓ reuses required and max-length for runtime form and server submission validation 3ms
+     × handles malformed manifests, unknown types, missing roles, missing files and duplicate identities 67ms
+     × detects duplicate fields, IDs, invalid validators and invalid dataset references 19ms
+     × commits all files, formats JSON/TS/TSX/CSS/Markdown without maintaining source history 24ms
+     × rolls back existing files and new files when a mid-commit write fails 26ms
+     × rejects stale saves and identity changes without overwriting manual changes 19ms
+     × detects edits made during asynchronous staging and leaves them untouched 21ms
+     × retains immutable identity across restart, repair, and bundle moves 18ms
+     × leaves existing legacy history untouched during saves and external validation 21ms
+     × saves declared file additions and removals transactionally 18ms
+     × honors project Prettier settings and validates source syntax after reloading an invalid draft 20ms
+     × retains malformed source with formatting diagnostics 18ms
+     × logs passed and failed external validation without formatting or history 19ms
+     × recovers an interrupted journal before exposing a partially written artifact 32ms
+     × rejects traversal and changes outside declared roles 22ms
+     × extracts and resolves routes, checks Page type and detects duplicate URLs 22ms
+     × validates trigger metadata, syntax and array lifecycle signatures 19ms
+     × treats Service execution metadata as a reference, not an implicit privilege 20ms
+     × allows definitions to be registered and validates roots with a nonzero exit for any errors 24ms
+ ✓ packages/artifacts/tests/role-bundle.test.ts (16 tests) 1694ms
+ ❯ tests/visual-artifacts-server.test.ts (1 test | 1 failed) 6300ms
+   × real API discovers installed card, creates/reopens a Page, rejects stale writes, compiles functions and bundles its real runtime module 6299ms
+ ✓ tests/visual-save.test.ts (9 tests) 1667ms
+   ✓ validates the intended complete Visual candidate and preserves the separate repair path  407ms
+ ✓ packages/artifacts/tests/editor-package-contract.test.ts (3 tests) 1203ms
+     ✓ type-checks editor operations through published TypeScript entry points  707ms
+ ❯ tests/artifact-editor.test.ts (20 tests | 5 failed) 311ms
+   ✓ preserves malformed manifests and unknown types, uses opaque scoped locators, and repairs source 188ms
+   × retains invalid source diagnostics and maps stale checksums without overwriting disk 23ms
+   × normal saves validate the complete candidate before persistence while explicit repair remains available 20ms
+   ✓ generic editor defaults to normal validation and repair does not infect subsequent autosaves 4ms
+   ✓ reauthorizing an unchanged baseline resumes a failed draft without losing Undo history 1ms
+   × a confirmed unchanged formatted candidate performs no source writes 20ms
+   × shares the watched service and does not duplicate save notifications 19ms
+   ✓ debounces for two seconds of inactivity and shares one copy across simultaneous opens 2ms
+   ✓ serializes edit-during-save and never replaces newer text with formatted old text 1ms
+   ✓ pauses conflicts, retains edits, protects close, and saves an explicitly resolved merge 1ms
+   ✓ reloads clean external changes and preserves dirty edits in conflict 1ms
+   ✓ keeps failed saves pending for explicit retry and refuses navigation until acknowledged 1ms
+   ✓ does not lose edits made while a clean external refresh is loading 0ms
+   ✓ adopts formatting for unchanged files while preserving an edit to a different file 1ms
+   ✓ does not treat its own save notification as an external conflict 1ms
+   ✓ restores the prior failure after an unchanged stale watch event (existing failure: false) 3ms
+   ✓ restores the prior failure after an unchanged stale watch event (existing failure: true) 1ms
+   ✓ suspends a dirty copy without running queued saves, then recovers against a fresh checksum 3ms
+   ✓ deliberately discards retained copies while accurately waiting for admitted saves 1ms
+   × rejects cross-workspace locators and path escapes without changing external content 20ms
+ ❯ tests/editor-properties.test.ts (17 tests | 15 failed) 297ms
+   × selects exact registered type/version descriptors without serializing executable definitions 32ms
+   × omits descriptors for unsupported unknown version 1 19ms
+   × omits descriptors for unsupported form version 999 20ms
+   ✓ rejects executable/non-JSON metadata, ambiguous registration and unsafe bindings 2ms
+   × patches fields against the newest shared snapshot, preserving unmodeled source and numeric lexemes 20ms
+   × creates missing optional paths while preserving manifest extensions and identity 19ms
+   × groups typing within one stable property binding while separating another property operation 17ms
+   × resolves stable collection IDs after another panel reorders items, refusing ambiguous identities 20ms
+   × preserves incompatible file content: {broken 18ms
+   × preserves incompatible file content: {"fields":[],"duplicate":1,"duplicate":2} 18ms
+   × preserves incompatible file content: {"fields":{"unsupported":true}} 19ms
+   × rejects stale scalar writes if another panel replaced that field with an object 18ms
+   × allows invalid numeric drafts and retains authoritative diagnostics through explicit advanced repair saves 18ms
+   × keeps malformed manifests available as source without inventing descriptors 17ms
+   × prevents field writes after permission changes and recovers the same dirty source only for the original user 18ms
+   × registers multiple compatible plugins with deterministic order and read-only filtering 19ms
+   ✓ rejects duplicate field components without introducing a save or validator service 1ms
+ ✓ tests/application-composition.test.ts (9 tests) 1216ms
+     ✓ vendors only the referenced shared Component closure and fingerprints its source changes  705ms
+ ✓ tests/application-presentation-lifecycle.test.ts (3 tests) 1179ms
+     ✓ stages drafts and atomically activates a published presentation bundle  460ms
+     ✓ restores a historical version only into the draft  561ms
+ ✓ tests/visual-artifacts.test.ts (22 tests) 1141ms
+ ✓ packages/artifacts/tests/schema-adapter-compatibility.test.ts (3 tests) 845ms
+     ✓ type-checks exact structural equivalence against the current upstream declaration  843ms
+ ❯ tests/v1-development-identity.test.ts (6 tests | 4 failed) 302ms
+   × uses the real I-AM role graph for one session and denies a direct workflow call 61ms
+   × rejects a disabled User on the next request without rebuilding the session 28ms
+   × blocks a queued real Visual service save when original policy authority is revoked before admission 80ms
+   × blocks a queued real Visual service save when original session authority is revoked before admission 70ms
+   ✓ refuses development login outside a development source runtime 2ms
+   ✓ keeps Application Admin, Security Admin and application scope distinct under composed sets 58ms
+ ✓ tests/runtime-read-admission.test.ts (2 tests) 233ms
+ ❯ packages/artifacts/tests/security-definitions.test.ts (2 tests | 2 failed) 57ms
+   × registers every security artifact kind and validates a real text bundle 34ms
+   × rejects ID/kind mismatch, duplicate keys and escaping file paths 22ms
+ ❯ packages/artifacts/tests/watcher-fallback.test.ts (1 test | 1 failed) 29ms
+   × continues detecting source changes when native recursive watching is unavailable 28ms
+ ❯ tests/wp1-ui-staging.test.ts (1 test | 1 failed) 44ms
+   × stages a real editor save through the shared I-AM service without activation 43ms
+ ✓ tests/editor-security-client.test.ts (9 tests) 143ms
+ ✓ tests/editor-context.test.ts (13 tests) 84ms
+ ❯ tests/wp5-application-data-proxy.test.ts (2 tests | 2 failed) 32ms
+   × refuses production, missing configuration, missing credentials and unsafe host URLs 26ms
+   × forwards only a server-issued assertion for the session User 5ms
+ ✓ tests/foundation-sources.test.ts (3 tests) 48ms
+ ✓ tests/package-installer.test.ts (3 tests) 56ms
+ ✓ tests/package-activation.test.ts (5 tests) 50ms
+ ✓ packages/platform-core/tests/package-catalog.test.ts (5 tests) 46ms
+ ✓ tests/development-application-registry.test.ts (1 test) 59ms
+ ✓ tests/wp5-application-data-client.test.ts (7 tests) 24ms
+ ✓ tests/v1-development-app.test.ts (1 test) 33ms
+ ❯ tests/application-links.test.ts (1 test | 1 failed) 14ms
+   × preserves workspace resolution after renaming a staged application 14ms
+ ✓ tests/wp5-dataset-boundary.test.ts (1 test) 28ms
+ ✓ packages/platform-core/tests/platform-core.test.ts (7 tests) 13ms
+ ✓ tests/exporter-security.test.ts (3 tests) 20ms
+ ✓ tests/editing-lifecycle.test.ts (14 tests) 15ms
+ ✓ tests/wp4-form-contract.test.ts (12 tests) 12ms
+ ✓ tests/builder-workspace.test.ts (11 tests) 8ms
+ ✓ tests/builder-workspace-requests.test.ts (4 tests) 8ms
+ ✓ tests/templates.test.ts (1 test) 10ms
+ ✓ tests/application-presentation.test.ts (6 tests) 6ms
+ ✓ tests/v1-management-routes.test.ts (17 tests) 3ms
+ ✓ tests/component-preview.test.ts (2 tests) 3ms
+ ✓ tests/application-keys.test.ts (2 tests) 3ms
+ ✓ tests/package-acquisition.test.ts (3 tests) 2ms
+ ✓ tests/smoke.test.ts (1 test) 2ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 123 ⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/application-links.test.ts > preserves workspace resolution after renaming a staged application
+Error: EPERM: operation not permitted, symlink 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\app-links-WtPPgt\.creating-app\packages\services' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\app-links-WtPPgt\.creating-app\node_modules\@ui-app\services'
+ ❯ tests/application-links.test.ts:15:5
+     13|     await mkdir(path.join(staging, 'node_modules/@ui-app'), { recursiv…
+     14|     await writeFile(path.join(staging, 'packages/services/index.js'), …
+     15|     await symlink(path.join(staging, 'packages/services'), path.join(s…
+       |     ^
+     16|     await rebaseApplicationLinks(path.join(staging, 'node_modules'), s…
+     17|     await rename(staging, destination);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/126]⎯
+
+ FAIL  tests/artifact-editor.test.ts > retains invalid source diagnostics and maps stale checksums without overwriting disk
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-grfg3T\.uib\bundles\56479d0b7e77abadbb417cc5b62f25e15e7abf8a8cf4f6b2c7b8c0ec21b5144a.json.2d33c27a-96d6-47d6-9fdb-3a34cf690fd4.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-grfg3T\.uib\bundles\56479d0b7e77abadbb417cc5b62f25e15e7abf8a8cf4f6b2c7b8c0ec21b5144a.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/artifact-editor.test.ts:19:21
+ ❯ tests/artifact-editor.test.ts:35:42
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/126]⎯
+
+ FAIL  tests/artifact-editor.test.ts > normal saves validate the complete candidate before persistence while explicit repair remains available
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-IPMe1y\.uib\bundles\9d5ae538edf8086ac5488598a8b6c09a140c3c2cebb4ca80d5f66dfa51fb86d3.json.0eb8367e-2d62-4b25-aebc-ff3bddf5deff.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-IPMe1y\.uib\bundles\9d5ae538edf8086ac5488598a8b6c09a140c3c2cebb4ca80d5f66dfa51fb86d3.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/artifact-editor.test.ts:19:21
+ ❯ tests/artifact-editor.test.ts:47:42
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/126]⎯
+
+ FAIL  tests/artifact-editor.test.ts > a confirmed unchanged formatted candidate performs no source writes
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-VBpoTF\.uib\bundles\41a1fc6c16a167994705e5742e6aebfe56d07f55c61faadb3c517cd057778e33.json.ac0a1cdf-3ac5-4dd5-bc93-76f468abc019.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-VBpoTF\.uib\bundles\41a1fc6c16a167994705e5742e6aebfe56d07f55c61faadb3c517cd057778e33.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/artifact-editor.test.ts:19:21
+ ❯ tests/artifact-editor.test.ts:71:28
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/126]⎯
+
+ FAIL  tests/artifact-editor.test.ts > shares the watched service and does not duplicate save notifications
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-VpmRtL\.uib\bundles\3c76d62c544f84889f497795e908ba7a3fa03afebc7aefd0e9bdd90a8ddd2497.json.b58a432d-e847-43de-a268-795b98b241ac.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-VpmRtL\.uib\bundles\3c76d62c544f84889f497795e908ba7a3fa03afebc7aefd0e9bdd90a8ddd2497.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/artifact-editor.test.ts:19:21
+ ❯ tests/artifact-editor.test.ts:80:58
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/126]⎯
+
+ FAIL  tests/artifact-editor.test.ts > rejects cross-workspace locators and path escapes without changing external content
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-XpvZ8A\.uib\bundles\ad6df136372384ec15450c0b394b8e7f010ca41e8d7bf6b0fe106caff661f3c5.json.957a7dbd-80e0-487f-a50d-87b81b3631d4.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-XpvZ8A\.uib\bundles\ad6df136372384ec15450c0b394b8e7f010ca41e8d7bf6b0fe106caff661f3c5.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/artifact-editor.test.ts:19:21
+ ❯ tests/artifact-editor.test.ts:224:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/126]⎯
+
+ FAIL  tests/artifact-watcher.test.ts > automatically watches application sources with identities scoped per application
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/artifact-watcher.test.ts:8:1
+      6| import type { ArtifactWatchEvent } from "@ui-platform/artifacts";
+      7|
+      8| it("automatically watches application sources with identities scoped p…
+       | ^
+      9|   const root = await mkdtemp(path.join(os.tmpdir(), "uib-app-watch-"));
+     10|   const events: ArtifactWatchEvent[] = [];
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/126]⎯
+
+ FAIL  tests/builder-v1-wp0.test.ts > WP0: normal creation, explicit authority, applied protected Dataset, mandatory Workflow, isolation, revocation, recovery and managed preview
+ FAIL  tests/builder-v1-wp3.test.ts > WP3: Builder authoring, activation, serving, protected CRUD, security and restart
+ FAIL  tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+ FAIL  tests/v1-development-identity.test.ts > uses the real I-AM role graph for one session and denies a direct workflow call
+ FAIL  tests/v1-development-identity.test.ts > rejects a disabled User on the next request without rebuilding the session
+ FAIL  tests/v1-development-identity.test.ts > blocks a queued real Visual service save when original policy authority is revoked before admission
+ FAIL  tests/v1-development-identity.test.ts > blocks a queued real Visual service save when original session authority is revoked before admission
+ FAIL  tests/visual-role-reader.test.ts > rechecks cached HTTP modules for new readers and blocks direct HTTP raw requests
+ FAIL  tests/visual-role-reader.test.ts > recovers a lost metadata anchor before runtime discovery and blocks orphan/journal HTTP bypasses
+ FAIL  tests/wp5-application-data-proxy.test.ts > refuses production, missing configuration, missing credentials and unsafe host URLs
+ FAIL  tests/wp5-application-data-proxy.test.ts > forwards only a server-issued assertion for the session User
+TypeError: fetch failed
+Caused by: Error: connect EACCES 127.0.0.1:49897
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -4092, code: 'EACCES', syscall: 'connect', address: '127.0.0.1', port: 49897 }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/126]⎯
+
+ FAIL  tests/builder-v1-wp0.test.ts > WP0: normal creation, explicit authority, applied protected Dataset, mandatory Workflow, isolation, revocation, recovery and managed preview
+Error: Command failed: taskkill /PID 33352 /T /F
+ ❯ tests/builder-v1-wp0.test.ts:53:39
+     51|   child.stdout!.on('data', bytes => { output += String(bytes); }); chi…
+     52|   cleanup.push(async () => { if (child.exitCode === null && child.sign…
+     53|     if (process.platform === 'win32') execFileSync('taskkill', ['/PID'…
+       |                                       ^
+     54|     else child.kill(); await exited; } });
+     55|   const origin = `http://127.0.0.1:${port}`;
+ ❯ tests/builder-v1-wp0.test.ts:20:80
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/126]⎯
+
+ FAIL  tests/builder-v1-wp3.test.ts > WP3: Builder authoring, activation, serving, protected CRUD, security and restart
+Error: Command failed: taskkill /PID 23264 /T /F
+ ❯ tests/builder-v1-wp3.test.ts:57:39
+     55|   child.stdout!.on('data', bytes => { output += String(bytes); }); chi…
+     56|   cleanup.push(async () => { if (child.exitCode === null && child.sign…
+     57|     if (process.platform === 'win32') execFileSync('taskkill', ['/PID'…
+       |                                       ^
+     58|     else child.kill(); await exited; } });
+     59|   const origin = `http://127.0.0.1:${port}`;
+ ❯ tests/builder-v1-wp3.test.ts:23:80
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/126]⎯
+
+ FAIL  tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Error: Command failed: taskkill /PID 32500 /T /F
+ ❯ tests/builder-v1-wp4.test.ts:57:39
+     55|   child.stdout!.on('data', bytes => { output += String(bytes); if (Str…
+     56|   cleanup.push(async () => { if (child.exitCode === null && child.sign…
+     57|     if (process.platform === 'win32') execFileSync('taskkill', ['/PID'…
+       |                                       ^
+     58|     else child.kill(); await exited; } });
+     59|   const origin = `http://127.0.0.1:${port}`;
+ ❯ tests/builder-v1-wp4.test.ts:23:80
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > selects exact registered type/version descriptors without serializing executable definitions
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-H9n8S2\.uib\bundles\b0ed1806f0616119c9488780ed543706bd83344a2caf70836b107f10f7c96ea0.json.eca4d930-d028-4bba-9e6a-c2c2fb40eba5.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-H9n8S2\.uib\bundles\b0ed1806f0616119c9488780ed543706bd83344a2caf70836b107f10f7c96ea0.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:34:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > omits descriptors for unsupported unknown version 1
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-uWjmYP\.uib\bundles\e2cb03d4b608746a639ea397c9cb4e2e90c43a12d2a5c1a49e41f8831894e794.json.11bd85b2-06fb-47de-87bb-73802ce40962.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-uWjmYP\.uib\bundles\e2cb03d4b608746a639ea397c9cb4e2e90c43a12d2a5c1a49e41f8831894e794.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:44:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > omits descriptors for unsupported form version 999
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-XMxrfe\.uib\bundles\25914934861af2963c4be43828428dff5cdd4126ed9cea8fdfd31d0bd603e11f.json.45a35ed6-3d39-4cef-a2d7-18a2aa48607b.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-XMxrfe\.uib\bundles\25914934861af2963c4be43828428dff5cdd4126ed9cea8fdfd31d0bd603e11f.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:44:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > patches fields against the newest shared snapshot, preserving unmodeled source and numeric lexemes
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-zAxd2G\.uib\bundles\b21d04933f9c501bc7cef31aa17cbff3c1bba234e7140f33d1a04284e8e41b20.json.a9b269d2-c157-4afa-9e5c-270c202e51ef.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-zAxd2G\.uib\bundles\b21d04933f9c501bc7cef31aa17cbff3c1bba234e7140f33d1a04284e8e41b20.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:57:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > creates missing optional paths while preserving manifest extensions and identity
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-RpbLiM\.uib\bundles\073bae3033b68c0b94cc2d0cd3a4bcd83d3ce2e2bc273902e48f92f3a399dbbe.json.50ba856d-368e-421e-bfab-dd5d2836d7dd.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-RpbLiM\.uib\bundles\073bae3033b68c0b94cc2d0cd3a4bcd83d3ce2e2bc273902e48f92f3a399dbbe.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:69:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > groups typing within one stable property binding while separating another property operation
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-rn9R8W\.uib\bundles\d501f3d31844dcd8cd81bf18e9dc45f62b737fc2a3e37419b77f0a12d2a95e4c.json.61ec331b-29d8-43d2-ba7f-c99e97075733.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-rn9R8W\.uib\bundles\d501f3d31844dcd8cd81bf18e9dc45f62b737fc2a3e37419b77f0a12d2a95e4c.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:76:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > resolves stable collection IDs after another panel reorders items, refusing ambiguous identities
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-RAp1Ar\.uib\bundles\032193f11fd683fed2719fc1efce1d014e4e92410f8c0fc8912d69619491d76b.json.821ff41a-b23a-4916-b047-005dd8703042.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-RAp1Ar\.uib\bundles\032193f11fd683fed2719fc1efce1d014e4e92410f8c0fc8912d69619491d76b.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:89:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > preserves incompatible file content: {broken
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-FVqmXb\.uib\bundles\b06516b2d7558a7d0422bf779f0d9fc5eb20fb9b864a13857d295e34104d90f9.json.0851176d-0fc8-4c91-a722-e6606262e483.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-FVqmXb\.uib\bundles\b06516b2d7558a7d0422bf779f0d9fc5eb20fb9b864a13857d295e34104d90f9.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:97:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > preserves incompatible file content: {"fields":[],"duplicate":1,"duplicate":2}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-pVNJif\.uib\bundles\3126ea0e010720fb8027ae56c13f7e298a1a2c2185df80daaf399a67458aa2e1.json.a36a5006-14d1-4f1c-8d71-f86feb56312f.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-pVNJif\.uib\bundles\3126ea0e010720fb8027ae56c13f7e298a1a2c2185df80daaf399a67458aa2e1.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:97:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > preserves incompatible file content: {"fields":{"unsupported":true}}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-XFzgES\.uib\bundles\84c308918c4a8154e3306aa54c3987ba47ac58c1fdde91bea89a3810a97686e5.json.34b5a1ea-d856-46af-8c57-6baf0b4911ea.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-XFzgES\.uib\bundles\84c308918c4a8154e3306aa54c3987ba47ac58c1fdde91bea89a3810a97686e5.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:97:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > rejects stale scalar writes if another panel replaced that field with an object
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-nzSh9z\.uib\bundles\7e5df635e51201cd8cfd426a725972a5000f9acb34c8c93cbcf399fa067f95d8.json.1822af80-eab4-4d8f-ba09-a3f06fb84872.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-nzSh9z\.uib\bundles\7e5df635e51201cd8cfd426a725972a5000f9acb34c8c93cbcf399fa067f95d8.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:105:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > allows invalid numeric drafts and retains authoritative diagnostics through explicit advanced repair saves
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-Cv6TYR\.uib\bundles\f872b7101e4b679e3d5e999f341196f3986ca48c3347dda52a31b00d429c128f.json.7e3a7417-fdb2-47d4-9fc5-2e6454fe5752.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-Cv6TYR\.uib\bundles\f872b7101e4b679e3d5e999f341196f3986ca48c3347dda52a31b00d429c128f.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:111:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > keeps malformed manifests available as source without inventing descriptors
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-0KgdXP\.uib\bundles\39b242c8ffd4ad7fc5101c71150e94664f26786d20dab31d210bd94daac17ed5.json.94ad67a5-2afd-446d-84ef-4e096a5efa04.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-0KgdXP\.uib\bundles\39b242c8ffd4ad7fc5101c71150e94664f26786d20dab31d210bd94daac17ed5.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:121:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > prevents field writes after permission changes and recovers the same dirty source only for the original user
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-yRbRaQ\.uib\bundles\92d7dff4625bb3ad5fae229018f6ec82949d4e35ecde4a84c0c2a6b0d7fa0ce0.json.e7a4b92d-39bb-4e9c-a237-61f2dc7b0dbd.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-yRbRaQ\.uib\bundles\92d7dff4625bb3ad5fae229018f6ec82949d4e35ecde4a84c0c2a6b0d7fa0ce0.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:125:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/126]⎯
+
+ FAIL  tests/editor-properties.test.ts > registers multiple compatible plugins with deterministic order and read-only filtering
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-2zRYuZ\.uib\bundles\7eac2c52879e4184d8f2858d202dff56e694215a835f9d29bcd8f646eb98e39a.json.28afa597-f65f-4ef8-b622-381325825128.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\wp3-properties-2zRYuZ\.uib\bundles\7eac2c52879e4184d8f2858d202dff56e694215a835f9d29bcd8f646eb98e39a.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ fixture tests/editor-properties.test.ts:22:87
+ ❯ tests/editor-properties.test.ts:134:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/126]⎯
+
+ FAIL  tests/editor-security-server.test.ts > preserves same-origin session authorization through the configured Vite proxy
+Error: Server startup timed out: UI Platform API listening on http://localhost:56055
+
+ ❯ start tests/editor-security-server.test.ts:40:9
+     38|     await new Promise(resolve => setTimeout(resolve, 50));
+     39|   }
+     40|   throw new Error('Server startup timed out: ' + output);
+       |         ^
+     41| }
+     42|
+ ❯ tests/editor-security-server.test.ts:46:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/126]⎯
+
+ FAIL  tests/editor-security-server.test.ts > routes the real server through authorization, accepts a configured fixture, and scopes application access
+Error: Server startup timed out: UI Platform API listening on http://localhost:56160
+
+ ❯ start tests/editor-security-server.test.ts:40:9
+     38|     await new Promise(resolve => setTimeout(resolve, 50));
+     39|   }
+     40|   throw new Error('Server startup timed out: ' + output);
+       |         ^
+     41| }
+     42|
+ ❯ tests/editor-security-server.test.ts:62:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/126]⎯
+
+ FAIL  tests/editor-security-server.test.ts > disables editor routes in the production server composition
+Error: Server startup timed out: UI Platform API listening on http://localhost:56263
+
+ ❯ start tests/editor-security-server.test.ts:40:9
+     38|     await new Promise(resolve => setTimeout(resolve, 50));
+     39|   }
+     40|   throw new Error('Server startup timed out: ' + output);
+       |         ^
+     41| }
+     42|
+ ❯ tests/editor-security-server.test.ts:75:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > returns authorized normal-candidate diagnostics without paths or hidden identities and leaves source unchanged
+Error: connect EACCES 127.0.0.1:55994
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > uses the WP3 graph and durable gate for real HTTP security activation, independent of fixture admin labels
+Error: connect EACCES 127.0.0.1:55996
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > stages and explicitly activates a WP1 application draft only through a development administrator session
+Error: connect EACCES 127.0.0.1:55998
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > requires an authenticated explicit activation after filesystem reconciliation
+Error: connect EACCES 127.0.0.1:56000
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > rejects every unauthenticated artifact endpoint and SSE without trusting identity headers
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-security-USB6sb\alpha\.uib\bundles\bc14b5434de0eae1aa4b28ce283c5fc35a9972e3e4564497f289c7fb30ed5663.json.97b44d78-0633-4c23-a811-351e1ac1e3bc.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\editor-security-USB6sb\alpha\.uib\bundles\bc14b5434de0eae1aa4b28ce283c5fc35a9972e3e4564497f289c7fb30ed5663.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ Object.locator tests/editor-security.test.ts:77:66
+ ❯ tests/editor-security.test.ts:205:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > viewer reads and validates but cannot mutate even with a valid checksum
+Error: connect EACCES 127.0.0.1:56003
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > reviewer reads and validates but cannot mutate even with a valid checksum
+Error: connect EACCES 127.0.0.1:56005
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > filters discovery, references and diagnostics and denies restricted operations
+Error: connect EACCES 127.0.0.1:56007
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > allows admin system edits and preserves 400/409 and safe failures
+Error: connect EACCES 127.0.0.1:56009
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > allows app editor invalid-file saves but prevents identity/type promotion
+Error: connect EACCES 127.0.0.1:56011
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > denies cross-application access before workspace lookup and isolates locators for multi-app admins
+Error: connect EACCES 127.0.0.1:56013
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > fails closed on legacy source, export, download and mutation route families for every identity
+Error: connect EACCES 127.0.0.1:56015
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > keeps the explicitly safe unrelated development endpoints available
+Error: connect EACCES 127.0.0.1:56017
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > requires same-origin CSRF and rejects hostile hosts and forwarded connections
+Error: connect EACCES 127.0.0.1:56019
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > filters SSE by app and artifact, handles authorized removals, and closes on identity switch
+Error: connect EACCES 127.0.0.1:56021
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > invalidates old request revisions even if the new identity also permits editing
+Error: connect EACCES 127.0.0.1:56023
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[45/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > rejects a request still preparing a write when identity changes
+Error: connect EACCES 127.0.0.1:56025
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[46/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > drains an admitted save before acknowledging a switch and rejects later old-session writes
+Error: connect EACCES 127.0.0.1:56027
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[47/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > revokes an identity across sessions and closes its streams
+Error: connect EACCES 127.0.0.1:56029
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[48/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > honors an independent server policy on every operation
+Error: connect EACCES 127.0.0.1:56031
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[49/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > expires idle sessions and streams without allowing a delayed write
+Error: connect EACCES 127.0.0.1:56033
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[50/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > does not emit an event whose authorization read finishes after revocation
+Error: connect EACCES 127.0.0.1:56035
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[51/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > keeps malformed raw manifests repairable by administrators and hidden from other roles
+Error: connect EACCES 127.0.0.1:56037
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[52/126]⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > honors server ownership overrides without trusting a manifest ownership field
+Error: connect EACCES 127.0.0.1:56039
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[53/126]⎯
+
+ FAIL  tests/editor-security.test.ts > disabled editor and production boundary > denies editor APIs in 'development' when disabled
+Error: connect EACCES 127.0.0.1:56041
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[54/126]⎯
+
+ FAIL  tests/editor-security.test.ts > disabled editor and production boundary > denies editor APIs in 'production' when disabled
+Error: connect EACCES 127.0.0.1:56043
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[55/126]⎯
+
+ FAIL  tests/form-data-integration.test.ts > renders routed public/admin reuse, persists create/read/update through V1 identity and protected DOE, and rejects crafted fields
+Error: UI host did not start: Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-gUytNP\apps\v1-identity-fixture\.uib\bundles\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json.0395408c-2c60-4bf7-a8ab-3f8e85e90159.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-gUytNP\apps\v1-identity-fixture\.uib\bundles\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13)
+    at async startApplicationArtifactWatchers (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:60:3) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-gUytNP\\apps\\v1-identity-fixture\\.uib\\bundles\\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json.0395408c-2c60-4bf7-a8ab-3f8e85e90159.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-gUytNP\\apps\\v1-identity-fixture\\.uib\\bundles\\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json'
+}
+UI Platform API listening on http://localhost:55892
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-gUytNP\apps\v1-identity-fixture\.uib\bundles\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json.bf138576-fcc3-4cfc-beb5-6fe335795439.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-gUytNP\apps\v1-identity-fixture\.uib\bundles\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-gUytNP\\apps\\v1-identity-fixture\\.uib\\bundles\\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json.bf138576-fcc3-4cfc-beb5-6fe335795439.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-gUytNP\\apps\\v1-identity-fixture\\.uib\\bundles\\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-gUytNP\apps\v1-identity-fixture\.uib\bundles\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json.2a4f9bbf-9fcb-4f43-81e5-038ddaed255b.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-gUytNP\apps\v1-identity-fixture\.uib\bundles\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-gUytNP\\apps\\v1-identity-fixture\\.uib\\bundles\\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json.2a4f9bbf-9fcb-4f43-81e5-038ddaed255b.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-gUytNP\\apps\\v1-identity-fixture\\.uib\\bundles\\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-gUytNP\apps\v1-identity-fixture\.uib\bundles\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json.7495355b-b5d0-425e-9e83-c5f247e0e2a9.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-gUytNP\apps\v1-identity-fixture\.uib\bundles\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-gUytNP\\apps\\v1-identity-fixture\\.uib\\bundles\\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json.7495355b-b5d0-425e-9e83-c5f247e0e2a9.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-gUytNP\\apps\\v1-identity-fixture\\.uib\\bundles\\b90af3b32bff15b58461f291424d8bfbff08941843c4a232fd2224aedcbb18d2.json'
+}
+
+ ❯ refresh src/server/artifact-watcher.ts:46:13
+     44|           watchers.set(
+     45|             root,
+     46|             await service.startWatching({ onChange: event => { onChang…
+       |             ^
+     47|           );
+     48|         } catch (cause) {
+ ❯ startFormReference scripts/form-reference-host.ts:112:31
+ ❯ tests/form-data-integration.test.ts:51:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[56/126]⎯
+
+ FAIL  tests/trigger-workflow-browser.test.ts > unsigned Form submission shows a sign-in message without running automation
+Error: UI host did not start: Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-SkeRAa\apps\v1-identity-fixture\.uib\bundles\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json.53f82f64-0273-452d-8e60-d1b653ce73c7.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-SkeRAa\apps\v1-identity-fixture\.uib\bundles\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13)
+    at async startApplicationArtifactWatchers (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:60:3) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-SkeRAa\\apps\\v1-identity-fixture\\.uib\\bundles\\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json.53f82f64-0273-452d-8e60-d1b653ce73c7.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-SkeRAa\\apps\\v1-identity-fixture\\.uib\\bundles\\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json'
+}
+UI Platform API listening on http://localhost:50093
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-SkeRAa\apps\v1-identity-fixture\.uib\bundles\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json.710ceeb8-c2e0-4ab0-9cca-5ac7c00944c9.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-SkeRAa\apps\v1-identity-fixture\.uib\bundles\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-SkeRAa\\apps\\v1-identity-fixture\\.uib\\bundles\\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json.710ceeb8-c2e0-4ab0-9cca-5ac7c00944c9.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-SkeRAa\\apps\\v1-identity-fixture\\.uib\\bundles\\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-SkeRAa\apps\v1-identity-fixture\.uib\bundles\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json.73f50710-0292-42f5-99fb-2352bbf8e9cf.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-SkeRAa\apps\v1-identity-fixture\.uib\bundles\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-SkeRAa\\apps\\v1-identity-fixture\\.uib\\bundles\\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json.73f50710-0292-42f5-99fb-2352bbf8e9cf.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-SkeRAa\\apps\\v1-identity-fixture\\.uib\\bundles\\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-SkeRAa\apps\v1-identity-fixture\.uib\bundles\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json.f2b3ae52-9e3b-4302-8294-b5681d1c1387.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-SkeRAa\apps\v1-identity-fixture\.uib\bundles\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-SkeRAa\\apps\\v1-identity-fixture\\.uib\\bundles\\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json.f2b3ae52-9e3b-4302-8294-b5681d1c1387.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-SkeRAa\\apps\\v1-identity-fixture\\.uib\\bundles\\e57ee0c469a92b3dcebac32badd309702a398c7738042dd81ec6b9f10cd4fd26.json'
+}
+
+ ❯ refresh src/server/artifact-watcher.ts:46:13
+     44|           watchers.set(
+     45|             root,
+     46|             await service.startWatching({ onChange: event => { onChang…
+       |             ^
+     47|           );
+     48|         } catch (cause) {
+ ❯ startFormReference scripts/form-reference-host.ts:112:31
+ ❯ startAutomationReference scripts/trigger-workflow-reference-host.ts:13:16
+ ❯ reference tests/trigger-workflow-browser.test.ts:13:16
+ ❯ tests/trigger-workflow-browser.test.ts:21:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[57/126]⎯
+
+ FAIL  tests/trigger-workflow-browser.test.ts > real browser Form success and Page button invoke the permanent Workflow through trusted identity and protected persisted DOE
+Error: UI host did not start: Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-jZXNtx\apps\v1-identity-fixture\.uib\bundles\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json.6da53bc9-dbcc-48b5-a836-6171c5bd1c65.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-jZXNtx\apps\v1-identity-fixture\.uib\bundles\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13)
+    at async startApplicationArtifactWatchers (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:60:3) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-jZXNtx\\apps\\v1-identity-fixture\\.uib\\bundles\\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json.6da53bc9-dbcc-48b5-a836-6171c5bd1c65.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-jZXNtx\\apps\\v1-identity-fixture\\.uib\\bundles\\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json'
+}
+UI Platform API listening on http://localhost:50197
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-jZXNtx\apps\v1-identity-fixture\.uib\bundles\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json.520b4f16-4860-40f1-aa5e-89090e38dffe.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-jZXNtx\apps\v1-identity-fixture\.uib\bundles\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-jZXNtx\\apps\\v1-identity-fixture\\.uib\\bundles\\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json.520b4f16-4860-40f1-aa5e-89090e38dffe.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-jZXNtx\\apps\\v1-identity-fixture\\.uib\\bundles\\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-jZXNtx\apps\v1-identity-fixture\.uib\bundles\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json.e0b836fa-19fb-4a42-87ec-cbf57df73ec4.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-jZXNtx\apps\v1-identity-fixture\.uib\bundles\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-jZXNtx\\apps\\v1-identity-fixture\\.uib\\bundles\\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json.e0b836fa-19fb-4a42-87ec-cbf57df73ec4.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-jZXNtx\\apps\\v1-identity-fixture\\.uib\\bundles\\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-jZXNtx\apps\v1-identity-fixture\.uib\bundles\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json.a042ef00-90a7-4139-b13e-5e8ec455887c.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-jZXNtx\apps\v1-identity-fixture\.uib\bundles\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-jZXNtx\\apps\\v1-identity-fixture\\.uib\\bundles\\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json.a042ef00-90a7-4139-b13e-5e8ec455887c.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-jZXNtx\\apps\\v1-identity-fixture\\.uib\\bundles\\e55b79844aa5a45d32a4d845c28e065c761ce1cf97329014f2ca2412313d2cf8.json'
+}
+
+ ❯ refresh src/server/artifact-watcher.ts:46:13
+     44|           watchers.set(
+     45|             root,
+     46|             await service.startWatching({ onChange: event => { onChang…
+       |             ^
+     47|           );
+     48|         } catch (cause) {
+ ❯ startFormReference scripts/form-reference-host.ts:112:31
+ ❯ startAutomationReference scripts/trigger-workflow-reference-host.ts:13:16
+ ❯ reference tests/trigger-workflow-browser.test.ts:13:16
+ ❯ tests/trigger-workflow-browser.test.ts:33:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[58/126]⎯
+
+ FAIL  tests/trigger-workflow-browser.test.ts > reference launcher exposes its protected management page
+Error: UI host did not start: Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-738I9v\apps\v1-identity-fixture\.uib\bundles\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json.eb307980-283a-40eb-995e-9187a9ccb6b0.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-738I9v\apps\v1-identity-fixture\.uib\bundles\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13)
+    at async startApplicationArtifactWatchers (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:60:3) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-738I9v\\apps\\v1-identity-fixture\\.uib\\bundles\\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json.eb307980-283a-40eb-995e-9187a9ccb6b0.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-738I9v\\apps\\v1-identity-fixture\\.uib\\bundles\\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json'
+}
+UI Platform API listening on http://localhost:50300
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-738I9v\apps\v1-identity-fixture\.uib\bundles\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json.bdb2c598-6fde-4c0d-8451-d17ac16a779b.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-738I9v\apps\v1-identity-fixture\.uib\bundles\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-738I9v\\apps\\v1-identity-fixture\\.uib\\bundles\\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json.bdb2c598-6fde-4c0d-8451-d17ac16a779b.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-738I9v\\apps\\v1-identity-fixture\\.uib\\bundles\\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-738I9v\apps\v1-identity-fixture\.uib\bundles\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json.ad1ef2b4-d087-4015-ad27-4d01f8a79886.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-738I9v\apps\v1-identity-fixture\.uib\bundles\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-738I9v\\apps\\v1-identity-fixture\\.uib\\bundles\\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json.ad1ef2b4-d087-4015-ad27-4d01f8a79886.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-738I9v\\apps\\v1-identity-fixture\\.uib\\bundles\\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-738I9v\apps\v1-identity-fixture\.uib\bundles\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json.1b157815-3cd9-4142-9a4b-0b04e81b73a4.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-738I9v\apps\v1-identity-fixture\.uib\bundles\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-738I9v\\apps\\v1-identity-fixture\\.uib\\bundles\\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json.1b157815-3cd9-4142-9a4b-0b04e81b73a4.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-738I9v\\apps\\v1-identity-fixture\\.uib\\bundles\\9a0766f95e6a254ef41d20057a746376cca211ee65ad7657816305855f92e0b9.json'
+}
+
+ ❯ refresh src/server/artifact-watcher.ts:46:13
+     44|           watchers.set(
+     45|             root,
+     46|             await service.startWatching({ onChange: event => { onChang…
+       |             ^
+     47|           );
+     48|         } catch (cause) {
+ ❯ startFormReference scripts/form-reference-host.ts:112:31
+ ❯ startAutomationReference scripts/trigger-workflow-reference-host.ts:13:16
+ ❯ reference tests/trigger-workflow-browser.test.ts:13:16
+ ❯ tests/trigger-workflow-browser.test.ts:77:28
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[59/126]⎯
+
+ FAIL  tests/trigger-workflow-browser.test.ts > management browser creates, edits, reloads disk source, retains conflicts and deletes under Platform authorization
+Error: UI host did not start: Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-RNs9Vk\apps\v1-identity-fixture\.uib\bundles\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json.becdc611-efda-4c28-af6e-d899ab0d50f9.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-RNs9Vk\apps\v1-identity-fixture\.uib\bundles\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13)
+    at async startApplicationArtifactWatchers (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:60:3) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-RNs9Vk\\apps\\v1-identity-fixture\\.uib\\bundles\\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json.becdc611-efda-4c28-af6e-d899ab0d50f9.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-RNs9Vk\\apps\\v1-identity-fixture\\.uib\\bundles\\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json'
+}
+UI Platform API listening on http://localhost:50403
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-RNs9Vk\apps\v1-identity-fixture\.uib\bundles\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json.4f3850e1-12b8-400b-9254-8216b7244075.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-RNs9Vk\apps\v1-identity-fixture\.uib\bundles\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-RNs9Vk\\apps\\v1-identity-fixture\\.uib\\bundles\\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json.4f3850e1-12b8-400b-9254-8216b7244075.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-RNs9Vk\\apps\\v1-identity-fixture\\.uib\\bundles\\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-RNs9Vk\apps\v1-identity-fixture\.uib\bundles\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json.9a25c3a2-1609-407f-b19e-d6c010eb7428.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-RNs9Vk\apps\v1-identity-fixture\.uib\bundles\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-RNs9Vk\\apps\\v1-identity-fixture\\.uib\\bundles\\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json.9a25c3a2-1609-407f-b19e-d6c010eb7428.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-RNs9Vk\\apps\\v1-identity-fixture\\.uib\\bundles\\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json'
+}
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-RNs9Vk\apps\v1-identity-fixture\.uib\bundles\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json.1948cb43-5143-439d-9aa0-fdb9a7d5a25e.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\visual-form-data-RNs9Vk\apps\v1-identity-fixture\.uib\bundles\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json'
+    at async link (node:internal/fs/promises:1119:10)
+    at async immutableWrite (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:37:9)
+    at async file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:86:25
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async FileSystemArtifactService.refresh (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:79:38)
+    at async FileSystemArtifactService.discover (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:167:9)
+    at async FileSystemArtifactService.startWatching (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/artifact-service.js:305:9)
+    at async refresh (C:\Projects\Modular\ui-platform\src\server\artifact-watcher.ts:46:13) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'link',
+  path: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-RNs9Vk\\apps\\v1-identity-fixture\\.uib\\bundles\\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json.1948cb43-5143-439d-9aa0-fdb9a7d5a25e.tmp',
+  dest: 'C:\\Projects\\Modular\\ui-platform\\.uib\\wp5-a\\tmp\\visual-form-data-RNs9Vk\\apps\\v1-identity-fixture\\.uib\\bundles\\a719e3bbf64a57d21ab15df214b7c38e7dbaf2a86f3a1934371b84051846241f.json'
+}
+
+ ❯ refresh src/server/artifact-watcher.ts:46:13
+     44|           watchers.set(
+     45|             root,
+     46|             await service.startWatching({ onChange: event => { onChang…
+       |             ^
+     47|           );
+     48|         } catch (cause) {
+ ❯ startFormReference scripts/form-reference-host.ts:112:31
+ ❯ startAutomationReference scripts/trigger-workflow-reference-host.ts:13:16
+ ❯ reference tests/trigger-workflow-browser.test.ts:13:16
+ ❯ tests/trigger-workflow-browser.test.ts:85:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[60/126]⎯
+
+ FAIL  tests/v1-management-server.test.ts > uses one V1 session for real Page and Form APIs and denies direct Workflow and application mutation
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/v1-management-server.test.ts:66:1
+     64| }
+     65|
+     66| it('uses one V1 session for real Page and Form APIs and denies direct …
+       | ^
+     67|   const origin = await start();
+     68|   const anonymous = await fetch(origin + '/api/development-identity/se…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[61/126]⎯
+
+ FAIL  tests/v1-management-server.test.ts > propagates the same signed-in User through the protected DOE and real ORM
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/v1-management-server.test.ts:176:1
+    174| }
+    175|
+    176| it('propagates the same signed-in User through the protected DOE and r…
+       | ^
+    177|   const origin = await start(prepareDataset);
+    178|   const anonymous = await fetch(origin + '/api/development-identity/se…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[62/126]⎯
+
+ FAIL  tests/visual-artifacts-server.test.ts > real API discovers installed card, creates/reopens a Page, rejects stale writes, compiles functions and bundles its real runtime module
+AssertionError: UI Platform API listening on http://localhost:62650
+: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/visual-artifacts-server.test.ts:27:27
+     25|       await new Promise(resolve => setTimeout(resolve, 50));
+     26|     }
+     27|     expect(ready, output).toBe(true);
+       |                           ^
+     28|     const workspace = await fetch(origin + '/api/apps/reference/visual…
+     29|     const card = workspace.packages.find((p: { tagName: string }) => p…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[63/126]⎯
+
+ FAIL  tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+Error: browserType.launch: Target page, context or browser has been closed
+Browser logs:
+
+<launching> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\playwright_chromiumdev_profile-mUpeYk --remote-debugging-pipe --no-startup-window
+<launched> pid=32428
+[pid=32428][err] [1017/014333.944:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:136] TransactNamedPipe: The pipe has been ended. (0x6D)
+Call log:
+  - <launching> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\playwright_chromiumdev_profile-mUpeYk --remote-debugging-pipe --no-startup-window
+  - <launched> pid=32428
+  - [pid=32428][err] [1017/014333.944:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:136] TransactNamedPipe: The pipe has been ended. (0x6D)
+  - [pid=32428] <gracefully close start>
+  - [pid=32428] <kill>
+  - [pid=32428] <will force kill>
+  - [pid=32428] taskkill stderr: ERROR: The user name or password is incorrect.
+  - [pid=32428] <process did exit: exitCode=0, signal=null>
+  - [pid=32428] starting temporary directories cleanup
+  - [pid=32428] finished temporary directories cleanup
+  - [pid=32428] <gracefully close end>
+
+ ❯ tests/visual-role-reader.test.ts:208:45
+    206|   const origin = server.resolvedUrls!.local[0];
+    207|   const playwright = createRequire(path.resolve('../ui-base/package.js…
+    208|   const browser = await playwright.chromium.launch({ channel: 'msedge'…
+       |                                             ^
+    209|   try {
+    210|     const page = await browser.newPage(), errors: string[] = []; page.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[64/126]⎯
+
+ FAIL  tests/wp1-ui-staging.test.ts > stages a real editor save through the shared I-AM service without activation
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\iam-ui-stage-UZBBE7\.uib\bundles\e114e2868af58d5d446244b2766bb3989feba9530ca83cec1720c327cba6d7e0.json.c1c1b1f8-db33-4781-bdff-e6e9c3e0935b.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\iam-ui-stage-UZBBE7\.uib\bundles\e114e2868af58d5d446244b2766bb3989feba9530ca83cec1720c327cba6d7e0.json'
+ ❯ ArtifactEditorWorkspace.discover src/server/artifact-editor.ts:48:13
+
+ ❯ tests/wp1-ui-staging.test.ts:27:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[65/126]⎯
+
+ FAIL  tests/wp5-form-host-integration.test.ts > routes the existing Form submit event through UI Platform and protected DOE, including crafted bypasses
+Error: UI host did not start: UI Platform API listening on http://localhost:62547
+
+ ❯ setup tests/wp5-form-host-integration.test.ts:115:31
+    113|     if (await fetch(origin + '/api/health').then(response => response.…
+    114|     await new Promise(resolve => setTimeout(resolve, 50));
+    115|     if (attempt === 99) throw new Error('UI host did not start: ' + ou…
+       |                               ^
+    116|   }
+    117|   const client = new ApplicationDataClient(createHttpApplicationDataTr…
+ ❯ tests/wp5-form-host-integration.test.ts:146:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[66/126]⎯
+
+ FAIL  packages/artifacts/tests/application-build.test.ts > application builds > orders dependencies, reuses current cache and invalidates on source/toolchain changes
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-xRgWVQ\.uib\bundles\3717438996e0baad692d8274e325be43ee474e9823e9863454d3124124ff49ca.json.0289322c-d429-47e4-b44c-07184b37e22f.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-xRgWVQ\.uib\bundles\3717438996e0baad692d8274e325be43ee474e9823e9863454d3124124ff49ca.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ ApplicationBuildEngine.snapshot packages/artifacts/src/application/build.ts:121:23
+ ❯ ApplicationBuildEngine.pass packages/artifacts/src/application/build.ts:208:30
+ ❯ packages/artifacts/src/application/build.ts:332:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[67/126]⎯
+
+ FAIL  packages/artifacts/tests/application-build.test.ts > application builds > coalesces changes during compilation and never returns superseded output
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/artifacts/tests/application-build.test.ts:95:3
+     93|     expect(order).toEqual(["schema", "form", "page"]);
+     94|   });
+     95|   it("coalesces changes during compilation and never returns supersede…
+       |   ^
+     96|     const { root, service, bundle } = await setup();
+     97|     await bundle("page");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[68/126]⎯
+
+ FAIL  packages/artifacts/tests/application-build.test.ts > application builds > keeps independent branches working and reports unused errors without blocking
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-cyMnve\.uib\bundles\05cc4a33e4c15a080af2c38056e0668cfb58a5882fd2a047bcd38b939cb73ed1.json.1607b809-da5d-463d-9aed-963fc53c8964.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-cyMnve\.uib\bundles\05cc4a33e4c15a080af2c38056e0668cfb58a5882fd2a047bcd38b939cb73ed1.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ ApplicationBuildEngine.snapshot packages/artifacts/src/application/build.ts:121:23
+ ❯ ApplicationBuildEngine.pass packages/artifacts/src/application/build.ts:208:30
+ ❯ packages/artifacts/src/application/build.ts:332:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[69/126]⎯
+
+ FAIL  packages/artifacts/tests/application-build.test.ts > application builds > rejects missing dependencies and cycles, while distinguishing runtime-only edges
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-awtit0\.uib\bundles\982da9626bf619bed296104e02c297d246d43fb82ba19242540fe2d12bdc950d.json.f5b0b7cc-0e4f-4519-b6d1-991020a107e6.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-awtit0\.uib\bundles\982da9626bf619bed296104e02c297d246d43fb82ba19242540fe2d12bdc950d.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ packages/artifacts/tests/application-build.test.ts:164:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[70/126]⎯
+
+ FAIL  packages/artifacts/tests/application-build.test.ts > application builds > keeps CLI and application validation diagnostics identical
+AssertionError: expected 2 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ packages/artifacts/tests/application-build.test.ts:201:7
+    199|         },
+    200|       }),
+    201|     ).toBe(1);
+       |       ^
+    202|     expect(JSON.parse(output)).toEqual(await build.validateApplication…
+    203|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[71/126]⎯
+
+ FAIL  packages/artifacts/tests/application-build.test.ts > application builds > packages a runnable production bundle and rejects source changes during packaging
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-saIIWz\.uib\bundles\4901b0dbc951a3a60027e09c323e4e9aad37d356b76911382a6ad6860a5e02b2.json.799683eb-39fe-4323-987f-f749b688e4bf.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-saIIWz\.uib\bundles\4901b0dbc951a3a60027e09c323e4e9aad37d356b76911382a6ad6860a5e02b2.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ ApplicationBuildEngine.snapshot packages/artifacts/src/application/build.ts:121:23
+ ❯ ApplicationBuildEngine.buildProduction packages/artifacts/src/application/build.ts:410:22
+ ❯ packages/artifacts/tests/application-build.test.ts:241:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[72/126]⎯
+
+ FAIL  packages/artifacts/tests/application-build.test.ts > application builds > runs independent ready branches concurrently
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-Hu0tto\.uib\bundles\dce1bf8939f94b7bc219066525c4b255f0ef82deab297b6dde869717d783d113.json.86c17c62-56a8-4e2f-83ba-d483c09ddae1.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-Hu0tto\.uib\bundles\dce1bf8939f94b7bc219066525c4b255f0ef82deab297b6dde869717d783d113.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ ApplicationBuildEngine.snapshot packages/artifacts/src/application/build.ts:121:23
+ ❯ ApplicationBuildEngine.pass packages/artifacts/src/application/build.ts:208:30
+ ❯ packages/artifacts/src/application/build.ts:332:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[73/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > artifact foundation acceptance > saves invalid source, shares CLI diagnostics, and formats corrected source without history
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-ugDpx9\.uib\bundles\1a4b722b4b74a3d1fcccbb145cc1d3ad5f6cdb27b914b544ffcefefcbd42b312.json.2faa714b-db19-425a-83cb-1714028b0d60.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-ugDpx9\.uib\bundles\1a4b722b4b74a3d1fcccbb145cc1d3ad5f6cdb27b914b544ffcefefcbd42b312.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ FileSystemArtifactService.validate packages/artifacts/src/artifact-service.ts:281:13
+ ❯ packages/artifacts/tests/artifacts.test.ts:84:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[74/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > artifact foundation acceptance > handles malformed manifests, unknown types, missing roles, missing files and duplicate identities
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-BLPc2l\.uib\bundles\cd38263f0369364fc8cbfdc55efa8611dbb23cefa6b754977e28044b844c19e0.json.1ee95168-6507-4953-ba76-781b6e00bd8e.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-BLPc2l\.uib\bundles\cd38263f0369364fc8cbfdc55efa8611dbb23cefa6b754977e28044b844c19e0.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ FileSystemArtifactService.validate packages/artifacts/src/artifact-service.ts:281:13
+ ❯ packages/artifacts/tests/artifacts.test.ts:167:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[75/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > artifact foundation acceptance > detects duplicate fields, IDs, invalid validators and invalid dataset references
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-D78bxP\.uib\bundles\ab0b5bc93102b57f8fdcd781d8656de9124b371b79fe4e0a94600835158e1c81.json.426b6fee-61c5-41ae-bac3-d876c4c1ced7.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-D78bxP\.uib\bundles\ab0b5bc93102b57f8fdcd781d8656de9124b371b79fe4e0a94600835158e1c81.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ FileSystemArtifactService.validate packages/artifacts/src/artifact-service.ts:281:13
+ ❯ packages/artifacts/tests/artifacts.test.ts:224:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[76/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > commits all files, formats JSON/TS/TSX/CSS/Markdown without maintaining source history
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-NtSaq4\.uib\bundles\d6df4c547e82724e9249d28b76e244226271351612ee97ba62a46af32243c109.json.98cc7598-eed5-4794-ac11-9b221fe76644.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-NtSaq4\.uib\bundles\d6df4c547e82724e9249d28b76e244226271351612ee97ba62a46af32243c109.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.save packages/artifacts/src/artifact-service.ts:287:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:255:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[77/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > rolls back existing files and new files when a mid-commit write fails
+AssertionError: expected [Function] to throw error including 'simulated disk failure' but got 'EPERM: operation not permitted, link …'
+
+Expected: "simulated disk failure"
+Received: "EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-voDanG\.uib\bundles\99223cf5b3e2382d11d0894f35bb55d2282e1383b33825c232522157e10412a9.json.cd5ce530-03dc-4f72-8564-83622f657463.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-voDanG\.uib\bundles\99223cf5b3e2382d11d0894f35bb55d2282e1383b33825c232522157e10412a9.json'"
+
+ ❯ packages/artifacts/tests/artifacts.test.ts:290:6
+    288|         files: { "a.css": "a{color:red}", "form.json": '{"fields":[]}'…
+    289|       }),
+    290|     ).rejects.toThrow("simulated disk failure");
+       |      ^
+    291|     expect(await capture(dir)).toEqual(before);
+    292|     expect(await readdir(dir)).not.toContain("a.css");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[78/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > rejects stale saves and identity changes without overwriting manual changes
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-47Mbq5\.uib\bundles\26a9d9025aee3370d7f92a41bd1895875e32f1f9d7ed4961e3bed6e8586303f1.json.e186d965-0130-4f1a-9bda-30abf2e3eb74.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-47Mbq5\.uib\bundles\26a9d9025aee3370d7f92a41bd1895875e32f1f9d7ed4961e3bed6e8586303f1.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:299:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[79/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > detects edits made during asynchronous staging and leaves them untouched
+AssertionError: expected Error: EPERM: operation not permitted, li… { …(5) } to be an instance of ArtifactConflictError
+ ❯ packages/artifacts/tests/artifacts.test.ts:327:39
+    325|     });
+    326|     const writer = new FileSystemArtifactService({ root, definitions }…
+    327|     await expect(writer.save(dir, {})).rejects.toBeInstanceOf(
+       |                                       ^
+    328|       ArtifactConflictError,
+    329|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[80/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > retains immutable identity across restart, repair, and bundle moves
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-15qrJS\.uib\bundles\d3abcbab89b13a7c19178c7a97e97da0a5f81c7d9b1f04bb413f3854baaa3284.json.a33c8d3a-1986-4ad2-9675-fd6bbf78e821.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-15qrJS\.uib\bundles\d3abcbab89b13a7c19178c7a97e97da0a5f81c7d9b1f04bb413f3854baaa3284.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.save packages/artifacts/src/artifact-service.ts:287:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:336:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[81/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > leaves existing legacy history untouched during saves and external validation
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-jpQtlH\.uib\bundles\cc57797e02610557fdeec0bee8dd97d425c00d102c6e19ced53e443a530b49cb.json.9e3ae64a-c3c5-4c3a-8cf3-fdfeccb22319.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-jpQtlH\.uib\bundles\cc57797e02610557fdeec0bee8dd97d425c00d102c6e19ced53e443a530b49cb.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.save packages/artifacts/src/artifact-service.ts:287:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:367:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[82/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > saves declared file additions and removals transactionally
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-PWCzKF\.uib\bundles\368f768f4b41377d0fb6e9d19bd07fec9cf1fcc7b6033168dd3d282c79bf36ce.json.00f10c9d-88bd-4777-b2a2-78cf922053a4.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-PWCzKF\.uib\bundles\368f768f4b41377d0fb6e9d19bd07fec9cf1fcc7b6033168dd3d282c79bf36ce.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.save packages/artifacts/src/artifact-service.ts:287:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:381:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[83/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > honors project Prettier settings and validates source syntax after reloading an invalid draft
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-oJ7Wdd\.uib\bundles\b702d7e0c3a3f57c4508ecf852a2369fc8bb23629183eb0bd2afce2a9aeaa9f5.json.650da50e-bc40-4294-97db-1e1155125f08.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-oJ7Wdd\.uib\bundles\b702d7e0c3a3f57c4508ecf852a2369fc8bb23629183eb0bd2afce2a9aeaa9f5.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.save packages/artifacts/src/artifact-service.ts:287:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:408:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[84/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > retains malformed source with formatting diagnostics
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-BzoHJc\.uib\bundles\c4bf94d95db49de67210b7529cfbed28cb285bd6da9202534b5cc3e7f05596d9.json.c910881a-9692-4a28-9199-66973cb31851.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-BzoHJc\.uib\bundles\c4bf94d95db49de67210b7529cfbed28cb285bd6da9202534b5cc3e7f05596d9.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.save packages/artifacts/src/artifact-service.ts:287:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:424:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[85/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > logs passed and failed external validation without formatting or history
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-DczrwE\.uib\bundles\d249e1a027059c820811584eec912c000161e11eff1e295bc276c4f7fa1792cb.json.695a3565-dbc0-40ab-8244-52864bbf7e27.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-DczrwE\.uib\bundles\d249e1a027059c820811584eec912c000161e11eff1e295bc276c4f7fa1792cb.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:435:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[86/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > recovers an interrupted journal before exposing a partially written artifact
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-QIh6Uw\.uib\bundles\4862644bf4979927ddd0383009d11eb0e40254d74deea47aaff2c5a0c291683d.json.48fc666a-4aec-414f-8b31-36a97a3ac514.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-QIh6Uw\.uib\bundles\4862644bf4979927ddd0383009d11eb0e40254d74deea47aaff2c5a0c291683d.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:471:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[87/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > transactions and formatting > rejects traversal and changes outside declared roles
+AssertionError: expected [Function] to throw error including 'declared' but got 'EPERM: operation not permitted, link …'
+
+Expected: "declared"
+Received: "EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-LUsvu3\.uib\bundles\ef45d72c2ec85f14a6254fe6857d2db7c09360e6a2bd8796e3f88336821f254f.json.fadc6101-94c8-460a-8149-0b088ee57c91.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-LUsvu3\.uib\bundles\ef45d72c2ec85f14a6254fe6857d2db7c09360e6a2bd8796e3f88336821f254f.json'"
+
+ ❯ packages/artifacts/tests/artifacts.test.ts:480:6
+    478|     await expect(
+    479|       service.save(dir, { files: { "../escape.json": "{}" } }),
+    480|     ).rejects.toThrow("declared");
+       |      ^
+    481|     await writeFile(
+    482|       path.join(dir, "artifact.json"),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[88/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > definitions and CLI > extracts and resolves routes, checks Page type and detects duplicate URLs
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-x3eVxD\.uib\bundles\c16a94326590c372229fe230b210c2b052aa151b246fb6a2e89b5ad4878eaca4.json.ba9f48c1-2731-4d03-ae59-e7c650a3df03.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-x3eVxD\.uib\bundles\c16a94326590c372229fe230b210c2b052aa151b246fb6a2e89b5ad4878eaca4.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ FileSystemArtifactService.getReferences packages/artifacts/src/artifact-service.ts:386:13
+ ❯ packages/artifacts/tests/artifacts.test.ts:508:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[89/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > definitions and CLI > validates trigger metadata, syntax and array lifecycle signatures
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-g8BO2S\.uib\bundles\90753ee3ae78607bfad9c9053756c0480c21807fa22c2ecd8fb77f1354420b25.json.57c6bb9e-2df7-48d1-9450-43b0bbbe2da4.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-g8BO2S\.uib\bundles\90753ee3ae78607bfad9c9053756c0480c21807fa22c2ecd8fb77f1354420b25.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ packages/artifacts/tests/artifacts.test.ts:558:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[90/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > definitions and CLI > treats Service execution metadata as a reference, not an implicit privilege
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-iGzmQj\.uib\bundles\1e1395163c4d16bb8762612c7b9401bc379bf7d33dcc1a0fd9159e00ef2a5839.json.b4b398ff-132d-4a72-a030-75f68ec03385.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-artifacts-iGzmQj\.uib\bundles\1e1395163c4d16bb8762612c7b9401bc379bf7d33dcc1a0fd9159e00ef2a5839.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ FileSystemArtifactService.validate packages/artifacts/src/artifact-service.ts:281:13
+ ❯ packages/artifacts/tests/artifacts.test.ts:601:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[91/126]⎯
+
+ FAIL  packages/artifacts/tests/artifacts.test.ts > definitions and CLI > allows definitions to be registered and validates roots with a nonzero exit for any errors
+AssertionError: expected 2 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ packages/artifacts/tests/artifacts.test.ts:636:7
+    634|         },
+    635|       ),
+    636|     ).toBe(1);
+       |       ^
+    637|     expect(JSON.parse(output)).toHaveLength(2);
+    638|     expect(JSON.parse(output).some((r: { valid: boolean }) => !r.valid…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[92/126]⎯
+
+ FAIL  packages/artifacts/tests/consumer-contract.test.ts > existing ArtifactService contract > returns the same normalized artifact, definition, references and validation through every foundation entry point
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-HajiT2\.uib\bundles\e90fd76aae5c9aa4aefba4fb23aa10c81f949c074ffa6e8345c5dd3cb503b7d1.json.05d1b8fc-ff0b-4de3-a72d-e65750fde33f.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-HajiT2\.uib\bundles\e90fd76aae5c9aa4aefba4fb23aa10c81f949c074ffa6e8345c5dd3cb503b7d1.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ packages/artifacts/tests/consumer-contract.test.ts:95:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[93/126]⎯
+
+ FAIL  packages/artifacts/tests/consumer-contract.test.ts > application consumer integration with shared implementations > recognizes every registered type, including an extension, and preserves every diagnostic field
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-KsIcpE\.uib\bundles\c4029784ab473b52383fa7008a988e7f460671ed2774a73e10ae7d87950b5547.json.f0eb90eb-d83e-4a24-85c9-e43a74ae6a7d.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-KsIcpE\.uib\bundles\c4029784ab473b52383fa7008a988e7f460671ed2774a73e10ae7d87950b5547.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ packages/artifacts/tests/consumer-contract.test.ts:148:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[94/126]⎯
+
+ FAIL  packages/artifacts/tests/consumer-contract.test.ts > application consumer integration with shared implementations > preserves malformed and duplicate identity diagnostics without inventing IDs or extra artifact rules
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-oQcFdr\.uib\bundles\7200cb9dfd2e0d93a34d2a878925fa5459302d919c309a85f842b56d2a8401f3.json.b1dc56ef-09c0-4f0c-a840-9d21a7482a3d.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-oQcFdr\.uib\bundles\7200cb9dfd2e0d93a34d2a878925fa5459302d919c309a85f842b56d2a8401f3.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ packages/artifacts/tests/consumer-contract.test.ts:204:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[95/126]⎯
+
+ FAIL  packages/artifacts/tests/consumer-contract.test.ts > application consumer integration with shared implementations > uses identical shared reference messages, locations and codes without duplicating them
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-hWGCI3\.uib\bundles\0816ae03dddfc0c5a9a1021b337d493a73bcf455faa8a838eca338da719060b9.json.8f666693-b355-4d6c-bde4-c365e821c56f.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-hWGCI3\.uib\bundles\0816ae03dddfc0c5a9a1021b337d493a73bcf455faa8a838eca338da719060b9.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ packages/artifacts/tests/consumer-contract.test.ts:224:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[96/126]⎯
+
+ FAIL  packages/artifacts/tests/consumer-contract.test.ts > application consumer integration with shared implementations > retains shared diagnostics when migration consumption rejects an invalid artifact
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-Jutygj\.uib\bundles\11712579cf98ee3521de4cd96ae856e2ddf8a0c48a11ac476afeef97574cdee2.json.cc49c0bc-5651-400f-a412-4be3dd289962.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-contract-Jutygj\.uib\bundles\11712579cf98ee3521de4cd96ae856e2ddf8a0c48a11ac476afeef97574cdee2.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ FileSystemArtifactService.validate packages/artifacts/src/artifact-service.ts:281:13
+ ❯ packages/artifacts/tests/consumer-contract.test.ts:260:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[97/126]⎯
+
+ FAIL  packages/artifacts/tests/migrations-deployment.test.ts > migration execution > source edits and previews do not mutate data or persist migration artifacts; confirmation does
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-BblHNK\source\.uib\bundles\96c9095a27a9ea2ead915e5728394083a2377fa4aaef134f01c5c098bd357997.json.908812cf-005d-4bc6-b77b-8cc466ec153e.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-BblHNK\source\.uib\bundles\96c9095a27a9ea2ead915e5728394083a2377fa4aaef134f01c5c098bd357997.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ MigrationEngine.source packages/artifacts/src/application/migrations.ts:99:22
+ ❯ MigrationEngine.preview packages/artifacts/src/application/migrations.ts:137:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[98/126]⎯
+
+ FAIL  packages/artifacts/tests/migrations-deployment.test.ts > migration execution > rejects stale source and applied baseline previews
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-MevP0J\source\.uib\bundles\ed7f3036b5113338c7b5a597f08ca1f0810de870a73615e1b88ea70b363d9fae.json.19022721-0615-4327-b57e-75dcd23e1c1a.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-MevP0J\source\.uib\bundles\ed7f3036b5113338c7b5a597f08ca1f0810de870a73615e1b88ea70b363d9fae.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ MigrationEngine.source packages/artifacts/src/application/migrations.ts:99:22
+ ❯ MigrationEngine.preview packages/artifacts/src/application/migrations.ts:137:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[99/126]⎯
+
+ FAIL  packages/artifacts/tests/migrations-deployment.test.ts > migration execution > requires custom handling for type changes and required fields without backfill
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-TcYHOS\source\.uib\bundles\5094072f9e6371cfa1a4e5fdb253f98a024b834de84bf1b122d03206a18bd117.json.a9d6f68f-bf33-4503-916f-e49c13bbdd1d.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-TcYHOS\source\.uib\bundles\5094072f9e6371cfa1a4e5fdb253f98a024b834de84bf1b122d03206a18bd117.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ MigrationEngine.source packages/artifacts/src/application/migrations.ts:99:22
+ ❯ MigrationEngine.preview packages/artifacts/src/application/migrations.ts:137:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[100/126]⎯
+
+ FAIL  packages/artifacts/tests/migrations-deployment.test.ts > migration execution > a backup failure stops before mutation and an execution failure prevents retries
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-cMi13a\source\.uib\bundles\5c28a8c654663f1fcac4f0a61557972343d79293617fe066c2ef2c839b9ea26b.json.2059e0f1-71ed-4942-91a3-a1be23107c9f.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-cMi13a\source\.uib\bundles\5c28a8c654663f1fcac4f0a61557972343d79293617fe066c2ef2c839b9ea26b.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ MigrationEngine.source packages/artifacts/src/application/migrations.ts:99:22
+ ❯ MigrationEngine.preview packages/artifacts/src/application/migrations.ts:137:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[101/126]⎯
+
+ FAIL  packages/artifacts/tests/migrations-deployment.test.ts > migration execution > rejects changed content under an applied migration ID
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-cIc8md\source\.uib\bundles\42023d8ec5809e41ed1a6b2fa4cfc020236bfb50bf8c28727d01833e330bc1de.json.f844fd71-884c-4c5e-9165-a75b8028815e.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-cIc8md\source\.uib\bundles\42023d8ec5809e41ed1a6b2fa4cfc020236bfb50bf8c28727d01833e330bc1de.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ MigrationEngine.source packages/artifacts/src/application/migrations.ts:99:22
+ ❯ MigrationEngine.preview packages/artifacts/src/application/migrations.ts:137:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[102/126]⎯
+
+ FAIL  packages/artifacts/tests/migrations-deployment.test.ts > production deployment > requires fresh destructive approval, applies in order, checks health then promotes
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-pRLwvl\source\.uib\bundles\2386dc5704e53846205caf53615a0bc8ad8bbe641a26fa1921338442f4b5ac4c.json.aaa59461-e8dd-49f1-ab3f-4396e58dea76.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-pRLwvl\source\.uib\bundles\2386dc5704e53846205caf53615a0bc8ad8bbe641a26fa1921338442f4b5ac4c.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ MigrationEngine.source packages/artifacts/src/application/migrations.ts:99:22
+ ❯ MigrationEngine.preview packages/artifacts/src/application/migrations.ts:137:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[103/126]⎯
+
+ FAIL  packages/artifacts/tests/migrations-deployment.test.ts > production deployment > holds maintenance and leaves pointer unchanged when staged health fails after migration
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-2uRIkm\source\.uib\bundles\4450743bce00e2a42db80658249c049b81fba9cbd51b246447ccb6a89a4a9669.json.d9faa42a-7313-46ed-98de-a0819dfc6c1d.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-2uRIkm\source\.uib\bundles\4450743bce00e2a42db80658249c049b81fba9cbd51b246447ccb6a89a4a9669.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ MigrationEngine.source packages/artifacts/src/application/migrations.ts:99:22
+ ❯ MigrationEngine.preview packages/artifacts/src/application/migrations.ts:137:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[104/126]⎯
+
+ FAIL  packages/artifacts/tests/migrations-deployment.test.ts > production deployment > refuses tampered candidates and missing environment values
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-JWmsJa\source\.uib\bundles\e88f6ecb36127aaaa343d586a18fe91262dfbba587b0eb8966b2c57e82964287.json.5133c047-16f8-431f-8ec0-1bda9daabe6f.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-JWmsJa\source\.uib\bundles\e88f6ecb36127aaaa343d586a18fe91262dfbba587b0eb8966b2c57e82964287.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ MigrationEngine.source packages/artifacts/src/application/migrations.ts:99:22
+ ❯ MigrationEngine.preview packages/artifacts/src/application/migrations.ts:137:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[105/126]⎯
+
+ FAIL  packages/artifacts/tests/migrations-deployment.test.ts > production deployment > local target keeps releases immutable and atomically changes its pointer
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-17MHmr\source\.uib\bundles\7b993633bf6c4e540a1ea9ff0bba7db1514952e2dccbe48981cf6b03ef23f1f0.json.738cd241-5b44-4535-b0a6-3635f9c95f73.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-migrate-17MHmr\source\.uib\bundles\7b993633bf6c4e540a1ea9ff0bba7db1514952e2dccbe48981cf6b03ef23f1f0.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ MigrationEngine.source packages/artifacts/src/application/migrations.ts:99:22
+ ❯ MigrationEngine.preview packages/artifacts/src/application/migrations.ts:137:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[106/126]⎯
+
+ FAIL  packages/artifacts/tests/security-definitions.test.ts > registers every security artifact kind and validates a real text bundle
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\security-artifact-z25nBY\.uib\bundles\870b747a25b99e23a2ea4b3636b8532927e2552915f6dc5b7dad48c7a539b8d8.json.587a44da-a92d-41a9-90d9-75bc9523d130.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\security-artifact-z25nBY\.uib\bundles\870b747a25b99e23a2ea4b3636b8532927e2552915f6dc5b7dad48c7a539b8d8.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ FileSystemArtifactService.validate packages/artifacts/src/artifact-service.ts:281:13
+ ❯ packages/artifacts/tests/security-definitions.test.ts:23:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[107/126]⎯
+
+ FAIL  packages/artifacts/tests/security-definitions.test.ts > rejects ID/kind mismatch, duplicate keys and escaping file paths
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\security-artifact-2dLRyz\.uib\bundles\a09d68430590f2830a383280f648cf91cd1bc3cf11a83a86b0086562b19ee002.json.2fae5843-5784-45ca-8ac9-b3747ebf871b.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\security-artifact-2dLRyz\.uib\bundles\a09d68430590f2830a383280f648cf91cd1bc3cf11a83a86b0086562b19ee002.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ FileSystemArtifactService.validate packages/artifacts/src/artifact-service.ts:281:13
+ ❯ packages/artifacts/tests/security-definitions.test.ts:33:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[108/126]⎯
+
+ FAIL  packages/artifacts/tests/watcher-fallback.test.ts > continues detecting source changes when native recursive watching is unavailable
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-poll-dzl997\.uib\bundles\6d5912a0aa0caade4d98c8bcd883b0e37b479245c99f73900bdca4cf886ae7ae.json.22de290e-b407-44b8-8c64-4ce11470434a.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-poll-dzl997\.uib\bundles\6d5912a0aa0caade4d98c8bcd883b0e37b479245c99f73900bdca4cf886ae7ae.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ FileSystemArtifactService.startWatching packages/artifacts/src/artifact-service.ts:391:5
+ ❯ packages/artifacts/tests/watcher-fallback.test.ts:35:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[109/126]⎯
+
+ FAIL  packages/artifacts/tests/watcher.test.ts > actively detects edits, logs validation, debounces bursts and never formats external source
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-watch-bSYcFw\.uib\bundles\b23f2130e487ea29d2968171bb1810d6665cc7a9ebe983c9ed1db4846d92e173.json.938dd292-ace8-4301-af2e-a5703294db61.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-watch-bSYcFw\.uib\bundles\b23f2130e487ea29d2968171bb1810d6665cc7a9ebe983c9ed1db4846d92e173.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ FileSystemArtifactService.startWatching packages/artifacts/src/artifact-service.ts:391:5
+ ❯ packages/artifacts/tests/watcher.test.ts:72:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[110/126]⎯
+
+ FAIL  packages/artifacts/tests/watcher.test.ts > ignores system storage and its own saves, but does not lose a following external edit
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-watch-YtgwnF\.uib\bundles\c1d61bad7f47a3d4b89605319db5dc310bc657fe8726979e0ca23b174d70f632.json.818d9ad5-d3a4-4281-ad74-25b9e155af64.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-watch-YtgwnF\.uib\bundles\c1d61bad7f47a3d4b89605319db5dc310bc657fe8726979e0ca23b174d70f632.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ FileSystemArtifactService.startWatching packages/artifacts/src/artifact-service.ts:391:5
+ ❯ packages/artifacts/tests/watcher.test.ts:107:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[111/126]⎯
+
+ FAIL  packages/artifacts/tests/watcher.test.ts > discovers new bundles and reports missing files, removed manifests and directory moves
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/artifacts/tests/watcher.test.ts:124:1
+    122| });
+    123|
+    124| it("discovers new bundles and reports missing files, removed manifests…
+       | ^
+    125|   const events: ArtifactWatchEvent[] = [];
+    126|   watcher = await new FileSystemArtifactService({ root }).startWatchin…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[112/126]⎯
+
+ FAIL  packages/artifacts/tests/watcher.test.ts > stops callbacks after close and isolates subscriber failures
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-watch-tjyrBP\.uib\bundles\eaa60d22aebea5c3fb294cbe776b033ef19e202f384972fbc20af138fd4bf93b.json.cdfb1800-0fc3-4e0c-93c9-705092998177.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-watch-tjyrBP\.uib\bundles\eaa60d22aebea5c3fb294cbe776b033ef19e202f384972fbc20af138fd4bf93b.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ FileSystemArtifactService.startWatching packages/artifacts/src/artifact-service.ts:391:5
+ ❯ packages/artifacts/tests/watcher.test.ts:183:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[113/126]⎯
+
+ FAIL  packages/artifacts/tests/watcher.test.ts > validates the committed source, rather than a precommit working copy
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-watch-jKLIYp\.uib\bundles\1074470a5f927b296cb72ba0439907e493c9dbcb7488f2016b1e2b114a2ea42a.json.12c8a6d7-964e-4c45-8c89-103d35e25d33.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-watch-jKLIYp\.uib\bundles\1074470a5f927b296cb72ba0439907e493c9dbcb7488f2016b1e2b114a2ea42a.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.save packages/artifacts/src/artifact-service.ts:287:20
+ ❯ packages/artifacts/tests/watcher.test.ts:227:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[114/126]⎯
+
+ FAIL  packages/artifacts/tests/windows-storage.test.ts > atomic replacement and transactional recovery > rolls back a partial multi-file save after the replacement retry budget is exhausted
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-storage-3dq4Qg\.uib\bundles\03931218ee6da32fefbac774fffed06a4475ca13ed54925eee2b49c72bef678e.json.4d245dea-a0b4-485f-bbce-0c32f740463a.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-storage-3dq4Qg\.uib\bundles\03931218ee6da32fefbac774fffed06a4475ca13ed54925eee2b49c72bef678e.json'
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.resolve packages/artifacts/src/artifact-service.ts:169:5
+ ❯ FileSystemArtifactService.load packages/artifacts/src/artifact-service.ts:261:20
+ ❯ packages/artifacts/tests/windows-storage.test.ts:170:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[115/126]⎯
+
+ FAIL  packages/artifacts/tests/windows-storage.test.ts > atomic replacement and transactional recovery > retains the journal when rollback is also locked and recovers through a fresh service
+AssertionError: expected [Function] to throw error including 'recovery journal retained' but got 'EPERM: operation not permitted, link …'
+
+Expected: "recovery journal retained"
+Received: "EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-storage-qo13cW\.uib\bundles\8ec34a3b100ba510944965d88685a36a98d0cc3c8112cd06d971767ba3cf547b.json.916e8caf-576d-486d-9c61-125c58defbbc.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-storage-qo13cW\.uib\bundles\8ec34a3b100ba510944965d88685a36a98d0cc3c8112cd06d971767ba3cf547b.json'"
+
+ ❯ packages/artifacts/tests/windows-storage.test.ts:181:6
+    179|     await expect(
+    180|       f.service.save("form", { files: { "form.json": '{"fields":[null]…
+    181|     ).rejects.toThrow("recovery journal retained");
+       |      ^
+    182|     const journal = path.join(
+    183|       f.root,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[116/126]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: EPERM: operation not permitted, link 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-mtQT4t\.uib\bundles\39718f74e61dcb35c7e78df9b297847269f733468c540ca833383de80de0dbb5.json.b43212ae-392f-4956-a244-29eff30d693c.tmp' -> 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-mtQT4t\.uib\bundles\39718f74e61dcb35c7e78df9b297847269f733468c540ca833383de80de0dbb5.json'
+ ❯ link node:internal/fs/promises:1119:10
+ ❯ immutableWrite packages/artifacts/src/storage.ts:56:5
+     54|   try {
+     55|     await chmod(temp, 0o444);
+     56|     await link(temp, file); // Fails if the final name exists; never r…
+       |     ^
+     57|   } finally {
+     58|     await rm(temp, { force: true });
+ ❯ packages/artifacts/src/artifact-service.ts:140:13
+ ❯ acquireArtifactLock packages/artifacts/src/storage.ts:148:12
+ ❯ withArtifactLock packages/artifacts/src/storage.ts:95:12
+ ❯ FileSystemArtifactService.refresh packages/artifacts/src/artifact-service.ts:131:32
+ ❯ FileSystemArtifactService.discover packages/artifacts/src/artifact-service.ts:242:5
+ ❯ ApplicationBuildEngine.snapshot packages/artifacts/src/application/build.ts:121:23
+ ❯ ApplicationBuildEngine.pass packages/artifacts/src/application/build.ts:208:30
+ ❯ packages/artifacts/src/application/build.ts:332:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -4048, code: 'EPERM', syscall: 'link', path: 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-mtQT4t\.uib\bundles\39718f74e61dcb35c7e78df9b297847269f733468c540ca833383de80de0dbb5.json.b43212ae-392f-4956-a244-29eff30d693c.tmp', dest: 'C:\Projects\Modular\ui-platform\.uib\wp5-a\tmp\uib-build-mtQT4t\.uib\bundles\39718f74e61dcb35c7e78df9b297847269f733468c540ca833383de80de0dbb5.json' }
+This error originated in "packages/artifacts/tests/application-build.test.ts" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "coalesces changes during compilation and never returns superseded output". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  26 failed | 33 passed (59)
+      Tests  123 failed | 277 passed (400)
+     Errors  1 error
+   Start at  01:42:14
+   Duration  190.05s (transform 2.71s, setup 0ms, import 16.45s, tests 161.11s, environment 4ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-a/ui-results.json

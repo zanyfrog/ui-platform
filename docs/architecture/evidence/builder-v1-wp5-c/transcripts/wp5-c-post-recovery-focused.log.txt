@@ -1,0 +1,59 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ✓ tests/visual-artifacts.test.ts > authoritative Visual Artifact source > preserves comments, scripts, manual regions and unrelated formatting during a targeted edit 4ms
+ ✓ tests/visual-artifacts.test.ts > authoritative Visual Artifact source > creates real wrappers and stable distinct IDs without assigning application HTML IDs 1ms
+ ✓ tests/visual-artifacts.test.ts > authoritative Visual Artifact source > blocks editing ambiguous structure, duplicate IDs and private component internals 1ms
+ ✓ tests/visual-artifacts.test.ts > authoritative Visual Artifact source > accepts missing wrappers as limited/manual layout without rewriting the source 0ms
+ ✓ tests/visual-artifacts.test.ts > authoritative Visual Artifact source > preserves valid optional-end-tag HTML while editing managed markup elsewhere 0ms
+ ✓ tests/visual-artifacts.test.ts > authoritative Visual Artifact source > reorders managed layout items without changing IDs or unrelated manual content 1ms
+ ✓ tests/visual-artifacts.test.ts > shared Page/Component file service > creates, discovers, saves and reopens a page 148ms
+ ✓ tests/visual-artifacts.test.ts > shared Page/Component file service > creates, discovers, saves and reopens a component 136ms
+ ✓ tests/visual-artifacts.test.ts > shared Page/Component file service > reloads external files and prevents stale editor saves across all companion files 98ms
+ ✓ tests/visual-artifacts.test.ts > shared Page/Component file service > requires a hash and serializes simultaneous editor writes 110ms
+ ✓ tests/visual-artifacts.test.ts > shared Page/Component file service > rejects identity changes while retaining malformed metadata for repair 130ms
+ ✓ tests/visual-artifacts.test.ts > shared Page/Component file service > discovers manually created bundles and reports duplicate identities and missing source 60ms
+ ✓ tests/visual-artifacts.test.ts > shared Page/Component file service > checks known references before component deletion 42ms
+ ✓ tests/visual-artifacts.test.ts > shared Page/Component file service > rejects traversal and unknown file roles 35ms
+ ✓ tests/visual-artifacts.test.ts > contracts and installed definitions > resolves the real installed card identity and current settings schema 8ms
+ ✓ tests/visual-artifacts.test.ts > contracts and installed definitions > prohibits Page nesting, Component routes and cycles with an understandable path 0ms
+ ✓ tests/visual-artifacts.test.ts > contracts and installed definitions > validates public properties, slots, private boundaries and missing dependencies 0ms
+ ✓ tests/visual-artifacts.test.ts > contracts and installed definitions > evaluates declarative conditions and named paths without arbitrary code 0ms
+ ✓ tests/visual-artifacts.test.ts > contracts and installed definitions > enforces simple type, required, enum, number and string constraints 0ms
+ ✓ tests/visual-artifacts.test.ts > contracts and installed definitions > keeps unimplemented service references explicit and diagnosable 0ms
+ ✓ tests/visual-artifacts.test.ts > contracts and installed definitions > requires Platform authority for shared Component writes and Page authority for Pages 0ms
+ ✓ tests/visual-artifacts.test.ts > contracts and installed definitions > validates the source-controlled reference compositions with current packages 113ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > rejects invalid typed input null 2ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > rejects invalid typed input undefined 0ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > rejects invalid typed input {} 0ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > rejects invalid typed input {"message":""} 0ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > rejects invalid typed input {"message":12} 0ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > rejects invalid typed input {"message":"x","actor":"forged"} 0ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > rejects invalid typed input {"message":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"} 0ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > validates exact fixed input/output without coercion 0ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > runs the approved inherited service and isolates sinks/normal records 176ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > fails closed for revoked 79ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > fails closed for admission-race 85ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > fails closed for forged-identity 55ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > fails closed for cross-application 57ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > fails closed for missing-record 76ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > fails closed for missing-input 72ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > fails closed for unregistered 59ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > fails closed for stale-contract 59ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > retains earlier committed writes and reports a failed service without global rollback 145ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > invalid output after an effect reports unknown, never a fictional rollback 80ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > an approved deterministic fail-before-effect substitute retains authorization and reports its honest outcome 90ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > afterCommit denial preserves the protected commit and audits the failed service 126ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > rejects unsupported phases before effects 62ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > rejects multi-Dataset automation even when the actor can access both Datasets 59ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > Workflow transport reports confirmed HTTP 401 denial as not committed 3ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > Workflow transport reports confirmed HTTP 403 denial as not committed 0ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > Workflow transport reports confirmed HTTP 404 denial as not committed 0ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > Workflow timeout/server failure remains unknown and is never automatically retried 1ms
+ ✓ tests/builder-v1-wp5-c-services.test.ts > automation creation rechecks management admission before writing source 50ms
+
+ Test Files  2 passed (2)
+      Tests  50 passed (50)
+   Start at  17:36:22
+   Duration  3.77s (transform 448ms, setup 0ms, import 1.09s, tests 2.23s, environment 0ms)
+

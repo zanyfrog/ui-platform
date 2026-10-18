@@ -2,6 +2,7 @@ import type { ApplicationMenu, CompositionDefinition, MenuItem } from '@ui-platf
 import type { TemplateComparison } from '../../server/template-updates.js';
 import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
 import { specializedTransport, type SourceRequest, type SourceTransportOptions } from '../artifact-editor/specialized-transport.js';
+import { chooseMenuItem } from './menu-controls.js';
 
 const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 async function api<T>(url: string, init?: RequestInit): Promise<T> { const response = await fetch(url, { ...init, headers: { 'content-type': 'application/json' } }); const data = await response.json(); if (!response.ok) throw new Error(data.error ?? 'Request failed.'); return data; }
@@ -17,15 +18,19 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
   let definition = options.definition ?? await request<CompositionDefinition | null>(`${base}/composition`);
   if (!definition) { transport.dispose(); target.remove(); return; }
   let source: Source | undefined, update: TemplateComparison | undefined;
+  let choices = await request<{ assets: string[]; styles: string[] }>(`${base}/composition-asset?list=1`);
   target.innerHTML = `<div class="stack"><strong>Application Composition</strong><p data-status aria-live="polite"></p>
     <label>Application source<select data-files><option value="app.settings.json">Branding, theme and default Shell</option>${definition.menus.map(menu => `<option value="${esc(menu.sourcePath)}">${esc(menu.name)}</option>`).join('')}${definition.settings.siteStyles.map(file => `<option>${esc(file)}</option>`).join('')}</select></label>
-    <div data-settings></div><div data-menu></div><label>Source<textarea data-source class="source-editor" spellcheck="false"></textarea></label>
+    <div data-settings></div><div data-menu></div><details><summary>Advanced native source</summary><label>Source<textarea data-source class="source-editor" spellcheck="false"></textarea></label></details>
     <div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-reload>Reload source</button><button data-recover>Download recovery</button><button data-new-menu>Create Menu</button><button data-template>Update from Application Template</button></div>
     <label>Application asset<input type="file" data-asset></label><label>Asset source path<input data-asset-path value="assets/images/image.png"></label><button data-upload-asset>Upload Application asset</button><p data-asset-status></p>
     <p class="note">Saved source appears in development preview. Use the existing Presentation Publish action to update published presentation.</p><div data-update></div></div>`;
   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
   const status = (message: string) => { find('[data-status]').textContent = message; options.onStateChange?.(); };
-  const safe = (run: () => void | Promise<void>) => async () => { if (busy || !active || disposed) return; busy = true; try { await run(); } catch (error) { status(String(error)); } finally { busy = false; options.onStateChange?.(); } };
+  const safe = (run: () => void | Promise<void>) => async () => { if (busy || !active || disposed) return; busy = true; target.inert = true;
+    const fields = [...target.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input,select,textarea')].map(field => ({ field, disabled: field.disabled }));
+    for (const { field } of fields) field.disabled = true;
+    try { await run(); } catch (error) { status(String(error)); } finally { busy = false; target.inert = false; for (const { field, disabled } of fields) field.disabled = disabled; options.onStateChange?.(); } };
   const text = () => find<HTMLTextAreaElement>('[data-source]').value;
   const dirty = () => !!copy?.lifecycle.dirty;
   function paintState() {
@@ -69,19 +74,36 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
     find('[data-asset-status]').textContent = `Saved ${path}. Use this source path in branding or component settings.`; document.dispatchEvent(new Event('ui-platform-workspace-change'));
   }));
   function menu(): ApplicationMenu { return JSON.parse(text()); }
+  async function chooseItem(existing?: MenuItem): Promise<MenuItem | undefined> {
+    const latest = await request<CompositionDefinition | null>(`${base}/composition`);
+    if (!active || disposed) return;
+    if (!latest) throw new Error('Application composition is unavailable. Refresh and repair its source before selecting a destination.');
+    definition = latest; return chooseMenuItem(latest, existing);
+  }
   function modifyMenu(work: (menu: ApplicationMenu) => void) { const value = menu(); work(value); find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(value, null, 2) + '\n'; renderFields(); changed(); }
   function renderFields(): void {
     find('[data-settings]').replaceChildren(); find('[data-menu]').replaceChildren();
     if (source?.path === 'app.settings.json') {
       const config = JSON.parse(text());
       const field = (name: string, value: string, change: (value: string) => void) => {
-        const label = document.createElement('label'); label.textContent = name; const input = document.createElement('input'); input.value = value;
+        const label = document.createElement('label'); label.textContent = name; const input = document.createElement('input'); input.value = value; input.setAttribute('aria-label', name);
         input.addEventListener('input', safe(() => { change(input.value); find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(config, null, 2) + '\n'; changed(`setting:${name}`); })); label.append(input); find('[data-settings]').append(label);
       };
       const label = document.createElement('label'); label.textContent = 'Default Shell for new Pages'; const select = document.createElement('select');
       select.innerHTML = definition!.shells.map(shell => `<option value="${esc(shell.metadata.artifactId)}">${esc(shell.metadata.displayName)}</option>`).join(''); select.value = config.presentation.defaultShellId;
       select.addEventListener('change', safe(() => { config.presentation.defaultShellId = select.value; find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(config, null, 2) + '\n'; changed(); })); label.append(select); find('[data-settings]').append(label);
       for (const key of ['applicationName', 'shortName', 'primaryLogo', 'secondaryLogo', 'favicon']) field(key, config.presentation.branding[key] ?? '', value => { config.presentation.branding[key] = value; });
+      for (const key of ['primaryLogo', 'secondaryLogo', 'favicon']) {
+        const input = [...find('[data-settings]').querySelectorAll('label')].find(label => label.firstChild?.textContent === key)!.querySelector('input')!;
+        const select = document.createElement('select'); select.setAttribute('aria-label', `Select ${key} asset`); select.add(new Option('No asset', ''));
+        const images = choices.assets.filter(path => /\.(svg|png|jpg|jpeg|webp|ico)$/.test(path));
+        for (const path of new Set([...images, ...(input.value ? [input.value] : [])])) select.add(new Option(path + (images.includes(path) ? '' : ' (missing or unsupported image)'), path));
+        select.value = input.value; select.onchange = () => { input.value = select.value; input.dispatchEvent(new Event('input')); }; input.parentElement!.append(select);
+      }
+      const refresh = document.createElement('button'); refresh.textContent = 'Refresh asset and theme choices'; refresh.onclick = safe(async () => { choices = await request(`${base}/composition-asset?list=1`); renderFields(); }); find('[data-settings]').append(refresh);
+      const styleLabel = document.createElement('label'); styleLabel.append('Theme stylesheets'); const styles = document.createElement('select'); styles.multiple = true; styles.setAttribute('aria-label', 'Theme stylesheets');
+      for (const path of new Set([...choices.styles, ...config.presentation.siteStyles])) { const option = new Option(path, path); option.selected = config.presentation.siteStyles.includes(path); styles.add(option); }
+      styles.onchange = safe(() => { config.presentation.siteStyles = [...styles.selectedOptions].map(option => option.value); find<HTMLTextAreaElement>('[data-source]').value = JSON.stringify(config, null, 2) + '\n'; changed('theme-styles'); }); styleLabel.append(styles); find('[data-settings]').append(styleLabel);
       for (const [key, value] of Object.entries(config.presentation.theme)) field(key, String(value), value => { config.presentation.theme[key] = value; });
     } else if (source?.path.startsWith('menus/')) {
       const value = menu();
@@ -92,7 +114,7 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
           const li = document.createElement('li'); li.append(document.createTextNode(`${item.label} (${item.destination.kind}) `)); ul.append(li);
           const button = (label: string, click: () => void) => { const button = document.createElement('button'); button.textContent = label; button.addEventListener('click', safe(click)); li.append(button); };
           const locate = (menu: ApplicationMenu): MenuItem => { let found: MenuItem | undefined; const walk = (items: MenuItem[]) => { for (const entry of items) { if (entry.itemId === item.itemId) found = entry; walk(entry.children ?? []); } }; walk(menu.items); return found!; };
-          button('Edit', () => { const label = prompt('Label:', item.label); if (label === null) return; const destination = prompt('Destination JSON: page/pageId, route/routeId, url/url, action/actions', JSON.stringify(item.destination)); if (destination === null) return; const browserTarget = prompt('Browser target: _self, _blank, _parent, _top', item.target ?? '_self'); if (browserTarget === null) return; modifyMenu(menu => { Object.assign(locate(menu), { label, destination: JSON.parse(destination), target: browserTarget }); }); });
+          button('Edit', async () => { const original = text(), edited = await chooseItem(item); if (edited && active && !disposed) { if (text() !== original) throw new Error('Menu source changed while editing. Reopen the item.'); modifyMenu(menu => { Object.assign(locate(menu), edited); }); } });
           button(item.hidden ? 'Show' : 'Hide', () => modifyMenu(menu => { locate(menu).hidden = !item.hidden; }));
           button(item.disabled ? 'Enable' : 'Disable', () => modifyMenu(menu => { locate(menu).disabled = !item.disabled; }));
           button('Add child', () => addItem(item.itemId));
@@ -105,10 +127,9 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
       draw(value.items, list); const add = document.createElement('button'); add.textContent = 'Add root item'; add.addEventListener('click', safe(() => addItem())); list.append(add); find('[data-menu]').append(list);
     }
   }
-  function addItem(parentId?: string): void {
-    const label = prompt('Menu Item label:'); if (!label) return;
-    const destination = prompt('Destination as JSON:', '{"kind":"page","pageId":"' + definition!.pages[0]?.metadata.artifactId + '"}'); if (!destination) return;
-    const item: MenuItem = { itemId: `item-${crypto.randomUUID()}`, label, destination: JSON.parse(destination) };
+  async function addItem(parentId?: string): Promise<void> {
+    const original = text(), item = await chooseItem(); if (!item || !active || disposed) return;
+    if (text() !== original) throw new Error('Menu source changed while editing. Reopen the item.');
     modifyMenu(menu => { if (!parentId) menu.items.push(item); else { const walk = (items: MenuItem[]) => { for (const entry of items) { if (entry.itemId === parentId) (entry.children ??= []).push(item); else walk(entry.children ?? []); } }; walk(menu.items); } });
   }
   async function load(replace = false): Promise<void> {

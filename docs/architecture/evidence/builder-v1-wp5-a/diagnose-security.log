@@ -1,0 +1,45 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ❯ tests/editor-security.test.ts (28 tests | 1 failed | 27 skipped) 38ms
+     ↓ returns authorized normal-candidate diagnostics without paths or hidden identities and leaves source unchanged
+     ↓ uses the WP3 graph and durable gate for real HTTP security activation, independent of fixture admin labels
+     ↓ stages and explicitly activates a WP1 application draft only through a development administrator session
+     ↓ requires an authenticated explicit activation after filesystem reconciliation
+     ↓ rejects every unauthenticated artifact endpoint and SSE without trusting identity headers
+     ↓ viewer reads and validates but cannot mutate even with a valid checksum
+     ↓ reviewer reads and validates but cannot mutate even with a valid checksum
+     ↓ filters discovery, references and diagnostics and denies restricted operations
+     ↓ allows admin system edits and preserves 400/409 and safe failures
+     ↓ allows app editor invalid-file saves but prevents identity/type promotion
+     ↓ denies cross-application access before workspace lookup and isolates locators for multi-app admins
+     ↓ fails closed on legacy source, export, download and mutation route families for every identity
+     ↓ keeps the explicitly safe unrelated development endpoints available
+     ↓ requires same-origin CSRF and rejects hostile hosts and forwarded connections
+     ↓ filters SSE by app and artifact, handles authorized removals, and closes on identity switch
+     ↓ invalidates old request revisions even if the new identity also permits editing
+     × rejects a request still preparing a write when identity changes 36ms
+     ↓ drains an admitted save before acknowledging a switch and rejects later old-session writes
+     ↓ revokes an identity across sessions and closes its streams
+     ↓ honors an independent server policy on every operation
+     ↓ expires idle sessions and streams without allowing a delayed write
+     ↓ does not emit an event whose authorization read finishes after revocation
+     ↓ keeps malformed raw manifests repairable by administrators and hidden from other roles
+     ↓ honors server ownership overrides without trusting a manifest ownership field
+     ↓ denies editor APIs in 'development' when disabled
+     ↓ denies editor APIs in 'production' when disabled
+     ↓ refuses fixture activation in production or in the emitted server even with a development environment
+     ↓ requires explicit opt-in and server-only settings
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/editor-security.test.ts > editor HTTP authorization around the real workspace > rejects a request still preparing a write when identity changes
+Error: connect EACCES 127.0.0.1:62333
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 27 skipped (28)
+   Start at  01:44:03
+   Duration  653ms (transform 123ms, setup 0ms, import 408ms, tests 38ms, environment 0ms)
+

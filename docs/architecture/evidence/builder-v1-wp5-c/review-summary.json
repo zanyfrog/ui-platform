@@ -1,0 +1,93 @@
+{
+  "verifiedAt": "2026-10-17T22:06:43.013637+00:00",
+  "gate": "STOP AT WP5-C IMPLEMENTATION VERIFICATION/REVIEW",
+  "accepted": false,
+  "wp5dStarted": false,
+  "ui": {
+    "passed": 446,
+    "failed": 0,
+    "files": 63,
+    "serial": true,
+    "defaultTestTimeoutMs": 30000,
+    "defaultHookTimeoutMs": 30000,
+    "configuredRetries": 1,
+    "perCaseRetryCountAvailable": false
+  },
+  "dataServices": {
+    "passed": 760,
+    "failed": 0,
+    "files": 35
+  },
+  "editorStorageContracts": {
+    "passed": 146,
+    "failed": 0
+  },
+  "buildsTypechecksProductionExclusion": "passed",
+  "browserProof": "browser-acceptance.json",
+  "historicalEvidence": {
+    "historical": 351,
+    "wp5b": 157,
+    "planning": 3,
+    "allBytesAndOriginalHashesPreserved": true
+  },
+  "acceptedWp5bClosureRecords": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-b-component-reuse.md",
+      "unchangedSinceClosure": true
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-b-verification.md",
+      "unchangedSinceClosure": true
+    }
+  ],
+  "sourceLockingCodeUnchanged": {
+    "packages\\artifacts\\src\\storage.ts": true,
+    "src\\server\\composition-lock.ts": true
+  },
+  "operatorRecovery": "operator-recovery.json",
+  "umbrellaUncheckedIds": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A20",
+    "A21",
+    "A22",
+    "A23",
+    "A24",
+    "A25",
+    "A26",
+    "A27",
+    "A28",
+    "A29",
+    "A30",
+    "A31",
+    "A32",
+    "A33",
+    "A34",
+    "A35",
+    "A36",
+    "A37",
+    "A38",
+    "A39",
+    "A40"
+  ],
+  "umbrellaCheckedIds": [],
+  "d6": "WP5-F; separate design review; simultaneous reliability not proved",
+  "a37": "WP6 full management restart/browser evidence"
+}

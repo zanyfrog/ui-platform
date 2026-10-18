@@ -56,9 +56,9 @@ export function createApplicationDataServices(client = new ApplicationDataClient
     'dataset.read': input => client.query({ ...(input as ProtectedRead), mode: 'read' }),
     'workflow.run': async input => {
       const response = await fetch(`${(options.endpoint ?? '/api/application-data').replace(/\/$/, '')}/workflows`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input) });
-      if (response.status === 401) throw new Error('Sign in before running the Workflow. Your session may have expired.');
-      if (response.status >= 500) throw new Error('The activation service is unavailable or took too long to respond. Check the person’s status before running activation again.');
-      if (!response.ok) throw new Error('WORKFLOW_REQUEST_DENIED');
+      if (response.status === 401) throw Object.assign(new Error('Sign in before running the Workflow. Your session may have expired.'), { code: 'WORKFLOW_REQUEST_DENIED', commitOutcome: 'not-committed' });
+      if (response.status >= 500) throw new Error('The Workflow service is unavailable or timed out. The outcome is unknown; check the result before running it again.');
+      if (!response.ok) throw Object.assign(new Error('WORKFLOW_REQUEST_DENIED'), { code: 'WORKFLOW_REQUEST_DENIED', commitOutcome: 'not-committed' });
       const result: unknown = await response.json();
       return result;
     },

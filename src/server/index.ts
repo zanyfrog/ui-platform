@@ -39,7 +39,7 @@ import { regions, primaryRouteSignature } from '@ui-platform/visual-artifacts';
 import { withApplicationMutation } from './composition-lock.js';
 import { prepareVisualCandidate, VisualCandidateError } from './visual-candidate.js';
 import { applyTemplateUpdate, compareTemplate } from './template-updates.js';
-import { assertShellUnused, changePageShell, compositionAssetInfo, compositionSettings, compositionSourcePath, compositionWorkspace, readCompositionSource, saveCompositionAsset, saveCompositionSource, validateCompositionEdit } from './application-composition.js';
+import { assertShellUnused, changePageShell, compositionAssetInfo, compositionSourceChoices, compositionSettings, compositionSourcePath, compositionWorkspace, readCompositionSource, saveCompositionAsset, saveCompositionSource, validateCompositionEdit } from './application-composition.js';
 
 import { DevelopmentApplicationRegistry } from './development-application-registry.js';
 import { DevelopmentApplicationRuntime } from './development-application-runtime.js';
@@ -271,6 +271,15 @@ const server = http.createServer(async (req, res) => {
       }
     }
     if (url.pathname === '/api/health') return json(res, 200, { ok: true });
+    if (parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'automation-catalog' && parts.length === 4 && method === 'GET') {
+      if (!developmentRuntime) return json(res, 403, { error: 'Protected normal host required.' });
+      const owner = await readApplicationOwnerId(decodeURIComponent(parts[2]));
+      return json(res, 200, await developmentRuntime.authoringCatalog(owner, req));
+    }
+    if (url.pathname === '/api/automation/catalog' && method === 'GET') {
+      if (!developmentRuntime) return json(res, 403, { error: 'Protected normal host required.' });
+      return json(res, 200, await developmentRuntime.authoringCatalog(url.searchParams.get('applicationId') ?? '', req));
+    }
     if (parts[0] === 'api' && parts[1] === 'automation' && ['triggers', 'workflows'].includes(parts[2]) && parts.length === 3) {
       // Platform-wide authoring requires the existing trusted development session and system permission.
       if (!v1Identity) return json(res, 403, { error: 'Trusted Platform management identity required.' });
@@ -279,7 +288,7 @@ const server = http.createServer(async (req, res) => {
       const locator = url.searchParams.get('locator');
       if (method === 'GET') return json(res, 200, locator ? await store.read(locator) : await store.list());
       const input = await body(req);
-      if (method === 'POST') return json(res, 201, await store.create(String(input.name ?? ''), input.definition));
+      if (method === 'POST') return json(res, 201, await store.create(String(input.name ?? ''), input.definition, admitManagement));
       if (!locator) throw new Error('Artifact locator is required.');
       if (method === 'PUT') { if (input.mode === 'normal' && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); return json(res, 200, await store.save(locator, input.source, input.expectedHash, async () => { if (input.mode === 'normal' && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); await admitManagement(); })); }
       if (method === 'DELETE') {
@@ -342,6 +351,7 @@ const server = http.createServer(async (req, res) => {
         return json(res, 201, await saveCompositionAsset(key, String(input.fields.path ?? ''), input.files.asset.content, input.fields.expectedHash || null, admitManagement));
       }
       if (parts.length === 4 && parts[3] === 'composition-asset' && method === 'GET') {
+        if (url.searchParams.get('list') === '1') return json(res, 200, await compositionSourceChoices(key));
         const relative = url.searchParams.get('path') ?? ''; if (!relative.startsWith('assets/')) throw new Error('Application asset path required.');
         if (url.searchParams.get('info') === '1') return json(res, 200, await compositionAssetInfo(key, relative));
         const file = await compositionSourcePath(key, relative), content = await readFile(file);

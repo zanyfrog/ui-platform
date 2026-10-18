@@ -1,0 +1,160 @@
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/dataset-operations/tests/recovery.test.ts (68 tests) 13714ms
+   ✓ full real recovery +0/'before' retains bytes and verifies runtime  375ms
+   ✓ full real recovery +0/'next' retains bytes and verifies runtime  353ms
+   ✓ full real recovery 1/'before' retains bytes and verifies runtime  360ms
+   ✓ full real recovery 1/'next' retains bytes and verifies runtime  340ms
+   ✓ full real recovery 2/'before' retains bytes and verifies runtime  326ms
+   ✓ full real recovery 2/'next' retains bytes and verifies runtime  327ms
+   ✓ next-matching case validates final invariants and does not certify the missing preimage  309ms
+ ✓ packages/dataset-operations/tests/recovery-process.test.ts (10 tests) 7837ms
+   ✓ kill during 'applying'/'journal': lock diagnostics and contender preserve all bytes  691ms
+   ✓ kill during 'applying'/'state': lock diagnostics and contender preserve all bytes  657ms
+   ✓ kill during 'verified-pending-activation'/'journal': lock diagnostics and contender preserve all bytes  676ms
+   ✓ kill during 'verified-pending-activation'/'state': lock diagnostics and contender preserve all bytes  679ms
+   ✓ kill during 'applied'/'journal': lock diagnostics and contender preserve all bytes  783ms
+   ✓ kill during 'applied'/'state': lock diagnostics and contender preserve all bytes  791ms
+   ✓ real process narrow before recovery holds lifetime ownership, then clean same-version restart  1179ms
+   ✓ real process narrow next recovery holds lifetime ownership, then clean same-version restart  1108ms
+   ✓ death before validated journal reconciliation retains evidence and blocks restart  643ms
+   ✓ death after validated journal reconciliation retains evidence and blocks restart  630ms
+ ✓ packages/dataset-operations/tests/recovery-failures.test.ts (51 tests) 6306ms
+   ✓ after reconciliation promotion failure never certifies serving  305ms
+ ✓ packages/dataset-operations/tests/activation-http.test.ts (37 tests) 4244ms
+   ✓ R2 real controlled runtime activation > health through production HTTP, durable receipt, confirmed promotion and lifetime ownership  307ms
+   ✓ R2 real controlled runtime activation > clean restart uses a fresh runtime, preserves applied bytes, and never follows a newer active version  328ms
+   ✓ C2 ordinary admitted CRUD preserves the verified serving identity and proves real persistence  459ms
+ ✓ packages/dataset-operations/tests/wp5-deployed-host.test.ts (4 tests) 3360ms
+   ✓ WP5 deployed development host > uses one configured active User through DOE, I-AM, WP4 and ORM; forged request authority fails closed  766ms
+   ✓ WP6 published declarative Service Trigger in the deployed DOE host > requires both exact publication approval and the Service's business permission, and leaves durable audit  2395ms
+ ✓ packages/dataset-operations/tests/wp6-closure-runtime.test.ts (2 tests) 3299ms
+   ✓ WP6 closure: trusted root and durable resume > runs a root Service job and independently approved Service A to Service B through DOE  1758ms
+   ✓ WP6 closure: trusted root and durable resume > persists only intent and revalidates approval, assignment, Service, digest and retry authority  1540ms
+ ✓ packages/dataset-operations/tests/operation-security.test.ts (185 tests) 2255ms
+ ❯ packages/dataset-operations/tests/wp5-secured-engine.test.ts (25 tests | 2 failed) 2034ms
+   ✓ WP5-B resolves a single applied record target and preserves unrelated rows 60ms
+   ✓ WP5-B rejects invalid, cross-owner, stale, mistyped, denied and revoked record targets without mutation 9ms
+   × WP5-B prevents a beforeDelete Trigger from changing the selected direct target 28ms
+     → expected { …(7) } to match object { success: false, …(2) }
+(10 matching properties omitted from actual)
+   × WP5-B retains committed failure when an afterCommit handler fails 42ms
+     → expected { …(7) } to match object { success: false, …(3) }
+(7 matching properties omitted from actual)
+   ✓ WP4 Form calculations: validates trusted declarations after defaults/Triggers, rejects tampering and protects dependency reads 80ms
+   ✓ WP4 Form calculations: validates the post-Trigger row and rejects missing required mappings 29ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > subtracts row and field DENY before pagination, count and projection 33ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > rejects forged host identity, stale policy, unauthorized final transform and mixed bulk atomically 50ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > binds direct HTTP calls to a server-attested identity and refuses actor and authority overrides 122ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > persists authorized create/update/delete but returns no unread row data 63ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > rejects a same-value denied Field, old-to-new predicate escape, and stale plan after ORM staging 64ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > does not let an owner-scoped UPDATE change ownership to another principal 21ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > keeps independent row/Field grants correlated and denies inference dependencies 24ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > joins child writes, poisons the parent on child denial and keeps afterCommit outcome honest 98ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > fails closed on unknown resources, mismatched plans, changed owner revisions and I-AM outages 30ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > reports unknown commit outcome without asserting rollback or exposing a row 19ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > uses the verified applied owner registry and rejects a stale serving binding  692ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > reauthorizes defaulted fields and expires a plan before commit 34ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > shows UPDATE triggers only old fields with a separate current-actor READ grant 85ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > rejects unsupported restore, export and partial-write modes before persistence 1ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > fails closed when a registry row requests Service execution without a verified isolated executable 12ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > does not let ordinary handler mutation replace the trusted User or source 17ms
+   ✓ WP6 delegated DOE authority and transaction failures > requires Service business grants and an independent current approval 124ms
+   ✓ WP6 delegated DOE authority and transaction failures > rolls back an earlier delegated write when a later Field is denied 87ms
+   ✓ WP6 delegated DOE authority and transaction failures > gives Service old-state READ only inside delegation and returns no protected value to the User 210ms
+ ✓ packages/schema-manager/tests/stab1-contracts.test.ts (13 tests) 1793ms
+   ✓ STAB-1 true (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  352ms
+   ✓ STAB-1 false (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  334ms
+ ✓ packages/dataset-operations/tests/activation-process.test.ts (2 tests) 1533ms
+   ✓ two-process serving-lifetime contention and verified same-version process restart  964ms
+   ✓ process death leaves an owner that a second process never steals or reconciles  569ms
+ ✓ packages/i-am/tests/wp3-administration.test.ts (39 tests) 1151ms
+ ✓ packages/schema-application/tests/verification.test.ts (45 tests) 944ms
+ ✓ packages/schema-application/tests/resolver.test.ts (25 tests) 744ms
+ ✓ packages/versioned-definition-registry/tests/registry.test.ts (31 tests) 603ms
+ ✓ packages/i-am/tests/wp1-definitions.test.ts (31 tests) 522ms
+ ✓ packages/dataset-operations/tests/development-dataset-authoring.test.ts (3 tests) 335ms
+ ✓ packages/i-am/tests/write-scope-containment.test.ts (32 tests) 329ms
+ ✓ packages/schema-application/tests/resource-registry.test.ts (2 tests) 286ms
+ ✓ packages/dataset-operations/tests/nested-transactions.test.ts (18 tests) 261ms
+ ✓ packages/schema-application/tests/fingerprint.test.ts (32 tests) 225ms
+ ✓ packages/schema-manager/tests/schema-manager.test.ts (2 tests) 203ms
+ ✓ packages/dataset-operations/tests/operation-failures.test.ts (17 tests) 203ms
+ ✓ packages/dataset-operations/tests/operation-service-contract.test.ts (5 tests) 172ms
+ ✓ packages/i-am/tests/wp2-evaluator.test.ts (9 tests) 110ms
+ ✓ packages/i-am/tests/wp4-plan.test.ts (12 tests) 96ms
+ ✓ packages/schema-application/tests/state-store.test.ts (4 tests) 92ms
+ ✓ packages/trigger-manager/tests/service-program.test.ts (3 tests) 68ms
+ ✓ packages/dataset-operations/tests/activation-drain.test.ts (1 test) 59ms
+ ✓ packages/trigger-manager/tests/trigger-manager.test.ts (2 tests) 33ms
+ ✓ packages/versioned-definition-registry/tests/canonical.test.ts (36 tests) 29ms
+ ✓ packages/dataset-operations/tests/operation-manager.test.ts (2 tests) 25ms
+ ✓ packages/i-am/tests/wp6-delegation-policy.test.ts (4 tests) 14ms
+ ✓ packages/dataset-operations/tests/v1-development-assertion.test.ts (3 tests) 6ms
+ ✓ packages/dataset-operations/tests/declarative-expression.test.ts (4 tests) 6ms
+ ✓ packages/dataset-operations/tests/wp6-actor-lease.test.ts (1 test) 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/dataset-operations/tests/wp5-secured-engine.test.ts > WP5-B prevents a beforeDelete Trigger from changing the selected direct target
+AssertionError: expected { …(7) } to match object { success: false, …(2) }
+(10 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "committed": false,
+    "errors": [
+      {
+-       "code": "RECORD_TARGET_CHANGED",
++       "code": "TRIGGER_FAILED",
+      },
+    ],
+    "success": false,
+  }
+
+ ❯ packages/dataset-operations/tests/wp5-secured-engine.test.ts:112:158
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  packages/dataset-operations/tests/wp5-secured-engine.test.ts > WP5-B retains committed failure when an afterCommit handler fails
+AssertionError: expected { …(7) } to match object { success: false, …(3) }
+(7 matching properties omitted from actual)
+
+- Expected
++ Received
+
+@@ -2,9 +2,17 @@
+    "commitOutcome": "committed",
+    "committed": true,
+    "errors": [
+      {
+        "code": "POST_COMMIT_FAILED",
++       "commitOutcome": "committed",
++       "message": "POST COMMIT FAILED",
++       "operationId": "6739f8e2-b7a5-4341-b5c4-e19825792f8b",
++     },
++     {
++       "code": "AFTER_COMMIT_FAILURE",
++       "message": "AFTER COMMIT FAILURE",
++       "operationId": "6739f8e2-b7a5-4341-b5c4-e19825792f8b",
+      },
+    ],
+    "success": false,
+  }
+
+ ❯ packages/dataset-operations/tests/wp5-secured-engine.test.ts:120:158
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 34 passed (35)
+      Tests  2 failed | 758 passed (760)
+   Start at  07:51:39
+   Duration  63.78s (transform 1.14s, setup 0ms, collect 3.12s, tests 52.90s, environment 5ms, prepare 2.92s)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-b/data-services-final.json

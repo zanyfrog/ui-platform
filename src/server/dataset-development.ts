@@ -153,7 +153,7 @@ export class DatasetDevelopment {
             registration: applied.registration, port: 0, identity: { enabled: true, token: randomBytes(32).toString('hex'), allowLegacyToken: false,
               trustedUiServerKey: randomBytes(32).toString('hex'), applicationId: appId, authorityId: V1_AUTHORITY_ID, userId: this.options.identity.currentUser(req)! },
             permissions: { operation: { read: 'dataset.read', create: 'dataset.create', update: 'dataset.update', delete: 'dataset.delete' }, field: { read: 'dataset.read', write: 'dataset.write', filter: 'dataset.read', sort: 'dataset.read' } },
-            automation: { workflowsRoot: path.join(platformRoot, 'workflows'), triggersRoot: path.join(platformRoot, 'triggers') }, management: { registryFile: this.options.registryFile, applicationsRoot: this.options.applicationsRoot } } };
+            automation: { services: ['reference.notification'], workflowsRoot: path.join(platformRoot, 'workflows'), triggersRoot: path.join(platformRoot, 'triggers') }, management: { registryFile: this.options.registryFile, applicationsRoot: this.options.applicationsRoot } } };
           await assertSource(); await atomicJson(deploymentFile, deployment);
           // Apply and Connect are deliberately distinct operations.
           const value = await status(); await assertSource(); send(200, { ...value, activation: applied.activation }); return true;

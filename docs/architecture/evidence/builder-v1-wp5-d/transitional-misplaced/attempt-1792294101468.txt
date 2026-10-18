@@ -1,0 +1,110 @@
+Skip to content
+Development identity 
+Sign out
+Security Admin (security@example.local)
+Page, Form and Workflow Editor (combined@example.local)
+Page and Form Editor (page-form-editor@example.local)
+Mixed Permissions (mixed@example.local)
+Workflow Editor (workflow-editor@example.local)
+Application Admin (admin@example.local)
+Manage Triggers and Workflows
+M
+MODULAR
+UI Platform
+Applications
+Packages
+Templates
+Settings
+U
+User
+user@example.com
+New Application
+Applications
+/
+WP4 Dataset Application
+W
+WP4 Dataset Application
+active
+
+/wp5d-created
+ecdf8987-d2b1-44b1-a6cd-fe1b62a156f7
+
+A sample application built with the UI Platform.
+
+Overview
+Pages
+Packages
+Presentation
+Preview
+Settings
+Application navigation
+WP4 Dataset Application
+Refresh artifacts
+Create Dataset
+Create Form
+Create Menu
+Upload Application asset
+Create Page
+Create Shell
+Create Platform Component
+
+Use a lowercase name with letters, numbers, and hyphens.
+
+Pages
+Administration
+Welcome
+Home (source inspection) (repair-only locator) (read-only)
+Shells
+Admin Shell
+Public Shell
+Components and Forms
+Composition Shared Help
+Customer List Item
+Customer Summary Card
+PersonForm
+Menus
+Admin Navigation
+Main Navigation
+Application presentation/settings
+Application presentation/settings
+styles/site.css (repair-only locator)
+SERVER
+UI Platform API listening on http://localhost:64946
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5d-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5d-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+artifact-editor-security {"action":"request-denied","operation":"GET"}
+Error: Use a lowercase name with letters, numbers, and hyphens.
+    at VisualArtifactService.create (C:\Projects\Modular\ui-platform\src\server\visual-artifacts.ts:82:48)
+    at <anonymous> (C:\Projects\Modular\ui-platform\src\server\index.ts:412:41)
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+    at async withApplicationMutation (C:\Projects\Modular\ui-platform\src\server\composition-lock.ts:9:16)
+    at async Server.<anonymous> (C:\Projects\Modular\ui-platform\src\server\index.ts:402:39)

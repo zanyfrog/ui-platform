@@ -73,7 +73,10 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
     if (!mutation && (url.endsWith('/visual-artifacts') || url.endsWith('/composition'))) {
       const next = await authorizeWorkspace(artifact.applicationKey, { identity: artifact.identity }); assertResponse();
       artifact = next;
-      return (url.endsWith('/visual-artifacts') ? next.visual : next.composition) as T;
+      const supplied = url.endsWith('/visual-artifacts') ? next.visual : next.composition;
+      if (supplied !== undefined) return supplied as T;
+      // A focused Visual tab does not embed composition source. Use the existing
+      // protected composition read; it independently requires presentation view.
     }
     if (!mutation && /^\/api\/automation\/[^?]+$/.test(url)) return [artifact.automation] as T;
     const headers = await binding.headers();

@@ -1,0 +1,342 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+4:08:52 PM [vite] (client) [optimizer] scanning dependencies...
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 checkpoint: blank Form created
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Dataset error: 422 {"code":"DATASET_NAME_REQUIRED","error":"DATASET NAME REQUIRED","recovery":"Source and permanent identities are retained. Incomplete activation requires the existing Data Services recovery procedure; no automatic retry or rollback is claimed."}
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 checkpoint: Dataset applied and connected
+
+ ❯ tests/builder-v1-wp4.test.ts (1 test | 1 failed) 82905ms
+   × WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence 82904ms
+stdout | tests/builder-v1-wp3.test.ts > WP3: Builder authoring, activation, serving, protected CRUD, security and restart
+4:10:15 PM [vite] (client) [optimizer] scanning dependencies...
+
+stdout | tests/builder-v1-wp3.test.ts > WP3: Builder authoring, activation, serving, protected CRUD, security and restart
+4:11:02 PM [vite] (client) dependency optimized: @ui-platform/dataset-operations/expression
+4:11:02 PM [vite] (client) optimized dependencies changed. reloading
+
+ ✓ tests/builder-v1-wp3.test.ts (2 tests) 71037ms
+   ✓ WP3: Builder authoring, activation, serving, protected CRUD, security and restart  71032ms
+stdout | tests/trigger-workflow-browser.test.ts > unsigned Form submission shows a sign-in message without running automation
+4:11:18 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+stdout | tests/trigger-workflow-browser.test.ts > management browser creates, edits, reloads disk source, retains conflicts and deletes under Platform authorization
+4:11:38 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+ ✓ tests/trigger-workflow-browser.test.ts (4 tests) 28452ms
+   ✓ unsigned Form submission shows a sign-in message without running automation  4139ms
+   ✓ real browser Form success and Page button invoke the permanent Workflow through trusted identity and protected persisted DOE  13665ms
+   ✓ reference launcher exposes its protected management page  2768ms
+   ✓ management browser creates, edits, reloads disk source, retains conflicts and deletes under Platform authorization  7878ms
+ ✓ tests/builder-v1-wp0.test.ts (1 test) 17133ms
+   ✓ WP0: normal creation, explicit authority, applied protected Dataset, mandatory Workflow, isolation, revocation, recovery and managed preview  17132ms
+ ✓ packages/artifacts/tests/consumer-contract.test.ts (5 tests) 14892ms
+     ✓ recognizes every registered type, including an extension, and preserves every diagnostic field  13934ms
+     ✓ preserves malformed and duplicate identity diagnostics without inventing IDs or extra artifact rules  355ms
+     ✓ uses identical shared reference messages, locations and codes without duplicating them  336ms
+stdout | tests/form-data-integration.test.ts > renders routed public/admin reuse, persists create/read/update through V1 identity and protected DOE, and rejects crafted fields
+4:12:21 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+ ✓ tests/form-data-integration.test.ts (3 tests) 11490ms
+   ✓ renders routed public/admin reuse, persists create/read/update through V1 identity and protected DOE, and rejects crafted fields  11262ms
+ ✓ tests/editor-security.test.ts (28 tests) 9535ms
+     ✓ returns authorized normal-candidate diagnostics without paths or hidden identities and leaves source unchanged  721ms
+     ✓ stages and explicitly activates a WP1 application draft only through a development administrator session  701ms
+     ✓ viewer reads and validates but cannot mutate even with a valid checksum  572ms
+     ✓ reviewer reads and validates but cannot mutate even with a valid checksum  580ms
+     ✓ filters discovery, references and diagnostics and denies restricted operations  805ms
+     ✓ allows admin system edits and preserves 400/409 and safe failures  744ms
+     ✓ allows app editor invalid-file saves but prevents identity/type promotion  494ms
+     ✓ requires same-origin CSRF and rejects hostile hosts and forwarded connections  315ms
+     ✓ filters SSE by app and artifact, handles authorized removals, and closes on identity switch  611ms
+     ✓ drains an admitted save before acknowledging a switch and rejects later old-session writes  366ms
+     ✓ expires idle sessions and streams without allowing a delayed write  862ms
+     ✓ keeps malformed raw manifests repairable by administrators and hidden from other roles  1028ms
+     ✓ honors server ownership overrides without trusting a manifest ownership field  379ms
+stderr | tests/visual-role-reader.test.ts > rechecks cached HTTP modules for new readers and blocks direct HTTP raw requests
+4:12:42 PM [vite] Internal server error: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+      at JSON.parse (<anonymous>)
+      at RuntimeRevision.visual (file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/runtime-revision.js:67:39)
+      at file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/revision-vite.js:161:38
+      at acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+      at withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+      at withRuntimeGraphRead (file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/runtime-read-admission.js:8:20)
+      at EnvironmentPluginContainer.load (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:30890:19)
+      at loadAndTransform (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:20624:21)
+      at viteTransformMiddleware (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:25205:20)
+
+stderr | tests/visual-role-reader.test.ts > validates one captured Page, Shell and shared Component graph and refuses incompatible external revisions
+WebSocket server error: Port 24678 is already in use
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:45 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:46 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:47 PM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stderr | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+4:12:48 PM [vite] Internal server error: Source recovery is required. Reads and writes are blocked until recovery succeeds.
+      at recoverRoleBundleRoot (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/role-bundle.js:109:15)
+      at file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/revision-vite.js:68:21
+      at acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+      at withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+      at withRuntimeGraphRead (file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/runtime-read-admission.js:8:20)
+      at EnvironmentPluginContainer.load (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:30890:19)
+      at loadAndTransform (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:20624:21)
+      at viteTransformMiddleware (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:25205:20)
+
+ ✓ tests/visual-role-reader.test.ts (15 tests) 7033ms
+   ✓ pins metadata and HTML together while a real transaction is paused between roles  367ms
+   ✓ rechecks cached HTTP modules for new readers and blocks direct HTTP raw requests  351ms
+   ✓ validates one captured Page, Shell and shared Component graph and refuses incompatible external revisions  449ms
+   ✓ renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure  4737ms
+stdout | tests/editor-security-server.test.ts > preserves same-origin session authorization through the configured Vite proxy
+4:12:51 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+ ✓ tests/editor-security-server.test.ts (4 tests) 5560ms
+   ✓ preserves same-origin session authorization through the configured Vite proxy  2160ms
+   ✓ routes the real server through authorization, accepts a configured fixture, and scopes application access  1556ms
+   ✓ disables editor routes in the production server composition  821ms
+   ✓ refuses fixture enablement in the emitted server even if NODE_ENV is development  651ms
+ ✓ tests/v1-management-server.test.ts (2 tests) 5357ms
+   ✓ uses one V1 session for real Page and Form APIs and denies direct Workflow and application mutation  2974ms
+   ✓ propagates the same signed-in User through the protected DOE and real ORM  2382ms
+ ✓ packages/artifacts/tests/windows-storage.test.ts (6 tests) 4173ms
+     ✓ survives a real Windows handle that temporarily denies replacement  421ms
+     ✓ preserves the destination and cleans temporary files when replacement fails permanently  849ms
+     ✓ rolls back a partial multi-file save after the replacement retry budget is exhausted  1046ms
+     ✓ retains the journal when rollback is also locked and recovers through a fresh service  1736ms
+ ✓ tests/trigger-workflow.test.ts (24 tests) 3798ms
+     ✓ trigger CRUD, stable identity, reload, conflict, disable and dependency deletion  801ms
+     ✓ workflow CRUD, stable identity, reload, conflict, disable and dependency deletion  684ms
+     ✓ runs all phases, each/batch arrays, old/new/change context and default transforms  454ms
+ ✓ packages/artifacts/tests/application-build.test.ts (7 tests) 3014ms
+     ✓ orders dependencies, reuses current cache and invalidates on source/toolchain changes  1651ms
+     ✓ keeps independent branches working and reports unused errors without blocking  403ms
+     ✓ packages a runnable production bundle and rejects source changes during packaging  519ms
+ ✓ tests/wp5-form-host-integration.test.ts (1 test) 2238ms
+   ✓ routes the existing Form submit event through UI Platform and protected DOE, including crafted bypasses  2237ms
+ ❯ packages/artifacts/tests/watcher.test.ts (5 tests | 1 failed) 2086ms
+   ✓ actively detects edits, logs validation, debounces bursts and never formats external source  591ms
+   ✓ ignores system storage and its own saves, but does not lose a following external edit  543ms
+   × discovers new bundles and reports missing files, removed manifests and directory moves 466ms
+   ✓ stops callbacks after close and isolates subscriber failures  418ms
+   ✓ validates the committed source, rather than a precommit working copy 67ms
+ ✓ packages/artifacts/tests/migrations-deployment.test.ts (9 tests) 2377ms
+     ✓ source edits and previews do not mutate data or persist migration artifacts; confirmation does  313ms
+     ✓ requires fresh destructive approval, applies in order, checks health then promotes  539ms
+     ✓ holds maintenance and leaves pointer unchanged when staged health fails after migration  502ms
+ ✓ tests/artifact-watcher.test.ts (1 test) 1654ms
+   ✓ automatically watches application sources with identities scoped per application  1653ms
+ ✓ packages/artifacts/tests/artifacts.test.ts (20 tests) 1868ms
+ ✓ packages/artifacts/tests/role-bundle.test.ts (16 tests) 1443ms
+ ✓ tests/visual-artifacts-server.test.ts (1 test) 1342ms
+   ✓ real API discovers installed card, creates/reopens a Page, rejects stale writes, compiles functions and bundles its real runtime module  1340ms
+ ✓ tests/visual-save.test.ts (9 tests) 1243ms
+   ✓ validates the intended complete Visual candidate and preserves the separate repair path  310ms
+ ✓ packages/artifacts/tests/editor-package-contract.test.ts (3 tests) 1140ms
+     ✓ type-checks editor operations through published TypeScript entry points  641ms
+ ✓ tests/editor-properties.test.ts (17 tests) 1033ms
+ ✓ tests/artifact-editor.test.ts (18 tests) 1013ms
+   ✓ shares the watched service and does not duplicate save notifications  387ms
+ ✓ tests/application-presentation-lifecycle.test.ts (3 tests) 835ms
+     ✓ stages drafts and atomically activates a published presentation bundle  314ms
+     ✓ restores a historical version only into the draft  390ms
+ ✓ tests/visual-artifacts.test.ts (22 tests) 848ms
+ ✓ tests/application-composition.test.ts (9 tests) 883ms
+     ✓ vendors only the referenced shared Component closure and fingerprints its source changes  485ms
+ ✓ packages/artifacts/tests/schema-adapter-compatibility.test.ts (3 tests) 679ms
+     ✓ type-checks exact structural equivalence against the current upstream declaration  677ms
+ ✓ tests/v1-development-identity.test.ts (6 tests) 576ms
+ ✓ packages/artifacts/tests/security-definitions.test.ts (2 tests) 238ms
+ ✓ tests/runtime-read-admission.test.ts (2 tests) 226ms
+ ✓ tests/wp1-ui-staging.test.ts (1 test) 263ms
+ ✓ packages/artifacts/tests/watcher-fallback.test.ts (1 test) 223ms
+ ✓ tests/editor-security-client.test.ts (9 tests) 115ms
+ ✓ tests/wp5-application-data-proxy.test.ts (2 tests) 77ms
+ ✓ tests/editor-context.test.ts (13 tests) 82ms
+ ✓ tests/package-installer.test.ts (3 tests) 68ms
+ ✓ tests/foundation-sources.test.ts (3 tests) 55ms
+ ✓ tests/package-activation.test.ts (5 tests) 57ms
+ ✓ tests/development-application-registry.test.ts (1 test) 50ms
+ ✓ packages/platform-core/tests/package-catalog.test.ts (5 tests) 42ms
+ ✓ tests/wp5-application-data-client.test.ts (7 tests) 25ms
+ ✓ tests/v1-development-app.test.ts (1 test) 28ms
+ ✓ tests/wp5-dataset-boundary.test.ts (1 test) 20ms
+ ✓ tests/exporter-security.test.ts (3 tests) 15ms
+ ✓ tests/application-links.test.ts (1 test) 15ms
+ ✓ tests/wp4-form-contract.test.ts (12 tests) 11ms
+ ✓ tests/editing-lifecycle.test.ts (14 tests) 16ms
+ ✓ packages/platform-core/tests/platform-core.test.ts (7 tests) 12ms
+ ✓ tests/templates.test.ts (1 test) 8ms
+ ✓ tests/builder-workspace.test.ts (11 tests) 10ms
+ ✓ tests/builder-workspace-requests.test.ts (4 tests) 8ms
+ ✓ tests/application-presentation.test.ts (6 tests) 5ms
+ ✓ tests/v1-management-routes.test.ts (17 tests) 4ms
+ ✓ tests/component-preview.test.ts (2 tests) 3ms
+ ✓ tests/smoke.test.ts (1 test) 2ms
+ ✓ tests/application-keys.test.ts (2 tests) 6ms
+ ✓ tests/package-acquisition.test.ts (3 tests) 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Error: TimeoutError: page.waitForFunction: Timeout 15000ms exceeded.
+Editor: wp4 form fe10044dShared Form · Editing permittedUnsavedUndoRedoSave nowSuspend editorCompare with serverClose artifactDiscard local copy…OverviewShared Form: cmp_platform_ce8f9866-7399-4eff-bab9-2c03b79ad3ef. Definition changes affect all consumers. Source remains the existing Visual bundle.PropertiesUse Dataset Mapping, Structure and Fields, Validation and Calculations, and Modes to edit this shared Form.Dataset MappingMapping uses permanent field identities from the verified applied Dataset. Source drafts cannot change runtime authority.Read adapterProtected Dataset readWrite adapterProtected Dataset writeDATASET NAME REQUIREDRefresh DatasetsCreate Dataset from FormForm DatasetSelect DatasetUnlinked Dataset (not applied)WP4 Records (applied)name · string · required · mapped · 936781a9-3fb4-4ebf-b872-ec359ccf7fc2quantity · number · required · mapped · 91eb45f8-1be9-4566-a9e0-5c64cec3c42dprice · number · required · mapped · 24c82604-7087-4e40-9179-c6f4cae621a1total · number · optional · mapped · 901c155c-94fc-482d-8f3f-04896694a5acshowDate · boolean · optional · mapped · c4c211a5-624c-4e4c-b021-5103cf0bda80when · date · optional · mapped · 55ad0953-7225-4308-b99c-c7f8f27f4701details · json · optional · unmapped · 4e7c6f30-dbf7-4e87-93a8-07f8ae8aa1cbNo automatic control/conversion is available. This field is exposed and remains unmapped; required unmapped fields block submission.Manually map details as JSON objectGenerate supported mappingsStructure and FieldsnameForm field field_33afede8-bb79-4fd9-8f8d-59db1a27b9bb; Dataset field 936781a9-3fb4-4ebf-b872-ec359ccf7fc2Field labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlquantityForm field field_89c0930f-0cd8-4237-86d6-44c67d65f218; Dataset field 91eb45f8-1be9-4566-a9e0-5c64cec3c42dField labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlpriceForm field field_b141fa42-a51b-4fd8-b045-586bcbf61382; Dataset field 24c82604-7087-4e40-9179-c6f4cae621a1Field labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controltotalForm field field_a5653d57-1c7e-4dd7-b46b-cf8f5f963072; Dataset field 901c155c-94fc-482d-8f3f-04896694a5acField labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlshowDateForm field field_32935431-d446-47fd-96ce-6c845fb80896; Dataset field c4c211a5-624c-4e4c-b021-5103cf0bda80Field labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlwhenForm field field_d3de919f-59d3-4398-99c6-65047c5d0999; Dataset field 55ad0953-7225-4308-b99c-c7f8f27f4701Field labelField helpvisibleeditablerequiredField operationCreate and editCreate onlyEdit onlyDefault valueMove upMove downRemove mapping and controlUse Dataset Mapping to add fields. Dataset-required rules remain mandatory even when presentation hides a control.Validation and CalculationsnameForm field field_33afede8-bb79-4fd9-8f8d-59db1a27b9bb; Dataset field 936781a9-3fb4-4ebf-b872-ec359ccf7fc2Conditional visibilityCalculated fieldquantityForm field field_89c0930f-0cd8-4237-86d6-44c67d65f218; Dataset field 91eb45f8-1be9-4566-a9e0-5c64cec3c42dConditional visibilityCalculated fieldpriceForm field field_b141fa42-a51b-4fd8-b045-586bcbf61382; Dataset field 24c82604-7087-4e40-9179-c6f4cae621a1Conditional visibilityCalculated fieldtotalForm field field_a5653d57-1c7e-4dd7-b46b-cf8f5f963072; Dataset field 901c155c-94fc-482d-8f3f-04896694a5acConditional visibilityCalculated fieldshowDateForm field field_32935431-d446-47fd-96ce-6c845fb80896; Dataset field c4c211a5-624c-4e4c-b021-5103cf0bda80Conditional visibilityCalculated fieldwhenForm field field_d3de919f-59d3-4398-99c6-65047c5d0999; Dataset field 55ad0953-7225-4308-b99c-c7f8f27f4701Conditional visibilityCalculated fieldCalculations are deterministic typed declarations. Missing/unreadable dependencies, invalid types, cycles and non-finite results block submission. Persisted results are validated by protected DOE.ModesDefault Form modepublicalternateAdd modepublicnamepublic name visibleInheritYesNopublic name editableInheritYesNopublic name requiredInheritYesNoquantitypublic quantity visibleInheritYesNopublic quantity editableInheritYesNopublic quantity requiredInheritYesNopricepublic price visibleInheritYesNopublic price editableInheritYesNopublic price requiredInheritYesNototalpublic total visibleInheritYesNopublic total editableInheritYesNopublic total requiredInheritYesNoshowDatepublic showDate visibleInheritYesNopublic showDate editableInheritYesNopublic showDate requiredInheritYesNowhenpublic when visibleInheritYesNopublic when editableInheritYesNopublic when requiredInheritYesNoalternatenamealternate name visibleInheritYesNoalternate name editableInheritYesNoalternate name requiredInheritYesNoquantityalternate quantity visibleInheritYesNoalternate quantity editableInheritYesNoalternate quantity requiredInheritYesNopricealternate price visibleInheritYesNoalternate price editableInheritYesNoalternate price requiredInheritYesNototalalternate total visibleInheritYesNoalternate total editableInheritYesNoalternate total requiredInheritYesNoshowDatealternate showDate visibleInheritYesNoalternate showDate editableInheritYesNoalternate showDate requiredInheritYesNowhenalternate when visibleInheritYesNoalternate when editableInheritYesNoalternate when requiredInheritYesNoPreview and Submission TestDesign preview uses fixtures and cannot persist. Submission Test uses a separate isolated development store. Normal running Applications use their connected protected Dataset.publicalternateCreateEditOpen nonpersisting design previewStart isolated submission testSourceSource filecomponent.html (source)component.visual.json (metadata)component.css (css)component.fixtures.json (fixtures)component.functions.ts (code)Raw edits share the Properties and plugin working copy. Save now uses Foundation’s existing transactional formatter and validation.Saved diagnosticsAuthoritative saved-source diagnostics. Select a diagnostic with a location to navigate to that source.No saved-source diagnostics.Source changed outside Builder. Compare or reload; local changes retained.Saved-source validation: 0 issue(s). These results do not validate unsaved edits.Build integration not configured. Git history and reverse references are not available.
+Server: UI Platform API listening on http://localhost:49984
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp4-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 3s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp4-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+artifact-editor-security {"action":"request-denied","operation":"GET"}
+artifact-editor-security {"action":"mutation","actor":"usr_80831c82612048e9bca61a5012dc7063","applicationKey":"wp4-created","operation":"edit"}
+
+ ❯ tests/builder-v1-wp4.test.ts:170:262
+
+ ❯ saved tests/builder-v1-wp4.test.ts:170:108
+ ❯ tests/builder-v1-wp4.test.ts:180:99
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  packages/artifacts/tests/watcher.test.ts > discovers new bundles and reports missing files, removed manifests and directory moves
+Error: EPERM: operation not permitted, rename 'C:\Users\zanyf\AppData\Local\Temp\uib-watch-nrWgG9\new' -> 'C:\Users\zanyf\AppData\Local\Temp\uib-watch-nrWgG9\moved'
+ ❯ packages/artifacts/tests/watcher.test.ts:162:3
+    160|   );
+    161|   const moved = path.join(root, "moved");
+    162|   await rename(dir, moved);
+       |   ^
+    163|   await until(() => {
+    164|     expect(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 56 passed (58)
+      Tests  2 failed | 383 passed (385)
+   Start at  16:08:40
+   Duration  312.99s (transform 2.15s, setup 0ms, import 15.39s, tests 287.33s, environment 4ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp4-hidden-fields/ui-results.json

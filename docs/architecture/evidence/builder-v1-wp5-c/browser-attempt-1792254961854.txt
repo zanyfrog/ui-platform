@@ -1,0 +1,142 @@
+Skip to content
+Development identity 
+Sign out
+Security Admin (security@example.local)
+Page, Form and Workflow Editor (combined@example.local)
+Page and Form Editor (page-form-editor@example.local)
+Mixed Permissions (mixed@example.local)
+Workflow Editor (workflow-editor@example.local)
+Application Admin (admin@example.local)
+Manage Triggers and Workflows
+M
+MODULAR
+UI Platform
+Applications
+Packages
+Templates
+Settings
+U
+User
+user@example.com
+New Application
+Applications
+/
+WP4 Dataset Application
+W
+WP4 Dataset Application
+active
+
+/wp5c-created
+69bd8e63-a7b4-4d9e-bc5f-52fdeade4265
+
+A sample application built with the UI Platform.
+
+Overview
+Pages
+Packages
+Presentation
+Preview
+Settings
+Application navigation
+WP4 Dataset Application
+Refresh artifacts
+Create Dataset
+Create Form
+Create Page
+Create Shell
+Create Platform Component
+
+Artifact authorized. Existing editor save behavior applies.
+
+Pages
+Administration
+Welcome
+Home (source inspection) (repair-only locator) (read-only)
+Shells
+Admin Shell
+Public Shell
+Components and Forms
+Composition Shared Help
+Customer List Item
+Customer Summary Card
+PersonForm
+Datasets
+WP5-C Records
+Menus
+Admin Navigation
+Main Navigation
+Application presentation/settings
+Application presentation/settings
+styles/site.css (repair-only locator)
+WP5-C Records×
+WP5-C Records
+
+dataset · Editing permitted
+
+Saved
+Undo
+Redo
+Save now
+Suspend editor
+Compare with server
+Close artifact
+Discard local copy…
+Overview
+Properties
+Fields
+Development Apply/Connect
+
+Saving source does not publish, activate or migrate the Dataset. Apply requires Dataset administration authority; runtime permissions are assigned separately through trusted security administration.
+
+validate completed.
+
+Source: valid · Validated revision: current · Published: no · Applied: unverified · Runtime: disconnected
+
+Refresh development statusValidate saved definitionApply to Development…Connect Runtime…
+
+Required values and defaults use the existing protected engine. Permission rules reference permanent Dataset and field IDs through I-AM. The creator receives no automatic runtime or security grant.
+
+Records
+Permissions
+Relationships
+Validation
+Source
+Saved diagnostics
+
+Saved-source validation: 0 issue(s).
+
+Build integration not configured. Git history and reverse references are not available.
+SERVER
+UI Platform API listening on http://localhost:59588
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5c-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5c-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+artifact-editor-security {"action":"request-denied","operation":"GET"}
+artifact-editor-security {"action":"mutation","actor":"usr_80831c82612048e9bca61a5012dc7063","applicationKey":"wp5c-created","operation":"edit"}

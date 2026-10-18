@@ -1,0 +1,68 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ❯ tests/artifact-editor.test.ts (20 tests | 2 failed | 18 skipped) 17ms
+   ↓ preserves malformed manifests and unknown types, uses opaque scoped locators, and repairs source
+   ↓ retains invalid source diagnostics and maps stale checksums without overwriting disk
+   ↓ normal saves validate the complete candidate before persistence while explicit repair remains available
+   ↓ generic editor defaults to normal validation and repair does not infect subsequent autosaves
+   ↓ reauthorizing an unchanged baseline resumes a failed draft without losing Undo history
+   ↓ a confirmed unchanged formatted candidate performs no source writes
+   ↓ shares the watched service and does not duplicate save notifications
+   ↓ debounces for two seconds of inactivity and shares one copy across simultaneous opens
+   ↓ serializes edit-during-save and never replaces newer text with formatted old text
+   ↓ pauses conflicts, retains edits, protects close, and saves an explicitly resolved merge
+   ↓ reloads clean external changes and preserves dirty edits in conflict
+   ↓ keeps failed saves pending for explicit retry and refuses navigation until acknowledged
+   ↓ does not lose edits made while a clean external refresh is loading
+   ↓ adopts formatting for unchanged files while preserving an edit to a different file
+   ↓ does not treat its own save notification as an external conflict
+   × restores the prior failure after an unchanged stale watch event (existing failure: false) 12ms
+   × restores the prior failure after an unchanged stale watch event (existing failure: true) 3ms
+   ↓ suspends a dirty copy without running queued saves, then recovers against a fresh checksum
+   ↓ deliberately discards retained copies while accurately waiting for admitted saves
+   ↓ rejects cross-workspace locators and path escapes without changing external content
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/artifact-editor.test.ts > restores the prior failure after an unchanged stale watch event (existing failure: false)
+AssertionError: expected 'Source changed outside Builder. Compa…' to be undefined // Object.is equality
+
+- Expected:
+undefined
+
++ Received:
+"Source changed outside Builder. Compare or reload; local changes retained."
+
+ ❯ tests/artifact-editor.test.ts:186:31
+    184|   if (priorFailure) { api.save.mockRejectedValueOnce(new Error('Offlin…
+    185|   await copy.externalChange({ appKey: 'test', locator: 'opaque', kind:…
+    186|   expect(copy.snapshot.error).toBe(priorFailure ? 'Offline' : undefine…
+       |                               ^
+    187|   expect(copy.snapshot.saveState).toBe(priorFailure ? 'error' : 'pendi…
+    188|   await vi.advanceTimersByTimeAsync(2000);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/artifact-editor.test.ts > restores the prior failure after an unchanged stale watch event (existing failure: true)
+AssertionError: expected 'Source changed outside Builder. Compa…' to be 'Offline' // Object.is equality
+
+Expected: "Offline"
+Received: "Source changed outside Builder. Compare or reload; local changes retained."
+
+ ❯ tests/artifact-editor.test.ts:186:31
+    184|   if (priorFailure) { api.save.mockRejectedValueOnce(new Error('Offlin…
+    185|   await copy.externalChange({ appKey: 'test', locator: 'opaque', kind:…
+    186|   expect(copy.snapshot.error).toBe(priorFailure ? 'Offline' : undefine…
+       |                               ^
+    187|   expect(copy.snapshot.saveState).toBe(priorFailure ? 'error' : 'pendi…
+    188|   await vi.advanceTimersByTimeAsync(2000);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 18 skipped (20)
+   Start at  16:16:03
+   Duration  600ms (transform 104ms, setup 0ms, import 374ms, tests 17ms, environment 0ms)
+

@@ -1,0 +1,18 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+stdout | tests/trigger-workflow-browser.test.ts > management browser creates, edits, reloads disk source, retains conflicts and deletes under Platform authorization
+1:55:14 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+ ✓ tests/trigger-workflow-browser.test.ts (4 tests) 26841ms
+   ✓ unsigned Form submission shows a sign-in message without running automation  3641ms
+   ✓ real browser Form success and Page button invoke the permanent Workflow through trusted identity and protected persisted DOE  13754ms
+   ✓ reference launcher exposes its protected management page  2348ms
+   ✓ management browser creates, edits, reloads disk source, retains conflicts and deletes under Platform authorization  7096ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  01:54:52
+   Duration  27.48s (transform 239ms, setup 0ms, import 460ms, tests 26.84s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-a/browser-results.json

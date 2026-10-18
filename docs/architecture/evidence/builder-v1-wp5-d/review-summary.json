@@ -1,0 +1,138 @@
+{
+  "gate": "STOP AT WP5-D IMPLEMENTATION VERIFICATION/REVIEW",
+  "accepted": false,
+  "wp5cStatus": "ACCEPTED AND CLOSED by user review",
+  "verifiedAt": "2026-10-18T04:10:35.100Z",
+  "results": {
+    "uiPlatform": {
+      "passed": 453,
+      "total": 453,
+      "files": 65,
+      "report": "reports/wp5-d-ui-final.json"
+    },
+    "dataServices": {
+      "passed": 760,
+      "total": 760,
+      "files": 35,
+      "report": "reports/data-services-wp5-d-full.json"
+    },
+    "editorStorage": {
+      "passed": 146,
+      "total": 146,
+      "files": 15,
+      "transcript": "transcripts/wp5-d-release-contracts.log.txt"
+    },
+    "focused": {
+      "passed": 7,
+      "total": 7,
+      "report": "reports/wp5-d-focused-final.json"
+    },
+    "builds": "passed both repositories",
+    "typechecks": "passed both repositories",
+    "productionExclusion": "passed"
+  },
+  "finalBrowserDirectory": "browser-1792296270122",
+  "finalBrowser": {
+    "applicationId": "27c03a48-2c93-44da-b1e8-2d4fef17668c",
+    "itemId": "item-dc818f8a-5cd2-480e-8655-6f9bdae70f64",
+    "routeId": "route_5caa8843-16d8-4128-8741-feca36151609",
+    "pageId": "art_a989dcca-be0e-48c0-acdd-bdafd9f0da2d",
+    "nestedMenu": true,
+    "identityRetained": true,
+    "undoRedo": true,
+    "cancelledUnchanged": true,
+    "publicAndAdminShells": true,
+    "assetsPortable": true,
+    "staleDeniedUnknownRejected": true,
+    "builderClosedBeforeRuntime": true,
+    "simultaneousUseProven": false,
+    "nativeApplicationProvisioning": true,
+    "browserErrors": []
+  },
+  "historicalEvidence": {
+    "preserved": 591,
+    "originalHistorical": 351,
+    "wp5b": 157,
+    "wp5cPlanning": 3,
+    "wp5c": 80,
+    "manifest": "historical-preservation.json"
+  },
+  "acceptedCSourceAudit": {
+    "compared": 23,
+    "unchanged": 21,
+    "approvedDAdapterChanges": [
+      "src/client/visual-artifacts/editor.ts",
+      "src/server/index.ts"
+    ]
+  },
+  "nativeContractGuards": [
+    {
+      "path": "packages/artifacts/src/storage.ts",
+      "sha256": "073f4335cf52a54bd883d4dc4a3fd800ab8ef460ca222e83ed9b647c006b9810",
+      "unchangedTrackedSource": true
+    },
+    {
+      "path": "src/server/composition-lock.ts",
+      "sha256": "a5c88aeb4bfee81c7777b11abf268ad61415974d1bd19ccbfc02fa9cc7ba4f31",
+      "unchangedTrackedSource": true
+    },
+    {
+      "path": "packages/visual-artifacts/src/composition.ts",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2",
+      "unchangedTrackedSource": true
+    },
+    {
+      "path": "packages/visual-artifacts/src/composition-runtime.ts",
+      "sha256": "602910ef1a56519b0e513b358423dd3c8b506eadf920f0f39677895f1f41dabe",
+      "unchangedTrackedSource": true
+    },
+    {
+      "path": "src/client/artifact-editor/editing-lifecycle.ts",
+      "sha256": "2fa8a14782b27e189be29a7565366b45d7dcb757070d429d4eed60835cb5b027",
+      "unchangedTrackedSource": true
+    }
+  ],
+  "implementationAndTestFiles": [
+    {
+      "path": "src/client/visual-artifacts/menu-controls.ts",
+      "sha256": "8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb"
+    },
+    {
+      "path": "src/client/visual-artifacts/composition-manager.ts",
+      "sha256": "8e349e7ee4ca516daadad6ab11dad516e274fa62ebe1a657976264aad709ea4b"
+    },
+    {
+      "path": "src/client/visual-artifacts/editor.ts",
+      "sha256": "b2cb2ad896540cfcd6a9f2b149af9465bea1f4f4009020789f9f74fc9f889a8a"
+    },
+    {
+      "path": "src/client/builder-workspace/adapters.ts",
+      "sha256": "aa51620327ca9bafaa1a3bacd193a8ce10479ec12c3e35316376c4a9cf7737de"
+    },
+    {
+      "path": "src/client/builder-workspace/shell.ts",
+      "sha256": "54cad521050f3b0858902c7450eaddd62d657bd150a69dbb099ab32904128195"
+    },
+    {
+      "path": "src/server/application-composition.ts",
+      "sha256": "6b79a8c32f7aa588e8bf76190f0044c763d5723d396063596efd837012aae811"
+    },
+    {
+      "path": "src/server/index.ts",
+      "sha256": "630ae27430a801754064addaac95fcb2cab329e0ac4c83d3184bcd4e261d1be6"
+    },
+    {
+      "path": "tests/builder-v1-wp5-d-contracts.test.ts",
+      "sha256": "0d054bbf79d7e291a67edf24c8add7017b8e46f78da36ef37cf3fbe0922f71ef"
+    },
+    {
+      "path": "tests/builder-v1-wp5-d-browser.test.ts",
+      "sha256": "b4602dae318ac7232939d27416b097207be7f078ddabb2c0e981409bfac33d49"
+    }
+  ],
+  "umbrellaUnchecked": 40,
+  "simultaneousUseProven": false,
+  "d6": "WP5-F; separate admission/locking architecture review required",
+  "a37": "WP6 full management-restart/browser evidence",
+  "wp5eStarted": false
+}

@@ -1,0 +1,69 @@
+{
+  "applicationId": "d63c0291-84df-440a-a1fb-d75d251cbaac",
+  "datasetId": "7d67f104-adce-4a25-8173-865429e80e9c",
+  "fieldIds": [
+    "a8c16bc3-37ac-42d2-8db1-260981a28fde",
+    "c3435eda-8868-47c2-b407-8bf72d5ccb00",
+    "01fbe9a9-16bb-430c-a9af-49d0dbadf304"
+  ],
+  "activation": {
+    "attemptId": "f80af59f-f2ea-48ad-9b68-758a8534f6b0",
+    "pin": {
+      "environmentId": "development",
+      "appId": "d63c0291-84df-440a-a1fb-d75d251cbaac",
+      "datasetId": "7d67f104-adce-4a25-8173-865429e80e9c",
+      "reference": {
+        "appId": "d63c0291-84df-440a-a1fb-d75d251cbaac",
+        "dataset": "records_7d67f104adce4a258173865429e80e9c"
+      },
+      "publication": {
+        "definitionType": "dataset-schema",
+        "definitionFormatVersion": 1,
+        "version": 1,
+        "checksumFormat": "canonical-json-v1",
+        "checksum": "sha256:0498c2a86dfe909192239787049621406c74c9ce947c797ee181a78ce20e1f2d"
+      }
+    },
+    "stage": "serving",
+    "readiness": "verified-serving",
+    "stateWriteOutcome": "confirmed",
+    "errors": [],
+    "evidenceIds": [
+      "f80af59f-f2ea-48ad-9b68-758a8534f6b0"
+    ],
+    "runtimeGeneration": "5f093239-8011-4bdc-86f8-7f057b8b1948"
+  },
+  "publication": {
+    "definitionType": "dataset-schema",
+    "definitionFormatVersion": 1,
+    "version": 1,
+    "checksumFormat": "canonical-json-v1",
+    "checksum": "sha256:0498c2a86dfe909192239787049621406c74c9ce947c797ee181a78ce20e1f2d"
+  },
+  "checks": [
+    "builder-ui-create",
+    "fields-required-and-stable-identities",
+    "rename-undo-redo-across-tabs",
+    "invalid-autosave-unchanged-source",
+    "explicit-ui-apply-and-connect",
+    "real-publication-activation-owner-serving",
+    "ui-persisted-crud",
+    "restricted-field-unchanged-storage",
+    "required-value-rejected",
+    "foreign-forged-unknown-unauthorized-denied",
+    "stale-source-and-confirmation",
+    "one-dataset-host-limit",
+    "standard-managed-preview",
+    "configured-existing-form-persistence",
+    "role-revocation",
+    "restart-reconnection-persistence"
+  ],
+  "provenance": {
+    "application": "Normal Standard creation API",
+    "dataset": "Actual Builder UI controls, no pasted schema",
+    "permissions": "Explicit trusted setup and existing stage/activate APIs",
+    "runtime": "Actual Application-qualified protected host and ordinary managed preview"
+  },
+  "browserErrors": [],
+  "verifiedAt": "2026-10-18T03:51:00.981Z"
+}

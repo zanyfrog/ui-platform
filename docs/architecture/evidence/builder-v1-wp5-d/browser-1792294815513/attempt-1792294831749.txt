@@ -1,0 +1,244 @@
+Skip to content
+Development identity 
+Sign out
+Security Admin (security@example.local)
+Page, Form and Workflow Editor (combined@example.local)
+Page and Form Editor (page-form-editor@example.local)
+Mixed Permissions (mixed@example.local)
+Workflow Editor (workflow-editor@example.local)
+Application Admin (admin@example.local)
+Manage Triggers and Workflows
+M
+MODULAR
+UI Platform
+Applications
+Packages
+Templates
+Settings
+U
+User
+user@example.com
+New Application
+Applications
+/
+WP4 Dataset Application
+W
+WP4 Dataset Application
+active
+
+/wp5d-created
+9bbd0f89-7f04-4d13-8f67-274d20227e92
+
+A sample application built with the UI Platform.
+
+Overview
+Pages
+Packages
+Presentation
+Preview
+Settings
+Application navigation
+WP4 Dataset Application
+Refresh artifacts
+Create Dataset
+Create Form
+Create Menu
+Upload Application asset
+Create Page
+Create Shell
+Create Platform Component
+
+Artifact authorized. Existing editor save behavior applies.
+
+Pages
+Administration
+menu record
+Welcome
+Home (source inspection) (repair-only locator) (read-only)
+Shells
+Admin Shell
+Public Shell
+Components and Forms
+Composition Shared Help
+Customer List Item
+Customer Summary Card
+PersonForm
+Menus
+Admin Navigation
+Main Navigation
+Additional navigation
+Application presentation/settings
+Application presentation/settings
+styles/site.css (repair-only locator)
+menu record×
+Main Navigation×
+Additional navigation×
+Application presentation/settings×
+Admin Shell×
+Visual Artifacts
+Saved · Source baseline replaced. Undo/Redo history reset.
+Undo
+Redo
+Save Now
+Advanced source repair save
+Reload / discard editor changes
+Download editor recovery
+Delete artifact
+Design preview
+Add Region
+Place Application Menu
+Remove selected node
+
+Layout is manual because this node has no Builder wrapper.
+
+Layout is manual because this node has no Builder wrapper.
+
+Layout is manual because this node has no Builder wrapper.
+
+Layout is manual because this node has no Builder wrapper.
+
+Layout is manual because this node has no Builder wrapper.
+
+Structure
+div admin_shell
+aside admin_sidebar
+strong admin_name
+nav admin_nav
+div admin_body
+region-hero Hero
+h2 admin_default_hero
+region-main Main Content
+div node_3dc9cdfc-aad4-4fe2-b05d-fe3966701953
+nav node_c32d43d0-b7ee-4f21-baa6-c466cc225e8a
+div node_e00ac72d-cd7c-46cc-99a4-8a53c98b90c7
+img node_98c72ae8-d47c-4a86-b5ce-768112592fec
+ Insert into selected HTML container, or artifact root
+section
+div
+article
+p
+h2
+a
+button
+img
+ul
+li
+span
+uip-slot
+Hero
+Action Group
+Card
+Heading
+Heading Block
+Instruction
+Panel
+Composition Shared Help
+Customer List Item
+Customer Summary Card
+PersonForm
+Insert with layout wrapperSelect artifact rootMove layout item upMove layout item down
+
+Select a managed node to edit settings and bindings.
+
+Artifact display name
+Local state
+New local stateNew local state type
+result
+string
+number
+boolean
+object
+array
+Declare local state
+Shared public contract
+Public member namePublic member kind
+Property
+Event
+Slot
+Public property type
+string
+number
+boolean
+object
+array
+Required public propertyDeclare public member
+
+Slots: none
+
+Source file
+source
+css
+metadata
+fixtures
+code
+
+Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.
+SERVER
+UI Platform API listening on http://localhost:53333
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5d-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 3s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5d-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+artifact-editor-security {"action":"request-denied","operation":"GET"}
+EditorRequestError: Select a development identity.
+    at fail (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:55:80)
+    at ArtifactEditorSecurity.requireSession (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:148:26)
+    at ArtifactEditorSecurity.workspacePrincipal (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:167:26)
+    at Server.<anonymous> (C:\Projects\Modular\ui-platform\src\server\index.ts:367:134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  status: 401,
+  code: 'editor.unauthorized'
+}
+EditorRequestError: Select a development identity.
+    at fail (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:55:80)
+    at ArtifactEditorSecurity.requireSession (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:148:26)
+    at ArtifactEditorSecurity.workspacePrincipal (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:167:26)
+    at Server.<anonymous> (C:\Projects\Modular\ui-platform\src\server\index.ts:367:134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  status: 401,
+  code: 'editor.unauthorized'
+}
+EditorRequestError: Select a development identity.
+    at fail (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:55:80)
+    at ArtifactEditorSecurity.requireSession (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:148:26)
+    at ArtifactEditorSecurity.workspacePrincipal (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:167:26)
+    at Server.<anonymous> (C:\Projects\Modular\ui-platform\src\server\index.ts:367:134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  status: 401,
+  code: 'editor.unauthorized'
+}
+EditorRequestError: Select a development identity.
+    at fail (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:55:80)
+    at ArtifactEditorSecurity.requireSession (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:148:26)
+    at ArtifactEditorSecurity.workspacePrincipal (C:\Projects\Modular\ui-platform\src\server\editor-security.ts:167:26)
+    at Server.<anonymous> (C:\Projects\Modular\ui-platform\src\server\index.ts:367:134)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  status: 401,
+  code: 'editor.unauthorized'
+}

@@ -42,8 +42,9 @@ export interface AuthoringOptions {
   change: (edit: (metadata: ArtifactMetadata) => void) => void;
   slot?: { value: string; choices: string[]; change(value: string): void };
   datasets(): Promise<Array<{ name?: string; appliedSchema?: DatasetDefinition }>>;
+  workflows?(): Promise<Array<{ id: string; displayName: string }>>;
   error(cause: unknown): void;
-  draft?: { kind?: string; event?: string; datasets?: Array<{ name?: string; appliedSchema?: DatasetDefinition }> };
+  draft?: { kind?: string; event?: string; workflows?: Array<{ id: string; displayName: string }>; datasets?: Array<{ name?: string; appliedSchema?: DatasetDefinition }> };
   refresh?(): void;
 }
 export function compositionAuthoring(parent: HTMLElement, options: AuthoringOptions) {
@@ -77,11 +78,19 @@ export function compositionAuthoring(parent: HTMLElement, options: AuthoringOpti
   if (!options.events?.length) { events.append(el('p', 'No public event metadata is declared for this Component.')); return; }
   const draft = options.draft ?? {};
   const event = choice(events, 'Action event', options.events.map(v => [v, v]), draft.event); event.onchange = () => { draft.event = event.value; };
-  const kind = choice(events, 'Action kind', [['navigate', 'Navigate'], ['set', 'Set local state'], ['emit', 'Emit public event'], ['service', 'Existing Dataset service'], ['record-delete', 'Protected single-record delete']], draft.kind);
+  const kind = choice(events, 'Action kind', [['navigate', 'Navigate'], ['set', 'Set local state'], ['emit', 'Emit public event'], ['service', 'Existing Dataset service'], ['record-delete', 'Protected single-record delete'], ['workflow', 'Run approved Workflow']], draft.kind);
   const details = el('div'); events.append(details);
   const render = () => {
     details.replaceChildren();
     const add = (action: () => Action) => button(details, 'Add event action', () => change(m => { const declaration = m.events?.find(item => item.node === node && item.event === event.value); if (declaration) declaration.actions.push(action()); else (m.events ??= []).push({ node, event: event.value, actions: [action()] }); }), error);
+    if (kind.value === 'workflow') {
+      const selected = choice(details, 'Workflow', (draft.workflows ?? []).map(w => [w.id, w.displayName]));
+      const record = expressionControl(details, 'Workflow record');
+      const result = choice(details, 'Workflow result state', Object.keys(metadata.state ?? {}).map(v => [v, v]));
+      details.append(el('p', 'Result retains completedSteps, committedSteps, failedStep, failedActionId and serviceEffects. Bind these paths to visible text. Transport failure has an unknown outcome; never retry automatically.'));
+      button(details, 'Load approved Workflows', async () => { if (!options.workflows) throw new Error('An Application-owned protected host is required.'); draft.workflows = await options.workflows(); options.refresh?.(); }, error);
+      add(() => { if (!selected.value || !result.value) throw new Error('Choose an approved Workflow and explicitly declared result state.'); return { kind: 'workflow', workflowId: selected.value, primaryRecordId: record(), resultState: result.value }; }); return;
+    }
     if (kind.value === 'record-delete') {
       const explanation = el('p', 'Resolve an applied Dataset and its permanent primary field. DOE enforces current permissions and record eligibility.'); details.append(explanation);
       const renderTargets = (datasets: Array<{ name?: string; appliedSchema?: DatasetDefinition }>) => {

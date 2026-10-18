@@ -1,9 +1,12 @@
+import { automationActionControls } from './authoring-controls.js';
+import type { AutomationAuthoringCatalog } from '../../shared/automation-service-contract.js';
 import { automationDiagnostics, triggerPhases, type AutomationBundle, type AutomationDefinition } from '../../shared/automation';
 import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
 import { specializedTransport, type SourceRequest, type SourceTransportOptions } from '../artifact-editor/specialized-transport.js';
 const esc = (v: unknown) => String(v ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 export async function mountAutomationEditor(target: HTMLElement, options: SourceTransportOptions & { kind?: 'trigger' | 'workflow'; initial?: AutomationBundle; onStateChange?: () => void } = {}) {
   let kind: 'trigger' | 'workflow' = options.kind ?? 'trigger', selected: AutomationBundle | undefined, source = '', conflict = false, busy = false, polling = false, invalidActions = false, active = !options.initial;
+  let catalog: AutomationAuthoringCatalog | undefined; let applications: Array<{ key: string; name: string; appId: string }> = [];
   type Draft = { source: string; invalidActions?: string };
   const copies = new Map<string, { bundle: AutomationBundle; lifecycle: EditingLifecycle<Draft>; saveRequest?: SourceRequest }>();
   let copy: ReturnType<typeof copies.get>;
@@ -11,22 +14,27 @@ export async function mountAutomationEditor(target: HTMLElement, options: Source
   const request = transport.request;
   target.innerHTML = `<section class="stack" aria-label="Trigger and Workflow management"><h2>Triggers and Workflows</h2>
     <p>Platform definitions. Actions run in the order shown.</p><div><select aria-label="Automation type"><option value="trigger">Triggers</option><option value="workflow">Workflows</option></select>
-    <button data-create>Create</button><button data-list>Refresh list</button><select data-listing aria-label="Automation artifact"></select></div>
+    <label>Creation Application<select data-create-app aria-label="Creation Application"></select></label><button data-catalog>Load protected authoring catalog</button><label>Creation Dataset<select data-create-dataset aria-label="Creation Dataset"></select></label><button data-create>Create</button><button data-list>Refresh list</button><select data-listing aria-label="Automation artifact"></select></div>
     <p data-status role="status"></p><div data-work hidden><div><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-reload>Reload / discard local edits</button><button data-recover>Download local copy</button><button data-delete>Delete</button></div>
-    <div data-properties></div><h3>Ordered actions</h3><div data-action-list></div><button data-add-action>Add service action</button><label>Action configuration (source)<textarea data-actions aria-label="Ordered automation actions" rows="10"></textarea></label>
-    <label>Authoritative JSON source<textarea data-source aria-label="Automation source" rows="20" spellcheck="false"></textarea></label><p data-validation></p></div></section>`;
+    <div data-properties></div><h3>Ordered actions</h3><div data-action-list></div><details><summary>Advanced source repair</summary><label>Action configuration (source)<textarea data-actions aria-label="Ordered automation actions" rows="10"></textarea></label>
+    <label>Authoritative JSON source<textarea data-source aria-label="Automation source" rows="20" spellcheck="false"></textarea></label></details><p data-validation></p></div></section>`;
   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
   const status = (text: string) => { find('[data-status]').textContent = text; options.onStateChange?.(); };
   const endpoint = () => `/api/automation/${kind}s`;
   const url = () => endpoint() + `?locator=${encodeURIComponent(selected!.locator)}`;
-  const run = (action: () => Promise<void>) => { if (busy || options.initial && !active) return; busy = true; void action().catch(e => status(String(e.message ?? e))).finally(() => { busy = false; options.onStateChange?.(); }); };
+  const run = (action: () => Promise<void>) => {
+    if (busy || options.initial && !active) return;
+    const controls = ['[aria-label="Automation type"]', '[data-create]', '[data-listing]', '[data-save]'].map(s => find<HTMLButtonElement | HTMLSelectElement>(s));
+    busy = true; controls.forEach(c => { c.disabled = true; });
+    void action().catch(e => status(String(e.message ?? e))).finally(() => { busy = false; controls.forEach(c => { c.disabled = false; }); find<HTMLButtonElement>('[data-save]').disabled = conflict; options.onStateChange?.(); });
+  };
   function changed(group?: string) {
     const draft = { source, ...(invalidActions ? { invalidActions: find<HTMLTextAreaElement>('[data-actions]').value } : {}) };
     if (copy && JSON.stringify(draft) !== JSON.stringify(copy.lifecycle.current)) { copy.saveRequest = transport.capture(); copy.lifecycle.edit(draft, group); }
     try { find('[data-validation]').textContent = automationDiagnostics(JSON.parse(source)).join(' '); } catch { find('[data-validation]').textContent = 'Invalid JSON. Repair the source before editing properties.'; }
     const lifecycle = copy?.lifecycle; conflict = lifecycle?.state === 'conflict';
     status(lifecycle ? [editingStatus(lifecycle.state, lifecycle.dirty), lifecycle.failure, lifecycle.notice].filter(Boolean).join(' · ') : 'Select an artifact');
-    find<HTMLButtonElement>('[data-save]').disabled = conflict;
+    find<HTMLButtonElement>('[data-save]').disabled = busy || conflict;
     find<HTMLButtonElement>('[data-undo]').disabled = !lifecycle?.canUndo; find<HTMLButtonElement>('[data-redo]').disabled = !lifecycle?.canRedo;
   }
   function mutate(change: (definition: AutomationDefinition) => void, group?: string) {
@@ -34,15 +42,18 @@ export async function mountAutomationEditor(target: HTMLElement, options: Source
     invalidActions = false; find<HTMLTextAreaElement>('[data-source]').value = source; find<HTMLTextAreaElement>('[data-actions]').value = JSON.stringify(definition.actions, null, 2); renderActions(definition); changed(group);
   }
   function renderActions(definition: AutomationDefinition) {
-    find('[data-action-list]').innerHTML = definition.actions.map((action, index) => `<div data-action-index="${index}"><strong>${index + 1}. ${esc(action.id)} · ${esc(action.type)}</strong>${kind === 'trigger' ? `<label>Scope<select data-scope><option value="each" ${action.scope !== 'batch' ? 'selected' : ''}>Each record</option><option value="batch" ${action.scope === 'batch' ? 'selected' : ''}>Entire batch</option></select></label>` : ''}<button data-up ${index === 0 ? 'disabled' : ''}>Move up</button><button data-down ${index === definition.actions.length - 1 ? 'disabled' : ''}>Move down</button><button data-remove>Remove action</button></div>`).join('');
-    target.querySelectorAll<HTMLElement>('[data-action-index]').forEach(row => {
-      const index = Number(row.dataset.actionIndex);
-      row.querySelector<HTMLSelectElement>('[data-scope]')?.addEventListener('change', e => mutate(d => { d.actions[index].scope = (e.target as HTMLSelectElement).value as 'each' | 'batch'; }));
-      row.querySelector<HTMLButtonElement>('[data-up]')!.onclick = () => mutate(d => { [d.actions[index - 1], d.actions[index]] = [d.actions[index], d.actions[index - 1]]; });
-      row.querySelector<HTMLButtonElement>('[data-down]')!.onclick = () => mutate(d => { [d.actions[index + 1], d.actions[index]] = [d.actions[index], d.actions[index + 1]]; });
-      row.querySelector<HTMLButtonElement>('[data-remove]')!.onclick = () => mutate(d => { d.actions.splice(index, 1); });
-    });
+    automationActionControls(find('[data-action-list]'), definition, catalog?.appId === definition.appId ? catalog : undefined, mutate);
   }
+  async function loadCatalog(appId: string) {
+    const app = applications.find(a => a.appId === appId); if (!app) throw new Error('Select a registered Application.');
+    const captured = appId;
+    const loaded = await request<AutomationAuthoringCatalog>(`/api/apps/${encodeURIComponent(app.key)}/automation-catalog`);
+    if (loaded.appId !== captured) throw new Error('Authoring catalog owner changed.');
+    catalog = loaded;
+    find<HTMLSelectElement>('[data-create-dataset]').innerHTML = loaded.datasets.map(d => `<option value="${esc(d.id)}">${esc(d.name)}</option>`).join('');
+    if (selected) { const d = JSON.parse(source); if (d.appId === captured) renderActions(d); }
+  }
+
   function open(bundle: AutomationBundle, replace = false) {
     const key = `${kind}:${bundle.locator}`; let record = copies.get(key);
     if (!record) {
@@ -72,12 +83,13 @@ export async function mountAutomationEditor(target: HTMLElement, options: Source
     copy = record; selected = record.bundle; source = record.lifecycle.current.source; conflict = record.lifecycle.state === 'conflict'; invalidActions = record.lifecycle.current.invalidActions !== undefined; find('[data-work]').hidden = false;
     find<HTMLTextAreaElement>('[data-source]').value = source;
     let d: AutomationDefinition | undefined; try { d = JSON.parse(source); } catch { /* Retained raw invalid source. */ }
-    find('[data-properties]').innerHTML = d ? `<p>Permanent ID: ${esc(d.id)}</p>${['name', 'displayName', 'appId', 'datasetId', 'primaryKey', ...(kind === 'trigger' ? ['dataset'] : [])].map(key => `<label>${esc(key)}<input data-property="${key}" value="${esc(d[key as keyof AutomationDefinition])}"></label>`).join('')}
+    find('[data-properties]').innerHTML = d ? `<p>Permanent ID: ${esc(d.id)} · Application: ${esc(d.appId)} · Dataset: ${esc(d.datasetId)} · Applied primary key: ${esc(d.primaryKey)}</p><button data-load-selected>Load protected action targets</button>${['name', 'displayName'].map(key => `<label>${esc(key)}<input data-property="${key}" value="${esc(d[key as keyof AutomationDefinition])}"></label>`).join('')}
       <label><input type="checkbox" data-enabled ${d.enabled ? 'checked' : ''}> Enabled</label>${kind === 'trigger' ? `<label>Phase<select data-phase>${triggerPhases.map(p => `<option ${p === d.phase ? 'selected' : ''}>${p}</option>`).join('')}</select></label><label>Priority<input type="number" data-priority value="${d.priority ?? 0}"></label>` : ''}` : '';
     find<HTMLTextAreaElement>('[data-actions]').value = JSON.stringify(d?.actions ?? [], null, 2);
     if (invalidActions) find<HTMLTextAreaElement>('[data-actions]').value = record.lifecycle.current.invalidActions!;
     if (d && Array.isArray(d.actions)) renderActions(d); else find('[data-action-list]').replaceChildren();
     target.querySelectorAll<HTMLInputElement>('[data-property]').forEach(input => input.oninput = () => { try { mutate(d => { (d as unknown as Record<string, unknown>)[input.dataset.property!] = input.value; }, `property:${input.dataset.property}`); } catch (e) { status(String(e)); } });
+    find('[data-load-selected]')?.addEventListener('click', () => run(async () => { await loadCatalog(JSON.parse(source).appId); }));
     find<HTMLInputElement>('[data-enabled]')?.addEventListener('change', e => mutate(d => { d.enabled = (e.target as HTMLInputElement).checked; }));
     find<HTMLSelectElement>('[data-phase]')?.addEventListener('change', e => mutate(d => { d.phase = (e.target as HTMLSelectElement).value as AutomationDefinition['phase']; }));
     find<HTMLInputElement>('[data-priority]')?.addEventListener('input', e => mutate(d => { d.priority = Number((e.target as HTMLInputElement).value); })); changed();
@@ -93,12 +105,15 @@ export async function mountAutomationEditor(target: HTMLElement, options: Source
   find('[data-create]').onclick = () => run(async () => {
     if (selected && source !== selected.source) throw new Error('Save or reload the current artifact first.');
     const name = prompt(`New ${kind} name (lowercase letters and hyphens)`); if (!name) return;
-    const appId = prompt('Application identity'), datasetId = prompt('Permanent Dataset identity'); if (!appId || !datasetId) return;
-    const dataset = kind === 'trigger' ? prompt('Dataset physical key') : undefined; if (kind === 'trigger' && !dataset) return;
-    open(await request<AutomationBundle>(endpoint(), { method: 'POST', body: JSON.stringify({ name, definition: { displayName: name, appId, datasetId, primaryKey: 'id', enabled: false, actions: [], ...(kind === 'trigger' ? { dataset, phase: 'beforeInsert', priority: 0 } : {}) } }) })); await list();
+    const appId = find<HTMLSelectElement>('[data-create-app]').value;
+    if (!catalog || catalog.appId !== appId) throw new Error('Load the protected authoring catalog first.');
+    const target = catalog.datasets.find(d => d.id === find<HTMLSelectElement>('[data-create-dataset]').value);
+    if (!target) throw new Error('An applied connected Dataset is required.');
+    const datasetId = target.id, dataset = target.physical;
+    open(await request<AutomationBundle>(endpoint(), { method: 'POST', body: JSON.stringify({ name, definition: { displayName: name, appId, datasetId, primaryKey: target.primaryKey, enabled: false, actions: [], ...(kind === 'trigger' ? { dataset, phase: 'beforeInsert', priority: 0 } : {}) } }) })); await list();
   });
   find('[data-list]').onclick = () => run(list);
-  find('[data-add-action]').onclick = () => { try { mutate(d => { d.actions.push({ id: `action-${crypto.randomUUID()}`, type: 'service', service: 'reference.notification', input: { literal: null }, ...(kind === 'trigger' ? { scope: 'each' as const } : {}) }); }); } catch (error) { status(String(error)); } };
+  find('[data-catalog]').onclick = () => run(async () => { await loadCatalog(find<HTMLSelectElement>('[data-create-app]').value); });
   find<HTMLSelectElement>('[data-listing]').onchange = e => run(async () => {
     const locator = (e.target as HTMLSelectElement).value; if (!locator) return;
     open(await request<AutomationBundle>(endpoint() + `?locator=${encodeURIComponent(locator)}`));
@@ -129,6 +144,8 @@ export async function mountAutomationEditor(target: HTMLElement, options: Source
   }, 1500);
   const unprotect = protectEditingDraft(() => [...copies.values()].some(record => record.lifecycle.dirty || record.lifecycle.state === 'conflict'));
   try {
+    try { applications = await request('/api/apps'); } catch { /* Source editing remains available when an Application catalog is unavailable. */ }
+    find<HTMLSelectElement>('[data-create-app]').innerHTML = applications.map(a => `<option value="${esc(a.appId)}">${esc(a.name)}</option>`).join('');
     if (options.initial) { open(options.initial); find('[data-listing]').parentElement!.hidden = true; }
     else await list();
   } catch (error) { clearInterval(timer); unprotect(); transport.dispose(); throw error; }

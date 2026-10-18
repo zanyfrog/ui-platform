@@ -12,13 +12,14 @@ const app = (applicationId: string): SecurityResourceRef =>
 export function managementCheck(method: string, pathname: string, applicationId?: string): ManagementCheck | null {
   const parts = pathname.split('/').filter(Boolean);
   if (parts[0] !== 'api') return null;
-  if (parts[1] === 'automation' && ['triggers', 'workflows'].includes(parts[2]) && parts.length === 3)
+  if (parts[1] === 'automation' && ['triggers', 'workflows', 'catalog'].includes(parts[2]) && parts.length === 3)
     return { permissionId: 'ui.platform.automation.admin', resource: system };
   if (pathname === '/api/apps' && method === 'POST') return { permissionId: 'ui.platform.application.create', resource: system };
   if (['packages', 'package-catalog', 'foundation-sources'].includes(parts[1] ?? ''))
     return { permissionId: 'ui.platform.package.admin', resource: system };
   if (parts[1] !== 'apps' || !parts[2] || !applicationId) return null;
   const area = parts[3];
+  if (area === 'automation-catalog' && method === 'GET') return { permissionId: 'ui.application.view', resource: app(applicationId) };
   const read = method === 'GET';
   if (area === 'page-shell') return { permissionId: 'ui.page.edit', resource: child(applicationId, 'page', 'pages') };
   if (['composition', 'composition-source', 'composition-asset', 'visual-shells'].includes(area)) return {

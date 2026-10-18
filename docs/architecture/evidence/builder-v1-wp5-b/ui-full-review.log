@@ -1,0 +1,401 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+8:17:14 AM [vite] (client) [optimizer] scanning dependencies...
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 checkpoint: blank Form created
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Dataset error: 422 {"code":"DATASET_NAME_REQUIRED","error":"DATASET NAME REQUIRED","recovery":"Source and permanent identities are retained. Incomplete activation requires the existing Data Services recovery procedure; no automatic retry or rollback is claimed."}
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 checkpoint: Dataset applied and connected
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 checkpoint: rules saved
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 design submit state: submitStarted: {"result":{}}
+submitFailed: {"result":{"message":"Error: Missing Dataset adapter: dataset.write."}}
+
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 checkpoint: nonpersisting preview verified
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test request: POST http://127.0.0.1:64760/api/apps/wp4-created/form-tests/start
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test response: 201 http://127.0.0.1:64760/api/apps/wp4-created/form-tests/start {"testId":"14845072-18ec-4276-afb3-ca197bfbe717","mode":"isolated-development","datasetId":"ec9b5293-f387-4852-9e04-8f417fd5612d","storageIsolated":true,"automation":"empty-isolated-catalog"}
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Before test Submit: [
+  {
+    tag: 'uib-forms-form',
+    name: null,
+    value: undefined,
+    checked: undefined,
+    invalid: false,
+    required: false,
+    disabled: false
+  },
+  {
+    tag: 'uib-forms-textbox',
+    name: 'name',
+    value: 'Isolated person',
+    checked: undefined,
+    invalid: false,
+    required: true,
+    disabled: false
+  },
+  {
+    tag: 'uib-forms-number',
+    name: 'quantity',
+    value: '4',
+    checked: undefined,
+    invalid: false,
+    required: true,
+    disabled: false
+  },
+  {
+    tag: 'uib-forms-number',
+    name: 'price',
+    value: '5',
+    checked: undefined,
+    invalid: false,
+    required: true,
+    disabled: false
+  },
+  {
+    tag: 'uib-forms-number',
+    name: 'total',
+    value: '20',
+    checked: undefined,
+    invalid: false,
+    required: false,
+    disabled: true
+  },
+  {
+    tag: 'uib-forms-checkbox',
+    name: 'showDate',
+    value: 'false',
+    checked: false,
+    invalid: false,
+    required: false,
+    disabled: false
+  },
+  {
+    tag: 'uib-forms-textarea',
+    name: 'details',
+    value: '{"note":"safe"}',
+    checked: undefined,
+    invalid: false,
+    required: false,
+    disabled: false
+  }
+]
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test request: POST http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/operations
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+After test Submit:  submitFailed: {"result":{"message":"Error: Correct invalid JSON before submitting."}}
+submitStarted: {"result":{}}
+ 
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test request: POST http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/queries
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test response: 200 http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/operations {"operationId":"95522d1b-431e-44da-8870-c885268509f8","correlationId":"95522d1b-431e-44da-8870-c885268509f8","success":true,"committed":true,"commitOutcome":"committed","counts":{"requested":1,"succeeded":1,"failed":0,"unknown":0}}
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test response: 200 http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/queries [{"when":"2026-10-16T12:34:56.000Z","quantity":4,"id":"8a9a394d-0d99-44da-bf85-83745c9c02a5","details":{"note":"safe"},"total":20,"name":"Isolated person","price":5,"showDate":false}]
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test request: POST http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/operations
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test response: 200 http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/operations {"operationId":"147ce9c1-d320-47d5-aada-10f0fe8ea27c","correlationId":"147ce9c1-d320-47d5-aada-10f0fe8ea27c","success":false,"committed":false,"commitOutcome":"not-committed","counts":{"requested":1,"succeeded":0,"failed":1,"unknown":0},"errors":[{"code":"FORM_CALCULATED_VALUE_INVALID","message":"FORM CALCULATED VALUE INVALID","operationId":"147ce9c1-d320-47d5-aada-10f0fe8ea27c"}]}
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test request: POST http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/queries
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test response: 200 http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/queries [{"when":"2026-10-16T12:34:56.000Z","quantity":4,"id":"8a9a394d-0d99-44da-bf85-83745c9c02a5","details":{"note":"safe"},"total":20,"name":"Isolated person","price":5,"showDate":false}]
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test request: POST http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/operations
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test request: POST http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/queries
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test response: 200 http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/operations {"operationId":"afa77f56-c53a-4810-8979-4264c21a4f48","correlationId":"afa77f56-c53a-4810-8979-4264c21a4f48","success":true,"committed":true,"commitOutcome":"committed","counts":{"requested":1,"succeeded":1,"failed":0,"unknown":0}}
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test response: 200 http://127.0.0.1:64760/api/apps/wp4-created/form-tests/14845072-18ec-4276-afb3-ca197bfbe717/queries [{"when":"2026-10-17T12:34:56.000Z","quantity":4,"id":"8a9a394d-0d99-44da-bf85-83745c9c02a5","details":{"note":"safe"},"total":20,"name":"Isolated edited","price":5,"showDate":false}]
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test request: POST http://127.0.0.1:64760/api/apps/wp4-created/form-tests/end
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Form test response: 200 http://127.0.0.1:64760/api/apps/wp4-created/form-tests/end {"ended":true}
+
+ ✓ tests/builder-v1-wp4.test.ts (1 test) 140469ms
+   ✓ WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence  140468ms
+stdout | tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+8:19:34 AM [vite] (client) [optimizer] scanning dependencies...
+
+stdout | tests/builder-v1-wp5-b.test.ts > WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete
+Preview failure: 409 {"error":"Preview source changed. Reload its complete revision before previewing."}
+
+ ✓ tests/builder-v1-wp5-b.test.ts (1 test) 105368ms
+   ✓ WP5-B: actual Builder composition, package instances, bindings, slots, events and protected route delete  105367ms
+stdout | tests/builder-v1-wp3.test.ts > WP3: Builder authoring, activation, serving, protected CRUD, security and restart
+8:21:56 AM [vite] (client) dependency optimized: @ui-platform/dataset-operations/expression
+8:21:56 AM [vite] (client) optimized dependencies changed. reloading
+
+ ✓ tests/builder-v1-wp3.test.ts (2 tests) 56350ms
+   ✓ WP3: Builder authoring, activation, serving, protected CRUD, security and restart  56346ms
+stdout | tests/trigger-workflow-browser.test.ts > management browser creates, edits, reloads disk source, retains conflicts and deletes under Platform authorization
+8:22:26 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+ ✓ tests/trigger-workflow-browser.test.ts (4 tests) 23900ms
+   ✓ unsigned Form submission shows a sign-in message without running automation  3516ms
+   ✓ real browser Form success and Page button invoke the permanent Workflow through trusted identity and protected persisted DOE  11064ms
+   ✓ reference launcher exposes its protected management page  2141ms
+   ✓ management browser creates, edits, reloads disk source, retains conflicts and deletes under Platform authorization  7178ms
+ ✓ packages/artifacts/tests/consumer-contract.test.ts (5 tests) 12152ms
+     ✓ recognizes every registered type, including an extension, and preserves every diagnostic field  11462ms
+ ✓ tests/builder-v1-wp0.test.ts (1 test) 14218ms
+   ✓ WP0: normal creation, explicit authority, applied protected Dataset, mandatory Workflow, isolation, revocation, recovery and managed preview  14217ms
+ ✓ tests/editor-security.test.ts (28 tests) 7325ms
+     ✓ returns authorized normal-candidate diagnostics without paths or hidden identities and leaves source unchanged  566ms
+     ✓ stages and explicitly activates a WP1 application draft only through a development administrator session  544ms
+     ✓ viewer reads and validates but cannot mutate even with a valid checksum  458ms
+     ✓ reviewer reads and validates but cannot mutate even with a valid checksum  472ms
+     ✓ filters discovery, references and diagnostics and denies restricted operations  538ms
+     ✓ allows admin system edits and preserves 400/409 and safe failures  573ms
+     ✓ allows app editor invalid-file saves but prevents identity/type promotion  402ms
+     ✓ filters SSE by app and artifact, handles authorized removals, and closes on identity switch  525ms
+     ✓ expires idle sessions and streams without allowing a delayed write  890ms
+     ✓ keeps malformed raw manifests repairable by administrators and hidden from other roles  557ms
+stdout | tests/form-data-integration.test.ts > renders routed public/admin reuse, persists create/read/update through V1 identity and protected DOE, and rejects crafted fields
+8:23:09 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+ ✓ tests/form-data-integration.test.ts (3 tests) 9060ms
+   ✓ renders routed public/admin reuse, persists create/read/update through V1 identity and protected DOE, and rejects crafted fields  8908ms
+stderr | tests/visual-role-reader.test.ts > rechecks cached HTTP modules for new readers and blocks direct HTTP raw requests
+8:23:18 AM [vite] Internal server error: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+      at JSON.parse (<anonymous>)
+      at RuntimeRevision.visual (file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/runtime-revision.js:67:39)
+      at file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/revision-vite.js:161:38
+      at acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+      at withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+      at withRuntimeGraphRead (file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/runtime-read-admission.js:8:20)
+      at EnvironmentPluginContainer.load (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:30890:19)
+      at loadAndTransform (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:20624:21)
+      at viteTransformMiddleware (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:25205:20)
+
+stderr | tests/visual-role-reader.test.ts > validates one captured Page, Shell and shared Component graph and refuses incompatible external revisions
+WebSocket server error: Port 24678 is already in use
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:20 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:21 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stdout | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] (client) hmr update /@id/__x00__virtual:uip-visual-watch
+
+stderr | tests/visual-role-reader.test.ts > renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure
+8:23:22 AM [vite] Internal server error: Source recovery is required. Reads and writes are blocked until recovery succeeds.
+      at recoverRoleBundleRoot (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/role-bundle.js:109:15)
+      at file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/revision-vite.js:68:21
+      at acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:120:16)
+      at withArtifactLock (file:///C:/Projects/Modular/ui-platform/packages/artifacts/dist/storage.js:67:16)
+      at withRuntimeGraphRead (file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/dist/runtime-read-admission.js:8:20)
+      at EnvironmentPluginContainer.load (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:30890:19)
+      at loadAndTransform (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:20624:21)
+      at viteTransformMiddleware (file:///C:/Projects/Modular/ui-platform/node_modules/vite/dist/node/chunks/node.js:25205:20)
+
+ ✓ tests/visual-role-reader.test.ts (15 tests) 5424ms
+   ✓ renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure  3802ms
+stdout | tests/editor-security-server.test.ts > preserves same-origin session authorization through the configured Vite proxy
+8:23:24 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+ ✓ tests/editor-security-server.test.ts (4 tests) 4436ms
+   ✓ preserves same-origin session authorization through the configured Vite proxy  1722ms
+   ✓ routes the real server through authorization, accepts a configured fixture, and scopes application access  1225ms
+   ✓ disables editor routes in the production server composition  748ms
+   ✓ refuses fixture enablement in the emitted server even if NODE_ENV is development  513ms
+ ✓ packages/artifacts/tests/windows-storage.test.ts (6 tests) 3954ms
+     ✓ survives a real Windows handle that temporarily denies replacement  382ms
+     ✓ preserves the destination and cleans temporary files when replacement fails permanently  831ms
+     ✓ rolls back a partial multi-file save after the replacement retry budget is exhausted  929ms
+     ✓ retains the journal when rollback is also locked and recovers through a fresh service  1694ms
+ ✓ tests/v1-management-server.test.ts (2 tests) 4156ms
+   ✓ uses one V1 session for real Page and Form APIs and denies direct Workflow and application mutation  2283ms
+   ✓ propagates the same signed-in User through the protected DOE and real ORM  1873ms
+ ✓ tests/trigger-workflow.test.ts (24 tests) 2456ms
+     ✓ trigger CRUD, stable identity, reload, conflict, disable and dependency deletion  440ms
+     ✓ workflow CRUD, stable identity, reload, conflict, disable and dependency deletion  428ms
+     ✓ runs all phases, each/batch arrays, old/new/change context and default transforms  311ms
+ ✓ tests/builder-v1-wp5-a.test.ts (14 tests) 2381ms
+   ✓ reproduces cross-process graph contention without stale capture, then reads current source after release  2171ms
+ ✓ packages/artifacts/tests/watcher.test.ts (5 tests) 2069ms
+   ✓ actively detects edits, logs validation, debounces bursts and never formats external source  599ms
+   ✓ ignores system storage and its own saves, but does not lose a following external edit  513ms
+   ✓ discovers new bundles and reports missing files, removed manifests and directory moves  499ms
+   ✓ stops callbacks after close and isolates subscriber failures  420ms
+ ✓ packages/artifacts/tests/application-build.test.ts (7 tests) 2443ms
+     ✓ orders dependencies, reuses current cache and invalidates on source/toolchain changes  1313ms
+     ✓ keeps independent branches working and reports unused errors without blocking  334ms
+     ✓ packages a runnable production bundle and rejects source changes during packaging  442ms
+ ✓ packages/artifacts/tests/role-bundle.test.ts (16 tests) 1102ms
+ ✓ packages/artifacts/tests/editor-package-contract.test.ts (3 tests) 919ms
+     ✓ type-checks editor operations through published TypeScript entry points  517ms
+ ✓ tests/artifact-watcher.test.ts (1 test) 1562ms
+   ✓ automatically watches application sources with identities scoped per application  1561ms
+ ✓ tests/artifact-editor.test.ts (20 tests) 837ms
+   ✓ shares the watched service and does not duplicate save notifications  361ms
+ ✓ tests/wp5-form-host-integration.test.ts (1 test) 1761ms
+   ✓ routes the existing Form submit event through UI Platform and protected DOE, including crafted bypasses  1760ms
+ ✓ tests/editor-properties.test.ts (17 tests) 796ms
+ ✓ packages/artifacts/tests/migrations-deployment.test.ts (9 tests) 1708ms
+     ✓ requires fresh destructive approval, applies in order, checks health then promotes  370ms
+     ✓ holds maintenance and leaves pointer unchanged when staged health fails after migration  367ms
+ ✓ packages/artifacts/tests/schema-adapter-compatibility.test.ts (3 tests) 567ms
+     ✓ type-checks exact structural equivalence against the current upstream declaration  565ms
+ ✓ packages/artifacts/tests/artifacts.test.ts (20 tests) 1246ms
+ ✓ tests/visual-artifacts-server.test.ts (1 test) 1108ms
+   ✓ real API discovers installed card, creates/reopens a Page, rejects stale writes, compiles functions and bundles its real runtime module  1107ms
+ ✓ tests/visual-save.test.ts (9 tests) 937ms
+ ✓ tests/application-presentation-lifecycle.test.ts (3 tests) 666ms
+     ✓ restores a historical version only into the draft  305ms
+ ✓ tests/application-composition.test.ts (9 tests) 667ms
+     ✓ vendors only the referenced shared Component closure and fingerprints its source changes  363ms
+ ✓ tests/visual-artifacts.test.ts (22 tests) 643ms
+ ✓ tests/v1-development-identity.test.ts (6 tests) 408ms
+ ✓ packages/artifacts/tests/watcher-fallback.test.ts (1 test) 163ms
+ ✓ tests/editor-context.test.ts (13 tests) 50ms
+ ✓ tests/runtime-read-admission.test.ts (2 tests) 224ms
+ ✓ tests/editor-security-client.test.ts (9 tests) 103ms
+ ✓ packages/artifacts/tests/security-definitions.test.ts (2 tests) 175ms
+ ✓ tests/wp1-ui-staging.test.ts (1 test) 138ms
+ ✓ tests/wp5-application-data-proxy.test.ts (2 tests) 59ms
+ ✓ tests/foundation-sources.test.ts (3 tests) 36ms
+ ✓ tests/package-activation.test.ts (5 tests) 34ms
+ ✓ tests/package-installer.test.ts (3 tests) 38ms
+ ✓ packages/platform-core/tests/package-catalog.test.ts (5 tests) 34ms
+ ✓ tests/development-application-registry.test.ts (1 test) 33ms
+ ✓ tests/wp5-application-data-client.test.ts (7 tests) 24ms
+ ✓ tests/wp5-b-contract.test.ts (15 tests) 22ms
+ ✓ tests/v1-development-app.test.ts (1 test) 20ms
+ ✓ tests/wp5-dataset-boundary.test.ts (1 test) 15ms
+ ✓ tests/exporter-security.test.ts (3 tests) 11ms
+ ✓ tests/editing-lifecycle.test.ts (14 tests) 11ms
+ ✓ tests/application-links.test.ts (1 test) 10ms
+ ✓ tests/wp4-form-contract.test.ts (12 tests) 9ms
+ ✓ packages/platform-core/tests/platform-core.test.ts (7 tests) 10ms
+ ✓ tests/builder-workspace.test.ts (11 tests) 9ms
+ ✓ tests/templates.test.ts (1 test) 7ms
+ ✓ tests/builder-workspace-requests.test.ts (4 tests) 8ms
+ ✓ tests/application-presentation.test.ts (6 tests) 4ms
+ ✓ tests/v1-management-routes.test.ts (17 tests) 3ms
+ ✓ tests/smoke.test.ts (1 test) 3ms
+ ✓ tests/application-keys.test.ts (2 tests) 2ms
+ ✓ tests/package-acquisition.test.ts (3 tests) 2ms
+ ✓ tests/component-preview.test.ts (2 tests) 2ms
+
+ Test Files  61 passed (61)
+      Tests  417 passed (417)
+   Start at  08:17:04
+   Duration  433.32s (transform 1.65s, setup 0ms, import 12.81s, tests 412.35s, environment 4ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp5-b/ui-full-review.json

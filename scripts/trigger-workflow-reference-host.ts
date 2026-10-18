@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { referenceNotification } from '../src/server/automation-services.js';
 import { AutomationStore } from '../src/server/automation-store.js';
 import { AutomationRuntime, AutomationAuditLog, type AutomationAudit, type RegisteredAutomationService } from '../src/server/automation-runtime.js';
 import { startFormReference } from './form-reference-host.js';
@@ -7,8 +8,8 @@ import { SecurityDefinitionStore, SecurityDefinitionService } from '@ui-platform
 import { V1_AUTHORITY_ID, developmentUsers } from '../src/server/v1-development-policy.js';
 export async function startAutomationReference(port?: number, auditOutput?: (entry: AutomationAudit) => void) {
   const notifications: unknown[] = [];
-  const services = new Map<string, RegisteredAutomationService>([['reference.notification', { transactional: false,
-    async invoke(input) { notifications.push(structuredClone(input)); return { delivered: true }; } }]]);
+  const candidate = referenceNotification(notifications);
+  const services = new Map<string, RegisteredAutomationService>([['reference.notification', { transactional: false, invoke: candidate.invoke }]]);
   const runtime = new AutomationRuntime(new AutomationStore(path.resolve('triggers'), 'trigger'), new AutomationStore(path.resolve('workflows'), 'workflow'), services, new AutomationAuditLog(500, auditOutput));
   const host = await startFormReference(port, ({ engine, triggers, resolveDataset }) => {
     runtime.connect(triggers, resolveDataset);

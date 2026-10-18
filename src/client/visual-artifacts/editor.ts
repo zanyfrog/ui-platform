@@ -1,4 +1,5 @@
 import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readPackageSettings, setNodeAttribute, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+import { chooseNamedValue } from './menu-controls.js';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
 import type { ComponentCatalogEntry } from '../../shared/types.js';
 import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
@@ -46,7 +47,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   find('[data-add-region]').insertAdjacentHTML('afterend', '<button data-place-menu>Place Application Menu</button>');
   find('[data-place-menu]').addEventListener('click', safe(async () => {
     const composition = await request<import('@ui-platform/visual-artifacts').CompositionDefinition>(`${base}/composition`);
-    const menuId = prompt('Application Menu ID:\n' + composition.menus.map(menu => `${menu.name}: ${menu.menuId}`).join('\n')); if (!menuId) return;
+    const menuId = await chooseNamedValue('Application Menu', composition.menus.map(menu => ({ value: menu.menuId, label: menu.name }))); if (!menuId || !active || disposed) return;
     if (!composition.menus.some(menu => menu.menuId === menuId)) throw new Error('Choose an Application Menu.');
     const wrapperId = `node_${crypto.randomUUID()}`, nodeId = `node_${crypto.randomUUID()}`, ids = [wrapperId, nodeId];
     files.source = insertNode(files.source, 'nav', undefined, selectedNode || undefined, () => ids.shift()!);
@@ -124,7 +125,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     if (!node) {
       inspector.innerHTML = '<p class="note">Select a managed node to edit settings and bindings.</p>';
       const metadata = workingMetadata();
-      compositionAuthoring(inspector, { metadata, change: changeMetadata, datasets: () => request(`${base}/datasets/discovery`), error: cause => status(String(cause)) });
+      compositionAuthoring(inspector, { metadata, change: changeMetadata, workflows: async () => (await request<import('../../shared/automation-service-contract.js').AutomationAuthoringCatalog>(`${base}/automation-catalog`)).workflows, datasets: () => request(`${base}/datasets/discovery`), error: cause => status(String(cause)) });
       if (selectedKind === 'page' && metadata.shellId) {
         const note = document.createElement('p'); note.textContent = `Shell: ${workspace.shells.find(shell => shell.metadata?.artifactId === metadata.shellId)?.metadata?.displayName ?? metadata.shellId}. Fixed content is edited in the Shell editor.`; inspector.append(note);
         const override = document.createElement('button'); override.textContent = 'Set Page Menu Item visibility / availability';
@@ -164,6 +165,13 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     if (node.manual) { inspector.textContent = 'Manual region: edit source directly.'; return; }
     const classLabel = document.createElement('label'); classLabel.textContent = 'CSS classes'; const classInput = document.createElement('input'); classInput.value = node.attributes.class ?? '';
     classInput.addEventListener('change', safe(() => { files.source = setNodeAttribute(files.source, selectedNode, 'class', classInput.value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })); classLabel.append(classInput); inspector.append(classLabel);
+    if (selectedKind === 'shell' && ['img', 'strong', 'span', 'p', 'h1', 'h2', 'h3'].includes(node.tag)) {
+      const label = document.createElement('label'); label.textContent = 'Application branding'; const select = document.createElement('select');
+      select.setAttribute('aria-label', 'Application branding');
+      for (const key of ['', ...(node.tag === 'img' ? ['primaryLogo', 'secondaryLogo', 'favicon'] : ['applicationName', 'shortName'])]) select.add(new Option(key || 'No branding binding', key));
+      select.value = node.attributes['data-uip-branding'] ?? '';
+      select.onchange = safe(() => { files.source = setNodeAttribute(files.source, selectedNode, 'data-uip-branding', select.value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); }); label.append(select); inspector.append(label);
+    }
     if (node.attributes['data-uip-region']) {
       const label = document.createElement('label'); label.textContent = 'Region display name (stable ID unchanged)';
       const input = document.createElement('input'); input.value = node.attributes['data-uip-region-name'] ?? node.attributes['data-uip-region'];
@@ -247,7 +255,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       bindingTargets: component ? Object.keys(contracts).map(key => `property:${key}`) : pkg?.definition ? Object.keys(contracts).filter(key => contracts[key] && pkg.definition!.builder.settings[key].binding?.kind !== 'event').map(key => `setting:${key}`) : pkg ? [...new Set([...(pkg.attributes ?? []), ...Object.keys(contracts)])].map(key => `attribute:${key}`) : ['text', 'attribute:href', 'attribute:aria-label', 'property:disabled'],
       events: component ? Object.keys(component.metadata!.public?.events ?? {}) : pkg ? Object.keys(pkg.definition?.runtime.events ?? {}).concat(pkg.events ?? []) : ['click', 'change', 'input', 'submit'],
       ...(parentSlots && slotChild.id ? { slot: { value: slotChild.attributes.slot || (parentPackage ? 'default' : ''), choices: parentSlots, change: value => { files.source = setNodeAttribute(files.source, slotChild.id!, 'slot', parentPackage && value === 'default' ? '' : value); changed(); } } } : {}),
-      datasets: () => request(`${base}/datasets/discovery`), error: cause => status(String(cause)),
+      workflows: async () => (await request<import('../../shared/automation-service-contract.js').AutomationAuthoringCatalog>(`${base}/automation-catalog`)).workflows, datasets: () => request(`${base}/datasets/discovery`), error: cause => status(String(cause)),
     });
     if (node.tag === 'uip-slot') {
       const label = document.createElement('label'); label.textContent = 'Public slot outlet'; const slot = document.createElement('select'); slot.setAttribute('aria-label', 'Public slot outlet');

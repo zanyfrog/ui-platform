@@ -1,0 +1,30 @@
+
+> ui-platform@0.1.2 check:editor-contracts
+> node scripts/check-editor-contracts.mjs
+
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ❯ packages/artifacts/tests/watcher.test.ts (5 tests | 1 failed) 2394ms
+   × discovers new bundles and reports missing files, removed manifests and directory moves 477ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/artifacts/tests/watcher.test.ts > discovers new bundles and reports missing files, removed manifests and directory moves
+Error: EPERM: operation not permitted, rename 'C:\Users\zanyf\AppData\Local\Temp\uib-watch-pRneOZ\new' -> 'C:\Users\zanyf\AppData\Local\Temp\uib-watch-pRneOZ\moved'
+ ❯ packages/artifacts/tests/watcher.test.ts:162:3
+    160|   );
+    161|   const moved = path.join(root, "moved");
+    162|   await rename(dir, moved);
+       |   ^
+    163|   await until(() => {
+    164|     expect(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 14 passed (15)
+      Tests  1 failed | 145 passed (146)
+   Start at  23:42:35
+   Duration  16.29s (transform 3.03s, setup 0ms, import 9.31s, tests 58.11s, environment 2ms)
+

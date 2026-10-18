@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from 'node:crypto';
-import { lstat, mkdir, readdir, readFile, realpath } from 'node:fs/promises';
+import { lstat, mkdir, readdir, readFile, realpath, rmdir } from 'node:fs/promises';
 import path from 'node:path';
 import { automationDiagnostics, type AutomationBundle, type AutomationDefinition } from '../shared/automation.js';
 import { atomicWriteText } from './json-files.js';
@@ -41,12 +41,14 @@ export class AutomationStore {
     for (const b of bundles) if (b.definition?.id && bundles.filter(x => x.definition?.id === b.definition?.id).length > 1) b.diagnostics.push('Duplicate permanent identity.');
     return bundles;
   }
-  async create(name: string, input: Omit<AutomationDefinition, 'id' | 'kind' | 'schemaVersion' | 'name'>) {
+  async create(name: string, input: Omit<AutomationDefinition, 'id' | 'kind' | 'schemaVersion' | 'name'>, admit: () => Promise<void> = async () => {}) {
     const locator = `${name}/${this.kind}.json`, file = await this.file(locator, true);
     const definition: AutomationDefinition = { ...input, schemaVersion: 1, kind: this.kind, id: `${this.kind}_${randomUUID()}`, name };
     const errors = automationDiagnostics(definition); if (errors.length) throw new Error(errors.join(' '));
     await mkdir(path.dirname(file));
-    await atomicWriteText(file, JSON.stringify(definition, null, 2) + '\n'); return this.read(locator);
+    try { await admit(); await atomicWriteText(file, JSON.stringify(definition, null, 2) + '\n'); }
+    catch (cause) { await rmdir(path.dirname(file)).catch(() => {}); throw cause; }
+    return this.read(locator);
   }
   private async locked<T>(locator: string, action: () => Promise<T>): Promise<T> {
     const key = `${this.root}/${locator}`, prior = locks.get(key) ?? Promise.resolve();

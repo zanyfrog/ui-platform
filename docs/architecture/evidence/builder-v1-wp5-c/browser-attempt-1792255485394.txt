@@ -1,0 +1,141 @@
+Skip to content
+Development identity 
+Sign out
+Security Admin (security@example.local)
+Page, Form and Workflow Editor (combined@example.local)
+Page and Form Editor (page-form-editor@example.local)
+Mixed Permissions (mixed@example.local)
+Workflow Editor (workflow-editor@example.local)
+Application Admin (admin@example.local)
+Manage Triggers and Workflows
+M
+MODULAR
+UI Platform
+Applications
+Packages
+Templates
+Settings
+U
+User
+user@example.com
+New Application
+Applications
+/
+WP4 Dataset Application
+W
+WP4 Dataset Application
+active
+
+/wp5c-created
+d6c8f971-b6e4-4629-9573-bc13f6e2a66f
+
+A sample application built with the UI Platform.
+
+Overview
+Pages
+Packages
+Presentation
+Preview
+Settings
+Application navigation
+WP4 Dataset Application
+Refresh artifacts
+Create Dataset
+Create Form
+Create Page
+Create Shell
+Create Platform Component
+
+Artifact authorized. Existing editor save behavior applies.
+
+Pages
+Administration
+Welcome
+wp5c page 63ebe5f9
+Home (source inspection) (repair-only locator) (read-only)
+Shells
+Admin Shell
+Public Shell
+Components and Forms
+Composition Shared Help
+Customer List Item
+Customer Summary Card
+PersonForm
+wp5c form 63ebe5f9
+Datasets
+WP5-C Records
+Workflows
+wp5c-workflow-63ebe5f9
+Triggers
+wp5c-trigger-63ebe5f9
+Menus
+Admin Navigation
+Main Navigation
+Application presentation/settings
+Application presentation/settings
+styles/site.css (repair-only locator)
+WP5-C Records×
+wp5c page 63ebe5f9×
+wp5c form 63ebe5f9×
+wp5c form 63ebe5f9
+
+Shared Form · Editing permitted
+
+Saved
+Undo
+Redo
+Save now
+Suspend editor
+Compare with server
+Close artifact
+Discard local copy…
+Overview
+
+Shared Form: cmp_platform_e555cb20-180e-42a0-9cc2-054c971fa4ff. Definition changes affect all consumers. Source remains the existing Visual bundle.
+
+Properties
+Dataset Mapping
+Structure and Fields
+Validation and Calculations
+Modes
+Preview and Submission Test
+Source
+Saved diagnostics
+
+Saved-source validation: 2 issue(s).
+
+Build integration not configured. Git history and reverse references are not available.
+SERVER
+UI Platform API listening on http://localhost:58464
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5c-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5c-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+artifact-editor-security {"action":"request-denied","operation":"GET"}
+artifact-editor-security {"action":"mutation","actor":"usr_80831c82612048e9bca61a5012dc7063","applicationKey":"wp5c-created","operation":"edit"}

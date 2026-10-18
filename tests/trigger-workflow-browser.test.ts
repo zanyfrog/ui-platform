@@ -81,16 +81,20 @@ it('reference launcher exposes its protected management page', async () => {
   await expect.poll(() => page.getByLabel('Automation artifact', { exact: true }).innerText(), { timeout: 45000 }).toContain('Person default status');
 }, 60000);
 
-it('management browser creates, edits, reloads disk source, retains conflicts and deletes under Platform authorization', async () => {
+it('management browser edits, reloads disk source, retains conflicts and deletes a native legacy fixture under Platform authorization', async () => {
   const { host, page, origin } = await reference('vite.config.ts');
   await page.goto(origin); await Promise.all([page.waitForNavigation(), page.getByLabel('Development identity').selectOption('security@example.local')]);
   await page.getByRole('button', { name: 'Manage Triggers and Workflows' }).click();
   await page.getByLabel('Automation artifact', { exact: true }).waitFor({ timeout: 15000 }).catch(async (error: Error) => { throw new Error(String(error) + '\n' + JSON.stringify(await page.locator('[data-uip-node=submit-error]').allTextContents()) + '\n' + errors.join('\n') + '\n' + await page.locator('body').innerText()); });
   await page.locator('[data-create]').waitFor({ timeout: 10000 }).catch(async (error: Error) => { throw new Error(String(error) + '\n' + JSON.stringify(await page.locator('[data-uip-node=submit-error]').allTextContents()) + '\n' + errors.join('\n') + '\n' + await page.locator('body').innerText()); });
   const name = `browser-proof-${Date.now()}`;
-  const replies = [name, 'dev-v1-identity-fixture', 'dataset-person-form-reference', 'people'];
-  page.on('dialog', (dialog: any) => dialog.type() === 'prompt' ? dialog.accept(replies.shift() ?? '') : dialog.accept());
-  await page.locator('[data-create]').click();
+  // This historical reference host has no approved normal-host authoring catalog.
+  // Native fixture setup preserves lifecycle coverage; WP5-C's normal-host browser test proves typed UI creation.
+  const { AutomationStore } = await import('../src/server/automation-store.js');
+  await new AutomationStore(path.resolve('triggers'), 'trigger').create(name, { displayName: name, appId: 'dev-v1-identity-fixture', datasetId: 'dataset-person-form-reference', dataset: 'people', primaryKey: 'id', enabled: false, phase: 'beforeInsert', actions: [] });
+  page.on('dialog', (dialog: any) => dialog.accept());
+  await page.getByRole('button', { name: 'Refresh list', exact: true }).click();
+  await page.getByLabel('Automation artifact', { exact: true }).selectOption(`${name}/trigger.json`);
   await expect.poll(() => page.locator('[data-properties]').innerText(), { timeout: 45000 }).toContain('Permanent ID');
   const file = path.resolve('triggers', name, 'trigger.json');
   if (!file.startsWith(path.resolve('triggers') + path.sep) || !/^browser-proof-\d+$/.test(name)) throw new Error('Unexpected test artifact path.');

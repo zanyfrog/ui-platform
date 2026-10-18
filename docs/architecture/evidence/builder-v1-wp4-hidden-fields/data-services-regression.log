@@ -1,0 +1,99 @@
+
+ RUN  v3.2.7 C:/Projects/Modular/UI Platform Data Services
+
+ ✓ packages/i-am/tests/wp1-definitions.test.ts (31 tests) 881ms
+ ✓ packages/versioned-definition-registry/tests/registry.test.ts (31 tests) 1753ms
+ ✓ packages/schema-application/tests/resolver.test.ts (25 tests) 1949ms
+ ✓ packages/i-am/tests/write-scope-containment.test.ts (32 tests) 649ms
+ ✓ packages/i-am/tests/wp3-administration.test.ts (39 tests) 2031ms
+ ✓ packages/schema-application/tests/resource-registry.test.ts (2 tests) 488ms
+   ✓ WP4 owner resource registry > binds verified permanent IDs, preserves renames, retires replaced IDs and rejects forged/stale parents  382ms
+ ✓ packages/schema-manager/tests/stab1-contracts.test.ts (13 tests) 2773ms
+   ✓ STAB-1 true (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  466ms
+   ✓ STAB-1 true (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  446ms
+   ✓ STAB-1 true (schema=true, trigger=false) > reports interrupted publication through HTTP and refuses ambiguous active reads  332ms
+   ✓ STAB-1 false (schema=true, trigger=false) > preserves raw HTTP contracts and explicitly rejects legacy verified consumption  393ms
+   ✓ STAB-1 false (schema=true, trigger=false) > exercises canonical publish, verified reads, rollback and strict JSON over real HTTP  409ms
+ ✓ packages/dataset-operations/tests/activation-process.test.ts (2 tests) 2984ms
+   ✓ two-process serving-lifetime contention and verified same-version process restart  1916ms
+   ✓ process death leaves an owner that a second process never steals or reconciles  1067ms
+ ✓ packages/schema-application/tests/fingerprint.test.ts (32 tests) 452ms
+ ✓ packages/schema-manager/tests/schema-manager.test.ts (2 tests) 440ms
+ ✓ packages/dataset-operations/tests/development-dataset-authoring.test.ts (3 tests) 692ms
+   ✓ authoring first apply and exact-pin restart verify all supported field types and preserve existing storage  498ms
+ ✓ packages/dataset-operations/tests/nested-transactions.test.ts (18 tests) 437ms
+ ✓ packages/dataset-operations/tests/operation-failures.test.ts (17 tests) 306ms
+ ✓ packages/dataset-operations/tests/operation-service-contract.test.ts (5 tests) 234ms
+ ✓ packages/schema-application/tests/verification.test.ts (45 tests) 3608ms
+ ✓ packages/i-am/tests/wp2-evaluator.test.ts (9 tests) 226ms
+ ✓ packages/i-am/tests/wp4-plan.test.ts (12 tests) 201ms
+ ✓ packages/schema-application/tests/state-store.test.ts (4 tests) 176ms
+ ✓ packages/trigger-manager/tests/service-program.test.ts (3 tests) 164ms
+ ✓ packages/trigger-manager/tests/trigger-manager.test.ts (2 tests) 58ms
+ ✓ packages/dataset-operations/tests/activation-drain.test.ts (1 test) 111ms
+ ✓ packages/versioned-definition-registry/tests/canonical.test.ts (36 tests) 39ms
+ ✓ packages/dataset-operations/tests/operation-manager.test.ts (2 tests) 31ms
+ ✓ packages/i-am/tests/wp6-delegation-policy.test.ts (4 tests) 26ms
+ ✓ packages/dataset-operations/tests/v1-development-assertion.test.ts (3 tests) 14ms
+ ✓ packages/dataset-operations/tests/declarative-expression.test.ts (4 tests) 10ms
+ ✓ packages/dataset-operations/tests/wp6-actor-lease.test.ts (1 test) 11ms
+ ✓ packages/dataset-operations/tests/operation-security.test.ts (185 tests) 5099ms
+ ✓ packages/dataset-operations/tests/wp5-secured-engine.test.ts (21 tests) 5346ms
+   ✓ WP5 protected DOE with real I-AM planner and JSON ORM > uses the verified applied owner registry and rejects a stale serving binding  2846ms
+   ✓ WP6 delegated DOE authority and transaction failures > gives Service old-state READ only inside delegation and returns no protected value to the User  389ms
+ ✓ packages/dataset-operations/tests/activation-http.test.ts (37 tests) 7615ms
+   ✓ R2 real controlled runtime activation > health through production HTTP, durable receipt, confirmed promotion and lifetime ownership  787ms
+   ✓ R2 real controlled runtime activation > clean restart uses a fresh runtime, preserves applied bytes, and never follows a newer active version  905ms
+   ✓ R2 real controlled runtime activation > lost promotion acknowledgement preserves applied bytes but keeps ordinary admission closed  309ms
+   ✓ R2 real controlled runtime activation > owner loss closes admission and cannot release another owner's evidence  494ms
+   ✓ R2 real controlled runtime activation > tampered receipt or incomplete applied ledger blocks same-version restart  472ms
+   ✓ C2 ordinary admitted CRUD preserves the verified serving identity and proves real persistence  569ms
+ ✓ packages/dataset-operations/tests/wp6-closure-runtime.test.ts (2 tests) 7401ms
+   ✓ WP6 closure: trusted root and durable resume > runs a root Service job and independently approved Service A to Service B through DOE  5248ms
+   ✓ WP6 closure: trusted root and durable resume > persists only intent and revalidates approval, assignment, Service, digest and retry authority  2152ms
+ ✓ packages/dataset-operations/tests/wp5-deployed-host.test.ts (4 tests) 6778ms
+   ✓ WP5 deployed development host > uses one configured active User through DOE, I-AM, WP4 and ORM; forged request authority fails closed  2488ms
+   ✓ WP6 published declarative Service Trigger in the deployed DOE host > requires both exact publication approval and the Service's business permission, and leaves durable audit  3817ms
+ ✓ packages/dataset-operations/tests/recovery-failures.test.ts (51 tests) 10044ms
+   ✓ reconciliation I/O or lost acknowledgment before keeps outcome unknown and never retries  642ms
+   ✓ reconciliation I/O or lost acknowledgment after keeps outcome unknown and never retries  714ms
+   ✓ evidence open failure preserves journal and blocks recovery  515ms
+   ✓ evidence write failure preserves journal and blocks recovery  512ms
+   ✓ evidence sync failure preserves journal and blocks recovery  480ms
+   ✓ evidence readback failure preserves journal and blocks recovery  528ms
+   ✓ rechecks boundary after evidence: state-change  655ms
+   ✓ rechecks boundary after evidence: journal-change  438ms
+   ✓ rechecks boundary after evidence: owner-loss  301ms
+   ✓ after reconciliation promotion failure never certifies serving  348ms
+ ✓ packages/dataset-operations/tests/recovery-process.test.ts (10 tests) 10379ms
+   ✓ kill during 'applying'/'journal': lock diagnostics and contender preserve all bytes  1305ms
+   ✓ kill during 'applying'/'state': lock diagnostics and contender preserve all bytes  1243ms
+   ✓ kill during 'verified-pending-activation'/'journal': lock diagnostics and contender preserve all bytes  1230ms
+   ✓ kill during 'verified-pending-activation'/'state': lock diagnostics and contender preserve all bytes  1159ms
+   ✓ kill during 'applied'/'journal': lock diagnostics and contender preserve all bytes  950ms
+   ✓ kill during 'applied'/'state': lock diagnostics and contender preserve all bytes  867ms
+   ✓ real process narrow before recovery holds lifetime ownership, then clean same-version restart  1362ms
+   ✓ real process narrow next recovery holds lifetime ownership, then clean same-version restart  1056ms
+   ✓ death before validated journal reconciliation retains evidence and blocks restart  597ms
+   ✓ death after validated journal reconciliation retains evidence and blocks restart  609ms
+ ✓ packages/dataset-operations/tests/recovery.test.ts (68 tests) 16945ms
+   ✓ diagnostics are genuinely read-only: journal  559ms
+   ✓ diagnostics are genuinely read-only: locks  446ms
+   ✓ diagnostics are genuinely read-only: corrupt  571ms
+   ✓ full real recovery +0/'before' retains bytes and verifies runtime  785ms
+   ✓ full real recovery +0/'next' retains bytes and verifies runtime  837ms
+   ✓ full real recovery 1/'before' retains bytes and verifies runtime  966ms
+   ✓ full real recovery 1/'next' retains bytes and verifies runtime  553ms
+   ✓ full real recovery 2/'before' retains bytes and verifies runtime  419ms
+   ✓ full real recovery 2/'next' retains bytes and verifies runtime  372ms
+   ✓ explicit no-journal resume from phase 0  365ms
+   ✓ explicit no-journal resume from phase 1  334ms
+   ✓ explicit no-journal resume from phase 2  331ms
+   ✓ explicit no-journal resume from phase 3  355ms
+
+ Test Files  35 passed (35)
+      Tests  756 passed (756)
+   Start at  20:50:11
+   Duration  17.99s (transform 3.70s, setup 0ms, collect 10.95s, tests 90.35s, environment 8ms, prepare 6.32s)
+
+JSON report written to C:/Projects/Modular/ui-platform/docs/architecture/evidence/builder-v1-wp4-hidden-fields/data-services-results.json

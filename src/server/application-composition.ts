@@ -100,6 +100,24 @@ export async function compositionAssetInfo(appKey: string, relative: string) {
   const content = await readFile(await compositionSourcePath(appKey, relative)).catch(error => { if (error.code === 'ENOENT') return null; throw error; });
   return { path: relative, hash: content ? createHash('sha256').update(content).digest('hex') : null };
 }
+/** Read-only picker inventory over native Application sources. Never follow links. */
+export async function compositionSourceChoices(appKey: string): Promise<{ assets: string[]; styles: string[] }> {
+  const result = { assets: [] as string[], styles: [] as string[] };
+  for (const [folder, entries] of [['assets', result.assets], ['styles', result.styles]] as const) {
+    await compositionSourcePath(appKey, folder === 'assets' ? 'assets/probe.png' : 'styles/probe.css');
+    const walk = async (relative: string): Promise<void> => {
+      for (const entry of await readdir(path.join(appPath(appKey), relative), { withFileTypes: true }).catch(error => { if (error.code === 'ENOENT') return []; throw error; })) {
+        if (entry.isSymbolicLink()) continue;
+        const source = `${relative}/${entry.name}`;
+        if (entry.isDirectory() && folder === 'assets') await walk(source);
+        else if (entry.isFile()) { try { await compositionSourcePath(appKey, source); entries.push(source); } catch { /* Unsupported source contracts are not picker candidates. */ } }
+      }
+    };
+    await walk(folder);
+    entries.sort();
+  }
+  return result;
+}
 export async function saveCompositionAsset(appKey: string, relative: string, content: Buffer, expectedHash: string | null, admit: () => Promise<void> = async () => {}) {
   return locked(appKey, async () => {
     const current = await compositionAssetInfo(appKey, relative);

@@ -56,6 +56,15 @@ export class DevelopmentApplicationRuntime {
       policyDigest: this.identity.policyDigest(), issuedAt: Date.now() - 100, nonce: randomBytes(24).toString('hex') })).toString('base64url');
     return `v1.${payload}.${createHmac('sha256', config.trustedUiServerKey).update(payload).digest('base64url')}`;
   }
+  async authoringCatalog(applicationId: string, req: IncomingMessage) {
+    const config = this.connection(applicationId);
+    if (!config || !await this.identity.authorize(req, 'ui.application.view', { authorityId: V1_AUTHORITY_ID, applicationId, kind: 'application', id: applicationId })) throw new Error('AUTOMATION_CATALOG_UNAVAILABLE');
+    const response = await fetch(new URL('/onboarding', config.hostUrl), { method: 'POST', headers: { authorization: `Bearer ${this.assertion(config, req)}` }, signal: AbortSignal.timeout(5000) });
+    if (!response.ok) throw new Error('AUTOMATION_CATALOG_UNAVAILABLE');
+    const proof = await response.json();
+    if (proof.applicationId !== applicationId || proof.datasetId !== config.datasetId || proof.authorityId !== V1_AUTHORITY_ID || !proof.catalog || proof.catalog.appId !== applicationId) throw new Error('AUTOMATION_CATALOG_UNAVAILABLE');
+    return proof.catalog;
+  }
   async readiness(applicationId: string, req: IncomingMessage): Promise<{ ready: boolean; diagnostic?: string }> {
     try {
       const config = this.connection(applicationId); if (!config) return { ready: false };

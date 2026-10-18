@@ -48,7 +48,7 @@ export function automationFixture(deniedFields: string[] = []) {
   const planner = new DatasetSecurityPlanService(resources, evaluator, policy, identity, { operation: id => `p-${id}`, field: id => `p-${id}` }, capability);
   const engine = new SecuredDatasetOperationEngine(orm, resources, planner, triggers);
   const trusted: TrustedDatasetExecution = { context, actor: { type: 'user', userId: 'user-a' }, authorityId: 'resources', applicationId: 'app-a', source: { type: 'api' } };
-  return { root, engine, trusted, triggers, orm, rules,
+  return { root, engine, trusted, triggers, orm, rules, docs, evaluator, identity, resources, resourceList, app,
     async all(dataset = 'people') { const fresh = new JsonFileDatasetOrm(join(root, 'data')); fresh.register(await orm.getDatasetDefinition('app-a', dataset)); return fresh.query({ resource: { appId: 'app-a', dataset } }); },
     bytes(dataset = 'people') { const file = join(root, 'data', `app-a__default__${dataset}.json`); return existsSync(file) ? readFileSync(file, 'utf8') : ''; },
   };

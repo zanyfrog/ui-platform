@@ -1,6 +1,18 @@
 # Builder V1 WP5-B — Component Reuse Inventory and Contract Review
 
-2026-10-17. **WP5-A ACCEPTED AND CLOSED. WP5-B IMPLEMENTED AND VERIFIED UNDER THE APPROVED BOUNDED NATIVE ADAPTER; USER REVIEW REQUIRED.** The initial stopped contract review below is retained as history. WP5-B is not accepted or closed; no WP5-C implementation has begun.
+2026-10-17. **BUILDER V1 WP5-B — ACCEPTED AND CLOSED** by explicit user review. WP5-A remains closed. Initial stopped contract review and later implementation evidence below remain historical; the approved bounded native adapter is preserved. Current gate: WP5-C planning and separate D5 architecture review only; no WP5-C implementation.
+
+## WP5-B final user acceptance and WP5-C planning gate — 2026-10-17
+
+**BUILDER V1 WP5-B — ACCEPTED AND CLOSED**, by the user's explicit acceptance of the reported verification and browser evidence. This decision supersedes earlier pending-review instructions in this document; those entries remain historical. WP0–WP5-A contracts and limitations, including closed WP4 hidden-field semantics, remain intact. No accepted WP5-B scope is reopened.
+
+Accepted reported evidence: **417/417 UI Platform, 760/760 Data Services, 146/146 editor/storage contracts and 29/29 focused checks**; builds, typechecks, production exclusion and documented real Builder/runtime browser interactions passed. Preserve successful, unsuccessful and transitional evidence, the original 351 historical evidence files and all WP5-B evidence/inventory snapshots. These are accepted prior results, not a new execution in the WP5-C planning increment.
+
+The bounded native record-delete declaration, protected Dataset/primary-field resolution and DOE/I-AM authority checks, declared result state, honest missing/denied/stale/failed/committed outcomes and existing Form/service/expression/rendering compatibility remain accepted. Package/Platform definitions and Application instances remain separate.
+
+Acceptance is limited to the WP5-B subsystem. Native API setup does not establish UI-only Application provisioning; native collision tests do not establish every Builder UI rejection path; closing Builder before runtime startup does not establish reliable simultaneous use. Legacy package entries expose only actual registered public contracts; no manifest-backed package Button exists. Complete Builder V1 acceptance remains pending and **all 40 A01–A40 umbrella requirements remain unchecked**.
+
+The user authorizes **WP5-C planning and prerequisite review only**. See the [detailed WP5-C plan](builder-v1-wp5-c-plan.md), [separate D5 trusted service-contract proposal](builder-v1-wp5-c-d5-service-contract.md) and [planning verification](builder-v1-wp5-c-planning-verification.md). D5 is not approved by this closure. **STOP AT WP5-C D5 ARCHITECTURE REVIEW. Do not implement WP5-C/register services or begin WP5-D.** D6 contention remediation remains WP5-F, subject to separate admission/locking design review, with reliable simultaneous Builder/runtime operation required before WP5-I acceptance. A37 full management-restart/browser evidence remains WP6.
 
 ## Initial inventory and contract-review history
 
@@ -92,7 +104,7 @@ D5 remains open before WP5-C: submit a typed, authorized trusted normal-host reg
 
 **STOP FOR THE DISCOVERED WP5-B CONTRACT REVIEW. Do not claim WP5-B complete, advance to WP5-C/F/WP6, or check any umbrella requirement.**
 
-## WP5-B implementation and verification review gate — 2026-10-17
+## Historical WP5-B implementation and verification review gate — 2026-10-17
 
 The user approved the bounded native single-record delete adapter after the documented Component inventory and expression-contract probe. **WP5-B is implemented and verified, pending user review; it is not accepted or closed. STOP AT WP5-B VERIFICATION/REVIEW. WP5-C has not begun.** See [architecture and retained review history](builder-v1-wp5-b-component-reuse.md), [verification and browser evidence](builder-v1-wp5-b-verification.md), and [changed-file inventory](builder-v1-wp5-b-files.md).
 

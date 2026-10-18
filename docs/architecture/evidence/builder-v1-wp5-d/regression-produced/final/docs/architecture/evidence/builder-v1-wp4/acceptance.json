@@ -1,0 +1,53 @@
+{
+  "applicationId": "feae7fa3-35f5-411c-b7d7-a850960f0154",
+  "datasetId": "9e80250c-f918-437c-95af-646f39e39081",
+  "formId": "cmp_platform_bb00c7ae-8f95-4da5-be24-5de3f9915e3c",
+  "formArtifactId": "art_0635fdc0-594a-415a-9b12-d559ae26c9d6",
+  "fieldIds": [
+    "20a7742d-d407-4a1d-8cf9-4f0fd69f1fa8",
+    "8617e0cd-274a-49c2-872f-01bfa488303a",
+    "927f2aa1-3a6c-46e3-9402-0fed9d261163",
+    "1b763e52-8172-4111-8246-9508286c7814",
+    "d916e6e7-2239-4531-a565-7a1c5b198334",
+    "23f5b67f-da43-4e89-97f8-fd8d9d15a8cd",
+    "e44bf39c-3287-40ec-9156-2a239110d1eb"
+  ],
+  "testId": "3a2507de-4461-403f-b8e3-3133ede386dd",
+  "builderReaderClosedBeforeApplicationLaunch": true,
+  "hiddenField": {
+    "fieldId": "23f5b67f-da43-4e89-97f8-fd8d9d15a8cd",
+    "createdValue": "2026-10-16T12:34:56.000Z",
+    "editedValue": "2026-10-17T12:34:56.000Z",
+    "controlAbsentAtSubmission": true
+  },
+  "tests": [
+    "actual-builder-blank-form",
+    "cancel-dataset-create-no-link",
+    "failed-dataset-create-no-link",
+    "stale-origin-refuses-link",
+    "A18-create-configure-apply-connect-return-link",
+    "generic-editor-five-roles",
+    "identity-stable-undo-redo",
+    "applied-ID-mapping",
+    "explicit-date-json-handling",
+    "typed-calculation-and-condition-authoring",
+    "nonpersisting-design-preview",
+    "isolated-protected-submission",
+    "hidden-date-create-edit-persists",
+    "invalid-json-draft-preserved-and-blocked",
+    "crafted-calculation-rejected",
+    "isolated-versus-normal-storage",
+    "protected-normal-create-update-read",
+    "actual-builder-from-dataset-form",
+    "actual-page-form-insertion",
+    "running-application-browser-submit-reload"
+  ],
+  "provenance": {
+    "application": "Normal Standard API creation",
+    "permissions": "Explicit existing trusted setup/stage/activate APIs",
+    "authoring": "Actual browser controls; no source JSON editing",
+    "normalSubmission": "Actual running Application browser submission and reload, supplemented by protected create/update/read API checks"
+  },
+  "browserErrors": [],
+  "verifiedAt": "2026-10-18T03:59:38.925Z"
+}

@@ -1,12 +1,43 @@
 # Builder End-to-End V1 — Implementation Plan
 
-Date: 2026-10-13; status updated 2026-10-17. **WP0–WP2 remain accepted and closed. WP3 remains accepted for planning purposes, with machine evidence subject to independent confirmation. BUILDER V1 WP4 — ACCEPTED AND CLOSED.** Preserve accepted contracts and limitations. **WP5 architecture D1–D6 and WP5-A through I are approved. WP5-A is accepted and closed. WP5-B implementation and verification are complete; stop for user review before WP5-C.** See the [WP5 plan](builder-v1-wp5-plan.md), [gap review](builder-end-to-end-v1-gap-review.md) and [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md). All 40 end-to-end boxes remain unchecked.
+
+## Formal user closure — 2026-10-18
+
+**BUILDER V1 WP5-D — ACCEPTED AND CLOSED**, following explicit user review. Accepted evidence: UI Platform **453/453**, Data Services **760/760**, editor/storage contracts **146/146**, focused checks **7/7**; builds, typechecks, production-client exclusion and actual Builder/browser verification passed. All **591 historical evidence hashes** are preserved. Earlier pending-review wording and machine acceptance flags below remain original verification-time history and are superseded by this formal decision. Their original results are not rewritten.
+
+This increment is formal closure and GitHub checkpoint reconciliation only. See the [closure and repository reconciliation](builder-v1-wp5-d-closure.md). Existing architecture, behavior, limitations and successful/unsuccessful/transitional evidence are retained. **WP5-E and subsequent work are not authorized.** D6 remains WP5-F subject to separate admission/locking architecture review; A37 remains WP6. All 40 umbrella requirements remain unchecked, and complete Builder V1 acceptance remains pending.
+
+
+## Current review decision — WP5-C accepted; WP5-D authorized
+
+**BUILDER V1 WP5-C — ACCEPTED AND CLOSED**, by explicit user review. Accepted evidence: UI Platform 446/446, Data Services 760/760, editor/storage contracts 146/146, builds, typechecks, production exclusion and actual Builder/browser evidence. Historical successful, failed and transitional records and hashes are retained. Earlier review-gate text is historical and superseded by this decision. No WP5-C contract is reopened.
+
+**WP5-D Menu and Branding Authoring is authorized for implementation**, using the approved native composition, storage, styling and editing contracts. Stop at WP5-D implementation verification/review; do not begin WP5-E. D6 remains WP5-F subject to separate architecture review; A37 remains WP6. All 40 umbrella requirements remain unchecked. Complete Builder V1 acceptance remains pending.
+
+## Current authorization — D5 approved
+
+**D5 ARCHITECTURE REVIEW APPROVED. D5.1–D5.6 and WP5-C C1–C5 IMPLEMENTATION AUTHORIZED**, by explicit user instruction. Earlier STOP AT D5 REVIEW and proposed/unapproved wording below is retained planning history, superseded by this decision. Implement the approved contract and plan in order, then **STOP AT WP5-C IMPLEMENTATION VERIFICATION/REVIEW**. Do not begin WP5-D. D6 remains WP5-F; A37 management restart remains WP6. All 40 umbrella requirements remain unchecked.
+
+
+Date: 2026-10-13; status updated 2026-10-17. **WP0–WP2 remain accepted and closed. WP3 remains accepted for planning purposes, with machine evidence subject to independent confirmation. BUILDER V1 WP4 — ACCEPTED AND CLOSED.** Preserve accepted contracts and limitations. **WP5 architecture D1–D6 and WP5-A through I are approved. WP5-A is accepted and closed. WP5-B is accepted and closed. WP5-C planning/prerequisite review only is authorized; stop at the separate D5 architecture review gate before any C implementation or WP5-D.** See the [WP5 plan](builder-v1-wp5-plan.md), [gap review](builder-end-to-end-v1-gap-review.md) and [acceptance checklist](builder-end-to-end-v1-acceptance-checklist.md). All 40 end-to-end boxes remain unchecked.
+
+## WP5-B final user acceptance and WP5-C planning gate — 2026-10-17
+
+**BUILDER V1 WP5-B — ACCEPTED AND CLOSED**, by the user's explicit acceptance of the reported verification and browser evidence. This decision supersedes earlier pending-review instructions in this document; those entries remain historical. WP0–WP5-A contracts and limitations, including closed WP4 hidden-field semantics, remain intact. No accepted WP5-B scope is reopened.
+
+Accepted reported evidence: **417/417 UI Platform, 760/760 Data Services, 146/146 editor/storage contracts and 29/29 focused checks**; builds, typechecks, production exclusion and documented real Builder/runtime browser interactions passed. Preserve successful, unsuccessful and transitional evidence, the original 351 historical evidence files and all WP5-B evidence/inventory snapshots. These are accepted prior results, not a new execution in the WP5-C planning increment.
+
+The bounded native record-delete declaration, protected Dataset/primary-field resolution and DOE/I-AM authority checks, declared result state, honest missing/denied/stale/failed/committed outcomes and existing Form/service/expression/rendering compatibility remain accepted. Package/Platform definitions and Application instances remain separate.
+
+Acceptance is limited to the WP5-B subsystem. Native API setup does not establish UI-only Application provisioning; native collision tests do not establish every Builder UI rejection path; closing Builder before runtime startup does not establish reliable simultaneous use. Legacy package entries expose only actual registered public contracts; no manifest-backed package Button exists. Complete Builder V1 acceptance remains pending and **all 40 A01–A40 umbrella requirements remain unchecked**.
+
+The user authorizes **WP5-C planning and prerequisite review only**. See the [detailed WP5-C plan](builder-v1-wp5-c-plan.md), [separate D5 trusted service-contract proposal](builder-v1-wp5-c-d5-service-contract.md) and [planning verification](builder-v1-wp5-c-planning-verification.md). D5 is not approved by this closure. **STOP AT WP5-C D5 ARCHITECTURE REVIEW. Do not implement WP5-C/register services or begin WP5-D.** D6 contention remediation remains WP5-F, subject to separate admission/locking design review, with reliable simultaneous Builder/runtime operation required before WP5-I acceptance. A37 full management-restart/browser evidence remains WP6.
 
 ## Sequence and dependencies
 
 Recommended order: **WP0 development onboarding contracts → WP1 workspace → WP2 editing lifecycle → WP3 data onboarding → WP4 authoring integration → WP5 diagnostics and safe testing → WP6 reference acceptance**. WP0 was the explicit prerequisite for new protected development Applications and is now accepted and closed. Its implemented ownership, administration, runtime and recovery contracts remain the baseline for subsequent work packages; no parallel agent execution is implied.
 
-Dependency chain: WP1 depends on WP0 identity/owner contracts; WP2 on WP1 adapters; WP3 on WP0 and WP2; WP4 on WP1–WP3. WP4 is now closed. WP5 decisions/allocation are approved; current execution authorizes WP5-B with a verification/review gate before WP5-C. WP6 requires all preceding implementation and acceptance gates. A package is complete only when its tests and review gate pass, not when a screen is present.
+Dependency chain: WP1 depends on WP0 identity/owner contracts; WP2 on WP1 adapters; WP3 on WP0 and WP2; WP4 on WP1–WP3. WP4 is now closed. WP5 decisions/allocation are approved; current authorization is WP5-C planning/prerequisite review only, with a separate D5 architecture gate before implementation. WP6 requires all preceding implementation and acceptance gates. A package is complete only when its tests and review gate pass, not when a screen is present.
 
 ## WP0 — Development Application authority and host contracts (accepted and closed)
 
@@ -76,9 +107,9 @@ Retain the concurrent source-reader contention limitation. Closing Builder befor
 
 Accepted scope, decisions and evidence remain in the [WP4 plan](builder-v1-wp4-plan.md), [architecture](builder-v1-wp4-form-authoring.md), [verification](builder-v1-wp4-verification.md), [hidden-field reconciliation history](builder-v1-wp4-hidden-field-reconciliation.md) and their original inventories/evidence. Do not reopen or expand WP4 without a separately reviewed reason. Deferred composition/automation work remains outstanding.
 
-## WP5 — WP5-A accepted and closed; WP5-B authorized
+## WP5 — WP5-A/B accepted and closed; WP5-C planning and D5 review
 
-**WP5 ARCHITECTURE APPROVED — IMPLEMENTATION AUTHORIZED**, 2026-10-17. WP5-A is accepted and closed. WP5-B is authorized; stop at its verification/review gate before WP5-C. The [WP5 plan](builder-v1-wp5-plan.md) defines scope, reuse, architectural gaps/solutions, acceptance criteria, risks and decisions D1–D6.
+**WP5 ARCHITECTURE APPROVED — IMPLEMENTATION AUTHORIZED**, 2026-10-17. WP5-A and WP5-B are accepted and closed. Current authorization is WP5-C planning and separate D5 architecture review only. The [WP5 plan](builder-v1-wp5-plan.md) defines scope, reuse, architectural gaps/solutions, acceptance criteria, risks and decisions D1–D6.
 
 The approved allocation completes deferred UI-only controls before WP6: WP5-A validator/catalog contracts; B Page/Shell/palette/public instance/binding/Admin controls; C Trigger/Workflow/invocation; D Menu/branding; E Problems/navigation/refresh; F nonpersisting focused preview; G isolated protected tests; H existing Release integration; I pre-WP6 readiness review. This approved allocation retains verification and acceptance gates for every increment. See [WP5-A architecture](builder-v1-wp5-a-diagnostic-foundation.md) and [verification](builder-v1-wp5-a-verification.md).
 
@@ -104,7 +135,7 @@ Record each action as **Builder UI**, **direct source edit**, **CLI**, or **fixt
 
 Relative total effort: **Large**; no calendar estimate is defensible before WP4 contract reconciliation and review. Small work includes grouping/labels and Release placement; these do not offset the large data, lifecycle and validation work. Review at each package gate and stop on discovered architectural prerequisites instead of broadening scope silently.
 
-**STOP: WP0–WP2 remain accepted and closed. WP3 remains accepted for planning purposes, with machine evidence subject to independent confirmation and V1 limitations retained. BUILDER V1 WP4 — ACCEPTED AND CLOSED. WP5 architecture and allocation are approved. Stop at WP5-B verification/review; do not automatically start WP5-C or WP6. Complete UI-only acceptance remains pending.**
+**STOP: WP0–WP2 remain accepted and closed. WP3 remains accepted for planning purposes, with machine evidence subject to independent confirmation and V1 limitations retained. BUILDER V1 WP4 — ACCEPTED AND CLOSED. WP5 architecture and allocation are approved. Stop at the WP5-C D5 architecture review gate; do not implement WP5-C or begin WP5-D/WP6. Complete UI-only acceptance remains pending.**
 
 The [umbrella scope ledger](builder-end-to-end-v1-acceptance-checklist.md#deferred-program-scope-after-wp4) retains deferred requirements and maps the approved pre-WP6 allocation. WP3 restart plus WP4 reload suffice for WP4 only; A37 full management-restart/browser verification remains mandatory. Concurrent source-reader contention remains documented.
 
@@ -112,10 +143,27 @@ WP5-A review decision, 2026-10-17: **BUILDER V1 WP5-A — ACCEPTED AND CLOSED**,
 
 The normal-host service contract and concurrent graph-lock contention remain open. Before WP5-C, submit a proposed typed, authorized, trusted registration contract for the existing reference.notification candidate (or another existing approved service) for review; do not invent/register services. D6 remediation planning is allocated to WP5-F, with admission/locking design review before implementation and reliable simultaneous Builder/runtime operation required before WP5-I acceptance. A37 full management-restart/browser evidence remains in WP6.
 
-## WP5-B implementation and verification review gate — 2026-10-17
+## Historical WP5-B implementation and verification review gate — 2026-10-17
 
 The user approved the bounded native single-record delete adapter after the documented Component inventory and expression-contract probe. **WP5-B is implemented and verified, pending user review; it is not accepted or closed. STOP AT WP5-B VERIFICATION/REVIEW. WP5-C has not begun.** See [architecture and retained review history](builder-v1-wp5-b-component-reuse.md), [verification and browser evidence](builder-v1-wp5-b-verification.md), and [changed-file inventory](builder-v1-wp5-b-files.md).
 
 Final reported evidence: **417/417 UI Platform, 760/760 Data Services, 146/146 editor/storage contracts, 29/29 focused WP5-A/WP5-B checks**, builds, typechecks and production exclusion passed. The actual Builder browser journey authors two Shells, Regions, Pages/routes, installed Card settings/slots/events, independent shared Component/Form consumers, route-bound protected Form read/edit and explicit single-record delete. Native collision, identity, denial, revocation and unchanged-definition checks pass. These results do not establish complete Builder V1 acceptance.
 
 WP0–WP5-A historical records and unsuccessful/transitional WP5-B evidence are retained. All 351 prior evidence files match their original bytes after compatibility runs; all 40 umbrella requirements remain unchecked. WP4 and WP5-A remain accepted and closed. D5 trusted normal-host service-contract review remains required before WP5-C; D6 admission/locking design review and remediation remain WP5-F, with simultaneous-use reliability required before WP5-I. Closing Builder before runtime startup is not concurrency proof. A37 full management-restart/browser evidence remains WP6. No WP5-C, WP5-F or WP6 implementation is authorized by this review record.
+
+## WP5-C implementation authorization and review boundary — 2026-10-17
+
+**D5.1–D5.6 APPROVED; WP5-C C1–C5 IMPLEMENTATION AUTHORIZED** by explicit user decision. This supersedes earlier planning-only D5 gate entries, retained as history. C1–C4 implementation and C5 verification are recorded in the [implemented architecture](builder-v1-wp5-c-implementation.md) and [verification record](builder-v1-wp5-c-verification.md). **STOP AT WP5-C IMPLEMENTATION VERIFICATION/REVIEW. Do not begin WP5-D.** WP5-C is not accepted or closed by subsystem results. WP4/WP5-A/WP5-B remain closed; D6 remains WP5-F under separate review and A37 full restart/browser evidence remains WP6. All A01–A40 umbrella requirements remain unchecked.
+
+## WP5-C verification/review gate — 2026-10-17
+
+**WP5-C C1–C5 IMPLEMENTED AND VERIFIED; USER REVIEW REQUIRED. NOT ACCEPTED OR CLOSED.** D5.1–D5.6 approval remains current; earlier STOP AT D5 planning wording is historical. Final completed evidence: **446/446 UI Platform (63 files), 760/760 Data Services, 146/146 editor/storage contracts**, builds/typechecks/production exclusion and actual Builder/browser authoring, protected execution and independent permission/preview/transport checks. The full UI command is serial with explicit test/hook limits and one configured retry. Failed/transitional reports and bounded operator recovery of an interrupted test lock remain documented, rather than claimed as clean first attempts.
+
+See [implemented architecture](builder-v1-wp5-c-implementation.md), [verification/history](builder-v1-wp5-c-verification.md) and [changed-file inventory](builder-v1-wp5-c-files.md). All 351 historical and 157 WP5-B evidence files, their original hashes and earlier accepted records are preserved. All 40 umbrella requirements remain unchecked. WP4/WP5-A/WP5-B remain closed. Native setup is not UI-only provisioning proof; no package Button or unsupported metadata is fabricated. **STOP AT WP5-C IMPLEMENTATION VERIFICATION/REVIEW. No WP5-D.** D6 remains WP5-F under separate design review; reliable simultaneous use remains required before WP5-I. A37 full management restart remains WP6. Complete Builder V1 acceptance remains pending.
+
+
+## WP5-D implementation verification/review gate
+
+WP5-C remains **ACCEPTED AND CLOSED**. WP5-D Menu and Branding Authoring is implemented and ready for review: final UI Platform **453/453**, Data Services **760/760**, editor/storage contracts **146/146**, focused contracts/browser **7/7**; builds, typechecks and production exclusion passed. Actual Builder authoring and Public/Admin runtime evidence, unsuccessful attempts, limitations and hashes are in the [D verification record](builder-v1-wp5-d-verification.md), [architecture](builder-v1-wp5-d-implementation.md) and [changed-file inventory](builder-v1-wp5-d-files.md). All 591 prior evidence files retain their original hashes, including the 351 historical, 157 WP5-B, three C-planning and 80 C files. Historical machine review snapshots are retained without rewriting their original acceptance flags.
+
+**WP5-D is not accepted or closed by subsystem results. STOP AT WP5-D IMPLEMENTATION VERIFICATION/REVIEW. Do not begin WP5-E.** D6 remains WP5-F under separate architecture review, A37 remains WP6, and all A01–A40 umbrella requirements remain unchecked. Complete Builder V1 acceptance remains pending.

@@ -1,0 +1,234 @@
+Skip to content
+Development identity 
+Sign out
+Security Admin (security@example.local)
+Page, Form and Workflow Editor (combined@example.local)
+Page and Form Editor (page-form-editor@example.local)
+Mixed Permissions (mixed@example.local)
+Workflow Editor (workflow-editor@example.local)
+Application Admin (admin@example.local)
+Manage Triggers and Workflows
+Triggers and Workflows
+
+Platform definitions. Actions run in the order shown.
+
+Triggers
+Workflows
+ Creation Application
+V1 Development Identity Fixture
+WP4 Dataset Application
+Load protected authoring catalogCreation Dataset
+records_30236f5042d04cb68a908423493b8d15
+CreateRefresh list
+Select artifact
+Person default status
+Person update history
+Person committed notification
+wp5c-trigger-6ca15228 (disabled)
+
+ENOENT: no such file or directory, open 'C:\Projects\Modular\ui-platform\triggers\wp5c-trigger-6ca15228\trigger.json'
+
+UndoRedoSave NowReload / discard local editsDownload local copyDelete
+
+Permanent ID: trigger_abf0b610-1665-489e-b4c8-77cf02021cfe · Application: 4e194d2b-03cb-49be-97bb-d268b52299ac · Dataset: 30236f50-42d0-4cb6-8a90-8423493b8d15 · Applied primary key: id
+
+Load protected action targetsnamedisplayName  EnabledPhase
+beforeInsert
+afterInsert
+beforeUpdate
+afterUpdate
+beforeDelete
+afterDelete
+afterCommit
+Priority
+Ordered actions
+Step 1: action-42e19887-15fb-43bb-ac90-f6c30acd8d7a
+
+Action: service. Permanent action ID: action-42e19887-15fb-43bb-ac90-f6c30acd8d7a
+
+Scope
+each
+batch
+Approved service
+reference.notification
+
+Contract v1; in-memory reference effect, Workflow or afterCommit only. 70acf6f6e70d0eb49a36da5772a76087d07d0e19f453d56c5f48db3f5f2f28e2
+
+Service input
+Service input source
+fields
+string
+number
+boolean
+null
+record
+oldRecord
+newRecord
+context
+Service input.message
+Service input.message source
+string
+number
+boolean
+null
+record
+oldRecord
+newRecord
+context
+fields
+Service input.message value
+Remove Service input.messageService input member nameAdd Service input member
+Remove action
+New action type
+read
+insert
+update
+delete
+set
+reject
+service
+Add typed action
+Advanced source repair
+
+M
+MODULAR
+UI Platform
+Applications
+Packages
+Templates
+Settings
+U
+User
+user@example.com
+New Application
+Applications
+/
+WP4 Dataset Application
+W
+WP4 Dataset Application
+active
+
+/wp5c-created
+4e194d2b-03cb-49be-97bb-d268b52299ac
+
+A sample application built with the UI Platform.
+
+Overview
+Pages
+Packages
+Presentation
+Preview
+Settings
+Application navigation
+WP4 Dataset Application
+Refresh artifacts
+Create Dataset
+Create Form
+Create Page
+Create Shell
+Create Platform Component
+
+Artifact authorized. Existing editor save behavior applies.
+
+Pages
+Administration
+Welcome
+Home (source inspection) (repair-only locator) (read-only)
+Shells
+Admin Shell
+Public Shell
+Components and Forms
+Composition Shared Help
+Customer List Item
+Customer Summary Card
+PersonForm
+Datasets
+WP5-C Records
+Menus
+Admin Navigation
+Main Navigation
+Application presentation/settings
+Application presentation/settings
+styles/site.css (repair-only locator)
+WP5-C Records×
+WP5-C Records
+
+dataset · Editing permitted
+
+Saved
+Undo
+Redo
+Save now
+Suspend editor
+Compare with server
+Close artifact
+Discard local copy…
+Overview
+Properties
+Fields
+Development Apply/Connect
+
+Saving source does not publish, activate or migrate the Dataset. Apply requires Dataset administration authority; runtime permissions are assigned separately through trusted security administration.
+
+apply completed.
+
+Source: valid · Validated revision: current · Published: version 1 · Applied: verified · Runtime: disconnected
+
+Refresh development statusValidate saved definitionApply to Development…Connect Runtime…
+
+Required values and defaults use the existing protected engine. Permission rules reference permanent Dataset and field IDs through I-AM. The creator receives no automatic runtime or security grant.
+
+Records
+Permissions
+Relationships
+Validation
+Source
+Saved diagnostics
+
+Saved-source validation: 0 issue(s).
+
+Build integration not configured. Git history and reverse references are not available.
+SERVER
+UI Platform API listening on http://localhost:50588
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5c-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5c-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+artifact-editor-security {"action":"request-denied","operation":"GET"}
+artifact-editor-security {"action":"mutation","actor":"usr_80831c82612048e9bca61a5012dc7063","applicationKey":"wp5c-created","operation":"edit"}
+Error: ENOENT: no such file or directory, open 'C:\Projects\Modular\ui-platform\triggers\wp5c-trigger-6ca15228\trigger.json'
+    at async open (node:internal/fs/promises:697:25)
+    at async readFile (node:internal/fs/promises:1348:14)
+    at async AutomationStore.read (C:\Projects\Modular\ui-platform\src\server\automation-store.ts:28:20)
+    at async Server.<anonymous> (C:\Projects\Modular\ui-platform\src\server\index.ts:289:61) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Projects\\Modular\\ui-platform\\triggers\\wp5c-trigger-6ca15228\\trigger.json'
+}
