@@ -151,7 +151,10 @@ export async function visualWorkspace(appKey: string, packages: PackageComponent
   const componentService = new VisualArtifactService(platformComponentsRoot, 'component');
   const [pages, components, shells] = await Promise.all([pageService.list(), componentService.list(), new VisualArtifactService(path.join(appPath(appKey), 'shells'), 'shell').list()]);
   const runtime = components.map(toRuntime).filter((item): item is RuntimeArtifact => Boolean(item));
-  for (const bundle of [...pages, ...components, ...shells]) if (bundle.metadata) bundle.diagnostics.push(...validateArtifact(toRuntime(bundle)!, runtime, packages));
+  for (const bundle of [...pages, ...components, ...shells]) if (bundle.metadata) {
+    try { bundle.diagnostics.push(...validateArtifact(toRuntime(bundle)!, runtime, packages)); }
+    catch { bundle.diagnostics.push({ severity: 'error', message: 'Visual validation is unavailable until invalid metadata is repaired.' }); }
+  }
   return { pages, components, shells, packages };
 }
 export async function knownVisualArtifacts(): Promise<ArtifactBundle[]> {

@@ -46,6 +46,9 @@ import { DevelopmentApplicationRuntime } from './development-application-runtime
 import { createBuilderWorkspaceHandler } from './builder-workspace.js';
 import { DatasetDevelopment } from './dataset-development.js';
 import { FormSubmissionTesting } from './form-submission-testing.js';
+import { PlatformSettingsAuthority } from './platform-settings.js';
+import { platformSettingsHandler } from './platform-settings-http.js';
+import { developmentSecurityConfiguration } from './v1-security-administration.js';
 const port = Number(process.env.UI_PLATFORM_API_PORT ?? 4090);
 const builderWp0Enabled = process.env.UI_PLATFORM_BUILDER_WP0 === '1';
 const v1Enabled = process.env.UI_PLATFORM_V1_DEVELOPMENT_IDENTITY === '1';
@@ -86,6 +89,21 @@ const editorSecurity = new ArtifactEditorSecurity({
   audit: event => console.info('artifact-editor-security', JSON.stringify(event)),
 });
 const editorWorkspaces = new Map<string, ArtifactEditorWorkspace>();
+const platformSettings = platformSettingsHandler(new PlatformSettingsAuthority(runtimeDir), {
+  async capture(req, mutation) {
+    const original = editorSecurity.workspacePrincipal(req, mutation);
+    if (!v1Identity) throw Object.assign(new Error('Trusted Platform identity required.'), { status: 403 });
+    const policy = v1Identity.policyDigest();
+    const resource = { authorityId: V1_AUTHORITY_ID, applicationId: null, kind: 'system' as const, id: 'platform' };
+    const canModify = () => v1Identity.authorize(req, developmentSecurityConfiguration.platformAdministratorPermissionId, resource);
+    const admission = mutation ? v1Identity.captureAdmission(req, developmentSecurityConfiguration.platformAdministratorPermissionId, resource) : undefined;
+    return { canModify, async assert() {
+      if (editorSecurity.workspacePrincipal(req, mutation).subjectId !== original.subjectId || v1Identity.policyDigest() !== policy)
+        throw Object.assign(new Error('Settings access changed.'), { status: 403 });
+      if (admission) await admission();
+    } };
+  },
+});
 const builderWorkspace = v1Identity ? createBuilderWorkspaceHandler(v1Identity, editorSecurity) : undefined;
 const datasetDevelopment = developmentApplications && developmentRuntime && v1Identity ? new DatasetDevelopment({
   root: path.join(runtimeDir, 'builder-datasets'), policyStore: v1PolicyStorePath,
@@ -223,6 +241,7 @@ const server = http.createServer(async (req, res) => {
     if (developmentRuntime && await developmentRuntime.handle(req, res)) return;
     if (await applicationData(req, res)) return;
     if (await editorSecurity.handle(req, res)) return;
+    if (await platformSettings(req, res)) return;
     if (datasetDevelopment && await datasetDevelopment.handle(req, res)) return;
     if (formTesting && await formTesting.handle(req, res)) return;
     if (builderWorkspace && await builderWorkspace(req, res)) return;
@@ -530,10 +549,7 @@ const server = http.createServer(async (req, res) => {
         return json(res, 200, await getPageSource(key, source));
       }
       if (parts.length === 4 && parts[3] === 'page' && method === 'PUT') {
-        const source = url.searchParams.get('source');
-        if (!source) throw new Error('The source query parameter is required.');
-        const input = await body(req);
-        return json(res, 200, await savePageSource(key, source, String(input.source ?? ''), input.expectedHash ? String(input.expectedHash) : undefined));
+        return json(res, 405, { code: 'LEGACY_PAGE_READ_ONLY', error: 'Legacy TypeScript Page source is read-only. Use the supported Visual Page editor.' });
       }
       if (parts.length === 4 && parts[3] === 'page' && method === 'DELETE') {
         const source = url.searchParams.get('source');

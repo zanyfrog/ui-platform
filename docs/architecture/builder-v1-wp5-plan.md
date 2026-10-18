@@ -1,5 +1,25 @@
 # Builder V1 WP5 — Planning and Architecture Reconciliation
 
+## Qualified user acceptance and closure — 2026-10-18
+
+**BUILDER V1 WP5-E IS ACCEPTED AND CLOSED**, limited to E1–E7 functionality and verified subsystem boundaries, subject to the documented D6 graph-lock remediation dependency. Accepted results: 36/36 focused, 1/1 actual browser journey, 146/146 editor/storage contracts, 760/760 Data Services, successful builds/typechecks/production exclusion, and all 745 historical evidence hashes preserved. Full UI remains **474/476 — NOT PASSED**; both graph-lock failures and the inconclusive WP4 accepted-source baseline remain retained. The earlier 86/87 affected record remains a failed run.
+
+D6 carries into separately reviewed WP5-F architecture work; no lock weakening, admission bypass or WP5-F implementation is authorized here. WP5-I requires reliable simultaneous Builder/runtime operation and successful regression verification of affected scenarios. All 40 umbrella requirements remain unchecked. Complete Builder V1 acceptance remains pending. See [qualified closure and proposed checkpoint](builder-v1-wp5-e-closure.md). No commit or push has been performed; separate authorization is required. Original verification-time wording and results below remain historical.
+
+## Current WP5-E continuation — legacy decision resolved, implementation verification — 2026-10-18
+
+The user approved read-only legacy TypeScript Page inspection, server-side rejection of ordinary legacy writes, and the shared-lifecycle Visual Page editor as the supported Page authoring authority. Earlier WP5-E prerequisite stops below are resolved and remain historical. E1–E7 are implemented; [architecture and editor inventory](builder-v1-wp5-e-implementation.md) and [verification/limitations ledger](builder-v1-wp5-e-verification.md) distinguish the new subsystem evidence from final UI-only acceptance. The dedicated settings/Problems browser check passed, Data Services passed 760/760, and the full UI regression records 474/476 with two retained graph-lock failures. The retained 86/87 record remains a failed run. An accepted-source comparison reproduces its D6 graph-lock failure without WP5-E; no lock/admission remediation is included. Stop at WP5-E implementation verification/review, without acceptance, closure, commit, push or WP5-F/G/WP6. WP5-D remains accepted and closed; all 40 umbrella checks remain unchecked.
+
+## WP5-E centralized settings architecture approved — 2026-10-18
+
+The user approved a single Platform-owned JSON settings authority with typed/versioned validation, atomic and revision-qualified updates, existing administrator authorization, live propagation and disabled-autosave fallback on invalid/unreadable configuration. The missing-authority stop below is superseded. The authority, Settings UI and shared lifecycle configuration have a partial implementation; see [implementation and legacy Page contract conflict](builder-v1-wp5-e-implementation.md). Legacy Page integration is stopped at the user's explicit editing-guarantee review condition; E1–E3 have not begun. WP5-E is not ready for review or acceptance. WP5-D remains accepted and closed; no umbrella checks, commit, push, or WP5-F work follows from this increment.
+
+## Current WP5-E authorization and prerequisite stop — 2026-10-18
+
+The user authorizes WP5-E Problems UI, dependency refresh, and configurable autosave, including enabled=true / delayMs=2000 defaults when no saved Platform preference exists. Saved preferences take precedence; invalid/unreadable preferences must be reported without overwriting them. This authorization supersedes earlier statements prohibiting WP5-E below, which remain historical.
+
+**Stopped at the explicit E4 architectural prerequisite:** no suitable implemented persistent Platform settings authority was found. See the [WP5-E prerequisite review and unresolved issues](builder-v1-wp5-e-prerequisite-review.md). No WP5-E behavior was implemented or verified. WP5-D stays accepted and closed; all umbrella requirements remain unchecked. No commits, pushes, WP5-F, or acceptance/closure are authorized by this increment. Resolve the settings authority through architecture review before continuing implementation.
+
 
 ## Formal user closure — 2026-10-18
 

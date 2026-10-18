@@ -1,5 +1,6 @@
 import { EditorTransportError, type ArtifactEditorTransport, type EditorArtifactSummary, type EditorSaveDto, type EditorWatchEvent } from '../../shared/artifact-editor.js';
 import { createEditorSessionBinding, invalidateEditorSession, refreshEditorSession, subscribeEditorSession } from './session.js';
+import { sourceSaved } from './saved-source.js';
 
 export async function discoverEditorArtifacts(appKey: string): Promise<EditorArtifactSummary[]> {
   const binding = createEditorSessionBinding();
@@ -25,6 +26,7 @@ export function createArtifactEditorTransport(appKey: string): ArtifactEditorTra
     binding.assert();
     if (response.status === 401 || response.status === 403) { binding.revoke(); invalidateEditorSession(); }
     if (!response.ok) throw new EditorTransportError(response.status, value.error, value.code, value.validation);
+    if (changes && !suffix && value.saved) sourceSaved(`${base}/${encodeURIComponent(locator)}`);
     return value;
   }
   return {

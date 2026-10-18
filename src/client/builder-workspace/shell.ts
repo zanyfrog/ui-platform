@@ -10,11 +10,48 @@ import { editForm, formSource } from '../artifact-editor/form-editor.js';
 import type { WorkspaceLinkOrigin } from './coordinator.js';
 import { chooseFormCreation } from '../artifact-editor/form-creation.js';
 import { chooseVisualCreation } from '../visual-artifacts/creation.js';
+import { LatestProblems } from './problems.js';
+import { subscribeSourceSaved } from '../artifact-editor/saved-source.js';
+import type { ProblemsReport } from '../../shared/application-diagnostics.js';
 
 const shell = document.createElement('section'); shell.className = 'builder-workspace'; shell.setAttribute('aria-label', 'Application Builder workspace');
 shell.innerHTML = `<header><button data-collapse aria-expanded="true">Application navigation</button><strong data-title></strong><button data-refresh>Refresh artifacts</button><button data-create-dataset>Create Dataset</button><button data-create-form>Create Form</button><button data-return-link hidden>Return and link Dataset to Form</button><button data-cancel-link hidden>Cancel Dataset link</button></header>
   <p data-status role="status"></p><div class="workspace-layout"><nav aria-label="Application artifacts"></nav><section class="workspace-main"><div role="tablist" aria-label="Open artifacts"></div><div data-stage></div></section></div>`;
 const find = <T extends HTMLElement>(selector: string) => shell.querySelector<T>(selector)!;
+const problems = document.createElement('section'); problems.setAttribute('aria-label', 'Application Problems');
+problems.innerHTML = '<h3>Application Problems</h3><p data-validation-status role="status">Validate authoritative saved sources. Local unsaved validation remains in each editor.</p><ol></ol>';
+shell.append(problems);
+const validateButton = document.createElement('button'); validateButton.textContent = 'Validate Application'; find('header').append(validateButton);
+const latestProblems = new LatestProblems(); let problemsActive = false, refreshTimer: ReturnType<typeof setTimeout> | undefined;
+const validationStatus = problems.querySelector('[data-validation-status]')!;
+function clearProblems() { latestProblems.invalidate(); clearTimeout(refreshTimer); problems.querySelector('ol')!.replaceChildren(); problemsActive = false; validationStatus.textContent = 'Validate authoritative saved sources. Local unsaved validation remains in each editor.'; }
+async function refreshProblems(full: boolean) {
+  if (parked || !problemsActive) return;
+  const key = applicationKey;
+  validationStatus.textContent = 'Validating authoritative saved sources… Local drafts are unchanged.';
+  try {
+    await latestProblems.refresh(() => workspaceRequest<ProblemsReport>(key, `/validate${full ? '?full=1' : ''}`), report => {
+      const list = problems.querySelector('ol')!; list.replaceChildren();
+      validationStatus.textContent = `${report.status === 'complete' ? 'Complete' : 'Incomplete'} saved-source validation · ${report.refresh} refresh · ${report.validated.length} source validators run. Local unsaved drafts are separate. This is not Publish approval.`;
+      for (const problem of report.diagnostics) {
+        const row = document.createElement('li'), label = document.createElement(problem.target ? 'button' : 'span');
+        label.textContent = `${problem.severity.toUpperCase()} · ${problem.code} · ${problem.message} [${problem.subsystem}${problem.revision ? ` @ ${problem.revision.slice(0, 12)}` : ''}]`;
+        if (problem.target) label.onclick = () => run(() => navigate({ ...problem.target!, ...(problem.location?.file ? { source: { file: problem.location.file, line: problem.location.line, column: problem.location.column } } : {}) }, key));
+        row.append(label); list.append(row);
+      }
+      if (!report.diagnostics.length) { const row = document.createElement('li'); row.textContent = 'No problems reported in the validated saved sources.'; list.append(row); }
+    });
+  } catch { problems.querySelector('ol')!.replaceChildren(); validationStatus.textContent = 'Validation unavailable. Source or authorization changed; refresh authorization and Validate Application.'; }
+}
+validateButton.onclick = () => { problemsActive = true; void refreshProblems(true); };
+const scheduleProblems = (key?: string) => {
+  if (parked || !problemsActive || key && key !== applicationKey) return;
+  latestProblems.invalidate(); clearTimeout(refreshTimer);
+  validationStatus.textContent = 'Saved source changed; refreshing affected diagnostics. Local drafts are unchanged.';
+  refreshTimer = setTimeout(() => { void refreshProblems(false); }, 150);
+};
+subscribeSourceSaved(scheduleProblems);
+document.addEventListener('ui-platform-workspace-change', () => scheduleProblems());
 for (const operation of ['Create Menu', 'Upload Application asset']) {
   const button = document.createElement('button'); button.textContent = operation; find('header').append(button);
   button.onclick = () => run(async () => {
@@ -180,6 +217,7 @@ find('[data-collapse]').onclick = () => { const nav = find('nav'); nav.hidden = 
 subscribeEditorSession(() => {
   const next = editorSessionSnapshot()?.revision;
   if (revision !== next) {
+    clearProblems();
     revision = next; coordinator.suspend(); discovery = []; find('nav').replaceChildren(); navigationSequence++;
     status('Access suspended. Select the original authorized identity to reopen and recover retained tabs.');
   }
@@ -193,11 +231,12 @@ setInterval(() => {
   void authorizeWorkspace(tab.artifact.applicationKey, { identity: tab.artifact.identity }).then(next => {
     if (!current()) return;
     if (next.editable !== tab.artifact.editable) throw new Error('Artifact authority changed.');
-  }).catch(() => { if (!current()) return; coordinator.suspend(); discovery = []; find('nav').replaceChildren(); status('Artifact access changed. Source hidden; reauthorize under the original identity to recover.'); }).finally(() => { checking = false; });
+  }).catch(() => { if (!current()) return; clearProblems(); coordinator.suspend(); discovery = []; find('nav').replaceChildren(); status('Artifact access changed. Source hidden; reauthorize under the original identity to recover.'); }).finally(() => { checking = false; });
 }, 2000);
-export function parkWorkspace() { parked = true; navigationSequence++; coordinator.park(); shell.remove(); }
+export function parkWorkspace() { parked = true; navigationSequence++; latestProblems.invalidate(); clearTimeout(refreshTimer); coordinator.park(); shell.remove(); }
 export async function mountApplicationWorkspace(target: HTMLElement, app: { key: string; name: string }) {
   retainDevelopmentWorkspaceSession();
+  if (applicationKey !== app.key) clearProblems();
   coordinator.park(); applicationKey = app.key; parked = false;
   find('[data-title]').textContent = app.name; target.replaceChildren(shell); renderTabs();
   try { await discover(); } catch (error) { coordinator.suspend(); status(String(error)); }

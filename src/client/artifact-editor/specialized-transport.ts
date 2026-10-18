@@ -1,4 +1,5 @@
 export type SourceRequest = <T>(url: string, init?: RequestInit) => Promise<T>;
+import { sourceSaved } from './saved-source.js';
 export interface SourceTransportOptions { request?: SourceRequest; captureRequest?: () => SourceRequest; applicationId?: string }
 
 /** Capture authority when an edit is scheduled, never when its tab later saves. */
@@ -20,6 +21,7 @@ export async function specializedTransport(options: SourceTransportOptions, revo
     const response = await fetch(url, { ...init, headers: { ...headers, ...(options.applicationId ? { 'x-editor-application-id': options.applicationId } : {}), ...(init?.body instanceof FormData ? {} : { 'content-type': 'application/json' }), ...init?.headers } });
     const result = await response.json(); binding?.assert();
     if (!response.ok) throw Object.assign(new Error(result.error ?? result.code ?? 'Source request failed.'), { status: response.status, code: result.code });
+    if (init?.method === 'PUT') sourceSaved(url);
     return result as T;
   });
   return { request, capture: options.captureRequest ?? (() => { binding?.assert(); return request; }), dispose() { unsubscribe(); binding?.revoke(); } };

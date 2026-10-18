@@ -79,8 +79,10 @@ it('uses one V1 session for real Page and Form APIs and denies direct Workflow a
   const pageUrl = `${origin}/api/apps/${V1_FIXTURE_APPLICATION_KEY}/page?source=src%2Fpages%2FHome.ts`;
   const pageRead = await fetch(pageUrl, { headers }); expect(pageRead.status).toBe(200);
   const page = await pageRead.json();
-  expect((await fetch(pageUrl, { method: 'PUT', headers,
-    body: JSON.stringify({ source: 'export const title = "Changed";\n', expectedHash: page.hash }) })).status).toBe(200);
+  const legacyWrite = await fetch(pageUrl, { method: 'PUT', headers,
+    body: JSON.stringify({ source: 'export const title = "Changed";\n', expectedHash: page.page.hash }) });
+  expect(legacyWrite.status).toBe(405); expect((await legacyWrite.json()).code).toBe('LEGACY_PAGE_READ_ONLY');
+  expect((await fetch(pageUrl, { headers }).then(response => response.json())).source).toBe(page.source);
   expect((await fetch(`${origin}/api/apps/${V1_FIXTURE_APPLICATION_KEY}/settings`, { method: 'PUT', headers, body: '{}' })).status).toBe(403);
   expect((await fetch(`${origin}/api/apps/${V1_FIXTURE_APPLICATION_KEY}/security/activate`, { method: 'POST',
     headers, body: '{}' })).status).toBe(403);

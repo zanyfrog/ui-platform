@@ -148,7 +148,11 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
   const unsubscribe = context.subscribe(() => { message = ''; render(); });
   const detachPlugins = plugins.subscribe(render); render();
   return {
-    navigate(section?: string) { if (section && ['overview', 'properties', 'source', 'diagnostics'].includes(section)) { activeTab = section as EditorTab; render(); } },
+    navigate(section?: string, location?: SourceEditorState['selected']) {
+      if (location && context.snapshot?.artifact.files.some(file => file.path === location.file) || location?.file === 'artifact.json' && !context.snapshot?.artifact.visualForm) {
+        sourceState.selected = location; activeTab = 'source'; render();
+      } else if (section && ['overview', 'properties', 'source', 'diagnostics'].includes(section)) { activeTab = section as EditorTab; render(); }
+    },
     setPresentation(next: EditorPresentation) { presentation = next; render(); },
     destroy() { destroyed = true; unsubscribe(); detachPlugins(); for (const cleanup of pluginCleanups) cleanup(); pluginCleanups = []; shell.remove(); },
   };

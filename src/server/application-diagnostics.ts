@@ -43,7 +43,7 @@ export async function validateCapturedApplication(sources: CapturedValidationSou
       // Native adapters may supply a more precise target, but never an unreadable owner.
       for (const d of result.diagnostics) {
         if (d.target && !await admission.canRead(d.target.identity)) { undisclosed = true; incomplete.add(key); continue; }
-        diagnostics.push({ ...d, subsystem: source.subsystem, revision: source.revision, target: d.target ?? { identity: source.identity } });
+        diagnostics.push({ ...d, subsystem: source.subsystem, revision: d.revision ?? source.revision, target: d.target ?? { identity: source.identity } });
       }
       edges.push(...result.dependencies.map(to => ({ from: source.identity, to })));
       if (!result.complete) {

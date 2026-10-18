@@ -22,12 +22,15 @@ const root = document.querySelector<HTMLDivElement>('#app');
 if (!root) throw new Error('Missing #app root.');
 
 let artifactEditorMounted = false;
+let platformSettingsOpen = false;
 if (import.meta.env.DEV) {
   const { mountDevelopmentIdentity } = await import('./artifact-editor/identity-selector');
   const identityHeader = document.createElement('div');
   identityHeader.className = 'development-identity';
   root.before(identityHeader);
   await mountDevelopmentIdentity(identityHeader);
+  const { startPlatformSettings } = await import('./platform-settings.js');
+  await startPlatformSettings();
   const automationButton = document.createElement('button'); automationButton.textContent = 'Manage Triggers and Workflows';
   const automationPanel = document.createElement('div'); automationPanel.hidden = true; root.before(automationButton, automationPanel);
   let automationCleanup: ((() => Promise<void>) & { state: () => { dirty: boolean; pending: boolean; conflict?: boolean } }) | undefined;
@@ -152,7 +155,7 @@ function sidebar(): string {
         <uib-menuitem name="applications" active data-action="home">${icon('menu')}<span>Applications</span></uib-menuitem>
         <uib-menuitem name="packages" data-action="packages">${icon('info')}<span>Packages</span></uib-menuitem>
         <uib-menuitem name="templates" disabled>${icon('calendar')}<span>Templates</span></uib-menuitem>
-        <uib-menuitem name="settings" disabled>${icon('chevron-down')}<span>Settings</span></uib-menuitem>
+        <uib-menuitem name="settings" ${import.meta.env.DEV ? 'data-action="platform-settings"' : 'disabled'}>${icon('chevron-down')}<span>Settings</span></uib-menuitem>
       </uib-menu>
       <div class="sidebar-user">
         <span class="user-avatar">U</span>
@@ -182,11 +185,21 @@ function bindCommon(): void {
   root!.querySelector('[data-action="new"]')?.addEventListener('click', renderCreate);
   root!.querySelector('[data-action="home"]')?.addEventListener('click', () => renderHome());
   root!.querySelector('[data-action="packages"]')?.addEventListener('click', () => renderPackages());
+  const showPlatformSettings = async () => {
+    if (import.meta.env.DEV) {
+      platformSettingsOpen = true; currentKey = null;
+      shell('<div data-platform-settings></div>');
+      const { mountPlatformSettings } = await import('./platform-settings.js');
+      const target = root!.querySelector<HTMLElement>('[data-platform-settings]'); if (target) mountPlatformSettings(target);
+    }
+  };
+  root!.querySelector('[data-action="platform-settings"]')?.addEventListener('click', () => void showPlatformSettings());
   root!.querySelector('uib-menu.side-menu')?.addEventListener('uib-menuitem-select', (event) => {
     const target = event.target as HTMLElement;
     const action = target.closest<HTMLElement>('[data-action]')?.dataset.action;
     if (action === 'home') renderHome();
     if (action === 'packages') renderPackages();
+    if (action === 'platform-settings') void showPlatformSettings();
   });
   root!.querySelector<HTMLElement>('.global-search')?.addEventListener('input', (event) => {
     const detail = (event as unknown as CustomEvent).detail as { newValue?: unknown } | undefined;
@@ -207,6 +220,7 @@ function bindAppRows(): void {
 }
 
 function renderHome(updateUrl = true): void {
+  platformSettingsOpen = false;
   currentKey = null;
   if (updateUrl && window.location.pathname !== '/') window.history.pushState({}, '', '/');
   const appTiles = homeAppsMarkup();
@@ -595,6 +609,7 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
 if (!artifactEditorMounted) {
 await refresh().catch(() => { apps = []; templates = []; });
 if (import.meta.env.DEV) window.addEventListener('ui-platform-development-identity-change', () => {
+  platformSettingsOpen = false;
   currentKey = null; shell('<p>Select an authorized Application.</p>');
   void refresh().catch(() => { apps = []; templates = []; }).finally(() => renderHome(false));
 });
@@ -611,7 +626,7 @@ events.addEventListener('artifact-change', event => {
 events.addEventListener('workspace-change', async () => {
   await refresh();
   document.dispatchEvent(new CustomEvent('ui-platform-workspace-change'));
-  if (!currentKey) renderHome();
+  if (!currentKey && !platformSettingsOpen) renderHome();
   // If a detail screen is open, leave current unsaved inputs alone; Vite preview itself handles source HMR.
 });
 }

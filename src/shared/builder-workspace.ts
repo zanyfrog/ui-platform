@@ -5,7 +5,7 @@ import type { ComponentCatalogEntry, PageSourcePayload } from './types.js';
 
 export type WorkspaceOwner = { kind: 'application' | 'platform' | 'package'; id: string; revision?: string };
 export interface WorkspaceIdentity { owner: WorkspaceOwner; format: 'visual' | 'generic' | 'composition' | 'automation' | 'package' | 'legacy'; id?: string; repairLocator?: string }
-export interface WorkspaceTarget { identity: WorkspaceIdentity; node?: string; field?: string; step?: string; section?: string }
+export interface WorkspaceTarget { identity: WorkspaceIdentity; node?: string; field?: string; step?: string; section?: string; source?: { file: string; line?: number; column?: number } }
 export interface WorkspaceArtifact {
   identity: WorkspaceIdentity; applicationKey: string; applicationId: string; locator: string;
   name: string; group: string; kind: string; editable: boolean; componentId?: string;

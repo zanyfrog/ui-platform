@@ -1,0 +1,37 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+6:08:38 PM [vite] (client) [optimizer] scanning dependencies...
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+WP4 checkpoint: blank Form created
+
+stdout | tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+Dataset error: 409 {"code":"Artifact is locked by another writer.","error":"Artifact is locked by another writer.","recovery":"Source and permanent identities are retained. Incomplete activation requires the existing Data Services recovery procedure; no automatic retry or rollback is claimed."}
+
+ × tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence 21610ms
+   → expected 409 to be 422 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/builder-v1-wp4.test.ts > WP4: actual Form authoring, A18, declarative rules, isolated protected submission and runtime persistence
+AssertionError: expected 409 to be 422 // Object.is equality
+
+- Expected
++ Received
+
+- 422
++ 409
+
+ ❯ tests/builder-v1-wp4.test.ts:147:196
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  18:08:26
+   Duration  22.09s (transform 113ms, setup 0ms, import 277ms, tests 21.61s, environment 0ms)
+

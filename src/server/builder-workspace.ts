@@ -1,9 +1,10 @@
 import path from 'node:path';
+import { readdir } from 'node:fs/promises';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { AuthorizedWorkspaceArtifact, WorkspaceArtifact, WorkspaceIdentity } from '../shared/builder-workspace.js';
 import { workspaceIdentityKey } from '../shared/builder-workspace.js';
 import { appPath, getApp, getApp as application } from './applications.js';
-import { visualWorkspace } from './visual-artifacts.js';
+import { visualWorkspace, VisualArtifactService, platformComponentsRoot } from './visual-artifacts.js';
 import { discoverComponents } from './component-registry.js';
 import { compositionWorkspace, readCompositionSource } from './application-composition.js';
 import { getPageTree, getPageSource } from './page-builder.js';
@@ -13,9 +14,12 @@ import type { V1DevelopmentIdentity } from './v1-development-identity.js';
 import type { ArtifactEditorSecurity } from './editor-security.js';
 import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID, V1_FIXTURE_APPLICATION_KEY } from './v1-development-policy.js';
 import { withApplicationMutation } from './composition-lock.js';
+import { captureProblemSources, ProblemsValidation } from './application-problems.js';
+import { compositionChecksum } from './composition-snapshots.js';
 
 /** Read-only orchestration over owner services. No second discovery registry. */
 export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, security: ArtifactEditorSecurity) {
+  const validations = new Map<string, ProblemsValidation>();
   return async (req: IncomingMessage, res: ServerResponse): Promise<boolean> => {
     const url = new URL(req.url ?? '/', 'http://localhost'), parts = url.pathname.split('/').filter(Boolean);
     if (parts[0] !== 'api' || parts[1] !== 'apps' || parts[3] !== 'builder-workspace') return false;
@@ -34,11 +38,15 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
         permitted('ui.page.view', 'page', 'pages'), permitted('ui.presentation.view', 'artifact', 'presentation'), permitted('ui.application.view', 'application'),
         permitted('ui.platform.automation.admin', 'system'), permitted('ui.package.view', 'artifact', 'packages'),
       ]);
+      const validating = req.method === 'GET' && parts.length === 5 && parts[4] === 'validate';
+      const graphRevision = validating && presentation ? await compositionChecksum(appPath(key)).catch(() => undefined) : undefined;
       const catalog = pages || presentation || components || packages ? await discoverComponents(key) : [];
       const visual = pages || presentation || components ? await visualWorkspace(key, catalog) : { pages: [], shells: [], components: [], packages: [] };
       // Filter source before it crosses the API. Dependencies remain subject to their own read permission.
       const visualContext = { pages: pages ? visual.pages : [], shells: presentation ? visual.shells : [], components: components ? visual.components : [], packages: catalog };
       const records: Array<{ summary: WorkspaceArtifact; load: () => Promise<Partial<AuthorizedWorkspaceArtifact>> }> = [];
+      let incompleteAccess = !pages || !presentation || !components || !automation || !packages || validating && presentation && !graphRevision;
+      let capturedComposition: Awaited<ReturnType<typeof compositionWorkspace>> = null;
       const add = (owner: WorkspaceIdentity['owner'], format: WorkspaceIdentity['format'], id: string | undefined, locator: string, group: string, kind: string, name: string, editable: boolean,
         load: () => Promise<Partial<AuthorizedWorkspaceArtifact>>, componentId?: string) => {
         const identity: WorkspaceIdentity = { owner, format, ...(id ? { id } : { repairLocator: locator }) };
@@ -51,9 +59,13 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
         add(kind === 'component' ? { kind: 'platform', id: V1_AUTHORITY_ID } : { kind: 'application', id: app.appId }, 'visual', bundle.metadata?.artifactId,
           bundle.locator, group, kind, bundle.metadata?.displayName ?? 'Visual source needing repair', editable, async () => ({ visual: visualContext }), bundle.metadata?.componentId);
       }
-      const generic = await security.workspaceArtifacts(req, key);
+      const genericDiscovery = await security.workspaceArtifactDiscovery(req, key), generic = genericDiscovery.artifacts;
+      if (!genericDiscovery.complete) incompleteAccess = true;
+      if (!pages && !presentation && !components && !automation && !packages && !generic.length) throw new Error('WORKSPACE_TARGET_DENIED');
       for (const entry of generic) {
-        const artifact = await security.workspaceArtifact(req, key, entry.locator);
+        let artifact: Awaited<ReturnType<typeof security.workspaceArtifact>>;
+        try { artifact = await security.workspaceArtifact(req, key, entry.locator); }
+        catch { incompleteAccess = true; continue; }
         const kind = entry.artifactType ?? 'repair';
         // Generic bundles belong to their authoritative Application workspace root.
         // A Platform-only administration requirement is not a shared definition registry.
@@ -63,6 +75,7 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
       }
       if (presentation) {
         const composition = await compositionWorkspace(key, catalog).catch(() => null);
+        capturedComposition = composition;
         if (composition) {
           composition.pages = pages ? composition.pages : [];
           for (const menu of composition.menus) if (menu.sourcePath) add({ kind: 'application', id: app.appId }, 'composition', menu.menuId, menu.sourcePath, 'Menus', 'menu', menu.name,
@@ -72,14 +85,28 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
           for (const style of composition.settings.siteStyles) add({ kind: 'application', id: app.appId }, 'composition', undefined, style, 'Application presentation/settings', 'style', style,
             await permitted('ui.presentation.edit', 'artifact', 'presentation'), async () => ({ composition, source: await readCompositionSource(key, style) }));
         }
+        // Source enumeration must survive a malformed sibling. The owning parser/validator
+        // diagnoses each unit; unusable composition falls back to read-only inspection.
+        const menuFiles = (await readdir(path.join(appPath(key), 'menus')).catch(() => [])).filter(file => /^[a-z0-9-]+\.json$/.test(file));
+        const styleFiles = (await readdir(path.join(appPath(key), 'styles')).catch(() => [])).filter(file => /^[a-z0-9-]+\.css$/.test(file)).map(file => `styles/${file}`);
+        try { const settings = JSON.parse((await readCompositionSource(key, 'app.settings.json')).content); for (const style of settings.presentation?.siteStyles ?? []) if (typeof style === 'string' && /^styles\/[a-z0-9-]+\.css$/.test(style) && !styleFiles.includes(style)) styleFiles.push(style); } catch {}
+        for (const locator of ['app.settings.json', ...menuFiles.map(file => `menus/${file}`), ...styleFiles]) if (!records.some(r => r.summary.locator === locator && r.summary.identity.format === 'composition')) {
+          let id: string | undefined = locator === 'app.settings.json' ? 'application-presentation-settings' : undefined;
+          if (!id && locator.startsWith('menus/')) { try { const parsed = JSON.parse((await readCompositionSource(key, locator)).content); if (typeof parsed.menuId === 'string' && parsed.menuId) id = parsed.menuId; } catch {} }
+          add({ kind: 'application', id: app.appId }, 'composition', id, locator, locator.startsWith('menus/') ? 'Menus' : 'Application presentation/settings', locator === 'app.settings.json' ? 'settings' : locator.startsWith('styles/') ? 'style' : 'menu', locator, false,
+            async () => ({ source: await readCompositionSource(key, locator) }));
+        }
       }
       if (automation) for (const kind of ['workflow', 'trigger'] as const) {
         const store = new AutomationStore(path.join(platformRoot, `${kind}s`), kind);
-        for (const bundle of await store.list()) if (bundle.definition?.appId === app.appId) add({ kind: 'platform', id: V1_AUTHORITY_ID }, 'automation', bundle.definition.id,
+        for (const bundle of await store.list()) {
+          if (!bundle.definition || typeof bundle.definition.appId !== 'string') incompleteAccess = true;
+          if (bundle.definition?.appId === app.appId) add({ kind: 'platform', id: V1_AUTHORITY_ID }, 'automation', bundle.definition.id,
           bundle.locator, kind === 'workflow' ? 'Workflows' : 'Triggers', kind, bundle.definition.displayName, true, async () => ({ automation: bundle }));
+        }
       }
       if (packages) for (const pkg of catalog) add({ kind: 'package', id: pkg.packageName, revision: pkg.packageVersion }, 'package', pkg.definition?.identity.componentId,
-        pkg.id, 'Components and Forms', 'package', pkg.name ?? pkg.tagName, false, async () => ({ package: pkg }));
+        pkg.id, 'Components and Forms', 'package', pkg.name ?? pkg.tagName, false, async () => ({ package: pkg }), pkg.definition?.identity.componentId);
       if (pages) {
         const tree = await getPageTree(key);
         for (const page of tree.pages) if (!visualContext.pages.some(b => page.source.startsWith('src/pages/' + path.posix.dirname(b.locator) + '/'))) add({ kind: 'application', id: app.appId }, 'legacy', undefined,
@@ -91,6 +118,45 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
       security.workspacePrincipal(req, req.method === 'POST');
       if (identity.policyDigest() !== policyDigest) throw new Error('WORKSPACE_AUTHORITY_CHANGED');
       if (req.method === 'GET' && parts.length === 4) { send(200, valid.map(item => item.summary)); return true; }
+      if (req.method === 'GET' && parts.length === 5 && parts[4] === 'validate') {
+        const principal = security.workspacePrincipal(req), cacheKey = JSON.stringify([principal.subjectId, app.appId, policyDigest]);
+        const assertAuthority = async () => {
+          if (security.workspacePrincipal(req).subjectId !== principal.subjectId || identity.policyDigest() !== policyDigest ||
+              (await application(key)).appId !== app.appId || key !== V1_FIXTURE_APPLICATION_KEY && identity.registeredApplication(key) !== app.appId) throw new Error('WORKSPACE_AUTHORITY_CHANGED');
+        };
+        const sources = await captureProblemSources(valid, visualContext, capturedComposition);
+        let validator = validations.get(cacheKey);
+        if (!validator) { validator = new ProblemsValidation(); if (validations.size >= 32) validations.delete(validations.keys().next().value!); validations.set(cacheKey, validator); }
+        const allowed = new Set(valid.map(r => workspaceIdentityKey(r.summary.identity)));
+        const membership = async () => JSON.stringify({
+          packages: (await discoverComponents(key)).map(p => [p.id, p.packageVersion]).sort(),
+          generic: (await security.workspaceArtifacts(req, key)).map(r => [r.locator, r.artifactId]).sort(),
+          menus: presentation ? (await readdir(path.join(appPath(key), 'menus')).catch(() => [])).sort() : [],
+          automation: automation ? (await Promise.all((['trigger', 'workflow'] as const).map(kind => new AutomationStore(path.join(platformRoot, `${kind}s`), kind).list()))).flat().filter(b => b.definition?.appId === app.appId).map(b => [b.locator, b.hash]).sort() : [],
+        });
+        const before = await membership();
+        const report = await validator.validate(sources, sources.map(s => s.identity), {
+          assertAuthority, async canRead(target) { return allowed.has(workspaceIdentityKey(target)); },
+          async revisionsCurrent() {
+            if (graphRevision && graphRevision !== await compositionChecksum(appPath(key)).catch(() => undefined)) return false;
+            const freshVisual = { ...visualContext,
+              pages: pages ? await new VisualArtifactService(path.join(appPath(key), 'src/pages'), 'page').list() : [],
+              shells: presentation ? await new VisualArtifactService(path.join(appPath(key), 'shells'), 'shell').list() : [],
+              components: components ? await new VisualArtifactService(platformComponentsRoot, 'component').list() : [],
+            };
+            const shape = (context: typeof visualContext) => JSON.stringify([context.pages, context.shells, context.components].map(group => group.map(b => [b.locator, b.hash])));
+            if (shape(freshVisual) !== shape(visualContext)) return false;
+            const after = await captureProblemSources(valid, freshVisual, capturedComposition);
+            return before === await membership() && JSON.stringify(after.map(s => [workspaceIdentityKey(s.identity), s.revision])) === JSON.stringify(sources.map(s => [workspaceIdentityKey(s.identity), s.revision]));
+          },
+        }, url.searchParams.get('full') === '1', JSON.stringify({ compositionAvailable: !!capturedComposition }));
+        if (report.status !== 'stale' && (incompleteAccess || records.length !== valid.length)) {
+          report.status = 'incomplete'; report.diagnostics.push({ severity: 'warning', code: 'application.validation-incomplete', message: 'Some validation scopes are unavailable to this session. Only authorized sources are shown.', subsystem: 'application' });
+        }
+        // Problems is subsystem feedback, never the WP5-H release admission gate.
+        report.publishable = false;
+        await assertAuthority(); send(200, report); return true;
+      }
       if (req.method !== 'POST' || parts.length !== 5 || parts[4] !== 'authorize') throw new Error('WORKSPACE_REQUEST_INVALID');
       let text = ''; for await (const chunk of req) { text += chunk; if (text.length > 16000) throw new Error('WORKSPACE_REQUEST_INVALID'); }
       const target = JSON.parse(text), wanted = workspaceIdentityKey(target.identity);

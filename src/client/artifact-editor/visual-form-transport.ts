@@ -3,6 +3,7 @@ import type { AuthorizedWorkspaceArtifact } from '../../shared/builder-workspace
 import { workspaceIdentityKey } from '../../shared/builder-workspace.js';
 import { EditorTransportError, type ArtifactEditorTransport, type EditorArtifactDto } from '../../shared/artifact-editor.js';
 import { createEditorSessionBinding } from './session.js';
+import { sourceSaved } from './saved-source.js';
 const extensions = { source: '.html', css: '.css', metadata: '.visual.json', fixtures: '.fixtures.json', code: '.functions.ts' };
 export function visualFormDto(bundle: ArtifactBundle, editable: boolean): EditorArtifactDto {
   const m = bundle.metadata;
@@ -45,6 +46,7 @@ export function createVisualFormTransport(current: () => AuthorizedWorkspaceArti
     const response = await fetch(`/api/apps/${encodeURIComponent(owner.applicationKey)}/visual-components?locator=${encodeURIComponent(locator)}`, { method: 'PUT', headers: { ...await binding.headers(), 'content-type': 'application/json', 'x-editor-application-id': owner.applicationId }, body: JSON.stringify({ files, expectedHash: changes.expectedChecksum, mode: changes.mode ?? 'normal' }) });
     const value = await response.json(); assert();
     if (!response.ok) throw new EditorTransportError(response.status, value.error ?? 'Form save denied.', value.code ?? 'source.validation', value.validation);
+    sourceSaved(`/api/apps/${encodeURIComponent(owner.applicationKey)}/visual-components`);
     const artifact = visualFormDto(value, previous.capabilities.edit); return { saved: true, artifact, validation: artifact.validation };
   }, validateSaved: async locator => (await load(locator)).validation, getReferences: async locator => (await load(locator)).references,
     subscribe(locator, listener) { let pending = false; const timer = setInterval(() => { if (pending) return; pending = true; void load(locator).then(a => listener({ appKey: current().applicationKey, locator, kind: 'changed', checksum: a.checksum })).catch(() => {}).finally(() => { pending = false; }); }, 3000); return () => clearInterval(timer); } };

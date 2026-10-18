@@ -9,6 +9,7 @@ import { mountAutomationEditor } from '../automation/editor.js';
 import { authorizeWorkspace } from './requests.js';
 import { createVisualFormTransport } from '../artifact-editor/visual-form-transport.js';
 import { bindFormEditor } from '../artifact-editor/form-editor.js';
+import { sourceSaved } from '../artifact-editor/saved-source.js';
 
 /** Drafts remain inside their authoritative editors. This adapter holds only lifecycle and authority. */
 export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact, changed: () => void,
@@ -50,6 +51,7 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
       const response = await fetch(url, { ...init, headers: { ...headers, 'content-type': 'application/json', 'x-editor-application-id': original.applicationId } });
       const value = await response.json(); session.assert();
       if (!response.ok) throw Object.assign(new Error(value.error ?? value.code ?? 'Editor request denied.'), { status: response.status, code: value.code });
+      if (method === 'PUT') sourceSaved(url);
       return value as T;
     };
   }
@@ -83,6 +85,7 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
     const response = await fetch(url, { ...init, headers: { ...headers, 'content-type': 'application/json', ...init?.headers } });
     const value = await response.json(); assertResponse();
     if (!response.ok) throw Object.assign(new Error(value.error ?? value.code ?? 'Editor request denied.'), { status: response.status, code: value.code });
+    if (init?.method === 'PUT') sourceSaved(url);
     return value;
   }
   try {
@@ -95,7 +98,7 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
       state = () => ({ dirty: !!context.snapshot?.dirty, pending: context.pending || context.snapshot?.saveState === 'saving', conflict: context.snapshot?.saveState === 'conflict', error: context.snapshot?.error });
       suspend = () => context.suspend();
       dispose = async () => { unsubscribe(); view.destroy(); await context.discard(); await context.dispose(); };
-      focus = async (next, target) => { if (!context.hasCopy) await context.open(next.locator); if (!next.editable && context.snapshot?.artifact.capabilities.edit) context.suspend(); view.navigate(target.section); context.refreshPresentation(); };
+      focus = async (next, target) => { if (!context.hasCopy) await context.open(next.locator); if (!next.editable && context.snapshot?.artifact.capabilities.edit) context.suspend(); view.navigate(target.section, target.source); context.refreshPresentation(); };
     } else if (initial.visual) {
       const editor = await mountVisualEditor(element, originalApp, { request, captureRequest, applicationId: initial.applicationId, workspace: initial.visual,
         initial: { kind: initial.kind as 'page' | 'component' | 'shell', locator: initial.locator }, onDefinition: related, onStateChange: changed, applicationKey: () => artifact.applicationKey });
@@ -114,7 +117,7 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
       focus = async (next, target) => {
         if (!context.hasCopy) await context.open(next.locator);
         if (!next.generic?.capabilities.edit && context.snapshot?.artifact.capabilities.edit) suspend();
-        view.navigate(target.section);
+        view.navigate(target.section, target.source);
       };
     } else if (initial.composition && initial.source) {
       const editor = await mountCompositionManager(element, originalApp, { request, captureRequest, applicationId: initial.applicationId, definition: initial.composition, source: initial.source, onStateChange: changed });
@@ -125,20 +128,23 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
       state = editor.state; deactivate = editor.deactivate; suspend = editor.suspend; dispose = async () => editor();
       focus = async (next, target) => editor.focus(next.automation!, target.step);
     } else {
-      const source = document.createElement('pre'); source.textContent = initial.legacy?.source ?? JSON.stringify(initial.package?.definition ?? initial.package, null, 2);
+      const source = document.createElement('pre'); source.textContent = initial.source?.content ?? initial.legacy?.source ?? JSON.stringify(initial.package?.definition ?? initial.package, null, 2);
       const label = document.createElement('p'); label.textContent = 'Read-only source inspection'; element.append(label, source);
+      focus = async next => { source.textContent = next.source?.content ?? next.legacy?.source ?? JSON.stringify(next.package?.definition ?? next.package, null, 2); };
     }
   } catch (error) { await dispose(); element.remove(); throw error; }
   return {
     element, state,
     async focus(next, target) {
       if (disposed || editorSessionSnapshot()?.principal?.subjectId !== originalSubject) throw new Error('Original authorized identity required.');
+      if (next.locator !== initial.locator) throw new Error('Artifact moved. The retained tab is suspended to protect its original draft. Recover or close it, then reopen the current artifact.');
       artifact = next;
       try { binding.assert(); } catch { binding = createEditorSessionBinding(); }
       await binding.headers();
       controls(true); await focus(next, target); assert(); active = true; controls(next.editable);
       element.querySelector('[data-workspace-navigation-note]')?.remove();
-      if (target.field || target.step && !next.automation) {
+      const nodeMissing = target.node && ![...element.querySelectorAll<HTMLOptionElement>('[data-nodes] option')].some(option => option.value === target.node);
+      if (target.field || target.step && !next.automation || nodeMissing || target.source && !next.generic?.files.some(file => file.path === target.source!.file) && target.source.file !== 'artifact.json') {
         const note = document.createElement('p'); note.dataset.workspaceNavigationNote = ''; note.textContent = 'Artifact opened. This editor does not yet support a precise location for that navigation target.'; element.prepend(note);
       }
     },

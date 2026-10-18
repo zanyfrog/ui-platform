@@ -5,7 +5,6 @@ import type { BuilderTreeNode, PageDescriptor, PageSourcePayload, PageTreePayloa
 import { appendHistory } from './history.js';
 import { appPath } from './applications.js';
 import { moveToOsTrash } from './trash.js';
-import { atomicWriteText } from './json-files.js';
 import { recoverRoleBundleRoot, readRoleBundle } from '@ui-platform/artifacts/storage';
 
 const pageExtension = /(?<!\.functions)\.(ts|tsx)$/i;
@@ -158,13 +157,7 @@ export async function getPageSource(appKey: string, source: string): Promise<Pag
 }
 
 export async function savePageSource(appKey: string, source: string, text: string, expectedHash?: string): Promise<PageSourcePayload> {
-  const normalized = normalizeSource(source);
-  const file = fileFor(appKey, normalized);
-  const current = await readFile(file, 'utf8');
-  if (expectedHash && hashSource(current) !== expectedHash) throw new Error('Page changed on disk. Reload it before saving.');
-  await atomicWriteText(file, text);
-  await appendHistory(appPath(appKey), { action: 'page.updated', appKey, source: normalized, actor: 'local-user' });
-  return getPageSource(appKey, normalized);
+  throw Object.assign(new Error('Legacy TypeScript Page source is read-only. Use the supported Visual Page editor.'), { status: 405, code: 'LEGACY_PAGE_READ_ONLY' });
 }
 
 export async function deletePageSource(appKey: string, source: string): Promise<void> {

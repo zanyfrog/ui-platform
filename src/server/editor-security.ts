@@ -170,9 +170,13 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
     return principal;
   }
   async workspaceArtifacts(req: IncomingMessage, applicationKey: string) {
+    return (await this.workspaceArtifactDiscovery(req, applicationKey)).artifacts;
+  }
+  async workspaceArtifactDiscovery(req: IncomingMessage, applicationKey: string) {
     const principal = this.workspacePrincipal(req), workspace = await this.options.workspace(applicationKey);
     const result = await this.visible(workspace, principal);
-    return result.visible.map(artifact => ({ locator: artifact.locator, artifactId: artifact.manifest?.artifactId, artifactType: artifact.manifest?.artifactType, name: artifact.manifest?.name }));
+    this.workspacePrincipal(req);
+    return { complete: result.artifacts.length === result.visible.length, artifacts: result.visible.map(artifact => ({ locator: artifact.locator, artifactId: artifact.manifest?.artifactId, artifactType: artifact.manifest?.artifactType, name: artifact.manifest?.name })) };
   }
   async workspaceArtifact(req: IncomingMessage, applicationKey: string, locator: string) {
     const principal = this.workspacePrincipal(req), workspace = await this.options.workspace(applicationKey);

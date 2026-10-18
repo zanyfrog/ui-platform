@@ -15,6 +15,9 @@ export interface ApplicationValidationReport {
   blockers: ApplicationDiagnostic[];
   publishable: boolean;
 }
+export interface ProblemsReport extends ApplicationValidationReport {
+  source: 'authoritative-saved'; revisions: Record<string, string>; validated: string[]; refresh: 'full' | 'incremental';
+}
 
 export interface AutomationServiceCatalogEntry {
   id: string; transactional: boolean;

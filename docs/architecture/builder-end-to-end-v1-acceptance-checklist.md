@@ -1,5 +1,19 @@
 # Builder End-to-End V1 — Acceptance Checklist
 
+## Qualified user acceptance and closure — 2026-10-18
+
+**BUILDER V1 WP5-E IS ACCEPTED AND CLOSED**, limited to E1–E7 functionality and verified subsystem boundaries, subject to the documented D6 graph-lock remediation dependency. Accepted results: 36/36 focused, 1/1 actual browser journey, 146/146 editor/storage contracts, 760/760 Data Services, successful builds/typechecks/production exclusion, and all 745 historical evidence hashes preserved. Full UI remains **474/476 — NOT PASSED**; both graph-lock failures and the inconclusive WP4 accepted-source baseline remain retained. The earlier 86/87 affected record remains a failed run.
+
+D6 carries into separately reviewed WP5-F architecture work; no lock weakening, admission bypass or WP5-F implementation is authorized here. WP5-I requires reliable simultaneous Builder/runtime operation and successful regression verification of affected scenarios. All 40 umbrella requirements remain unchecked. Complete Builder V1 acceptance remains pending. See [qualified closure and proposed checkpoint](builder-v1-wp5-e-closure.md). No commit or push has been performed; separate authorization is required. Original verification-time wording and results below remain historical.
+
+## WP5-E implementation verification checkpoint — 2026-10-18
+
+The user resolved legacy Page authoring as read-only inspection and authorized E1–E7 continuation. The [current WP5-E report](builder-v1-wp5-e-verification.md) records Problems/navigation/refresh, centralized autosave settings and actual browser evidence. Prior prerequisite-stop text below is historical and superseded. No checkbox below is satisfied by subsystem tests; all A01–A40 remain unchecked pending independent end-to-end verification. WP5-D stays accepted and closed. WP5-E is open and unaccepted; its review gate does not authorize subsequent work packages.
+
+## WP5-E prerequisite checkpoint — 2026-10-18
+
+Centralized Platform settings architecture is approved and partially implemented. [Current verification and limitations](builder-v1-wp5-e-verification.md) record 23/23 focused settings/lifecycle checks, an affected serial subset with 86/87 passing, and the legacy Page editing-contract review stop. Problems/dependency refresh and final WP5-E verification are pending. This checkpoint establishes no final UI-only Builder acceptance. WP5-D remains accepted and closed; all A01–A40 remain unchecked.
+
 
 ## Formal user closure — 2026-10-18
 

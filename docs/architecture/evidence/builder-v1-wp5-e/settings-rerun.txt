@@ -1,0 +1,20 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/editing-lifecycle.test.ts [ tests/editing-lifecycle.test.ts ]
+Error: EPERM: operation not permitted, rename 'C:\Users\zanyf\AppData\Local\Packages\sandbox.{b5c0050e-ae33-490c-b606-22eb7722b35e}\AC\Temp\COd5AcVFzzAUXt9Lk62TG\ssr\.tmp-1792338730033-fqvrmrocaw9' -> 'C:\Users\zanyf\AppData\Local\Packages\sandbox.{b5c0050e-ae33-490c-b606-22eb7722b35e}\AC\Temp\COd5AcVFzzAUXt9Lk62TG\ssr\db9c5ba1fd5f2f87d5fdb699b7302415a0a05eab'
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/platform-settings.test.ts [ tests/platform-settings.test.ts ]
+Error: EPERM: operation not permitted, rename 'C:\Users\zanyf\AppData\Local\Packages\sandbox.{b5c0050e-ae33-490c-b606-22eb7722b35e}\AC\Temp\COd5AcVFzzAUXt9Lk62TG\ssr\.tmp-1792338730054-gkdnp7ze669' -> 'C:\Users\zanyf\AppData\Local\Packages\sandbox.{b5c0050e-ae33-490c-b606-22eb7722b35e}\AC\Temp\COd5AcVFzzAUXt9Lk62TG\ssr\f10c7f3a494d22562a7f50867f3a0c65ead9a417'
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  11:52:09
+   Duration  282ms (transform 0ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+

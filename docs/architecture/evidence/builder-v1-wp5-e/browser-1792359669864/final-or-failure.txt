@@ -1,0 +1,182 @@
+Skip to content
+Development identity 
+Sign out
+Security Admin (security@example.local)
+Page, Form and Workflow Editor (combined@example.local)
+Page and Form Editor (page-form-editor@example.local)
+Mixed Permissions (mixed@example.local)
+Workflow Editor (workflow-editor@example.local)
+Application Admin (admin@example.local)
+Manage Triggers and Workflows
+M
+MODULAR
+UI Platform
+Applications
+Packages
+Templates
+Settings
+U
+User
+user@example.com
+New Application
+Applications
+/
+WP4 Dataset Application
+W
+WP4 Dataset Application
+active
+
+/wp5e-created
+c9678f3f-f25d-4765-920c-c367f5aeaf56
+
+A sample application built with the UI Platform.
+
+Overview
+Pages
+Packages
+Presentation
+Preview
+Settings
+Application navigation
+WP4 Dataset Application
+Refresh artifacts
+Create Dataset
+Create Form
+Validate Application
+Create Menu
+Upload Application asset
+Create Page
+Create Shell
+Create Platform Component
+
+Artifact authorized. Existing editor save behavior applies.
+
+Pages
+Administration
+Welcome
+wp5e first
+wp5e second
+Home (source inspection) (repair-only locator) (read-only)
+Shells
+Admin Shell
+Public Shell
+Components and Forms
+Composition Shared Help
+Customer List Item
+Customer Summary Card
+PersonForm
+Menus
+Admin Navigation
+Main Navigation
+Application presentation/settings
+Application presentation/settings
+styles/site.css (repair-only locator)
+wp5e first •×
+wp5e second×
+Visual Artifacts
+Unsaved
+Undo
+Redo
+Save Now
+Advanced source repair save
+Reload / discard editor changes
+Download editor recovery
+Delete artifact
+Design preview
+Change Page Shell
+Add Region
+Remove selected node
+Structure
+🔒 div public_shell
+🔒 header public_header
+🔒 img public_logo
+🔒 strong public_name
+🔒 nav public_nav
+🔒 uib-hero public_default_hero
+🔒 footer public_footer
+ Insert into selected HTML container, or artifact root
+section
+div
+article
+p
+h2
+a
+button
+img
+ul
+li
+span
+uip-slot
+Hero
+Action Group
+Card
+Heading
+Heading Block
+Instruction
+Panel
+Composition Shared Help
+Customer List Item
+Customer Summary Card
+PersonForm
+Insert with layout wrapperSelect artifact rootMove layout item upMove layout item down
+
+Select a managed node to edit settings and bindings.
+
+Artifact display namePage route
+Local state
+New local stateNew local state type
+result
+string
+number
+boolean
+object
+array
+Declare local state
+
+Shell: Public Shell. Fixed content is edited in the Shell editor.
+
+Set Page Menu Item visibility / availabilityAdd Page-local Menu Item
+Source file
+source
+css
+metadata
+fixtures
+code
+
+Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.
+
+Application Problems
+
+Validate authoritative saved sources. Local unsaved validation remains in each editor.
+SERVER
+UI Platform API listening on http://localhost:63008
+
+added 27 packages, and audited 38 packages in 3s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5e-created@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+
+
+added 27 packages, and audited 38 packages in 3s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> wp5e-other@1.0.0 build:services
+> npm run build --workspace @ui-app/app-services
+
+
+> @ui-app/app-services@1.0.0 build
+> node build.mjs
+

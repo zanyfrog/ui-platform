@@ -1,4 +1,5 @@
 /** Session-only editing state. Format adapters own validation, identity and persistence. */
+import { autosaveConfiguration, subscribeAutosave } from './autosave-configuration.js';
 export type EditingState = 'idle' | 'pending' | 'saving' | 'saved' | 'conflict' | 'error';
 export class EditingLifecycle<T> {
   current: T;
@@ -19,10 +20,15 @@ export class EditingLifecycle<T> {
   private groupTime = 0;
   private uncertain = false;
   private listeners = new Set<() => void>();
+  private autosave = autosaveConfiguration();
+  private unsubscribeAutosave: () => void;
   constructor(value: T, private save: (candidate: T, baseline: T) => Promise<T>,
     private equal: (a: T, b: T) => boolean = (a, b) => JSON.stringify(a) === JSON.stringify(b),
     private limits = { entries: 100, bytes: 8 * 1024 * 1024 }) {
     this.current = structuredClone(value); this.baseline = structuredClone(value);
+    this.unsubscribeAutosave = subscribeAutosave(value => {
+      this.autosave = value; this.lastEdit = Date.now(); this.schedule(); this.emit();
+    });
   }
   get dirty() { return this.uncertain || !this.equal(this.current, this.baseline); }
   get canUndo() { return !this.suspended && !this.disposed && !!this.past.length; }
@@ -68,8 +74,8 @@ export class EditingLifecycle<T> {
   }
   schedule() {
     clearTimeout(this.timer);
-    if (this.disposed || this.suspended || this.inFlight || this.failure || this.state === 'conflict' || this.state === 'error' || !this.dirty) return;
-    this.timer = setTimeout(() => { void this.flush(); }, Math.max(0, 2000 - (Date.now() - this.lastEdit)));
+    if (!this.autosave.enabled || this.disposed || this.suspended || this.inFlight || this.failure || this.state === 'conflict' || this.state === 'error' || !this.dirty) return;
+    this.timer = setTimeout(() => { void this.flush(); }, Math.max(0, this.autosave.delayMs - (Date.now() - this.lastEdit)));
   }
   async flush(): Promise<void> {
     clearTimeout(this.timer);
@@ -121,7 +127,7 @@ export class EditingLifecycle<T> {
   }
   suspend() { this.suspended = true; clearTimeout(this.timer); this.emit(); }
   resume() { if (this.disposed) throw new Error('Editor is closed.'); if (!this.suspended) return; this.suspended = false; this.schedule(); this.emit(); }
-  async dispose() { this.suspend(); if (this.inFlight) await this.inFlight; this.disposed = true; this.past = []; this.future = []; this.listeners.clear(); }
+  async dispose() { this.suspend(); if (this.inFlight) await this.inFlight; this.disposed = true; this.unsubscribeAutosave(); this.past = []; this.future = []; this.listeners.clear(); }
 }
 
 export function protectEditingDraft(needsWarning: () => boolean, host: Window = window) {

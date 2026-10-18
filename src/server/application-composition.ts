@@ -132,6 +132,10 @@ export async function saveCompositionAsset(appKey: string, relative: string, con
 export async function readCompositionSource(appKey: string, relative: string): Promise<{ path: string; content: string; hash: string }> {
   const content = await readFile(await compositionSourcePath(appKey, relative), 'utf8'); return { path: relative, content, hash: hash(content) };
 }
+export async function validateCompositionStyle(content: string): Promise<void> {
+  const css = await transform(content, { loader: 'css', logLevel: 'silent' });
+  if (css.warnings.length) throw new Error(css.warnings.map(item => item.text).join(' '));
+}
 export async function saveCompositionSource(appKey: string, relative: string, content: string, expectedHash: string | null, admit: () => Promise<void> = async () => {}) {
   return locked(appKey, async () => {
     const file = await compositionSourcePath(appKey, relative);
@@ -152,8 +156,7 @@ export async function saveCompositionSource(appKey: string, relative: string, co
       for (const style of value.presentation.siteStyles) await compositionSourcePath(appKey, style);
     }
     if (relative.startsWith('styles/')) {
-      const css = await transform(content, { loader: 'css', logLevel: 'silent' });
-      if (css.warnings.length) throw new Error(css.warnings.map(item => item.text).join(' '));
+      await validateCompositionStyle(content);
     }
     try { await compositionWorkspace(appKey, await discoverComponents(appKey), { path: relative, content }); }
     catch { throw new Error('The candidate conflicts with Application composition. Check related routes, Menus, Shells and styles before saving.'); }

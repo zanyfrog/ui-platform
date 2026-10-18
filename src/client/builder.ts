@@ -175,52 +175,12 @@ async function mountLegacyBuilder(target: HTMLElement, app: BuilderApp): Promise
   }
 
   function renderPageEditor(payload: PageSourcePayload): void {
-    let source = payload.source;
-    let hash = payload.page.hash;
-    let dirty = false;
-    let saving = false;
-    let timer: ReturnType<typeof setTimeout> | null = null;
-    const editable = payload.page.support !== 'code-managed';
-    pageEditor.innerHTML = `<div class="page-editor-heading"><div><strong>${esc(payload.page.label)}</strong><span class="badge">${esc(payload.page.route)}</span><span class="badge">${esc(payload.page.format)}</span><span class="badge">${esc(payload.page.support)}</span></div><div class="page-actions"><button type="button" data-page-move>Move / Rename</button><button type="button" class="danger" data-page-delete>Delete Page</button></div></div><div class="structure-block"><div class="pane-heading"><strong>Page Structure</strong><span class="note">${editable ? 'Source-backed inspection' : 'Code managed'}</span></div><div id="structureTree" class="structure-tree"></div></div><label class="source-label" for="pageSource">Source</label><textarea id="pageSource" class="source-editor" spellcheck="false" ${editable ? '' : 'readonly'}>${esc(source)}</textarea><div class="editor-actions"><button type="button" class="primary" data-page-save disabled>Save</button><span id="editorStatus" class="save-status" aria-live="polite">${editable ? 'No changes' : 'Read-only source'}</span></div>`;
+    pageEditor.innerHTML = `<div class="page-editor-heading"><div><strong>${esc(payload.page.label)}</strong><span class="badge">${esc(payload.page.route)}</span><span class="badge">${esc(payload.page.format)}</span><span class="badge">${esc(payload.page.support)}</span></div><div class="page-actions"><button type="button" data-page-move>Move / Rename</button><button type="button" class="danger" data-page-delete>Delete Page</button></div></div><div class="structure-block"><div class="pane-heading"><strong>Page Structure</strong><span class="note">Read-only source inspection</span></div><div id="structureTree" class="structure-tree"></div></div><label class="source-label" for="pageSource">Source</label><textarea id="pageSource" class="source-editor" spellcheck="false" readonly>${esc(payload.source)}</textarea><div class="editor-actions"><span id="editorStatus" class="save-status" aria-live="polite">Read-only legacy source. Use a Visual Page in the workspace to author Pages.</span></div>`;
     const structure = pageEditor.querySelector('#structureTree')!;
     const structureTree = document.createElement('ui-platform-tree') as HTMLElement & { nodes: PageSourcePayload['structure'] };
     structureTree.nodes = payload.structure;
     structure.append(structureTree);
-    const textarea = pageEditor.querySelector<HTMLTextAreaElement>('#pageSource')!;
-    const saveButton = pageEditor.querySelector<HTMLButtonElement>('[data-page-save]')!;
-    const editorStatus = pageEditor.querySelector<HTMLElement>('#editorStatus')!;
-
-    const updateState = (message: string) => {
-      saveButton.disabled = !dirty || saving;
-      editorStatus.textContent = message;
-      status.textContent = message;
-    };
-    const save = async () => {
-      if (!dirty || saving) return;
-      saving = true;
-      updateState('Saving...');
-      try {
-        const saved = await api<PageSourcePayload>(`/api/apps/${encodeURIComponent(app.key)}/page?source=${encodeURIComponent(payload.page.source)}`, { method: 'PUT', body: JSON.stringify({ source, expectedHash: hash }) });
-        hash = saved.page.hash;
-        source = saved.source;
-        dirty = false;
-        saving = false;
-        updateState('Saved');
-        const structureTreeNext = pageEditor.querySelector('ui-platform-tree') as HTMLElement & { nodes: PageSourcePayload['structure'] } | null;
-        if (structureTreeNext) structureTreeNext.nodes = saved.structure;
-      } catch (error) {
-        saving = false;
-        updateState(`Save failed: ${error instanceof Error ? error.message : String(error)}`);
-      }
-    };
-    textarea.addEventListener('input', () => {
-      source = textarea.value;
-      dirty = source !== payload.source;
-      updateState(dirty ? 'Unsaved changes' : 'No changes');
-      if (timer) clearTimeout(timer);
-      if (dirty) timer = setTimeout(() => void save(), 3000);
-    });
-    saveButton.addEventListener('click', () => void save());
+    const updateState = (message: string) => { pageEditor.querySelector('#editorStatus')!.textContent = message; status.textContent = message; };
     pageEditor.querySelector('[data-page-delete]')?.addEventListener('click', async () => {
       if (!confirm(`Move ${payload.page.source} to the operating system Trash/Recycle Bin?`)) return;
       try {
