@@ -15,8 +15,8 @@ const key = 'composition-reference';
 if (!await stat(appPath(key)).catch(() => null)) await createApp({ key, name: 'Composition Reference', templateId: 'standard' });
 const apiPort = 4092, managerPort = 5192, appPort = 5193;
 const api = spawn(process.execPath, ['--import', 'tsx', 'src/server/index.ts'], { stdio: 'inherit', windowsHide: true,
-  env: { ...process.env, UI_PLATFORM_API_PORT: String(apiPort), UI_PLATFORM_UI_PORT: String(managerPort), UI_PLATFORM_EDITOR: '0', UI_PLATFORM_V1_DEVELOPMENT_IDENTITY: '0', NODE_ENV: 'development' } });
-const manager = await createServer({ configFile: 'vite.config.ts', server: { host: '127.0.0.1', port: managerPort, strictPort: true, proxy: { '/api': { target: `http://127.0.0.1:${apiPort}` } } } });
+  env: { ...process.env, UI_PLATFORM_API_PORT: String(apiPort), UI_PLATFORM_UI_PORT: String(managerPort), UI_PLATFORM_EDITOR: '0', UI_PLATFORM_V1_DEVELOPMENT_IDENTITY: '0', UI_PLATFORM_BUILDER_WP0: '0', NODE_ENV: 'development' } });
+const manager = await createServer({ configFile: 'vite.config.ts', cacheDir: path.join(referenceRoot, 'runtime', 'manager-vite-cache'), server: { host: '127.0.0.1', port: managerPort, strictPort: true, ws: { host: '127.0.0.1', port: 5194 }, proxy: { '/api': { target: `http://127.0.0.1:${apiPort}` } } } });
 const application = await createServer({ root: appPath(key), configFile: path.join(appPath(key), 'vite.config.js'), server: { host: '127.0.0.1', port: appPort, strictPort: true } });
 await manager.listen(); await application.listen();
 console.log(`Application Manager: http://127.0.0.1:${managerPort} (select Composition Reference)`);

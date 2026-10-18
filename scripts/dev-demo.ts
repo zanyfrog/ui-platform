@@ -12,6 +12,7 @@ import { developmentSecurityConfiguration, developmentSecurityScopes } from '../
 import { SecurityDefinitionService, SecurityDefinitionStore, type SecurityRecord } from '@ui-platform/i-am/definitions';
 import { initializeDevelopmentPlatformSecurity } from '@ui-platform/i-am/administration';
 import { DevelopmentApplicationRegistry } from '../src/server/development-application-registry.js';
+import { checkDemoHealth, checkReferenceHealth } from './demo-health.mjs';
 
 // Running this opt-in command selects the development deployment explicitly.
 process.env.NODE_ENV = 'development';
@@ -136,12 +137,57 @@ async function verifyOwner(state: DemoState) {
 }
 
 let child: ChildProcess | undefined;
+let referenceChild: ChildProcess | undefined;
+let referenceStarting: Promise<void> | undefined;
+let referenceReady = false;
+let referenceExpected = process.argv.includes('--with-reference');
 let stopping = false;
 let stoppingTask: Promise<void> | undefined;
 let control: Server | undefined;
 let controlToken: string | undefined;
 let previewUrl: string | undefined;
+let ready = false;
 const controlFile = path.join(runtime, 'demo-control.json');
+
+async function startReference() {
+  referenceExpected = true;
+  if (referenceReady && referenceChild?.exitCode === null && referenceChild.signalCode === null) return;
+  if (referenceStarting) return referenceStarting;
+  referenceStarting = (async () => {
+    for (const port of [4092, 5192, 5193, 5194]) await requireFreePort(port);
+    referenceChild = spawn(process.execPath, ['--import', 'tsx', 'scripts/dev-composition-reference.ts'], {
+      cwd: platform, windowsHide: true, stdio: 'inherit', env: { ...process.env,
+        NODE_ENV: 'development', UI_PLATFORM_EDITOR: '0', UI_PLATFORM_V1_DEVELOPMENT_IDENTITY: '0', UI_PLATFORM_BUILDER_WP0: '0' },
+    });
+    let spawnError: Error | undefined;
+    referenceChild.once('error', error => { spawnError = error; });
+    referenceChild.once('exit', () => { referenceReady = false; });
+    const deadline = Date.now() + 120_000;
+    let issues: string[] = [];
+    while (Date.now() < deadline) {
+      if (spawnError) throw spawnError;
+      if (referenceChild.exitCode !== null || referenceChild.signalCode !== null) throw new Error('Reference demo stopped during startup.');
+      issues = await checkReferenceHealth();
+      if (!issues.length) { referenceReady = true; return; }
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    throw new Error('Reference demo did not become ready:\n' + issues.join('\n'));
+  })();
+  try { await referenceStarting; } finally { referenceStarting = undefined; }
+}
+
+async function ensureAllServices() {
+  if (!ready) throw new Error('Builder is still starting. Wait for its ready message.');
+  if (stopping) throw new Error('Demo services are stopping.');
+  const state = await readState();
+  if (!state) throw new Error('Saved demo is unavailable.');
+  await verifyOwner(state);
+  const headers = await login(author.email);
+  if ((await request(`/api/apps/${state.key}`, headers)).appId !== state.applicationId) throw new Error('Running demo owner changed.');
+  const preview = await request(`/api/apps/${state.key}/preview`, headers, {});
+  previewUrl = preview.url;
+  await startReference();
+}
 
 async function startControl() {
   try {
@@ -166,18 +212,22 @@ async function startControl() {
     socket.setEncoding('utf8'); socket.setTimeout(3000, () => socket.destroy());
     let text = '';
     socket.on('error', () => {});
-    socket.on('data', chunk => {
+    let handled = false;
+    socket.on('data', async chunk => {
+      if (handled) return;
       text += chunk;
       if (text.length > 4096) { socket.destroy(); return; }
       if (!text.includes('\n')) return;
+      handled = true;
       try {
         const input = JSON.parse(text);
-        if (input.token !== controlToken || !['status', 'stop'].includes(input.operation)) { socket.end(JSON.stringify({ ok: false, error: 'Invalid local demo control request' })); return; }
-        const response = JSON.stringify({ ok: true, builder: uiOrigin, preview: previewUrl });
+        if (input.token !== controlToken || !['status', 'stop', 'start-all'].includes(input.operation)) { socket.end(JSON.stringify({ ok: false, error: 'Invalid local demo control request' })); return; }
+        if (input.operation === 'start-all') { socket.setTimeout(180_000); await ensureAllServices(); }
+        const response = JSON.stringify({ ok: true, ready, builder: uiOrigin, preview: previewUrl, reference: referenceReady, referenceExpected });
         socket.end(response, () => {
           if (input.operation === 'stop') void stop().then(() => process.exit(0)).catch(error => { console.error(error); process.exit(1); });
         });
-      } catch { socket.end(JSON.stringify({ ok: false, error: 'Invalid local demo control request' })); }
+      } catch (error) { socket.end(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : 'Invalid local demo control request' })); }
     });
   });
   await new Promise<void>((resolve, reject) => { control!.once('error', reject); control!.listen(endpoint, resolve); });
@@ -191,14 +241,16 @@ async function stop() {
   return stoppingTask;
 }
 async function stopServices() {
-  if (child && child.exitCode === null && child.signalCode === null) {
-    const exited = once(child, 'exit');
-    if (process.platform === 'win32' && child.pid) {
-      const killer = spawn('taskkill', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore' });
-      const [code] = await once(killer, 'exit');
-      if (code !== 0 && child.exitCode === null && child.signalCode === null) throw new Error('Could not stop the demo service tree.');
-    } else child.kill('SIGTERM');
-    await exited;
+  for (const service of [referenceChild, child]) {
+    if (service && service.exitCode === null && service.signalCode === null) {
+      const exited = once(service, 'exit');
+      if (process.platform === 'win32' && service.pid) {
+        const killer = spawn('taskkill', ['/PID', String(service.pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore' });
+        const [code] = await once(killer, 'exit');
+        if (code !== 0 && service.exitCode === null && service.signalCode === null) throw new Error('Could not stop the demo service tree.');
+      } else service.kill('SIGTERM');
+      await exited;
+    }
   }
   control?.close();
   if (controlToken) {
@@ -221,7 +273,7 @@ try {
     const current = await request(`/api/apps/${state.key}`, headers);
     if (current.appId !== state.applicationId) throw new Error('Running server does not own the saved demo identity. Preview refused.');
     const preview = await request(`/api/apps/${state.key}/preview`, headers, {});
-    console.log(`Public: ${preview.url}/\nAdmin: ${preview.url}/admin\nClose the Builder authoring tab before this runtime check. Concurrent-use reliability remains the open WP5-F item.`);
+    console.log(`Public: ${preview.url}/demo/\nAdmin: ${preview.url}/demo/admin\nClose the Builder authoring tab before this runtime check. Concurrent-use reliability remains the open WP5-F item.`);
   } else {
     await requireFreePort(apiPort); await requireFreePort(uiPort); await requireFreePort(hmrPort);
     let state = await readState();
@@ -234,6 +286,7 @@ try {
       UI_PLATFORM_V1_DEVELOPMENT_IDENTITY: '1', UI_PLATFORM_BUILDER_WP0: '1', UI_PLATFORM_EDITOR: '0',
       UI_PLATFORM_API_PORT: String(apiPort), UI_PLATFORM_UI_PORT: String(uiPort),
       UI_PLATFORM_HMR_PORT: String(hmrPort),
+      UI_PLATFORM_VITE_CACHE_DIR: path.join(runtime, 'manager-vite-cache'),
     } });
     child.on('error', error => { console.error(error); process.exitCode = 1; });
     const deadline = Date.now() + 90_000;
@@ -251,9 +304,19 @@ try {
       if (current.appId !== state.applicationId) throw new Error('Preview owner differs from the saved demo identity.');
       const preview = await request(`/api/apps/${state.key}/preview`, headers, {});
       previewUrl = preview.url;
-      console.log(`\nPublic: ${previewUrl}/\nAdmin: ${previewUrl}/admin\nSave and close the Builder authoring tab before viewing runtime pages (open WP5-F contention limitation).`);
+      console.log(`\nPublic: ${previewUrl}/demo/\nAdmin: ${previewUrl}/demo/admin\nSave and close the Builder authoring tab before viewing runtime pages (open WP5-F contention limitation).`);
     }
-    console.log(`\nBUILDER DEMO READY\nBuilder: ${uiOrigin}\nSelect Development identity: ${author.email}\nOpen Builder Demo, then Pages.\nSaved Application: ${path.join(apps, state.key)}\nPermanent Application ID: ${state.applicationId}\nRuntime: close the authoring tab, then run npm.cmd run demo:preview in another terminal.\nEdits and permission changes survive restart. No automatic reset or regrant.\n`);
+    let healthIssues: string[] = [];
+    for (let attempt = 0; attempt < 3; attempt++) {
+      healthIssues = await checkDemoHealth(uiOrigin, previewUrl);
+      if (!healthIssues.length) break;
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    if (healthIssues.length) throw new Error('Demo pages are not ready:\n' + healthIssues.join('\n'));
+    if (process.argv.includes('--with-reference')) await startReference();
+    ready = true;
+    if (referenceReady) console.log('Reference Public: http://127.0.0.1:5193/\nReference Admin: http://127.0.0.1:5193/admin\nReference Manager: http://127.0.0.1:5192');
+    console.log(`\nBUILDER DEMO READY (pages and development dependencies checked)\nBuilder: ${uiOrigin}\nSelect Development identity: ${author.email}\nOpen Builder Demo, then Pages.\nSaved Application: ${path.join(apps, state.key)}\nPermanent Application ID: ${state.applicationId}\nRuntime: close the authoring tab, then run npm.cmd run demo:preview in another terminal.\nEdits and permission changes survive restart. No automatic reset or regrant.\n`);
     await once(child, 'exit');
     if (!stopping) { process.exitCode = child.exitCode ?? 1; await stop(); }
   }
