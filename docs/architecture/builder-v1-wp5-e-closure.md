@@ -1,5 +1,13 @@
 # Builder V1 WP5-E — Qualified Acceptance, Closure and Proposed Checkpoint
 
+## Subsequent checkpoint confirmation — 2026-10-18
+
+**WP5-E acceptance, closure and checkpoint preparation are complete.** The user's subsequent commit `c0e66e7a22fed2d607318f051de1ff5c15fb78bc` (message `http://localhost:5274/`) contains exactly the approved 181-file allowlist, with no missing or unexpected paths. Commit `2ffd9442977b334eb6e69e4b8c68f16c074a4b2a` (message `WP5-E ACCEPTED AND CLOSED`) contains the 24 previously excluded demo/test-output files; it changes none of the approved 181 paths. No accepted implementation was reversed.
+
+Reverification confirms all 160 accepted source/test/evidence entries and all 745 historical evidence hashes unchanged, with all 40 umbrella requirements unchecked. Accepted results remain 36/36 focused, 1/1 actual browser, 146/146 contracts, 760/760 Data Services and successful builds/typechecks/production exclusion. Full UI remains **474/476 — NOT PASSED**; both graph-lock failures and the inconclusive WP4 accepted-source baseline remain unresolved. D6 requires separately reviewed WP5-F work; WP5-I still requires reliable simultaneous Builder/runtime operation and successful affected regression verification. No accepted implementation contract was reopened.
+
+[Machine-readable checkpoint confirmation](evidence/builder-v1-wp5-e-closure/checkpoint-confirmation.json) records the comparisons. HEAD and the local `origin/main` reference both identify `2ffd9442`; this confirmation did not contact GitHub or assert a fresh remote synchronization check. Current unrelated demo changes remain outside this documentation-only update. No commit, push or WP5-F implementation was performed during this confirmation. The original preparation-time statements below remain historical and describe the state before the user's commits.
+
 2026-10-18. **BUILDER V1 WP5-E IS ACCEPTED AND CLOSED**, subject to the documented D6 graph-lock remediation dependency. This records the user's explicit qualified acceptance of E1–E7 functionality and verified subsystem boundaries. WP5-D remains ACCEPTED AND CLOSED. Complete Builder V1 acceptance remains pending and all 40 umbrella requirements remain unchecked.
 
 ## Accepted scope and unchanged results
