@@ -10,6 +10,7 @@ import {
   lstat,
   link,
   chmod,
+  type FileHandle,
 } from "node:fs/promises";
 import path from "node:path";
 import { createHash, randomUUID } from "node:crypto";
@@ -99,6 +100,11 @@ export interface ArtifactLockOptions {
   signal?: AbortSignal;
   observe?: (measurement: { waitMs: number; holdMs: number; acquired: boolean }) => void;
 }
+// Consumed only by withArtifactLock, before its retry/cancellation dispatch.
+// The public outcome retains exact lone-error identity, including primitives.
+class LockCleanupFailure {
+  constructor(readonly outcome: unknown) {}
+}
 export async function withArtifactLock<T>(
   root: string,
   bundle: string,
@@ -163,6 +169,7 @@ export async function withArtifactLock<T>(
           finally { scope.active = false; }
         }, identity);
       } catch (error) {
+        if (error instanceof LockCleanupFailure) throw error.outcome;
         if (entered) throw error;
         check();
         if (!(error instanceof ArtifactBusyError) || remaining() <= 0) throw error;
@@ -188,62 +195,91 @@ async function acquireArtifactLock<T>(
   const directory = await storageDirectory(root, "locks");
   const file = path.join(directory, `${storageKey(identity)}.lock`);
   // No timed lock stealing: slow writers must not lose their locks.
-  let handle;
+  let handle: FileHandle | undefined;
+  let hasPrimary = false;
+  let primary: unknown;
+  let result!: T;
+  const cleanupFailures: Array<{ phase: string; error: unknown }> = [];
+  const cleanup = async (owned: FileHandle, pathname: string, phase: string) => {
+    try { await owned.close(); }
+    catch (error) { cleanupFailures.push({ phase: phase + '.close', error }); return; }
+    // A rejected close is uncertain, even if the native handle was closed.
+    try { await rm(pathname, { force: true }); }
+    catch (error) { cleanupFailures.push({ phase: phase + '.unlink', error }); }
+  };
+  // This scope owns every returned main handle, including a replacement whose
+  // recovery guard fails to release before PID publication can begin.
   try {
-    handle = await open(file, "wx");
-  } catch (e) {
-    if ((e as NodeJS.ErrnoException).code !== "EEXIST") throw e;
-    const ownerText = async () => {
-      try { return await readFile(file, 'utf8'); }
-      catch (error) {
-        // The previous holder can release between exclusive-open and owner read.
-        if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw new ArtifactBusyError();
-        throw error;
-      }
-    };
-    const parseOwner = (text: string) => {
-      const owner = Number(text);
-      if (!/^[1-9]\d*$/.test(text) || !Number.isSafeInteger(owner)) throw new ArtifactOwnerUnresolvedError();
-      return owner;
-    };
-    // Creation precedes PID publication. Reinspect through the outer acquisition
-    // loop, sharing its deadline and cancellation; an unknown owner is never dead.
-    const owner = parseOwner(await ownerText());
     try {
-      process.kill(owner, 0);
-    } catch (probe) {
-      if ((probe as NodeJS.ErrnoException).code !== "ESRCH")
-        throw new ArtifactBusyError();
-      // A separate recovery lock prevents two recoverers from removing a new live lock.
-      const recovery = await open(`${file}.recovery`, "wx").catch(error => {
-        if (error.code === 'EEXIST') throw new ArtifactBusyError();
-        throw error;
-      });
-      try {
-        if (parseOwner(await ownerText()) !== owner) throw new ArtifactBusyError();
-        try {
-          await rm(file);
-          handle = await open(file, "wx");
-        } catch (error) {
-          if (['ENOENT', 'EEXIST'].includes((error as NodeJS.ErrnoException).code ?? '')) throw new ArtifactBusyError();
+      handle = await open(file, "wx");
+    } catch (e) {
+      if ((e as NodeJS.ErrnoException).code !== "EEXIST") throw e;
+      const ownerText = async () => {
+        try { return await readFile(file, 'utf8'); }
+        catch (error) {
+          // The previous holder can release between exclusive-open and owner read.
+          if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw new ArtifactBusyError();
           throw error;
         }
-      } finally {
-        await recovery.close();
-        await rm(`${file}.recovery`, { force: true });
+      };
+      const parseOwner = (text: string) => {
+        const owner = Number(text);
+        if (!/^[1-9]\d*$/.test(text) || !Number.isSafeInteger(owner)) throw new ArtifactOwnerUnresolvedError();
+        return owner;
+      };
+      // An unknown owner is never dead; retain the original guarded authority.
+      const owner = parseOwner(await ownerText());
+      try {
+        process.kill(owner, 0);
+      } catch (probe) {
+        if ((probe as NodeJS.ErrnoException).code !== "ESRCH")
+          throw new ArtifactBusyError();
+        let recovery: FileHandle | undefined;
+        try {
+          recovery = await open(file + '.recovery', "wx").catch(error => {
+            if (error.code === 'EEXIST') throw new ArtifactBusyError();
+            throw error;
+          });
+          if (parseOwner(await ownerText()) !== owner) throw new ArtifactBusyError();
+          try {
+            await rm(file);
+            handle = await open(file, "wx");
+          } catch (error) {
+            if (['ENOENT', 'EEXIST'].includes((error as NodeJS.ErrnoException).code ?? '')) throw new ArtifactBusyError();
+            throw error;
+          }
+        } finally {
+          if (recovery) await cleanup(recovery, file + '.recovery', 'guard');
+        }
       }
+      if (!handle) throw new ArtifactBusyError();
     }
-    if (!handle) throw new ArtifactBusyError();
-  }
-  try {
-    await handle.writeFile(String(process.pid));
-    await handle.sync();
-    return await run();
+    // Guard cleanup failure is a publication/admission barrier.
+    if (cleanupFailures.length === 0) {
+      await handle.writeFile(String(process.pid));
+      await handle.sync();
+      result = await run();
+    }
+  } catch (error) {
+    hasPrimary = true;
+    primary = error;
   } finally {
-    await handle.close();
-    await rm(file, { force: true });
+    if (handle) await cleanup(handle, file, 'main');
   }
+  if (cleanupFailures.length) {
+    const errors = [...(hasPrimary ? [primary] : []), ...cleanupFailures.map(f => f.error)];
+    const outcome = errors.length === 1 ? errors[0] : new AggregateError(
+      errors,
+      (hasPrimary ? 'Artifact operation failed; ownership cleanup failed: ' : 'Artifact ownership cleanup failed: ') +
+        cleanupFailures.map(f => f.phase).join(', ') + '.',
+      { cause: hasPrimary ? primary : cleanupFailures[0].error },
+    );
+    throw new LockCleanupFailure(outcome);
+  }
+  if (hasPrimary) throw primary;
+  return result;
 }
+
 export async function recoverTransaction(
   root: string,
   bundle: string,

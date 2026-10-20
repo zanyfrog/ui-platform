@@ -22,14 +22,31 @@ export async function checkDemoHealth(builder, preview, apiOrigin) {
   return issues;
 }
 
-export async function checkReferenceHealth() {
-  const issues = await checkDemoHealth('http://127.0.0.1:5192', undefined, 'http://127.0.0.1:4092');
+export async function checkReferenceHealth(manager = 'http://127.0.0.1:5192', application = 'http://127.0.0.1:5193', api = 'http://127.0.0.1:4092') {
+  const issues = await checkDemoHealth(manager, undefined, api);
   for (const route of ['/', '/admin']) {
     try {
-      const response = await fetch('http://127.0.0.1:5193' + route, { signal: AbortSignal.timeout(5000) });
+      const response = await fetch(new URL(route, application), { signal: AbortSignal.timeout(5000) });
       if (!response.ok) issues.push(`Reference ${route}: HTTP ${response.status}`);
       await response.body?.cancel();
     } catch (error) { issues.push(`Reference ${route}: ${error.cause?.message ?? error.message}`); }
+  }
+  // HTML is only a Vite shell. Transform the entry and its generated composition
+  // modules as well, so locked source cannot be reported as a ready Application.
+  const pending = ['/src/main.ts'];
+  const visited = new Set();
+  while (pending.length) {
+    const source = pending.shift();
+    if (visited.has(source)) continue;
+    visited.add(source);
+    try {
+      const response = await fetch(new URL(source, application), { signal: AbortSignal.timeout(5000) });
+      const body = await response.text();
+      if (!response.ok) { issues.push(`Reference module ${source}: HTTP ${response.status}`); continue; }
+      for (const match of body.matchAll(/(?:from\s*|import\s*)["'](\/[^"']+)["']/g)) {
+        if (match[1].startsWith('/@id/')) pending.push(match[1]);
+      }
+    } catch (error) { issues.push(`Reference module ${source}: ${error.cause?.message ?? error.message}`); }
   }
   return issues;
 }
