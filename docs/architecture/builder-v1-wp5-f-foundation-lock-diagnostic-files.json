@@ -1,0 +1,242 @@
+{
+  "scope": "Foundation lock lifecycle diagnostics and independent console collector verification only",
+  "existingProductChanges": [],
+  "existingTestChanges": [],
+  "existingConfigurationChanges": [],
+  "files": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-foundation-lock-diagnostic.md",
+      "change": "new",
+      "bytes": 16564,
+      "sha256": "FC8A12DA6213F4DB5E003D89C13F07F5076ADFD6684EDD501BA606BE3B04DA4E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/accepted-head-storage.ts.txt",
+      "change": "new",
+      "bytes": 7455,
+      "sha256": "073F4335CF52A54BD883D4DC4A3FD800AB8EF460CA222E83ED9B647C006B9810"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/audit-probes.py",
+      "change": "new",
+      "bytes": 1919,
+      "sha256": "878982FC05D8F6D1CF0C564CCE5F6BF9E356A4670D6B4C8D6457E55227A1BE38"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/collector-child.cjs",
+      "change": "new",
+      "bytes": 182,
+      "sha256": "4EBF9682C3C23262F6E73ABDEFA18C845DB76883B12C0D054B0386A4BB7C83D2"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/collector-content-audit.json",
+      "change": "new",
+      "bytes": 119,
+      "sha256": "5EDD27DF9F4B8CE92C259B2ACB6EE9B7C9A29DA9CF59D80761CF004750238A0C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/collector-failure.completion.json",
+      "change": "new",
+      "bytes": 402,
+      "sha256": "C783ADD82B31C9ECD522D025B618C263F95AFECC7ECC7D079809827AC8FEBFE6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/collector-failure.stderr.log",
+      "change": "new",
+      "bytes": 184890,
+      "sha256": "4332171562FFEEB953E53E914DB28A3B28EB04D519A55584A9B5C864606ED63D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/collector-failure.stdout.log",
+      "change": "new",
+      "bytes": 184890,
+      "sha256": "9A16BE8B45851793D3C97595C6BEC3D9A4F17BECCA2B0989CBD281F32C26C361"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/collector-verification.json",
+      "change": "new",
+      "bytes": 8836,
+      "sha256": "114C37D047367DD57FFD4EA40CCE5FF0FB7DFACF41C43D214F5677F7DF3E4F32"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/current-storage.ts.txt",
+      "change": "new",
+      "bytes": 11316,
+      "sha256": "1EF79287DAB411EF34760FB2FC9A0DB7968FB61A7BD8323C4AAA276A9A8AAC54"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/finalize.py",
+      "change": "new",
+      "bytes": 3704,
+      "sha256": "A9859A49B07C901A2CB7CD370BDA7453C0337147FDD2C263496AE6B62232A4E5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/fixtures/abandoned-empty/.uib/locks/236dfbe257a229da85d588f4f851f4ea1e72efefbe5565e69e305f0d6f69602d.lock",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/fixtures/abandoned-empty/events.jsonl",
+      "change": "new",
+      "bytes": 2422,
+      "sha256": "621FAFF39FF1C3BA8F92F916DAA65E2F5FB0DA07B9F226747783056170C0BE6E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/fixtures/cancel-during-incomplete-read/events.jsonl",
+      "change": "new",
+      "bytes": 4065,
+      "sha256": "5BD94C7F696D9ED2BA9BB21D5594ACBEE13F9F38689E8B6F9D7347B3B80495D3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/fixtures/dead-valid-owner-recovery/events.jsonl",
+      "change": "new",
+      "bytes": 4639,
+      "sha256": "A19B2CBC6B6D433A125F439ED3577744E828BA9742504E93662A5E3575B31CED"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/fixtures/failed-metadata-writer/events.jsonl",
+      "change": "new",
+      "bytes": 3990,
+      "sha256": "030808EB2D75285C017A45E75A52B52276D9B56292DFF999AD8CEE4421D6C3B6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/fixtures/live-owner-incomplete/events.jsonl",
+      "change": "new",
+      "bytes": 6205,
+      "sha256": "0EA661BA9CF283FFD8FC67F085552F75C104C4D376AE58C3A0F564A1207CBAED"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/fixtures/publication-between-owner-reads/events.jsonl",
+      "change": "new",
+      "bytes": 4902,
+      "sha256": "74132D9370BF0764EA5B024F7CF43ACE650C6D50B352F0EE5C18B49704C85CD3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/fixtures/valid-live-pid-after-first-read/events.jsonl",
+      "change": "new",
+      "bytes": 107127,
+      "sha256": "F5F648F59A6651DDC3EA5680E6912B66B3FD4AF23D67B0A918B014336EFD19F5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/index-evidence.py",
+      "change": "new",
+      "bytes": 1855,
+      "sha256": "2B6F5F416F1B39E815C502A7C14E1AA4DBCFC26E5EE64CB2F7DC1E7780C22C6E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/input-representative-inventory.json",
+      "change": "new",
+      "bytes": 12134,
+      "sha256": "48AC41E0E637959388163A53F8F94AB933A3F1A1FFED82B8734C00F0BDACF7A1"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/instrumentation.json",
+      "change": "new",
+      "bytes": 449,
+      "sha256": "2C8D485ECCC9175E5E391FE99398C8CA95C31ACDFFDAB15D965F0D1C06FE4510"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/instrumented-storage.mjs",
+      "change": "new",
+      "bytes": 11875,
+      "sha256": "8957E750827DEB6A9AB01DA8842B974F0F01335A172A47AFD730D73810B7D24B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/Invoke-NativeCapture.ps1",
+      "change": "new",
+      "bytes": 1664,
+      "sha256": "EFFD3560A5B9F07FACC6962B8F2BF00C81232459A88564B4BCEF634B2C232FF3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/prepare.mjs",
+      "change": "new",
+      "bytes": 2496,
+      "sha256": "3F40B6102B65F172183FBE9154A205791EF9722CE565EB39489B5250594B0E65"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/preservation.json",
+      "change": "new",
+      "bytes": 362,
+      "sha256": "61CC30B8E3B7DABAAA96A3E9F251F0A5207B9D944EB5B89E98CE6A9F0A7EA14E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/probe-audit.json",
+      "change": "new",
+      "bytes": 472,
+      "sha256": "4647AD82830DDFB5268933E3A1D82A48CC02A3B40B9900986B44DC49EE351064"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/probe-extra-results.json",
+      "change": "new",
+      "bytes": 137703,
+      "sha256": "9B6220612DCB81D0D9B15F2CAE3697AAAEBD21F4021EFCEB34C01603766201D2"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/probe-extra.mjs",
+      "change": "new",
+      "bytes": 2900,
+      "sha256": "185FCA345E8EAD9DDEC13D91D27A5F98AC54ADF0795DCD97285158416026644D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/probe-results.json",
+      "change": "new",
+      "bytes": 37600,
+      "sha256": "699BF4758C6072A350E1E5B46DAAB86DB3AC0AC3148A9FEBCB2AE091258696F0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/probe.mjs",
+      "change": "new",
+      "bytes": 3428,
+      "sha256": "CDF4BB339E7B8D9A9ABCDD1158BDA4D36B44F730D976E1358A2DD50E2B3B5495"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/retained-evidence-index.json",
+      "change": "new",
+      "bytes": 6255,
+      "sha256": "870950294A69AB7274B6FA68B7242D6820056333AC40125D7C3BC8646E2CF0F3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/retained-failure-summary.json",
+      "change": "new",
+      "bytes": 12959,
+      "sha256": "09A2138E3E8FAD3CCF0912C3A4CBFA7C1DD48770BB74690FB943504BAFA38DA2"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/source-context.json",
+      "change": "new",
+      "bytes": 427,
+      "sha256": "19F35124FB0EE6B8FD8DAB03EAB12A420EE7421F644DB3DF0F95351748E4B651"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/status-before.txt",
+      "change": "new",
+      "bytes": 3253,
+      "sha256": "6CF034CF941DADE0506895B8DA2BB622552DC521C8C1E991E6E999C18CA6CC37"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/storage-history.txt",
+      "change": "new",
+      "bytes": 48,
+      "sha256": "4BCA90C610AEA226B0A1A711675A6D1FCEA721676C58DC30A5D4D7BDA363A4E8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/verify-collector.ps1",
+      "change": "new",
+      "bytes": 1253,
+      "sha256": "2CAB053C87A4E6A6990EAD2F806170C14E8C2B0BAC2728498849B5EF4EA862FE"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-lock-diagnostic/worker.mjs",
+      "change": "new",
+      "bytes": 1412,
+      "sha256": "1229E0356888E8C707D58573A9F45818C59039A097E4DFA94176F3EF48F4AF65"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-foundation-lock-diagnostic-files.json",
+      "change": "new",
+      "sha256": null,
+      "note": "Self-reference; all other files hashed."
+    }
+  ]
+}

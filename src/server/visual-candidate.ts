@@ -19,7 +19,7 @@ export async function validateVisualRoleSyntax(files: ArtifactFiles): Promise<vo
 /** Capture dependencies before taking the target role lock. Callers hold the
  * shared Foundation graph lock; validation below reads only this captured graph.
  */
-export async function prepareVisualCandidate(appKey: string, kind: 'page' | 'shell' | 'component', locator: string, packages: PackageComponent[], allowShellChange = false) {
+export async function prepareVisualCandidate(appKey: string, kind: 'page' | 'shell' | 'component', locator: string, packages: PackageComponent[], allowShellChange = false, validatedSyntax?: string) {
   const root = appPath(appKey), workspace = await visualWorkspace(appKey, packages);
   const compositionFiles = new Map<string, string>();
   const read = async (relative: string) => { const text = await readFile(path.join(root, relative), 'utf8'); compositionFiles.set(relative, text); return text; };
@@ -42,7 +42,9 @@ export async function prepareVisualCandidate(appKey: string, kind: 'page' | 'she
   return {
     async validate(candidate: ArtifactBundle): Promise<void> {
       try {
-        await validateVisualRoleSyntax(candidate.files);
+        // Only detached, byte-identical syntax work can be reused. All identity,
+        // dependency and original-authority checks remain under graph admission.
+        if (JSON.stringify(candidate.files) !== validatedSyntax) await validateVisualRoleSyntax(candidate.files);
         if (!candidate.metadata || parseMetadata(candidate.files.metadata).diagnostics.some(d => d.severity === 'error')) throw new Error('Correct the complete metadata candidate before saving.');
         const collection = kind === 'page' ? workspace.pages : kind === 'shell' ? workspace.shells : workspace.components;
         if (!old || collection.filter(bundle => bundle.metadata?.artifactId === candidate.metadata!.artifactId).length !== 1) throw new Error('The authoritative Visual identity is missing or ambiguous. Resolve the source conflict before normal editing.');

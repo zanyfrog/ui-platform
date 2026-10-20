@@ -39,4 +39,5 @@ run('node_modules/vitest/vitest.mjs', ['run',
   'tests/editor-security-server.test.ts',
   'tests/editor-context.test.ts',
   'tests/editor-properties.test.ts',
+  ...process.argv.slice(2),
 ]);

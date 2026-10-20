@@ -129,7 +129,8 @@ it('WP5-B: actual Builder composition, package instances, bindings, slots, event
   await page.locator('[data-app="wp5b-created"]').first().click();
   await page.locator('uib-tabs.app-tabs > uib-tab').nth(1).click();
   const workspace = page.getByRole('region', { name: 'Application Builder workspace' });
-  const reportRoot = path.resolve('docs/architecture/evidence/builder-v1-wp5-b'); await mkdir(reportRoot, { recursive: true });
+  const reportRoot = path.resolve(process.env.UI_D6_BROWSER_EVIDENCE_ROOT ?? 'docs/architecture/evidence/builder-v1-wp5-f-d6/simultaneous-builder-runtime'); await mkdir(reportRoot, { recursive: true });
+  cleanup.push(async () => { await writeFile(path.join(reportRoot, 'server-output.log'), output); await writeFile(path.join(reportRoot, 'browser-errors.json'), JSON.stringify(browserErrors)); });
   const editor = workspace.getByLabel('Generic Artifact Editor', { exact: true });
   const createdDataset = page.waitForResponse((r: any) => r.url().endsWith('/datasets/create'));
   page.once('dialog', (dialog: any) => dialog.accept('WP5-B Records')); await workspace.getByRole('button', { name: 'Create Dataset', exact: true }).click();
@@ -240,12 +241,33 @@ it('WP5-B: actual Builder composition, package instances, bindings, slots, event
   const beforePreview = await readFile(storage, 'utf8'); const preview = page.frameLocator('iframe[title="Nonpersisting Visual Artifact design preview"]'); await preview.getByRole('button', { name: 'Delete selected record', exact: true }).click(); expect(await readFile(storage, 'utf8')).toBe(beforePreview);
   await preview.locator(`[data-uip-node="${cardOne}"]`).click(); await expect.poll(() => preview.locator(`[data-uip-node="${cardResultNode}"]`).textContent()).toBe('inspect');
   await page.screenshot({ path: path.join(reportRoot, 'builder-authoring.png'), fullPage: true });
-  // D6 remains allocated to WP5-F; this bounded journey does not prove contention-free simultaneous use.
-  await page.close(); const managed = await post('/api/apps/wp5b-created/preview', {}, creator); expect(managed.status, JSON.stringify(managed.value) + output).toBe(200);
+  // D6: keep the actual Builder browser and API process active throughout runtime startup.
+  const managed = await post('/api/apps/wp5b-created/preview', {}, creator); expect(managed.status, JSON.stringify(managed.value) + output).toBe(200);
   const running = await browserContext.newPage(); running.on('pageerror', (error: Error) => browserErrors.push(error.message));
   await running.goto(managed.value.url);
   const targetUrl = new URL(running.url()); targetUrl.pathname = targetUrl.pathname.replace(/\/?$/, '/') + 'admin/people/selected'; await running.goto(targetUrl.href);
   await expect.poll(() => running.getByLabel('name', { exact: true }).inputValue(), { timeout: 45000 }).toBe('Delete me');
+  const overlapping: unknown[] = [];
+  for (let round = 0; round < 3; round++) {
+    expect(page.isClosed()).toBe(false);
+    let saveStartedAt = 0, saveEndedAt = 0, overlapStartedAt = 0;
+    const saveRequest = page.waitForRequest((request: any) => request.method() === 'PUT' && request.url().includes('/visual-')).then(() => { saveStartedAt = Date.now(); });
+    const results = await Promise.all([
+      (async () => { await selectRegion(); await insert('html:p'); await workspace.getByLabel('Text content', { exact: true }).fill(`D6 simultaneous save ${round}`); await workspace.getByLabel('Text content', { exact: true }).press('Tab'); await saveVisual(); saveEndedAt = Date.now(); return 'saved'; })(),
+      saveRequest.then(() => { overlapStartedAt = Date.now(); return running.reload().then(() => 'runtime-reloaded'); }),
+      saveRequest.then(() => page.evaluate(async () => {
+        const session = await fetch('/api/editor/session').then(r => r.json());
+        const headers = { 'x-editor-revision': session.revision };
+        const responses = await Promise.all(['/api/apps/wp5b-created/builder-workspace/validate?full=1', '/api/apps/wp5b-created/visual-artifacts'].map(url => fetch(url, { headers })));
+        return Promise.all(responses.map(async response => ({ status: response.status, body: await response.json() })));
+      })),
+    ]);
+    expect((results[2] as Array<{ status: number }>).map(r => r.status)).toEqual([200, 200]);
+    expect(overlapStartedAt).toBeGreaterThanOrEqual(saveStartedAt); expect(overlapStartedAt).toBeLessThanOrEqual(saveEndedAt);
+    overlapping.push({ round, saveStartedAt, overlapStartedAt, saveEndedAt, results: [results[0], results[1]], readStatuses: (results[2] as Array<{ status: number }>).map(r => r.status) });
+  }
+  await running.reload(); await running.getByText('D6 simultaneous save 2', { exact: true }).waitFor();
+  await page.screenshot({ path: path.join(reportRoot, 'builder-still-active.png'), fullPage: true });
   await running.getByLabel('name', { exact: true }).fill('Edited through authored Admin Form'); await running.getByRole('button', { name: 'Submit', exact: true }).click();
   await running.locator('[data-uip-node="saved-result"]').filter({ hasText: 'Edited through authored Admin Form' }).waitFor({ timeout: 45000 });
   expect(JSON.parse(await readFile(storage, 'utf8'))).toContainEqual({ id: 'selected', name: 'Edited through authored Admin Form' });
@@ -260,5 +282,5 @@ it('WP5-B: actual Builder composition, package instances, bindings, slots, event
   await activate(applicationId, [{ ...assignment, status: 'inactive' }]);
   expect((await post(`${data}/operations`, { kind: 'record-delete', version: 1, datasetId, primaryFieldId: schema.fields[0].id, recordId: 'unrelated' }, creator)).value).toMatchObject({ success: false, committed: false }); expect(await readFile(storage, 'utf8')).toBe(beforeDenied);
   expect(browserErrors).toEqual([]);
-  await writeFile(path.join(reportRoot, 'browser-acceptance.json'), JSON.stringify({ applicationId, datasetId, shellIds: [pageOne.metadata.shellId, shell.metadata.artifactId], pageIds: [pageOne.metadata.artifactId, pageTwo.metadata.artifactId], sharedId: shared.metadata.componentId, cardNodes: [cardOne, cardTwo], footer, deleteNode, resultNode, packageDefinitionsUnchanged: true, sharedDefinitionUnchanged: true, builderClosedBeforeRuntime: true, simultaneousOperationProven: false, browserErrors, verifiedAt: new Date().toISOString() }, null, 2));
+  await writeFile(path.join(reportRoot, 'browser-acceptance.json'), JSON.stringify({ applicationId, datasetId, shellIds: [pageOne.metadata.shellId, shell.metadata.artifactId], pageIds: [pageOne.metadata.artifactId, pageTwo.metadata.artifactId], sharedId: shared.metadata.componentId, cardNodes: [cardOne, cardTwo], footer, deleteNode, resultNode, packageDefinitionsUnchanged: true, sharedDefinitionUnchanged: true, builderClosedBeforeRuntime: false, simultaneousOperationProven: true, overlapping, browserErrors, verifiedAt: new Date().toISOString() }, null, 2));
 }, 600_000);

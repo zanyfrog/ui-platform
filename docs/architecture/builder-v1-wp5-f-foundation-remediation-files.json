@@ -1,0 +1,517 @@
+{
+  "scope": "Approved unresolved-owner acquisition remediation only",
+  "existingProductChanges": [
+    "packages/artifacts/src/storage.ts",
+    "packages/artifacts/src/storage-api.ts"
+  ],
+  "existingTestChanges": [
+    "packages/artifacts/tests/role-bundle.test.ts"
+  ],
+  "newTestFiles": [
+    "packages/artifacts/tests/unresolved-owner.test.ts"
+  ],
+  "existingConfigurationChanges": [],
+  "files": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-foundation-remediation.md",
+      "change": "new",
+      "bytes": 16270,
+      "sha256": "044ECD2596FBCB5453EE5BBDC5B20DC34DB6DB7F77CB23AF7D58CC3B0EC5F90D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/artifacts-build.completion.json",
+      "change": "new",
+      "bytes": 346,
+      "sha256": "A973A8A6DBB46ED379D23E913278EACA6F0020D271DE6F6585A186AD41347C10"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/artifacts-build.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/artifacts-build.stdout.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/artifacts-typecheck.completion.json",
+      "change": "new",
+      "bytes": 349,
+      "sha256": "DBDF4CD4B8815417B5BF92EE3A9F3D258500C7A52FC2BA58896F1DF559FA6021"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/artifacts-typecheck.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/artifacts-typecheck.stdout.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/data-focused-results.json",
+      "change": "new",
+      "bytes": 78665,
+      "sha256": "E1591C949F06B42807E85FD9EF50A31ED54E89E26CB4889BB0D551B922CECB76"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/data-focused.completion.json",
+      "change": "new",
+      "bytes": 910,
+      "sha256": "10AB9B4C3A4D1F8F99B90AF91900049F1A6205835DD08C8E768B95824B1F3A17"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/data-focused.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/data-focused.stdout.log",
+      "change": "new",
+      "bytes": 2461,
+      "sha256": "882F633289B83B1FF3F3A906CE1053943A8578CEDACBAE64880170C2F9A8BEDB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/editor-contracts.completion.json",
+      "change": "new",
+      "bytes": 303,
+      "sha256": "D6CD142C2ACA9B97F5271DD16F5931DBE3A3680BFE02F9D5E4CE61B441CF43F6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/editor-contracts.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/editor-contracts.stdout.log",
+      "change": "new",
+      "bytes": 225,
+      "sha256": "5B935E1416DDB07B5A955BE73AC6E3B5FD65192B426AC9CCF4D74B05AD6592A6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/existing-lock-inspection.completion.json",
+      "change": "new",
+      "bytes": 361,
+      "sha256": "C4B28E099A473D7E804AD60A48292240D888B0AD86A3B23D03E659117FA805D0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/existing-lock-inspection.json",
+      "change": "new",
+      "bytes": 2051,
+      "sha256": "5BDC9CFF2B455314771EC33A2EBF34E89A1E3FD41B73FAB72D967DEB4A5206B9"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/existing-lock-inspection.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/existing-lock-inspection.stdout.log",
+      "change": "new",
+      "bytes": 2052,
+      "sha256": "7008A7B8A5CE5C1C69C2D10FD3AE3E8AC48AEFCD1968A294875894AF2CE92EC1"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/final-artifacts-typecheck.completion.json",
+      "change": "new",
+      "bytes": 349,
+      "sha256": "F93062F933AA23F9482E500BBC7D72625F779B9E6039869B60C5547BD87BBF6F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/final-artifacts-typecheck.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/final-artifacts-typecheck.stdout.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/final-owner-results.json",
+      "change": "new",
+      "bytes": 6307,
+      "sha256": "B4E0FEF81870008F39B197610F33A0A0F078159E2861581BA1DA58C287A80726"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/final-owner-tests.completion.json",
+      "change": "new",
+      "bytes": 629,
+      "sha256": "61D257033C79C27859B5E860BDACBA0BA2433D6126FDE513E6B17D8E360D083E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/final-owner-tests.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/final-owner-tests.stdout.log",
+      "change": "new",
+      "bytes": 437,
+      "sha256": "EA500D9BED8A89F00E91E2E7877ED36E21EAD1847D8D43B9C71495DCFA72E206"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/finalize.py",
+      "change": "new",
+      "bytes": 5108,
+      "sha256": "3CD04C1943BA04AA8B851F05B0ABBD9C6F934F49F95B84CF16C68760EB695298"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/focused-checks.json",
+      "change": "new",
+      "bytes": 1196,
+      "sha256": "683DD682C86437417A33D4CCABFDBD3559D6BB499637F556F6E53D7D6618320A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/foundation-final-results.json",
+      "change": "new",
+      "bytes": 36299,
+      "sha256": "AEF1836B386D59E12348B7915246AEAFAD6B67E83A894A515D01879A6988AFF7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/foundation-final.completion.json",
+      "change": "new",
+      "bytes": 608,
+      "sha256": "FCB5A8CFC883D3574003E6E56CE7B159558F70504199B535D06EE6DE936C366A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/foundation-final.stderr.log",
+      "change": "new",
+      "bytes": 4468,
+      "sha256": "0F179521D951A400D784DC6F39B5C99B6D13FD91A3402EF46BF10CBA9BFA2E39"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/foundation-final.stdout.log",
+      "change": "new",
+      "bytes": 3508,
+      "sha256": "113C5F96D2F4EF8B950DDD97A43D387B3322DF232640D6DE0B8F730512559756"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/foundation-results.json",
+      "change": "new",
+      "bytes": 14919,
+      "sha256": "86162927C0EE3253B312C4D019B82A75E5CE4704D08F55A00CFD155210ACD155"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/foundation.completion.json",
+      "change": "new",
+      "bytes": 771,
+      "sha256": "2AEF7521797A818F124BC07DB8459FF4E0D32B069CFD2D3BBD8CD62301C3B7C7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/foundation.stderr.log",
+      "change": "new",
+      "bytes": 4440,
+      "sha256": "2D6A4AE87E2CBB08BB5FC0508A39302F0BE007DF70A7AAFA1B09CCFC940EEECF"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/foundation.stdout.log",
+      "change": "new",
+      "bytes": 1328,
+      "sha256": "04116EF57ED7D4D210D4ED99028E295FB56B568DFF762E68998E6C832827D670"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/graph-measurements.jsonl",
+      "change": "new",
+      "bytes": 1723,
+      "sha256": "C1677B2B0E037BA7B9406E0FA312FD97E400AE6F926C73A819AF7D69A3818D36"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/input-diagnostic-inventory.json",
+      "change": "new",
+      "bytes": 10408,
+      "sha256": "28514434879AB0D3DA3334FEF4A6018AD05A5E3E1EC6CE89AEE7EF845211246D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/inspect-existing-lock.mjs",
+      "change": "new",
+      "bytes": 1996,
+      "sha256": "BD78D3C488AB2BDDD409C2C173E30F631A07B4BEDC1D495A4D6DF310334F4F2B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/integration-checks.json",
+      "change": "new",
+      "bytes": 1953,
+      "sha256": "440EF6016C67F59097A1AA5B9D85F378810126A67F8B3D2FC6FB6D135BB80557"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/integration-graph-measurements.jsonl",
+      "change": "new",
+      "bytes": 6204,
+      "sha256": "51CF285B0353C2C195FF51764A24CE55D5419EBD57285425FDBE18A3D01BA6F3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/integration-produced/builder-v1-wp5-d/browser-1792464061073/attempt-1792464114730.png",
+      "change": "new",
+      "bytes": 235642,
+      "sha256": "3968AA7781AFCE5041B2CFD1CB2FE5F1BFE7A41AA955A8300BD73F79EA03A212"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/integration-produced/builder-v1-wp5-d/browser-1792464061073/attempt-1792464114730.txt",
+      "change": "new",
+      "bytes": 2885,
+      "sha256": "0A142EAF5EB88A7991B2E6BDDBB6E1B708EC24924DB46DBB649854F3E47D83A8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/integration-produced/builder-v1-wp5-e/browser-1792464208390/administrator-disabled.png",
+      "change": "new",
+      "bytes": 156370,
+      "sha256": "801548EE211A0E53C696FBB7405399E94BB703D81F90F15049C2B1A36F47B868"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/integration-produced/builder-v1-wp5-e/browser-1792464208390/final-or-failure.png",
+      "change": "new",
+      "bytes": 172368,
+      "sha256": "94C2197C51F4C41D30021B5FA84946017884C7384CE75391537858090A87F428"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/integration-produced/builder-v1-wp5-e/browser-1792464208390/final-or-failure.txt",
+      "change": "new",
+      "bytes": 2670,
+      "sha256": "07B296BDEF003C71C00E45909829A0C75A83603C156164BEAF4955129C716AC1"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/integration-produced/builder-v1-wp5-e/browser-1792464208390/nonadministrator-readonly.png",
+      "change": "new",
+      "bytes": 153727,
+      "sha256": "059DEF8803187A20570028028E9C52571BB110FA379DE83D124AB12E62B9666A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/phase-diff.py",
+      "change": "new",
+      "bytes": 846,
+      "sha256": "3084386B5355BC17F6C6FAFF8111EA86510AE4273606CB9E359550A9500077AA"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/phase-only.patch",
+      "change": "new",
+      "bytes": 18109,
+      "sha256": "514A0897FB16540EB841257197C1CD050FC3E24143AFFA673B1DDBF5B1916245"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/preservation.json",
+      "change": "new",
+      "bytes": 1523,
+      "sha256": "A6CB32A4E997372E3B398F9A407059C0BFDABAF6C160E7646C247280A0A13565"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/processes-before.json",
+      "change": "new",
+      "bytes": 810,
+      "sha256": "DC19743504D7048F673C86DF18A6834825B3650AA2FFE4C46AB6F228C2ACB087"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/production-exclusion.completion.json",
+      "change": "new",
+      "bytes": 304,
+      "sha256": "3D67BE889C1DA4E89A45AA2803E73AC55DF9F10BAAAA3B854683842BBA4E0C23"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/production-exclusion.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/production-exclusion.stdout.log",
+      "change": "new",
+      "bytes": 84,
+      "sha256": "76BD5E4A18140001AADEB1496A4065C7DD9A9D8A22ED1FB887837E29393D52B5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/remaining-checks.json",
+      "change": "new",
+      "bytes": 3847,
+      "sha256": "F45FAE68EA61B12E782C4D80D3FD2A4035BEFEA3297D9DFE448CCDB88E2083F6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/role-bundle-test-before.ts.txt",
+      "change": "new",
+      "bytes": 11249,
+      "sha256": "B5C79626D98B79BC744D39DAA02DF03CBC47AC27B502860C70E364E69677F14F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/run-context.json",
+      "change": "new",
+      "bytes": 226,
+      "sha256": "8C552F0B1E121973D02AE4304EC54A33D95A8C91B3F40DC4081B47FEA8F7D969"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/run-focused.ps1",
+      "change": "new",
+      "bytes": 2641,
+      "sha256": "676CE0695E88B336588D02F39AB875EA4B5F6B70105E1A07EFF4ADB9B432D3CF"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/run-integration.ps1",
+      "change": "new",
+      "bytes": 2856,
+      "sha256": "5DE7AFBD1C3E28CC90CC1C55D1AACF3B97853176DE77F0662F8F750A615F462E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/run-remaining.ps1",
+      "change": "new",
+      "bytes": 2374,
+      "sha256": "6291C051CE17EE2EDD9A08E5D9F8CD3733A8C76933602CFC46AF8740D3543B3F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/storage-api-before.ts.txt",
+      "change": "new",
+      "bytes": 448,
+      "sha256": "910B0B8AF50DF0F7157313A18B9C40D7ACDCCF18C9F140406163689110825964"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/storage-before.ts.txt",
+      "change": "new",
+      "bytes": 11316,
+      "sha256": "1EF79287DAB411EF34760FB2FC9A0DB7968FB61A7BD8323C4AAA276A9A8AAC54"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-build.completion.json",
+      "change": "new",
+      "bytes": 342,
+      "sha256": "27D8D8720A70FB1488133BF58F96583071C0BB230E489A900783EC1DAC85A9D9"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-build.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-build.stdout.log",
+      "change": "new",
+      "bytes": 1219,
+      "sha256": "D32B6E4730BB995262EB74EFB7A7C8B31B382325604AEA66CB0759D9AC8E53E8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-focused-results.json",
+      "change": "new",
+      "bytes": 27209,
+      "sha256": "2D6F997AEA9F7169538C25F26AF165A6E616698C67F32E94DCAFA532A9A5DA98"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-focused.completion.json",
+      "change": "new",
+      "bytes": 880,
+      "sha256": "3379B163E486DAFC94865E7CE46BBFCBBE02A681FBCCBAE18E0EF2A50B8A4205"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-focused.stderr.log",
+      "change": "new",
+      "bytes": 17971,
+      "sha256": "172ACBBB30E5BB1C93E3EB9E091B623A495B03EA7174ABCBF0AB1FD08E9239D8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-focused.stdout.log",
+      "change": "new",
+      "bytes": 13919,
+      "sha256": "6B018FAEF94019BE5D9C8209B51B9213AE68E2E87E3287B1F58FDA12A401F45B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-typecheck.completion.json",
+      "change": "new",
+      "bytes": 348,
+      "sha256": "E37EE514963F95822AC493E94578F9D88D75B4FAA027E409E434D5EF8DA0F2AC"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-typecheck.stderr.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/ui-typecheck.stdout.log",
+      "change": "new",
+      "bytes": 419,
+      "sha256": "FD26962999796666B44D143AF1E2107E1F7A67AF15EEF37F62D1A9D55AE7710A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/verification-summary.json",
+      "change": "new",
+      "bytes": 9269,
+      "sha256": "4607785BE35F262E3E3E91432F959DE99F23EFDF5294C71D9352EC052A592A80"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/wp5b/browser-errors.json",
+      "change": "new",
+      "bytes": 2,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-foundation-remediation/wp5b/server-output.log",
+      "change": "new",
+      "bytes": 684,
+      "sha256": "08A426C5C0B455249F46ACC0C2BAA8A5B317C729BDD98355C2AAD4D1C4F1A3B7"
+    },
+    {
+      "path": "packages/artifacts/src/storage.ts",
+      "change": "modified",
+      "beforeSha256": "1EF79287DAB411EF34760FB2FC9A0DB7968FB61A7BD8323C4AAA276A9A8AAC54",
+      "bytes": 12044,
+      "sha256": "A3B7E0BC87EA9244DB78DD7066C8D33C236522CE1C326753724362131490EE3E"
+    },
+    {
+      "path": "packages/artifacts/src/storage-api.ts",
+      "change": "modified",
+      "beforeSha256": "910B0B8AF50DF0F7157313A18B9C40D7ACDCCF18C9F140406163689110825964",
+      "bytes": 478,
+      "sha256": "E032415C5B8D155CE01EB2F23E5660CB095F5994F3252CAF8268A30A206F3149"
+    },
+    {
+      "path": "packages/artifacts/tests/role-bundle.test.ts",
+      "change": "modified",
+      "beforeSha256": "B5C79626D98B79BC744D39DAA02DF03CBC47AC27B502860C70E364E69677F14F",
+      "bytes": 11283,
+      "sha256": "DA9260B3A1661C660093B5E56DADE7F2DBE2819552F4F171630A24C15542C2EF"
+    },
+    {
+      "path": "packages/artifacts/tests/unresolved-owner.test.ts",
+      "change": "new",
+      "bytes": 10984,
+      "sha256": "A086569FD4F174195655A0517A9395C0F3B421AB4323E1654EB857E94347E52C"
+    },
+    {
+      "path": "packages/artifacts/dist/storage.js",
+      "change": "regenerated ignored build output",
+      "bytes": 12012,
+      "sha256": "63D7615668B13C4E695C6CA9970CA8B5AA55D99BA19D082381E609028C9AAD13"
+    },
+    {
+      "path": "packages/artifacts/dist/storage.d.ts",
+      "change": "regenerated ignored build output",
+      "bytes": 1937,
+      "sha256": "E49AF033D9F903303EFC3A20BE1E8147851C2FD711DF96C49CCA90F938EEB629"
+    },
+    {
+      "path": "packages/artifacts/dist/storage-api.js",
+      "change": "regenerated ignored build output",
+      "bytes": 325,
+      "sha256": "C1E6174799426766A9CF10A4A462934B9A877C609D549BE78842CCE40A91DE6A"
+    },
+    {
+      "path": "packages/artifacts/dist/storage-api.d.ts",
+      "change": "regenerated ignored build output",
+      "bytes": 478,
+      "sha256": "E032415C5B8D155CE01EB2F23E5660CB095F5994F3252CAF8268A30A206F3149"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-foundation-remediation-files.json",
+      "change": "new",
+      "sha256": null,
+      "note": "Self-reference; all other files hashed."
+    }
+  ]
+}

@@ -124,7 +124,7 @@ it('WP5-D: actual Builder nested Menus, route parameters and portable branding i
   await page.locator('[data-app="wp5d-created"]').first().click();
   await page.locator('uib-tabs.app-tabs > uib-tab').nth(1).click();
   const workspace = page.getByRole('region', { name: 'Application Builder workspace' });
-  const reportRoot = path.resolve('docs/architecture/evidence/builder-v1-wp5-d', `browser-${Date.now()}`); await mkdir(reportRoot, { recursive: true });
+  const reportRoot = path.resolve(process.env.UI_PLATFORM_TEST_EVIDENCE_ROOT ?? 'docs/architecture/evidence', 'builder-v1-wp5-d', `browser-${Date.now()}`); await mkdir(reportRoot, { recursive: true });
   const editor = workspace.getByLabel('Generic Artifact Editor', { exact: true });
   cleanup.push(async () => { if (!page.isClosed()) { const attempt = Date.now(); await page.screenshot({ path: path.join(reportRoot, `attempt-${attempt}.png`), fullPage: true }); await writeFile(path.join(reportRoot, `attempt-${attempt}.txt`), await page.locator('body').innerText() + '\nSERVER\n' + output); } });
   const appRoot = path.join(apps, 'wp5d-created');

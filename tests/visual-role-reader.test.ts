@@ -200,7 +200,7 @@ it('recovers a lost metadata anchor before runtime discovery and blocks orphan/j
 it('renders coherent revisions in a real browser, refreshes after commit, and retains the prior render on recovery failure', async () => {
   const f = await fixture(); await f.server.close();
   const runtime = fileURLToPath(new URL('../packages/visual-artifacts/dist/runtime.js', import.meta.url)).replaceAll('\\', '/');
-  await writeFile(path.join(f.root, 'index.html'), '<!doctype html><html><body><script type="module" src="/src/pages/example/live.ts"></script></body></html>');
+  await writeFile(path.join(f.root, 'index.html'), '<!doctype html><html><body><label>Live draft<input aria-label="Live draft"></label><script type="module" src="/src/pages/example/live.ts"></script></body></html>');
   await writeFile(path.join(f.directory, 'live.ts'), `import {page,components,packages,runtimeRevision} from 'virtual:uip-visual-page'; import {mountVisualArtifact} from ${JSON.stringify(runtime)}; const instance=mountVisualArtifact(page,{components,packages}); document.body.append(instance.host); document.body.dataset.revision=runtimeRevision; document.body.dataset.name=page.metadata.displayName; document.body.dataset.css=page.css;`);
   const server = await createServer({ configFile: false, root: f.root, plugins: [visualArtifacts({ applicationRoot: f.root })], optimizeDeps: { noDiscovery: true }, server: { host: '127.0.0.1', port: 0, fs: { allow: [f.root, path.resolve('.')] } } }); servers.push(server); await server.listen();
   const origin = server.resolvedUrls!.local[0];
@@ -208,7 +208,18 @@ it('renders coherent revisions in a real browser, refreshes after commit, and re
   const browser = await playwright.chromium.launch({ channel: 'msedge', headless: true });
   try {
     const page = await browser.newPage(), errors: string[] = []; page.on('pageerror', (error: Error) => errors.push(error.message));
+    const messages: any[] = [];
+    page.on('websocket', (socket: any) => socket.on('framereceived', (frame: any) => { try { messages.push(JSON.parse(String(frame.payload))); } catch {} }));
     await page.goto(origin); await expect.poll(() => page.locator('[data-uip-node="old-node"]').innerText()).toBe('old-node');
+    await page.getByRole('textbox', { name: 'Live draft' }).fill('unsubmitted local input');
+    await page.evaluate(() => { document.body.dataset.instance = 'original-document'; });
+    // Deterministic delayed watcher hint for bytes already loaded by this browser.
+    // It must still validate, but must not tear down the current document.
+    server.watcher.emit('change', path.join(f.directory, 'page.html'));
+    await expect.poll(() => messages.some(message => message.event === 'uip:validated-visual-refresh')).toBe(true);
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => resolve())));
+    expect(await page.getByRole('textbox', { name: 'Live draft' }).inputValue()).toBe('unsubmitted local input');
+    expect(await page.locator('body').getAttribute('data-instance')).toBe('original-document');
     const old = await page.locator('body').getAttribute('data-revision'), entered = gate(), release = gate();
     const saving = saveRoleBundle(f.location, { expectedChecksum: f.before.checksum, files: f.candidate, validate() {}, admit() {}, async beforeWrite(name) { if (name === 'page.visual.json') { entered.release(); await release.wait; } } });
     await entered.wait;

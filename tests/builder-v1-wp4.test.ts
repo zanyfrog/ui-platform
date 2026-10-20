@@ -272,17 +272,43 @@ it('WP4: actual Form authoring, A18, declarative rules, isolated protected submi
   expect(regionValue).toBeTruthy(); await nodes.selectOption(regionValue!);
   await workspace.getByLabel('Insert element',{exact:true}).selectOption(`component:${formId}`); await workspace.getByRole('button',{name:'Insert with layout wrapper',exact:true}).click();
   const pageSave = page.waitForResponse((r:any) => r.request().method()==='PUT' && r.url().includes('/visual-pages?')); await workspace.getByRole('button',{name:'Save Now',exact:true}).click(); expect((await pageSave).status()).toBe(200);
+  await expect.poll(() => workspace.locator('span[data-status]').textContent()).toBe('Saved');
   // Authoring is complete and source saves are confirmed. Close the Builder
   // reader before launching the Application so its polling graph captures do
   // not compete with initial runtime compilation in this bounded-reader test.
   await page.close();
   const managed = await post('/api/apps/wp4-created/preview',{},creator); expect(managed.status,JSON.stringify(managed.value)+output).toBe(200);
   const normalBeforeNavigation = await readFile(storage, 'utf8');
-  const running = await browserContext.newPage(); running.on('pageerror',(e:Error)=>browserErrors.push(e.message)); await running.goto(managed.value.url);
+  const running = await browserContext.newPage();
+  const refreshEvents: unknown[] = [];
+  running.on('websocket', (socket: any) => socket.on('framereceived', (event: any) => { try { const value = JSON.parse(String(event.payload)); if (['full-reload', 'update', 'error', 'custom'].includes(value.type)) refreshEvents.push({ at: Date.now(), ...value }); } catch {} }));
+  running.on('framenavigated', (frame: any) => { if (frame === running.mainFrame()) refreshEvents.push({ at: Date.now(), event: 'navigation', url: frame.url() }); });
+  running.on('pageerror',(e:Error)=>browserErrors.push(e.message)); await running.goto(managed.value.url);
+  const transport: unknown[] = [];
+  running.on('response', async (response: any) => { if (new URL(response.url()).pathname.startsWith(data + '/')) transport.push({ url: response.url(), status: response.status(), body: await response.text().catch(() => 'closed') }); });
+  cleanup.push(async () => {
+    await writeFile(path.join(reportRoot, 'runtime-transport.json'), JSON.stringify(transport, null, 2));
+    await writeFile(path.join(reportRoot, 'runtime-refresh.json'), JSON.stringify(refreshEvents, null, 2));
+    await writeFile(path.join(reportRoot, 'server-output.log'), output);
+    if (!running.isClosed()) { await writeFile(path.join(reportRoot, 'runtime-final-or-failure.txt'), await running.locator('body').innerText() + '\n' + browserErrors.join('\n')); await running.screenshot({ path: path.join(reportRoot, 'runtime-final-or-failure.png'), fullPage: true }); }
+  });
   expect(await readFile(storage, 'utf8')).toBe(normalBeforeNavigation);
+  refreshEvents.push({ at: Date.now(), event: 'form-entry-start' });
   await running.getByLabel('Person name',{exact:true}).fill('Browser Application').catch(async (error: Error) => { await running.screenshot({path:path.join(reportRoot,'running-failure.png'),fullPage:true}); throw new Error(String(error)+'\nRunning: '+await running.locator('body').innerText()+'\nBrowser: '+browserErrors.join('\n')+'\nServer: '+output); }); await running.getByLabel('quantity',{exact:true}).fill('3'); await running.getByLabel('price',{exact:true}).fill('9');
-  await running.getByRole('button',{name:'Submit',exact:true}).click(); await running.locator('[data-uip-node="saved-result"]').filter({hasText:'Browser Application'}).waitFor({timeout:45000});
+  expect(await running.getByLabel('Person name', { exact: true }).inputValue()).toBe('Browser Application');
+  expect(await running.getByLabel('quantity', { exact: true }).inputValue()).toBe('3');
+  expect(await running.getByLabel('price', { exact: true }).inputValue()).toBe('9');
+  await expect.poll(() => running.getByLabel('total', { exact: true }).inputValue()).toBe('27');
+  const submitted = running.waitForRequest((request: any) => request.method() === 'POST' && new URL(request.url()).pathname === `${data}/operations`);
+  await running.getByRole('button',{name:'Submit',exact:true}).click();
+  const submittedRecord = (await submitted).postDataJSON().records[0];
+  expect(submittedRecord).toMatchObject({ name: 'Browser Application', quantity: 3, price: 9, total: 27 });
+  expect(submittedRecord.id).toBeTruthy();
+  await running.locator('[data-uip-node="saved-result"]').filter({hasText:'Browser Application'}).waitFor({timeout:45000});
   const normalBrowserRecord = JSON.parse(await running.locator('[data-uip-node="saved-result"]').innerText()); expect(normalBrowserRecord.total).toBe(27);
+  expect(normalBrowserRecord.id).toBe(submittedRecord.id);
+  const browserReadback = await post(`${data}/queries`, { datasetId, where: { field: 'id', op: 'eq', value: submittedRecord.id } }, creator);
+  expect(browserReadback.status).toBe(200); expect(browserReadback.value).toContainEqual(expect.objectContaining({ id: submittedRecord.id, name: 'Browser Application', quantity: 3, price: 9, total: 27 }));
   expect(await readFile(storage,'utf8')).toContain('Browser Application'); expect(await readFile(testStorage,'utf8')).not.toContain('Browser Application');
   await running.screenshot({path:path.join(reportRoot,'running-application.png'),fullPage:true}); await running.reload(); await running.getByLabel('Person name',{exact:true}).waitFor(); expect(await running.locator('vite-error-overlay').count()).toBe(0);
   await running.close();

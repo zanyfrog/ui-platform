@@ -126,7 +126,7 @@ it('WP5-E: real settings, dirty editors, Problems navigation and saved dependenc
   await page.locator('[data-app="wp5e-created"]').first().click();
   await page.locator('uib-tabs.app-tabs > uib-tab').nth(1).click();
   const workspace = page.getByRole('region', { name: 'Application Builder workspace' });
-  const reportRoot = path.resolve('docs/architecture/evidence/builder-v1-wp5-e', `browser-${Date.now()}`); await mkdir(reportRoot, { recursive: true });
+  const reportRoot = path.resolve(process.env.UI_PLATFORM_TEST_EVIDENCE_ROOT ?? 'docs/architecture/evidence', 'builder-v1-wp5-e', `browser-${Date.now()}`); await mkdir(reportRoot, { recursive: true });
   const sideEffects: string[] = [];
   page.on('request', (request: any) => { if (request.method() === 'POST' && /\/(datasets\/(apply|connect)|form-tests|publish|rollback|composition-asset|execute)(?:[/?]|$)/.test(new URL(request.url()).pathname)) sideEffects.push(request.url()); });
   cleanup.push(async () => { if (!page.isClosed()) { await page.screenshot({ path: path.join(reportRoot, 'final-or-failure.png'), fullPage: true }); await writeFile(path.join(reportRoot, 'final-or-failure.txt'), await page.locator('body').innerText() + '\nSERVER\n' + output); } });

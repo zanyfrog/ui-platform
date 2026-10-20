@@ -50,9 +50,14 @@ export class VisualArtifactService {
     };
     await walk(this.root);
     const bundles: ArtifactBundle[] = [];
-    for (const locator of locators.sort()) {
-      try { bundles.push(await this.read(locator)); }
-      catch (error) { bundles.push({ locator, hash: '', files: { source: '', css: '', metadata: '', fixtures: '', code: '' }, diagnostics: [{ severity: 'error', message: String(error) }] }); }
+    locators.sort();
+    // Independent read-only role captures may run in a bounded batch. Each
+    // retains its own Foundation lock/recovery; output remains locator-ordered.
+    for (let offset = 0; offset < locators.length; offset += 4) {
+      bundles.push(...await Promise.all(locators.slice(offset, offset + 4).map(async locator => {
+        try { return await this.read(locator); }
+        catch (error) { return { locator, hash: '', files: { source: '', css: '', metadata: '', fixtures: '', code: '' }, diagnostics: [{ severity: 'error' as const, message: String(error) }] }; }
+      })));
     }
     for (const key of ['artifactId', 'componentId'] as const) {
       const ids = new Set<string>();
@@ -65,10 +70,10 @@ export class VisualArtifactService {
     return bundles;
   }
   async read(locator: string): Promise<ArtifactBundle> {
-    const file = await this.file(locator);
+    const location = await this.location(locator), file = path.join(location.directory, location.anchor);
     const stem = file.slice(0, -'.visual.json'.length);
     const files = {} as ArtifactFiles;
-    const snapshot = await readRoleBundle(await this.location(locator));
+    const snapshot = await readRoleBundle(location);
     for (const [role, extension] of Object.entries(roles)) files[role as keyof ArtifactFiles] = snapshot.files[path.basename(stem) + extension] ?? '';
     if (!files.metadata) throw new Error('Visual Artifact metadata is missing.');
     const parsed = parseMetadata(files.metadata);

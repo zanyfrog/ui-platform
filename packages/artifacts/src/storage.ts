@@ -13,6 +13,8 @@ import {
 } from "node:fs/promises";
 import path from "node:path";
 import { createHash, randomUUID } from "node:crypto";
+import { AsyncLocalStorage } from 'node:async_hooks';
+import { setTimeout as delay } from 'node:timers/promises';
 import { capture, checksum, safeFile, type Snapshot } from "./bundle.js";
 
 export const storageKey = (id: string): string =>
@@ -77,25 +79,104 @@ async function writeSnapshot(
   }
 }
 const localLocks = new Map<string, Promise<void>>();
+const heldLocks = new AsyncLocalStorage<Array<{ key: string; active: boolean; graph: boolean }>>();
+export class ArtifactBusyError extends Error {
+  readonly code: string = 'source.busy';
+  readonly status = 503;
+  constructor() { super('Artifact is locked by another writer.'); }
+}
+export class ArtifactOwnerUnresolvedError extends ArtifactBusyError {
+  override readonly code = 'source.owner-unresolved';
+  constructor() {
+    super();
+    this.name = 'ArtifactOwnerUnresolvedError';
+    this.message = 'Artifact lock ownership is unresolved; exclusive admission was not obtained.';
+  }
+}
+export interface ArtifactLockOptions {
+  /** Acquisition budget only; never interrupts or retries admitted work. */
+  timeoutMs?: number;
+  signal?: AbortSignal;
+  observe?: (measurement: { waitMs: number; holdMs: number; acquired: boolean }) => void;
+}
 export async function withArtifactLock<T>(
   root: string,
   bundle: string,
   run: () => Promise<T>,
   identity = bundle,
+  options: ArtifactLockOptions = {},
 ): Promise<T> {
   const key = path.join(root, storageKey(identity));
-  const previous = localLocks.get(key) ?? Promise.resolve();
+  const held = (heldLocks.getStore() ?? []).filter(lock => lock.active);
+  if (held.some(lock => lock.key === key) || identity === 'visual-runtime-graph-v1' && held.length)
+    throw new Error('Artifact lock order violation: nested or role-to-graph acquisition.');
+  const started = performance.now();
+  const budget = options.timeoutMs ?? 0;
+  if (!Number.isFinite(budget) || budget < 0) throw new Error('Invalid artifact acquisition budget.');
+  const remaining = () => Math.max(0, budget - (performance.now() - started));
+  let acquiredAt: number | undefined;
+  const check = () => options.signal?.throwIfAborted();
+  check();
+  const predecessor = localLocks.get(key);
+  const previous = predecessor ?? Promise.resolve();
   let release!: () => void;
   const current = new Promise<void>((resolve) => {
     release = resolve;
   });
   localLocks.set(key, current);
-  await previous;
+  let queued = true;
   try {
-    return await acquireArtifactLock(root, bundle, run, identity);
+    // A cancelled queue entry releases only after its predecessor; later callers
+    // must never jump a live local holder.
+    const cancellation = new AbortController();
+    const abort = () => cancellation.abort(options.signal?.reason);
+    options.signal?.addEventListener('abort', abort, { once: true });
+    const timer = budget > 0 ? setTimeout(() => cancellation.abort(new ArtifactBusyError()), remaining()) : undefined;
+    try {
+      await Promise.race([previous, new Promise<never>((_, reject) => {
+        cancellation.signal.addEventListener('abort', () => reject(cancellation.signal.reason), { once: true });
+      })]);
+    } finally {
+      if (timer) clearTimeout(timer);
+      options.signal?.removeEventListener('abort', abort);
+    }
+    queued = false;
+    if (budget > 0 && remaining() <= 0) throw new ArtifactBusyError();
+    // A continuously populated local queue must not reacquire in the tiny unlink
+    // window forever while another process polls. Yield two polling intervals
+    // before a queued graph handoff, still inside the same acquisition budget.
+    if (predecessor && identity === 'visual-runtime-graph-v1') {
+      await delay(Math.min(50, remaining()), undefined, { signal: options.signal });
+    }
+    let contention: ArtifactBusyError = new ArtifactBusyError();
+    for (;;) {
+      check();
+      if (budget > 0 && remaining() <= 0) throw contention;
+      let entered = false;
+      try {
+        return await acquireArtifactLock(root, bundle, async () => {
+          check();
+          if (budget > 0 && remaining() <= 0) throw new ArtifactBusyError();
+          entered = true; acquiredAt = performance.now();
+          const scope = { key, active: true, graph: identity === 'visual-runtime-graph-v1' };
+          try { return await heldLocks.run([...held, scope], run); }
+          finally { scope.active = false; }
+        }, identity);
+      } catch (error) {
+        if (entered) throw error;
+        check();
+        if (!(error instanceof ArtifactBusyError) || remaining() <= 0) throw error;
+        contention = error;
+        try { await delay(Math.min(25, remaining()), undefined, { signal: options.signal }); }
+        catch (waitingError) { check(); throw waitingError; }
+      }
+    }
   } finally {
-    release();
-    if (localLocks.get(key) === current) localLocks.delete(key);
+    if (queued) void previous.then(release); else release();
+    void current.then(() => { if (localLocks.get(key) === current) localLocks.delete(key); });
+    try { options.observe?.({ waitMs: (acquiredAt ?? performance.now()) - started,
+      holdMs: acquiredAt === undefined ? 0 : performance.now() - acquiredAt, acquired: acquiredAt !== undefined }); }
+    catch { /* Telemetry cannot affect admission or replay callbacks. */ }
   }
 }
 async function acquireArtifactLock<T>(
@@ -112,35 +193,47 @@ async function acquireArtifactLock<T>(
     handle = await open(file, "wx");
   } catch (e) {
     if ((e as NodeJS.ErrnoException).code !== "EEXIST") throw e;
-    let owner = Number(await readFile(file, "utf8"));
-    // Exclusive creation precedes PID publication by a few asynchronous writes.
-    // Wait briefly for a live creator; never remove or steal an incomplete lock.
-    for (let attempt = 0; (!Number.isInteger(owner) || owner <= 0) && attempt < 3; attempt++) {
-      await new Promise(resolve => setTimeout(resolve, 20));
-      owner = Number(await readFile(file, "utf8"));
-    }
-    if (!Number.isInteger(owner) || owner <= 0)
-      throw new Error(
-        "Artifact lock is incomplete; operator recovery is required.",
-      );
+    const ownerText = async () => {
+      try { return await readFile(file, 'utf8'); }
+      catch (error) {
+        // The previous holder can release between exclusive-open and owner read.
+        if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw new ArtifactBusyError();
+        throw error;
+      }
+    };
+    const parseOwner = (text: string) => {
+      const owner = Number(text);
+      if (!/^[1-9]\d*$/.test(text) || !Number.isSafeInteger(owner)) throw new ArtifactOwnerUnresolvedError();
+      return owner;
+    };
+    // Creation precedes PID publication. Reinspect through the outer acquisition
+    // loop, sharing its deadline and cancellation; an unknown owner is never dead.
+    const owner = parseOwner(await ownerText());
     try {
       process.kill(owner, 0);
     } catch (probe) {
       if ((probe as NodeJS.ErrnoException).code !== "ESRCH")
-        throw new Error("Artifact is locked by another writer.");
+        throw new ArtifactBusyError();
       // A separate recovery lock prevents two recoverers from removing a new live lock.
-      const recovery = await open(`${file}.recovery`, "wx");
+      const recovery = await open(`${file}.recovery`, "wx").catch(error => {
+        if (error.code === 'EEXIST') throw new ArtifactBusyError();
+        throw error;
+      });
       try {
-        if (Number(await readFile(file, "utf8")) !== owner)
-          throw new Error("Artifact lock changed; retry.");
-        await rm(file);
-        handle = await open(file, "wx");
+        if (parseOwner(await ownerText()) !== owner) throw new ArtifactBusyError();
+        try {
+          await rm(file);
+          handle = await open(file, "wx");
+        } catch (error) {
+          if (['ENOENT', 'EEXIST'].includes((error as NodeJS.ErrnoException).code ?? '')) throw new ArtifactBusyError();
+          throw error;
+        }
       } finally {
         await recovery.close();
         await rm(`${file}.recovery`, { force: true });
       }
     }
-    if (!handle) throw new Error("Artifact is locked by another writer.");
+    if (!handle) throw new ArtifactBusyError();
   }
   try {
     await handle.writeFile(String(process.pid));

@@ -210,7 +210,7 @@ it('WP3: Builder authoring, activation, serving, protected CRUD, security and re
   await editor.getByRole('button', { name: 'Reload records', exact: true }).click();
   await page.waitForFunction(() => document.querySelector<HTMLInputElement>('[aria-label="Edit name"]')?.value === 'UI Edited');
   await page.waitForFunction(() => !document.querySelector('.builder-workspace [role="tab"][aria-selected="true"]')?.textContent?.includes('(pending)'));
-  const reportRoot = path.resolve('docs/architecture/evidence/builder-v1-wp3'); await mkdir(reportRoot, { recursive: true });
+  const reportRoot = path.resolve(process.env.UI_PLATFORM_TEST_EVIDENCE_ROOT ?? 'docs/architecture/evidence', 'builder-v1-wp3'); await mkdir(reportRoot, { recursive: true });
   await page.screenshot({ path: path.join(reportRoot, 'builder-records.png'), fullPage: true });
   page.once('dialog', (dialog: any) => dialog.accept());
   await editor.getByRole('button', { name: 'Delete record', exact: true }).click();

@@ -1,0 +1,383 @@
+{
+  "generatedAt": "2026-10-19T14:47:34.513067-04:00",
+  "status": "Stopped at D6 root-cause review; concurrent descendant stat established, exact NTFS rejection predicate unresolved",
+  "existingRepositoryFileChanges": [],
+  "productionChanges": [],
+  "testChanges": [],
+  "configurationChanges": [],
+  "externalTools": "evidence/builder-v1-wp5-f-eperm-root-cause/portable-tool-inventory.json",
+  "files": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-eperm-root-cause.md",
+      "change": "new",
+      "bytes": 15066,
+      "sha256": "7C7050DA4DB8A72739BEF902927F51B75F8F918D1962D568D3E43CAAE80DD41C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/additional-failures.json",
+      "change": "new",
+      "bytes": 4749,
+      "sha256": "C347464F1C7C9FC9F725A22D554530A725F7CB43DEDAB6D5753CD15E107310BA"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/analyze-opens.py",
+      "change": "new",
+      "bytes": 3856,
+      "sha256": "D61A37E27DA48E8F8258EFFF0CD03767E2FDD4D9AA3AD57238EF4457D65D34B2"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/analyze-stacks.py",
+      "change": "new",
+      "bytes": 2750,
+      "sha256": "ABF7D62C1B0214F162E3306AD2AC77EA9940C7B7571C39DAB4C28D89BAA8BABD"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/child-open-stacks.json",
+      "change": "new",
+      "bytes": 70592,
+      "sha256": "FDFA6A7C07AE65AA16553E8817DDD502F96DE4124380D0814374EAAE61B3999C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/child-symbols/publication-resolved-stacks.json",
+      "change": "new",
+      "bytes": 93181,
+      "sha256": "7FE4378E12C8AA237AFFEDE5BE9F3AAF4CC2DA7B333C3A49A8EE06B7013D0105"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/child-symbols/symbol-load-results.json",
+      "change": "new",
+      "bytes": 5748,
+      "sha256": "C0C8FBF4F1AB5DC1B353AA20611DDC3253889D6755C0EDF2682E0E5588FE820C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/classified-findings.json",
+      "change": "new",
+      "bytes": 268256,
+      "sha256": "A02E97B9C31EDFE7ABCB4C655E709CE6EEDC34AF2C63711C205BE0B3C31BA959"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/classify-findings.py",
+      "change": "new",
+      "bytes": 3850,
+      "sha256": "B574C9DDD0603D069CCB6C91F63D5E642DBDE6C3D4D62274A3150D4858F2C606"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/correlate-child-open.py",
+      "change": "new",
+      "bytes": 1494,
+      "sha256": "723DC766E918D386515F3949E01D82A2F85290DC52D5033ABD6722C14A02427E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/extract-context.py",
+      "change": "new",
+      "bytes": 1590,
+      "sha256": "89DDD650AA607C50D41D2B6CFE2DCCE7FC15631B5355B865BADE44E8DC96046E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/extraction-result.json",
+      "change": "new",
+      "bytes": 518,
+      "sha256": "36CFB9815D0A44907F14856925D2FC11A47E46F561D321FD226F89CEEF356887"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/fetch-node-symbols.py",
+      "change": "new",
+      "bytes": 1440,
+      "sha256": "D29451322F3FAF1706A3D450B71104CF25D4AF3921F526EE9F66BB4FE8B00B7B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/final-child-symbols/publication-resolved-stacks.json",
+      "change": "new",
+      "bytes": 83177,
+      "sha256": "80762720C2796DA92AE007568AD1E119D6F2C9AD5DEFF3FB74C5E7CAA5C3AA90"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/final-child-symbols/symbol-load-results.json",
+      "change": "new",
+      "bytes": 6845,
+      "sha256": "28C6814F2F8CC9201942910633A1DEE35B36ADFCF6B66CCDCF0453432A6B96D9"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/final-child-symbols.log",
+      "change": "new",
+      "bytes": 6098,
+      "sha256": "498758A52B21C06F65C99B81DB729D123CC27BFFF40474079FBE0E2B013E66E5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/final-publication-symbols/publication-resolved-stacks.json",
+      "change": "new",
+      "bytes": 1940352,
+      "sha256": "3353FFD7B997FB07ED42579AB520F6E0F3A776FDA2196E70E15900995549DEA9"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/final-publication-symbols/symbol-load-results.json",
+      "change": "new",
+      "bytes": 9858,
+      "sha256": "F4119094B0B3327DFC012CB0BC6BB8EB76ECEC7B7838B55B8DC49258DB14CFD5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/final-publication-symbols.log",
+      "change": "new",
+      "bytes": 8784,
+      "sha256": "E3A8A5604F3400F68B617EE3AF218CF826A2B977C832DCCD0BDE41703EA56061"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/finalization.log",
+      "change": "new",
+      "bytes": 1159,
+      "sha256": "16D7CF596B4D1A5C9C238FBE735932C081E41712A32AF4470CFBCB7B85F47199"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/finalize-review.py",
+      "change": "new",
+      "bytes": 3481,
+      "sha256": "4079E4A8B94F928B9F5ED803B36491998F7B94A2879B3126BCC59FCBCC539738"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/image-metadata.csv",
+      "change": "new",
+      "bytes": 25889953,
+      "sha256": "44ED5470ACF6144BCC45EFB8ED57CAEE8B50819DA58095095C4181F4FE219FF3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/input-builder-v1-wp5-f-elevated-eperm-files.json",
+      "change": "new",
+      "bytes": 20241,
+      "sha256": "EB7605C4C90EFB2445037BCF447561FE305CA7DA1D7647D5F4BD8D61FA7A2A43"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/input-builder-v1-wp5-f-form-refresh-files.json",
+      "change": "new",
+      "bytes": 68118,
+      "sha256": "D4AEE174E3CFEBF7939F403DD5FA71B96164BEBAD22FFBC5271A22B47F30FB0B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/input-builder-v1-wp5-f-windows-eperm-files.json",
+      "change": "new",
+      "bytes": 3949,
+      "sha256": "1F65116FADFA33758140BE57EB88582A3008D820E754F190187CF0E37393B7F6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/inspect-ntfs.py",
+      "change": "new",
+      "bytes": 2784,
+      "sha256": "E1C668252568C0B54075A64C088752CF71EDA40D4E3D5CF2C3D7C2272699D98E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/node-SHASUMS256.txt",
+      "change": "new",
+      "bytes": 2967,
+      "sha256": "BE0629EE2BCD8E40BB856ABDD3407F0762101B76BD60A36B8867F637733631C0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/node-symbol-download.json",
+      "change": "new",
+      "bytes": 446,
+      "sha256": "90FD86CCD86246156C9086B412C067F6B01894B1480642EB68130DC0A19A6908"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/node_pdb.zip",
+      "change": "new",
+      "bytes": 93696661,
+      "sha256": "0BB3E40ABA6C8A1AD685B004A1F531A92AFEF3512F8CB76F674290F861CF277F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/ntfs-common-set-information.asm.txt",
+      "change": "new",
+      "bytes": 68073,
+      "sha256": "B79DA1E9F1CA5632370F630CE1C43C226B5BE8E93D9AF5876102FD03E92F57E4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/open-analysis.log",
+      "change": "new",
+      "bytes": 3407,
+      "sha256": "9BE2AB49139ADA2044F6E67EE8C24A844B2A4A5DAC10B517533DB352150D77BB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/open-correlation.csv",
+      "change": "new",
+      "bytes": 77468313,
+      "sha256": "2D94A97AC97565CCC5DC48FFAF013CD457281BFED681C9C2AA8779A379E01D1B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/open-lifetimes.json",
+      "change": "new",
+      "bytes": 4719767,
+      "sha256": "203FD3A5D58B506233F6E38EEA89C46741BCF58AEAD43E58BD59E39BF56F05F6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/portable-tool-inventory.json",
+      "change": "new",
+      "bytes": 22822,
+      "sha256": "88B9DDC17BE737273C3ABA85CA0C0752084146CE8D71576FB87AD2DEC0B7CC0A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/preservation-check.json",
+      "change": "new",
+      "bytes": 1247,
+      "sha256": "A8CF6C97EB4941163B37868CD22E49C40A7267FE551042F77C24A867A945FBAB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/publication-context.csv",
+      "change": "new",
+      "bytes": 1005709,
+      "sha256": "7460910C3BAB521C2FB51FCD6CBFD506979A28DF03FEA7E121F0AAE58DB75638"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/publication-resolved-stacks.json",
+      "change": "new",
+      "bytes": 1914924,
+      "sha256": "823A38B42BB0FD8F7CF66EA99B9026FE4C366D135D9D36A6AB9854A6995C86A4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/publication-stacks.json",
+      "change": "new",
+      "bytes": 1679304,
+      "sha256": "1F880A79BA8C29DE7E36E798DA9E39060FC9BC4EAFD2BA8373DA013F2A25759B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/relevant-images.json",
+      "change": "new",
+      "bytes": 49298,
+      "sha256": "78E39416F642414D27642C63C9527C33265E1328DA6CA3D0200DC08AA4954301"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/resolve-symbols.py",
+      "change": "new",
+      "bytes": 7113,
+      "sha256": "DDF5BB27A199029666D52030A08C18B4A8D0AA5867E26C88C3A0533503BE8472"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbol-attempt-02/publication-resolved-stacks.json",
+      "change": "new",
+      "bytes": 2231223,
+      "sha256": "010F4860EAA9E907E6367F4BBEF7C632B6D39E38D83F0CF01473FB7FF7392D3B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbol-attempt-02/symbol-load-results.json",
+      "change": "new",
+      "bytes": 8384,
+      "sha256": "E45C1035324883DBD7E6C045CF999CDB9E106B15AFD961596F581359265ED677"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbol-load-results.json",
+      "change": "new",
+      "bytes": 7556,
+      "sha256": "44AD3043724BDF61221CBDA0F84912FD477B787AE21E61C811593C2521BD28C9"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/433D847E833EE79E99B44E8EB90397BE1/ntfs.pdb",
+      "change": "new",
+      "bytes": 1511424,
+      "sha256": "9A633F03A77FE6B98D627867F9E145C4C9B932301B592ED960B9DF4E48E11080"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/79B505276F140450EB83DF0440BF06C61/kernelbase.pdb",
+      "change": "new",
+      "bytes": 12554240,
+      "sha256": "81658A0FE06F313F0370A4BD988E763BCF791DA9A20124B24C3F2DB4E3B36B43"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/B577F577137D7DBE4C4C44205044422E1/node.pdb",
+      "change": "new",
+      "bytes": 479465472,
+      "sha256": "BD7C8A5E2A37212C6F5D432A443AE42B49C31F3F1D3F9C82EBAF62E41B0900DB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/B661C6FE72991D160FE37C48B8BC54701/ntkrnlmp.pdb",
+      "change": "new",
+      "bytes": 11522048,
+      "sha256": "F4F5C5D8DBAF7DF07538DF9A4CB788C8D6840BDC06FB61E5977E6617F20E1C10"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/C031D45B0DA18A6E74D06ED6AB2DD9E11/ntdll.pdb",
+      "change": "new",
+      "bytes": 1912832,
+      "sha256": "C93F4614AA6F40FE370D40EB7EE9589CA0EDA170EF2D704B5D278DA71C02C249"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/CADCB3C269E98E1229AEC5BCC52FC8581/fltMgr.pdb",
+      "change": "new",
+      "bytes": 1011712,
+      "sha256": "3A78ABBDC8F0F895542DCCCFE32CE6C4342A633861D677B90DCE492CD9C32D88"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/D49B6B341BF9527FFFE298E3EF62FAC91/bfs.pdb",
+      "change": "new",
+      "bytes": 192512,
+      "sha256": "5DF201952C6404C064B71208C5DDF23C012D8C7916806F84D20B0ABB349B31C6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/DBA1E7D4712FC0D94A78C43B531725B61/luafv.pdb",
+      "change": "new",
+      "bytes": 217088,
+      "sha256": "C999C9AAEFFAD57F5E33AD41FC21863EF257D34857D91B3C2E9A716F07990B05"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/E8C3A48CAC7EB60D8781D8C10020C44F1/kernel32.pdb",
+      "change": "new",
+      "bytes": 1060864,
+      "sha256": "C3127B30252D8A0249BF1EBF024F77E36B207123C41264905C807711A2DD659C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/F3762F2056B35A1595D762471DC25C651/cldflt.pdb",
+      "change": "new",
+      "bytes": 364544,
+      "sha256": "51E8B9FF89DD3892FEC10319DD1C958643374AA6D256810259255E9653544408"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/symbols/FF6CC0FCE09C827B62132DD1A2F93B9F1/fileinfo.pdb",
+      "change": "new",
+      "bytes": 135168,
+      "sha256": "2C7DF25C2F715D70EA6D566D67FA106C18721D3D94B77A31A653FD075767A70B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/trace-header.csv",
+      "change": "new",
+      "bytes": 6018,
+      "sha256": "D88EF5DBC37B41B4448BA3C53B20E66F0322069433F6D9A736028761AABAE4A6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/validated-child/publication-resolved-stacks.json",
+      "change": "new",
+      "bytes": 95791,
+      "sha256": "B6DE7A325A67FD14FE52E761C3BF13B5997EA613B06FBA4008B310770552ED71"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/validated-child/symbol-load-results.json",
+      "change": "new",
+      "bytes": 6886,
+      "sha256": "D6B87CC665A8AA11E98315DE505A68290E5226A72EA3B75D4B8EBFF695D601A8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/validated-child.log",
+      "change": "new",
+      "bytes": 6099,
+      "sha256": "9687074E764DDD24CA9ABA65DF1BEDCD186F88C26E67205D48C2416024D0018F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/validated-publication/publication-resolved-stacks.json",
+      "change": "new",
+      "bytes": 2256651,
+      "sha256": "E3D02D6A2CDEDB69AECB631CCBF34DDE22A4AFE19169CF8CCF7E16994660C395"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/validated-publication/symbol-load-results.json",
+      "change": "new",
+      "bytes": 9914,
+      "sha256": "6D65359E21E83482550F1079530D80AC84B15DEDAA71B293FC912587EEF28F35"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-eperm-root-cause/validated-publication.log",
+      "change": "new",
+      "bytes": 8785,
+      "sha256": "C152D8F7223405DA036947059CB196E5FF44746CB6B892B666769075FE7D99B9"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-eperm-root-cause-files.json",
+      "change": "new",
+      "sha256": null,
+      "note": "Self-reference; other files hashed."
+    }
+  ]
+}

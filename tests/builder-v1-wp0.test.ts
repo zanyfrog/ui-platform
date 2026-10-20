@@ -174,7 +174,7 @@ it('WP0: normal creation, explicit authority, applied protected Dataset, mandato
   expect(replay).toMatchObject({ status: 'rejected', diagnostics: [{ code: 'BOOTSTRAP_ALREADY_INITIALIZED' }] });
   expect(policy.revision()).toBe(beforeReplay);
   expect(policy.adminAudit().some(a => a.operation === 'provision-application' && a.applicationId === applicationId && a.actorId === developmentUsers[1].id)).toBe(true);
-  const evidenceRoot = path.resolve('docs/architecture/evidence/builder-v1-wp0'); await mkdir(evidenceRoot, { recursive: true });
+  const evidenceRoot = path.resolve(process.env.UI_PLATFORM_TEST_EVIDENCE_ROOT ?? 'docs/architecture/evidence', 'builder-v1-wp0'); await mkdir(evidenceRoot, { recursive: true });
   await writeFile(path.join(evidenceRoot, 'acceptance.json'), JSON.stringify({ verifiedAt: new Date().toISOString(), applicationId, otherApplicationId: second.value.appId,
     datasetId, fieldIds: [fieldId, fieldName, fieldPrivate], workflowId, applicationCreator: developmentUsers[2].id, platformSecurityAdministrator: developmentUsers[1].id,
     applicationSecurityAdministrator: developmentUsers[0].id, policyRevision: policy.revision(), activation: dataset.activation, publication: dataset.pin.publication,

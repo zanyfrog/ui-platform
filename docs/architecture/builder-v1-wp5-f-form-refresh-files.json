@@ -1,0 +1,1543 @@
+{
+  "generatedAt": "2026-10-19T06:54:03.3232950-04:00",
+  "repository": "C:/Projects/Modular/ui-platform",
+  "status": "D6 IMPLEMENTATION BLOCKED — full UI suite 495/496; WP4 correction and simultaneous Builder/runtime verified",
+  "remainingFailure": "WP5-E Application creation: unchanged applications.ts directory rename EPERM before Builder/runtime starts",
+  "followUpCodeFiles": [
+    "packages/visual-artifacts/src/runtime-revision.ts",
+    "packages/visual-artifacts/src/revision-vite.ts",
+    "packages/visual-artifacts/src/revision-composition-vite.ts",
+    "tests/builder-v1-wp4.test.ts",
+    "tests/visual-role-reader.test.ts",
+    "tests/runtime-refresh.test.ts"
+  ],
+  "modifiedExistingFiles": 21,
+  "newFiles": 232,
+  "preservedPreexistingUntrackedPlanningDocuments": [
+    "docs/architecture/builder-v1-wp5-f-d6-architecture.md",
+    "docs/architecture/builder-v1-wp5-f-plan.md",
+    "docs/architecture/builder-v1-wp5-f-planning-verification.md",
+    "docs/architecture/builder-v1-wp5-f-preview-architecture.md"
+  ],
+  "files": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-d6-files.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "721C15E591436E8BBE5B9F512D967B48E89094CF847671D60991C22777B78933"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-d6-implementation.md",
+      "change": "new",
+      "followUp": false,
+      "sha256": "FE866E5AE086968C9E03403C74E6D075DE29F9549F690DCB1B6D8E1E372D3077"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-d6-verification.md",
+      "change": "new",
+      "followUp": false,
+      "sha256": "E14BCBAFD54600E081ACAAD150D3E3E229EB66ED62A168AF4553055241ADA5EF"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-form-refresh.md",
+      "change": "new",
+      "followUp": true,
+      "sha256": "1EDE8ACCC0D30A0085AA0BBBE849830AFFF610D1E1D32A0D31FEA0F337A7F52A"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-security-prerequisite.md",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4BC57810DF1B6E26CD5A4027CEF1FE2A90008C1F2E4107043A626157A1A11A58"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/admission-final.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4153D889F1B8B11CEE0696E3D7393AA22871BAB91A10DAF2AF4CBFF23BFE72A5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/admission-initial.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4D950CCE9D4BC80A3BF56854F26218C141F090A76332846A04F8990CBF9D2D84"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/after-targeted.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "427FE53BE219F1A6980CF97012535A2C19CB859EED525373D96CD5355126C0D3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/baseline-measurements.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "154E8A2DD75E2925934C8E59A8FFA941A446802F0EF956E87BE32AD2932464C3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/before-regressions-2.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "A5B305A866E98F8FE1D19FA99AEDFF89D0B5932AC1456952972A173BC6DD8382"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/before-regressions.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "D6B05CEA21D6787BD0A0A882DC879245C65A51141E87E396162DDD1C7D788A38"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/capture-optimization.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "6105C13EC6AA2E570353750AA6DEAE7EA4840171AB7561483BFFA1D6B5A144E4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/coordination-correction-bounded.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "A534BE9882EE25DAC0B973B8D303BE0CBCAE4E868E2E5383664967E67C925FB3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/coordination-correction.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "05DFABC69A8BB7E0AE8F97F045A0B26CAA93F4B033E2E2AD688184D39B95CE61"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/data-services-full.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "336AE721B1C6581C3C6E1E5C4AC9918E8D5E90F34CF4D800F350AEC7ABA6B8F4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/failure-reporter.mjs",
+      "change": "new",
+      "followUp": false,
+      "sha256": "E599CD2A72703C2F3C8B61953800793E5102283D8ACA7190487F57CC60AF8659"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp0/acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "9CADF870561AF1C4669334FE563D348763A57C4739E01AFB9F7F29262D86BCA5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp3/acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "2BD472B1A04DBAB03F0192076B48223F7A97DAE7987F4218458E1379A669362D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp3/builder-records.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "7C21657D2C795D9A7E1C2850EFE8D7E502BB265BE42C70BF4B8A9F5D5432F561"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp3/configured-form.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "16EA0D7CAD67A92BD02B5AA7C8181B1FF735342898CE2A94FE2320462E478007"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp3/standard-preview.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "B9E30A6F8002008A4E33EB1E643FB15C4F5562AF0EA81D7A0F5215B239A45C71"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp4/form-rules.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "85E6995D086F3DF62198ADF6BBD8CDF82F74D2E8A57E7EA0ED5F0828FC995A12"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp4/isolated-submission.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "149FFFD2B82C1CDBF278F18CFB73776FEE4BDA79A504A6049ACE2BFA6DE3B3F6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp4/renderer-checks.txt",
+      "change": "new",
+      "followUp": false,
+      "sha256": "D1357547365F06D86E394ED8D1CCB69C90AB7493F6572D109ECA4498085F783E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-c/browser-acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "896CEE6E3EB415B6649D7838569E957DE83204A09891CF19342E119AE50BF680"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-c/nonpersisting-preview.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "3B61977F4587C8A68323863D938C634C6B392354146638DE314FBFBABF150C16"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-c/runtime-workflow-denied.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "8EFB4E46DEF74973C94805257147E811705329D2D7516074DD4F89DEB0B26107"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-c/runtime-workflow-success.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "863F1DE97AFA4A39788B0EB1A0BC01B6B0BE95E03CD45B8E9DC72AF6F20207EB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-c/runtime-workflow-unknown.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "EB2C821893172AF3F1C8C26EF783B514B0F3A9961EC208EDFFB522E3761437C3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-c/typed-automation.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "096CDEB498254CF94A823A9635A8E7408F8F68BF0F7D8178E8309A4F0824237B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-c/workflow-event-authoring.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4D3CADC0FCA82D0D5016FFA34A3FA683671B4405977D22E0AB61B7BC6443D8A5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-d/browser-1792379251106/admin-shell.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "C32B360817E1F7414D41C35446FFB7B46EB8280CB2951E3694985FEDBC045291"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-d/browser-1792379251106/browser-acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "5BB341CC997F3429FD59D0D1CEB799E6B56B84F247BD25F5ECB814466460AC00"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-d/browser-1792379251106/nested-menu.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "D586C9EE398FCCB0369F86D43351264EEF5BD82788D1C8314294C29C64FC2901"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-d/browser-1792379251106/portable-branding.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "C1EF27844986A61366BC754E38FBF057CD5FA9FBD79BF6CB3DBCD0D87106C1F4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-d/browser-1792379251106/public-shell.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "1AA3717E26C17A078EB27CDF0F44CE73F4CA854E1859AC9D371D0C81BEDB5DE7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/administrator-disabled.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "801548EE211A0E53C696FBB7405399E94BB703D81F90F15049C2B1A36F47B868"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/dependency-refresh-after-save.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "158862D850353877C347373B1AA84C62F7E81ED76B8646A6DE96A30BDA84B905"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/final-or-failure.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "5BBF2E192B5B565DB8A67901A2FFC343A2CFE24C17B05154806FCCC3D1A36E61"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/final-or-failure.txt",
+      "change": "new",
+      "followUp": false,
+      "sha256": "96C1CD7F60EDCB5A21E72FA36625D85966E4F4D18CFAE9F8DC7794A1FD5C3C12"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/initial-problems.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "953EBEFEC6BBF1216B40FCCF712E4DE3D510470A08FB65F5FCD33CB4E8A981E3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/multiple-dirty-tabs.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "411C833F113691497AA080C510FE182228BEDB31B9C8F467E603B6A319E118EB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/multiple-independent-problems.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "BC40B4DE5F31BA22E897FEC9886E0F6CAA6690C8FEAA15AD302CD571DA16E372"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/nonadministrator-readonly.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "059DEF8803187A20570028028E9C52571BB110FA379DE83D124AB12E62B9666A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/problem-exact-node-navigation.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "5F6A7EB3D4CAE344A715BC5307CB58A26951D48BC4F195E12123E70EA2A982A6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/restart-persisted-disabled.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "977867DE65D94E231033EBE00746840B46FB41661689437271F09A3D25E2FD02"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/builder-v1-wp5-e/browser-1792379058040/verification.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "39BFC0B0B97740181640824E4E29189953099BCC30AF7D992B1469F7505A580A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/simultaneous-builder-runtime/browser-acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "DE844F119FC4B04A50C9D938F98F193D81551DB9033E7D6FE903DA0BAF6C4D2E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/simultaneous-builder-runtime/browser-errors.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/simultaneous-builder-runtime/builder-authoring.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "AD209881C4798E4002789745B1F8E8EF24F33883CB714BF011826194030F0A44"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/simultaneous-builder-runtime/builder-still-active.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "CA12568DC2ADC7D4E1319A22FB79C956B6CF55DA3462996C45480C9C805CC5A8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/final-produced/simultaneous-builder-runtime/running-delete.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "88D12B317955637C8505FB43CDD44F8FA8BE4EE0C85F8E9631326BEE3EED72D6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/full-measurements.jsonl",
+      "change": "new",
+      "followUp": false,
+      "sha256": "007CAD9D7B86EFFA76328562A24AB648658B2209CAB6EAB1A1513D2A5BFA24CC"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/initial-evidence-preservation.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "60CCFFEB46D19220DADE3E291B9C5691EEE34C7DC6E7B548DCEC9CBF751160D3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/initial-run-produced/docs/architecture/evidence/builder-v1-wp4/acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "24AAC16010D717C7F117932AADFAF2BBBC9F52354DA5FF77D90978024766373D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/initial-run-produced/docs/architecture/evidence/builder-v1-wp4/form-rules.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "7B62DFCEF152CBB6D256512DE2E94B36060C37F08F84FBF07A2FF782C7FFCF29"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/initial-run-produced/docs/architecture/evidence/builder-v1-wp4/isolated-submission.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "5182665D6D6B36CA5388691672EC98053971387536BD1895C24F380BDDA934DD"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/initial-run-produced/docs/architecture/evidence/builder-v1-wp4/running-application.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "31765033B93C8CDDE0EBB1E1EA5F3E2354CC2DF294563E153BD4B6F6E5AB240C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/initial-run-produced/docs/architecture/evidence/builder-v1-wp5-b/browser-acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "DDA029F907B7AF5AD6FB7418BB1D60EA68C70E47469B3C2C24990E0146763B19"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/initial-run-produced/docs/architecture/evidence/builder-v1-wp5-b/builder-authoring.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "F8F5AF09BB57AEE6C55C273B87998E99B2F010961F165DA51A362F19963D1CA4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/initial-run-produced/docs/architecture/evidence/builder-v1-wp5-b/running-delete.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "6F35024606715C2376D14C89608AD536B3D35474824F970579757E3C2CCEB01E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/measured-baseline.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "42BACD6E5C4458E779D7ACECE8DEE4CDC96E3B41EA3CD6C58E1061092A8A5046"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/preservation-final.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "E51C40D8E7BEFA3CC50D0B57AD9116DD4A525BCAA0DABEEDA4ED9B301BF54801"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp0/acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "ED629ACACE5A0B15087B4F84441E128DFF142F1C3B0D241EA46060B2006B3EF7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp3/acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "9D4E241A1957BAFCB2258233775EDF4A8F50CA177AE50881E6E743603E2D04FC"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp3/builder-records.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "CB558F71815239866683ACCE645A334CBD1FD568A42AEEC0B324978687CFC1C4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp3/configured-form.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "6E516B07F46C97F5BCDE7353CF29C88DCEA7CBBFFE8B05073759E243D2278013"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp3/standard-preview.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "B9E30A6F8002008A4E33EB1E643FB15C4F5562AF0EA81D7A0F5215B239A45C71"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp4/acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "299A7910CA0836AE63C121328DA9DCB66177C806DEA231DF90D00248D9600A4F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp4/form-rules.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "24D62CEC5E187B828C120B5AE307D5A4D0F19456B524390C6DD4E86BD4B98362"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp4/isolated-submission.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "863AECD484D5219321C855DCF663D11AD4BAF0D7A0BF0C8A435CBB784A2479BF"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp4/renderer-checks.txt",
+      "change": "new",
+      "followUp": false,
+      "sha256": "D1357547365F06D86E394ED8D1CCB69C90AB7493F6572D109ECA4498085F783E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp4/running-application.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "28363EE4D59B6FB72EDBC3E8DD6A2BECF2940DA5A0701AB169987DA9459BD3BD"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-c/browser-attempt-1792368638412.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "B1C7967D48AC9630ABDD911A4B0BC38619F14DE51490085235055CBCC6F64EDE"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-c/browser-attempt-1792368638412.txt",
+      "change": "new",
+      "followUp": false,
+      "sha256": "E244FA9EE8BFBDF5D5804AC7B65B132F4D83AB3994307DEA9157A9A62713DDF9"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-c/typed-automation.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "A0050F8FE7CEBA4358890E0D49D7A63682AA80807A98CB64D1D94CD22A1FCD17"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-d/browser-1792368806066/nested-menu.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "6E7E7BD7274EA76AFDB516ED86DA54AB51DD8733B92E579A1400166562E0F482"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-d/browser-1792368806066/portable-branding.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "A4EC037294AF090E6CDEE72CB3C966683CE707EB517B104EBF3F321DF91192AB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/administrator-disabled.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "801548EE211A0E53C696FBB7405399E94BB703D81F90F15049C2B1A36F47B868"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/dependency-refresh-after-save.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "098DC5A5E2CC20BE36ACC9B96A066A5384A9892F05784AE93CC1B91731223581"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/final-or-failure.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "FEB97ECBBE385B0F03436A6C7322C2801039EAFCDD5F8DBE93AD4563B55D4B46"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/final-or-failure.txt",
+      "change": "new",
+      "followUp": false,
+      "sha256": "5D5F7A2E772D809D757928FBC2DEFAF55D6BBB5328AFFD2C7DE2830CF0349EF6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/initial-problems.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "D3BAFC1126C3A90D1419B6CB994F6C487E9284E2A8BF158DD8DE3E32CD209884"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/multiple-dirty-tabs.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "7F1FA66927953197830DCB608005F281F4100E6E4801297BBC23F10841A3CE55"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/multiple-independent-problems.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "81B63483044C5224501FB63CED38EAC633270E46FB4550F9FB96E2F7E783051C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/nonadministrator-readonly.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "059DEF8803187A20570028028E9C52571BB110FA379DE83D124AB12E62B9666A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/problem-exact-node-navigation.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "0F9110C893EB75F155559D68879E3905D92996532A55B881A371FA0D38209CB4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/restart-persisted-disabled.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "977867DE65D94E231033EBE00746840B46FB41661689437271F09A3D25E2FD02"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/regression-produced/builder-v1-wp5-e/browser-1792368656628/verification.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "39BFC0B0B97740181640824E4E29189953099BCC30AF7D992B1469F7505A580A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/simultaneous-3-measurements.jsonl",
+      "change": "new",
+      "followUp": false,
+      "sha256": "07DE890425DD580DC91441BC7B4592E576B5B3144EA9DDB3771409C1B285F952"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/simultaneous-3.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "14C9A42E8A6BC861D482027EF1367549A51338383C39BC0B4322A89512FB601D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/simultaneous-3/browser-acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "8D28341A14FCAF62D7C4AF37363F07E285F6A41A913211024E7AA0C2967CF97A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/simultaneous-3/browser-errors.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/simultaneous-3/builder-authoring.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "AE937F3FAF3D1F1ED984546FE5FE5D793F724A94454D730505ABF975BC5646EB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/simultaneous-3/builder-still-active.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "1F21AD5577FC98B24329623E474F5B38DABD225A81CB80AB8747F1D1374F87F5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/simultaneous-3/running-delete.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "EB43159E14D5411DA2775966C1E504B4D1D5074B4AB678ECB799505BB04B7DEA"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/simultaneous-builder-runtime/builder-authoring.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "1BC78D811FDBBF9FB88DE8E424A0DA5339B43E45074CD121BA642D3CA4FB9B4C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-measurements.jsonl",
+      "change": "new",
+      "followUp": false,
+      "sha256": "9EEA529C84FAE7CAA87496F01AF3E2AE20370342D31DF337833876882B575297"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-c/browser-acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "5B1C465C3DC75C31A25738195EEBB681768F2B182E02461CD5BCF2700D179F34"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-c/nonpersisting-preview.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "877506BD6756F7B846739679AE12D284A2803E1028A471549FA08130FBD0544D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-c/runtime-workflow-denied.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "A7B3B9C3FAB286CD8E1CB31555F795B3C1D664FA2E00775FD4F4C9E246D3E582"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-c/runtime-workflow-success.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "6D0B6D28A8F319A324B153A9A61C0A9FB4082F1284BD90EF13538557F184505B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-c/runtime-workflow-unknown.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "CC616177762A33B0E7F779F616CC89EBDB40948645FAAF9260DD88668623B297"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-c/typed-automation.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "0071DF1BB9045DE50994FDEBF8D4F55CBB1D2CB48DB24587075F2FF5F8801E09"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-c/workflow-event-authoring.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "19EF9AF93B33169FEAE1E0156FB3253E685135B6AB1A9AE97E644FC497E2EB63"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-d/browser-1792369366094/admin-shell.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "C32B360817E1F7414D41C35446FFB7B46EB8280CB2951E3694985FEDBC045291"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-d/browser-1792369366094/browser-acceptance.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "3605161805CCF08BBA8B4EE97ADA6FE877E1EB7EF13693BE427F8F6D4FB218C1"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-d/browser-1792369366094/nested-menu.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "2ABACA1D47695D8244CCC319901664A85C85346EB87418D3509F5E83543586E8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-d/browser-1792369366094/portable-branding.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "2B77310656BF33D3F25DAD4D59AEF7AFB1737091B2A1914F6B72363F787ED113"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/builder-v1-wp5-d/browser-1792369366094/public-shell.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "1AA3717E26C17A078EB27CDF0F44CE73F4CA854E1859AC9D371D0C81BEDB5DE7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/simultaneous-builder-runtime/browser-errors.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2-produced/simultaneous-builder-runtime/builder-authoring.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "7AA030C3E2E6754AF7DEC04218A66AFC6296C51DC8ECAC8A765F2B188ADA6D0F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/targeted-2.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "B7DABDC38FB7E72A01AF32D18F9848F285F5FFB9433C6DE487669458C708E81C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/ui-final-measurements.jsonl",
+      "change": "new",
+      "followUp": false,
+      "sha256": "C9718607314578A0A37A9A292C4308BB71C0B3E350723EC6CD885295CFEA5B26"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/ui-final.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4C5976A5BF12B1E14DE52CFC2B22ADDDD511471C7CE5761C676E16DC70A029B1"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/ui-full.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "638D5E9139FE36F4541A2DBB9C314E3EAF8D578941588190472A4977A437064E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-diagnostic-measurements.jsonl",
+      "change": "new",
+      "followUp": false,
+      "sha256": "C43480444FC5CCE49FA743A6B8F1079F12E4EE7E47A436A0CF20936178F7D1D1"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-diagnostic.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "711BEA1E8B7C3451E1BD777D14FAC0A2ACEA52BC3C975A9028E76C84DB94F19B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-diagnostic/form-rules.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "741A5667E07FC1D5B2D6E9492FD3B9B7573578ECF3FDFDC49FF5ADD2F290BD50"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-diagnostic/isolated-submission.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "EEB1A54ABA9CB169390C94494762460DA73E4CE5AE23497DEFD2B12CA155BCB4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-diagnostic/runtime-final-or-failure.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "B9634340EB0F1AC1B669C990C2265F76A697C24C5D06207B9A00E019F64B4C35"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-diagnostic/runtime-final-or-failure.txt",
+      "change": "new",
+      "followUp": false,
+      "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-diagnostic/runtime-transport.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-ready.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4B9E81028D3DF76749432459EBE3814C35FDDA9CF4DC9FE3FE43B73C49374E27"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-ready/form-rules.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "BC37987ADEFA44E57067299B742F88407BD51F3732E912D4C1CB7A86B4E620FC"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-ready/isolated-submission.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "9E835F9A400744474AE0786951E662AC43D7D0C9C3B4513BFD98A68A8120FA3A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-ready/runtime-final-or-failure.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "0A88B7512F33AA19344E7AB74517C9B7DAD3C6272D45383F8DDAF3EFA6873344"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-ready/runtime-final-or-failure.txt",
+      "change": "new",
+      "followUp": false,
+      "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-ready/runtime-transport.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-settled-measurements.jsonl",
+      "change": "new",
+      "followUp": false,
+      "sha256": "FFFB8D5CD8BF0A7FA1D7CFD3802B911FECE22D5BD0D1212E40217CB42515DBC8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-settled.json",
+      "change": "new",
+      "followUp": false,
+      "sha256": "F756AEB29B5DC3D8EEB171C0A08C165DF528296E768BAB7ECA074C3C2F03002B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-settled/form-rules.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "B13FCFE71F8F233CC9CE482DD450C8CA4BC3B8DFD2B5E0348B715F385CA4BC31"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-d6/wp4-settled/isolated-submission.png",
+      "change": "new",
+      "followUp": false,
+      "sha256": "7719E66ED08B529AA5D7EA9CA88995C28BA240FD687695602263327B2A215093"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/compare-pre-d6.mjs",
+      "change": "new",
+      "followUp": true,
+      "sha256": "2FCCA3AB73A720F26BF9A62CF5E15557A6C103CDFEB00489843FDB185B990F60"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/data-services-full.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "1EE6DF9C922E4132BAADB67C3CCDC23D2CB830B1688F3DF2B7C234A8C272155C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp0/acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "A0B9B3478DEA6F405CE61AD7E0A915B9096EB765D1388E7936FD3F2B59A6A681"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp3/acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "DC61AA55EFD2931A0DB07EB01F762577352C4A3A8B53B2DD86DF74086597ED9C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp3/builder-records.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "945908B5A8B32A1902632270D49ABCDA1EA29830F16CBE9364C118AD074BFA9D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp3/configured-form.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "D6C0912C92DCCC5CAA3AA0DFAE9E6F8851B832E7A9079D406A4F49317727DEAD"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp3/standard-preview.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "B9E30A6F8002008A4E33EB1E643FB15C4F5562AF0EA81D7A0F5215B239A45C71"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp4/form-rules.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "8B6D15D272016B8A70AEE743CCB6D04FCF1A25B1C67F662E2F6EB0EC1B91064D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp4/isolated-submission.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "6818632AD57BD819C8572AD2255FFDB12996D67F0A6C32A6EB4D70980FBCDD02"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp4/renderer-checks.txt",
+      "change": "new",
+      "followUp": true,
+      "sha256": "D1357547365F06D86E394ED8D1CCB69C90AB7493F6572D109ECA4498085F783E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp4/runtime-final-or-failure.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "4843C0AF5CA350B61BC4E19D50436FB042C16B999F62BD6C677A9BE1386A02A8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp4/runtime-final-or-failure.txt",
+      "change": "new",
+      "followUp": true,
+      "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp4/runtime-refresh.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "534386DB634735A2AF630A3B3BAFE47042F1B4A44A968A2E3A7E34D7739871E2"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp4/runtime-transport.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-c/browser-acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "36367125296060BB991D57CF8EA827014B0EF509E08A36E0A1657294152EFDB7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-c/nonpersisting-preview.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "B1DFEE254CA447F8A5961F1E592969E3FE526FC95BFCD2D196655A31087317DB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-c/runtime-workflow-denied.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "F74C467711137B2800F87EF009582A40CCEF7282CC5FB37D277ABD5DD230FD11"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-c/runtime-workflow-success.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "6D0B6D28A8F319A324B153A9A61C0A9FB4082F1284BD90EF13538557F184505B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-c/runtime-workflow-unknown.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "CC616177762A33B0E7F779F616CC89EBDB40948645FAAF9260DD88668623B297"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-c/typed-automation.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "E166A524BE162A2D2DB5F3952C6345D03AFADF14BE13F195F2C8095AAF29380E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-c/workflow-event-authoring.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "35FEF00B9D023DDD39B9653C00026C773BCC67671AC376D626FD9F28ECF16063"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-d/browser-1792406366504/admin-shell.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "C32B360817E1F7414D41C35446FFB7B46EB8280CB2951E3694985FEDBC045291"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-d/browser-1792406366504/browser-acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "9FF5C888F938DA6926E8EB86238FAE6A35B96CAC9B42E0ABF3FA7180B1375901"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-d/browser-1792406366504/nested-menu.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "118D5DA1171DEFCE10F9C7DD0DADFC5C2A64F0A07F0DF64838C7C8CE43F3C266"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-d/browser-1792406366504/portable-branding.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "B196FBB0A232A8521311BF315DDCB2189A2BFB8D5784C95A4603592E76A13FBB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-d/browser-1792406366504/public-shell.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "1AA3717E26C17A078EB27CDF0F44CE73F4CA854E1859AC9D371D0C81BEDB5DE7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/administrator-disabled.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "801548EE211A0E53C696FBB7405399E94BB703D81F90F15049C2B1A36F47B868"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/dependency-refresh-after-save.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "285457F3D44F72749043A28E7DD981199C68B99582B5C416AB3FB1003F3F4849"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/final-or-failure.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "A16B5CE82BEE93BA5BFF5A9F7EE6A4086B8426FE3838714215CC57711FB9719E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/final-or-failure.txt",
+      "change": "new",
+      "followUp": true,
+      "sha256": "2D8E94FCD4095A62139A528A22D918D88A57C823F690C40EBD33A9E16A77BE8A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/initial-problems.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "D768803A02505FEA3B1DDB83B9A563AAE809FCFB471E5C3A1284C27E61DD5424"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/multiple-dirty-tabs.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "883B38A8354B293CF5B974E798F7C495827C3A26F56EF449D78F998B2CEE432D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/multiple-independent-problems.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "1D06FA4A95E915CFE9D35615E3F336D5D058A7DD9AC5B7CE0283E081EC51A0A5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/nonadministrator-readonly.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "059DEF8803187A20570028028E9C52571BB110FA379DE83D124AB12E62B9666A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/problem-exact-node-navigation.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "3DF338EFDC0F0ABE0B4C738F2288F18948FF6EDE1C0AA8A9A963EC717DFD5BCB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/restart-persisted-disabled.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "977867DE65D94E231033EBE00746840B46FB41661689437271F09A3D25E2FD02"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/builder-v1-wp5-e/browser-1792406139076/verification.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "39BFC0B0B97740181640824E4E29189953099BCC30AF7D992B1469F7505A580A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/full-produced/simultaneous-builder-runtime/browser-errors.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/lifecycle.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "5B3B31AC8AA0EBFF8271FF3052A24B086EB1A7075D58BBBD5F8BC04BF5CD4A1A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/pre-d6-comparison.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "1DF1674A8476456B4EDF44CEB054E1E3795A9FC4E0C083B0C6C317E2AAD14D9A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/preservation-final.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "1ECBC6BA7A7ADE86CB7DB914B46CFC9F141217BDBFFB7C62B6CD98076895C5C4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/prior-d6-inventory.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "721C15E591436E8BBE5B9F512D967B48E89094CF847671D60991C22777B78933"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/refresh-unit.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "F328B605D49B9107723A305AB33E2206BA51585079391AE3E626665352D1CEB4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/simultaneous-measurement-summary.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "EEF29AA71D3EF5E2C485F43F78ED9F3915363E6167DF166ACB64D279497CB897"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/trace-before.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "17F82311959F1072106F277C9125C832EBC42978967FAEDD4B67250021D26656"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/trace-before/form-rules.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "659985E6DC9B763FC5F42B591B4F92A9BB1E2EC43BC89BAFA0D808BD4FF6FB56"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/trace-before/isolated-submission.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "F230A0734BF8DA34D5953B2309194812C0E37F221135539D11EBDCCEDB0BDA79"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/trace-before/runtime-final-or-failure.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "5C453289132B634B59086EE3CE6382893207123122D6B76BDD3D83237142F539"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/trace-before/runtime-final-or-failure.txt",
+      "change": "new",
+      "followUp": true,
+      "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/trace-before/runtime-refresh.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "B39ECA325D908816F6CA0AA45FF3DEE1B5BA50C25E9499AEF1DDFF38BF2D9C65"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/trace-before/runtime-transport.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/ui-full-measurements.jsonl",
+      "change": "new",
+      "followUp": true,
+      "sha256": "479082A9DC0B7A4C9DF1323F0C2A03D834D57AC346D109CC08C1D78562E62563"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/ui-full.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "56292F4476090C39ED30C60292F156DFDBDE7424BD8D74D92F72CB6773480E54"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/ui-verified-measurements.jsonl",
+      "change": "new",
+      "followUp": true,
+      "sha256": "375A3FD8B8009BE6043C0401740FB7804BE31C2848885A0D9526535220513088"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/ui-verified.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "A9C1D00F79673709A080FC0FF70A40C52F9C7A6FAF66DBDB890D448626F8B049"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verification-stages.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "A3A33313D7FE842ED974D4F8CF67FA91B52A8253447FCD9CA66F12E16C3BDA8E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp0/acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "A5039006B4CF2854B7EE9A6F6C4804A3C1F28726D0345C80370F19FD57EBCBD3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp3/acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "EB0415269D71CB2A50812F54900B3DF366295C233953D60839057E278F13AFBE"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp3/builder-records.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "3933F885960157F8722DE4F3238402FC6E1E8A64B1004DE4751950095B88AD99"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp3/configured-form.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "31B105B92EEE62C8250D09C690D7433EE108716D7BC984CECD82E9FD2BDDB821"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp3/standard-preview.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "B9E30A6F8002008A4E33EB1E643FB15C4F5562AF0EA81D7A0F5215B239A45C71"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp4/acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "4435023EB24C51C478F2578BEEC7D54518670B945FA0CAE08E2854FCEA541530"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp4/form-rules.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "50EDDEBAE08CC0E5B7F9A635C8E9541134A26D052C2BA0CE93CBAB8E31711D98"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp4/isolated-submission.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "83F3883FE03591101768E426B468C27162928A54BEF7D20918B73079610BF3BD"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp4/renderer-checks.txt",
+      "change": "new",
+      "followUp": true,
+      "sha256": "D1357547365F06D86E394ED8D1CCB69C90AB7493F6572D109ECA4498085F783E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp4/running-application.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "970A4CA01C6C31483C77DC56641A02488439C528C2E38BC6565DA9063EBB620B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp4/runtime-refresh.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "8E40D9272ED8A7747D580CEBB8436A8599CB08CBD37C6CCFA2A6754462EE3511"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp4/runtime-transport.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "1658B7AD5B875BAFA10AE27919858EC6678C3A6FDCD111BD188449E628288B89"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-c/browser-acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "E99F04C7FF21B7F3E6A15A59B437EE6155CDE837AE72E0D0ED196A727749C1AC"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-c/nonpersisting-preview.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "60442167B72A2265518502B61F37BDC267D106D990A16058AB946F707F332B48"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-c/runtime-workflow-denied.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "48B48B58F41B41F70CF9228CBA946B2274D133CF25A50B05657CF595CB0AB28F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-c/runtime-workflow-success.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "863F1DE97AFA4A39788B0EB1A0BC01B6B0BE95E03CD45B8E9DC72AF6F20207EB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-c/runtime-workflow-unknown.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "EB2C821893172AF3F1C8C26EF783B514B0F3A9961EC208EDFFB522E3761437C3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-c/typed-automation.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "C293C8D66480AF735CD8A30915B24356CC29631A0FA3C90354D3D719ED97D790"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-c/workflow-event-authoring.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "0FCC0E44F6B42396F4C7F7E6B648F56B7BA614935076A15BAFA0A4E41C09881F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-d/browser-1792407000233/admin-shell.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "C32B360817E1F7414D41C35446FFB7B46EB8280CB2951E3694985FEDBC045291"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-d/browser-1792407000233/browser-acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "9DD505F771B1C89F7591FF2CF621B2C9FF0937E72859C4F69E524219FEF4AAF7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-d/browser-1792407000233/nested-menu.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "882D2E0362137FDA4F96667703FEC4FF0A0718A6F08D6222440FA0877BA6EED8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-d/browser-1792407000233/portable-branding.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "25DEFBEA57387AA716BBBFDE24EBB9411858F75583190B92FECBDE765A684B1D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/builder-v1-wp5-d/browser-1792407000233/public-shell.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "1AA3717E26C17A078EB27CDF0F44CE73F4CA854E1859AC9D371D0C81BEDB5DE7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/simultaneous-builder-runtime/browser-acceptance.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "D892E0C97720142D7F02C839CAB97CB89132E13C84013E8E55F964375D64ED50"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/simultaneous-builder-runtime/browser-errors.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/simultaneous-builder-runtime/builder-authoring.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "BA2E67F0009733E264CFA9991D1E4E047F4B77D1DAB60661CC6B8C5FDB2063C4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/simultaneous-builder-runtime/builder-still-active.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "6A1BD3F33E04DFB1756A7E6D1D72ECAC98419FC8BA1B92749690BE0D8DE176CE"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verified-produced/simultaneous-builder-runtime/running-delete.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "88D12B317955637C8505FB43CDD44F8FA8BE4EE0C85F8E9631326BEE3EED72D6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/verify-final.ps1",
+      "change": "new",
+      "followUp": true,
+      "sha256": "87F5FBC468370B1D43A4BCF39D712C491524933A1894F23D7C7CB507207F63B0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-corrected.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "F026A838641B6353C649DE39892D9F5BD6B1B2C305695DB2CB641BBCE5CB82C0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-corrected/form-rules.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "83BA1AD996DB229F24DCE3E550E50933A20CA94F5C2970FAC2D973858EEB8054"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-corrected/isolated-submission.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "AC49B13BC05ACE27CADF8BAB1F61C38575D88313BF8F0D2FBCEDBC86C30A5FC8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-corrected/runtime-final-or-failure.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "B9634340EB0F1AC1B669C990C2265F76A697C24C5D06207B9A00E019F64B4C35"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-corrected/runtime-final-or-failure.txt",
+      "change": "new",
+      "followUp": true,
+      "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-corrected/runtime-refresh.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "063418EB5124FFD0EF0C564DFFF9A0289232C8EDA8D9E914BF753C5926E135A3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-corrected/runtime-transport.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-verified.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": "2D63006B5DBAB1B7D463D2F51F0AFE3252293BA2D995473CE4CCBF4B04ABA65E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-verified/form-rules.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "CA2891AD1FA21A85C61343C86116553C02117FBEC5328701062CE91497D7BDF4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-form-refresh/wp4-verified/isolated-submission.png",
+      "change": "new",
+      "followUp": true,
+      "sha256": "E8AC6D494A61FA57EC59DF9F48458FAB34B7254C00218A927846CD0CFAE71B19"
+    },
+    {
+      "path": "packages/artifacts/src/role-bundle.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "ADC121D9A31FDA77D038E6614F2D1EA45C2E241E6E202D9A4489B287E486708B"
+    },
+    {
+      "path": "packages/artifacts/src/storage-api.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "910B0B8AF50DF0F7157313A18B9C40D7ACDCCF18C9F140406163689110825964"
+    },
+    {
+      "path": "packages/artifacts/src/storage.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "1EF79287DAB411EF34760FB2FC9A0DB7968FB61A7BD8323C4AAA276A9A8AAC54"
+    },
+    {
+      "path": "packages/artifacts/tests/graph-admission.test.ts",
+      "change": "new",
+      "followUp": false,
+      "sha256": "ABA915C46873D834CA8325C182CF2F061B30640AE6FD458E45500C332E7FAB32"
+    },
+    {
+      "path": "packages/artifacts/tests/role-bundle.test.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "B5C79626D98B79BC744D39DAA02DF03CBC47AC27B502860C70E364E69677F14F"
+    },
+    {
+      "path": "packages/visual-artifacts/src/revision-composition-vite.ts",
+      "change": "modified",
+      "followUp": true,
+      "sha256": "68837A527640CC469CC281369412BEE15832603005ABEBB18D3125ABBBEF4F5E"
+    },
+    {
+      "path": "packages/visual-artifacts/src/revision-vite.ts",
+      "change": "modified",
+      "followUp": true,
+      "sha256": "6E272093BBF41058C42D8F392C480AF42D601056EACFCE885A43755A6AEF10F0"
+    },
+    {
+      "path": "packages/visual-artifacts/src/runtime-read-admission.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "34EF9595269F6C3438F43E57F18205D2B8B10FE02038C269781A4A45109AB1FA"
+    },
+    {
+      "path": "packages/visual-artifacts/src/runtime-revision.ts",
+      "change": "modified",
+      "followUp": true,
+      "sha256": "5CFB21312064D1247AEEC3DE8D59E626A9AA4AB2E23FFEACFC621986213037A4"
+    },
+    {
+      "path": "scripts/check-editor-contracts.mjs",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "89A502B9A7D1C33E9233D87EEF31CF5F236964D118B9D130097DC4B7D2539B37"
+    },
+    {
+      "path": "src/server/composition-lock.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "4E22971349A8FF7A155F5F9FCE732A91FCA55DE6F5155BF5E6738C1DBF4F4BCE"
+    },
+    {
+      "path": "src/server/index.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "DCE46B4AEBD07A1289B73114CBFA8893256AA247DEE9487E4C043F17A731CF04"
+    },
+    {
+      "path": "src/server/visual-artifacts.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "23645F22DE742E8390B63D35672411F07031C3F93FEB877484930DC7F7C4107C"
+    },
+    {
+      "path": "src/server/visual-candidate.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "A175FC83E11832C2B50909669D6C0C741EC5C5F82B9511C2F0531C0AC61AE2DF"
+    },
+    {
+      "path": "tests/builder-v1-wp0.test.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "F421B8C463F942BE2E5D31E53FD3790CF83BC601027A5C1FC79417B4A0447903"
+    },
+    {
+      "path": "tests/builder-v1-wp3.test.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "36806662CCFDD11B96F78D3219DEAC20D2222AC1CC1BA3F843FBAACA9193E557"
+    },
+    {
+      "path": "tests/builder-v1-wp4.test.ts",
+      "change": "modified",
+      "followUp": true,
+      "sha256": "86EA51F874BE344FB22724707C2B9EFFFB1A0018233D06054A1D34FFE1BC4F28"
+    },
+    {
+      "path": "tests/builder-v1-wp5-b.test.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "AF2FA4EB1CB78697BF784CFAB3CE219B196F6B739FE52191456419DC5CA9FCEA"
+    },
+    {
+      "path": "tests/builder-v1-wp5-c-browser.test.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "948576256617CEF15779BFAD1B6DCF4BCFB00D4AB204B6FD2CB7428606C94B66"
+    },
+    {
+      "path": "tests/builder-v1-wp5-d-browser.test.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "71169943E6AC4820AFB18BD3389987E906B128384042BF273969E83072BCC878"
+    },
+    {
+      "path": "tests/builder-v1-wp5-e-browser.test.ts",
+      "change": "modified",
+      "followUp": false,
+      "sha256": "60F2EFED454DDAAC116A5217994CEB591D687D512E30507C1FFD0001A61009F8"
+    },
+    {
+      "path": "tests/runtime-refresh.test.ts",
+      "change": "new",
+      "followUp": true,
+      "sha256": "A00E31CF02953637C67B7BDF6361325B2F832FB8761974314F7005091076E13F"
+    },
+    {
+      "path": "tests/visual-role-reader.test.ts",
+      "change": "modified",
+      "followUp": true,
+      "sha256": "E0A293E3CA6DFED690227AC22D45EC105A440551B6C2158723E2612051C4095A"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-form-refresh-files.json",
+      "change": "new",
+      "followUp": true,
+      "sha256": null,
+      "note": "Self entry intentionally unhashed to avoid a circular checksum."
+    }
+  ]
+}

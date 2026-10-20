@@ -5,7 +5,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { spawn } from 'node:child_process';
 import { readRoleBundle, saveRoleBundle, RoleBundleRecoveryRequiredError, type RoleBundleLocation } from '../src/role-bundle.js';
-import { ArtifactConflictError, storageKey } from '../src/storage.js';
+import { ArtifactConflictError, ArtifactOwnerUnresolvedError, storageKey } from '../src/storage.js';
 
 const roots: string[] = [];
 afterEach(async () => { await Promise.all(roots.splice(0).map(root => rm(root, { recursive: true, force: true }))); });
@@ -117,10 +117,15 @@ it('waits for PID publication without stealing live or permanently incomplete fi
   const lock = path.join(f.location.root, '.uib/locks', storageKey(path.join(f.location.directory, f.location.anchor)) + '.lock');
   await writeFile(lock, '');
   const publish = new Promise<void>(resolve => setTimeout(resolve, 10)).then(() => writeFile(lock, String(process.pid)));
+  const started = performance.now();
   await expect(readRoleBundle(f.location)).rejects.toThrow('locked by another writer'); await publish;
+  expect(performance.now() - started).toBeGreaterThanOrEqual(4900);
+  expect(performance.now() - started).toBeLessThan(10_000);
   expect(await readFile(lock, 'utf8')).toBe(String(process.pid));
   await writeFile(lock, '');
-  await expect(readRoleBundle(f.location)).rejects.toThrow('incomplete; operator recovery');
+  await expect(readRoleBundle(f.location)).rejects.toBeInstanceOf(ArtifactOwnerUnresolvedError);
   expect(await readFile(lock, 'utf8')).toBe('');
   await rm(lock); expect((await readRoleBundle(f.location)).files).toEqual(f.original);
-});
+// The operation intentionally exhausts a 5s admission budget before checking
+// the incomplete-lock and recovery assertions. Keep the harness outside it.
+}, 15_000);

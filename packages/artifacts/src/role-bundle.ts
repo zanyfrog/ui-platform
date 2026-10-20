@@ -1,7 +1,8 @@
 import path from 'node:path';
 import { lstat, realpath, readdir, readFile } from 'node:fs/promises';
+import { appendFileSync } from 'node:fs';
 import { capture, checksum, safeFile, validRelativePath, type Snapshot } from './bundle.js';
-import { ArtifactConflictError, commitTransaction, recoverTransaction, withArtifactLock, storageKey } from './storage.js';
+import { ArtifactConflictError, commitTransaction, recoverTransaction, withArtifactLock, storageKey, type ArtifactLockOptions } from './storage.js';
 
 /** An explicit set of existing source roles. No implicit manifest or format conversion. */
 export interface RoleBundleLocation {
@@ -28,20 +29,24 @@ export interface RoleBundleSave {
 }
 async function canonical(location: RoleBundleLocation) {
   const directory = path.resolve(location.directory), root = path.resolve(location.root);
+  const ancestors = new Set<string>();
   for (const target of [root, directory]) for (let ancestor = target; ; ancestor = path.dirname(ancestor)) {
-    if ((await lstat(ancestor)).isSymbolicLink()) throw new Error('Source bundle roots cannot contain symlinks.');
+    ancestors.add(ancestor);
     if (path.dirname(ancestor) === ancestor) break;
   }
-  const resolvedRoot = await realpath(root), resolvedDirectory = await realpath(directory);
+  await Promise.all([...ancestors].map(async ancestor => {
+    if ((await lstat(ancestor)).isSymbolicLink()) throw new Error('Source bundle roots cannot contain symlinks.');
+  }));
+  const [resolvedRoot, resolvedDirectory] = await Promise.all([realpath(root), realpath(directory)]);
   const relative = path.relative(resolvedRoot, resolvedDirectory);
   if (relative === '..' || relative.startsWith('..' + path.sep) || path.isAbsolute(relative)) throw new Error('Source bundle is outside its owner root.');
   const paths = [...location.paths];
   if (!paths.length || new Set(paths.map(name => process.platform === 'win32' ? name.toLowerCase() : name)).size !== paths.length || paths.some(name => !validRelativePath(name)) || !paths.includes(location.anchor)) throw new Error('Unique safe role paths including the anchor are required.');
-  for (const name of paths) {
+  await Promise.all(paths.map(async name => {
     const target = await safeFile(resolvedDirectory, name);
     const physical = await realpath(target).catch(error => { if (error.code === 'ENOENT') return undefined; throw error; });
     if (physical && path.relative(resolvedDirectory, physical).replaceAll(path.sep, '/') !== name) throw new Error('Role paths must preserve the existing physical filename and casing.');
-  }
+  }));
   const anchor = await safeFile(resolvedDirectory, location.anchor);
   const identity = await realpath(anchor).catch(error => { if (error.code === 'ENOENT') return anchor; throw error; });
   return { root: resolvedRoot, directory: resolvedDirectory, paths, identity };
@@ -57,7 +62,7 @@ async function locked<T>(location: RoleBundleLocation, work: (resolved: Awaited<
     catch (error) { throw new RoleBundleRecoveryRequiredError(error); }
     const files = await capture(resolved.directory, resolved.paths, { includeManifest: false });
     return work(resolved, files);
-  }, resolved.identity);
+  }, resolved.identity, { timeoutMs: 5_000 });
 }
 /** Cooperating readers wait for writes/rollback and recover a retained journal first. */
 export function readRoleBundle(location: RoleBundleLocation): Promise<RoleBundleSnapshot> {
@@ -99,13 +104,27 @@ export async function recoverRoleBundleRoot(ownerRoot: string): Promise<void> {
 /** Cooperating Visual graph compilers/mutators share this outer admission lock.
  * Acquire it before any individual role lock; it is not a multi-artifact commit.
  */
-export async function withRoleBundleGraph<T>(ownerRoot: string, work: () => Promise<T>): Promise<T> {
+export async function withRoleBundleGraph<T>(ownerRoot: string, work: () => Promise<T>, options: ArtifactLockOptions = {}): Promise<T> {
   const root = await realpath(ownerRoot);
   for (let ancestor = path.resolve(ownerRoot); ; ancestor = path.dirname(ancestor)) {
     if ((await lstat(ancestor)).isSymbolicLink()) throw new Error('Source graph roots cannot contain symlinks.');
     if (path.dirname(ancestor) === ancestor) break;
   }
-  return withArtifactLock(root, root, work, 'visual-runtime-graph-v1');
+  return withArtifactLock(root, root, work, 'visual-runtime-graph-v1', {
+    // Measured WP4/WP5-B holds reached 1.66s. A 5s acquisition budget
+    // accommodates brief serial work; it never extends or retries admitted work.
+    timeoutMs: 5_000,
+    ...options,
+    observe: measurement => {
+      if (process.env.UI_GRAPH_LOCK_TRACE === '1') {
+        const record = JSON.stringify({ pid: process.pid, ...measurement });
+        console.error('GRAPH_LOCK ' + record);
+        // Explicit operator diagnostics only; never include source or identity data.
+        if (process.env.UI_GRAPH_LOCK_METRICS) appendFileSync(process.env.UI_GRAPH_LOCK_METRICS, record + '\n');
+      }
+      options.observe?.(measurement);
+    },
+  });
 }
 /** Uses Foundation's existing transaction writer, rollback, journal and stale checks. */
 export function saveRoleBundle(location: RoleBundleLocation, input: RoleBundleSave): Promise<RoleBundleSnapshot> {

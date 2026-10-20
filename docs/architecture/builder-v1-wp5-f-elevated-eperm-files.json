@@ -1,0 +1,483 @@
+{
+  "generatedAt": "2026-10-19T18:17:30.739714+00:00",
+  "status": "Stopped at D6 diagnostic review; recurrence captured, cause unresolved",
+  "productionSourceChanges": [],
+  "testAssertionChanges": [],
+  "existingRepositoryFileChanges": [],
+  "files": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-elevated-eperm.md",
+      "change": "new",
+      "bytes": 9351,
+      "sha256": "C89414EF479457333906441C95C91308969108F7C8EC97B035FB79D0BD34AEB4"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/analyze-lifetimes.py",
+      "change": "new",
+      "bytes": 2785,
+      "sha256": "0E597FA37BB51AD36CE0AECBA25EAD671DB8EA046DD3CA3C2E062E546E4ABD2E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/artifact-access.json",
+      "change": "new",
+      "bytes": 189,
+      "sha256": "64531259DFD2224CBA004517BF35CFB710AF1BFE1B6862EAB83B48C3683A10EF"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/check-elevation.ps1",
+      "change": "new",
+      "bytes": 1156,
+      "sha256": "E8F1E9DD61A4F0D57F33570F112F67921BA1254C63A28DA9A583AA8F9FAD52FC"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/collection-active-status.txt",
+      "change": "new",
+      "bytes": 740,
+      "sha256": "50D236D50E1BE22E836D28C3156D9E85198D512C2552F381056DDEA7157F1683"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/collection-after-status.txt",
+      "change": "new",
+      "bytes": 326,
+      "sha256": "9B69D7D0150DAB0DEF76D1AC59941215C346BDB8A8FAB74A0C14507121B211E0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/collection-before-status.txt",
+      "change": "new",
+      "bytes": 164,
+      "sha256": "0D80D9FD9FA677068A703EF2AE8CF627984367979175C8D7F89F4A8D3441152D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/collection-ready.json",
+      "change": "new",
+      "bytes": 289,
+      "sha256": "56AEFA1EDB8505430C1786CD96E13183DE7265AC468B4C4670C2A39C8304025E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/collection-result.json",
+      "change": "new",
+      "bytes": 424,
+      "sha256": "075A924C478746515E3B853B7E0B18AE78118FD81B0614BA8EF5B395F3731880"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/collection-start.txt",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/collection-stop.txt",
+      "change": "new",
+      "bytes": 160,
+      "sha256": "FDC16323759880A2D05E9DC8833D0C4790120BA36E283F261DC29A6181164B26"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/collection-uac-request.json",
+      "change": "new",
+      "bytes": 190,
+      "sha256": "0B69173416DA03CC962B910DB7EF8011E3501D5F317C09108673C8FEEEC44894"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/correlate-trace.py",
+      "change": "new",
+      "bytes": 2757,
+      "sha256": "7EFC7D5F29BD0C0F3144A237378820441ECB588BC93CBACD630A4CEB612AE8CC"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/correlation-progress.json",
+      "change": "new",
+      "bytes": 138,
+      "sha256": "4FA857816864F20DC3410C2E6CDAE817A78AC96DE7C3322BEBF3952D272B5185"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/correlation-result.json",
+      "change": "new",
+      "bytes": 521,
+      "sha256": "D90F2818A357A09DBC5A7ED542D4F2852F9D5DD553D60ADE2B7D401B3F449F35"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/correlation.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/elevated-wpr-profiles.txt",
+      "change": "new",
+      "bytes": 3524,
+      "sha256": "FD5EE5804FA35070DA68FCB3D04A1949E5C609BA26A72864A86008626A20BAF0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/elevated-wpr-status.txt",
+      "change": "new",
+      "bytes": 326,
+      "sha256": "9B69D7D0150DAB0DEF76D1AC59941215C346BDB8A8FAB74A0C14507121B211E0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/elevation-capability.json",
+      "change": "new",
+      "bytes": 313,
+      "sha256": "697528F392B7F2458DAAE78DC42E69DCD6D8257A56487710A41D38CE48CFAD75"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/export-result.json",
+      "change": "new",
+      "bytes": 384,
+      "sha256": "AD4D89E25033B8F726D64B8397761555640F572FD0DA84F5B8E97E537AF240CC"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/export-trace.ps1",
+      "change": "new",
+      "bytes": 2567,
+      "sha256": "14C7A01398F19AFB7E78C1AA00332C969405D51AD33965B93E9E948E092A600E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/export-uac-request.json",
+      "change": "new",
+      "bytes": 181,
+      "sha256": "430B97720D93C4FAB58A39A9AA451FC103C57B6034856E3B2C17F92F7D3265DC"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/finalize-evidence.py",
+      "change": "new",
+      "bytes": 3132,
+      "sha256": "73C3154EB01D862BBD2552D21ABBFC46636CFA16FDF6F11822C3A79A014CDBE2"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/graph-measurements.jsonl",
+      "change": "new",
+      "bytes": 24764,
+      "sha256": "9A9642B062B7CFCD3186388E447F92A58EDDC733CBB6A9EFEDBDC98D8B3DD902"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/inspect-paths.py",
+      "change": "new",
+      "bytes": 1173,
+      "sha256": "4DD01098BFDEB4ADBF55A3461F962F3C1B3AAAB76772FA52298343A2E10834D0"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/lifetimes-analysis.log",
+      "change": "new",
+      "bytes": 123634,
+      "sha256": "B30539FB9E7D45685222C05324A9526480EA67336194186941346A74535BEC05"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/non-delete-sharing-lifetimes.json",
+      "change": "new",
+      "bytes": 1274139,
+      "sha256": "265B40FF8E34C292D94C6B64513CD663C7892D7439CBD0E71031730B6046B02C"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/non-elevated-read-failure.json",
+      "change": "new",
+      "bytes": 294,
+      "sha256": "87B1F9C4DF66550AD9F2E5965AA5408F6E89E32A5AFD57ECE56CBD50E11EB192"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/object-lifetimes.csv",
+      "change": "new",
+      "bytes": 63942541,
+      "sha256": "077ED69942F3A62BD884C2CA433BFD54F049BAE071E9C2100887623BACCCD4BE"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/preservation-check.json",
+      "change": "new",
+      "bytes": 1158,
+      "sha256": "7A30E6BD73E5DC15EF9BEADEB360149B0BDFA277634A8D3B4240A78A37625B51"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/prior-investigation-inventory.json",
+      "change": "new",
+      "bytes": 3949,
+      "sha256": "1F65116FADFA33758140BE57EB88582A3008D820E754F190187CF0E37393B7F6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/profile-validation.txt",
+      "change": "new",
+      "bytes": 763,
+      "sha256": "52211952CC144009F960FBA7E77714C686E18B07570326D45E99D43A13ECD99A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/publication.etl",
+      "change": "new",
+      "bytes": 8572895232,
+      "sha256": "52E4FC53821D7CC929FC56DDF61069A2451A5FA31F7B126CABB8D862A2B20B27"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/publication.wprp",
+      "change": "new",
+      "bytes": 1444,
+      "sha256": "5C643B0D757726F80C04D4F5147F2FC116B84DA01C855C4E4E270C9C7421E04B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/record-publication.ps1",
+      "change": "new",
+      "bytes": 2962,
+      "sha256": "FA13EDB9B4206E1B1FDBDAA39304DFB634C91624E2949C1095681C560B3DE859"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/related-process-identities.json",
+      "change": "new",
+      "bytes": 4651,
+      "sha256": "2DBB1DA2C5A5D83DD20455B3AA9789F25393F02B79A67599491D6A6EB4200C94"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/related-processes.csv",
+      "change": "new",
+      "bytes": 10173,
+      "sha256": "A93873EBC6C1C6F949396C4B79A50A24BF32460A298B387E0374547E31372E06"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/rename-completions.csv",
+      "change": "new",
+      "bytes": 343,
+      "sha256": "AD00ACE36C2185EC8DE0BA0E59D9F6F6D425226CAA0D8C228ACD23194EB39100"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/rename-irp-events.json",
+      "change": "new",
+      "bytes": 74193,
+      "sha256": "B881A6870740CB72D705ABB466FEE847DA37B47931BCCA745ED47216B38149BD"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/rename-status.log",
+      "change": "new",
+      "bytes": 74195,
+      "sha256": "489D7CC75C83BEA969D70D8DBD562387B8E80BB13B7B21B1D046522C6E2213A6"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/rename-status.py",
+      "change": "new",
+      "bytes": 1098,
+      "sha256": "0947A8BA957DD8ACE9A2BC2CFDE9453C63D81B774DB3C35F4602BC5B874974DD"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/root-directory-opens.json",
+      "change": "new",
+      "bytes": 24996,
+      "sha256": "4D40A96C991F6D6A7D1AEC3FFC027EE255A008436AB309E7104DFDA3042D103D"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/scope-trace.py",
+      "change": "new",
+      "bytes": 2819,
+      "sha256": "9709D8C6617F74A159B3B56849B1F33B6D4599DEE92CED4A944DFC001BC15144"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/scoping-preflight.json",
+      "change": "new",
+      "bytes": 234,
+      "sha256": "BBBCF40B2DB71C290FCE5541DBF82568085ADC4AE2B4C976AC82C85F56A5E62F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/scoping-progress.json",
+      "change": "new",
+      "bytes": 95,
+      "sha256": "271043EBD97AE0AF153A6E5E4A454333D320C7E52C091D101C2C3824DC00E9B3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/scoping-result.json",
+      "change": "new",
+      "bytes": 1160,
+      "sha256": "E8436113D45A1D15BA5F9216EB9F8A6BBBAAFB149F183B6DCBB0830E14874EBE"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/scoping.log",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-complete.json",
+      "change": "new",
+      "bytes": 77,
+      "sha256": "EC705AC260754CE4FE9D175A06E63692DB354FF55D1297E46397B107F334A2D1"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-context.json",
+      "change": "new",
+      "bytes": 201,
+      "sha256": "F98670D0047D4D4568EC632AFB42DA6CDBEDCBA71F9BD8B0E2D498D0AE91F8B5"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp0/acceptance.json",
+      "change": "new",
+      "bytes": 8479,
+      "sha256": "FEE3713C36BC3A592CB2CA9415EEADA3FDC022F256088E0644259C262314CAA8"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp3/acceptance.json",
+      "change": "new",
+      "bytes": 2425,
+      "sha256": "70A41D5DE5D5BD2BDA087BCDB752C2AFE4DB20E379638ED708A8D4C59A964DBD"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp3/builder-records.png",
+      "change": "new",
+      "bytes": 304445,
+      "sha256": "009734010A6291162507C95C773A6B9F54D068DD78195E873F901C71DC929532"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp3/configured-form.png",
+      "change": "new",
+      "bytes": 307764,
+      "sha256": "3A27194C8C0DCE0A9E9C7A184687A1D885E3A1266F127300FA6C14679041E903"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp3/standard-preview.png",
+      "change": "new",
+      "bytes": 123515,
+      "sha256": "B9E30A6F8002008A4E33EB1E643FB15C4F5562AF0EA81D7A0F5215B239A45C71"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp4/renderer-checks.txt",
+      "change": "new",
+      "bytes": 1323,
+      "sha256": "D1357547365F06D86E394ED8D1CCB69C90AB7493F6572D109ECA4498085F783E"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-c/browser-acceptance.json",
+      "change": "new",
+      "bytes": 1568,
+      "sha256": "0658BC44CB5ED837BE2DD007C847142C3BED2BC4D3589657A3BE00018D3D2BE7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-c/nonpersisting-preview.png",
+      "change": "new",
+      "bytes": 559815,
+      "sha256": "287339BCEEC725F967FE1221AE6DD0C4C0D5D61D027682FBA1B0189FE2D8E68A"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-c/runtime-workflow-denied.png",
+      "change": "new",
+      "bytes": 40102,
+      "sha256": "58C3CBB68E05B3315095D18EF14714EC30B686C27C84A45085DB942A670C7754"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-c/runtime-workflow-success.png",
+      "change": "new",
+      "bytes": 36098,
+      "sha256": "863F1DE97AFA4A39788B0EB1A0BC01B6B0BE95E03CD45B8E9DC72AF6F20207EB"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-c/runtime-workflow-unknown.png",
+      "change": "new",
+      "bytes": 39483,
+      "sha256": "EB2C821893172AF3F1C8C26EF783B514B0F3A9961EC208EDFFB522E3761437C3"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-c/typed-automation.png",
+      "change": "new",
+      "bytes": 138016,
+      "sha256": "4B4BCA5216AA63DAEDA94C9EE6C88DE9E45ED23C39A8F1FA43C579D63C813F72"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-c/workflow-event-authoring.png",
+      "change": "new",
+      "bytes": 228415,
+      "sha256": "B037193F098D0993528F258B4D2E96ED229455D43307E6D720CC0896D693A769"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-d/browser-1792431549397/admin-shell.png",
+      "change": "new",
+      "bytes": 30148,
+      "sha256": "C32B360817E1F7414D41C35446FFB7B46EB8280CB2951E3694985FEDBC045291"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-d/browser-1792431549397/browser-acceptance.json",
+      "change": "new",
+      "bytes": 565,
+      "sha256": "86DA6FCB969DEC5A1E717DDAF2E51596BE91A0F7712287A3DCA0F54726E621DD"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-d/browser-1792431549397/nested-menu.png",
+      "change": "new",
+      "bytes": 265470,
+      "sha256": "7B55E4A86B26FF85E1CAF236CB2FA2420C13ABDDBBC4EB9A6741AA149C938083"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-d/browser-1792431549397/portable-branding.png",
+      "change": "new",
+      "bytes": 365490,
+      "sha256": "D7AD0CD78E4871911DF470D3556B37BB7564FA3A7D4DCE35668EC1E5D8911974"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/builder-v1-wp5-d/browser-1792431549397/public-shell.png",
+      "change": "new",
+      "bytes": 123872,
+      "sha256": "1AA3717E26C17A078EB27CDF0F44CE73F4CA854E1859AC9D371D0C81BEDB5DE7"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/simultaneous-builder-runtime/browser-errors.json",
+      "change": "new",
+      "bytes": 2,
+      "sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/suite-produced/simultaneous-builder-runtime/server-output.log",
+      "change": "new",
+      "bytes": 4838,
+      "sha256": "69981E42792CFAE039632DAFCEB6494767A4954C0DED31E39FF49FEC00135583"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/target-path-events.csv",
+      "change": "new",
+      "bytes": 5175518,
+      "sha256": "2E31039898688359BCB76E47AB09F8CAEBCA5D976820CCB02542E3E42EE2181F"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/trace-events.csv",
+      "change": "new",
+      "bytes": 29338364655,
+      "sha256": "587532472DF15EA2D7B030FD41BC168CF2B7A9AB0D141C33AF014EA0A64DA380"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/trace-schema.man",
+      "change": "new",
+      "bytes": 83837,
+      "sha256": "066F67FBC4EB22C404EF4CF6BF3B7B3A641D81D2E9273960448623800C03A848"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/trace-summary.txt",
+      "change": "new",
+      "bytes": 12003,
+      "sha256": "4C41B99814CC871CD771EA66D5FFA4EBA7EC37C2BCFF7C9E77CD63289DC84782"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/tracerpt-error.txt",
+      "change": "new",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/tracerpt-output.txt",
+      "change": "new",
+      "bytes": 15844,
+      "sha256": "0D8752920D9E7A4178C36D869886E83F2D316539A02037842008C9C5364AF9DF"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/uac-request.json",
+      "change": "new",
+      "bytes": 155,
+      "sha256": "2C591E9FF3285DBBEA07C11491F488DFBA313C4C649B6A6102F6F449E9359B40"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/ui-diagnostic.json",
+      "change": "new",
+      "bytes": 175499,
+      "sha256": "82160643DF8288DB5C1FADB61482EB3DEAE2E318A667D59AC21EC08CE947A90B"
+    },
+    {
+      "path": "docs/architecture/evidence/builder-v1-wp5-f-elevated-eperm/ui-diagnostic.log",
+      "change": "new",
+      "bytes": 78185,
+      "sha256": "5CED0CD292D80E47DAE78CF3E5AC1E3B74DAE28AE5150475E01015BB051A6BB3"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-elevated-eperm-files.json",
+      "change": "new",
+      "sha256": null,
+      "note": "Self-reference; all other files hashed."
+    }
+  ]
+}

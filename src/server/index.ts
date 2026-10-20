@@ -36,8 +36,8 @@ import { build as bundleBrowserModule } from 'esbuild';
 import { AutomationStore } from './automation-store.js';
 import { platformRoot } from './paths.js';
 import { regions, primaryRouteSignature } from '@ui-platform/visual-artifacts';
-import { withApplicationMutation } from './composition-lock.js';
-import { prepareVisualCandidate, VisualCandidateError } from './visual-candidate.js';
+import { withApplicationMutation, withGraphRequest } from './composition-lock.js';
+import { prepareVisualCandidate, VisualCandidateError, validateVisualRoleSyntax } from './visual-candidate.js';
 import { applyTemplateUpdate, compareTemplate } from './template-updates.js';
 import { assertShellUnused, changePageShell, compositionAssetInfo, compositionSourceChoices, compositionSettings, compositionSourcePath, compositionWorkspace, readCompositionSource, saveCompositionAsset, saveCompositionSource, validateCompositionEdit } from './application-composition.js';
 
@@ -231,6 +231,11 @@ await mkdir(path.join(runtimeDir, 'exports'), { recursive: true });
 const v1Exports = new Map<string, { userId: string; applicationId: string; expires: number }>();
 
 const server = http.createServer(async (req, res) => {
+  const acquisition = new AbortController();
+  const abort = () => acquisition.abort(new Error('Graph request disconnected.'));
+  req.once('aborted', abort);
+  res.once('close', () => { if (!res.writableFinished) abort(); });
+  return withGraphRequest(acquisition.signal, async () => {
   const method = req.method ?? 'GET';
   const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
   const parts = url.pathname.split('/').filter(Boolean);
@@ -434,9 +439,14 @@ const server = http.createServer(async (req, res) => {
         if (!locator) throw new Error('Visual Artifact locator is required.');
         if (method === 'PUT') {
           if (input.mode === 'normal' && editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true);
+          let syntax: string | undefined;
+          if (input.mode === 'normal') {
+            try { await validateVisualRoleSyntax(input.files); syntax = JSON.stringify(input.files); }
+            catch (error) { throw new VisualCandidateError(error instanceof Error ? error.message : String(error)); }
+          }
           return await withApplicationMutation(appPath(key), async () => {
             if (input.mode === 'normal') {
-              const validation = await prepareVisualCandidate(key, kind, locator, await discoverComponents(key));
+              const validation = await prepareVisualCandidate(key, kind, locator, await discoverComponents(key), false, syntax);
               const saved = await service.saveCandidate(locator, input.files, input.expectedHash, { validate: candidate => validation.validate(candidate), admit: async () => { await validation.recheck(); if (editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); await admitManagement(); } });
               return json(res, 200, saved);
             }
@@ -607,6 +617,7 @@ const server = http.createServer(async (req, res) => {
 
     json(res, 404, { error: 'Not found' });
   } catch (err) { error(res, err); }
+  });
 });
 
 const stopWatcher = startWorkspaceWatcher(() => {

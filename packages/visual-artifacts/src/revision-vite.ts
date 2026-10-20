@@ -8,7 +8,7 @@ import { validateArtifact } from './validation.js';
 import type { PackageComponent, RuntimeArtifact } from './model.js';
 import { recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
 import { withRuntimeGraphRead } from './runtime-read-admission.js';
-import { RuntimeRevision, runtimeLiteral, assertNotVisualRole, runtimeReaderServer, runtimeRevisionRefresh, type CapturedVisual } from './runtime-revision.js';
+import { RuntimeRevision, runtimeRefreshClient, runtimeRefreshModule, visualExtensions, runtimeLiteral, assertNotVisualRole, runtimeReaderServer, runtimeRevisionRefresh, type CapturedVisual } from './runtime-revision.js';
 
 /** Discovery is a build-time source import, not a generated runtime artifact or HTTP dependency. */
 export function revisionVisualArtifacts(options: { revisionPinned?: true; componentsRoot?: string; packageManifests?: string[]; applicationRoot?: string }): Plugin {
@@ -44,14 +44,17 @@ export function revisionVisualArtifacts(options: { revisionPinned?: true; compon
       }
     },
     async load(id) {
-      if (id === '\0' + watchId) return 'if(import.meta.hot)import.meta.hot.accept();';
+      if (id === '\0' + watchId) return runtimeRefreshClient;
       const pageFile = id.startsWith(`\0${pageId}:`) ? decodeURIComponent(id.slice(`\0${pageId}:`.length, -3)) : undefined;
       if (pageFile) {
         const relative = path.relative(pageOwner(), pageFile);
         if (relative === '..' || relative.startsWith('..' + path.sep) || path.isAbsolute(relative)) throw new Error('The Page entry is outside its authoritative source collection.');
       }
       if (id !== `\0${virtualId}` && !pageFile) { if (!id.startsWith('\0')) await assertNotVisualRole(id, managedRoots()); return; }
-      if (!pageFile && compositionAvailable && options.applicationRoot && !options.componentsRoot) return "export { packages } from 'virtual:uip-application-composition'; export const components=[];";
+      if (!pageFile && compositionAvailable && options.applicationRoot && !options.componentsRoot) {
+        const code = "export { packages } from 'virtual:uip-application-composition'; export const components=[];";
+        return viteServer ? runtimeRefreshModule(watchId, id, code) : code;
+      }
       return withRuntimeGraphRead(options.componentsRoot ?? options.applicationRoot ?? projectRoot, async () => {
       if (options.componentsRoot) await recoverRoleBundleRoot(options.componentsRoot);
       if (pageFile) await recoverRoleBundleRoot(pageOwner());
@@ -124,7 +127,8 @@ export function revisionVisualArtifacts(options: { revisionPinned?: true; compon
         if (artifact.metadata.kind !== 'page') throw new Error('Expected a Page entry.');
         if (artifact.metadata.shellId) {
           if (!compositionAvailable) throw new Error('A composed Page requires the revision-aware applicationComposition plugin.');
-          return `import { definition, platformComponents, packages, assetUrls, runtimeRevision } from 'virtual:uip-application-composition';\nexport const page=definition.pages.find(page=>page.metadata.artifactId===${JSON.stringify(artifact.metadata.artifactId)});\nif(!page)throw new Error('The Page changed while its composed revision was loading. Reload the graph.');\nexport const components=platformComponents; export { definition as composition, packages, assetUrls, runtimeRevision };`;
+          const code = `import { definition, platformComponents, packages, assetUrls, runtimeRevision } from 'virtual:uip-application-composition';\nexport const page=definition.pages.find(page=>page.metadata.artifactId===${JSON.stringify(artifact.metadata.artifactId)});\nif(!page)throw new Error('The Page changed while its composed revision was loading. Reload the graph.');\nexport const components=platformComponents; export { definition as composition, packages, assetUrls, runtimeRevision };`;
+          return viteServer ? runtimeRefreshModule(watchId, id, code) : code;
         }
         const errors = validateArtifact(artifact, sourceComponents, sourcePackages).filter(d => d.severity === 'error');
         if (errors.length) throw new Error(errors.map(d => d.message).join('\n'));
@@ -132,7 +136,7 @@ export function revisionVisualArtifacts(options: { revisionPinned?: true; compon
         pageExport = `export const page=${runtimeLiteral(artifact, index)};`;
       }
       const code = await revision.finish(`${imports.join('\n')}\nexport const components=[${components.join(',')}];\nexport const packages=[${packages.join(',')}];\nexport const composition=undefined; export const assetUrls={};\n${pageExport}\nregisterManagedVisualGraph(runtimeRevision,[...components${pageFile ? ',page' : ''}]);`, captured, helpers);
-      return (viteServer ? `import '${watchId}';\n` : '') + code;
+      return viteServer ? runtimeRefreshModule(watchId, id, code) : code;
       });
     },
     transform(code, id) {
@@ -144,7 +148,7 @@ export function revisionVisualArtifacts(options: { revisionPinned?: true; compon
       viteServer = server;
       runtimeReaderServer(server, projectRoot, managedRoots());
       if (options.componentsRoot) server.watcher.add(options.componentsRoot);
-      refresh = runtimeRevisionRefresh(server, file => managedRoots().some(root => file.replaceAll('\\', '/').startsWith(root.replaceAll('\\', '/') + '/')) || !!boundary?.isHelper(file) || !!options.packageManifests?.some(name => name.replaceAll('\\', '/') === file.replaceAll('\\', '/')) || ['package.json', 'app.manifest.json'].some(name => file.replaceAll('\\', '/') === path.join(options.applicationRoot ?? projectRoot, name).replaceAll('\\', '/')));
+      refresh = runtimeRevisionRefresh(server, file => managedRoots().some(root => file.replaceAll('\\', '/').startsWith(root.replaceAll('\\', '/') + '/')) || !!boundary?.isHelper(file) || !!options.packageManifests?.some(name => name.replaceAll('\\', '/') === file.replaceAll('\\', '/')) || ['package.json', 'app.manifest.json'].some(name => file.replaceAll('\\', '/') === path.join(options.applicationRoot ?? projectRoot, name).replaceAll('\\', '/')), file => !boundary?.isHelper(file) && managedRoots().some(root => file.replaceAll('\\', '/').startsWith(root.replaceAll('\\', '/') + '/')) && visualExtensions.some(extension => file.endsWith(extension)));
     },
     hotUpdate(context) {
       if (/(?:^|\/)\.uib(?:\/|$)/i.test(context.file.replaceAll('\\', '/'))) return [];

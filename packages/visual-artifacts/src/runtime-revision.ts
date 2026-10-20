@@ -108,18 +108,64 @@ export function runtimeReaderServer(server: ViteDevServer, root: string, managed
 /** Watch events are hints. Publish a refresh only after the complete reader
  * contract succeeds; retry the short cross-process admission window.
  */
-export function runtimeRevisionRefresh(server: ViteDevServer, relevant: (file: string) => boolean) {
-  let timer: ReturnType<typeof setTimeout> | undefined, generation = 0, closed = false;
+export const runtimeRefreshClient = `
+const session = import.meta.hot ? (import.meta.hot.data.visualRefresh ??= { active: new Map(), pending: undefined }) : { active: new Map(), pending: undefined };
+const active = session.active;
+function differs(id, digest) { const pending = session.pending; return pending && Object.hasOwn(pending.modules, id) && (pending.force || pending.modules[id] !== digest); }
+export function register(id, digest) {
+  if (active.size >= 1000 && !active.has(id)) { location.reload(); return; }
+  active.set(id, digest);
+  if (differs(id, digest)) location.reload();
+}
+if (import.meta.hot) {
+  import.meta.hot.accept();
+  import.meta.hot.on('uip:validated-visual-refresh', data => {
+    // A helper/asset hint during bootstrap must not be erased by a later
+    // same-generation source hint before the first module registers.
+    session.pending = !active.size && session.pending?.force ? { ...data, force: true } : data;
+    if ([...active].some(([id, digest]) => differs(id, digest))) location.reload();
+  });
+}
+`;
+/** Compare the browser's own compiled generation, never a server-global latest
+ * load: two browsers may legitimately own different immutable generations.
+ * No Form values, identities or service results cross this development channel.
+ */
+export function runtimeRefreshModule(watchId: string, id: string, code: string) {
+  const digest = createHash('sha256').update(code).digest('hex');
+  return { code: `import { register as __uipRegisterRefresh } from ${JSON.stringify(watchId)};\n__uipRegisterRefresh(${JSON.stringify(id)},${JSON.stringify(digest)});\n${code}`, meta: { uipVisualRefreshDigest: digest } };
+}
+export function runtimeRevisionRefresh(server: ViteDevServer, relevant: (file: string) => boolean, captured: (file: string) => boolean = () => false) {
+  let timer: ReturnType<typeof setTimeout> | undefined, generation = 0, closed = false, force = false;
   const refresh = (file: string) => {
     if (closed || !relevant(file) || /(?:^|\/)\.uib(?:\/|$)/i.test(file.replaceAll('\\', '/'))) return;
+    // atomicWrite publishes a UUID sibling before renaming it to a source role.
+    // Its add/unlink events are not a new source generation or an external asset.
+    const source = file.replace(/\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.tmp$/i, '');
+    if (source !== file && captured(source)) return;
     const current = ++generation; clearTimeout(timer);
+    // Coalescing must not lose an asset/helper change behind a captured-role event.
+    force ||= !captured(file);
+    const trace = (event: string, detail: Record<string, unknown> = {}) => { if (process.env.UI_RUNTIME_REFRESH_TRACE === '1') console.info('RUNTIME_REFRESH ' + JSON.stringify({ event, file, generation: current, ...detail })); };
+    trace('source-event');
     const validate = async (attempt = 0): Promise<void> => {
       try {
-        const modules = [...server.moduleGraph.idToModuleMap.values()].filter(module => module.id?.startsWith('\0virtual:uip-visual-') || module.id === '\0virtual:uip-application-composition');
-        for (const module of modules) await server.pluginContainer.load(module.id!);
+        const modules = [...server.moduleGraph.idToModuleMap.values()].filter(module => module.id !== '\0virtual:uip-visual-watch' && (module.id?.startsWith('\0virtual:uip-visual-') || module.id === '\0virtual:uip-application-composition'));
+        const digests: Record<string, string> = {};
+        let unknown = false;
+        for (const module of modules) {
+          const loaded = await server.pluginContainer.load(module.id!);
+          const digest = loaded && typeof loaded !== 'string' ? loaded.meta?.uipVisualRefreshDigest : undefined;
+          if (typeof digest === 'string') digests[module.id!] = digest; else unknown = true;
+          trace('validated', { id: module.id, digest });
+        }
         if (closed || current !== generation) return;
         for (const module of modules) server.moduleGraph.invalidateModule(module);
-        if (modules.length) server.ws.send({ type: 'full-reload' });
+        if (modules.length) {
+          if (unknown) { trace('full-reload'); server.ws.send({ type: 'full-reload' }); }
+          else { trace('validated-refresh', { force, modules: digests }); server.ws.send({ type: 'custom', event: 'uip:validated-visual-refresh', data: { modules: digests, force } }); }
+        }
+        force = false;
       } catch (error) {
         if (closed || current !== generation) return;
         if (attempt < 20 && /locked by another writer|lock changed/i.test(String(error))) { timer = setTimeout(() => { void validate(attempt + 1); }, 200); return; }

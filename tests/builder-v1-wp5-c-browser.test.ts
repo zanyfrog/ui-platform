@@ -130,7 +130,7 @@ it('WP5-C: actual Builder typed automation and Form/Page Workflow invocation wit
   await page.locator('[data-app="wp5c-created"]').first().click();
   await page.locator('uib-tabs.app-tabs > uib-tab').nth(1).click();
   const workspace = page.getByRole('region', { name: 'Application Builder workspace' });
-  const reportRoot = path.resolve('docs/architecture/evidence/builder-v1-wp5-c'); await mkdir(reportRoot, { recursive: true });
+  const reportRoot = path.resolve(process.env.UI_PLATFORM_TEST_EVIDENCE_ROOT ?? 'docs/architecture/evidence', 'builder-v1-wp5-c'); await mkdir(reportRoot, { recursive: true });
   cleanup.push(async () => { if (!page.isClosed()) { const attempt=Date.now(); await page.screenshot({path:path.join(reportRoot,`browser-attempt-${attempt}.png`),fullPage:true}); await writeFile(path.join(reportRoot,`browser-attempt-${attempt}.txt`),await page.locator('body').innerText()+'\nSERVER\n'+output); } });
   const editor = workspace.getByLabel('Generic Artifact Editor', { exact: true });
   const createdDataset = page.waitForResponse((r: any) => r.url().endsWith('/datasets/create'));

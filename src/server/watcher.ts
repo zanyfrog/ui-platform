@@ -10,6 +10,8 @@ async function signature(root: string): Promise<string> {
   async function walk(dir: string, depth: number): Promise<void> {
     if (depth > 5) return;
     for (const entry of await readdir(dir, { withFileTypes: true }).catch(() => [])) {
+      // Application staging trees are unpublished until their atomic rename.
+      if (root === appsDir && depth === 0 && entry.isDirectory() && entry.name.toLowerCase().startsWith('.creating-')) continue;
       if (['node_modules', 'dist', 'dist-server', '.git', '.vite', '.uib'].includes(entry.name)) continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) await walk(full, depth + 1);

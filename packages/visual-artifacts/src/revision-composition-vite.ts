@@ -4,7 +4,7 @@ import type { Plugin, ViteDevServer } from 'vite';
 import { VisualHelperBoundary } from './helper-boundary.js';
 import { componentReferences, validateArtifact } from './validation.js';
 import { regions, themeCss, validateMenu, applyMenuOverrides, composeShellMenus } from './composition.js';
-import { RuntimeRevision, runtimeLiteral, runtimeReaderServer, runtimeRevisionRefresh, assertNotVisualRole, runtimePackageDefinitions, validateRuntimeCss, type CapturedVisual } from './runtime-revision.js';
+import { RuntimeRevision, runtimeRefreshClient, runtimeRefreshModule, visualExtensions, runtimeLiteral, runtimeReaderServer, runtimeRevisionRefresh, assertNotVisualRole, runtimePackageDefinitions, validateRuntimeCss, type CapturedVisual } from './runtime-revision.js';
 import { validateCompositionDefinition } from './composition-validation.js';
 import type { CompositionDefinition } from './composition.js';
 import { recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
@@ -24,7 +24,7 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
     configResolved(config) { production = config.command === 'build'; },
     resolveId(request, importer) { boundary?.guard(request, importer); if (request === id || request === watchId) return '\0' + request; },
     async load(request) {
-      if (request === '\0' + watchId) return 'if(import.meta.hot)import.meta.hot.accept();';
+      if (request === '\0' + watchId) return runtimeRefreshClient;
       if (request !== '\0' + id) { if (!request.startsWith('\0')) await assertNotVisualRole(request, managedRoots); return; }
       const compile = async () => {
       const helpers = boundary ??= new VisualHelperBoundary(async (request, importer) => {
@@ -91,7 +91,7 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
       validateCompositionDefinition(definition, runtimeComponents, packages);
       await validateRuntimeCss(definition.siteCss);
       const code = await revision.finish(`${imports.join('\n')}\nconst pages=[${pages.join(',')}];\nexport const platformComponents=[${components.join(',')}];\nexport const packages=${JSON.stringify(packages)};\nexport const assetUrls={${assetEntries.join(',')}};\nexport const definition={settings:${JSON.stringify(settings)},shells:[${shells.join(',')}],pages,menus:[${menus.join(',')}],siteCss:${JSON.stringify(styles.join('\n'))},routes:pages.map(p=>({pageId:p.metadata.artifactId,routeId:p.metadata.routeId,path:p.metadata.route}))};\nregisterManagedVisualGraph(runtimeRevision,[...definition.pages,...definition.shells,...platformComponents],definition,assetUrls);`, captured, helpers);
-      return (viteServer ? `import '${watchId}';\n` : '') + code;
+      return viteServer ? runtimeRefreshModule(watchId, request, code) : code;
       };
       return production ? compile() : withRuntimeGraphRead(options.sharedComponentsRoot ?? options.root, compile);
     },
@@ -103,7 +103,7 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
       if (options.sharedComponentsRoot) server.watcher.add(options.sharedComponentsRoot);
       const sourceRoots = [...managedRoots, ...['menus', 'styles', 'assets'].map(name => path.join(options.root, name))].map(root => root.replaceAll('\\', '/') + '/');
       const sourceFiles = ['app.settings.json', 'package.json', 'app.manifest.json'].map(name => path.join(options.root, name).replaceAll('\\', '/'));
-      refresh = runtimeRevisionRefresh(server, file => sourceRoots.some(root => file.replaceAll('\\', '/').startsWith(root)) || sourceFiles.includes(file.replaceAll('\\', '/')) || !!boundary?.isHelper(file));
+      refresh = runtimeRevisionRefresh(server, file => sourceRoots.some(root => file.replaceAll('\\', '/').startsWith(root)) || sourceFiles.includes(file.replaceAll('\\', '/')) || !!boundary?.isHelper(file), file => !boundary?.isHelper(file) && (managedRoots.some(root => file.replaceAll('\\', '/').startsWith(root.replaceAll('\\', '/') + '/') && visualExtensions.some(extension => file.endsWith(extension))) || sourceFiles.includes(file.replaceAll('\\', '/')) || ['menus', 'styles'].some(name => file.replaceAll('\\', '/').startsWith(path.join(options.root, name).replaceAll('\\', '/') + '/'))));
     },
     hotUpdate(context) {
       if (context.file.replaceAll('\\', '/').startsWith(options.root.replaceAll('\\', '/') + '/presentation/versions/')) {
