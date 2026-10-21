@@ -79,25 +79,6 @@ it('captures current bytes after waiting and rechecks original authority at admi
   expect(await readFile(file, 'utf8')).toBe('after');
 });
 it('hands off a populated local graph queue to a real waiting process', async () => {
-  const root = await temporary(), entered = gate(), finish = gate(), order = path.join(root, 'order.txt');
-  await writeFile(order, '');
-  const holder = withRoleBundleGraph(root, async () => { entered.release(); await finish.promise; }); await entered.promise;
-  const child = spawn(process.execPath, ['--input-type=module', '-e', `
-    import { withRoleBundleGraph } from '@ui-platform/artifacts/storage';
-    import { appendFile } from 'node:fs/promises';
-    process.send('ready'); await new Promise(resolve => process.once('message', resolve));
-    const capture = withRoleBundleGraph(process.argv[1], () => appendFile(process.argv[2], 'child\\n'), {timeoutMs:3000});
-    process.send('waiting'); await capture; process.disconnect();
-  `, root, order], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
-  const exited = once(child, 'exit'); let errors = ''; child.stderr!.on('data', data => { errors += String(data); });
-  try {
-    await once(child, 'message');
-    const queued = Array.from({ length: 4 }, (_, index) => withRoleBundleGraph(root, async () => {
-      const previous = await readFile(order, 'utf8'); await writeFile(order, previous + `local-${index}\n`);
-    }));
-    const waiting = once(child, 'message'); child.send('begin'); await waiting;
-    finish.release(); await holder; await Promise.all(queued);
-    expect((await exited)[0], errors).toBe(0);
-    expect((await readFile(order, 'utf8')).split('\n')[0]).toBe('child');
-  } finally { finish.release(); await holder; if (child.exitCode === null && child.signalCode === null) child.kill(); }
+  const { alignedGraph } = await import('./helpers/graph-alignment.js');
+  await alignedGraph(await temporary(), withRoleBundleGraph, withArtifactLock);
 }, 15000);

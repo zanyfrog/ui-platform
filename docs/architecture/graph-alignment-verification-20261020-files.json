@@ -1,0 +1,378 @@
+{
+  "at": "2026-10-21T00:41:00.130Z",
+  "scope": "Authorized graph test-only alignment, native host gates, limited test results and enumerated preservation; no full-volume/node_modules snapshot.",
+  "modifiedExistingFiles": [
+    {
+      "path": "packages/artifacts/tests/graph-admission.test.ts",
+      "before": "aba915c46873d834ca8325c182cf2f061b30640ae6fd458e45500c332e7fab32",
+      "after": "de2940e0109f258c702c7ae54f3d104bb3a50b3a29ac911142d4aa53750d0403",
+      "bytes": 6387
+    }
+  ],
+  "newFiles": [
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/before.json",
+      "bytes": 601481,
+      "sha256": "edf3e2e2c243e5a591f30ca1dd240aaeb8b677fe83ebc7bd11eabe76899846e8"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/capability-result.json",
+      "bytes": 2667,
+      "sha256": "6779350cc15c289fa23c6fe96f961efe721a58508763682c0c7c23153c904ef1"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/capability-syntax.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/capability-syntax.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/capability.exit.json",
+      "bytes": 439,
+      "sha256": "d607b52ac3aaec708e51749616d3fedcd1cc05386fb62100f4bfc2a80da2e1c6"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/capability.mjs",
+      "bytes": 2885,
+      "sha256": "56646758716c1b66e27cbe0935836a1a8b4b7aa12ac1cb4462ea063b94c03d18"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/capability.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/capability.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/child-syntax.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/child-syntax.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/cleanup-results.json",
+      "bytes": 14179,
+      "sha256": "20715792db2bc7c1491a63951016f720cd5c7377c0cc2a80b2cc4fa17b0f3a3e"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/cleanup.exit.json",
+      "bytes": 706,
+      "sha256": "e01b0d2ed49e2f79690ab39a3b72f31618662fc317945bfab834edcac7133a20"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/cleanup.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/cleanup.stdout.txt",
+      "bytes": 6875,
+      "sha256": "00a553340867506ac455a17e0d8d0b17c0a41507a4a7d91ffa67b95c69980434"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/10940.json",
+      "bytes": 452,
+      "sha256": "b077f311b776258e6837a7214bfaf7038bd7d1c9d4d5b3bf8c90c0bf5991f4e0"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/10940.json.approved",
+      "bytes": 575,
+      "sha256": "8f31d840fc509ea401060129a2b0c0b3d9afadf5cf7855156c468829660769cc"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/17080.json",
+      "bytes": 540,
+      "sha256": "bb07e88bc88815315b043b2506901e2299ef15fef22448ef5e111e3c67c8790f"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/17080.json.approved",
+      "bytes": 574,
+      "sha256": "617b7b58d69ad1308bd4750665b3e6bad06cd29f7888941985abf123838e8859"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/22808.json",
+      "bytes": 923,
+      "sha256": "3fd19cb96b46a30f3558c18e5a98a8c0459274b65405eb70e78ad687ab22c310"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/22808.json.approved",
+      "bytes": 575,
+      "sha256": "2c321df38d50b14c18f83e200ac1a934d829b83d05233e07c523da2c0d491559"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/27400.json",
+      "bytes": 541,
+      "sha256": "611c83debdb7adb2c4c270ff548a430e2c73cc900338a8108543f3f9c7661a0d"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/27400.json.approved",
+      "bytes": 575,
+      "sha256": "3e92edba20c015a8e5bbf85eedfcefb222ea6cf3168e33c2e829cd5600c9759b"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/28680.json",
+      "bytes": 579,
+      "sha256": "de29e5951f2cb64b60c27ee1e07bd0bf7c9998a740cec0c3c44b63674d67843d"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/28680.json.approved",
+      "bytes": 575,
+      "sha256": "c7156ab2048af27deb2a846948f7dc32c0476af6d9697e05be293bea924125e9"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/35756.json",
+      "bytes": 541,
+      "sha256": "b1adbf3e60b62022e3fec2bca1bd2ce7ead1fe3161b43538a8d4df869a16e141"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/35756.json.approved",
+      "bytes": 575,
+      "sha256": "cde26e6c90ea20115710eedb3c2b431ba577fef66da4caf553e6a1e37afeb588"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/37748.json",
+      "bytes": 756,
+      "sha256": "54ecd5a61b3b764c8c0cde107ebcaaf51e1ee6654cc5430a56265818f8cef30d"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/37748.json.approved",
+      "bytes": 575,
+      "sha256": "8b97abc29e9028d571ed291ec26b85cb08f4dcc800d6c091d0a019e46d3049d7"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/9720.json",
+      "bytes": 875,
+      "sha256": "84a6d130b59d360019acf55aa6e500baa355a6f8af34fc5b83be3774a3ceb9dd"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/contexts/9720.json.approved",
+      "bytes": 574,
+      "sha256": "21ece76d9d2a81078aa987b34c9cb47963ebec87b8eb573b774c88b0fc10d694"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/diff-review.json",
+      "bytes": 1013,
+      "sha256": "ebccda37136f33f82e82661d344a12268439e0e8d4cd5624a8c9dd6f30cc9b92"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/execution-inputs.json",
+      "bytes": 22836,
+      "sha256": "5a55e7becec9837ebc4588c292bcffb0172b5a429ccd13e7e5a15026e949245d"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/fault-lifecycle.json",
+      "bytes": 134912,
+      "sha256": "3274ea84c924850ce5dc8b668f6bdae645a8dbd2ee3ecfe39542f9f3e80c582b"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/gate-syntax.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/gate-syntax.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/graph-integration.json",
+      "bytes": 22839,
+      "sha256": "76abaa7b517ff781a43eb806ea48e9502ba0c5ce13f768432a6e88695540390b"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/graph-results.json",
+      "bytes": 7225,
+      "sha256": "58d4bcbdfbfe530bd8db8efbd6bab6d57758f550afa0c51746a0c8dc272d1740"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/graph-timing.json",
+      "bytes": 7377,
+      "sha256": "3cd1a0c2a261e2d3e9b0cd89eee7880c7842a2e828d772c88385ce077fcf158e"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/graph.exit.json",
+      "bytes": 757,
+      "sha256": "25fc33308da7ef122957de902a3e87041cf8bc16084b0e41791d33b6a9a9cac6"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/graph.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/graph.stdout.txt",
+      "bytes": 3349,
+      "sha256": "385fe314f5ec8d612f51fea0b490b69db550d193ef5916d11c44d68beda64c04"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/host-go.json",
+      "bytes": 170,
+      "sha256": "512f8e8c717bd27b226c55b98dc9875677f0f44fbcc5ff2abc7ed1adc89737fe"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/host-ready.json",
+      "bytes": 1189,
+      "sha256": "32e2001539ea228cd3d2492a111ae04f7acf7184ac253e49bfdf89f704b8d069"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/host-run.ps1",
+      "bytes": 7680,
+      "sha256": "07fd7396513f54860d27f54553c411f37c23fe8b431f9cf721a8408116dea37a"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/host.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/host.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/post-run-processes.json",
+      "bytes": 1225,
+      "sha256": "7cef8f993cce641a05f1c2631477c53a54c408261856a80c1792f2f46990323c"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/pre-execution-review.md",
+      "bytes": 3765,
+      "sha256": "88e38c5272d315e1c310e36c997c06b218e416664707d9ff76825fcfaa014e24"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/preservation.json",
+      "bytes": 13413,
+      "sha256": "b42a31d65ab011a7636bfcfa41a16a6291882c2a244666941f199f31056a942f"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/process-gate.mjs",
+      "bytes": 1585,
+      "sha256": "c3939a521524b488c92b8c02373de6279b6fa87c5070bef4efa9504bd1380a88"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/syntax.json",
+      "bytes": 110,
+      "sha256": "50b03ba854b943482c2043e6883603052dcf0f1e831fb5a51909d1b072c2690b"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/test-only.patch",
+      "bytes": 28063,
+      "sha256": "a7687c65a9c3515392d863e37ceb5d387a831d43c4ed1a81bd0e3972fca73a4d"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/tests-go.json",
+      "bytes": 468,
+      "sha256": "77e6baea5700c2fca47b1de5f796bce3385cff32fbf6be33e8e90426673065aa"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/tests-ready.json",
+      "bytes": 294,
+      "sha256": "dadd74956a9894e6d03f4e9ea73f2a726e98ea1a73efda6b7065630942981bd3"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/typecheck.exit.json",
+      "bytes": 117,
+      "sha256": "5a8170ff6e3ea138b71bf93c99030628ac147bbacd8d9b3cb5a3f1bf085f645f"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/typecheck.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/typecheck.stdout.txt",
+      "bytes": 75,
+      "sha256": "d4413c00d2bc18f345d31163f1fa3f171ec141bf48499f6428e60a23f44f5787"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/verification-helper-additions.patch",
+      "bytes": 13222,
+      "sha256": "0fdc91e51271d5b5006ced20498b5a870d1ec8838c489c6b207e6c16e2964f0c"
+    },
+    {
+      "path": "docs/architecture/evidence/graph-alignment-verification-20261020/verification-summary.json",
+      "bytes": 3426,
+      "sha256": "c7015416fd7347d6d5a48b43e149b4d16a406326d4cf1f5992d0a38525109cae"
+    },
+    {
+      "path": "docs/architecture/graph-alignment-verification-20261020.md",
+      "bytes": 19097,
+      "sha256": "66fe1709851614f4886f722491ff0b0d4b5dc3497dacaa1ff51b2ec3bd4de0c0"
+    },
+    {
+      "path": "packages/artifacts/tests/graph-timing.test.ts",
+      "bytes": 12504,
+      "sha256": "d061e3a4697c9bf636fdbc097f551edbcd81be94f91903304c1cf6f84b2dc424"
+    },
+    {
+      "path": "packages/artifacts/tests/helpers/graph-alignment.ts",
+      "bytes": 8716,
+      "sha256": "68bbe6ad553189fdc68420fea82aa9644759439b26cba92cafb92a8117b5d83e"
+    },
+    {
+      "path": "packages/artifacts/tests/helpers/graph-child.mjs",
+      "bytes": 3545,
+      "sha256": "496a8aba7c02fbe4a9abc9a9b340979e7bb75eecf2e660905208f065674b4586"
+    }
+  ],
+  "deletedExistingFiles": [],
+  "unexpectedNew": [],
+  "testGeneratedUnbaselined": [
+    {
+      "path": "node_modules/.vite/vitest/da39a3ee5e6b4b0d3255bfef95601890afd80709/results.json",
+      "bytes": 7325,
+      "sha256": "790fdfa30a7ddbf42c4abe676dcf868e4b529fd725c243ad422bec7bf8a1180b",
+      "metadata": {
+        "path": "node_modules/.vite/vitest/da39a3ee5e6b4b0d3255bfef95601890afd80709/results.json",
+        "canonical": "C:\\Projects\\Modular\\ui-platform\\node_modules\\.vite\\vitest\\da39a3ee5e6b4b0d3255bfef95601890afd80709\\results.json",
+        "ino": "5348024557998165",
+        "dev": "1344742221",
+        "nlink": "1",
+        "size": "7325",
+        "birthtimeNs": "1790127104560093500",
+        "mtimeNs": "1792531909715109300",
+        "ctimeNs": "1792531909715109300",
+        "atimeNs": "1792543260133105200",
+        "symlink": false,
+        "directory": false
+      },
+      "before": null,
+      "note": "Known Vitest result cache updated by authorized tests; outside preserved source/history baseline. No invented before hash."
+    }
+  ],
+  "newEvidenceDirectories": [
+    "docs/architecture/evidence/graph-alignment-verification-20261020/contexts",
+    "docs/architecture/evidence/graph-alignment-verification-20261020/runtime-638e7e9bb1f04076965f509ea6139c0f"
+  ],
+  "disposableState": {
+    "runtimeRoot": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\graph-alignment-verification-20261020\\runtime-638e7e9bb1f04076965f509ea6139c0f",
+    "retainedRuntimeParentEmpty": true,
+    "nativeCapability": {
+      "root": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\graph-alignment-verification-20261020\\runtime-638e7e9bb1f04076965f509ea6139c0f\\capability",
+      "source": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\graph-alignment-verification-20261020\\runtime-638e7e9bb1f04076965f509ea6139c0f\\capability\\identity.tmp",
+      "target": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\evidence\\graph-alignment-verification-20261020\\runtime-638e7e9bb1f04076965f509ea6139c0f\\capability\\identity.json",
+      "attempts": 1,
+      "success": true,
+      "closed": true,
+      "cleaned": true
+    },
+    "fixtureScope": "Distinct mkdtemp leaves under this runtime root; graph child shares only its parent graph fixture. Traces preserve residual state before disposal."
+  },
+  "self": {
+    "path": "docs/architecture/graph-alignment-verification-20261020-files.json",
+    "bytes": null,
+    "sha256": null,
+    "note": "No circular self-hash"
+  }
+}
