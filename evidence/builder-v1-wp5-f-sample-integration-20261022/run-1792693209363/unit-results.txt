@@ -1,0 +1,28 @@
+✔ actual context and working copy preserve source, baseline/checksum and history with autosave disabled (35.3771ms)
+✔ real context autosave timing is identical with and without Preview and tab changes during a pending save (5.217ms)
+✔ shared Preview binding transmits only original owner-qualified identity and dirty status (0.3649ms)
+✔ identity is immutable and distinguishes original subject, session, permanent Application and owner (2.9908ms)
+✔ last success is distinct from pending and cannot be relabeled on failure (0.7019ms)
+✔ deferred response loses to explicit newer refresh (0.3324ms)
+✔ a retained capture cannot be relabeled as another saved revision or fixture (0.3367ms)
+✔ wrong response identity, request identity and sequence are rejected (0.3254ms)
+✔ invalidation cancels pending without automatic recapture or content replacement (0.3352ms)
+✔ simulated revocation clears successful and pending content and rejects future/late work (0.3595ms)
+✔ disposal is terminal, including deferred rejection and revocation (0.257ms)
+✔ initial failures are unavailable; explicit refresh alone recovers (0.3278ms)
+✔ samples are bounded data with exact fields and native supported values (2.2694ms)
+✔ service/resource and unsupported schema requests have specific denial reasons (0.4914ms)
+✔ protocol rejects cross-session, wrong nonce/identity, sequence, upgrade and extra capabilities (0.336ms)
+✔ in-memory WP2 dirty bytes, identity and Undo/Redo history survive preview lifecycle (1.7482ms)
+✔ Card added fields retain v1 defaults and exact supported optional fields (3.95ms)
+✔ Panel exact text, appearance and local open/collapsible contracts (0.9095ms)
+✔ two fixed route templates use real pure helpers for encoding and match inspection (1.1218ms)
+✔ route inspector rejects arbitrary templates, extras, missing, invalid and over-limit values (0.4778ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 388.1917

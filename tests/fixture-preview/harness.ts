@@ -1,0 +1,15 @@
+import { FixturePreviewPanel } from '../../src/client/fixture-preview/panel.js';
+import { EditingLifecycle } from '../../src/client/artifact-editor/editing-lifecycle.js';
+import { configureAutosave, autosaveConfiguration } from '../../src/client/artifact-editor/autosave-configuration.js';
+configureAutosave({ enabled: false, delayMs: 2000 });
+let saves = 0;
+const draft = new EditingLifecycle({ identity: 'synthetic-working-copy', text: 'saved fixture source' }, async value => { saves++; return value; });
+draft.edit({ ...draft.current, text: 'synthetic draft one' }); draft.edit({ ...draft.current, text: 'synthetic draft two' }); draft.undo();
+const editor = document.createElement('textarea'); editor.setAttribute('aria-label', 'In-memory WP2 draft'); editor.value = draft.current.text;
+document.body.append(editor);
+const panel = new FixturePreviewPanel(); document.body.append(panel.element);
+const identity = { subjectId: 'fixture-subject', sessionId: 'fixture-session', applicationId: 'fixture-permanent-application', artifactKey: '["platform","synthetic-owner","visual","synthetic-artifact"]' };
+panel.select(identity, true);
+const snapshot = () => ({ identity, current: draft.current, baseline: draft.baseline, generation: draft.generation, savedGeneration: draft.savedGeneration, dirty: draft.dirty, history: draft.historySize, canUndo: draft.canUndo, canRedo: draft.canRedo, saves, autosave: autosaveConfiguration(), focus: document.activeElement === editor, selection: [editor.selectionStart, editor.selectionEnd], text: editor.value });
+Object.assign(window, { fixtureHarness: { panel, identity, draft, snapshot, editor } });
+editor.focus(); editor.setSelectionRange(2, 9);

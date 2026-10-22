@@ -1,0 +1,43 @@
+✔ identity is immutable and distinguishes original subject, session, permanent Application and owner (2.3585ms)
+✔ last success is distinct from pending and cannot be relabeled on failure (0.468ms)
+✔ deferred response loses to explicit newer refresh (0.2145ms)
+✔ wrong response identity, request identity and sequence are rejected (0.204ms)
+✔ invalidation cancels pending without automatic recapture or content replacement (0.2417ms)
+✔ simulated revocation clears successful and pending content and rejects future/late work (0.2122ms)
+✔ disposal is terminal, including deferred rejection and revocation (0.1804ms)
+✔ initial failures are unavailable; explicit refresh alone recovers (0.1837ms)
+✔ samples are bounded data with exact fields and native supported values (0.6918ms)
+✖ service/resource and unsupported schema requests have specific denial reasons (0.9004ms)
+✔ protocol rejects cross-session, wrong nonce/identity, sequence, upgrade and extra capabilities (0.2561ms)
+✔ in-memory WP2 dirty bytes, identity and Undo/Redo history survive preview lifecycle (2.0124ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 11
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 121.1527
+
+✖ failing tests:
+
+test at evidence\builder-v1-wp5-f-fixture-20261022\lifecycle.test.mjs:446:1
+✖ service/resource and unsupported schema requests have specific denial reasons (0.9004ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /^[A-Z_]+:/. Input:
+  
+  'EXECUTABLE_SOURCE_DENIED'
+  
+      at TestContext.<anonymous> (file:///C:/Projects/Modular/ui-platform/evidence/builder-v1-wp5-f-fixture-20261022/lifecycle.test.mjs:448:67)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'EXECUTABLE_SOURCE_DENIED',
+    expected: /^[A-Z_]+:/,
+    operator: 'match',
+    diff: 'simple'
+  }

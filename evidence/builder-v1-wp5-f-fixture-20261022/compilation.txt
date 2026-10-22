@@ -1,0 +1,31 @@
+{
+  "arguments": [
+    "node_modules/typescript/bin/tsc",
+    "--ignoreConfig",
+    "--noEmit",
+    "--target",
+    "es2022",
+    "--module",
+    "esnext",
+    "--moduleResolution",
+    "bundler",
+    "--resolveJsonModule",
+    "--esModuleInterop",
+    "--lib",
+    "es2022,dom",
+    "--strictNullChecks",
+    "--noImplicitAny",
+    "false",
+    "--skipLibCheck",
+    "src/client/fixture-preview/raw.d.ts",
+    "src/client/fixture-preview/lifecycle.ts",
+    "src/client/fixture-preview/samples.ts",
+    "src/client/fixture-preview/protocol.ts",
+    "src/client/fixture-preview/frame.ts",
+    "src/client/fixture-preview/host.ts",
+    "src/client/fixture-preview/panel.ts"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

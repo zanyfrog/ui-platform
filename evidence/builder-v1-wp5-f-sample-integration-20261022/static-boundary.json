@@ -1,0 +1,90 @@
+{
+  "checks": {
+    "noDynamicExecution": true,
+    "noNetworkOrStoragePrimitive": true,
+    "noLiveLoaderOrFormRuntime": true,
+    "bootstrapMatchesBuild": true
+  },
+  "buildInputs": [
+    {
+      "path": "src/client/fixture-preview/frame.ts",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "src/client/fixture-preview/samples.ts",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "src/client/fixture-preview/protocol.ts",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "packages/visual-artifacts/src/composition.ts",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "packages/visual-artifacts/src/source.ts",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/platform/renderer.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/platform/definition.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/platform/registry.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/layout/uib-card.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/layout/index.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/index.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/utils.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/localization.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/validation.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/metadata.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/base-element.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-icons/src/uib-icon.js",
+      "unchangedSinceBuild": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-icons/src/icon-registry.js",
+      "unchangedSinceBuild": true
+    }
+  ],
+  "verifiedSourcesUnchanged": true,
+  "parentBoundary": "Real context/default transport modules inspected; test-only exact memory session facade and injected transport used. Default endpoints/EventSource guarded by throwing deny-all fallback. No native implementation stubs.",
+  "frameBoundary": "Exact script-hash CSP; sandbox allow-scripts only; opaque origin; no credential/resource/effect channel; fixed route templates; exact data schemas",
+  "protectedState": "Not accessed or enumerated; dependency admission and actual receiving-server observations, not an OS filesystem audit"
+}

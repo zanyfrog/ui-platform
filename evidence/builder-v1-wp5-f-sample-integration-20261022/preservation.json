@@ -1,0 +1,190 @@
+{
+  "baselineFiles": 1406,
+  "unchangedFiles": 1398,
+  "authorizedExistingChanges": [
+    {
+      "path": "scripts/build-fixture-preview.mjs",
+      "before": "ac22a5398fa7156411ae971ddbe1e675322f1254d229694c0c008d59b685eeb0",
+      "after": "b13750fe82d14d5542be2cc88f3813abb1ff8a58ba4d169ac706466c6f0fee17"
+    },
+    {
+      "path": "src/client/builder-workspace/shell.ts",
+      "before": "5dbcc1c9bf60887d38768cb1af77984c7c3ed06f7915e4953eab9d9597ffc19b",
+      "after": "80b33e1fe1290557d4208a6b21311568fbc4dbf57d3b727420adaa67e7b06fa1"
+    },
+    {
+      "path": "src/client/fixture-preview/bootstrap.txt",
+      "before": "c89bd4f7c8fd692fddfce4a9714d80b346a02f82e6b5914eb0d60d55974677bd",
+      "after": "d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d"
+    },
+    {
+      "path": "src/client/fixture-preview/frame.ts",
+      "before": "e85cc7f1eb9400a707bbeb0775feb933ead9ab508d2203c43e0cb2850aba8dbd",
+      "after": "671f5ec89b35d3496d00ab56754928a3c0cb3b998e2b33f8bdd5efe7ecef0e33"
+    },
+    {
+      "path": "src/client/fixture-preview/host.ts",
+      "before": "6223cde5edbebc06dd8eba8686ada008eeed28bf673252c1ef58168fa52196fa",
+      "after": "c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41"
+    },
+    {
+      "path": "src/client/fixture-preview/panel.ts",
+      "before": "235985cc8d8fe420f24b10e92106eb01d3be84bf9501b32f094ef5163d1214ae",
+      "after": "c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639"
+    },
+    {
+      "path": "src/client/fixture-preview/protocol.ts",
+      "before": "94309cc2974f04c11e7d4b14b62ee9dd36a4abd35cbce89c3bcfd948a1f03489",
+      "after": "19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1"
+    },
+    {
+      "path": "src/client/fixture-preview/samples.ts",
+      "before": "ebdf2a010a02e650e879fc173b3ec663f4da4416638bcaee16b50e16c1cab439",
+      "after": "da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6"
+    }
+  ],
+  "unexpectedExistingChanges": [],
+  "headBefore": "0bfa93ec06bd7e70971740de8663fb11887b1e89",
+  "headAfter": "0bfa93ec06bd7e70971740de8663fb11887b1e89",
+  "umbrella": {
+    "unchecked": 40,
+    "checked": 0
+  },
+  "historicalRecordsCompared": 1144,
+  "historicalRecordMismatches": [],
+  "unchangedImplementationInputs": [
+    {
+      "path": "src/client/artifact-editor/context.ts",
+      "sha256": "20367e5dc525da997c8e9080694a53f61cd7edd504dc7760d23c8910ce7bf6a8",
+      "unchanged": true
+    },
+    {
+      "path": "src/client/artifact-editor/working-copy.ts",
+      "sha256": "c62a7863c40a359205015e8d147aedf40cdd284a7727837de5c076b56a932f7d",
+      "unchanged": true
+    },
+    {
+      "path": "src/client/artifact-editor/editing-lifecycle.ts",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f",
+      "unchanged": true
+    },
+    {
+      "path": "src/client/artifact-editor/autosave-configuration.ts",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335",
+      "unchanged": true
+    },
+    {
+      "path": "src/client/artifact-editor/session.ts",
+      "sha256": "dcae41c7a0bc652bb840f23207ec085ff12754e26b85b6894394e8a2804ef4c8",
+      "unchanged": true
+    },
+    {
+      "path": "src/client/artifact-editor/transport.ts",
+      "sha256": "38173961ee3b47587ed2fcfd81d187b46efa03209884d77da91b2718405923fa",
+      "unchanged": true
+    },
+    {
+      "path": "src/client/artifact-editor/source-editor.ts",
+      "sha256": "9091b661cba28d87de5f8110c440ead60deed3f4c07428ab2e36ce26b8961c6b",
+      "unchanged": true
+    },
+    {
+      "path": "src/client/builder-workspace/coordinator.ts",
+      "sha256": "0be7ab0edf526e5869a55c9b7b4e00fe3f3d894469d01fa9df55aa79d7a32e42",
+      "unchanged": true
+    },
+    {
+      "path": "packages/visual-artifacts/src/runtime.ts",
+      "sha256": "4b0e7bd680d89a21ad264c9857139e9848fbfd396a0f471a8b2a558071961958",
+      "unchanged": true
+    },
+    {
+      "path": "packages/visual-artifacts/src/composition-runtime.ts",
+      "sha256": "602910ef1a56519b0e513b358423dd3c8b506eadf920f0f39677895f1f41dabe",
+      "unchanged": true
+    },
+    {
+      "path": "packages/visual-artifacts/src/composition.ts",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2",
+      "unchanged": true
+    },
+    {
+      "path": "packages/visual-artifacts/src/form-runtime.ts",
+      "sha256": "8ef4ad2c8cc400ed72970f1ffe5207a757c89601f15e500faf2ac35994489526",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/base-element.js",
+      "sha256": "52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/index.js",
+      "sha256": "70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/localization.js",
+      "sha256": "807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/metadata.js",
+      "sha256": "0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/utils.js",
+      "sha256": "ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/validation.js",
+      "sha256": "1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-icons/src/icon-registry.js",
+      "sha256": "a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-icons/src/uib-icon.js",
+      "sha256": "e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/layout/index.js",
+      "sha256": "e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/layout/uib-card.js",
+      "sha256": "4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/platform/definition.js",
+      "sha256": "89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/platform/registry.js",
+      "sha256": "fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/platform/renderer.js",
+      "sha256": "5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469",
+      "unchanged": true
+    }
+  ],
+  "protectedState": "Not read or enumerated; no store hash/OS audit claim",
+  "finalVerifiedSourcesUnchanged": true,
+  "actualEditingAndAutosaveEvidence": "evidence/builder-v1-wp5-f-sample-integration-20261022/run-1792693349988/browser-results.json"
+}

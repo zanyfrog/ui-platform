@@ -1,0 +1,82 @@
+{
+  "inputs": {
+    "src/client/fixture-preview/frame.ts": "e85cc7f1eb9400a707bbeb0775feb933ead9ab508d2203c43e0cb2850aba8dbd",
+    "src/client/fixture-preview/samples.ts": "ebdf2a010a02e650e879fc173b3ec663f4da4416638bcaee16b50e16c1cab439",
+    "src/client/fixture-preview/protocol.ts": "94309cc2974f04c11e7d4b14b62ee9dd36a4abd35cbce89c3bcfd948a1f03489",
+    "../ui-base/packages/ui-base-ui/src/platform/renderer.js": "5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4",
+    "../ui-base/packages/ui-base-ui/src/platform/definition.js": "89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2",
+    "../ui-base/packages/ui-base-ui/src/platform/registry.js": "fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85",
+    "../ui-base/packages/ui-base-ui/src/layout/uib-card.js": "4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45",
+    "../ui-base/packages/ui-base-ui/src/layout/index.js": "e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a",
+    "../ui-base/packages/ui-base-ui/ui.component.json": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469",
+    "../ui-base/packages/ui-base-core/src/index.js": "70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a",
+    "../ui-base/packages/ui-base-core/src/utils.js": "ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1",
+    "../ui-base/packages/ui-base-core/src/localization.js": "807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f",
+    "../ui-base/packages/ui-base-core/src/validation.js": "1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4",
+    "../ui-base/packages/ui-base-core/src/metadata.js": "0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca",
+    "../ui-base/packages/ui-base-core/src/base-element.js": "52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097",
+    "../ui-base/packages/ui-base-icons/src/uib-icon.js": "e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30",
+    "../ui-base/packages/ui-base-icons/src/icon-registry.js": "a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3"
+  },
+  "outputSha256": "c89bd4f7c8fd692fddfce4a9714d80b346a02f82e6b5914eb0d60d55974677bd",
+  "outputBytes": 97350,
+  "imports": {
+    "frame.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "src/client/fixture-preview/frame.ts",
+      "inputs": {
+        "../ui-base/packages/ui-base-core/src/utils.js": {
+          "bytesInOutput": 3002
+        },
+        "../ui-base/packages/ui-base-core/src/index.js": {
+          "bytesInOutput": 0
+        },
+        "../ui-base/packages/ui-base-core/src/validation.js": {
+          "bytesInOutput": 133
+        },
+        "../ui-base/packages/ui-base-core/src/metadata.js": {
+          "bytesInOutput": 179
+        },
+        "../ui-base/packages/ui-base-core/src/base-element.js": {
+          "bytesInOutput": 3265
+        },
+        "../ui-base/packages/ui-base-icons/src/icon-registry.js": {
+          "bytesInOutput": 2342
+        },
+        "../ui-base/packages/ui-base-icons/src/uib-icon.js": {
+          "bytesInOutput": 2138
+        },
+        "../ui-base/packages/ui-base-ui/src/layout/index.js": {
+          "bytesInOutput": 32783
+        },
+        "../ui-base/packages/ui-base-ui/src/layout/uib-card.js": {
+          "bytesInOutput": 0
+        },
+        "../ui-base/packages/ui-base-ui/src/platform/definition.js": {
+          "bytesInOutput": 10541
+        },
+        "../ui-base/packages/ui-base-ui/src/platform/renderer.js": {
+          "bytesInOutput": 4060
+        },
+        "../ui-base/packages/ui-base-ui/src/platform/registry.js": {
+          "bytesInOutput": 3540
+        },
+        "../ui-base/packages/ui-base-ui/ui.component.json": {
+          "bytesInOutput": 29495
+        },
+        "src/client/fixture-preview/samples.ts": {
+          "bytesInOutput": 2291
+        },
+        "src/client/fixture-preview/protocol.ts": {
+          "bytesInOutput": 764
+        },
+        "src/client/fixture-preview/frame.ts": {
+          "bytesInOutput": 2018
+        }
+      },
+      "bytes": 97350
+    }
+  },
+  "policy": "closed explicit files; no package scripts/config/hooks; no external imports or dynamic execution in output"
+}

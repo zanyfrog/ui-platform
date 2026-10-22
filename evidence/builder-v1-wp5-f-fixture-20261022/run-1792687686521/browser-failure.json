@@ -1,0 +1,110 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(frame)\n",
+  "checks": [
+    "Real native Card rendered under exact script hash CSP in opaque sandbox; WP2 bytes/history/focus/selection unchanged"
+  ],
+  "observations": {
+    "browserVersion": "155.0.4283.62",
+    "before": {
+      "identity": {
+        "subjectId": "fixture-subject",
+        "sessionId": "fixture-session",
+        "applicationId": "fixture-permanent-application",
+        "artifactKey": "[\"platform\",\"synthetic-owner\",\"visual\",\"synthetic-artifact\"]"
+      },
+      "current": {
+        "identity": "synthetic-working-copy",
+        "text": "synthetic draft one"
+      },
+      "baseline": {
+        "identity": "synthetic-working-copy",
+        "text": "saved fixture source"
+      },
+      "generation": 3,
+      "savedGeneration": 0,
+      "dirty": true,
+      "history": {
+        "entries": 2,
+        "bytes": 534
+      },
+      "canUndo": true,
+      "canRedo": true,
+      "saves": 0,
+      "autosave": {
+        "enabled": false,
+        "delayMs": 2000
+      },
+      "focus": true,
+      "selection": [
+        2,
+        9
+      ],
+      "text": "synthetic draft one"
+    },
+    "afterReady": {
+      "identity": {
+        "subjectId": "fixture-subject",
+        "sessionId": "fixture-session",
+        "applicationId": "fixture-permanent-application",
+        "artifactKey": "[\"platform\",\"synthetic-owner\",\"visual\",\"synthetic-artifact\"]"
+      },
+      "current": {
+        "identity": "synthetic-working-copy",
+        "text": "synthetic draft one"
+      },
+      "baseline": {
+        "identity": "synthetic-working-copy",
+        "text": "saved fixture source"
+      },
+      "generation": 3,
+      "savedGeneration": 0,
+      "dirty": true,
+      "history": {
+        "entries": 2,
+        "bytes": 534
+      },
+      "canUndo": true,
+      "canRedo": true,
+      "saves": 0,
+      "autosave": {
+        "enabled": false,
+        "delayMs": 2000
+      },
+      "focus": true,
+      "selection": [
+        2,
+        9
+      ],
+      "text": "synthetic draft one"
+    }
+  },
+  "serverRequests": [
+    {
+      "method": "GET",
+      "url": "/",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "method": "GET",
+      "url": "/harness.js",
+      "cookie": null,
+      "authorization": null
+    }
+  ],
+  "browserRequests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:52786/",
+      "resource": "document"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:52786/harness.js",
+      "resource": "script"
+    }
+  ],
+  "failedRequests": [],
+  "consoleMessages": [],
+  "pageErrors": []
+}

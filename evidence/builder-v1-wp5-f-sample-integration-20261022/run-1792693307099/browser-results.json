@@ -1,0 +1,1887 @@
+{
+  "passed": true,
+  "checks": [
+    "Expanded Card uses real canonical renderer: header slot, disabled/initial selection, pointer and keyboard selection; actual source editor unchanged",
+    "Actual registered native Panel renders text slots and fixed appearance; pointer/keyboard toggle local only; no canonical Definition fabricated",
+    "Two-template route inspector uses native pure encoding/matching; inert text, no Page/Menu/router/navigation",
+    "Actual context/working copy/source renderer/coordinator preserve dirty bytes, checksums, file/range, identity and real Undo/Redo across stale/error/revocation/disposal/tab reactivation; disabled autosave zero saves",
+    "Forged/effect messages ignored; actual browser CSP/sandbox/event denials recorded for network, mutation, upload, Publish, submission, navigation, popup, download, file chooser, resources, scripts and storage",
+    "Autosave-disabled no-Preview browser control matches Preview trace exactly after source edits, real Undo, file/range selection, tabs and a 10000ms clock advance; zero saves in both",
+    "Enabled autosave matches no-Preview trace exactly: zero writes at 1999ms, one normal timer save at 2000ms, pending save overlaps Refresh/tab changes, same committed in-memory bytes/checksum/history"
+  ],
+  "observations": {
+    "browserVersion": "155.0.4283.62",
+    "dirtyBefore": {
+      "editor": {
+        "artifact": {
+          "locator": "one",
+          "manifest": {
+            "artifactId": "synthetic-one",
+            "artifactType": "fixture",
+            "schemaVersion": 1,
+            "definitionVersion": 1,
+            "name": "one",
+            "files": {
+              "definition": "one.json"
+            }
+          },
+          "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+          "files": [
+            {
+              "path": "one.json",
+              "role": "definition",
+              "content": "{\"synthetic\":1}"
+            },
+            {
+              "path": "two.txt",
+              "role": "notes",
+              "content": "synthetic dirty one"
+            }
+          ],
+          "checksum": "baseline-one",
+          "capabilities": {
+            "edit": true,
+            "format": true
+          },
+          "validation": {
+            "valid": true,
+            "diagnostics": []
+          },
+          "references": {
+            "outgoing": []
+          }
+        },
+        "baselineChecksum": "baseline-one",
+        "localGeneration": 3,
+        "lastSavedGeneration": 0,
+        "saveState": "pending",
+        "dirty": true,
+        "canUndo": true,
+        "canRedo": true
+      },
+      "stored": [
+        [
+          "one",
+          {
+            "locator": "one",
+            "manifest": {
+              "artifactId": "synthetic-one",
+              "artifactType": "fixture",
+              "schemaVersion": 1,
+              "definitionVersion": 1,
+              "name": "one",
+              "files": {
+                "definition": "one.json"
+              }
+            },
+            "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+            "files": [
+              {
+                "path": "one.json",
+                "role": "definition",
+                "content": "{\"synthetic\":1}"
+              },
+              {
+                "path": "two.txt",
+                "role": "notes",
+                "content": "synthetic saved one"
+              }
+            ],
+            "checksum": "baseline-one",
+            "capabilities": {
+              "edit": true,
+              "format": true
+            },
+            "validation": {
+              "valid": true,
+              "diagnostics": []
+            },
+            "references": {
+              "outgoing": []
+            }
+          }
+        ],
+        [
+          "two",
+          {
+            "locator": "two",
+            "manifest": {
+              "artifactId": "synthetic-two",
+              "artifactType": "fixture",
+              "schemaVersion": 1,
+              "definitionVersion": 1,
+              "name": "two",
+              "files": {
+                "definition": "one.json"
+              }
+            },
+            "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+            "files": [
+              {
+                "path": "one.json",
+                "role": "definition",
+                "content": "{\"synthetic\":1}"
+              },
+              {
+                "path": "two.txt",
+                "role": "notes",
+                "content": "synthetic saved two"
+              }
+            ],
+            "checksum": "baseline-two",
+            "capabilities": {
+              "edit": true,
+              "format": true
+            },
+            "validation": {
+              "valid": true,
+              "diagnostics": []
+            },
+            "references": {
+              "outgoing": []
+            }
+          }
+        ]
+      ],
+      "originalIdentity": {
+        "owner": {
+          "kind": "application",
+          "id": "synthetic-permanent-app"
+        },
+        "format": "generic",
+        "id": "synthetic-one"
+      },
+      "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+      "selectedFile": "two.txt",
+      "range": [
+        2,
+        9
+      ],
+      "sourceText": "synthetic dirty one",
+      "focus": true,
+      "mutationCalls": [],
+      "saves": [],
+      "autosave": {
+        "enabled": false,
+        "delayMs": 2000
+      }
+    },
+    "card": {
+      "origin": "null",
+      "header": "Synthetic header slot",
+      "disabled": true,
+      "selected": true,
+      "csp": "default-src 'none'; script-src 'sha256-Fy3ygiAexpU7Th9A5UDNshqT9ViZ+Ano1+G5LLFmXUY='; script-src-attr 'none'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'none'; form-action 'none'"
+    },
+    "panel": {
+      "className": "UibPanel",
+      "open": true,
+      "body": "Synthetic Panel body",
+      "footer": "Synthetic Panel footer"
+    },
+    "route": {
+      "template": "/projects/[projectId]/items/:itemId",
+      "path": "/projects/Synthetic%20%2F%20project/items/item%3F%23%E9%9B%AA",
+      "matched": {
+        "projectId": "Synthetic / project",
+        "itemId": "item?#雪"
+      }
+    },
+    "replacementIdentity": {
+      "selection": "Original selection · [\"synthetic-subject\",\"synthetic-session\",\"synthetic-permanent-app\",\"[\\\"application\\\",\\\"synthetic-permanent-app\\\",null,\\\"generic\\\",[\\\"permanent\\\",\\\"synthetic-two\\\"]]\"]",
+      "capture": "No successful capture"
+    },
+    "dirtyAfter": {
+      "editor": {
+        "artifact": {
+          "locator": "one",
+          "manifest": {
+            "artifactId": "synthetic-one",
+            "artifactType": "fixture",
+            "schemaVersion": 1,
+            "definitionVersion": 1,
+            "name": "one",
+            "files": {
+              "definition": "one.json"
+            }
+          },
+          "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+          "files": [
+            {
+              "path": "one.json",
+              "role": "definition",
+              "content": "{\"synthetic\":1}"
+            },
+            {
+              "path": "two.txt",
+              "role": "notes",
+              "content": "synthetic dirty one"
+            }
+          ],
+          "checksum": "baseline-one",
+          "capabilities": {
+            "edit": true,
+            "format": true
+          },
+          "validation": {
+            "valid": true,
+            "diagnostics": []
+          },
+          "references": {
+            "outgoing": []
+          }
+        },
+        "baselineChecksum": "baseline-one",
+        "localGeneration": 3,
+        "lastSavedGeneration": 0,
+        "saveState": "pending",
+        "dirty": true,
+        "canUndo": true,
+        "canRedo": true
+      },
+      "stored": [
+        [
+          "one",
+          {
+            "locator": "one",
+            "manifest": {
+              "artifactId": "synthetic-one",
+              "artifactType": "fixture",
+              "schemaVersion": 1,
+              "definitionVersion": 1,
+              "name": "one",
+              "files": {
+                "definition": "one.json"
+              }
+            },
+            "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+            "files": [
+              {
+                "path": "one.json",
+                "role": "definition",
+                "content": "{\"synthetic\":1}"
+              },
+              {
+                "path": "two.txt",
+                "role": "notes",
+                "content": "synthetic saved one"
+              }
+            ],
+            "checksum": "baseline-one",
+            "capabilities": {
+              "edit": true,
+              "format": true
+            },
+            "validation": {
+              "valid": true,
+              "diagnostics": []
+            },
+            "references": {
+              "outgoing": []
+            }
+          }
+        ],
+        [
+          "two",
+          {
+            "locator": "two",
+            "manifest": {
+              "artifactId": "synthetic-two",
+              "artifactType": "fixture",
+              "schemaVersion": 1,
+              "definitionVersion": 1,
+              "name": "two",
+              "files": {
+                "definition": "one.json"
+              }
+            },
+            "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+            "files": [
+              {
+                "path": "one.json",
+                "role": "definition",
+                "content": "{\"synthetic\":1}"
+              },
+              {
+                "path": "two.txt",
+                "role": "notes",
+                "content": "synthetic saved two"
+              }
+            ],
+            "checksum": "baseline-two",
+            "capabilities": {
+              "edit": true,
+              "format": true
+            },
+            "validation": {
+              "valid": true,
+              "diagnostics": []
+            },
+            "references": {
+              "outgoing": []
+            }
+          }
+        ]
+      ],
+      "originalIdentity": {
+        "owner": {
+          "kind": "application",
+          "id": "synthetic-permanent-app"
+        },
+        "format": "generic",
+        "id": "synthetic-one"
+      },
+      "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+      "selectedFile": "two.txt",
+      "range": [
+        2,
+        9
+      ],
+      "sourceText": "synthetic dirty one",
+      "focus": true,
+      "mutationCalls": [],
+      "saves": [],
+      "autosave": {
+        "enabled": false,
+        "delayMs": 2000
+      }
+    },
+    "denials": {
+      "violations": [
+        {
+          "directive": "connect-src",
+          "blocked": "http://127.0.0.1:54765/effect/read"
+        },
+        {
+          "directive": "connect-src",
+          "blocked": "http://127.0.0.1:54765/effect/mutation"
+        },
+        {
+          "directive": "connect-src",
+          "blocked": "http://127.0.0.1:54765/effect/upload"
+        },
+        {
+          "directive": "connect-src",
+          "blocked": "http://127.0.0.1:54765/effect/publish"
+        },
+        {
+          "directive": "script-src-elem",
+          "blocked": "inline"
+        },
+        {
+          "directive": "img-src",
+          "blocked": "http://127.0.0.1:54765/effect/image"
+        }
+      ],
+      "network": {
+        "read": "TypeError",
+        "mutation": "TypeError",
+        "upload": "TypeError",
+        "publish": "TypeError"
+      },
+      "storage": {
+        "localStorage": "SecurityError",
+        "sessionStorage": "SecurityError",
+        "cookie": "SecurityError"
+      },
+      "topNavigation": "SecurityError",
+      "popup": false,
+      "scriptRan": false
+    },
+    "syntheticSessionCalls": [
+      {
+        "url": "/api/editor/session",
+        "method": "GET"
+      },
+      {
+        "url": "/api/editor/session",
+        "method": "GET"
+      },
+      {
+        "url": "/api/editor/session",
+        "method": "GET"
+      }
+    ],
+    "disabledMatchedTraces": [
+      {
+        "withPreview": false,
+        "before": {
+          "editor": {
+            "artifact": {
+              "locator": "one",
+              "manifest": {
+                "artifactId": "synthetic-one",
+                "artifactType": "fixture",
+                "schemaVersion": 1,
+                "definitionVersion": 1,
+                "name": "one",
+                "files": {
+                  "definition": "one.json"
+                }
+              },
+              "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+              "files": [
+                {
+                  "path": "one.json",
+                  "role": "definition",
+                  "content": "{\"synthetic\":1}"
+                },
+                {
+                  "path": "two.txt",
+                  "role": "notes",
+                  "content": "synthetic dirty one"
+                }
+              ],
+              "checksum": "baseline-one",
+              "capabilities": {
+                "edit": true,
+                "format": true
+              },
+              "validation": {
+                "valid": true,
+                "diagnostics": []
+              },
+              "references": {
+                "outgoing": []
+              }
+            },
+            "baselineChecksum": "baseline-one",
+            "localGeneration": 3,
+            "lastSavedGeneration": 0,
+            "saveState": "pending",
+            "dirty": true,
+            "canUndo": true,
+            "canRedo": true
+          },
+          "stored": [
+            [
+              "one",
+              {
+                "locator": "one",
+                "manifest": {
+                  "artifactId": "synthetic-one",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "one",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved one"
+                  }
+                ],
+                "checksum": "baseline-one",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ],
+            [
+              "two",
+              {
+                "locator": "two",
+                "manifest": {
+                  "artifactId": "synthetic-two",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "two",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved two"
+                  }
+                ],
+                "checksum": "baseline-two",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ]
+          ],
+          "originalIdentity": {
+            "owner": {
+              "kind": "application",
+              "id": "synthetic-permanent-app"
+            },
+            "format": "generic",
+            "id": "synthetic-one"
+          },
+          "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+          "selectedFile": "two.txt",
+          "range": [
+            2,
+            9
+          ],
+          "sourceText": "synthetic dirty one",
+          "focus": true,
+          "mutationCalls": [],
+          "saves": [],
+          "autosave": {
+            "enabled": false,
+            "delayMs": 2000
+          }
+        },
+        "after": {
+          "editor": {
+            "artifact": {
+              "locator": "one",
+              "manifest": {
+                "artifactId": "synthetic-one",
+                "artifactType": "fixture",
+                "schemaVersion": 1,
+                "definitionVersion": 1,
+                "name": "one",
+                "files": {
+                  "definition": "one.json"
+                }
+              },
+              "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+              "files": [
+                {
+                  "path": "one.json",
+                  "role": "definition",
+                  "content": "{\"synthetic\":1}"
+                },
+                {
+                  "path": "two.txt",
+                  "role": "notes",
+                  "content": "synthetic dirty one"
+                }
+              ],
+              "checksum": "baseline-one",
+              "capabilities": {
+                "edit": true,
+                "format": true
+              },
+              "validation": {
+                "valid": true,
+                "diagnostics": []
+              },
+              "references": {
+                "outgoing": []
+              }
+            },
+            "baselineChecksum": "baseline-one",
+            "localGeneration": 3,
+            "lastSavedGeneration": 0,
+            "saveState": "pending",
+            "dirty": true,
+            "canUndo": true,
+            "canRedo": true
+          },
+          "stored": [
+            [
+              "one",
+              {
+                "locator": "one",
+                "manifest": {
+                  "artifactId": "synthetic-one",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "one",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved one"
+                  }
+                ],
+                "checksum": "baseline-one",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ],
+            [
+              "two",
+              {
+                "locator": "two",
+                "manifest": {
+                  "artifactId": "synthetic-two",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "two",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved two"
+                  }
+                ],
+                "checksum": "baseline-two",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ]
+          ],
+          "originalIdentity": {
+            "owner": {
+              "kind": "application",
+              "id": "synthetic-permanent-app"
+            },
+            "format": "generic",
+            "id": "synthetic-one"
+          },
+          "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+          "selectedFile": "two.txt",
+          "range": [
+            2,
+            9
+          ],
+          "sourceText": "synthetic dirty one",
+          "focus": true,
+          "mutationCalls": [],
+          "saves": [],
+          "autosave": {
+            "enabled": false,
+            "delayMs": 2000
+          }
+        }
+      },
+      {
+        "withPreview": true,
+        "before": {
+          "editor": {
+            "artifact": {
+              "locator": "one",
+              "manifest": {
+                "artifactId": "synthetic-one",
+                "artifactType": "fixture",
+                "schemaVersion": 1,
+                "definitionVersion": 1,
+                "name": "one",
+                "files": {
+                  "definition": "one.json"
+                }
+              },
+              "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+              "files": [
+                {
+                  "path": "one.json",
+                  "role": "definition",
+                  "content": "{\"synthetic\":1}"
+                },
+                {
+                  "path": "two.txt",
+                  "role": "notes",
+                  "content": "synthetic dirty one"
+                }
+              ],
+              "checksum": "baseline-one",
+              "capabilities": {
+                "edit": true,
+                "format": true
+              },
+              "validation": {
+                "valid": true,
+                "diagnostics": []
+              },
+              "references": {
+                "outgoing": []
+              }
+            },
+            "baselineChecksum": "baseline-one",
+            "localGeneration": 3,
+            "lastSavedGeneration": 0,
+            "saveState": "pending",
+            "dirty": true,
+            "canUndo": true,
+            "canRedo": true
+          },
+          "stored": [
+            [
+              "one",
+              {
+                "locator": "one",
+                "manifest": {
+                  "artifactId": "synthetic-one",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "one",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved one"
+                  }
+                ],
+                "checksum": "baseline-one",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ],
+            [
+              "two",
+              {
+                "locator": "two",
+                "manifest": {
+                  "artifactId": "synthetic-two",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "two",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved two"
+                  }
+                ],
+                "checksum": "baseline-two",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ]
+          ],
+          "originalIdentity": {
+            "owner": {
+              "kind": "application",
+              "id": "synthetic-permanent-app"
+            },
+            "format": "generic",
+            "id": "synthetic-one"
+          },
+          "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+          "selectedFile": "two.txt",
+          "range": [
+            2,
+            9
+          ],
+          "sourceText": "synthetic dirty one",
+          "focus": true,
+          "mutationCalls": [],
+          "saves": [],
+          "autosave": {
+            "enabled": false,
+            "delayMs": 2000
+          }
+        },
+        "after": {
+          "editor": {
+            "artifact": {
+              "locator": "one",
+              "manifest": {
+                "artifactId": "synthetic-one",
+                "artifactType": "fixture",
+                "schemaVersion": 1,
+                "definitionVersion": 1,
+                "name": "one",
+                "files": {
+                  "definition": "one.json"
+                }
+              },
+              "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+              "files": [
+                {
+                  "path": "one.json",
+                  "role": "definition",
+                  "content": "{\"synthetic\":1}"
+                },
+                {
+                  "path": "two.txt",
+                  "role": "notes",
+                  "content": "synthetic dirty one"
+                }
+              ],
+              "checksum": "baseline-one",
+              "capabilities": {
+                "edit": true,
+                "format": true
+              },
+              "validation": {
+                "valid": true,
+                "diagnostics": []
+              },
+              "references": {
+                "outgoing": []
+              }
+            },
+            "baselineChecksum": "baseline-one",
+            "localGeneration": 3,
+            "lastSavedGeneration": 0,
+            "saveState": "pending",
+            "dirty": true,
+            "canUndo": true,
+            "canRedo": true
+          },
+          "stored": [
+            [
+              "one",
+              {
+                "locator": "one",
+                "manifest": {
+                  "artifactId": "synthetic-one",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "one",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved one"
+                  }
+                ],
+                "checksum": "baseline-one",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ],
+            [
+              "two",
+              {
+                "locator": "two",
+                "manifest": {
+                  "artifactId": "synthetic-two",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "two",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved two"
+                  }
+                ],
+                "checksum": "baseline-two",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ]
+          ],
+          "originalIdentity": {
+            "owner": {
+              "kind": "application",
+              "id": "synthetic-permanent-app"
+            },
+            "format": "generic",
+            "id": "synthetic-one"
+          },
+          "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+          "selectedFile": "two.txt",
+          "range": [
+            2,
+            9
+          ],
+          "sourceText": "synthetic dirty one",
+          "focus": true,
+          "mutationCalls": [],
+          "saves": [],
+          "autosave": {
+            "enabled": false,
+            "delayMs": 2000
+          }
+        }
+      }
+    ],
+    "autosaveMatchedTraces": [
+      {
+        "pending": {
+          "editor": {
+            "artifact": {
+              "locator": "one",
+              "manifest": {
+                "artifactId": "synthetic-one",
+                "artifactType": "fixture",
+                "schemaVersion": 1,
+                "definitionVersion": 1,
+                "name": "one",
+                "files": {
+                  "definition": "one.json"
+                }
+              },
+              "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+              "files": [
+                {
+                  "path": "one.json",
+                  "role": "definition",
+                  "content": "{\"synthetic\":1}"
+                },
+                {
+                  "path": "two.txt",
+                  "role": "notes",
+                  "content": "synthetic autosave candidate"
+                }
+              ],
+              "checksum": "baseline-one",
+              "capabilities": {
+                "edit": true,
+                "format": true
+              },
+              "validation": {
+                "valid": true,
+                "diagnostics": []
+              },
+              "references": {
+                "outgoing": []
+              }
+            },
+            "baselineChecksum": "baseline-one",
+            "localGeneration": 1,
+            "lastSavedGeneration": 0,
+            "saveState": "saving",
+            "dirty": true,
+            "canUndo": true,
+            "canRedo": false
+          },
+          "stored": [
+            [
+              "one",
+              {
+                "locator": "one",
+                "manifest": {
+                  "artifactId": "synthetic-one",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "one",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved one"
+                  }
+                ],
+                "checksum": "baseline-one",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ],
+            [
+              "two",
+              {
+                "locator": "two",
+                "manifest": {
+                  "artifactId": "synthetic-two",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "two",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved two"
+                  }
+                ],
+                "checksum": "baseline-two",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ]
+          ],
+          "originalIdentity": {
+            "owner": {
+              "kind": "application",
+              "id": "synthetic-permanent-app"
+            },
+            "format": "generic",
+            "id": "synthetic-one"
+          },
+          "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+          "selectedFile": "two.txt",
+          "range": [
+            28,
+            28
+          ],
+          "sourceText": "synthetic autosave candidate",
+          "focus": true,
+          "mutationCalls": [],
+          "saves": [
+            {
+              "time": 2000,
+              "locator": "one",
+              "changes": {
+                "expectedChecksum": "baseline-one",
+                "mode": "normal",
+                "files": {
+                  "two.txt": "synthetic autosave candidate"
+                }
+              }
+            }
+          ],
+          "autosave": {
+            "enabled": true,
+            "delayMs": 2000
+          }
+        },
+        "settled": {
+          "editor": {
+            "artifact": {
+              "locator": "one",
+              "manifest": {
+                "artifactId": "synthetic-one",
+                "artifactType": "fixture",
+                "schemaVersion": 1,
+                "definitionVersion": 1,
+                "name": "one",
+                "files": {
+                  "definition": "one.json"
+                }
+              },
+              "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+              "files": [
+                {
+                  "path": "one.json",
+                  "role": "definition",
+                  "content": "{\"synthetic\":1}"
+                },
+                {
+                  "path": "two.txt",
+                  "role": "notes",
+                  "content": "synthetic autosave candidate"
+                }
+              ],
+              "checksum": "baseline-one-saved",
+              "capabilities": {
+                "edit": true,
+                "format": true
+              },
+              "validation": {
+                "valid": true,
+                "diagnostics": []
+              },
+              "references": {
+                "outgoing": []
+              }
+            },
+            "baselineChecksum": "baseline-one-saved",
+            "localGeneration": 1,
+            "lastSavedGeneration": 1,
+            "saveState": "saved",
+            "dirty": false,
+            "canUndo": true,
+            "canRedo": false
+          },
+          "stored": [
+            [
+              "one",
+              {
+                "locator": "one",
+                "manifest": {
+                  "artifactId": "synthetic-one",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "one",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic autosave candidate"
+                  }
+                ],
+                "checksum": "baseline-one-saved",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ],
+            [
+              "two",
+              {
+                "locator": "two",
+                "manifest": {
+                  "artifactId": "synthetic-two",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "two",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved two"
+                  }
+                ],
+                "checksum": "baseline-two",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ]
+          ],
+          "originalIdentity": {
+            "owner": {
+              "kind": "application",
+              "id": "synthetic-permanent-app"
+            },
+            "format": "generic",
+            "id": "synthetic-one"
+          },
+          "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+          "selectedFile": "two.txt",
+          "range": [
+            28,
+            28
+          ],
+          "sourceText": "synthetic autosave candidate",
+          "focus": true,
+          "mutationCalls": [],
+          "saves": [
+            {
+              "time": 2000,
+              "locator": "one",
+              "changes": {
+                "expectedChecksum": "baseline-one",
+                "mode": "normal",
+                "files": {
+                  "two.txt": "synthetic autosave candidate"
+                }
+              }
+            }
+          ],
+          "autosave": {
+            "enabled": true,
+            "delayMs": 2000
+          }
+        }
+      },
+      {
+        "pending": {
+          "editor": {
+            "artifact": {
+              "locator": "one",
+              "manifest": {
+                "artifactId": "synthetic-one",
+                "artifactType": "fixture",
+                "schemaVersion": 1,
+                "definitionVersion": 1,
+                "name": "one",
+                "files": {
+                  "definition": "one.json"
+                }
+              },
+              "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+              "files": [
+                {
+                  "path": "one.json",
+                  "role": "definition",
+                  "content": "{\"synthetic\":1}"
+                },
+                {
+                  "path": "two.txt",
+                  "role": "notes",
+                  "content": "synthetic autosave candidate"
+                }
+              ],
+              "checksum": "baseline-one",
+              "capabilities": {
+                "edit": true,
+                "format": true
+              },
+              "validation": {
+                "valid": true,
+                "diagnostics": []
+              },
+              "references": {
+                "outgoing": []
+              }
+            },
+            "baselineChecksum": "baseline-one",
+            "localGeneration": 1,
+            "lastSavedGeneration": 0,
+            "saveState": "saving",
+            "dirty": true,
+            "canUndo": true,
+            "canRedo": false
+          },
+          "stored": [
+            [
+              "one",
+              {
+                "locator": "one",
+                "manifest": {
+                  "artifactId": "synthetic-one",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "one",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved one"
+                  }
+                ],
+                "checksum": "baseline-one",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ],
+            [
+              "two",
+              {
+                "locator": "two",
+                "manifest": {
+                  "artifactId": "synthetic-two",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "two",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved two"
+                  }
+                ],
+                "checksum": "baseline-two",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ]
+          ],
+          "originalIdentity": {
+            "owner": {
+              "kind": "application",
+              "id": "synthetic-permanent-app"
+            },
+            "format": "generic",
+            "id": "synthetic-one"
+          },
+          "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+          "selectedFile": "two.txt",
+          "range": [
+            28,
+            28
+          ],
+          "sourceText": "synthetic autosave candidate",
+          "focus": true,
+          "mutationCalls": [],
+          "saves": [
+            {
+              "time": 2000,
+              "locator": "one",
+              "changes": {
+                "expectedChecksum": "baseline-one",
+                "mode": "normal",
+                "files": {
+                  "two.txt": "synthetic autosave candidate"
+                }
+              }
+            }
+          ],
+          "autosave": {
+            "enabled": true,
+            "delayMs": 2000
+          }
+        },
+        "settled": {
+          "editor": {
+            "artifact": {
+              "locator": "one",
+              "manifest": {
+                "artifactId": "synthetic-one",
+                "artifactType": "fixture",
+                "schemaVersion": 1,
+                "definitionVersion": 1,
+                "name": "one",
+                "files": {
+                  "definition": "one.json"
+                }
+              },
+              "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+              "files": [
+                {
+                  "path": "one.json",
+                  "role": "definition",
+                  "content": "{\"synthetic\":1}"
+                },
+                {
+                  "path": "two.txt",
+                  "role": "notes",
+                  "content": "synthetic autosave candidate"
+                }
+              ],
+              "checksum": "baseline-one-saved",
+              "capabilities": {
+                "edit": true,
+                "format": true
+              },
+              "validation": {
+                "valid": true,
+                "diagnostics": []
+              },
+              "references": {
+                "outgoing": []
+              }
+            },
+            "baselineChecksum": "baseline-one-saved",
+            "localGeneration": 1,
+            "lastSavedGeneration": 1,
+            "saveState": "saved",
+            "dirty": false,
+            "canUndo": true,
+            "canRedo": false
+          },
+          "stored": [
+            [
+              "one",
+              {
+                "locator": "one",
+                "manifest": {
+                  "artifactId": "synthetic-one",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "one",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-one\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"one\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic autosave candidate"
+                  }
+                ],
+                "checksum": "baseline-one-saved",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ],
+            [
+              "two",
+              {
+                "locator": "two",
+                "manifest": {
+                  "artifactId": "synthetic-two",
+                  "artifactType": "fixture",
+                  "schemaVersion": 1,
+                  "definitionVersion": 1,
+                  "name": "two",
+                  "files": {
+                    "definition": "one.json"
+                  }
+                },
+                "manifestContent": "{\"artifactId\":\"synthetic-two\",\"artifactType\":\"fixture\",\"schemaVersion\":1,\"definitionVersion\":1,\"name\":\"two\",\"files\":{\"definition\":\"one.json\"}}",
+                "files": [
+                  {
+                    "path": "one.json",
+                    "role": "definition",
+                    "content": "{\"synthetic\":1}"
+                  },
+                  {
+                    "path": "two.txt",
+                    "role": "notes",
+                    "content": "synthetic saved two"
+                  }
+                ],
+                "checksum": "baseline-two",
+                "capabilities": {
+                  "edit": true,
+                  "format": true
+                },
+                "validation": {
+                  "valid": true,
+                  "diagnostics": []
+                },
+                "references": {
+                  "outgoing": []
+                }
+              }
+            ]
+          ],
+          "originalIdentity": {
+            "owner": {
+              "kind": "application",
+              "id": "synthetic-permanent-app"
+            },
+            "format": "generic",
+            "id": "synthetic-one"
+          },
+          "focusedKey": "[\"application\",\"synthetic-permanent-app\",null,\"generic\",[\"permanent\",\"synthetic-one\"]]",
+          "selectedFile": "two.txt",
+          "range": [
+            28,
+            28
+          ],
+          "sourceText": "synthetic autosave candidate",
+          "focus": true,
+          "mutationCalls": [],
+          "saves": [
+            {
+              "time": 2000,
+              "locator": "one",
+              "changes": {
+                "expectedChecksum": "baseline-one",
+                "mode": "normal",
+                "files": {
+                  "two.txt": "synthetic autosave candidate"
+                }
+              }
+            }
+          ],
+          "autosave": {
+            "enabled": true,
+            "delayMs": 2000
+          }
+        }
+      }
+    ]
+  },
+  "serverRequests": [
+    {
+      "url": "/",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/harness.js",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/harness.js",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/harness.js",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/harness.js",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54765/",
+      "resource": "document"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54765/harness.js",
+      "resource": "script"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54765/effect/image",
+      "resource": "image"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54765/",
+      "resource": "document"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54765/harness.js",
+      "resource": "script"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54765/",
+      "resource": "document"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54765/harness.js",
+      "resource": "script"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54765/",
+      "resource": "document"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54765/harness.js",
+      "resource": "script"
+    }
+  ],
+  "failures": [
+    {
+      "url": "http://127.0.0.1:54765/effect/image",
+      "error": "csp"
+    }
+  ],
+  "consoleMessages": [
+    {
+      "type": "error",
+      "text": "Connecting to 'http://127.0.0.1:54765/effect/read' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Fetch API cannot load http://127.0.0.1:54765/effect/read. Refused to connect because it violates the document's Content Security Policy."
+    },
+    {
+      "type": "error",
+      "text": "Connecting to 'http://127.0.0.1:54765/effect/mutation' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Fetch API cannot load http://127.0.0.1:54765/effect/mutation. Refused to connect because it violates the document's Content Security Policy."
+    },
+    {
+      "type": "error",
+      "text": "Connecting to 'http://127.0.0.1:54765/effect/upload' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Fetch API cannot load http://127.0.0.1:54765/effect/upload. Refused to connect because it violates the document's Content Security Policy."
+    },
+    {
+      "type": "error",
+      "text": "Connecting to 'http://127.0.0.1:54765/effect/publish' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Fetch API cannot load http://127.0.0.1:54765/effect/publish. Refused to connect because it violates the document's Content Security Policy."
+    },
+    {
+      "type": "error",
+      "text": "Unsafe attempt to initiate navigation for frame with origin 'http://127.0.0.1:54765' from frame with URL 'about:srcdoc'. The frame attempting navigation of the top-level window is sandboxed, but the flag of 'allow-top-navigation' or 'allow-top-navigation-by-user-activation' is not set.\n"
+    },
+    {
+      "type": "error",
+      "text": "Blocked opening 'http://127.0.0.1:54765/effect/popup' in a new window because the request was made in a sandboxed frame whose 'allow-popups' permission is not set."
+    },
+    {
+      "type": "error",
+      "text": "Blocked form submission to 'http://127.0.0.1:54765/effect/submission' because the form's frame is sandboxed and the 'allow-forms' permission is not set."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'sha256-Fy3ygiAexpU7Th9A5UDNshqT9ViZ+Ano1+G5LLFmXUY=''. Either the 'unsafe-inline' keyword, a hash ('sha256-1WcWJkaxG/Tau82Z6XJorBBBmflFg9Ibe4bYEd24ApA='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Loading the image 'http://127.0.0.1:54765/effect/image' violates the following Content Security Policy directive: \"img-src 'none'\". The action has been blocked."
+    }
+  ],
+  "errors": [],
+  "navigations": [
+    {
+      "main": true,
+      "url": "http://127.0.0.1:54765/"
+    },
+    {
+      "main": true,
+      "url": "http://127.0.0.1:54765/"
+    },
+    {
+      "main": true,
+      "url": "http://127.0.0.1:54765/"
+    },
+    {
+      "main": true,
+      "url": "http://127.0.0.1:54765/"
+    }
+  ],
+  "downloads": [],
+  "choosers": [],
+  "limits": "Actual source/context/coordinator modules with test adapter and synthetic sessions/transports; no full Builder shell/default adapters/backend qualification. Hostile probes use test-driver evaluation, not shipped code. Top navigation denied; arbitrary self-navigation is outside admitted code, not claimed sandbox-forbidden. Revocation simulated."
+}

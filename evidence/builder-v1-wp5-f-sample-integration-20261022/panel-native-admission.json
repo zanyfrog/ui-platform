@@ -1,0 +1,51 @@
+{
+  "admitted": true,
+  "scope": "Existing registered UibPanel native layout fixture; no canonical Definition or Component parity claim",
+  "sourceHashes": {
+    "../ui-base/packages/ui-base-ui/src/layout/index.js": "e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a",
+    "../ui-base/packages/ui-base-core/src/base-element.js": "52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097",
+    "../ui-base/packages/ui-base-core/src/utils.js": "ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1",
+    "src/client/fixture-preview/frame.ts": "671f5ec89b35d3496d00ab56754928a3c0cb3b998e2b33f8bdd5efe7ecef0e33",
+    "src/client/fixture-preview/samples.ts": "da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6",
+    "packages/visual-artifacts/src/composition.ts": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2"
+  },
+  "path": [
+    {
+      "stage": "Module initialization",
+      "behavior": "Existing layout module imports core and icon implementation; audited existing registrations only; no discovery or package loader"
+    },
+    {
+      "stage": "Construction",
+      "behavior": "document.createElement(uib-panel), instanceof existing imported UibPanel; inherited UibBaseElement constructor allocates only local element ID"
+    },
+    {
+      "stage": "Inputs before connection",
+      "behavior": "Exact validated heading/variant/density attributes, collapsible/open booleans, textContent span body/footer; no action slots, HTML, CSS, URLs, services or arbitrary property forwarding"
+    },
+    {
+      "stage": "Connection and render",
+      "behavior": "Inherited UibSurfaceBase.connectedCallback -> audited UibPanel.render; fixed CSS/escaped heading/slots/section and local toggle button; CSS-class wrapper only updates classes on this instance"
+    },
+    {
+      "stage": "Toggle",
+      "behavior": "Guard !collapsible || disabled; toggle local open attribute; inherited attribute callback rerenders; emitValueChange dispatches local change and uib-panel-toggle; no parent forwarding listener or capability channel"
+    },
+    {
+      "stage": "Non-collapsible",
+      "behavior": "Native getter open returns true even when open attribute is absent; browser verified content remains visible and no toggle exists"
+    },
+    {
+      "stage": "Cleanup",
+      "behavior": "No Panel timer/service/storage initialization/disconnect handler; stale/revoke/dispose removes complete opaque frame, its DOM, event targets and realm"
+    }
+  ],
+  "dependencyAdmission": "19 exact build input files; no native source modifications or substitute modules; source/resource closure enforced by load allowlist",
+  "browserEvidence": "evidence/builder-v1-wp5-f-sample-integration-20261022/run-1792693349988/browser-results.json",
+  "excluded": [
+    "canonical Panel Definition",
+    "arbitrary child elements/action slots",
+    "Dataset/Workflow/Trigger/service/storage adapters",
+    "new native initialization capabilities",
+    "protected Component or Foundation access"
+  ]
+}

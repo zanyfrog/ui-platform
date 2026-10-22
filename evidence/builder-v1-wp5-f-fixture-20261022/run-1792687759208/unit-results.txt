@@ -1,0 +1,20 @@
+✔ identity is immutable and distinguishes original subject, session, permanent Application and owner (2.8509ms)
+✔ last success is distinct from pending and cannot be relabeled on failure (0.7231ms)
+✔ deferred response loses to explicit newer refresh (0.6303ms)
+✔ wrong response identity, request identity and sequence are rejected (0.5531ms)
+✔ invalidation cancels pending without automatic recapture or content replacement (0.5419ms)
+✔ simulated revocation clears successful and pending content and rejects future/late work (0.7115ms)
+✔ disposal is terminal, including deferred rejection and revocation (0.9231ms)
+✔ initial failures are unavailable; explicit refresh alone recovers (0.326ms)
+✔ samples are bounded data with exact fields and native supported values (1.2485ms)
+✔ service/resource and unsupported schema requests have specific denial reasons (0.8372ms)
+✔ protocol rejects cross-session, wrong nonce/identity, sequence, upgrade and extra capabilities (0.4111ms)
+✔ in-memory WP2 dirty bytes, identity and Undo/Redo history survive preview lifecycle (3.4002ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 147.7829

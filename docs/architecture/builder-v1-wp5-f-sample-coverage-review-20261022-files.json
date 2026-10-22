@@ -1,0 +1,237 @@
+{
+  "date": "2026-10-22",
+  "fixtureFoundationStatus": "accepted-and-closed-within-documented-fixture-only-scope",
+  "nextGate": "WP5-F Sample Coverage and Builder Integration — Implementation Authorization Review Gate",
+  "implementationAuthorized": false,
+  "executed": {
+    "tests": false,
+    "builds": false,
+    "browser": false,
+    "normalLaunchers": false,
+    "protectedStateAccess": false,
+    "commits": false,
+    "pushes": false
+  },
+  "changedFiles": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-fixture-foundation-closure-20261022.md",
+      "change": "added",
+      "bytes": 4488,
+      "sha256": "27dec221b86b38c29ca9e464eab1acdfef2bbfea26aa779791fe536dfe5740c5"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-sample-coverage-builder-integration-feasibility-20261022.md",
+      "change": "added",
+      "bytes": 17569,
+      "sha256": "fe2a23ffe1abe369c840dc04532c60092099a679378cf375942e63b025941a33"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-sample-coverage-review-20261022-files.json",
+      "change": "added",
+      "sha256": null,
+      "note": "Self-entry intentionally unhashed"
+    }
+  ],
+  "preservation": {
+    "previousIncrementManifest": {
+      "path": "docs/architecture/builder-v1-wp5-f-fixture-foundation-20261022-files.json",
+      "sha256": "7a40c570101eaebc384662b0b56e9b18525eaeaf9671e02f071b1f591695369f",
+      "unchanged": true,
+      "hashedEntries": 61,
+      "mismatches": []
+    },
+    "acceptedSourceBaseline": {
+      "files": 1328,
+      "mismatches": []
+    },
+    "head": "0bfa93ec06bd7e70971740de8663fb11887b1e89",
+    "headUnchanged": true,
+    "umbrella": {
+      "unchecked": 40,
+      "checked": 0
+    },
+    "protectedState": "Not read or enumerated. No protected-store hash or OS audit claim."
+  },
+  "reviewedSourceReferences": [
+    {
+      "path": "src/client/fixture-preview/panel.ts",
+      "sha256": "235985cc8d8fe420f24b10e92106eb01d3be84bf9501b32f094ef5163d1214ae",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/fixture-preview/frame.ts",
+      "sha256": "e85cc7f1eb9400a707bbeb0775feb933ead9ab508d2203c43e0cb2850aba8dbd",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/builder-workspace/shell.ts",
+      "sha256": "5dbcc1c9bf60887d38768cb1af77984c7c3ed06f7915e4953eab9d9597ffc19b",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/builder-workspace/adapters.ts",
+      "sha256": "1a10d5d2b897972b6e49ae695e61f8beeb219c576abaa1666bd30d6521dd2066",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/builder-workspace/coordinator.ts",
+      "sha256": "0be7ab0edf526e5869a55c9b7b4e00fe3f3d894469d01fa9df55aa79d7a32e42",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/builder-workspace/requests.ts",
+      "sha256": "11d3b6ad99b740ac76a80be0688dc829bc4f57fca8250c9b6460fae3d10674b1",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/context.ts",
+      "sha256": "20367e5dc525da997c8e9080694a53f61cd7edd504dc7760d23c8910ce7bf6a8",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/working-copy.ts",
+      "sha256": "c62a7863c40a359205015e8d147aedf40cdd284a7727837de5c076b56a932f7d",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/editing-lifecycle.ts",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/autosave-configuration.ts",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/session.ts",
+      "sha256": "dcae41c7a0bc652bb840f23207ec085ff12754e26b85b6894394e8a2804ef4c8",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/transport.ts",
+      "sha256": "38173961ee3b47587ed2fcfd81d187b46efa03209884d77da91b2718405923fa",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/recovery.ts",
+      "sha256": "f093f22ea88ab9d6e7c26a2e03969a0075746d1e85e8e55eadaa7aff56f8bae1",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/source-editor.ts",
+      "sha256": "9091b661cba28d87de5f8110c440ead60deed3f4c07428ab2e36ce26b8961c6b",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/shell.ts",
+      "sha256": "ccd211e5d521b6fb35634e14b4eae8e086e6cb8066993a4dfe8911ea6c2db46a",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/default-plugins.ts",
+      "sha256": "279dcc84adfae9e635b616e2d8617c9548dcadebda0d7d8e2cfcf87075eccbee",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/artifact-editor/form-preview.ts",
+      "sha256": "13d8882ef73892e972e627cc610d528609994086f8a6f3a136003d51852a2c8e",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/visual-artifacts/editor.ts",
+      "sha256": "b2cb2ad896540cfcd6a9f2b149af9465bea1f4f4009020789f9f74fc9f889a8a",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "src/client/visual-artifacts/preview.ts",
+      "sha256": "3f780565220eef9b4dd107901f77b7a15d16fb33c1cd32817e170e85c8c34100",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "packages/visual-artifacts/src/runtime.ts",
+      "sha256": "4b0e7bd680d89a21ad264c9857139e9848fbfd396a0f471a8b2a558071961958",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "packages/visual-artifacts/src/composition-runtime.ts",
+      "sha256": "602910ef1a56519b0e513b358423dd3c8b506eadf920f0f39677895f1f41dabe",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "packages/visual-artifacts/src/composition.ts",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "packages/visual-artifacts/src/form-runtime.ts",
+      "sha256": "8ef4ad2c8cc400ed72970f1ffe5207a757c89601f15e500faf2ac35994489526",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "packages/visual-artifacts/src/form.ts",
+      "sha256": "b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "packages/visual-artifacts/src/expression.ts",
+      "sha256": "f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "packages/visual-artifacts/src/source.ts",
+      "sha256": "34cb2401ce50f2cca2829f723f2865f2d16f042f18a8a5e57d89b2987b31378f",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/layout/index.js",
+      "sha256": "e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "../ui-base/packages/ui-base-forms/src/index.js",
+      "sha256": "31c728f1bcf50ba49712f623d1280d142494f023af0fa2495f44c6218d1ae342",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "../ui-base/packages/ui-base-forms/src/recent-values.js",
+      "sha256": "4368aa8fbbfc5a6d5d3ae9d1363dc8122517301cef2a430aea25ff9704d034f3",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "../ui-base/packages/ui-base-forms/src/form-control-base.js",
+      "sha256": "2026b8d0e9776ca1872456269ee425797d27bd5b8152b762c55aa1ae438ca7e8",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "scripts/build-fixture-preview.mjs",
+      "sha256": "ac22a5398fa7156411ae971ddbe1e675322f1254d229694c0c008d59b685eeb0",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "scripts/verify-fixture-preview.mjs",
+      "sha256": "e2d85a840e0361ec75ed535b2ef200fb077f217d48c6088f7c76622f448a2d06",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "tests/editor-context.test.ts",
+      "sha256": "f981a6656605733eb6c9d00f09964a7b99a0763bd740268caea7cdce9a7dbefa",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "tests/builder-workspace.test.ts",
+      "sha256": "528c3015ece58c6c076b5515ac34de8908c5ea6df90eb6c20d7fe1de50b8638e",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    },
+    {
+      "path": "tests/editing-lifecycle.test.ts",
+      "sha256": "ff37cac25e5e5e0266f6d2009aa03f3c68c0f2b2715bdd53d2706e783aec97a1",
+      "review": "Targeted static source inspection; not a complete transitive execution admission"
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "selected": [
+    "tests/fixture-preview/lifecycle.test.ts",
+    "tests/fixture-preview/harness.ts"
+  ],
+  "settings": {
+    "serial": true,
+    "retries": 0,
+    "discovery": false,
+    "setupHooks": false,
+    "normalLaunchers": false
+  },
+  "unit": {
+    "inputs": {
+      "src/client/fixture-preview/lifecycle.ts": {
+        "bytes": 3121,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/samples.ts": {
+        "bytes": 2874,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/protocol.ts": {
+        "bytes": 1169,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/shared/platform-settings.ts": {
+        "bytes": 2197,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/autosave-configuration.ts": {
+        "bytes": 714,
+        "imports": [
+          {
+            "path": "src/shared/platform-settings.ts",
+            "kind": "import-statement",
+            "original": "../../shared/platform-settings.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/editing-lifecycle.ts": {
+        "bytes": 8230,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "./autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/fixture-preview/lifecycle.test.ts": {
+        "bytes": 9019,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "src/client/fixture-preview/lifecycle.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/fixture-preview/lifecycle.js"
+          },
+          {
+            "path": "src/client/fixture-preview/samples.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/fixture-preview/samples.js"
+          },
+          {
+            "path": "src/client/fixture-preview/protocol.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/fixture-preview/protocol.js"
+          },
+          {
+            "path": "src/client/artifact-editor/editing-lifecycle.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/editing-lifecycle.js"
+          },
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "lifecycle.test.js": {
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "exports": [],
+        "entryPoint": "tests/fixture-preview/lifecycle.test.ts",
+        "inputs": {
+          "tests/fixture-preview/lifecycle.test.ts": {
+            "bytesInOutput": 8519
+          },
+          "src/client/fixture-preview/lifecycle.ts": {
+            "bytesInOutput": 2218
+          },
+          "src/client/fixture-preview/samples.ts": {
+            "bytesInOutput": 2408
+          },
+          "src/client/fixture-preview/protocol.ts": {
+            "bytesInOutput": 752
+          },
+          "src/shared/platform-settings.ts": {
+            "bytesInOutput": 578
+          },
+          "src/client/artifact-editor/autosave-configuration.ts": {
+            "bytesInOutput": 504
+          },
+          "src/client/artifact-editor/editing-lifecycle.ts": {
+            "bytesInOutput": 7103
+          }
+        },
+        "bytes": 22443
+      }
+    }
+  },
+  "browser": {
+    "inputs": {
+      "src/client/fixture-preview/lifecycle.ts": {
+        "bytes": 3121,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/bootstrap.txt": {
+        "bytes": 97198,
+        "imports": []
+      },
+      "src/client/fixture-preview/samples.ts": {
+        "bytes": 2874,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/protocol.ts": {
+        "bytes": 1169,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/host.ts": {
+        "bytes": 3928,
+        "imports": [
+          {
+            "path": "src/client/fixture-preview/bootstrap.txt",
+            "kind": "import-statement",
+            "original": "./bootstrap.txt?raw"
+          },
+          {
+            "path": "src/client/fixture-preview/lifecycle.ts",
+            "kind": "import-statement",
+            "original": "./lifecycle.js"
+          },
+          {
+            "path": "src/client/fixture-preview/samples.ts",
+            "kind": "import-statement",
+            "original": "./samples.js"
+          },
+          {
+            "path": "src/client/fixture-preview/protocol.ts",
+            "kind": "import-statement",
+            "original": "./protocol.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/panel.ts": {
+        "bytes": 5273,
+        "imports": [
+          {
+            "path": "src/client/fixture-preview/lifecycle.ts",
+            "kind": "import-statement",
+            "original": "./lifecycle.js"
+          },
+          {
+            "path": "src/client/fixture-preview/host.ts",
+            "kind": "import-statement",
+            "original": "./host.js"
+          },
+          {
+            "path": "src/client/fixture-preview/samples.ts",
+            "kind": "import-statement",
+            "original": "./samples.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/shared/platform-settings.ts": {
+        "bytes": 2197,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/autosave-configuration.ts": {
+        "bytes": 714,
+        "imports": [
+          {
+            "path": "src/shared/platform-settings.ts",
+            "kind": "import-statement",
+            "original": "../../shared/platform-settings.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/editing-lifecycle.ts": {
+        "bytes": 8230,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "./autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/fixture-preview/harness.ts": {
+        "bytes": 1689,
+        "imports": [
+          {
+            "path": "src/client/fixture-preview/panel.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/fixture-preview/panel.js"
+          },
+          {
+            "path": "src/client/artifact-editor/editing-lifecycle.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/editing-lifecycle.js"
+          },
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "harness.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "tests/fixture-preview/harness.ts",
+        "inputs": {
+          "src/client/fixture-preview/lifecycle.ts": {
+            "bytesInOutput": 2306
+          },
+          "src/client/fixture-preview/bootstrap.txt": {
+            "bytesInOutput": 99525
+          },
+          "src/client/fixture-preview/samples.ts": {
+            "bytesInOutput": 2356
+          },
+          "src/client/fixture-preview/protocol.ts": {
+            "bytesInOutput": 764
+          },
+          "src/client/fixture-preview/host.ts": {
+            "bytesInOutput": 3471
+          },
+          "src/client/fixture-preview/panel.ts": {
+            "bytesInOutput": 4963
+          },
+          "src/shared/platform-settings.ts": {
+            "bytesInOutput": 590
+          },
+          "src/client/artifact-editor/autosave-configuration.ts": {
+            "bytesInOutput": 538
+          },
+          "src/client/artifact-editor/editing-lifecycle.ts": {
+            "bytesInOutput": 7537
+          },
+          "tests/fixture-preview/harness.ts": {
+            "bytesInOutput": 1436
+          }
+        },
+        "bytes": 123969
+      }
+    }
+  },
+  "builderShell": "syntax transform only; no dependency execution"
+}

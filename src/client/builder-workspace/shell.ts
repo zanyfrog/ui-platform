@@ -13,6 +13,8 @@ import { chooseVisualCreation } from '../visual-artifacts/creation.js';
 import { LatestProblems } from './problems.js';
 import { subscribeSourceSaved } from '../artifact-editor/saved-source.js';
 import type { ProblemsReport } from '../../shared/application-diagnostics.js';
+import { FixturePreviewPanel } from '../fixture-preview/panel.js';
+import { selectFixturePreview } from './fixture-preview-binding.js';
 
 const shell = document.createElement('section'); shell.className = 'builder-workspace'; shell.setAttribute('aria-label', 'Application Builder workspace');
 shell.innerHTML = `<header><button data-collapse aria-expanded="true">Application navigation</button><strong data-title></strong><button data-refresh>Refresh artifacts</button><button data-create-dataset>Create Dataset</button><button data-create-form>Create Form</button><button data-return-link hidden>Return and link Dataset to Form</button><button data-cancel-link hidden>Cancel Dataset link</button></header>
@@ -21,6 +23,7 @@ const find = <T extends HTMLElement>(selector: string) => shell.querySelector<T>
 const problems = document.createElement('section'); problems.setAttribute('aria-label', 'Application Problems');
 problems.innerHTML = '<h3>Application Problems</h3><p data-validation-status role="status">Validate authoritative saved sources. Local unsaved validation remains in each editor.</p><ol></ol>';
 shell.append(problems);
+const fixturePreview = new FixturePreviewPanel(); shell.append(fixturePreview.element);
 const validateButton = document.createElement('button'); validateButton.textContent = 'Validate Application'; find('header').append(validateButton);
 const latestProblems = new LatestProblems(); let problemsActive = false, refreshTimer: ReturnType<typeof setTimeout> | undefined;
 const validationStatus = problems.querySelector('[data-validation-status]')!;
@@ -51,7 +54,8 @@ const scheduleProblems = (key?: string) => {
   refreshTimer = setTimeout(() => { void refreshProblems(false); }, 150);
 };
 subscribeSourceSaved(scheduleProblems);
-document.addEventListener('ui-platform-workspace-change', () => scheduleProblems());
+subscribeSourceSaved(key => { if (!key || key === applicationKey) fixturePreview.invalidate('SAVED_SOURCE_CHANGED: explicit Refresh required'); });
+document.addEventListener('ui-platform-workspace-change', () => { scheduleProblems(); fixturePreview.invalidate('WORKSPACE_CHANGED: explicit Refresh required'); });
 for (const operation of ['Create Menu', 'Upload Application asset']) {
   const button = document.createElement('button'); button.textContent = operation; find('header').append(button);
   button.onclick = () => run(async () => {
@@ -172,6 +176,11 @@ function renderTabs() {
   if (!parked && focused && !focused.suspended) {
     if (stage.firstElementChild !== focused.editor.element) stage.replaceChildren(focused.editor.element);
   } else stage.replaceChildren();
+  const session = editorSessionSnapshot();
+  selectFixturePreview(fixturePreview, !parked && focused && !focused.suspended && session?.principal ? {
+    subjectId: session.principal.subjectId, sessionId: session.revision,
+    artifact: focused.artifact, dirty: focused.editor.state().dirty,
+  } : undefined);
 }
 coordinator.subscribe(renderTabs);
 async function discover() {
@@ -217,6 +226,7 @@ find('[data-collapse]').onclick = () => { const nav = find('nav'); nav.hidden = 
 subscribeEditorSession(() => {
   const next = editorSessionSnapshot()?.revision;
   if (revision !== next) {
+    fixturePreview.revoke('EDITOR_SESSION_CHANGED: fixture cleared; trusted production revocation remains unavailable');
     clearProblems();
     revision = next; coordinator.suspend(); discovery = []; find('nav').replaceChildren(); navigationSequence++;
     status('Access suspended. Select the original authorized identity to reopen and recover retained tabs.');
@@ -233,7 +243,7 @@ setInterval(() => {
     if (next.editable !== tab.artifact.editable) throw new Error('Artifact authority changed.');
   }).catch(() => { if (!current()) return; clearProblems(); coordinator.suspend(); discovery = []; find('nav').replaceChildren(); status('Artifact access changed. Source hidden; reauthorize under the original identity to recover.'); }).finally(() => { checking = false; });
 }, 2000);
-export function parkWorkspace() { parked = true; navigationSequence++; latestProblems.invalidate(); clearTimeout(refreshTimer); coordinator.park(); shell.remove(); }
+export function parkWorkspace() { fixturePreview.select(); parked = true; navigationSequence++; latestProblems.invalidate(); clearTimeout(refreshTimer); coordinator.park(); shell.remove(); }
 export async function mountApplicationWorkspace(target: HTMLElement, app: { key: string; name: string }) {
   retainDevelopmentWorkspaceSession();
   if (applicationKey !== app.key) clearProblems();

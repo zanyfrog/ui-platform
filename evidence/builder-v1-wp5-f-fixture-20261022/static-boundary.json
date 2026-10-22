@@ -1,0 +1,91 @@
+{
+  "checks": [
+    {
+      "name": "no source/store/network imports",
+      "passed": true
+    },
+    {
+      "name": "no editor persistence/history operations",
+      "passed": true
+    },
+    {
+      "name": "no dynamic executable source or live loader in bootstrap",
+      "passed": true
+    }
+  ],
+  "dependencyChecks": [
+    {
+      "path": "src/client/fixture-preview/frame.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/client/fixture-preview/samples.ts",
+      "unchanged": true
+    },
+    {
+      "path": "src/client/fixture-preview/protocol.ts",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/platform/renderer.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/platform/definition.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/platform/registry.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/layout/uib-card.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/src/layout/index.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/index.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/utils.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/localization.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/validation.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/metadata.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-core/src/base-element.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-icons/src/uib-icon.js",
+      "unchanged": true
+    },
+    {
+      "path": "../ui-base/packages/ui-base-icons/src/icon-registry.js",
+      "unchanged": true
+    }
+  ],
+  "verifiedSourcesUnchanged": true,
+  "bootstrapHash": "c89bd4f7c8fd692fddfce4a9714d80b346a02f82e6b5914eb0d60d55974677bd",
+  "bootstrapMatchesBuild": true,
+  "protectedStateReadOrEnumerated": false,
+  "limits": "Explicit source dependency and effect-surface inspection, not an OS filesystem audit; protected store hashes deliberately unavailable."
+}
