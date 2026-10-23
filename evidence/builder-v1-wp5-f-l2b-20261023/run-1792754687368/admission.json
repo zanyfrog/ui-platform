@@ -1,0 +1,38 @@
+{
+  "sources": [
+    "src/preview-contract-model/model.ts",
+    "tests/preview-contract-model/model.test.ts",
+    "scripts/verify-preview-contract-model.mjs",
+    "docs/architecture/builder-v1-wp5-f-l2b-vectors-admission-20261023.md"
+  ],
+  "sha256": {
+    "src/preview-contract-model/model.ts": "7d1a21231c2ca905141687735592566e65fd0706bc4e0394e955bd959e2a94d3",
+    "tests/preview-contract-model/model.test.ts": "c24ac4dc617831e2371780de152b2a298112d9398bcddcfdf4927a39a9860b1e",
+    "scripts/verify-preview-contract-model.mjs": "6e320f46937ab90aee2898ebfa4b901b2c7bb6a3271151d25d2136c782db1664",
+    "docs/architecture/builder-v1-wp5-f-l2b-vectors-admission-20261023.md": "48fd08c46a27c162b6b11bbbd0e333064a29bdd11ea6eb92a515f63fafa80bb6"
+  },
+  "imports": {
+    "src/preview-contract-model/model.ts": [
+      "node:crypto"
+    ],
+    "tests/preview-contract-model/model.test.ts": [
+      "node:test",
+      "node:assert/strict",
+      "node:crypto",
+      "../../src/preview-contract-model/model.ts",
+      "../../src/preview-contract-model/model.ts"
+    ]
+  },
+  "args": [
+    "--experimental-strip-types",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "tests/preview-contract-model/model.test.ts"
+  ],
+  "serial": true,
+  "retries": 0,
+  "setupHooks": [],
+  "workspaceConfiguration": false,
+  "closure": "Model + one test + Node builtins only. No product modules, providers, protected readers, browser or network."
+}

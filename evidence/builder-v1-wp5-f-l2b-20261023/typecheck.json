@@ -1,0 +1,24 @@
+{
+  "args": [
+    "node_modules/typescript/bin/tsc",
+    "--ignoreConfig",
+    "--noEmit",
+    "--target",
+    "es2022",
+    "--module",
+    "nodenext",
+    "--moduleResolution",
+    "nodenext",
+    "--allowImportingTsExtensions",
+    "--types",
+    "node",
+    "--skipLibCheck",
+    "--strict",
+    "src/preview-contract-model/model.ts",
+    "tests/preview-contract-model/model.test.ts"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "scope": "Exact model and test only; no project config, emit or hooks"
+}

@@ -1,0 +1,322 @@
+TAP version 13
+# Subtest: predeclared canonical vectors have exact canonical bytes and known SHA-256
+ok 1 - predeclared canonical vectors have exact canonical bytes and known SHA-256
+  ---
+  duration_ms: 1.2815
+  type: 'test'
+  ...
+# Subtest: canonicalization rejects executable/non-JSON and conflicting property representations without invoking getters
+ok 2 - canonicalization rejects executable/non-JSON and conflicting property representations without invoking getters
+  ---
+  duration_ms: 0.4424
+  type: 'test'
+  ...
+# Subtest: binding and cursor reject unsupported fields, empty identity and noncanonical revision
+ok 3 - binding and cursor reject unsupported fields, empty identity and noncanonical revision
+  ---
+  duration_ms: 0.3495
+  type: 'test'
+  ...
+# Subtest: manifest authored set permutations canonicalize identically; route ordinals preserve semantics
+ok 4 - manifest authored set permutations canonicalize identically; route ordinals preserve semantics
+  ---
+  duration_ms: 2.878
+  type: 'test'
+  ...
+# Subtest: same package version with different executable bytes changes capture content identity
+ok 5 - same package version with different executable bytes changes capture content identity
+  ---
+  duration_ms: 0.6063
+  type: 'test'
+  ...
+# Subtest: manifest rejects duplicate resource
+ok 6 - manifest rejects duplicate resource
+  ---
+  duration_ms: 0.2647
+  type: 'test'
+  ...
+# Subtest: manifest rejects missing dependency
+ok 7 - manifest rejects missing dependency
+  ---
+  duration_ms: 0.2293
+  type: 'test'
+  ...
+# Subtest: manifest rejects foreign membership
+ok 8 - manifest rejects foreign membership
+  ---
+  duration_ms: 0.2563
+  type: 'test'
+  ...
+# Subtest: manifest rejects missing selected membership
+ok 9 - manifest rejects missing selected membership
+  ---
+  duration_ms: 0.2455
+  type: 'test'
+  ...
+# Subtest: manifest rejects duplicate membership
+ok 10 - manifest rejects duplicate membership
+  ---
+  duration_ms: 0.2856
+  type: 'test'
+  ...
+# Subtest: manifest rejects unsupported field
+ok 11 - manifest rejects unsupported field
+  ---
+  duration_ms: 0.1921
+  type: 'test'
+  ...
+# Subtest: manifest rejects missing resource
+ok 12 - manifest rejects missing resource
+  ---
+  duration_ms: 0.2157
+  type: 'test'
+  ...
+# Subtest: explicit authored limits required; total byte/resource limits reject without production defaults
+ok 13 - explicit authored limits required; total byte/resource limits reject without production defaults
+  ---
+  duration_ms: 0.3656
+  type: 'test'
+  ...
+# Subtest: ready only after explicit Refresh; source stale retains inert authorized content and failed Refresh stays stale
+ok 14 - ready only after explicit Refresh; source stale retains inert authorized content and failed Refresh stays stale
+  ---
+  duration_ms: 1.4171
+  type: 'test'
+  ...
+# Subtest: observed policy event synchronously hides pending/current display
+ok 15 - observed policy event synchronously hides pending/current display
+  ---
+  duration_ms: 0.9428
+  type: 'test'
+  ...
+# Subtest: observed session event synchronously hides pending/current display
+ok 16 - observed session event synchronously hides pending/current display
+  ---
+  duration_ms: 0.5993
+  type: 'test'
+  ...
+# Subtest: observed owner event synchronously hides pending/current display
+ok 17 - observed owner event synchronously hides pending/current display
+  ---
+  duration_ms: 0.7717
+  type: 'test'
+  ...
+# Subtest: observed expiry event synchronously hides pending/current display
+ok 18 - observed expiry event synchronously hides pending/current display
+  ---
+  duration_ms: 1.1721
+  type: 'test'
+  ...
+# Subtest: observed reset-required event synchronously hides pending/current display
+ok 19 - observed reset-required event synchronously hides pending/current display
+  ---
+  duration_ms: 0.6827
+  type: 'test'
+  ...
+# Subtest: observed unhealthy event synchronously hides pending/current display
+ok 20 - observed unhealthy event synchronously hides pending/current display
+  ---
+  duration_ms: 0.7585
+  type: 'test'
+  ...
+# Subtest: policy removal during capture rejects late candidate before visibility
+ok 21 - policy removal during capture rejects late candidate before visibility
+  ---
+  duration_ms: 0.2931
+  type: 'test'
+  ...
+# Subtest: permission removal after delivery prepare but before abstract send emits no bytes
+ok 22 - permission removal after delivery prepare but before abstract send emits no bytes
+  ---
+  duration_ms: 0.767
+  type: 'test'
+  ...
+# Subtest: invalidation after abstract send cannot recall already emitted model bytes; no production race claim
+ok 23 - invalidation after abstract send cannot recall already emitted model bytes; no production race claim
+  ---
+  duration_ms: 0.8185
+  type: 'test'
+  ...
+# Subtest: fresh delivery admission rejects changed session and cross-binding
+ok 24 - fresh delivery admission rejects changed session and cross-binding
+  ---
+  duration_ms: 0.5632
+  type: 'test'
+  ...
+# Subtest: fresh delivery admission rejects changed subject and cross-binding
+ok 25 - fresh delivery admission rejects changed subject and cross-binding
+  ---
+  duration_ms: 0.4998
+  type: 'test'
+  ...
+# Subtest: fresh delivery admission rejects changed owner and cross-binding
+ok 26 - fresh delivery admission rejects changed owner and cross-binding
+  ---
+  duration_ms: 0.6387
+  type: 'test'
+  ...
+# Subtest: fresh delivery admission rejects changed policy and cross-binding
+ok 27 - fresh delivery admission rejects changed policy and cross-binding
+  ---
+  duration_ms: 0.5383
+  type: 'test'
+  ...
+# Subtest: logout invalidates before pending response; disposal is terminal and late response cannot return
+ok 28 - logout invalidates before pending response; disposal is terminal and late response cannot return
+  ---
+  duration_ms: 0.7341
+  type: 'test'
+  ...
+# Subtest: rights expiry without source or policy write hides at exact injected boundary
+ok 29 - rights expiry without source or policy write hides at exact injected boundary
+  ---
+  duration_ms: 0.6498
+  type: 'test'
+  ...
+# Subtest: silent partition health deadline fails closed; reconnect never restores old capture
+ok 30 - silent partition health deadline fails closed; reconnect never restores old capture
+  ---
+  duration_ms: 0.6057
+  type: 'test'
+  ...
+# Subtest: disconnect immediately hides; explicit reconciliation and Refresh required
+ok 31 - disconnect immediately hides; explicit reconciliation and Refresh required
+  ---
+  duration_ms: 1.0354
+  type: 'test'
+  ...
+# Subtest: commit-publication interruption modeled as durable head replay; old cursor cannot ready
+ok 32 - commit-publication interruption modeled as durable head replay; old cursor cannot ready
+  ---
+  duration_ms: 0.6457
+  type: 'test'
+  ...
+# Subtest: ordered events and exact duplicates accepted idempotently without extending expiry
+ok 33 - ordered events and exact duplicates accepted idempotently without extending expiry
+  ---
+  duration_ms: 0.784
+  type: 'test'
+  ...
+# Subtest: channel rejects gap and hides
+ok 34 - channel rejects gap and hides
+  ---
+  duration_ms: 0.5743
+  type: 'test'
+  ...
+# Subtest: channel rejects foreign lineage and hides
+ok 35 - channel rejects foreign lineage and hides
+  ---
+  duration_ms: 0.514
+  type: 'test'
+  ...
+# Subtest: channel rejects stale cursor and hides
+ok 36 - channel rejects stale cursor and hides
+  ---
+  duration_ms: 0.6619
+  type: 'test'
+  ...
+# Subtest: channel rejects foreign channel and hides
+ok 37 - channel rejects foreign channel and hides
+  ---
+  duration_ms: 0.501
+  type: 'test'
+  ...
+# Subtest: channel rejects expired health and hides
+ok 38 - channel rejects expired health and hides
+  ---
+  duration_ms: 0.496
+  type: 'test'
+  ...
+# Subtest: conflicting duplicate and obsolete replay after retention window fail closed
+ok 39 - conflicting duplicate and obsolete replay after retention window fail closed
+  ---
+  duration_ms: 1.369
+  type: 'test'
+  ...
+# Subtest: higher policy cursor on health invalidates rather than extending old capture
+ok 40 - higher policy cursor on health invalidates rather than extending old capture
+  ---
+  duration_ms: 0.8316
+  type: 'test'
+  ...
+# Subtest: capture immutable bytes copied both at input and output; content identity excludes subject epoch
+ok 41 - capture immutable bytes copied both at input and output; content identity excludes subject epoch
+  ---
+  duration_ms: 0.8869
+  type: 'test'
+  ...
+# Subtest: resource cross-user, cross-epoch, foreign path and digest replay are explicit denials
+ok 42 - resource cross-user, cross-epoch, foreign path and digest replay are explicit denials
+  ---
+  duration_ms: 0.9877
+  type: 'test'
+  ...
+# Subtest: expired capture replay denied without lookup fallback
+ok 43 - expired capture replay denied without lookup fallback
+  ---
+  duration_ms: 0.5166
+  type: 'test'
+  ...
+# Subtest: concurrent delivery and capture limits enforced; send permit cannot replay
+ok 44 - concurrent delivery and capture limits enforced; send permit cannot replay
+  ---
+  duration_ms: 1.5801
+  type: 'test'
+  ...
+# Subtest: superseded Refresh completion and wrong/mutated bytes cannot replace current
+ok 45 - superseded Refresh completion and wrong/mutated bytes cannot replace current
+  ---
+  duration_ms: 1.371
+  type: 'test'
+  ...
+# Subtest: authority exceptions and backwards clock fail closed without a timer
+ok 46 - authority exceptions and backwards clock fail closed without a timer
+  ---
+  duration_ms: 0.4543
+  type: 'test'
+  ...
+# Subtest: malformed manifest containers return explicit model errors rather than runtime TypeError
+ok 47 - malformed manifest containers return explicit model errors rather than runtime TypeError
+  ---
+  duration_ms: 0.5224
+  type: 'test'
+  ...
+# Subtest: capture expiry between prepare and send hides; no late resource bytes
+ok 48 - capture expiry between prepare and send hides; no late resource bytes
+  ---
+  duration_ms: 1.0272
+  type: 'test'
+  ...
+# Subtest: obsolete or foreign reconciliation cannot restore display even if channel was connected
+ok 49 - obsolete or foreign reconciliation cannot restore display even if channel was connected
+  ---
+  duration_ms: 1.0373
+  type: 'test'
+  ...
+# Subtest: manifest owner/selection and supplied resource membership cannot retarget a capture
+ok 50 - manifest owner/selection and supplied resource membership cannot retarget a capture
+  ---
+  duration_ms: 0.6481
+  type: 'test'
+  ...
+# Subtest: identical content hash stays constant across different modeled subject epochs, without sharing access
+ok 51 - identical content hash stays constant across different modeled subject epochs, without sharing access
+  ---
+  duration_ms: 1.1371
+  type: 'test'
+  ...
+# Subtest: malformed incoming event fails closed before trusting any property accessor
+ok 52 - malformed incoming event fails closed before trusting any property accessor
+  ---
+  duration_ms: 0.5139
+  type: 'test'
+  ...
+1..52
+# tests 52
+# suites 0
+# pass 52
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 154.1124
