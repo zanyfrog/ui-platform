@@ -1,0 +1,33 @@
+✔ actual context and working copy preserve source, baseline/checksum and history with autosave disabled (45.236ms)
+✔ real context autosave timing is identical with and without Preview and tab changes during a pending save (5.1928ms)
+✔ shared Preview binding transmits only original owner-qualified identity and dirty status (0.3066ms)
+✔ identity is immutable and distinguishes original subject, session, permanent Application and owner (3.1006ms)
+✔ last success is distinct from pending and cannot be relabeled on failure (0.6177ms)
+✔ deferred response loses to explicit newer refresh (0.3501ms)
+✔ a retained capture cannot be relabeled as another saved revision or fixture (0.2255ms)
+✔ wrong response identity, request identity and sequence are rejected (0.2815ms)
+✔ invalidation cancels pending without automatic recapture or content replacement (0.2864ms)
+✔ simulated revocation clears successful and pending content and rejects future/late work (0.314ms)
+✔ disposal is terminal, including deferred rejection and revocation (0.2429ms)
+✔ initial failures are unavailable; explicit refresh alone recovers (0.2438ms)
+✔ samples are bounded data with exact fields and native supported values (2.0169ms)
+✔ service/resource and unsupported schema requests have specific denial reasons (0.4852ms)
+✔ protocol rejects cross-session, wrong nonce/identity, sequence, upgrade and extra capabilities (0.2968ms)
+✔ in-memory WP2 dirty bytes, identity and Undo/Redo history survive preview lifecycle (1.6846ms)
+✔ Card added fields retain v1 defaults and exact supported optional fields (3.5881ms)
+✔ Panel exact text, appearance and local open/collapsible contracts (11.2001ms)
+✔ two fixed route templates use real pure helpers for encoding and match inspection (5.3486ms)
+✔ route inspector rejects arbitrary templates, extras, missing, invalid and over-limit values (0.8101ms)
+✔ shared view module import creates no DOM, request, scheduler or session subscription (2.2607ms)
+✔ production tab formatter preserves dirty/pending/conflict and suspension labels (0.2631ms)
+✔ actual coordinator rejects late synthetic authorization without retargeting the newest selection (1.7172ms)
+✔ actual coordinator rejects superseded focus completion and deactivates the outgoing adapter (0.9391ms)
+✔ park and local subject suspension cancel pending focus without discarding retained tabs (0.928ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 538.9277

@@ -13,17 +13,18 @@ import { chooseVisualCreation } from '../visual-artifacts/creation.js';
 import { LatestProblems } from './problems.js';
 import { subscribeSourceSaved } from '../artifact-editor/saved-source.js';
 import type { ProblemsReport } from '../../shared/application-diagnostics.js';
-import { FixturePreviewPanel } from '../fixture-preview/panel.js';
-import { selectFixturePreview } from './fixture-preview-binding.js';
+import { createBuilderShellView } from './shell-view.js';
 
-const shell = document.createElement('section'); shell.className = 'builder-workspace'; shell.setAttribute('aria-label', 'Application Builder workspace');
-shell.innerHTML = `<header><button data-collapse aria-expanded="true">Application navigation</button><strong data-title></strong><button data-refresh>Refresh artifacts</button><button data-create-dataset>Create Dataset</button><button data-create-form>Create Form</button><button data-return-link hidden>Return and link Dataset to Form</button><button data-cancel-link hidden>Cancel Dataset link</button></header>
-  <p data-status role="status"></p><div class="workspace-layout"><nav aria-label="Application artifacts"></nav><section class="workspace-main"><div role="tablist" aria-label="Open artifacts"></div><div data-stage></div></section></div>`;
+const view = createBuilderShellView({
+  navigate: (target, key) => run(() => navigate(target, key)),
+  close: key => run(async () => { if (!await coordinator.close(key)) status('Tab retained. Keep or recover the draft; wait for any pending save before closing.'); }),
+});
+const shell = view.element;
 const find = <T extends HTMLElement>(selector: string) => shell.querySelector<T>(selector)!;
 const problems = document.createElement('section'); problems.setAttribute('aria-label', 'Application Problems');
 problems.innerHTML = '<h3>Application Problems</h3><p data-validation-status role="status">Validate authoritative saved sources. Local unsaved validation remains in each editor.</p><ol></ol>';
-shell.append(problems);
-const fixturePreview = new FixturePreviewPanel(); shell.append(fixturePreview.element);
+shell.insertBefore(problems, view.preview.element);
+const fixturePreview = view.preview;
 const validateButton = document.createElement('button'); validateButton.textContent = 'Validate Application'; find('header').append(validateButton);
 const latestProblems = new LatestProblems(); let problemsActive = false, refreshTimer: ReturnType<typeof setTimeout> | undefined;
 const validationStatus = problems.querySelector('[data-validation-status]')!;
@@ -104,7 +105,7 @@ for (const [kind, label] of [['page', 'Create Page'], ['shell', 'Create Shell'],
 }
 let applicationKey = '', discovery: WorkspaceArtifact[] = [], navigationSequence = 0, parked = true;
 let revision = editorSessionSnapshot()?.revision, checking = false;
-const status = (message: string) => { find('[data-status]').textContent = message; };
+const status = (message: string) => view.status(message);
 const run = (action: () => Promise<unknown>) => { void action().catch(error => status(String(error.message ?? error))); };
 const coordinator = new BuilderWorkspaceCoordinator(authorizeWorkspace, artifact => mountWorkspaceEditor(artifact, renderTabs, componentId => {
   const related = discovery.find(item => item.componentId === componentId || item.locator === componentId);
@@ -158,47 +159,16 @@ find('[data-create-form]').onclick = () => run(async () => {
 });
 
 function renderTabs() {
-  const tabs = find('[role="tablist"]'); tabs.replaceChildren();
-  for (const tab of coordinator.tabs.values()) {
-    const row = document.createElement('span'), button = document.createElement('button'), close = document.createElement('button');
-    const state = tab.editor.state();
-    button.setAttribute('role', 'tab'); button.setAttribute('aria-selected', String(coordinator.focused === tab.key));
-    button.textContent = tab.suspended ? 'Suspended artifact' : `${tab.artifact.name}${state.dirty ? ' •' : ''}${state.pending ? ' (pending)' : ''}${state.conflict ? ' (conflict)' : ''}`;
-    button.onclick = () => run(async () => {
-      const key = tab.artifact.identity.owner.kind === 'application' ? tab.artifact.applicationKey : applicationKey;
-      await navigate({ identity: tab.artifact.identity }, key);
-    });
-    close.textContent = '×'; close.setAttribute('aria-label', `Close ${tab.suspended ? 'suspended artifact' : tab.artifact.name}`);
-    close.onclick = () => run(async () => { if (!await coordinator.close(tab.key)) status('Tab retained. Keep or recover the draft; wait for any pending save before closing.'); });
-    row.append(button, close); tabs.append(row);
-  }
-  const stage = find('[data-stage]'), focused = coordinator.focused ? coordinator.tabs.get(coordinator.focused) : undefined;
-  if (!parked && focused && !focused.suspended) {
-    if (stage.firstElementChild !== focused.editor.element) stage.replaceChildren(focused.editor.element);
-  } else stage.replaceChildren();
-  const session = editorSessionSnapshot();
-  selectFixturePreview(fixturePreview, !parked && focused && !focused.suspended && session?.principal ? {
-    subjectId: session.principal.subjectId, sessionId: session.revision,
-    artifact: focused.artifact, dirty: focused.editor.state().dirty,
-  } : undefined);
+  view.render({ active: !parked, applicationKey, focused: coordinator.focused, session: editorSessionSnapshot(),
+    tabs: [...coordinator.tabs.values()].map(tab => ({ key: tab.key, artifact: tab.artifact, suspended: tab.suspended, element: tab.editor.element, state: tab.editor.state() })),
+  });
 }
 coordinator.subscribe(renderTabs);
 async function discover() {
   const sequence = ++navigationSequence, key = applicationKey;
   const next = await workspaceRequest<WorkspaceArtifact[]>(key);
   if (sequence !== navigationSequence || key !== applicationKey || parked) return;
-  discovery = next; const nav = find('nav'); nav.replaceChildren();
-  for (const group of ['Pages', 'Shells', 'Components and Forms', 'Datasets', 'Workflows', 'Triggers', 'Menus', 'Application presentation/settings', 'Other artifacts']) {
-    const entries = next.filter(item => item.group === group); if (!entries.length) continue;
-    const details = document.createElement('details'); details.open = true;
-    const heading = document.createElement('summary'); heading.textContent = group; details.append(heading);
-    for (const item of entries) {
-      const button = document.createElement('button'); button.textContent = `${item.name}${item.identity.repairLocator ? ' (repair-only locator)' : ''}${!item.editable ? ' (read-only)' : ''}`;
-      button.dataset.artifactKey = workspaceIdentityKey(item.identity);
-      button.onclick = () => run(() => navigate({ identity: item.identity })); details.append(button);
-    }
-    nav.append(details);
-  }
+  discovery = next; view.artifacts(next);
   status('Select an artifact. Tabs retain their editor context during this session.');
 }
 export async function navigate(target: WorkspaceTarget, key = applicationKey) {
@@ -206,7 +176,7 @@ export async function navigate(target: WorkspaceTarget, key = applicationKey) {
   status('Checking artifact access…');
   const opened = await coordinator.open(key, target);
   if (opened) {
-    if (applicationKey !== key) { applicationKey = key; find('[data-title]').textContent = key; run(discover); }
+    if (applicationKey !== key) { applicationKey = key; view.title(key); run(discover); }
     status('Artifact authorized. Existing editor save behavior applies.');
   }
   return opened;
@@ -222,13 +192,12 @@ find('[data-create-dataset]').onclick = () => run(async () => {
   await discover(); const created = discovery.find(item => item.kind === 'dataset' && item.identity.id === value.manifest.artifactId);
   if (created) await navigate({ identity: created.identity });
 });
-find('[data-collapse]').onclick = () => { const nav = find('nav'); nav.hidden = !nav.hidden; find('[data-collapse]').setAttribute('aria-expanded', String(!nav.hidden)); shell.classList.toggle('navigation-collapsed', nav.hidden); };
 subscribeEditorSession(() => {
   const next = editorSessionSnapshot()?.revision;
   if (revision !== next) {
     fixturePreview.revoke('EDITOR_SESSION_CHANGED: fixture cleared; trusted production revocation remains unavailable');
     clearProblems();
-    revision = next; coordinator.suspend(); discovery = []; find('nav').replaceChildren(); navigationSequence++;
+    revision = next; coordinator.suspend(); discovery = []; view.artifacts([]); navigationSequence++;
     status('Access suspended. Select the original authorized identity to reopen and recover retained tabs.');
   }
 });
@@ -241,13 +210,13 @@ setInterval(() => {
   void authorizeWorkspace(tab.artifact.applicationKey, { identity: tab.artifact.identity }).then(next => {
     if (!current()) return;
     if (next.editable !== tab.artifact.editable) throw new Error('Artifact authority changed.');
-  }).catch(() => { if (!current()) return; clearProblems(); coordinator.suspend(); discovery = []; find('nav').replaceChildren(); status('Artifact access changed. Source hidden; reauthorize under the original identity to recover.'); }).finally(() => { checking = false; });
+  }).catch(() => { if (!current()) return; clearProblems(); coordinator.suspend(); discovery = []; view.artifacts([]); status('Artifact access changed. Source hidden; reauthorize under the original identity to recover.'); }).finally(() => { checking = false; });
 }, 2000);
-export function parkWorkspace() { fixturePreview.select(); parked = true; navigationSequence++; latestProblems.invalidate(); clearTimeout(refreshTimer); coordinator.park(); shell.remove(); }
+export function parkWorkspace() { view.park(); parked = true; navigationSequence++; latestProblems.invalidate(); clearTimeout(refreshTimer); coordinator.park(); }
 export async function mountApplicationWorkspace(target: HTMLElement, app: { key: string; name: string }) {
   retainDevelopmentWorkspaceSession();
   if (applicationKey !== app.key) clearProblems();
   coordinator.park(); applicationKey = app.key; parked = false;
-  find('[data-title]').textContent = app.name; target.replaceChildren(shell); renderTabs();
+  view.mount(target, app.name); renderTabs();
   try { await discover(); } catch (error) { coordinator.suspend(); status(String(error)); }
 }

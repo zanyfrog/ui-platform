@@ -1,0 +1,27 @@
+{
+  "args": [
+    "node_modules/typescript/bin/tsc",
+    "--ignoreConfig",
+    "--noEmit",
+    "--target",
+    "es2022",
+    "--module",
+    "esnext",
+    "--moduleResolution",
+    "bundler",
+    "--resolveJsonModule",
+    "--esModuleInterop",
+    "--lib",
+    "es2022,dom",
+    "--strictNullChecks",
+    "--noImplicitAny",
+    "false",
+    "--skipLibCheck",
+    "src/client/fixture-preview/raw.d.ts",
+    "src/client/builder-workspace/shell-view.ts",
+    "src/client/builder-workspace/fixture-preview-binding.ts"
+  ],
+  "status": 0,
+  "stdout": "",
+  "stderr": ""
+}

@@ -1,0 +1,151 @@
+{
+  "date": "2026-10-22",
+  "status": {
+    "sampleCoverageAndBuilderIntegration": "accepted-and-closed-within-documented-bounded-scope",
+    "completeWP5F": "open-unaccepted",
+    "D6": "open",
+    "WP5I": "open",
+    "umbrella": {
+      "unchecked": 40,
+      "checked": 0
+    }
+  },
+  "gate": "WP5-F Remaining Scope and Roadmap — Roadmap/Implementation Authorization Review Gate",
+  "implementationAuthorized": false,
+  "executed": {
+    "implementation": false,
+    "tests": false,
+    "builds": false,
+    "browser": false,
+    "protectedStoreAccess": false,
+    "windowsOrRecovery": false,
+    "commits": false,
+    "pushes": false
+  },
+  "changedFiles": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-sample-integration-closure-20261022.md",
+      "change": "added",
+      "bytes": 2982,
+      "sha256": "cf28866c585352d80efa80b8a37ffb4d13f182706818b03941fbedb301c7b10e"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-remaining-scope-roadmap-20261022.md",
+      "change": "added",
+      "bytes": 20568,
+      "sha256": "2dd715a25e95ca827d8e882e89cbcc3c384ba8bdba639125851e01464c610a76"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-remaining-scope-roadmap-20261022-files.json",
+      "change": "added",
+      "sha256": null,
+      "note": "Self-entry intentionally unhashed"
+    }
+  ],
+  "preservation": {
+    "previousInventory": {
+      "path": "docs/architecture/builder-v1-wp5-f-sample-integration-20261022-files.json",
+      "sha256": "f1859b1272cc93e64cf4f0af935f93dda13b17600bcd59cd98746bf5bf8da00a",
+      "hashedEntries": 50,
+      "mismatches": []
+    },
+    "acceptedBaselineFiles": 1449,
+    "acceptedBaselineMismatches": [],
+    "currentReviewHeadBefore": "64a78747cd8c01b03f6efc72f0851bdbba38ec0f",
+    "currentReviewHeadAfter": "64a78747cd8c01b03f6efc72f0851bdbba38ec0f",
+    "headUnchangedDuringReview": true,
+    "protectedState": "Not read or enumerated; no protected-store or filesystem-wide hash/audit claim"
+  },
+  "reviewedSourceReferences": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-plan.md",
+      "sha256": "f6113e9627aa147699844b540609071995d386c98e802d1c44f58a6bafffc759",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-plan.md",
+      "sha256": "ba092fe86e4fde44371a79b384bc7a3e847973c12f7daa28571dccd89a3f8bc3",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "docs/architecture/builder-v1-checkpoint-20261020.md",
+      "sha256": "0cea1d1956d7a75b345f3bd42f68590653d93402b5117a8e53e72e6ad6656e53",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "docs/architecture/builder-v1-focused-20261020.md",
+      "sha256": "2cf244fd0e925853851f91f986d7d1f5fa69fd964236dd42f16ec1dea02539b1",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-security-prerequisite.md",
+      "sha256": "4bc57810df1b6e26cd5a4027cef1fe2a90008c1f2e4107043a626157a1a11a58",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/builder-workspace/shell.ts",
+      "sha256": "80b33e1fe1290557d4208a6b21311568fbc4dbf57d3b727420adaa67e7b06fa1",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/builder-workspace/requests.ts",
+      "sha256": "11d3b6ad99b740ac76a80be0688dc829bc4f57fca8250c9b6460fae3d10674b1",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/builder-workspace/adapters.ts",
+      "sha256": "1a10d5d2b897972b6e49ae695e61f8beeb219c576abaa1666bd30d6521dd2066",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/builder-workspace/fixture-preview-binding.ts",
+      "sha256": "f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/artifact-editor/shell.ts",
+      "sha256": "ccd211e5d521b6fb35634e14b4eae8e086e6cb8066993a4dfe8911ea6c2db46a",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/artifact-editor/default-plugins.ts",
+      "sha256": "279dcc84adfae9e635b616e2d8617c9548dcadebda0d7d8e2cfcf87075eccbee",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/artifact-editor/properties.ts",
+      "sha256": "1aa09d97bdcbb1b47c453269e6f579ee79a883bf3bab12f0ef7bd070bc309c62",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/artifact-editor/form-preview.ts",
+      "sha256": "13d8882ef73892e972e627cc610d528609994086f8a6f3a136003d51852a2c8e",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/artifact-editor/transport.ts",
+      "sha256": "38173961ee3b47587ed2fcfd81d187b46efa03209884d77da91b2718405923fa",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "src/client/fixture-preview/panel.ts",
+      "sha256": "c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "packages/visual-artifacts/src/runtime.ts",
+      "sha256": "4b0e7bd680d89a21ad264c9857139e9848fbfd396a0f471a8b2a558071961958",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "../ui-base/packages/ui-base-forms/src/index.js",
+      "sha256": "31c728f1bcf50ba49712f623d1280d142494f023af0fa2495f44c6218d1ae342",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    },
+    {
+      "path": "packages/artifacts/src/validation/validator-registry.ts",
+      "sha256": "22fb72cde67741af7a51d3cb034c35dfec6136a61f2a45d74c1158de64bf5a93",
+      "review": "Targeted source/document inspection only; not executable closure admission or test evidence"
+    }
+  ]
+}
