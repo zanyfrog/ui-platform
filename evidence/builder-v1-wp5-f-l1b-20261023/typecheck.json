@@ -1,0 +1,24 @@
+{
+  "args": [
+    "node_modules/typescript/bin/tsc",
+    "--ignoreConfig",
+    "--noEmit",
+    "--target",
+    "es2022",
+    "--module",
+    "nodenext",
+    "--moduleResolution",
+    "nodenext",
+    "--allowImportingTsExtensions",
+    "--types",
+    "node",
+    "--skipLibCheck",
+    "--strict",
+    "src/preview-contract-model/acquisition.ts",
+    "tests/preview-contract-model/acquisition.test.ts"
+  ],
+  "exitCode": 1,
+  "stdout": "src/preview-contract-model/acquisition.ts(102,66): error TS2339: Property 'metadata' does not exist on type 'Observation'.\n  Property 'metadata' does not exist on type '{ refusal: \"busy\" | \"owner-unresolved\" | \"recovery-required\"; }'.\nsrc/preview-contract-model/acquisition.ts(113,38): error TS7006: Parameter 'i' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(118,38): error TS7006: Parameter 'i' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(119,55): error TS7006: Parameter 'i' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(121,45): error TS7006: Parameter 'i' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(131,24): error TS7006: Parameter 'r' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(131,85): error TS7006: Parameter 'i' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(131,101): error TS7006: Parameter 'r' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(137,39): error TS7006: Parameter 'g' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(138,71): error TS7006: Parameter 'g' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(143,34): error TS7006: Parameter 'v' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(143,77): error TS7006: Parameter 'v' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(145,27): error TS7006: Parameter 'a' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(145,29): error TS7006: Parameter 'b' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(146,42): error TS7006: Parameter 'g' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(146,160): error TS7006: Parameter 'v' implicitly has an 'any' type.\nsrc/preview-contract-model/acquisition.ts(150,16): error TS2339: Property 'bytes' does not exist on type 'Observation'.\n  Property 'bytes' does not exist on type '{ refusal: \"busy\" | \"owner-unresolved\" | \"recovery-required\"; }'.\nsrc/preview-contract-model/acquisition.ts(150,46): error TS2339: Property 'bytes' does not exist on type 'Observation'.\n  Property 'bytes' does not exist on type '{ refusal: \"busy\" | \"owner-unresolved\" | \"recovery-required\"; }'.\nsrc/preview-contract-model/acquisition.ts(151,50): error TS2339: Property 'bytes' does not exist on type 'Observation'.\n  Property 'bytes' does not exist on type '{ refusal: \"busy\" | \"owner-unresolved\" | \"recovery-required\"; }'.\n",
+  "stderr": "",
+  "scope": "Exact acquisition model/test + unchanged L2 pure import; no config/emit/hooks"
+}

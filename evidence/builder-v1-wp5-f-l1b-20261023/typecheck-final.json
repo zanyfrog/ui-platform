@@ -1,0 +1,24 @@
+{
+  "args": [
+    "node_modules/typescript/bin/tsc",
+    "--ignoreConfig",
+    "--noEmit",
+    "--target",
+    "es2022",
+    "--module",
+    "nodenext",
+    "--moduleResolution",
+    "nodenext",
+    "--allowImportingTsExtensions",
+    "--types",
+    "node",
+    "--skipLibCheck",
+    "--strict",
+    "src/preview-contract-model/acquisition.ts",
+    "tests/preview-contract-model/acquisition.test.ts"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "scope": "Exact model/test + admitted pure import; no config/emit/hooks"
+}

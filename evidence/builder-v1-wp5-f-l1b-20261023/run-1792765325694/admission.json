@@ -1,0 +1,44 @@
+{
+  "sources": [
+    "src/preview-contract-model/acquisition.ts",
+    "src/preview-contract-model/model.ts",
+    "tests/preview-contract-model/acquisition.test.ts",
+    "scripts/verify-acquisition-contract-model.mjs",
+    "docs/architecture/builder-v1-wp5-f-l1b-vectors-admission-20261023.md"
+  ],
+  "sha256": {
+    "src/preview-contract-model/acquisition.ts": "6e33e832d96650ed471067dc9a91e556fb91bf586d6419ed24f449b1a8af33a0",
+    "src/preview-contract-model/model.ts": "ee7b6105f23caf6fd788387b6deb48e8b24bf687d1648d2bbcd89095c6ab2377",
+    "tests/preview-contract-model/acquisition.test.ts": "20f309937f1ccea8469d1dc2b19799c2c6a9ce7a240f28498ef1158e92f42434",
+    "scripts/verify-acquisition-contract-model.mjs": "7d1819d9d1791df72533766c5b74ed8799936c3f06625d08e80e0ad88ca5675e",
+    "docs/architecture/builder-v1-wp5-f-l1b-vectors-admission-20261023.md": "625a87ad73af56a2a32b23523683fda824dba8750d74912f298d72a74f6bb498"
+  },
+  "imports": {
+    "src/preview-contract-model/acquisition.ts": [
+      "./model.ts",
+      "./model.ts"
+    ],
+    "src/preview-contract-model/model.ts": [
+      "node:crypto"
+    ],
+    "tests/preview-contract-model/acquisition.test.ts": [
+      "node:test",
+      "node:assert/strict",
+      "../../src/preview-contract-model/acquisition.ts",
+      "../../src/preview-contract-model/acquisition.ts",
+      "../../src/preview-contract-model/model.ts"
+    ]
+  },
+  "args": [
+    "--experimental-strip-types",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "tests/preview-contract-model/acquisition.test.ts"
+  ],
+  "serial": true,
+  "retries": 0,
+  "setupHooks": [],
+  "workspaceConfiguration": false,
+  "closure": "New acquisition model + unchanged admitted L2-B pure module + one test + Node builtins only. No PreviewModel instance or production execution."
+}

@@ -1,0 +1,334 @@
+TAP version 13
+# Subtest: predeclared byte and role projection vectors are exact
+ok 1 - predeclared byte and role projection vectors are exact
+  ---
+  duration_ms: 1.226
+  type: 'test'
+  ...
+# Subtest: matching authored passes complete once with separate original binding and epoch
+ok 2 - matching authored passes complete once with separate original binding and epoch
+  ---
+  duration_ms: 6.2468
+  type: 'test'
+  ...
+# Subtest: observation storage permutations preserve semantic ordinals and fingerprints
+ok 3 - observation storage permutations preserve semantic ordinals and fingerprints
+  ---
+  duration_ms: 2.4576
+  type: 'test'
+  ...
+# Subtest: validation refuses entire candidate on changed role bytes unchanged revision
+ok 4 - validation refuses entire candidate on changed role bytes unchanged revision
+  ---
+  duration_ms: 1.9677
+  type: 'test'
+  ...
+# Subtest: validation refuses entire candidate on changed native revision unchanged bytes
+ok 5 - validation refuses entire candidate on changed native revision unchanged bytes
+  ---
+  duration_ms: 1.8502
+  type: 'test'
+  ...
+# Subtest: validation refuses entire candidate on changed selected saved revision
+ok 6 - validation refuses entire candidate on changed selected saved revision
+  ---
+  duration_ms: 2.0572
+  type: 'test'
+  ...
+# Subtest: validation refuses entire candidate on changed collection reorder
+ok 7 - validation refuses entire candidate on changed collection reorder
+  ---
+  duration_ms: 1.9285
+  type: 'test'
+  ...
+# Subtest: validation refuses entire candidate on changed collection rename
+ok 8 - validation refuses entire candidate on changed collection rename
+  ---
+  duration_ms: 1.6157
+  type: 'test'
+  ...
+# Subtest: validation refuses entire candidate on changed package activation
+ok 9 - validation refuses entire candidate on changed package activation
+  ---
+  duration_ms: 1.519
+  type: 'test'
+  ...
+# Subtest: validation refuses entire candidate on changed same package version new executable bytes
+ok 10 - validation refuses entire candidate on changed same package version new executable bytes
+  ---
+  duration_ms: 2.58
+  type: 'test'
+  ...
+# Subtest: explicit refusal for removed collection
+ok 11 - explicit refusal for removed collection
+  ---
+  duration_ms: 1.6223
+  type: 'test'
+  ...
+# Subtest: explicit refusal for removed member
+ok 12 - explicit refusal for removed member
+  ---
+  duration_ms: 1.4625
+  type: 'test'
+  ...
+# Subtest: explicit refusal for added member
+ok 13 - explicit refusal for added member
+  ---
+  duration_ms: 1.2542
+  type: 'test'
+  ...
+# Subtest: explicit refusal for missing dependency
+ok 14 - explicit refusal for missing dependency
+  ---
+  duration_ms: 1.2215
+  type: 'test'
+  ...
+# Subtest: explicit refusal for unreadable shared dependency
+ok 15 - explicit refusal for unreadable shared dependency
+  ---
+  duration_ms: 1.482
+  type: 'test'
+  ...
+# Subtest: explicit refusal for denied shared dependency
+ok 16 - explicit refusal for denied shared dependency
+  ---
+  duration_ms: 1.5143
+  type: 'test'
+  ...
+# Subtest: explicit refusal for missing required role
+ok 17 - explicit refusal for missing required role
+  ---
+  duration_ms: 1.0943
+  type: 'test'
+  ...
+# Subtest: explicit refusal for duplicate identity
+ok 18 - explicit refusal for duplicate identity
+  ---
+  duration_ms: 1.1538
+  type: 'test'
+  ...
+# Subtest: explicit refusal for ambiguous same owner and permanent ID
+ok 19 - explicit refusal for ambiguous same owner and permanent ID
+  ---
+  duration_ms: 1.5061
+  type: 'test'
+  ...
+# Subtest: explicit refusal for owner validity
+ok 20 - explicit refusal for owner validity
+  ---
+  duration_ms: 1.0191
+  type: 'test'
+  ...
+# Subtest: explicit refusal for Application binding
+ok 21 - explicit refusal for Application binding
+  ---
+  duration_ms: 2.9218
+  type: 'test'
+  ...
+# Subtest: explicit refusal for native unsupported closure
+ok 22 - explicit refusal for native unsupported closure
+  ---
+  duration_ms: 1.6709
+  type: 'test'
+  ...
+# Subtest: explicit refusal for cycle
+ok 23 - explicit refusal for cycle
+  ---
+  duration_ms: 1.3949
+  type: 'test'
+  ...
+# Subtest: explicit refusal for unreachable closure
+ok 24 - explicit refusal for unreachable closure
+  ---
+  duration_ms: 1.4067
+  type: 'test'
+  ...
+# Subtest: explicit refusal for wrong bytes digest
+ok 25 - explicit refusal for wrong bytes digest
+  ---
+  duration_ms: 2.3711
+  type: 'test'
+  ...
+# Subtest: busy remains typed at first with no callback retry
+ok 26 - busy remains typed at first with no callback retry
+  ---
+  duration_ms: 0.4262
+  type: 'test'
+  ...
+# Subtest: busy remains typed at validation with no callback retry
+ok 27 - busy remains typed at validation with no callback retry
+  ---
+  duration_ms: 1.0496
+  type: 'test'
+  ...
+# Subtest: owner-unresolved remains typed at first with no callback retry
+ok 28 - owner-unresolved remains typed at first with no callback retry
+  ---
+  duration_ms: 0.3446
+  type: 'test'
+  ...
+# Subtest: owner-unresolved remains typed at validation with no callback retry
+ok 29 - owner-unresolved remains typed at validation with no callback retry
+  ---
+  duration_ms: 0.8535
+  type: 'test'
+  ...
+# Subtest: recovery-required remains typed at first with no callback retry
+ok 30 - recovery-required remains typed at first with no callback retry
+  ---
+  duration_ms: 0.3177
+  type: 'test'
+  ...
+# Subtest: recovery-required remains typed at validation with no callback retry
+ok 31 - recovery-required remains typed at validation with no callback retry
+  ---
+  duration_ms: 1.4208
+  type: 'test'
+  ...
+# Subtest: fresh authority permission invalidation between observations clears all candidates
+ok 32 - fresh authority permission invalidation between observations clears all candidates
+  ---
+  duration_ms: 3.1584
+  type: 'test'
+  ...
+# Subtest: fresh authority session invalidation between observations clears all candidates
+ok 33 - fresh authority session invalidation between observations clears all candidates
+  ---
+  duration_ms: 4.1547
+  type: 'test'
+  ...
+# Subtest: fresh authority policy invalidation between observations clears all candidates
+ok 34 - fresh authority policy invalidation between observations clears all candidates
+  ---
+  duration_ms: 2.7806
+  type: 'test'
+  ...
+# Subtest: fresh authority owner invalidation between observations clears all candidates
+ok 35 - fresh authority owner invalidation between observations clears all candidates
+  ---
+  duration_ms: 2.4797
+  type: 'test'
+  ...
+# Subtest: fresh authority subject invalidation between observations clears all candidates
+ok 36 - fresh authority subject invalidation between observations clears all candidates
+  ---
+  duration_ms: 2.1548
+  type: 'test'
+  ...
+# Subtest: permission and epoch change in observation refuse even when injected current answer has not advanced
+ok 37 - permission and epoch change in observation refuse even when injected current answer has not advanced
+  ---
+  duration_ms: 1.1808
+  type: 'test'
+  ...
+# Subtest: deferred validation versus concurrent Refresh supersedes old candidate without canceling newest
+ok 38 - deferred validation versus concurrent Refresh supersedes old candidate without canceling newest
+  ---
+  duration_ms: 2.6399
+  type: 'test'
+  ...
+# Subtest: deferred acquisition versus revocation cannot resurrect content or retry
+ok 39 - deferred acquisition versus revocation cannot resurrect content or retry
+  ---
+  duration_ms: 0.8121
+  type: 'test'
+  ...
+# Subtest: expiry after callback starts refuses late result at exact injected deadline
+ok 40 - expiry after callback starts refuses late result at exact injected deadline
+  ---
+  duration_ms: 0.7471
+  type: 'test'
+  ...
+# Subtest: previous authorized candidate survives failed replacement but authority loss clears both
+ok 41 - previous authorized candidate survives failed replacement but authority loss clears both
+  ---
+  duration_ms: 5.1596
+  type: 'test'
+  ...
+# Subtest: capture copies first-pass bytes; returned candidates and snapshots cannot mutate retained capture
+ok 42 - capture copies first-pass bytes; returned candidates and snapshots cannot mutate retained capture
+  ---
+  duration_ms: 1.8324
+  type: 'test'
+  ...
+# Subtest: explicit authored roles limit
+ok 43 - explicit authored roles limit
+  ---
+  duration_ms: 0.4334
+  type: 'test'
+  ...
+# Subtest: explicit authored edges limit
+ok 44 - explicit authored edges limit
+  ---
+  duration_ms: 0.4549
+  type: 'test'
+  ...
+# Subtest: explicit authored members limit
+ok 45 - explicit authored members limit
+  ---
+  duration_ms: 0.4915
+  type: 'test'
+  ...
+# Subtest: explicit authored identities limit
+ok 46 - explicit authored identities limit
+  ---
+  duration_ms: 0.4729
+  type: 'test'
+  ...
+# Subtest: explicit authored bytes limit
+ok 47 - explicit authored bytes limit
+  ---
+  duration_ms: 0.7907
+  type: 'test'
+  ...
+# Subtest: malformed metadata/accessors and non-JSON observations refuse without executing getters
+ok 48 - malformed metadata/accessors and non-JSON observations refuse without executing getters
+  ---
+  duration_ms: 0.7756
+  type: 'test'
+  ...
+# Subtest: callback rejection is one acquisition-error, never replayed as admission contention
+ok 49 - callback rejection is one acquisition-error, never replayed as admission contention
+  ---
+  duration_ms: 0.4141
+  type: 'test'
+  ...
+# Subtest: dispose is terminal; late completion is refused and original L2 model remains unused
+ok 50 - dispose is terminal; late completion is refused and original L2 model remains unused
+  ---
+  duration_ms: 0.3642
+  type: 'test'
+  ...
+# Subtest: added unique collection member and its reachable roles refuse a changed closure
+ok 51 - added unique collection member and its reachable roles refuse a changed closure
+  ---
+  duration_ms: 1.8354
+  type: 'test'
+  ...
+# Subtest: renamed collection member cannot silently omit an originally required role
+ok 52 - renamed collection member cannot silently omit an originally required role
+  ---
+  duration_ms: 1.3917
+  type: 'test'
+  ...
+# Subtest: selected owner identity change invalidates previous capture, not just replacement
+ok 53 - selected owner identity change invalidates previous capture, not just replacement
+  ---
+  duration_ms: 6.4874
+  type: 'test'
+  ...
+# Subtest: backwards injected clock and expired authority cannot acquire or keep previous bytes
+ok 54 - backwards injected clock and expired authority cannot acquire or keep previous bytes
+  ---
+  duration_ms: 3.6839
+  type: 'test'
+  ...
+1..54
+# tests 54
+# suites 0
+# pass 54
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 243.4774
