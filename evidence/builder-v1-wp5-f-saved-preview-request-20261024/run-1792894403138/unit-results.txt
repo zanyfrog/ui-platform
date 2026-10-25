@@ -1,0 +1,33 @@
+✔ explicit unavailable outcome: no artifact (2.1574ms)
+✔ explicit unavailable outcome: repair only (0.425ms)
+✔ explicit unavailable outcome: package definition (0.2195ms)
+✔ explicit unavailable outcome: unresolved saved node (0.2192ms)
+✔ explicit unavailable outcome: unsupported artifact (0.2186ms)
+✔ explicit unavailable outcome: unqualified production provider (0.1916ms)
+✔ runtime contract rejects hidden capabilities, fields and inconsistent owner (0.7195ms)
+✔ accessors cannot supply or mutate identity during validation (0.221ms)
+✔ parsed requests and snapshots are copies of original identity (1.4809ms)
+✔ invalid original identity has explicit unresolved unavailable state (0.3095ms)
+✔ dirty-only updates are informational and preserve pending generation (0.4279ms)
+✔ subject change cancels obsolete check (0.4358ms)
+✔ session change cancels obsolete check (0.2244ms)
+✔ Application change cancels obsolete check (0.1958ms)
+✔ owner change cancels obsolete check (0.1452ms)
+✔ artifact change cancels obsolete check (0.2134ms)
+✔ source-node change cancels obsolete check (0.2521ms)
+✔ sourceChanged cancels pending and cannot be undone by completion (0.2302ms)
+✔ park cancels pending and cannot be undone by completion (0.1579ms)
+✔ suspend cancels pending and cannot be undone by completion (0.1311ms)
+✔ dispose cancels pending and cannot be undone by completion (0.1158ms)
+✔ later explicit check supersedes prior completion without restoring prior request (0.3366ms)
+✔ park/resume, suspend/reselection and terminal disposal have no automatic check (0.3231ms)
+✔ completion failure stays permanently unavailable without retry or grant (0.3265ms)
+✔ subscription cleanup on disposal makes later operations inert (0.1398ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 151.3874

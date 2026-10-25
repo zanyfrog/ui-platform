@@ -14,11 +14,13 @@ import { LatestProblems } from './problems.js';
 import { subscribeSourceSaved } from '../artifact-editor/saved-source.js';
 import type { ProblemsReport } from '../../shared/application-diagnostics.js';
 import { createBuilderShellView } from './shell-view.js';
+import { SavedPreviewRequestController } from './saved-preview-request.js';
 
+const savedPreview = new SavedPreviewRequestController();
 const view = createBuilderShellView({
   navigate: (target, key) => run(() => navigate(target, key)),
   close: key => run(async () => { if (!await coordinator.close(key)) status('Tab retained. Keep or recover the draft; wait for any pending save before closing.'); }),
-});
+}, savedPreview);
 const shell = view.element;
 const find = <T extends HTMLElement>(selector: string) => shell.querySelector<T>(selector)!;
 const problems = document.createElement('section'); problems.setAttribute('aria-label', 'Application Problems');
@@ -55,8 +57,8 @@ const scheduleProblems = (key?: string) => {
   refreshTimer = setTimeout(() => { void refreshProblems(false); }, 150);
 };
 subscribeSourceSaved(scheduleProblems);
-subscribeSourceSaved(key => { if (!key || key === applicationKey) fixturePreview.invalidate('SAVED_SOURCE_CHANGED: explicit Refresh required'); });
-document.addEventListener('ui-platform-workspace-change', () => { scheduleProblems(); fixturePreview.invalidate('WORKSPACE_CHANGED: explicit Refresh required'); });
+subscribeSourceSaved(key => { if (!key || key === applicationKey) { fixturePreview.invalidate('SAVED_SOURCE_CHANGED: explicit Refresh required'); savedPreview.sourceChanged(); } });
+document.addEventListener('ui-platform-workspace-change', () => { scheduleProblems(); fixturePreview.invalidate('WORKSPACE_CHANGED: explicit Refresh required'); savedPreview.sourceChanged('Workspace changed; explicit check required.'); });
 for (const operation of ['Create Menu', 'Upload Application asset']) {
   const button = document.createElement('button'); button.textContent = operation; find('header').append(button);
   button.onclick = () => run(async () => {
@@ -195,6 +197,7 @@ find('[data-create-dataset]').onclick = () => run(async () => {
 subscribeEditorSession(() => {
   const next = editorSessionSnapshot()?.revision;
   if (revision !== next) {
+    savedPreview.suspend('Session changed; original selection must be restored.');
     fixturePreview.revoke('EDITOR_SESSION_CHANGED: fixture cleared; trusted production revocation remains unavailable');
     clearProblems();
     revision = next; coordinator.suspend(); discovery = []; view.artifacts([]); navigationSequence++;
@@ -210,7 +213,7 @@ setInterval(() => {
   void authorizeWorkspace(tab.artifact.applicationKey, { identity: tab.artifact.identity }).then(next => {
     if (!current()) return;
     if (next.editable !== tab.artifact.editable) throw new Error('Artifact authority changed.');
-  }).catch(() => { if (!current()) return; clearProblems(); coordinator.suspend(); discovery = []; view.artifacts([]); status('Artifact access changed. Source hidden; reauthorize under the original identity to recover.'); }).finally(() => { checking = false; });
+  }).catch(() => { if (!current()) return; savedPreview.suspend('Artifact access or owner changed.'); clearProblems(); coordinator.suspend(); discovery = []; view.artifacts([]); status('Artifact access changed. Source hidden; reauthorize under the original identity to recover.'); }).finally(() => { checking = false; });
 }, 2000);
 export function parkWorkspace() { view.park(); parked = true; navigationSequence++; latestProblems.invalidate(); clearTimeout(refreshTimer); coordinator.park(); }
 export async function mountApplicationWorkspace(target: HTMLElement, app: { key: string; name: string }) {

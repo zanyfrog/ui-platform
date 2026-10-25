@@ -1,0 +1,32 @@
+{
+  "args": [
+    "node_modules/typescript/bin/tsc",
+    "--ignoreConfig",
+    "--noEmit",
+    "--target",
+    "es2022",
+    "--module",
+    "esnext",
+    "--moduleResolution",
+    "bundler",
+    "--resolveJsonModule",
+    "--esModuleInterop",
+    "--lib",
+    "es2022,dom",
+    "--types",
+    "node",
+    "--strictNullChecks",
+    "--noImplicitAny",
+    "false",
+    "--skipLibCheck",
+    "src/client/fixture-preview/raw.d.ts",
+    "src/shared/saved-preview-request.ts",
+    "src/client/builder-workspace/saved-preview-request.ts",
+    "src/client/builder-workspace/shell-view.ts",
+    "tests/preview-contract-model/saved-preview-request.test.ts",
+    "tests/fixture-preview/saved-preview-request-harness.ts"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": ""
+}

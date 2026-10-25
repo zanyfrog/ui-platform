@@ -1,0 +1,535 @@
+{
+  "tests/preview-contract-model/saved-preview-request.test.ts": {
+    "inputs": {
+      "src/shared/builder-workspace.ts": {
+        "bytes": 2126,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/shared/saved-preview-request.ts": {
+        "bytes": 4919,
+        "imports": [
+          {
+            "path": "src/shared/builder-workspace.ts",
+            "kind": "import-statement",
+            "original": "./builder-workspace.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/builder-workspace/saved-preview-request.ts": {
+        "bytes": 4356,
+        "imports": [
+          {
+            "path": "src/shared/saved-preview-request.ts",
+            "kind": "import-statement",
+            "original": "../../shared/saved-preview-request.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/preview-contract-model/saved-preview-request.test.ts": {
+        "bytes": 7427,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "src/shared/saved-preview-request.ts",
+            "kind": "import-statement",
+            "original": "../../src/shared/saved-preview-request.js"
+          },
+          {
+            "path": "src/client/builder-workspace/saved-preview-request.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/builder-workspace/saved-preview-request.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "saved-preview-request.test.js": {
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "exports": [],
+        "entryPoint": "tests/preview-contract-model/saved-preview-request.test.ts",
+        "inputs": {
+          "tests/preview-contract-model/saved-preview-request.test.ts": {
+            "bytesInOutput": 7757
+          },
+          "src/shared/builder-workspace.ts": {
+            "bytesInOutput": 595
+          },
+          "src/shared/saved-preview-request.ts": {
+            "bytesInOutput": 3360
+          },
+          "src/client/builder-workspace/saved-preview-request.ts": {
+            "bytesInOutput": 3813
+          }
+        },
+        "bytes": 15784
+      }
+    }
+  },
+  "tests/fixture-preview/saved-preview-request-harness.ts": {
+    "inputs": {
+      "src/shared/builder-workspace.ts": {
+        "bytes": 2126,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/shared/saved-preview-request.ts": {
+        "bytes": 4919,
+        "imports": [
+          {
+            "path": "src/shared/builder-workspace.ts",
+            "kind": "import-statement",
+            "original": "./builder-workspace.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/builder-workspace/saved-preview-request.ts": {
+        "bytes": 4356,
+        "imports": [
+          {
+            "path": "src/shared/saved-preview-request.ts",
+            "kind": "import-statement",
+            "original": "../../shared/saved-preview-request.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/lifecycle.ts": {
+        "bytes": 3278,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/bootstrap.txt": {
+        "bytes": 102990,
+        "imports": []
+      },
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 7763,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11601,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/samples.ts": {
+        "bytes": 7134,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "../../../packages/visual-artifacts/src/composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/protocol.ts": {
+        "bytes": 1175,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/host.ts": {
+        "bytes": 3939,
+        "imports": [
+          {
+            "path": "src/client/fixture-preview/bootstrap.txt",
+            "kind": "import-statement",
+            "original": "./bootstrap.txt?raw"
+          },
+          {
+            "path": "src/client/fixture-preview/lifecycle.ts",
+            "kind": "import-statement",
+            "original": "./lifecycle.js"
+          },
+          {
+            "path": "src/client/fixture-preview/samples.ts",
+            "kind": "import-statement",
+            "original": "./samples.js"
+          },
+          {
+            "path": "src/client/fixture-preview/protocol.ts",
+            "kind": "import-statement",
+            "original": "./protocol.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/panel.ts": {
+        "bytes": 6479,
+        "imports": [
+          {
+            "path": "src/client/fixture-preview/lifecycle.ts",
+            "kind": "import-statement",
+            "original": "./lifecycle.js"
+          },
+          {
+            "path": "src/client/fixture-preview/host.ts",
+            "kind": "import-statement",
+            "original": "./host.js"
+          },
+          {
+            "path": "src/client/fixture-preview/samples.ts",
+            "kind": "import-statement",
+            "original": "./samples.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/builder-workspace/fixture-preview-binding.ts": {
+        "bytes": 752,
+        "imports": [
+          {
+            "path": "src/shared/builder-workspace.ts",
+            "kind": "import-statement",
+            "original": "../../shared/builder-workspace.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/builder-workspace/shell-view.ts": {
+        "bytes": 9115,
+        "imports": [
+          {
+            "path": "src/shared/builder-workspace.ts",
+            "kind": "import-statement",
+            "original": "../../shared/builder-workspace.js"
+          },
+          {
+            "path": "src/client/fixture-preview/panel.ts",
+            "kind": "import-statement",
+            "original": "../fixture-preview/panel.js"
+          },
+          {
+            "path": "src/client/builder-workspace/fixture-preview-binding.ts",
+            "kind": "import-statement",
+            "original": "./fixture-preview-binding.js"
+          },
+          {
+            "path": "src/client/builder-workspace/saved-preview-request.ts",
+            "kind": "import-statement",
+            "original": "./saved-preview-request.js"
+          },
+          {
+            "path": "src/shared/saved-preview-request.ts",
+            "kind": "import-statement",
+            "original": "../../shared/saved-preview-request.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/shared/platform-settings.ts": {
+        "bytes": 2197,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/autosave-configuration.ts": {
+        "bytes": 714,
+        "imports": [
+          {
+            "path": "src/shared/platform-settings.ts",
+            "kind": "import-statement",
+            "original": "../../shared/platform-settings.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/editing-lifecycle.ts": {
+        "bytes": 8230,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "./autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/working-copy.ts": {
+        "bytes": 11269,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/editing-lifecycle.ts",
+            "kind": "import-statement",
+            "original": "./editing-lifecycle.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/shared/artifact-editor.ts": {
+        "bytes": 2144,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/session.ts": {
+        "bytes": 4041,
+        "imports": [
+          {
+            "path": "src/shared/artifact-editor.ts",
+            "kind": "import-statement",
+            "original": "../../shared/artifact-editor.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/saved-source.ts": {
+        "bytes": 732,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/transport.ts": {
+        "bytes": 3266,
+        "imports": [
+          {
+            "path": "src/shared/artifact-editor.ts",
+            "kind": "import-statement",
+            "original": "../../shared/artifact-editor.js"
+          },
+          {
+            "path": "src/client/artifact-editor/session.ts",
+            "kind": "import-statement",
+            "original": "./session.js"
+          },
+          {
+            "path": "src/client/artifact-editor/saved-source.ts",
+            "kind": "import-statement",
+            "original": "./saved-source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/recovery.ts": {
+        "bytes": 2691,
+        "imports": [
+          {
+            "path": "src/shared/artifact-editor.ts",
+            "kind": "import-statement",
+            "original": "../../shared/artifact-editor.js"
+          },
+          {
+            "path": "src/client/artifact-editor/session.ts",
+            "kind": "import-statement",
+            "original": "./session.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/context.ts": {
+        "bytes": 10756,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/working-copy.ts",
+            "kind": "import-statement",
+            "original": "./working-copy.js"
+          },
+          {
+            "path": "src/client/artifact-editor/transport.ts",
+            "kind": "import-statement",
+            "original": "./transport.js"
+          },
+          {
+            "path": "src/client/artifact-editor/session.ts",
+            "kind": "import-statement",
+            "original": "./session.js"
+          },
+          {
+            "path": "src/client/artifact-editor/recovery.ts",
+            "kind": "import-statement",
+            "original": "./recovery.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/source-editor.ts": {
+        "bytes": 4680,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/builder-workspace/coordinator.ts": {
+        "bytes": 5954,
+        "imports": [
+          {
+            "path": "src/shared/builder-workspace.ts",
+            "kind": "import-statement",
+            "original": "../../shared/builder-workspace.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/fixture-preview/saved-preview-request-harness.ts": {
+        "bytes": 15042,
+        "imports": [
+          {
+            "path": "src/client/builder-workspace/saved-preview-request.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/builder-workspace/saved-preview-request.js"
+          },
+          {
+            "path": "src/client/builder-workspace/shell-view.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/builder-workspace/shell-view.js"
+          },
+          {
+            "path": "src/client/fixture-preview/samples.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/fixture-preview/samples.js"
+          },
+          {
+            "path": "src/client/artifact-editor/context.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/context.js"
+          },
+          {
+            "path": "src/client/artifact-editor/source-editor.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/source-editor.js"
+          },
+          {
+            "path": "src/client/builder-workspace/coordinator.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/builder-workspace/coordinator.js"
+          },
+          {
+            "path": "src/shared/builder-workspace.ts",
+            "kind": "import-statement",
+            "original": "../../src/shared/builder-workspace.js"
+          },
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/autosave-configuration.js"
+          },
+          {
+            "path": "src/client/artifact-editor/session.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/session.js"
+          },
+          {
+            "path": "src/client/artifact-editor/session.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/session.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "saved-preview-request-harness.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "tests/fixture-preview/saved-preview-request-harness.ts",
+        "inputs": {
+          "src/shared/builder-workspace.ts": {
+            "bytesInOutput": 615
+          },
+          "src/shared/saved-preview-request.ts": {
+            "bytesInOutput": 4029
+          },
+          "src/client/builder-workspace/saved-preview-request.ts": {
+            "bytesInOutput": 4003
+          },
+          "src/client/fixture-preview/lifecycle.ts": {
+            "bytesInOutput": 2461
+          },
+          "src/client/fixture-preview/bootstrap.txt": {
+            "bytesInOutput": 105429
+          },
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 378
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 1081
+          },
+          "src/client/fixture-preview/samples.ts": {
+            "bytesInOutput": 6037
+          },
+          "src/client/fixture-preview/protocol.ts": {
+            "bytesInOutput": 767
+          },
+          "src/client/fixture-preview/host.ts": {
+            "bytesInOutput": 3471
+          },
+          "src/client/fixture-preview/panel.ts": {
+            "bytesInOutput": 6125
+          },
+          "src/client/builder-workspace/fixture-preview-binding.ts": {
+            "bytesInOutput": 277
+          },
+          "src/client/builder-workspace/shell-view.ts": {
+            "bytesInOutput": 8583
+          },
+          "src/shared/platform-settings.ts": {
+            "bytesInOutput": 590
+          },
+          "src/client/artifact-editor/autosave-configuration.ts": {
+            "bytesInOutput": 538
+          },
+          "src/client/artifact-editor/editing-lifecycle.ts": {
+            "bytesInOutput": 7871
+          },
+          "src/client/artifact-editor/working-copy.ts": {
+            "bytesInOutput": 10982
+          },
+          "src/shared/artifact-editor.ts": {
+            "bytesInOutput": 263
+          },
+          "src/client/artifact-editor/session.ts": {
+            "bytesInOutput": 2627
+          },
+          "src/client/artifact-editor/saved-source.ts": {
+            "bytesInOutput": 401
+          },
+          "src/client/artifact-editor/transport.ts": {
+            "bytesInOutput": 2573
+          },
+          "src/client/artifact-editor/recovery.ts": {
+            "bytesInOutput": 1429
+          },
+          "src/client/artifact-editor/context.ts": {
+            "bytesInOutput": 10495
+          },
+          "src/client/artifact-editor/source-editor.ts": {
+            "bytesInOutput": 3769
+          },
+          "src/client/builder-workspace/coordinator.ts": {
+            "bytesInOutput": 5036
+          },
+          "tests/fixture-preview/saved-preview-request-harness.ts": {
+            "bytesInOutput": 13515
+          }
+        },
+        "bytes": 204611
+      }
+    }
+  }
+}

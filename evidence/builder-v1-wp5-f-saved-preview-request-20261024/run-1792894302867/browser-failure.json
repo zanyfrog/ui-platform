@@ -1,0 +1,35 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///C:/Projects/Modular/ui-platform/scripts/verify-saved-preview-request.mjs:63:115\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:502:9)",
+  "checks": [],
+  "observations": {
+    "browserVersion": "156.0.4314.42"
+  },
+  "serverRequests": [
+    {
+      "url": "/",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/harness.js",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    }
+  ],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:64431/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:64431/harness.js",
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "failures": [],
+  "consoleMessages": []
+}
