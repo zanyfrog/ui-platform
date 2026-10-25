@@ -1,0 +1,31 @@
+{
+  "args": [
+    "node_modules/typescript/bin/tsc",
+    "--ignoreConfig",
+    "--noEmit",
+    "--target",
+    "es2022",
+    "--module",
+    "esnext",
+    "--moduleResolution",
+    "bundler",
+    "--resolveJsonModule",
+    "--esModuleInterop",
+    "--lib",
+    "es2022,dom",
+    "--strictNullChecks",
+    "--noImplicitAny",
+    "false",
+    "--skipLibCheck",
+    "src/client/fixture-preview/raw.d.ts",
+    "src/client/native-card-preview/admission.ts",
+    "src/client/native-card-preview/host.ts",
+    "src/client/native-card-preview/message.ts",
+    "src/client/native-card-preview/frame.ts",
+    "tests/fixture-preview/native-card-inputs.ts",
+    "tests/fixture-preview/native-card-capture-harness.ts"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": ""
+}

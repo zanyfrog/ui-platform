@@ -1,0 +1,89 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///C:/Projects/Modular/ui-platform/scripts/verify-native-card-capture.mjs:64:10",
+  "checks": [
+    "Invalid transit input rejected after fixed 13-tag registration but before any native Card construction",
+    "Actual canonical Definition and registered unchanged UibCard constructor; native defaults"
+  ],
+  "observations": {
+    "browserVersion": "156.0.4314.42",
+    "rejectedBeforeConstruction": {
+      "metrics": {
+        "registrations": [
+          "uib-icon",
+          "uib-stack",
+          "uib-grid",
+          "uib-row",
+          "uib-column",
+          "uib-panel",
+          "uib-card",
+          "uib-dialog",
+          "uib-accordion",
+          "uib-tab",
+          "uib-tab-panel",
+          "uib-tabs",
+          "uib-splitter"
+        ],
+        "cards": 0,
+        "activeObservers": 0,
+        "disconnects": 0
+      },
+      "card": false
+    },
+    "nativeIdentity": {
+      "constructor": "UibCard",
+      "registered": true,
+      "body": "Card body",
+      "metrics": {
+        "registrations": [
+          "uib-icon",
+          "uib-stack",
+          "uib-grid",
+          "uib-row",
+          "uib-column",
+          "uib-panel",
+          "uib-card",
+          "uib-dialog",
+          "uib-accordion",
+          "uib-tab",
+          "uib-tab-panel",
+          "uib-tabs",
+          "uib-splitter"
+        ],
+        "cards": 1,
+        "activeObservers": 1,
+        "disconnects": 0
+      },
+      "csp": "default-src 'none'; script-src 'sha256-0YoyCZnjeKyTqItaZVKS/C5gRSj4fnj44w87Dal2LeA='; script-src-attr 'none'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'none'; form-action 'none'"
+    }
+  },
+  "serverRequests": [
+    {
+      "url": "/",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/harness.js",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    }
+  ],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:56526/",
+      "method": "GET",
+      "resource": "document"
+    },
+    {
+      "url": "http://127.0.0.1:56526/harness.js",
+      "method": "GET",
+      "resource": "script"
+    }
+  ],
+  "failures": [],
+  "errors": [],
+  "consoleMessages": []
+}

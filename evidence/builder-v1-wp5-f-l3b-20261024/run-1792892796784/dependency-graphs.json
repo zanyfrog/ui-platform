@@ -1,0 +1,752 @@
+{
+  "tests/preview-contract-model/native-card-admission.test.ts": {
+    "inputs": {
+      "../ui-base/packages/ui-base-ui/src/platform/definition.js": {
+        "bytes": 10865,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/native-card-preview/admission.ts": {
+        "bytes": 7546,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/src/platform/definition.js",
+            "kind": "import-statement",
+            "original": "../../../../ui-base/packages/ui-base-ui/src/platform/definition.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/ui.component.json": {
+        "bytes": 28739,
+        "imports": []
+      },
+      "tests/fixture-preview/native-card-inputs.ts": {
+        "bytes": 1522,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+            "kind": "import-statement",
+            "original": "../../../ui-base/packages/ui-base-ui/ui.component.json"
+          },
+          {
+            "path": "src/client/native-card-preview/admission.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/native-card-preview/admission.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/native-card-preview/message.ts": {
+        "bytes": 883,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/preview-contract-model/native-card-admission.test.ts": {
+        "bytes": 5717,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "src/client/native-card-preview/admission.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/native-card-preview/admission.js"
+          },
+          {
+            "path": "tests/fixture-preview/native-card-inputs.ts",
+            "kind": "import-statement",
+            "original": "../fixture-preview/native-card-inputs.js"
+          },
+          {
+            "path": "src/client/native-card-preview/message.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/native-card-preview/message.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "native-card-admission.test.js": {
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "exports": [],
+        "entryPoint": "tests/preview-contract-model/native-card-admission.test.ts",
+        "inputs": {
+          "tests/preview-contract-model/native-card-admission.test.ts": {
+            "bytesInOutput": 6176
+          },
+          "../ui-base/packages/ui-base-ui/src/platform/definition.js": {
+            "bytesInOutput": 10471
+          },
+          "src/client/native-card-preview/admission.ts": {
+            "bytesInOutput": 7052
+          },
+          "../ui-base/packages/ui-base-ui/ui.component.json": {
+            "bytesInOutput": 27293
+          },
+          "tests/fixture-preview/native-card-inputs.ts": {
+            "bytesInOutput": 1406
+          },
+          "src/client/native-card-preview/message.ts": {
+            "bytesInOutput": 753
+          }
+        },
+        "bytes": 53663
+      }
+    }
+  },
+  "src/client/native-card-preview/frame.ts": {
+    "inputs": {
+      "../ui-base/packages/ui-base-ui/ui.component.json": {
+        "bytes": 28739,
+        "imports": []
+      },
+      "../ui-base/packages/ui-base-core/src/utils.js": {
+        "bytes": 6535,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-core/src/localization.js": {
+        "bytes": 2018,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-core/src/validation.js": {
+        "bytes": 3321,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-core/src/metadata.js": {
+        "bytes": 647,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-core/src/base-element.js": {
+        "bytes": 3277,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-core/src/utils.js",
+            "kind": "import-statement",
+            "original": "./utils.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-core/src/index.js": {
+        "bytes": 167,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-core/src/utils.js",
+            "kind": "import-statement",
+            "original": "./utils.js"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-core/src/localization.js",
+            "kind": "import-statement",
+            "original": "./localization.js"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-core/src/validation.js",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-core/src/metadata.js",
+            "kind": "import-statement",
+            "original": "./metadata.js"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-core/src/base-element.js",
+            "kind": "import-statement",
+            "original": "./base-element.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-icons/src/icon-registry.js": {
+        "bytes": 2512,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-icons/src/uib-icon.js": {
+        "bytes": 2388,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-core/src/index.js",
+            "kind": "import-statement",
+            "original": "@ui-base/core"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-icons/src/icon-registry.js",
+            "kind": "import-statement",
+            "original": "./icon-registry.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/src/layout/index.js": {
+        "bytes": 33754,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-core/src/index.js",
+            "kind": "import-statement",
+            "original": "@ui-base/core"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-icons/src/uib-icon.js",
+            "kind": "import-statement",
+            "original": "@ui-base/icons/icon"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/src/layout/uib-card.js": {
+        "bytes": 39,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/src/layout/index.js",
+            "kind": "import-statement",
+            "original": "./index.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/src/platform/definition.js": {
+        "bytes": 10865,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/src/platform/renderer.js": {
+        "bytes": 4189,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/src/layout/uib-card.js",
+            "kind": "import-statement",
+            "original": "../layout/uib-card.js"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-ui/src/platform/definition.js",
+            "kind": "import-statement",
+            "original": "./definition.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/src/platform/registry.js": {
+        "bytes": 3890,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/src/platform/definition.js",
+            "kind": "import-statement",
+            "original": "./definition.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/native-card-preview/admission.ts": {
+        "bytes": 7546,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/src/platform/definition.js",
+            "kind": "import-statement",
+            "original": "../../../../ui-base/packages/ui-base-ui/src/platform/definition.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/native-card-preview/message.ts": {
+        "bytes": 883,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/native-card-preview/frame.ts": {
+        "bytes": 2304,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+            "kind": "import-statement",
+            "original": "../../../../ui-base/packages/ui-base-ui/ui.component.json"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-ui/src/platform/renderer.js",
+            "kind": "import-statement",
+            "original": "../../../../ui-base/packages/ui-base-ui/src/platform/renderer.js"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-ui/src/platform/registry.js",
+            "kind": "import-statement",
+            "original": "../../../../ui-base/packages/ui-base-ui/src/platform/registry.js"
+          },
+          {
+            "path": "src/client/native-card-preview/admission.ts",
+            "kind": "import-statement",
+            "original": "./admission.js"
+          },
+          {
+            "path": "src/client/native-card-preview/message.ts",
+            "kind": "import-statement",
+            "original": "./message.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "frame.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "src/client/native-card-preview/frame.ts",
+        "inputs": {
+          "../ui-base/packages/ui-base-ui/ui.component.json": {
+            "bytesInOutput": 29495
+          },
+          "../ui-base/packages/ui-base-core/src/utils.js": {
+            "bytesInOutput": 3430
+          },
+          "../ui-base/packages/ui-base-core/src/index.js": {
+            "bytesInOutput": 0
+          },
+          "../ui-base/packages/ui-base-core/src/validation.js": {
+            "bytesInOutput": 133
+          },
+          "../ui-base/packages/ui-base-core/src/metadata.js": {
+            "bytesInOutput": 179
+          },
+          "../ui-base/packages/ui-base-core/src/base-element.js": {
+            "bytesInOutput": 3322
+          },
+          "../ui-base/packages/ui-base-icons/src/icon-registry.js": {
+            "bytesInOutput": 2420
+          },
+          "../ui-base/packages/ui-base-icons/src/uib-icon.js": {
+            "bytesInOutput": 2188
+          },
+          "../ui-base/packages/ui-base-ui/src/layout/index.js": {
+            "bytesInOutput": 33513
+          },
+          "../ui-base/packages/ui-base-ui/src/layout/uib-card.js": {
+            "bytesInOutput": 0
+          },
+          "../ui-base/packages/ui-base-ui/src/platform/definition.js": {
+            "bytesInOutput": 11003
+          },
+          "../ui-base/packages/ui-base-ui/src/platform/renderer.js": {
+            "bytesInOutput": 4169
+          },
+          "../ui-base/packages/ui-base-ui/src/platform/registry.js": {
+            "bytesInOutput": 3618
+          },
+          "src/client/native-card-preview/admission.ts": {
+            "bytesInOutput": 7120
+          },
+          "src/client/native-card-preview/message.ts": {
+            "bytesInOutput": 767
+          },
+          "src/client/native-card-preview/frame.ts": {
+            "bytesInOutput": 2014
+          }
+        },
+        "bytes": 104317
+      }
+    }
+  },
+  "tests/fixture-preview/native-card-capture-harness.ts": {
+    "inputs": {
+      "../ui-base/packages/ui-base-ui/src/platform/definition.js": {
+        "bytes": 10865,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/native-card-preview/admission.ts": {
+        "bytes": 7546,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/src/platform/definition.js",
+            "kind": "import-statement",
+            "original": "../../../../ui-base/packages/ui-base-ui/src/platform/definition.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/native-card-preview/message.ts": {
+        "bytes": 883,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/native-card-preview/host.ts": {
+        "bytes": 5521,
+        "imports": [
+          {
+            "path": "src/client/native-card-preview/admission.ts",
+            "kind": "import-statement",
+            "original": "./admission.js"
+          },
+          {
+            "path": "src/client/native-card-preview/message.ts",
+            "kind": "import-statement",
+            "original": "./message.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/ui.component.json": {
+        "bytes": 28739,
+        "imports": []
+      },
+      "tests/fixture-preview/native-card-inputs.ts": {
+        "bytes": 1522,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+            "kind": "import-statement",
+            "original": "../../../ui-base/packages/ui-base-ui/ui.component.json"
+          },
+          {
+            "path": "src/client/native-card-preview/admission.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/native-card-preview/admission.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/bootstrap.txt": {
+        "bytes": 102990,
+        "imports": []
+      },
+      "src/client/fixture-preview/lifecycle.ts": {
+        "bytes": 3278,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 7763,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11601,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/samples.ts": {
+        "bytes": 7134,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "../../../packages/visual-artifacts/src/composition.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/protocol.ts": {
+        "bytes": 1175,
+        "imports": [
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/fixture-preview/host.ts": {
+        "bytes": 3939,
+        "imports": [
+          {
+            "path": "src/client/fixture-preview/bootstrap.txt",
+            "kind": "import-statement",
+            "original": "./bootstrap.txt?raw"
+          },
+          {
+            "path": "src/client/fixture-preview/lifecycle.ts",
+            "kind": "import-statement",
+            "original": "./lifecycle.js"
+          },
+          {
+            "path": "src/client/fixture-preview/samples.ts",
+            "kind": "import-statement",
+            "original": "./samples.js"
+          },
+          {
+            "path": "src/client/fixture-preview/protocol.ts",
+            "kind": "import-statement",
+            "original": "./protocol.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/fixture-preview/native-card-capture-harness.ts": {
+        "bytes": 3464,
+        "imports": [
+          {
+            "path": "src/client/native-card-preview/host.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/native-card-preview/host.js"
+          },
+          {
+            "path": "tests/fixture-preview/native-card-inputs.ts",
+            "kind": "import-statement",
+            "original": "./native-card-inputs.js"
+          },
+          {
+            "path": "src/client/native-card-preview/admission.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/native-card-preview/admission.js"
+          },
+          {
+            "path": "src/client/fixture-preview/host.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/fixture-preview/host.js"
+          },
+          {
+            "path": "src/client/fixture-preview/samples.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/fixture-preview/samples.js"
+          },
+          {
+            "path": "<runtime>",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "native-card-capture-harness.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "tests/fixture-preview/native-card-capture-harness.ts",
+        "inputs": {
+          "../ui-base/packages/ui-base-ui/src/platform/definition.js": {
+            "bytesInOutput": 10471
+          },
+          "src/client/native-card-preview/admission.ts": {
+            "bytesInOutput": 7070
+          },
+          "src/client/native-card-preview/message.ts": {
+            "bytesInOutput": 753
+          },
+          "src/client/native-card-preview/host.ts": {
+            "bytesInOutput": 6059
+          },
+          "../ui-base/packages/ui-base-ui/ui.component.json": {
+            "bytesInOutput": 27293
+          },
+          "tests/fixture-preview/native-card-inputs.ts": {
+            "bytesInOutput": 1406
+          },
+          "src/client/fixture-preview/bootstrap.txt": {
+            "bytesInOutput": 105427
+          },
+          "src/client/fixture-preview/lifecycle.ts": {
+            "bytesInOutput": 160
+          },
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 372
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 1123
+          },
+          "src/client/fixture-preview/samples.ts": {
+            "bytesInOutput": 5774
+          },
+          "src/client/fixture-preview/protocol.ts": {
+            "bytesInOutput": 793
+          },
+          "src/client/fixture-preview/host.ts": {
+            "bytesInOutput": 3375
+          },
+          "tests/fixture-preview/native-card-capture-harness.ts": {
+            "bytesInOutput": 434463
+          }
+        },
+        "bytes": 605331
+      }
+    }
+  }
+}

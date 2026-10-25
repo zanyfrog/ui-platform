@@ -1,0 +1,46 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 13\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 13\n\n    at file:///C:/Projects/Modular/ui-platform/scripts/verify-native-card-capture.mjs:55:145",
+  "checks": [],
+  "observations": {
+    "browserVersion": "156.0.4314.42",
+    "rejectedBeforeConstruction": {
+      "metrics": {
+        "registrations": [],
+        "cards": 0,
+        "activeObservers": 0,
+        "disconnects": 0
+      },
+      "card": false
+    }
+  },
+  "serverRequests": [
+    {
+      "url": "/",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    },
+    {
+      "url": "/harness.js",
+      "method": "GET",
+      "cookie": null,
+      "authorization": null
+    }
+  ],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:51812/",
+      "method": "GET",
+      "resource": "document"
+    },
+    {
+      "url": "http://127.0.0.1:51812/harness.js",
+      "method": "GET",
+      "resource": "script"
+    }
+  ],
+  "failures": [],
+  "errors": [],
+  "consoleMessages": []
+}
