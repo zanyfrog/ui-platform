@@ -1,0 +1,37 @@
+{
+  "purpose": "Gate A authored-input parser provenance probe only",
+  "nodeVersion": "v24.19.0",
+  "executableModules": [
+    "evidence/builder-v1-wp5-f-source-owner-selection-20261025/parser-provenance-probe.test.mjs",
+    "packages/visual-artifacts/src/source.ts"
+  ],
+  "builtins": [
+    "node:test",
+    "node:assert/strict"
+  ],
+  "erasedTypeOnlyImport": "./model.js",
+  "runtimeDependencyClosure": "source.ts has no runtime imports; package index not imported",
+  "serial": true,
+  "retries": 0,
+  "setupHooks": [],
+  "workspaceConfiguration": false,
+  "filesystemInputs": "Only exact listed executable source; all parser data is authored inline",
+  "forbiddenExecution": [
+    "Visual editor",
+    "backend",
+    "protected reader",
+    "renderer",
+    "native frame"
+  ],
+  "hashes": [
+    {
+      "path": "evidence/builder-v1-wp5-f-source-owner-selection-20261025/parser-provenance-probe.test.mjs",
+      "sha256": "ee5a65eab2f5778d8d03f9aebd297588803984cb077ae1a62df81e9d1f2d8eff"
+    },
+    {
+      "path": "packages/visual-artifacts/src/source.ts",
+      "sha256": "34cb2401ce50f2cca2829f723f2865f2d16f042f18a8a5e57d89b2987b31378f"
+    }
+  ],
+  "correction": "Initial import erroneously resolved outside ui-platform and failed before parser execution. Corrected exact relative path; same intended module closure. This is a separately admitted invocation, no configured retry."
+}

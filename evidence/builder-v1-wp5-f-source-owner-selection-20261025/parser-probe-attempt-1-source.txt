@@ -1,0 +1,21 @@
+// Gate A probe only: authored strings, existing parser, no editor/backend execution.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { parseSource } from '../../../packages/visual-artifacts/src/source.ts';
+
+test('duplicate node attributes lose their first identity without an error diagnostic', () => {
+  const result = parseSource('<uib-card data-uip-node="original" data-uip-node="replacement" data-uip-component="card"></uib-card>');
+  assert.equal(result.nodes.length, 1);
+  assert.equal(result.nodes[0].id, 'replacement');
+  assert.equal(result.diagnostics.some(d => d.severity === 'error'), false);
+});
+test('duplicate Definition attributes collapse to the same parsed target as an unambiguous input', () => {
+  const ambiguous = parseSource('<uib-card data-uip-node="savedCard" data-uip-component="other" data-uip-component="card"></uib-card>');
+  const unique = parseSource('<uib-card data-uip-node="savedCard" data-uip-component="card"></uib-card>');
+  assert.deepEqual(ambiguous.nodes[0].attributes, unique.nodes[0].attributes);
+  assert.deepEqual(ambiguous.diagnostics, unique.diagnostics);
+});
+test('duplicate ids on distinct nodes are diagnosed, unlike duplicate attributes', () => {
+  const result = parseSource('<div data-uip-node="same"></div><div data-uip-node="same"></div>');
+  assert(result.diagnostics.some(d => d.severity === 'error' && d.message.includes('duplicate node ID')));
+});

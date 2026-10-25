@@ -1,0 +1,36 @@
+{
+  "purpose": "Gate A authored-input parser provenance probe only",
+  "nodeVersion": "v24.19.0",
+  "executableModules": [
+    "evidence/builder-v1-wp5-f-source-owner-selection-20261025/parser-provenance-probe.test.mjs",
+    "packages/visual-artifacts/src/source.ts"
+  ],
+  "builtins": [
+    "node:test",
+    "node:assert/strict"
+  ],
+  "erasedTypeOnlyImport": "./model.js",
+  "runtimeDependencyClosure": "source.ts has no runtime imports; package index not imported",
+  "serial": true,
+  "retries": 0,
+  "setupHooks": [],
+  "workspaceConfiguration": false,
+  "filesystemInputs": "Only exact listed executable source; all parser data is authored inline",
+  "forbiddenExecution": [
+    "Visual editor",
+    "backend",
+    "protected reader",
+    "renderer",
+    "native frame"
+  ],
+  "hashes": [
+    {
+      "path": "evidence/builder-v1-wp5-f-source-owner-selection-20261025/parser-provenance-probe.test.mjs",
+      "sha256": "687972017d787ab783afef1a1d199a92b8158b6610112eed57683c0763a807f8"
+    },
+    {
+      "path": "packages/visual-artifacts/src/source.ts",
+      "sha256": "34cb2401ce50f2cca2829f723f2865f2d16f042f18a8a5e57d89b2987b31378f"
+    }
+  ]
+}
