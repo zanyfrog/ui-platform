@@ -1,0 +1,21 @@
+{
+  "entry": "scripts/verify-source-identity-hardening.mjs",
+  "sha256": "60957295487ee941e7a4e61f3398c6940659d50cac60ce84ecb2c1031b285f19",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "applicationAdmission": "Verifier enforces listed paths before compile/load; records resolved bundle graph before test execution; no workspace config",
+  "retries": 0,
+  "serial": true,
+  "correction": "Separate invocation after retained DOM-platform failure: add browser Option constructor shim using real happy-dom option elements. Exact source graph unchanged; no production modifications for platform support."
+}

@@ -1,0 +1,116 @@
+// Exact source-only parser/validation + nonpersisting actual-editor verification.
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
+import { createRequire } from 'node:module';
+import { build } from 'esbuild';
+import ts from 'typescript';
+
+const root=path.resolve(import.meta.dirname,'..');
+const evidence=path.join(root,'evidence/builder-v1-wp5-f-parser-hardening-20261025');
+const out=path.join(evidence,'run-'+Date.now());fs.mkdirSync(out);
+const expression=path.resolve(root,'../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts');
+const manifest=path.resolve(root,'../ui-base/packages/ui-base-ui/ui.component.json');
+const sources=[
+  ...['source','validation','model','form','expression','composition'].map(n=>`packages/visual-artifacts/src/${n}.ts`),
+  ...['editor','menu-controls','authoring-controls'].map(n=>`src/client/visual-artifacts/${n}.ts`),
+  ...['editing-lifecycle','autosave-configuration','specialized-transport','saved-source'].map(n=>`src/client/artifact-editor/${n}.ts`),
+  'src/shared/platform-settings.ts',
+  ...['parser-hardening.test.ts','editor-regression-harness.ts','visual-source-barrel.ts'].map(n=>`tests/source-identity/${n}`),
+  'evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt',
+  'evidence/builder-v1-wp5-f-parser-hardening-20261025/validation-before.ts.txt',
+].map(p=>path.resolve(root,p)).concat(expression,manifest);
+const admitted=new Set(sources);
+const hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const hashes=Object.fromEntries(sources.map(p=>[path.relative(root,p).replaceAll('\\','/'),hash(p)]));
+const toolRequire=createRequire(import.meta.url);
+const browserRequire=createRequire(path.resolve(root,'../ui-base/package.json'));
+const tools={node:process.version,esbuild:{entry:toolRequire.resolve('esbuild'),version:toolRequire('esbuild/package.json').version},typescript:{entry:toolRequire.resolve('typescript'),version:ts.version},playwright:{entry:browserRequire.resolve('playwright'),version:browserRequire('playwright/package.json').version}};
+fs.writeFileSync(path.join(out,'admission.json'),JSON.stringify({sources,hashes,tools,serial:true,retries:0,setupHooks:[],workspaceConfig:false,entrypoints:['parser-hardening.test.ts','editor-regression-harness.ts'],forbidden:['package runtime index','session execution','backend','protected source','native rendering'],data:'Authored memory sources and exact package declaration JSON only'},null,2));
+const graphs={};
+async function compile(entry,platform,before=false){
+  const plugin={name:'exact-identity-source-inputs',setup(b){
+    b.onResolve({filter:/.*/},args=>{
+      if(args.path.startsWith('node:')){assert.equal(platform,'node');return {path:args.path,external:true};}
+      let resolved;
+      if(args.path==='before-source')resolved=path.join(evidence,'source-before.ts.txt');
+      else if(args.path==='@ui-platform/visual-artifacts')resolved=path.join(root,'tests/source-identity/visual-source-barrel.ts');
+      else if(args.path==='@ui-platform/dataset-operations/expression')resolved=expression;
+      else resolved=path.resolve(args.resolveDir||root,args.path);
+      if(resolved.endsWith('.js')&&!fs.existsSync(resolved))resolved=resolved.slice(0,-3)+'.ts';
+      if(before&&resolved===path.join(root,'packages/visual-artifacts/src/source.ts'))resolved=path.join(evidence,'source-before.ts.txt');
+      if(before&&resolved===path.join(root,'packages/visual-artifacts/src/validation.ts'))resolved=path.join(evidence,'validation-before.ts.txt');
+      if(!admitted.has(resolved))throw Error('UNADMITTED_IMPORT '+resolved);
+      return {path:resolved};
+    });
+    b.onLoad({filter:/.*/},args=>{
+      if(!admitted.has(args.path))throw Error('UNADMITTED_INPUT '+args.path);
+      // Saved before-source's relative type edge is erased. Before-validation's
+      // runtime edges resolve from the same original source directory.
+      return {contents:fs.readFileSync(args.path,'utf8'),loader:args.path.endsWith('.json')?'json':'ts',resolveDir:args.path.endsWith('.ts.txt')?path.join(root,'packages/visual-artifacts/src'):path.dirname(args.path)};
+    });
+  }};
+  const result=await build({absWorkingDir:root,entryPoints:[entry],bundle:true,write:false,platform,format:platform==='node'?'esm':'iife',target:'es2022',define:{'import.meta.env.DEV':'false'},metafile:true,plugins:[plugin]});
+  const key=entry+(before?':before':'');graphs[key]=result.metafile;
+  fs.writeFileSync(path.join(out,'resolved-graphs.json'),JSON.stringify(graphs,null,2));
+  return result.outputFiles[0].text;
+}
+try{
+  const unit=path.join(out,'parser-hardening.test.mjs');fs.writeFileSync(unit,await compile('tests/source-identity/parser-hardening.test.ts','node'));
+  const env={...process.env};delete env.NODE_OPTIONS;delete env.NODE_PATH;
+  const result=spawnSync(process.execPath,['--test','--test-concurrency=1',unit],{cwd:root,encoding:'utf8',env,timeout:30000});
+  fs.writeFileSync(path.join(out,'unit-results.txt'),(result.stdout??'')+(result.stderr??''));assert.equal(result.status,0,result.stdout+result.stderr);
+  // Scoped compiler API: inspect the complete source/type closure before diagnostics.
+  const options={target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.NodeNext,moduleResolution:ts.ModuleResolutionKind.NodeNext,strict:true,skipLibCheck:true,noEmit:true,types:[],lib:['lib.es2022.d.ts','lib.dom.d.ts','lib.dom.iterable.d.ts'],paths:{'@ui-platform/dataset-operations/expression':[expression]}};
+  const host=ts.createCompilerHost(options);const read=host.readFile.bind(host);const typeReads=new Set();
+  const libRoot=path.dirname(toolRequire.resolve('typescript/lib/lib.es2022.d.ts'));
+  host.readFile=file=>{const resolved=path.resolve(file);if(resolved.endsWith('.json'))return read(file);if(!admitted.has(resolved)&&!resolved.startsWith(libRoot+path.sep))throw Error('UNADMITTED_TYPE_INPUT '+resolved);typeReads.add(resolved);return read(file);};
+  const program=ts.createProgram([path.join(root,'packages/visual-artifacts/src/source.ts'),path.join(root,'packages/visual-artifacts/src/validation.ts')],options,host);
+  fs.writeFileSync(path.join(out,'typecheck-admission.json'),JSON.stringify({roots:program.getRootFileNames(),sourceFiles:program.getSourceFiles().map(f=>({path:f.fileName,sha256:hash(f.fileName)})),options},null,2));
+  const diagnostics=ts.getPreEmitDiagnostics(program);fs.writeFileSync(path.join(out,'typecheck.txt'),ts.formatDiagnosticsWithColorAndContext(diagnostics,{getCanonicalFileName:f=>f,getCurrentDirectory:()=>root,getNewLine:()=> '\n'}));assert.equal(diagnostics.length,0,'Scoped typecheck failed');
+  const after=await compile('tests/source-identity/editor-regression-harness.ts','browser');
+  const before=await compile('tests/source-identity/editor-regression-harness.ts','browser',true);
+  const playwright=browserRequire('playwright');const browser=await playwright.chromium.launch({headless:true,channel:'msedge'});
+  const traces=[],errors=[],network=[],frames=[];
+  try{
+    for(const enabled of [false,true]){
+      const pair=[];
+      for(const code of [before,after]){
+        const page=await browser.newPage();page.on('pageerror',e=>errors.push(String(e)));
+        await page.route('**/*',route=>{network.push(route.request().url());return route.abort();});
+        await page.clock.install({time:1000000});await page.clock.pauseAt(1000000);
+        await page.setContent('<!doctype html><html><body></body></html>');
+        await page.evaluate(()=>{const create=document.createElement.bind(document);document.createElement=function(name,...args){if(name.toLowerCase()==='iframe')throw Error('UNEXPECTED_NATIVE_FRAME');return create(name,...args);};window.fetch=()=>{throw Error('UNEXPECTED_BACKEND');};});
+        await page.addScriptTag({content:code});await page.evaluate(enabled=>window.parserHarness.mount(enabled),enabled);
+        const snap=()=>page.evaluate(()=>window.parserHarness.snapshot());
+        const initial=await snap();await page.evaluate(()=>window.parserHarness.selectSaved());
+        const input=page.locator('[data-source]');await input.fill(initial.source.replace('Saved text','First edit'));await page.clock.runFor(751);
+        await input.fill(initial.source.replace('Saved text','Second edit'));const edited=await snap();
+        await page.locator('[data-undo]').click();assert.equal((await snap()).source,initial.source.replace('Saved text','First edit'));
+        await page.locator('[data-redo]').click();assert.equal((await snap()).source,edited.source);
+        await page.evaluate(()=>{const input=document.querySelector('[data-source]');input.setSelectionRange(3,11);});
+        const preSave=await snap();await page.clock.runFor(1999);assert.equal((await snap()).calls.length,0);await page.clock.runFor(1);
+        if(enabled)await page.waitForFunction(()=>window.parserHarness.snapshot().then(s=>!s.state.pending));
+        const settled=await snap();assert.equal(settled.calls.length,enabled?1:0);assert.deepEqual(settled.range,[3,11]);
+        assert.equal(settled.source,edited.source);assert.equal(settled.file,'source');
+        if(enabled)assert.equal(settled.calls[0].time,2751);
+        pair.push({initial,edited,preSave,settled});frames.push(await page.locator('iframe').count());
+        await page.evaluate(()=>window.parserHarness.dispose());await page.close();
+      }
+      assert.deepEqual(pair[1],pair[0]);traces.push({enabled,before:pair[0],after:pair[1]});
+    }
+    // Actual structure/inspector must not select either ambiguous identity.
+    const page=await browser.newPage();page.on('pageerror',e=>errors.push(String(e)));await page.route('**/*',r=>{network.push(r.request().url());return r.abort();});
+    await page.clock.install({time:2000000});await page.clock.pauseAt(2000000);await page.setContent('<body></body>');await page.addScriptTag({content:after});await page.evaluate(()=>window.parserHarness.mount(false));
+    await page.locator('[data-source]').fill('<div data-uip-node="first" data-uip-node="last"></div>');
+    const refused=await page.evaluate(()=>window.parserHarness.snapshot());assert(refused.ids.every(id=>id.startsWith('manual:')));assert.match(await page.locator('[data-diagnostics]').textContent(),/Duplicate identity attribute/);
+    await page.evaluate(()=>window.parserHarness.dispose());await page.close();
+    assert.deepEqual(errors,[]);assert.deepEqual(network,[]);assert(frames.every(n=>n===0));
+    fs.writeFileSync(path.join(out,'editor-regression.json'),JSON.stringify({passed:true,traces,refused,errors,network,frames,scope:'Actual unchanged Visual editor, authored memory transport, no backend/persistence/native action; before/after parser+validation, enabled/disabled autosave'},null,2));
+  }finally{await browser.close();}
+  const changed=sources.filter(p=>hashes[path.relative(root,p).replaceAll('\\','/')]!==hash(p));assert.deepEqual(changed,[]);
+  fs.writeFileSync(path.join(out,'result.json'),JSON.stringify({passed:true,serial:true,retries:0,typecheck:'strict scoped parser/validation closure',executedSourceHashes:hashes},null,2));
+  console.log('PASS '+out);
+}catch(error){fs.writeFileSync(path.join(out,'failure.json'),JSON.stringify({error:String(error),stack:error.stack},null,2));throw error;}

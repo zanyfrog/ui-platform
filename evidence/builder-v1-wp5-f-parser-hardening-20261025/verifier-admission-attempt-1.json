@@ -1,0 +1,19 @@
+{
+  "entry": "scripts/verify-source-identity-hardening.mjs",
+  "sha256": "e5393c47b4efaf320d451fa4b276dccc17b9bcd710a75271b4dbd6e9b7c8e89f",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "esbuild",
+    "typescript",
+    "playwright from ui-base"
+  ],
+  "applicationAdmission": "Verifier enforces listed paths before compile/load; records resolved bundle graph before test execution; no workspace config",
+  "retries": 0,
+  "serial": true
+}

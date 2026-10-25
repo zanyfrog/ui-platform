@@ -1,0 +1,35 @@
+src/client/visual-artifacts\editor.ts:1:import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readPackageSettings, setNodeAttribute, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+src/client/visual-artifacts\editor.ts:69:    const node = parseSource(files.source).nodes.find(node => node.id === selectedNode); if (!node) throw new Error('Select a Page-owned or Shell-owned node.');
+src/client/visual-artifacts\editor.ts:108:    const parsed = parseSource(files.source);
+src/client/visual-artifacts\editor.ts:111:    selector.innerHTML = (shell ? '<optgroup label="Shell context — locked; edit the Shell">' + parseSource(shell.files.source).nodes.filter(n => !n.attributes['data-uip-region']).map(n => `<option disabled>🔒 ${esc(n.tag + ' ' + (n.id ?? ''))}</option>`).join('') + '</optgroup>' : '') + parsed.nodes.map((n, index) => `<option value="${esc(n.id ?? `manual:${index}`)}">${esc(`${n.attributes['data-uip-region'] ?? n.tag} ${n.attributes['data-uip-region-name'] ?? n.id ?? '(manual)'}`)}</option>`).join('');
+src/client/visual-artifacts\editor.ts:117:    const inspector = find('[data-inspector]'); const parsed = parseSource(files.source);
+src/client/visual-artifacts\editor.ts:341:      let container = parseSource(files.source).nodes.find(node => node.id === selectedNode);
+src/client/visual-artifacts\editor.ts:349:    const parent = parseSource(files.source).nodes.find(node => node.id === selectedNode), parentReference = parent?.attributes['data-uip-component'];
+packages/visual-artifacts/src\composition-runtime.ts:3:import { parseSource } from './source.js';
+packages/visual-artifacts/src\composition-runtime.ts:30:    const ids = new Set(parseSource(source).nodes.map(node => node.id));
+packages/visual-artifacts/src\composition-validation.ts:1:import { validateArtifact, componentReferences } from './validation.js';
+packages/visual-artifacts/src\composition-validation.ts:2:import { parseSource } from './source.js';
+packages/visual-artifacts/src\composition-validation.ts:26:    for (const id of [...componentReferences(artifact.source), ...(artifact.metadata.dependencies ?? [])]) required.add(id);
+packages/visual-artifacts/src\composition-validation.ts:34:        for (const nested of [...componentReferences(component.source), ...(component.metadata.dependencies ?? [])]) required.add(nested);
+packages/visual-artifacts/src\composition-validation.ts:45:      diagnostics.push(...validateArtifact(artifact, components, packages).map(d => ({ ...d, code: 'visual.validation', artifactId })));
+packages/visual-artifacts/src\composition-validation.ts:62:      for (const node of parseSource(page.source).nodes) {
+packages/visual-artifacts/src\composition-validation.ts:75:        diagnostics.push(...validateArtifact(composeShellMenus(shell, definition, page, m.routeId!, params), components, packages).map(d => ({ ...d, code: 'visual.validation', artifactId: m.artifactId })));
+packages/visual-artifacts/src\composition.ts:1:import { escapeAttribute, parseSource } from './source.js';
+packages/visual-artifacts/src\composition.ts:22:  const parsed = parseSource(source);
+packages/visual-artifacts/src\composition.ts:130:  const placeholders = parseSource(source).nodes.filter(node => Object.hasOwn(node.attributes, 'data-uip-menu'));
+packages/visual-artifacts/src\revision-composition-vite.ts:5:import { componentReferences, validateArtifact } from './validation.js';
+packages/visual-artifacts/src\revision-composition-vite.ts:65:            for (const id of [...componentReferences(artifact.source), ...(m.dependencies ?? [])]) required.add(id);
+packages/visual-artifacts/src\revision-vite.ts:7:import { validateArtifact } from './validation.js';
+packages/visual-artifacts/src\revision-vite.ts:121:        const errors = validateArtifact(component, sourceComponents, sourcePackages).filter(d => d.severity === 'error');
+packages/visual-artifacts/src\revision-vite.ts:133:        const errors = validateArtifact(artifact, sourceComponents, sourcePackages).filter(d => d.severity === 'error');
+packages/visual-artifacts/src\runtime.ts:12:import { validateArtifact } from './validation.js';
+packages/visual-artifacts/src\runtime.ts:46:  const errors = validateArtifact(artifact, options.components, options.packages, Object.keys(options.services ?? {})).filter(d => d.severity === 'error');
+packages/visual-artifacts/src\source.ts:11:export function parseSource(source: string): { nodes: SourceNode[]; diagnostics: Diagnostic[] } {
+packages/visual-artifacts/src\source.ts:62:  const parsed = parseSource(source);
+packages/visual-artifacts/src\source.ts:73:  const parsed = parseSource(source);
+packages/visual-artifacts/src\source.ts:83:  const parsed = parseSource(source);
+packages/visual-artifacts/src\validation.ts:1:import { parseSource, isWrapper } from './source.js';
+packages/visual-artifacts/src\validation.ts:14:export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeArtifact[] = [], packages: PackageComponent[] = [], services: string[] = []): Diagnostic[] {
+packages/visual-artifacts/src\validation.ts:41:    const parsed = parseSource(artifact.source); diagnostics.push(...parsed.diagnostics);
+packages/visual-artifacts/src\validation.ts:167:      for (const ref of new Set([...componentReferences(current.source), ...(current.metadata.dependencies ?? [])])) { const next = components.find(c => c.metadata.componentId === ref); if (next) visit(next, [...path, id]); }
+packages/visual-artifacts/src\validation.ts:174:export function componentReferences(source: string): string[] { return [...new Set(parseSource(source).nodes.map(n => n.attributes['data-uip-component']).filter(Boolean))]; }

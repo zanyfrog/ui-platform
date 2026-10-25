@@ -1,0 +1,521 @@
+{
+  "date": "2026-10-25",
+  "increment": "WP5-F Source Identity Parser Hardening",
+  "baselineFilesChanged": [
+    "packages/visual-artifacts/src/source.ts",
+    "packages/visual-artifacts/src/validation.ts"
+  ],
+  "files": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-parser-hardening-contract-20261025.md",
+      "status": "new",
+      "sha256": "bc99d95319acc2ba96d340fa4cf314da2b9b634240003e14eb3190ccf8e0f415"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-parser-hardening-implementation-20261025.md",
+      "status": "new",
+      "sha256": "6d9afa4a3c7f7815299e1cdc798a41cdbacefd3b429236178d4a73e468863762"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-source-owner-gate-a-acceptance-20261025.md",
+      "status": "new",
+      "sha256": "3aec34788a725a37703cba306a2066cad0c8eea7e3f60d5d757886de6428c8fe"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/baseline.json",
+      "status": "new",
+      "sha256": "b0782bb80c43988ff07f6c663b83ed69582c0edef42cb2265ce05d8b7ae975bd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/callers-before.txt",
+      "status": "new",
+      "sha256": "4f521f9885e711980f76d66fe3907f8e7de55e437433b8681d55a184798eeb90"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/diff-check.txt",
+      "status": "new",
+      "sha256": "45aff5576706d4e6dbf290c4804f3e8e1160b350fab840c8419e0e1b3d039852"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/editor-harness-attempt-2-source.txt",
+      "status": "new",
+      "sha256": "a0e3b0f779ab474bcebfb967180d94ad3722610968d76904515bbb47a986a526"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/head-before.txt",
+      "status": "new",
+      "sha256": "1c8a0fc02844a43d93829f5ad64451aac286ed79f478a2d989b46f9b33fd53da"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/parser-attempt-2-source.txt",
+      "status": "new",
+      "sha256": "63e1f444ed01ec49913da31044334b9adc64f367c614ba480119f769af4815e0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/parser-attempt-4-source.txt",
+      "status": "new",
+      "sha256": "84e3dff7f067dd42476c789fdb3c1508fda04339aca62724f172e79562164c0b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/parser-attempt-5-source.txt",
+      "status": "new",
+      "sha256": "fd389b74645ea42ada416b728d29afb8cb98ce704bb59883827aec95919dc96b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/parser-attempt-6-source.txt",
+      "status": "new",
+      "sha256": "ed28c1f4dea0384c58649f538a0ce594061bcf9199e8053440e6da1fee2989a4"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/preservation.json",
+      "status": "new",
+      "sha256": "c80ec78477cfc3f271f6a1d3fa30910f2b16c6b2ee0758e588cd2442bdeaef5b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967105286/admission.json",
+      "status": "new",
+      "sha256": "d3129a75f92fefc63c39e04ebcfa3a53dd02f3a3a6b6949fc84e4d0f73d895ef"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967105286/failure.json",
+      "status": "new",
+      "sha256": "357159fdaf860387e9235714aa6b7a992906a30231dee62653140f950465205d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967105286/parser-hardening.test.mjs",
+      "status": "new",
+      "sha256": "d352cbacf593a63ad5462561803e54391d270383e967bee82b04a30827892b7f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967105286/resolved-graphs.json",
+      "status": "new",
+      "sha256": "8c19cc0f076b10c1ff65620f6fc12cd88876be2dbb2fe1472d77259804f01737"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967105286/unit-results.txt",
+      "status": "new",
+      "sha256": "d87763ce45e53e32d07b8064b97f946c4d8d3b6d7821af92c943e0636d42c820"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967129616/admission.json",
+      "status": "new",
+      "sha256": "9c1893cb1b78f87d1a7f9d9da184e64ddf8b409edac383a08dcd605b1e96528b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967129616/failure.json",
+      "status": "new",
+      "sha256": "262cffe241474379f2afccb04090692ae495190e99f63f86dbf801d6b259d11a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967129616/parser-hardening.test.mjs",
+      "status": "new",
+      "sha256": "d352cbacf593a63ad5462561803e54391d270383e967bee82b04a30827892b7f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967129616/resolved-graphs.json",
+      "status": "new",
+      "sha256": "30ae8243b8ea24b36d19fdf711d05491470c9c65cc3e9312498d2a411400aca1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967129616/typecheck-admission.json",
+      "status": "new",
+      "sha256": "489ab35378cb1e236d631b507baf53fcf00d395575021bb48e69e4cb5c940ab1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967129616/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967129616/unit-results.txt",
+      "status": "new",
+      "sha256": "2698c56c8fe0165402ac12b4ed40bf427db82f45eec72a75a143c88764b8f475"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967287534/admission.json",
+      "status": "new",
+      "sha256": "b366611286ad185613498e5e21fde30df189082d50cb22e2c902f112832bef47"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967287534/editor-progress.json",
+      "status": "new",
+      "sha256": "d27428b1fb15a723bff54862e18cc1ad566c4728caa7786fe3b56e299af715d5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967287534/failure.json",
+      "status": "new",
+      "sha256": "b9b0c5c268deb17b98b42b8ea348573bd9cc4961612a83ffda35478857a69c21"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967287534/parser-hardening.test.mjs",
+      "status": "new",
+      "sha256": "663e9e7a37e6baea1532794e1216837cf71689213b2f9181e6bbf72f95000704"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967287534/resolved-graphs.json",
+      "status": "new",
+      "sha256": "b5f5c0e6f387c3ee8b4f35df9e4ba37a0f78e68f55dde79769c2af35c49fd323"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967287534/typecheck-admission.json",
+      "status": "new",
+      "sha256": "7551113cf35093e8a0be8b83685f7c25da6d53c604ac6cc06b0fe716c6f69a6a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967287534/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967287534/unit-results.txt",
+      "status": "new",
+      "sha256": "6c41c17158d1af85f8d8078896befba143c17b63f61c77188d0ac0746cfbc465"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967309379/admission.json",
+      "status": "new",
+      "sha256": "b366611286ad185613498e5e21fde30df189082d50cb22e2c902f112832bef47"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967309379/editor-progress.json",
+      "status": "new",
+      "sha256": "7e9b52f7465f6a9441e18da8dff7fb73c4d2cbe30250ffa1e9017bbe9f1a85a1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967309379/editor-regression.json",
+      "status": "new",
+      "sha256": "6ec698c77ffa910325a76aa243868fec12e0f953fbc7ae552b79d6cc7a3ed332"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967309379/parser-hardening.test.mjs",
+      "status": "new",
+      "sha256": "663e9e7a37e6baea1532794e1216837cf71689213b2f9181e6bbf72f95000704"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967309379/resolved-graphs.json",
+      "status": "new",
+      "sha256": "b5f5c0e6f387c3ee8b4f35df9e4ba37a0f78e68f55dde79769c2af35c49fd323"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967309379/result.json",
+      "status": "new",
+      "sha256": "62b305d7589aaf7160bb3cd4d6be03857b8131c3c921a85a46d3b0670ab13c58"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967309379/typecheck-admission.json",
+      "status": "new",
+      "sha256": "7551113cf35093e8a0be8b83685f7c25da6d53c604ac6cc06b0fe716c6f69a6a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967309379/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967309379/unit-results.txt",
+      "status": "new",
+      "sha256": "a9a71810d42cfbdb1255606b45b4cd7a9c8795ff05aedfe68bd61a3f26a7293f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967392684/admission.json",
+      "status": "new",
+      "sha256": "40e57690b1777b62eb39872fde23c5b38f346efb205811cd96c81c0e01c272c9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967392684/editor-progress.json",
+      "status": "new",
+      "sha256": "7e9b52f7465f6a9441e18da8dff7fb73c4d2cbe30250ffa1e9017bbe9f1a85a1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967392684/editor-regression.json",
+      "status": "new",
+      "sha256": "6ec698c77ffa910325a76aa243868fec12e0f953fbc7ae552b79d6cc7a3ed332"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967392684/parser-hardening.test.mjs",
+      "status": "new",
+      "sha256": "1bb19dee4459758e2c9280bab451e45cd20669b7c14805659f94dbce8ea29584"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967392684/resolved-graphs.json",
+      "status": "new",
+      "sha256": "9c5167a71f8ca5177c727089361fad1d584588e3ab0507639fdce2b660cd0cc6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967392684/result.json",
+      "status": "new",
+      "sha256": "a35e27bf357746b049b0c16491f0fc4932ca3b7d706368fee006a50d08158bcd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967392684/typecheck-admission.json",
+      "status": "new",
+      "sha256": "8d68ed64da5e3e2c3989542441853fc59c2baec2145ad86cd7213edf9c48bff6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967392684/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967392684/unit-results.txt",
+      "status": "new",
+      "sha256": "3907fc95caca900c532d303eaa7f5bf95002c7d138632f0ccd45d7180c5fc3ba"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967449352/admission.json",
+      "status": "new",
+      "sha256": "052555bd7873cccdf8b8dae9d52b8be882574e5161c54ede55b41ed762137242"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967449352/editor-progress.json",
+      "status": "new",
+      "sha256": "7e9b52f7465f6a9441e18da8dff7fb73c4d2cbe30250ffa1e9017bbe9f1a85a1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967449352/editor-regression.json",
+      "status": "new",
+      "sha256": "6ec698c77ffa910325a76aa243868fec12e0f953fbc7ae552b79d6cc7a3ed332"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967449352/parser-hardening.test.mjs",
+      "status": "new",
+      "sha256": "b6e8836c60d0d7e169dd9f87f817730d01f2c61b2ce70d9af40189974ef24be3"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967449352/resolved-graphs.json",
+      "status": "new",
+      "sha256": "ef5b085976ec0bf2d9cf35217b26d8d5a58cbf0b364f910f518238ec9b4ef2dc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967449352/result.json",
+      "status": "new",
+      "sha256": "850fee8d60a4aa17e37c2fc25ab775ec431af930932a8fb47db3031ce41677cd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967449352/typecheck-admission.json",
+      "status": "new",
+      "sha256": "96eae88c289f6afe64c90879609c85deadd1c0b9e0c02dad300a7fea6cc7ff90"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967449352/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967449352/unit-results.txt",
+      "status": "new",
+      "sha256": "0962af543977dad3122a1b66cef4f5aba766e2701c35f239fd8becdeb0290714"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967513729/admission.json",
+      "status": "new",
+      "sha256": "354a64570c9c5e42f42c4781bab057476a250919f20c12816033fdd397eb87ab"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967513729/editor-progress.json",
+      "status": "new",
+      "sha256": "7e9b52f7465f6a9441e18da8dff7fb73c4d2cbe30250ffa1e9017bbe9f1a85a1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967513729/editor-regression.json",
+      "status": "new",
+      "sha256": "6ec698c77ffa910325a76aa243868fec12e0f953fbc7ae552b79d6cc7a3ed332"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967513729/parser-hardening.test.mjs",
+      "status": "new",
+      "sha256": "2471c7eb1fc51a13f0c502ca95c1290b52a26d30a96ce29eefd1f3b7ec5d5ac4"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967513729/resolved-graphs.json",
+      "status": "new",
+      "sha256": "2c4c41d6b3987ca5e1a82de7d19e9f0832558300b0dd47b8dfaface79a3a4516"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967513729/result.json",
+      "status": "new",
+      "sha256": "6db3b08c45437d51136b8b9e2f1d59e5f6a54d11831fceefe4f7cdb848a25e09"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967513729/typecheck-admission.json",
+      "status": "new",
+      "sha256": "4429c7fd94af3b4b58b324dd31e9099ce71084fad553759621da2dbbb4b819fd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967513729/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/run-1792967513729/unit-results.txt",
+      "status": "new",
+      "sha256": "6c01be42ca09c5e29406b787dd1349f2b6408c6ad5157062d049b0529223b3a5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt",
+      "status": "new",
+      "sha256": "34cb2401ce50f2cca2829f723f2865f2d16f042f18a8a5e57d89b2987b31378f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/status-after.txt",
+      "status": "new",
+      "sha256": "9e5fc0aec8fc1743f98a352160f6914f8bc4db40e1d39f0f027f54646db7a813"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/status-before.txt",
+      "status": "new",
+      "sha256": "ecf18188bf5874b27647bda6ed64ae0dbffdd46be4f53ccf327982d8dd01ecb4"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/tests-attempt-4-source.txt",
+      "status": "new",
+      "sha256": "cbed742726b9e3e5f022c739cf7e247afc6d3369b7cdcb35c9771ebc7739817a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/tests-attempt-5-source.txt",
+      "status": "new",
+      "sha256": "ecbcacb98018bac178fa1f1812fdb5327e6f8fcde975ba351cbbf9023c55c696"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/tests-attempt-6-source.txt",
+      "status": "new",
+      "sha256": "bc48b2f479bf24b3eea72fe57d055e14fad859a987d70d77b7e92992d5b17906"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/validation-before.ts.txt",
+      "status": "new",
+      "sha256": "c156f5df9e4c4cdbf9a4e465c1b63903312e8656ec242d790783c633a6aa4471"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-admission-attempt-1.json",
+      "status": "new",
+      "sha256": "4b3853f46a9762f2e93e429f87ae64d6cd94174d632b8e04a058b961cd6bdab1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-admission-attempt-2.json",
+      "status": "new",
+      "sha256": "d1839519dba3bb6503995b1810e53bba2cee4998fdbf381bffd320225b1df276"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-admission-attempt-3.json",
+      "status": "new",
+      "sha256": "d00b8510bd43ca2d0887b42004dd9048c089dfdadccf523fcb4d5a60009eea7c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-admission-attempt-4.json",
+      "status": "new",
+      "sha256": "0b33dc1e126bb6a22df53e729004bba07632245dc6528428a256dff731549abc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-admission-attempt-5.json",
+      "status": "new",
+      "sha256": "b57a988433248d265ed9a4f076616600ecd2472b0f0b04dfd38db750beda465e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-admission-attempt-6.json",
+      "status": "new",
+      "sha256": "09032058b0462cc99fe51e67891ff1347fadb0d8c7471265e175dd2495120ab4"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-admission-attempt-7.json",
+      "status": "new",
+      "sha256": "47c7ccd67301df98730ed78d74372cd7197e4e00d7017cd998987b800301d7aa"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-1-source.txt",
+      "status": "new",
+      "sha256": "e5393c47b4efaf320d451fa4b276dccc17b9bcd710a75271b4dbd6e9b7c8e89f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-1.txt",
+      "status": "new",
+      "sha256": "ccb5245966d01d838484e7d2f2a24cae96431fcb96eda5e577d5386988acc15d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-2-source.txt",
+      "status": "new",
+      "sha256": "719d2c09c4f02d9f473b38bc357841025f551b4d780bb3fafa145e446e646846"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-2.txt",
+      "status": "new",
+      "sha256": "a2d8e89c0210ff208af2d31965b7b083e95bcdb534ee80c6297a0927f79fd3ef"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-3-source.txt",
+      "status": "new",
+      "sha256": "e2a8caa8f976d87019c600c4de342b26891c82b612d6853c40169016a9cedd03"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-3.txt",
+      "status": "new",
+      "sha256": "3f1aef4ab3d909499de2db31e77168771111ceb68fbac87c69e4919652e0dc06"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-4-source.txt",
+      "status": "new",
+      "sha256": "60957295487ee941e7a4e61f3398c6940659d50cac60ce84ecb2c1031b285f19"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-4.txt",
+      "status": "new",
+      "sha256": "dcb05685bf4a5a8a2b2145b0b3ce1921ced0222e364e4ea0cb79cada0121e25f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-5.txt",
+      "status": "new",
+      "sha256": "df5a59a1dedbc00d63617fa17898a70f2c10eda18d0ca672d9ddd649936beeb0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-6.txt",
+      "status": "new",
+      "sha256": "2bdc283e95e9ee21ff285ad0ef425121ad90c8872968ab976f4ac3627ce21a14"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-attempt-7.txt",
+      "status": "new",
+      "sha256": "e5ca42177057b30ca338550470e5bc13efec17e4a6f7fa683912a99b9a41474d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/verifier-before-dom-adaptation.txt",
+      "status": "new",
+      "sha256": "e4d566a7cead0690295c0a6c4e4089979d8337eb33d0b98a5d9153bed3322815"
+    },
+    {
+      "path": "packages/visual-artifacts/src/source.ts",
+      "status": "modified",
+      "sha256": "71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e"
+    },
+    {
+      "path": "packages/visual-artifacts/src/validation.ts",
+      "status": "modified",
+      "sha256": "21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e"
+    },
+    {
+      "path": "scripts/verify-source-identity-hardening.mjs",
+      "status": "new",
+      "sha256": "60957295487ee941e7a4e61f3398c6940659d50cac60ce84ecb2c1031b285f19"
+    },
+    {
+      "path": "tests/source-identity/editor-regression-harness.ts",
+      "status": "new",
+      "sha256": "86587e049f2b561eb64f351721e42c445261e5ae053dac7a804a747a5f3eec46"
+    },
+    {
+      "path": "tests/source-identity/parser-hardening.test.ts",
+      "status": "new",
+      "sha256": "fe9cd913e7db72070d5e5fa8bca1fe11bf1be72be83dadfe765f344893d81814"
+    },
+    {
+      "path": "tests/source-identity/visual-source-barrel.ts",
+      "status": "new",
+      "sha256": "e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-parser-hardening-files-20261025.json",
+      "status": "new",
+      "sha256": null,
+      "note": "Self entry, no recursive digest"
+    }
+  ]
+}

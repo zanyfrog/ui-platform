@@ -1,0 +1,30 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'TypeError: Option is not a constructor',
++   'TypeError: Option is not a constructor',
++   'TypeError: Option is not a constructor',
++   'TypeError: Option is not a constructor'
++ ]
+- []
+
+    at file:///C:/Projects/Modular/ui-platform/scripts/verify-source-identity-hardening.mjs:117:12 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    'TypeError: Option is not a constructor',
+    'TypeError: Option is not a constructor',
+    'TypeError: Option is not a constructor',
+    'TypeError: Option is not a constructor'
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

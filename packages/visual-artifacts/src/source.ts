@@ -14,13 +14,17 @@ export function parseSource(source: string): { nodes: SourceNode[]; diagnostics:
     const node = stack.pop()!; node.closeStart = offset; node.end = offset; node.manual = true;
     diagnostics.push({ severity: 'warning', message: `Implicitly closed ${node.tag} is preserved as a manual region.`, node: node.id });
   };
-  const token = /<!--[\s\S]*?-->|<![^>]*>|<\/?[A-Za-z][\w:-]*(?:\s+(?:[^>"']|"[^"]*"|'[^']*')*)?\s*\/?>/g;
+  // The final alternative retains malformed/incomplete openings as refusals,
+  // rather than skipping their identity markup. It never creates a node.
+  const token = /<!--[\s\S]*?-->|<![^>]*>|<\/?[A-Za-z][\w:-]*(?:\s+(?:[^>"']|"[^"]*"|'[^']*')*)?\s*\/?>|(<\/?[A-Za-z][\w:-]*[^<>]*(?:>|(?=<)|$)|<(?:\s+\/?[A-Za-z]|\/\s+[A-Za-z]|[0-9])[^<>]*\bdata-uip-(?:node|component)\b[^<>]*(?:>|(?=<)|$)|<!--[\s\S]*$|<![^>]*$|<\?[^>]*(?:>|$))/gi;
   let match: RegExpExecArray | null;
   while ((match = token.exec(source))) {
     const raw = match[0];
+    if (match[1]) { diagnostics.push({ severity: 'error', message: `Malformed opening tag at offset ${match.index}.` }); continue; }
     if (raw.startsWith('<!')) continue;
     const tag = /^<\/?([\w:-]+)/.exec(raw)![1].toLowerCase();
     if (raw.startsWith('</')) {
+      if (!/^<\/[\w:-]+\s*>$/.test(raw)) diagnostics.push({ severity: 'error', message: `Malformed closing tag at offset ${match.index}.` });
       while (stack.length && stack.at(-1)!.tag !== tag && optionalTags.has(stack.at(-1)!.tag)) implicitClose(match.index);
       const node = stack.at(-1);
       if (!node || node.tag !== tag) { diagnostics.push({ severity: 'error', message: `Unmatched closing tag ${tag}. Visual editing requires explicit balanced markup.` }); continue; }
@@ -33,11 +37,38 @@ export function parseSource(source: string): { nodes: SourceNode[]; diagnostics:
       implicitClose(match.index);
     }
     const attributes: Record<string, string> = {};
-    const attrs = raw.slice(tag.length + 1, raw.length - 1);
-    for (const attr of attrs.matchAll(/([^\s=/'">]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g)) attributes[attr[1]] = decode(attr[2] ?? attr[3] ?? attr[4] ?? '');
+    const selfClosing = raw.endsWith('/>');
+    const attrs = raw.slice(tag.length + 1, selfClosing ? -2 : -1);
+    // Sticky consumption prevents gaps/malformed syntax from inventing names.
+    // Only identity names are ASCII-case folded; no encoded name is an alias.
+    const attribute = /\s+([^\s=/'"><`&]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'`=<>]+)))?/y;
+    const identities = new Set<string>();
+    let cursor = 0;
+    while (cursor < attrs.length && !/^\s*$/.test(attrs.slice(cursor))) {
+      attribute.lastIndex = cursor;
+      const attr = attribute.exec(attrs);
+      if (!attr) { diagnostics.push({ severity: 'error', message: `Malformed or unsupported attributes at offset ${match.index + tag.length + 1 + cursor}.` }); break; }
+      cursor = attribute.lastIndex;
+      const folded = attr[1].replace(/[A-Z]/g, letter => letter.toLowerCase());
+      const identity = folded === 'data-uip-node' || folded === 'data-uip-component';
+      const name = identity ? folded : attr[1];
+      const value = attr[2] ?? attr[3] ?? attr[4];
+      if (identity) {
+        if (identities.has(name)) { diagnostics.push({ severity: 'error', message: `Duplicate identity attribute ${name} at offset ${match.index}.` }); continue; }
+        identities.add(name);
+        if (!value || /&(?!(?:quot|lt|gt|amp);)/.test(value) || selfClosing && attr[4] !== undefined && cursor === attrs.length) {
+          diagnostics.push({ severity: 'error', message: `Malformed or unsupported identity value for ${name} at offset ${match.index}.` }); continue;
+        }
+      }
+      // Preserve the old ordinary-attribute value on unquoted `value/>`.
+      // Identity values in that ambiguous spelling were refused above.
+      const ordinarySlash = !identity && selfClosing && attr[4] !== undefined && cursor === attrs.length ? '/' : '';
+      Object.defineProperty(attributes, name, { value: decode(value ?? '') + ordinarySlash, writable: true, enumerable: true, configurable: true });
+    }
     const node: SourceNode = { id: attributes['data-uip-node'], tag, attributes, start: match.index, openEnd: token.lastIndex, closeStart: token.lastIndex, end: token.lastIndex, parent: stack.at(-1), children: [], manual: !attributes['data-uip-node'] };
     node.parent?.children.push(node); nodes.push(node);
     if (['script', 'style', 'textarea'].includes(tag)) {
+      if (identities.size) diagnostics.push({ severity: 'error', message: `Managed identity is unsupported on raw-text ${tag} at offset ${match.index}.` });
       const close = new RegExp(`</${tag}\\s*>`, 'ig'); close.lastIndex = token.lastIndex;
       const ending = close.exec(source);
       if (ending) { node.closeStart = ending.index; node.end = close.lastIndex; token.lastIndex = close.lastIndex; }
@@ -53,6 +84,14 @@ export function parseSource(source: string): { nodes: SourceNode[]; diagnostics:
     ids.add(node.id);
     if (!isWrapper(node) && !isWrapper(node.parent)) diagnostics.push({ severity: 'warning', message: 'Layout is manual because this node has no Builder wrapper.', node: node.id });
   }
+  // Inspection offsets survive errors; managed identities/references do not.
+  // All callers, including editors and componentReferences, see this refusal.
+  if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) for (const node of nodes) {
+    delete node.id;
+    delete node.attributes['data-uip-node'];
+    delete node.attributes['data-uip-component'];
+    node.manual = true;
+  }
   return { nodes, diagnostics };
 }
 export function isWrapper(node?: SourceNode): boolean { return Boolean(node?.attributes.class?.split(/\s+/).includes('uip-layout-item')); }
@@ -60,10 +99,12 @@ export function serializeSource(source: string): string { return source; }
 export function setNodeAttribute(source: string, id: string, name: string, value: string): string {
   if (!/^[\w:-]+$/.test(name)) throw new Error('Invalid attribute name.');
   const parsed = parseSource(source);
+  if (parsed.diagnostics.some(diagnostic => diagnostic.severity === 'error')) throw new Error('Repair source structure before editing attributes.');
   const node = parsed.nodes.find(n => n.id === id);
   if (!node || node.manual || parsed.nodes.filter(n => n.id === id).length !== 1) throw new Error('Select an unambiguous editor-managed node.');
   const opening = source.slice(node.start, node.openEnd);
-  const pattern = new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`);
+  const identityName = /^(data-uip-node|data-uip-component)$/i.test(name);
+  const pattern = new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`, identityName ? 'i' : '');
   const attr = ` ${name}="${escapeAttribute(value)}"`;
   const next = pattern.test(opening) ? opening.replace(pattern, () => attr) : opening.replace(/\s*\/?>$/, end => attr + end);
   return source.slice(0, node.start) + next + source.slice(node.openEnd);

@@ -1,0 +1,44 @@
+✔ refuses data-uip-node duplicate values same (3.9009ms)
+✔ refuses data-uip-node duplicate values different (0.2835ms)
+✔ refuses data-uip-component duplicate values same (0.2221ms)
+✔ refuses data-uip-component duplicate values different (0.1955ms)
+✔ previously reproduced conflicting node and Component counterexamples refuse (0.36ms)
+✔ case-equivalent duplicates of data-uip-node refuse (0.2495ms)
+✔ case-equivalent duplicates of data-uip-component refuse (0.166ms)
+✔ refuses empty with deterministic shared validation (0.1475ms)
+✔ refuses boolean with deterministic shared validation (0.1242ms)
+✔ refuses missingValue with deterministic shared validation (0.2598ms)
+✔ refuses adjacent with deterministic shared validation (0.1428ms)
+✔ refuses equals with deterministic shared validation (0.1578ms)
+✔ refuses backtick with deterministic shared validation (0.1058ms)
+✔ refuses encodedName with deterministic shared validation (0.133ms)
+✔ refuses encodedReferenceName with deterministic shared validation (0.1537ms)
+✔ refuses numericValue with deterministic shared validation (0.1081ms)
+✔ refuses unknownEntity with deterministic shared validation (0.1004ms)
+✔ refuses unclosedQuote with deterministic shared validation (0.1104ms)
+✔ refuses missingEnd with deterministic shared validation (0.1287ms)
+✔ refuses slash with deterministic shared validation (0.0905ms)
+✔ refuses unquotedSlash with deterministic shared validation (0.1176ms)
+✔ refuses strayQuote with deterministic shared validation (0.0776ms)
+✔ refuses badClosing with deterministic shared validation (0.104ms)
+✔ refuses duplicateElements with deterministic shared validation (0.1808ms)
+✔ refuses rawIdentity with deterministic shared validation (0.2802ms)
+✔ refuses structure with deterministic shared validation (0.1911ms)
+✔ single identity spelling normalizes ASCII case without changing values or ordinary names (0.1987ms)
+✔ supported quoting, whitespace, entities and self-closing syntax (0.1589ms)
+✔ identity edits replace mixed-case originals without generating duplicates (0.3312ms)
+✔ valid supported source compatibility 0 (1.4914ms)
+✔ valid supported source compatibility 1 (0.4196ms)
+✔ valid supported source compatibility 2 (0.1261ms)
+✔ valid supported source compatibility 3 (0.5865ms)
+✔ valid supported source compatibility 4 (0.1629ms)
+✔ canonical existing Card declaration validates with unchanged valid diagnostics (0.5542ms)
+✔ editor source operations retain exact offsets, stable ids and reversible moves (0.3158ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 108.5827

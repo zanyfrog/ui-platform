@@ -1,0 +1,46 @@
+✔ refuses data-uip-node duplicate values same (3.576ms)
+✔ refuses data-uip-node duplicate values different (0.1964ms)
+✔ refuses data-uip-component duplicate values same (0.1392ms)
+✔ refuses data-uip-component duplicate values different (0.1281ms)
+✔ previously reproduced conflicting node and Component counterexamples refuse (0.2445ms)
+✔ case-equivalent duplicates of data-uip-node refuse (0.1785ms)
+✔ case-equivalent duplicates of data-uip-component refuse (0.1712ms)
+✔ refuses empty with deterministic shared validation (0.1357ms)
+✔ refuses boolean with deterministic shared validation (0.1917ms)
+✔ refuses missingValue with deterministic shared validation (0.1646ms)
+✔ refuses adjacent with deterministic shared validation (0.1306ms)
+✔ refuses equals with deterministic shared validation (0.0974ms)
+✔ refuses backtick with deterministic shared validation (0.1117ms)
+✔ refuses encodedName with deterministic shared validation (0.1392ms)
+✔ refuses encodedReferenceName with deterministic shared validation (0.0995ms)
+✔ refuses numericValue with deterministic shared validation (0.0895ms)
+✔ refuses unknownEntity with deterministic shared validation (0.0782ms)
+✔ refuses unclosedQuote with deterministic shared validation (0.0702ms)
+✔ refuses missingEnd with deterministic shared validation (0.0698ms)
+✔ refuses slash with deterministic shared validation (0.0617ms)
+✔ refuses unquotedSlash with deterministic shared validation (0.0856ms)
+✔ refuses strayQuote with deterministic shared validation (0.0671ms)
+✔ refuses badClosing with deterministic shared validation (0.1007ms)
+✔ refuses duplicateElements with deterministic shared validation (0.1343ms)
+✔ refuses rawIdentity with deterministic shared validation (0.1774ms)
+✔ refuses structure with deterministic shared validation (0.1336ms)
+✔ refuses incompleteComment with deterministic shared validation (0.0687ms)
+✔ refuses processingInstruction with deterministic shared validation (0.1036ms)
+✔ single identity spelling normalizes ASCII case without changing values or ordinary names (0.09ms)
+✔ supported quoting, whitespace, entities and self-closing syntax (0.1001ms)
+✔ identity edits replace mixed-case originals without generating duplicates (0.2094ms)
+✔ valid supported source compatibility 0 (0.7732ms)
+✔ valid supported source compatibility 1 (0.666ms)
+✔ valid supported source compatibility 2 (0.148ms)
+✔ valid supported source compatibility 3 (0.1867ms)
+✔ valid supported source compatibility 4 (0.1205ms)
+✔ canonical existing Card declaration validates with unchanged valid diagnostics (0.5357ms)
+✔ editor source operations retain exact offsets, stable ids and reversible moves (0.3114ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 106.6152

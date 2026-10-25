@@ -39,6 +39,8 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
     for (const [name, event] of Object.entries(m.public?.events ?? {})) for (const [key, contract] of Object.entries(event.payload)) checkContract(contract, `${name}.${key}`);
     if (new Set(m.public?.slots).size !== (m.public?.slots.length ?? 0)) error('Duplicate public slot names.');
     const parsed = parseSource(artifact.source); diagnostics.push(...parsed.diagnostics);
+    // Never construct identity/dependency maps from refused source markup.
+    if (parsed.diagnostics.some(diagnostic => diagnostic.severity === 'error')) return diagnostics;
     const nodes = new Map(parsed.nodes.filter(n => n.id).map(n => [n.id!, n]));
     if (m.modes) {
       if (!Object.hasOwn(m.modes.overrides, m.modes.default)) error('Default mode must exist.');

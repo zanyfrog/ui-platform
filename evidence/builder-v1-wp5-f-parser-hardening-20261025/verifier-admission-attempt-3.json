@@ -1,0 +1,21 @@
+{
+  "entry": "scripts/verify-source-identity-hardening.mjs",
+  "sha256": "e2a8caa8f976d87019c600c4de342b26891c82b612d6853c40169016a9cedd03",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "applicationAdmission": "Verifier enforces listed paths before compile/load; records resolved bundle graph before test execution; no workspace config",
+  "retries": 0,
+  "serial": true,
+  "correction": "Separate scoped invocation: installed happy-dom 20.14.5 with Node vm runs only the enforced admitted actual-editor bundle. No Edge launch or security/elevation change. Prior Edge startup failure retained. Deterministic test clock and memory SHA-256 instrumentation; no source acquisition."
+}

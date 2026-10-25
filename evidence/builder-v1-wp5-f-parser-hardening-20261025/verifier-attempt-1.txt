@@ -1,0 +1,9 @@
+file:///C:/Projects/Modular/ui-platform/scripts/verify-source-identity-hardening.mjs:66
+  const options={target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.NodeNext,moduleResolution:ts.ModuleResolutionKind.NodeNext,strict:true,skipLibCheck:true,noEmit:true,types:[],lib:['lib.es2022.d.ts','lib.dom.d.ts','lib.dom.iterable.d.ts'],paths:{'@ui-platform/dataset-operations/expression':[expression]}};
+                                        ^
+
+TypeError: Cannot read properties of undefined (reading 'ES2022')
+    at file:///C:/Projects/Modular/ui-platform/scripts/verify-source-identity-hardening.mjs:66:41
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.19.0

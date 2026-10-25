@@ -1,0 +1,107 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { parseSource, setNodeAttribute, insertNode, moveNode, serializeSource } from '../../packages/visual-artifacts/src/source.js';
+import { validateArtifact, componentReferences } from '../../packages/visual-artifacts/src/validation.js';
+import { parseSource as beforeParse, setNodeAttribute as beforeEdit } from 'before-source';
+import manifest from '../../../ui-base/packages/ui-base-ui/ui.component.json';
+import type { RuntimeArtifact, PackageComponent } from '../../packages/visual-artifacts/src/model.js';
+
+const cardId = 'cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1';
+const definition = manifest.components.find(c => c.identity?.componentId === cardId)!;
+const card = { id: cardId, tagName: 'uib-card', definition } as unknown as PackageComponent;
+const artifact = (source: string): RuntimeArtifact => ({ source, css: '', metadata: { schemaVersion: 1, artifactId: 'art_parser_test', kind: 'page', name: 'parser-test', displayName: 'Parser test', route: '/' } });
+const refused = (source: string) => {
+  const parsed = parseSource(source);
+  assert(parsed.diagnostics.some(d => d.severity === 'error'), source);
+  for (const node of parsed.nodes) {
+    assert.equal(node.id, undefined);
+    assert.equal(node.attributes['data-uip-node'], undefined);
+    assert.equal(node.attributes['data-uip-component'], undefined);
+    assert.equal(node.manual, true);
+  }
+  assert.deepEqual(componentReferences(source), []);
+  const validation = validateArtifact(artifact(source), [], [card]);
+  assert.deepEqual(validation, parsed.diagnostics);
+  assert.deepEqual(parseSource(source).diagnostics, parsed.diagnostics);
+  assert.deepEqual(validateArtifact(artifact(source), [], [card]), validation);
+  assert.throws(() => setNodeAttribute(source, 'saved', 'class', 'test'), /Repair/);
+  assert.throws(() => insertNode(source, 'p'), /Repair/);
+};
+
+for (const name of ['data-uip-node', 'data-uip-component']) for (const second of ['same', 'different']) {
+  test(`refuses ${name} duplicate values ${second}`, () => refused(`<uib-card data-uip-node="saved" ${name}="same" ${name}="${second}"></uib-card>`));
+}
+test('previously reproduced conflicting node and Component counterexamples refuse', () => {
+  refused('<uib-card data-uip-node="original" data-uip-node="replacement" data-uip-component="card"></uib-card>');
+  refused('<uib-card data-uip-node="savedCard" data-uip-component="other" data-uip-component="card"></uib-card>');
+});
+for (const name of ['data-uip-node', 'data-uip-component']) test(`case-equivalent duplicates of ${name} refuse`, () => {
+  refused(`<uib-card ${name} = 'first'\n${name.toUpperCase()}=second></uib-card>`);
+});
+for (const [label, source] of Object.entries({
+  empty: '<div data-uip-node=""></div>', boolean: '<div data-uip-node></div>', missingValue: '<div data-uip-node=></div>',
+  adjacent: '<div data-uip-node="saved"data-uip-component="card"></div>',
+  equals: '<div data-uip-node==saved></div>', backtick: '<div data-uip-node=`saved`></div>',
+  encodedName: '<div data-uip-n&#111;de="saved"></div>', encodedReferenceName: '<div data-uip-c&#111;mponent="card"></div>',
+  numericValue: '<div data-uip-node="s&#97;ved"></div>', unknownEntity: '<div data-uip-component="card&unknown;"></div>',
+  unclosedQuote: '<div data-uip-node="saved>', missingEnd: '<div data-uip-node="saved"',
+  slash: '<div/data-uip-node="saved"></div>', unquotedSlash: '<input data-uip-node=saved/>',
+  strayQuote: '<div data-uip-node="saved" "></div>', badClosing: '<div data-uip-node="saved"></div data-uip-node="other">',
+  duplicateElements: '<div data-uip-node="saved"></div><p data-uip-node="saved"></p>',
+  rawIdentity: '<script data-uip-node="saved">const x=1;</script>',
+  structure: '<div data-uip-node="saved"><span></div>',
+  incompleteComment: '<!-- unfinished <div data-uip-node="saved"></div>',
+  processingInstruction: '<?unsupported data-uip-node="saved"?><div data-uip-node="saved"></div>',
+  spacedTag: '< div data-uip-node="saved"></div>',
+  numericTag: '<1div data-uip-node="saved"></1div>',
+  incompleteClosing: '</div\n<div data-uip-node="saved"></div>',
+  spacedClosing: '<div data-uip-node="saved"></ div>',
+})) test(`refuses ${label} with deterministic shared validation`, () => refused(source));
+
+test('single identity spelling normalizes ASCII case without changing values or ordinary names', () => {
+  const result = parseSource('<UIB-CARD DATA-UIP-NODE = "Saved" Data-Uip-Component=cmp_case DATA-note="Keep"></UIB-CARD>');
+  assert.equal(result.nodes[0].id, 'Saved');
+  assert.equal(result.nodes[0].attributes['data-uip-component'], 'cmp_case');
+  assert.equal(result.nodes[0].attributes['DATA-note'], 'Keep');
+  assert.equal(result.diagnostics.some(d => d.severity === 'error'), false);
+});
+test('supported quoting, whitespace, entities and self-closing syntax', () => {
+  for (const source of ['<input\tdata-uip-node = saved />', '<input data-uip-node="saved"/>', "<div\ndata-uip-node='saved' data-uip-component='cmp_&amp;test'></div>"]) {
+    const parsed = parseSource(source); assert.equal(parsed.nodes[0].id, 'saved');
+    assert.equal(parsed.diagnostics.some(d => d.severity === 'error'), false);
+  }
+  assert.equal(parseSource('<div data-uip-component="cmp_&amp;test"></div>').nodes[0].attributes['data-uip-component'], 'cmp_&test');
+});
+test('identity edits replace mixed-case originals without generating duplicates', () => {
+  const next = setNodeAttribute('<div DATA-UIP-NODE="saved"></div>', 'saved', 'data-uip-node', 'renamed');
+  assert.equal(next, '<div data-uip-node="renamed"></div>');
+  assert.equal(parseSource(next).nodes[0].id, 'renamed');
+});
+const compatible = [
+  '<!-- keep --><script>const text="<not-an-element>";</script><div class="uip-layout-item" data-uip-node="wrap"><uib-card data-uip-node="saved" variant=outlined></uib-card></div>',
+  '<ul><li>One<li>Two</ul><p>Manual paragraph<div class="uip-layout-item" data-uip-node="wrap"><h2 data-uip-node="saved">Managed</h2></div>',
+  '<div data-uip-node="saved" title="greater > than" hidden data-other="first" data-other="last"></div>',
+  '<style>.x{color:red}</style><textarea>literal <div data-uip-node="fake"></textarea><p data-uip-node="saved">Keep &amp; text</p>',
+  '<!doctype html><!-- data-uip-node="ignored" --><section><input data-uip-node="saved" disabled></section>',
+  '<input data-uip-node="saved" class=keep/>',
+];
+const flatten = (result: ReturnType<typeof parseSource>) => ({ diagnostics: result.diagnostics, nodes: result.nodes.map(n => ({ id:n.id, tag:n.tag, attributes:n.attributes, start:n.start, openEnd:n.openEnd, closeStart:n.closeStart, end:n.end, manual:n.manual, parent:n.parent?.start, children:n.children.map(c=>c.start) })) });
+for (const [index, source] of compatible.entries()) test(`valid supported source compatibility ${index}`, () => {
+  assert.deepEqual(flatten(parseSource(source)), flatten(beforeParse(source)));
+  assert.equal(setNodeAttribute(source, 'saved', 'class', 'edited'), beforeEdit(source, 'saved', 'class', 'edited'));
+  assert.equal(serializeSource(source), source);
+});
+test('canonical existing Card declaration validates with unchanged valid diagnostics', () => {
+  const source = `<div class="uip-layout-item" data-uip-node="wrap"><uib-card data-uip-node="saved" data-uip-component="${cardId}"></uib-card></div>`;
+  assert.deepEqual(flatten(parseSource(source)), flatten(beforeParse(source)));
+  assert.deepEqual(validateArtifact(artifact(source), [], [card]), []);
+  assert.deepEqual(componentReferences(source), [cardId]);
+});
+test('editor source operations retain exact offsets, stable ids and reversible moves', () => {
+  let sequence = 0; const source = insertNode('', 'uib-card', cardId, undefined, () => `node_${sequence++}`);
+  assert.deepEqual(parseSource(source).nodes.map(n => n.id), ['node_0','node_1']);
+  const tail = '\n<div class="uip-layout-item" data-uip-node="tail"><p>Keep</p></div><!-- preserved -->';
+  assert.equal(moveNode(moveNode(source+tail, 'node_1','down'),'node_0','up'),source+tail);
+  const edited = setNodeAttribute(source, 'node_1', 'data-uip-settings', '{"heading":"A & B"}');
+  assert(edited.includes('&quot;heading&quot;')); assert.equal(parseSource(edited).nodes[1].id, 'node_1');
+});

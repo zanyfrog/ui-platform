@@ -1,0 +1,710 @@
+{
+  "tests/source-identity/parser-hardening.test.ts": {
+    "inputs": {
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 10508,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9296,
+        "imports": [],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17251,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt": {
+        "bytes": 7763,
+        "imports": [],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/ui.component.json": {
+        "bytes": 28739,
+        "imports": []
+      },
+      "tests/source-identity/parser-hardening.test.ts": {
+        "bytes": 7821,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt",
+            "kind": "import-statement",
+            "original": "before-source"
+          },
+          {
+            "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+            "kind": "import-statement",
+            "original": "../../../ui-base/packages/ui-base-ui/ui.component.json"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "parser-hardening.test.js": {
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "exports": [],
+        "entryPoint": "tests/source-identity/parser-hardening.test.ts",
+        "inputs": {
+          "tests/source-identity/parser-hardening.test.ts": {
+            "bytesInOutput": 7256
+          },
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 9387
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 3420
+          },
+          "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+            "bytesInOutput": 3483
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/form.ts": {
+            "bytesInOutput": 366
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 16307
+          },
+          "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt": {
+            "bytesInOutput": 4865
+          },
+          "../ui-base/packages/ui-base-ui/ui.component.json": {
+            "bytesInOutput": 27293
+          }
+        },
+        "bytes": 72876
+      }
+    }
+  },
+  "tests/source-identity/editor-regression-harness.ts": {
+    "inputs": {
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 10508,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9296,
+        "imports": [],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17251,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11601,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/source-identity/visual-source-barrel.ts": {
+        "bytes": 513,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/menu-controls.ts": {
+        "bytes": 7791,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/shared/platform-settings.ts": {
+        "bytes": 2197,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/autosave-configuration.ts": {
+        "bytes": 714,
+        "imports": [
+          {
+            "path": "src/shared/platform-settings.ts",
+            "kind": "import-statement",
+            "original": "../../shared/platform-settings.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/editing-lifecycle.ts": {
+        "bytes": 8230,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "./autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/saved-source.ts": {
+        "bytes": 732,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/specialized-transport.ts": {
+        "bytes": 1933,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/saved-source.ts",
+            "kind": "import-statement",
+            "original": "./saved-source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/authoring-controls.ts": {
+        "bytes": 16247,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/editor.ts": {
+        "bytes": 47578,
+        "imports": [
+          {
+            "path": "tests/source-identity/visual-source-barrel.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/visual-artifacts"
+          },
+          {
+            "path": "src/client/visual-artifacts/menu-controls.ts",
+            "kind": "import-statement",
+            "original": "./menu-controls.js"
+          },
+          {
+            "path": "src/client/artifact-editor/editing-lifecycle.ts",
+            "kind": "import-statement",
+            "original": "../artifact-editor/editing-lifecycle.js"
+          },
+          {
+            "path": "src/client/artifact-editor/specialized-transport.ts",
+            "kind": "import-statement",
+            "original": "../artifact-editor/specialized-transport.js"
+          },
+          {
+            "path": "src/client/visual-artifacts/authoring-controls.ts",
+            "kind": "import-statement",
+            "original": "./authoring-controls.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/source-identity/editor-regression-harness.ts": {
+        "bytes": 2828,
+        "imports": [
+          {
+            "path": "src/client/visual-artifacts/editor.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/visual-artifacts/editor.js"
+          },
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "editor-regression-harness.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "tests/source-identity/editor-regression-harness.ts",
+        "inputs": {
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 9645
+          },
+          "tests/source-identity/visual-source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 1082
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 377
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 1084
+          },
+          "src/client/visual-artifacts/menu-controls.ts": {
+            "bytesInOutput": 1244
+          },
+          "src/shared/platform-settings.ts": {
+            "bytesInOutput": 590
+          },
+          "src/client/artifact-editor/autosave-configuration.ts": {
+            "bytesInOutput": 538
+          },
+          "src/client/artifact-editor/editing-lifecycle.ts": {
+            "bytesInOutput": 8039
+          },
+          "src/client/artifact-editor/saved-source.ts": {
+            "bytesInOutput": 401
+          },
+          "src/client/artifact-editor/specialized-transport.ts": {
+            "bytesInOutput": 1487
+          },
+          "src/client/visual-artifacts/authoring-controls.ts": {
+            "bytesInOutput": 15864
+          },
+          "src/client/visual-artifacts/editor.ts": {
+            "bytesInOutput": 47806
+          },
+          "tests/source-identity/editor-regression-harness.ts": {
+            "bytesInOutput": 2672
+          }
+        },
+        "bytes": 91501
+      }
+    }
+  },
+  "tests/source-identity/editor-regression-harness.ts:before": {
+    "inputs": {
+      "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt": {
+        "bytes": 7763,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9296,
+        "imports": [],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "evidence/builder-v1-wp5-f-parser-hardening-20261025/validation-before.ts.txt": {
+        "bytes": 17075,
+        "imports": [
+          {
+            "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11601,
+        "imports": [
+          {
+            "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/source-identity/visual-source-barrel.ts": {
+        "bytes": 513,
+        "imports": [
+          {
+            "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "evidence/builder-v1-wp5-f-parser-hardening-20261025/validation-before.ts.txt",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/menu-controls.ts": {
+        "bytes": 7791,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/shared/platform-settings.ts": {
+        "bytes": 2197,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/autosave-configuration.ts": {
+        "bytes": 714,
+        "imports": [
+          {
+            "path": "src/shared/platform-settings.ts",
+            "kind": "import-statement",
+            "original": "../../shared/platform-settings.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/editing-lifecycle.ts": {
+        "bytes": 8230,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "./autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/saved-source.ts": {
+        "bytes": 732,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/specialized-transport.ts": {
+        "bytes": 1933,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/saved-source.ts",
+            "kind": "import-statement",
+            "original": "./saved-source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/authoring-controls.ts": {
+        "bytes": 16247,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/editor.ts": {
+        "bytes": 47578,
+        "imports": [
+          {
+            "path": "tests/source-identity/visual-source-barrel.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/visual-artifacts"
+          },
+          {
+            "path": "src/client/visual-artifacts/menu-controls.ts",
+            "kind": "import-statement",
+            "original": "./menu-controls.js"
+          },
+          {
+            "path": "src/client/artifact-editor/editing-lifecycle.ts",
+            "kind": "import-statement",
+            "original": "../artifact-editor/editing-lifecycle.js"
+          },
+          {
+            "path": "src/client/artifact-editor/specialized-transport.ts",
+            "kind": "import-statement",
+            "original": "../artifact-editor/specialized-transport.js"
+          },
+          {
+            "path": "src/client/visual-artifacts/authoring-controls.ts",
+            "kind": "import-statement",
+            "original": "./authoring-controls.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/source-identity/editor-regression-harness.ts": {
+        "bytes": 2828,
+        "imports": [
+          {
+            "path": "src/client/visual-artifacts/editor.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/visual-artifacts/editor.js"
+          },
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "editor-regression-harness.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "tests/source-identity/editor-regression-harness.ts",
+        "inputs": {
+          "evidence/builder-v1-wp5-f-parser-hardening-20261025/source-before.ts.txt": {
+            "bytesInOutput": 7196
+          },
+          "tests/source-identity/visual-source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 1082
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "evidence/builder-v1-wp5-f-parser-hardening-20261025/validation-before.ts.txt": {
+            "bytesInOutput": 377
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 1084
+          },
+          "src/client/visual-artifacts/menu-controls.ts": {
+            "bytesInOutput": 1244
+          },
+          "src/shared/platform-settings.ts": {
+            "bytesInOutput": 590
+          },
+          "src/client/artifact-editor/autosave-configuration.ts": {
+            "bytesInOutput": 538
+          },
+          "src/client/artifact-editor/editing-lifecycle.ts": {
+            "bytesInOutput": 8039
+          },
+          "src/client/artifact-editor/saved-source.ts": {
+            "bytesInOutput": 401
+          },
+          "src/client/artifact-editor/specialized-transport.ts": {
+            "bytesInOutput": 1487
+          },
+          "src/client/visual-artifacts/authoring-controls.ts": {
+            "bytesInOutput": 15864
+          },
+          "src/client/visual-artifacts/editor.ts": {
+            "bytesInOutput": 47806
+          },
+          "tests/source-identity/editor-regression-harness.ts": {
+            "bytesInOutput": 2672
+          }
+        },
+        "bytes": 89118
+      }
+    }
+  }
+}

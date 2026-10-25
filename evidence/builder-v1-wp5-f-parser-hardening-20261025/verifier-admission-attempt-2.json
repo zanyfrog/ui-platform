@@ -1,0 +1,20 @@
+{
+  "entry": "scripts/verify-source-identity-hardening.mjs",
+  "sha256": "719d2c09c4f02d9f473b38bc357841025f551b4d780bb3fafa145e446e646846",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "esbuild",
+    "typescript",
+    "playwright from ui-base"
+  ],
+  "applicationAdmission": "Verifier enforces listed paths before compile/load; records resolved bundle graph before test execution; no workspace config",
+  "retries": 0,
+  "serial": true,
+  "correction": "Use installed packages/artifacts/node_modules/typescript 6.0.3 compiler API; TypeScript 7 root entry lacks ScriptTarget. Prior attempt/source retained, separate invocation, zero configured retries."
+}
