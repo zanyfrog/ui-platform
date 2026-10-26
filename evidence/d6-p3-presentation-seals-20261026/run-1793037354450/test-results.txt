@@ -1,0 +1,28 @@
+✔ pure owner default, normalization and CSS behavior match original byte-preserved functions (3.7824ms)
+✔ actual owner seals exact published JSON/CSS/context/manifest with immutable original version binding (162.103ms)
+✔ draft matching checksum cannot establish publication, selected version and owner must match (15.4706ms)
+✔ missing CSS or required context and failed/incomplete copy never become partial publication (85.4964ms)
+✔ all declared assets, missing asset, CSS imports/URLs, fonts and custom semantics refuse (16.3518ms)
+✔ missing supplied theme token refuses without substitution or normalization (13.308ms)
+✔ duplicate manifest versions and same-version replacement cannot overwrite a seal (195.1881ms)
+✔ owner checksum and exact generated CSS must agree; syntactically duplicate JSON keys refuse (16.7477ms)
+✔ input source mutation after copying cannot change pending publication (132.2103ms)
+✔ staging is invisible and interrupted rename does not promote incomplete data (131.5528ms)
+✔ selection versions and generations are separate; old lease retains prior published bytes (442.7069ms)
+✔ concurrent readers, version producers and pointer writers use actual Foundation ordering (505.0925ms)
+✔ disk mutation, missing blob, extra member and altered index refuse while copied leases remain stable (195.8759ms)
+✔ cancellation before/during staging, during read and after admission prevents stale access (155.3562ms)
+✔ interrupted selection preserves previous pointer and retention; lease expiry never redirects (271.8077ms)
+✔ commit cancellation race never auto-selects and visible seal always fully verifies (130.498ms)
+✔ pending journal and foreign lock refuse without replay, foreign unlink or PID probe (88.1844ms)
+✔ bounded canceled queued request, invalid owner and unsupported inputs cannot publish (57.0794ms)
+✔ actual Application settings shape is preserved; invented UUID settings and composed standard template refuse (99.63ms)
+✔ wrong original owner, altered seal index and uncertain graph cleanup never return valid leases (138.0833ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3011.1518

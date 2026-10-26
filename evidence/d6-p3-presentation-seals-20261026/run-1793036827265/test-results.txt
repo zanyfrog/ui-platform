@@ -1,0 +1,26 @@
+✔ pure owner default, normalization and CSS behavior match original byte-preserved functions (3.0142ms)
+✔ actual owner seals exact published JSON/CSS/context/manifest with immutable original version binding (124.8689ms)
+✔ draft matching checksum cannot establish publication, selected version and owner must match (10.7537ms)
+✔ missing CSS or required context and failed/incomplete copy never become partial publication (64.5714ms)
+✔ all declared assets, missing asset, CSS imports/URLs, fonts and custom semantics refuse (10.9859ms)
+✔ missing supplied theme token refuses without substitution or normalization (9.3089ms)
+✔ duplicate manifest versions and same-version replacement cannot overwrite a seal (136.8022ms)
+✔ owner checksum and exact generated CSS must agree; syntactically duplicate JSON keys refuse (11.6287ms)
+✔ input source mutation after copying cannot change pending publication (105.1159ms)
+✔ staging is invisible and interrupted rename does not promote incomplete data (105.2996ms)
+✔ selection versions and generations are separate; old lease retains prior published bytes (371.4044ms)
+✔ concurrent readers, version producers and pointer writers use actual Foundation ordering (511.7958ms)
+✔ disk mutation, missing blob, extra member and altered index refuse while copied leases remain stable (169.5752ms)
+✔ cancellation before/during staging, during read and after admission prevents stale access (159.2575ms)
+✔ interrupted selection preserves previous pointer and retention; lease expiry never redirects (274.0002ms)
+✔ commit cancellation race never auto-selects and visible seal always fully verifies (127.8791ms)
+✔ pending journal and foreign lock refuse without replay, foreign unlink or PID probe (94.5946ms)
+✔ bounded canceled queued request, invalid owner and unsupported inputs cannot publish (56.0663ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2465.0621

@@ -1,0 +1,477 @@
+{
+  "inputs": {
+    "tests/d6-r1/fs-guard.ts": {
+      "bytes": 2390,
+      "imports": [
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/file-operations.ts": {
+      "bytes": 1469,
+      "imports": [
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/bundle.ts": {
+      "bytes": 7263,
+      "imports": [
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/storage.ts": {
+      "bytes": 14784,
+      "imports": [
+        {
+          "path": "packages/artifacts/src/file-operations.ts",
+          "kind": "import-statement",
+          "original": "./file-operations.js"
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/artifacts/src/bundle.ts",
+          "kind": "import-statement",
+          "original": "./bundle.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/role-bundle.ts": {
+      "bytes": 12356,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:fs",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/artifacts/src/bundle.ts",
+          "kind": "import-statement",
+          "original": "./bundle.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage.ts",
+          "kind": "import-statement",
+          "original": "./storage.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/storage-api.ts": {
+      "bytes": 531,
+      "imports": [
+        {
+          "path": "packages/artifacts/src/file-operations.ts",
+          "kind": "import-statement",
+          "original": "./file-operations.js"
+        },
+        {
+          "path": "packages/artifacts/src/role-bundle.ts",
+          "kind": "import-statement",
+          "original": "./role-bundle.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage.ts",
+          "kind": "import-statement",
+          "original": "./storage.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/shared/presentation.ts": {
+      "bytes": 2677,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/server/presentation-format.ts": {
+      "bytes": 11643,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/shared/presentation.ts",
+          "kind": "import-statement",
+          "original": "../shared/presentation.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/presentation-publication-contract.ts": {
+      "bytes": 9867,
+      "imports": [
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/server/presentation-format.ts",
+          "kind": "import-statement",
+          "original": "./presentation-format.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/presentation-publications.ts": {
+      "bytes": 13464,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "packages/artifacts/src/storage-api.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/artifacts/storage"
+        },
+        {
+          "path": "src/server/presentation-publication-contract.ts",
+          "kind": "import-statement",
+          "original": "./presentation-publication-contract.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "evidence/d6-p3-presentation-seals-20261026/run-1793037354450/before-format.ts": {
+      "bytes": 11643,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/shared/presentation.ts",
+          "kind": "import-statement",
+          "original": "../shared/presentation.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "tests/d6-p3/presentation.test.ts": {
+      "bytes": 20129,
+      "imports": [
+        {
+          "path": "node:test",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/server/presentation-publications.ts",
+          "kind": "import-statement",
+          "original": "../../src/server/presentation-publications.js"
+        },
+        {
+          "path": "src/server/presentation-format.ts",
+          "kind": "import-statement",
+          "original": "../../src/server/presentation-format.js"
+        },
+        {
+          "path": "evidence/d6-p3-presentation-seals-20261026/run-1793037354450/before-format.ts",
+          "kind": "import-statement",
+          "original": "d6-p3-before-format"
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "../d6-r1/fs-guard.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage.ts",
+          "kind": "import-statement",
+          "original": "../../packages/artifacts/src/storage.js"
+        },
+        {
+          "path": "packages/artifacts/src/role-bundle.ts",
+          "kind": "import-statement",
+          "original": "../../packages/artifacts/src/role-bundle.js"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "presentation.test.js": {
+      "imports": [
+        {
+          "path": "node:test",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "exports": [],
+      "entryPoint": "tests/d6-p3/presentation.test.ts",
+      "inputs": {
+        "tests/d6-p3/presentation.test.ts": {
+          "bytesInOutput": 21444
+        },
+        "src/server/presentation-publications.ts": {
+          "bytesInOutput": 11208
+        },
+        "tests/d6-r1/fs-guard.ts": {
+          "bytesInOutput": 1993
+        },
+        "packages/artifacts/src/file-operations.ts": {
+          "bytesInOutput": 1053
+        },
+        "packages/artifacts/src/storage-api.ts": {
+          "bytesInOutput": 0
+        },
+        "packages/artifacts/src/role-bundle.ts": {
+          "bytesInOutput": 8437
+        },
+        "packages/artifacts/src/bundle.ts": {
+          "bytesInOutput": 2480
+        },
+        "packages/artifacts/src/storage.ts": {
+          "bytesInOutput": 9864
+        },
+        "src/server/presentation-publication-contract.ts": {
+          "bytesInOutput": 8406
+        },
+        "src/server/presentation-format.ts": {
+          "bytesInOutput": 9876
+        },
+        "src/shared/presentation.ts": {
+          "bytesInOutput": 48
+        },
+        "evidence/d6-p3-presentation-seals-20261026/run-1793037354450/before-format.ts": {
+          "bytesInOutput": 9895
+        }
+      },
+      "bytes": 85391
+    }
+  }
+}

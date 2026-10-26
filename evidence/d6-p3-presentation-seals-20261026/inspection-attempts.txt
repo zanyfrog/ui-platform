@@ -1,0 +1,9 @@
+Source inspection only, not product execution failures:
+
+1. Optional rg --files -g AGENTS.md found no applicable repository file (exit 1).
+2. One guessed ordinary-source path was absent:
+rg: src/server/application-generator.ts: The system cannot find the file specified. (os error 2)
+The actual creation/settings semantics were read from applications.ts, development-application-registry.ts and the ordinary standard source template, not from current Application data.
+3. Some combined source output exceeded display limits. Narrow named reads followed; exact source snapshots and inspection hashes remain retained.
+
+The first passing executable scope used an incorrect synthetic top-level appId settings shape. Ordinary-source compatibility review corrected it to the actual application.name/status structure with UUID bound by original owner/manifest. The initial 18-test run is retained as superseded preliminary evidence; final 20-test scope explicitly refuses the invented shape and unsupported composed standard template. No runtime attempt failed or was deleted.

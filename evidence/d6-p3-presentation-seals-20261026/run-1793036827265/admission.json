@@ -1,0 +1,54 @@
+{
+  "sources": [
+    "C:\\Projects\\Modular\\ui-platform\\src\\server\\presentation-publications.ts",
+    "C:\\Projects\\Modular\\ui-platform\\src\\server\\presentation-publication-contract.ts",
+    "C:\\Projects\\Modular\\ui-platform\\src\\server\\presentation-format.ts",
+    "C:\\Projects\\Modular\\ui-platform\\src\\shared\\presentation.ts",
+    "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts\\src\\storage-api.ts",
+    "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts\\src\\storage.ts",
+    "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts\\src\\role-bundle.ts",
+    "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts\\src\\bundle.ts",
+    "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts\\src\\file-operations.ts",
+    "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts\\src\\types.ts",
+    "C:\\Projects\\Modular\\ui-platform\\tests\\d6-p3\\presentation.test.ts",
+    "C:\\Projects\\Modular\\ui-platform\\tests\\d6-r1\\fs-guard.ts",
+    "C:\\Projects\\Modular\\ui-platform\\evidence\\d6-p3-presentation-seals-20261026\\run-1793036827265\\before-format.ts"
+  ],
+  "hashes": {
+    "src\\server\\presentation-publications.ts": "55db08292cf89e8903866bae1b3447200efda23d8c4f2cff4d46428a6ee39c82",
+    "src\\server\\presentation-publication-contract.ts": "3cdc3612f872cd91545c0faeaf69c56625edb8d33ed83bc96aba4a286bc36461",
+    "src\\server\\presentation-format.ts": "7ae26df165114d8985ab12da670d3fab4ae048b326f5d020b7c1a2674ecaac47",
+    "src\\shared\\presentation.ts": "6b09c71880592f0b047a3a4bfda28a759945dee425db3e603b4987f3601f45c9",
+    "packages\\artifacts\\src\\storage-api.ts": "f375d41cbfa8fca0442d95405b2d95fd9628aed103dd4892d8b665c1ec5797d5",
+    "packages\\artifacts\\src\\storage.ts": "0f39215f446a1466b150875068bb2669aefa481bbdfafd0c6bd9d19d7827e79d",
+    "packages\\artifacts\\src\\role-bundle.ts": "e87944701145a8dc1092122a45b0bde7c10d333ce3b99719d13a1edeef2880b3",
+    "packages\\artifacts\\src\\bundle.ts": "5340c2d72a4cefe8b554965b82d90137a0561911dd7d19ccaf77757f07959cc7",
+    "packages\\artifacts\\src\\file-operations.ts": "24909116ef213b1cbdf6dfd8e171df9541840991df30c6a35cd7c01cbba288cd",
+    "packages\\artifacts\\src\\types.ts": "1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc",
+    "tests\\d6-p3\\presentation.test.ts": "e8be0ea0fb0500aa99484695e2d8cabf232f136b8e48b1716233693c254f1aa0",
+    "tests\\d6-r1\\fs-guard.ts": "c2ded68b4f1fe421b46eda368f2d490712dc087f2056934f3c2b7a781bd0cd3f",
+    "evidence\\d6-p3-presentation-seals-20261026\\run-1793036827265\\before-format.ts": "7ae26df165114d8985ab12da670d3fab4ae048b326f5d020b7c1a2674ecaac47"
+  },
+  "builtins": [
+    "node:test",
+    "node:assert/strict",
+    "node:fs/promises",
+    "node:fs",
+    "node:path",
+    "node:crypto",
+    "node:timers/promises",
+    "node:async_hooks"
+  ],
+  "entry": "tests/d6-p3/presentation.test.ts",
+  "serial": true,
+  "retries": 0,
+  "workspaceConfiguration": false,
+  "setup": [],
+  "tools": {
+    "node": "v24.19.0",
+    "esbuild": "0.28.2",
+    "typescript": "6.0.3"
+  },
+  "initialization": "Actual new presentation owner/contract, unchanged pure owner function bodies, before-source pure functions, Foundation declarations/local lock map. No normal owner/backend import. Guarded disposable fs only; native/package modules not imported; PID probes fail; graph tracing disabled.",
+  "beforeModule": "Exact pure slices of retained pre-edit owner, no backend source or state execution"
+}

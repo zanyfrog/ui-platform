@@ -1,0 +1,28 @@
+✔ pure owner default, normalization and CSS behavior match original byte-preserved functions (2.986ms)
+✔ actual owner seals exact published JSON/CSS/context/manifest with immutable original version binding (163.5056ms)
+✔ draft matching checksum cannot establish publication, selected version and owner must match (16.0428ms)
+✔ missing CSS or required context and failed/incomplete copy never become partial publication (88.2073ms)
+✔ all declared assets, missing asset, CSS imports/URLs, fonts and custom semantics refuse (17.8005ms)
+✔ missing supplied theme token refuses without substitution or normalization (12.4381ms)
+✔ duplicate manifest versions and same-version replacement cannot overwrite a seal (166.6095ms)
+✔ owner checksum and exact generated CSS must agree; syntactically duplicate JSON keys refuse (18.2731ms)
+✔ input source mutation after copying cannot change pending publication (126.9821ms)
+✔ staging is invisible and interrupted rename does not promote incomplete data (142.9416ms)
+✔ selection versions and generations are separate; old lease retains prior published bytes (466.9568ms)
+✔ concurrent readers, version producers and pointer writers use actual Foundation ordering (533.5841ms)
+✔ disk mutation, missing blob, extra member and altered index refuse while copied leases remain stable (193.0413ms)
+✔ cancellation before/during staging, during read and after admission prevents stale access (196.8273ms)
+✔ interrupted selection preserves previous pointer and retention; lease expiry never redirects (330.9605ms)
+✔ commit cancellation race never auto-selects and visible seal always fully verifies (148.7588ms)
+✔ pending journal and foreign lock refuse without replay, foreign unlink or PID probe (88.5105ms)
+✔ bounded canceled queued request, invalid owner and unsupported inputs cannot publish (75.8088ms)
+✔ actual Application settings shape is preserved; invented UUID settings and composed standard template refuse (115.5639ms)
+✔ wrong original owner, altered seal index and uncertain graph cleanup never return valid leases (125.8666ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3160.3446

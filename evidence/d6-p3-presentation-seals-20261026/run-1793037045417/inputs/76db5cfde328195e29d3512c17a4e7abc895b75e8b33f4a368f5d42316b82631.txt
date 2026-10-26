@@ -1,0 +1,12 @@
+{
+  "application": {
+    "name": "{{APP_NAME}}",
+    "status": "active"
+  },
+  "presentation": {
+    "model": "composition-v1", "defaultShellId": "art_{{APP_ID}}_public_shell",
+    "theme": { "--app-color-primary": "#2456a6", "--app-color-secondary": "#526078", "--app-color-background": "#f5f7fb", "--app-color-surface": "#ffffff", "--app-color-text": "#172033", "--app-font-family": "system-ui, sans-serif", "--app-font-base-size": "16px", "--app-heading-scale": "1.25", "--app-space-small": "0.5rem", "--app-space-medium": "1rem", "--app-space-large": "2rem" },
+    "siteStyles": ["styles/site.css"], "defaultMenus": { "main": "menu-main", "admin": "menu-admin" },
+    "branding": { "applicationName": "{{APP_NAME}}", "shortName": "{{APP_NAME}}", "primaryLogo": "assets/branding/logo.svg", "favicon": "assets/branding/logo.svg" }, "assetsRoot": "assets"
+  }
+}

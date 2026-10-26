@@ -1,0 +1,57 @@
+{
+  "mismatches": [],
+  "preservation": {
+    "headBefore": "25b1921fea13b93797d137b8e15784adc0274329",
+    "baselineCount": 1711,
+    "operationalPublication": false,
+    "unchangedCount": 1710,
+    "protectedReads": false,
+    "missing": [],
+    "existingRuntimeFilesChanged": [
+      "src/server/package-installer.ts"
+    ],
+    "changed": [
+      {
+        "after": "ef2cbf7e8542c3ae109a2f2573b614e1549f01c53a49613d0540d863ccd9202c",
+        "path": "src/server/package-installer.ts",
+        "before": "bd4fcd45a05e71df817eeaaab4e26c6d70a4a45db1f5015cfad20e6e6a0e1aef"
+      }
+    ],
+    "headAfter": "25b1921fea13b93797d137b8e15784adc0274329",
+    "nativeExecution": false,
+    "automaticCleanup": false,
+    "installerChange": "One additive export; original body equivalence verified in successful run"
+  },
+  "retainedFailures": [
+    {
+      "failureExists": true,
+      "run": "run-1793034702757"
+    },
+    {
+      "failureExists": true,
+      "run": "run-1793034847402"
+    }
+  ],
+  "typecheckBytes": 0,
+  "result": {
+    "passed": true,
+    "tests": 21,
+    "serial": true,
+    "retries": 0,
+    "strictTypecheckDiagnostics": 0,
+    "nativeCodeExecuted": false,
+    "sourceHashesUnchanged": true
+  },
+  "digestEntries": 151,
+  "inventoryEntries": 152,
+  "rawTestSummary": [
+    "ℹ tests 21",
+    "ℹ suites 0",
+    "ℹ pass 21",
+    "ℹ fail 0",
+    "ℹ cancelled 0",
+    "ℹ skipped 0",
+    "ℹ todo 0",
+    "ℹ duration_ms 4492.037"
+  ]
+}

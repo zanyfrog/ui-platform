@@ -1,0 +1,108 @@
+import test from 'node:test';import assert from 'node:assert/strict';import * as fs from 'node:fs/promises';import path from 'node:path';import {createHash} from 'node:crypto';import {setTimeout as delay} from 'node:timers/promises';
+import {createPresentationPublicationOwner,PresentationPublicationError} from '../../src/server/presentation-publications.js';
+import {defaultPresentation,validatePresentation,renderPresentationCss} from '../../src/server/presentation-format.js';
+import * as before from 'd6-p3-before-format';
+import {configure,inject,events} from '../d6-r1/fs-guard.js';
+import {storageKey} from '../../packages/artifacts/src/storage.js';
+import {withRoleBundleGraph} from '../../packages/artifacts/src/role-bundle.js';
+const appId='4bdc70a0-9bb4-4bf1-9dd4-3abbaf59f220',parent=path.resolve(process.cwd(),'evidence/d6-p3-presentation-seals-20261026/disposable');
+const hash=(v:string|Uint8Array)=>createHash('sha256').update(v).digest('hex');
+const encoded=(v:unknown)=>Buffer.from(JSON.stringify(v,null,2)+'\n');
+const traces:unknown[]=[];let probes=0;const originalKill=process.kill;process.kill=(()=>{probes++;throw new Error('PID_PROBE_FORBIDDEN');}) as typeof process.kill;
+process.env.UI_GRAPH_LOCK_TRACE='0';delete process.env.UI_GRAPH_LOCK_METRICS;
+test.after(async()=>{process.kill=originalKill;assert.equal(probes,0);const file=process.env.D6_P3_TRACE_FILE!;assert.ok(path.resolve(file).startsWith(path.resolve(process.cwd(),'evidence/d6-p3-presentation-seals-20261026')+path.sep));await fs.writeFile(file,JSON.stringify({traces,probes,nativeExecution:false},null,2));});
+function completed(version=1){
+  const p=defaultPresentation();p.name='Explicit owner version';p.layout.defaultShell='minimal';
+  for(const shell of Object.values(p.layout.shells)){shell.showNavigation=false;shell.showFooter=false;shell.footerText='';}
+  const checksum=hash(JSON.stringify(p));
+  const manifest={type:'ui-platform.presentation',schemaVersion:'1.0.0',applicationId:appId,activeVersion:version,draft:{exists:true,checksum:hash('different unsaved draft')},versions:[{version,checksum,publishedAt:'2026-10-26T00:00:00.000Z',actor:'fixture-owner'}]};
+  const files=new Map<string,Uint8Array>([['publication.manifest.json',encoded(manifest)],['presentation.json',encoded(p)],['application.css',Buffer.from(renderPresentationCss(p))],['app.settings.json',encoded({application:{name:'Original Application',status:'active'}})]]);
+  return{producer:'owner-completed-presentation-v1' as const,version,files};
+}
+function edit(snapshot:ReturnType<typeof completed>,id:string,fn:(value:any)=>void){const v=JSON.parse(Buffer.from(snapshot.files.get(id)!).toString('utf8'));fn(v);snapshot.files.set(id,encoded(v));}
+function rebind(snapshot:ReturnType<typeof completed>){const p=JSON.parse(Buffer.from(snapshot.files.get('presentation.json')!).toString('utf8'));edit(snapshot,'publication.manifest.json',m=>m.versions.find((v:any)=>v.version===snapshot.version).checksum=hash(JSON.stringify(p)));snapshot.files.set('application.css',Buffer.from(renderPresentationCss(p)));}
+async function setup(){await fs.mkdir(parent,{recursive:true});const root=await fs.mkdtemp(path.join(parent,'owner-')),ownerRoot=path.join(root,'owner'),graphRoot=path.join(root,'graph');await fs.mkdir(ownerRoot);await fs.mkdir(graphRoot);configure(root);const owner=await createPresentationPublicationOwner({root:ownerRoot,graphRoot,owner:{kind:'application',id:appId}});return{root,ownerRoot,graphRoot,owner,space:path.join(ownerRoot,'.uib/presentation-publications-v1')};}
+async function fixture(run:(f:Awaited<ReturnType<typeof setup>>)=>Promise<void>){const f=await setup();try{await run(f);}finally{traces.push({root:f.root,events:[...events]});inject();assert.ok(path.resolve(f.root).startsWith(parent+path.sep+'owner-'));async function writable(dir:string){for(const e of await fs.readdir(dir,{withFileTypes:true})){const p=path.join(dir,e.name);if(e.isDirectory())await writable(p);else await fs.chmod(p,0o666);}}await writable(f.root);await fs.rm(f.root,{recursive:true,force:true});}}
+const refused=(...codes:string[])=>(e:any)=>{assert.ok(e instanceof PresentationPublicationError);assert.ok(codes.includes(e.code),e.code);assert.equal(e.cause,undefined);assert.ok(!String(e).includes(process.cwd()));return true;};
+test('pure owner default, normalization and CSS behavior match original byte-preserved functions',()=>{
+  assert.deepEqual(defaultPresentation(),before.defaultPresentation());
+  for(const change of [(p:any)=>{},(p:any)=>{p.tokens['--app-color-text']='#123456';p.css='h1 { color:red; }';},(p:any)=>{p.layout.defaultShell='public';p.assets=[{id:'logo',name:'Logo',type:'logo',path:'logo.png',active:true}];}]){const p=defaultPresentation();change(p);assert.deepEqual(validatePresentation(p),before.validatePresentation(p));assert.equal(renderPresentationCss(p),before.renderPresentationCss(p));}
+});
+test('actual owner seals exact published JSON/CSS/context/manifest with immutable original version binding',()=>fixture(async f=>{
+  const snapshot=completed(),id=await f.owner.publish(snapshot);assert.match(id,/^pres_1_[a-f0-9]{64}$/);
+  const lease=await f.owner.read(id,1000);assert.equal(lease.index.owner.id,appId);assert.equal(lease.index.version,1);assert.equal(lease.index.versionRecord.checksum,hash(JSON.stringify(JSON.parse(Buffer.from(snapshot.files.get('presentation.json')!).toString()))));assert.equal(lease.index.resources.length,4);
+  assert.ok(Object.isFrozen(lease.index.resources[0]));for(const[id,bytes]of snapshot.files)assert.deepEqual(lease.read(id),new Uint8Array(bytes));
+  const output=lease.read('application.css'),original=output[0];output[0]^=1;assert.equal(lease.read('application.css')[0],original);lease.dispose();assert.throws(()=>lease.read('application.css'),refused('DISPOSED'));
+}));
+test('draft matching checksum cannot establish publication, selected version and owner must match',()=>fixture(async f=>{
+  for(const mutate of [(m:any)=>{m.activeVersion=null;},(m:any)=>{m.versions=[];},(m:any)=>{m.applicationId='different-owner';},(m:any)=>{m.activeVersion=2;}]){const s=completed();edit(s,'publication.manifest.json',mutate);await assert.rejects(f.owner.publish(s),refused('UNPUBLISHED','VERSION_MISMATCH'));}
+  const s=completed();edit(s,'app.settings.json',c=>c.application.status='disabled');await assert.rejects(f.owner.publish(s),refused('VERSION_MISMATCH'));
+}));
+test('missing CSS or required context and failed/incomplete copy never become partial publication',()=>fixture(async f=>{
+  for(const id of ['application.css','app.settings.json']){const s=completed();s.files.delete(id);await assert.rejects(f.owner.publish(s),refused('MEMBERSHIP_INVALID'));}
+  const s=completed();s.files.set('application.css',new Uint8Array());await assert.rejects(f.owner.publish(s),refused('CONTENT_CHANGED'));
+  inject((op,file)=>{if(op==='handle.writeFile'&&file.includes(path.sep+'bytes'+path.sep))throw new Error('copy failed secret');});await assert.rejects(f.owner.publish(completed()),refused('IO_UNCERTAIN'));inject();assert.deepEqual(await fs.readdir(path.join(f.space,'sealed')),[]);assert.equal((await fs.readdir(path.join(f.space,'staging'))).length,1);
+}));
+test('all declared assets, missing asset, CSS imports/URLs, fonts and custom semantics refuse',()=>fixture(async f=>{
+  for(const mutate of [(p:any)=>{p.assets=[{id:'missing',name:'Missing',path:'missing.png',active:true,type:'image'}];},(p:any)=>{p.css='@import "missing.css";';},(p:any)=>{p.css='x{background:url(missing.png)}';},(p:any)=>{p.tokens['--app-font-body']='remote-font';},(p:any)=>{p.heroes={hero:{id:'hero',enabled:true,variant:'standard',data:{}}};},(p:any)=>{p.componentDefaults={'uib-card':{href:'/route'}};},(p:any)=>{p.layout.routes={'/':{heroId:'hero'}};}]){const s=completed();edit(s,'presentation.json',mutate);rebind(s);await assert.rejects(f.owner.publish(s),refused('UNSUPPORTED_CONTENT','INVALID_INPUT'));}
+  const s=completed();edit(s,'app.settings.json',c=>c.presentation={model:'composition-v1'});await assert.rejects(f.owner.publish(s),refused('INVALID_INPUT','UNSUPPORTED_CONTENT'));
+}));
+test('missing supplied theme token refuses without substitution or normalization',()=>fixture(async f=>{
+  const s=completed();edit(s,'presentation.json',p=>delete p.tokens['--app-color-text']);rebind(s);await assert.rejects(f.owner.publish(s),refused('UNSUPPORTED_CONTENT'));
+  const bad=completed();edit(bad,'presentation.json',p=>p.name='  normalized  ');rebind(bad);await assert.rejects(f.owner.publish(bad),refused('UNSUPPORTED_CONTENT'));
+}));
+test('duplicate manifest versions and same-version replacement cannot overwrite a seal',()=>fixture(async f=>{
+  const dup=completed();edit(dup,'publication.manifest.json',m=>m.versions.push(m.versions[0]));await assert.rejects(f.owner.publish(dup),refused('VERSION_MISMATCH'));
+  const id=await f.owner.publish(completed());await assert.rejects(f.owner.publish(completed()),refused('VERSION_EXISTS'));
+  const s=completed();edit(s,'presentation.json',p=>p.tokens['--app-color-text']='#abcdef');rebind(s);await assert.rejects(f.owner.publish(s),refused('VERSION_EXISTS'));const lease=await f.owner.read(id,1000);assert.deepEqual(lease.read('application.css'),new Uint8Array(completed().files.get('application.css')!));lease.dispose();
+}));
+test('owner checksum and exact generated CSS must agree; syntactically duplicate JSON keys refuse',()=>fixture(async f=>{
+  const s=completed();edit(s,'presentation.json',p=>p.name='Changed');await assert.rejects(f.owner.publish(s),refused('CONTENT_CHANGED'));
+  const css=completed();css.files.set('application.css',Buffer.from('/* altered resource */'));await assert.rejects(f.owner.publish(css),refused('CONTENT_CHANGED'));
+  const duplicate=completed();duplicate.files.set('app.settings.json',Buffer.from('{"appId":"wrong","appId":"'+appId+'"}'));await assert.rejects(f.owner.publish(duplicate),refused('INVALID_INPUT'));
+}));
+test('input source mutation after copying cannot change pending publication',()=>fixture(async f=>{
+  const s=completed(),expected=new Uint8Array(s.files.get('application.css')!),promise=f.owner.publish(s);s.files.get('application.css')![0]^=1;
+  const id=await promise,lease=await f.owner.read(id,1000);assert.deepEqual(lease.read('application.css'),expected);lease.dispose();
+}));
+test('staging is invisible and interrupted rename does not promote incomplete data',()=>fixture(async f=>{
+  const fake='pres_1_'+'a'.repeat(64);await fs.mkdir(path.join(f.space,'staging','incomplete'),{recursive:true});await fs.writeFile(path.join(f.space,'staging','incomplete','index.json'),'{}');await assert.rejects(f.owner.read(fake,1000),refused('UNSEALED'));
+  inject((op,file)=>{if(op==='rename'&&file.includes(path.sep+'staging'+path.sep))throw new Error('interrupted rename');});await assert.rejects(f.owner.publish(completed()),refused('IO_UNCERTAIN'));inject();assert.deepEqual(await fs.readdir(path.join(f.space,'sealed')),[]);
+}));
+test('selection versions and generations are separate; old lease retains prior published bytes',()=>fixture(async f=>{
+  const first=await f.owner.publish(completed(1)),second=await f.owner.publish(completed(2));await f.owner.select(first,0);const old=await f.owner.readSelected(1,1000);await f.owner.select(second,1);
+  await assert.rejects(f.owner.readSelected(1,1000),refused('SELECTION_CHANGED'));await assert.rejects(f.owner.select(first,1),refused('SELECTION_CHANGED'));assert.equal(old.index.version,1);old.dispose();const current=await f.owner.readSelected(2,1000);assert.equal(current.index.version,2);current.dispose();
+}));
+test('concurrent readers, version producers and pointer writers use actual Foundation ordering',()=>fixture(async f=>{
+  const results=await Promise.allSettled([f.owner.publish(completed()),f.owner.publish(completed())]);assert.equal(results.filter(r=>r.status==='fulfilled').length,1);assert.equal(results.filter(r=>r.status==='rejected'&&r.reason.code==='VERSION_EXISTS').length,1);
+  const id=(results.find(r=>r.status==='fulfilled') as PromiseFulfilledResult<string>).value;await f.owner.select(id,0);const[a,b]=await Promise.all([f.owner.read(id,1000),f.owner.read(id,1000)]);assert.deepEqual(a.read('application.css'),b.read('application.css'));a.dispose();b.dispose();
+  const selected=await Promise.allSettled([f.owner.select(id,1),f.owner.select(id,1)]);assert.equal(selected.filter(r=>r.status==='fulfilled').length,1);
+}));
+test('disk mutation, missing blob, extra member and altered index refuse while copied leases remain stable',()=>fixture(async f=>{
+  const id=await f.owner.publish(completed()),lease=await f.owner.read(id,1000),directory=path.join(f.space,'sealed','v1'),r=lease.index.resources.find(r=>r.id==='application.css')!,file=path.join(directory,'bytes',r.sha256),original=await fs.readFile(file);await fs.chmod(file,0o666);const bad=Buffer.from(original);bad[0]^=1;await fs.writeFile(file,bad);await assert.rejects(f.owner.read(id,1000),refused('CONTENT_CHANGED'));assert.deepEqual(lease.read('application.css'),new Uint8Array(original));lease.dispose();
+  await fs.writeFile(file,original);await fs.writeFile(path.join(directory,'bytes','extra'),'extra');await assert.rejects(f.owner.read(id,1000),refused('MEMBERSHIP_INVALID'));await fs.rm(path.join(directory,'bytes','extra'));await fs.rm(file);await assert.rejects(f.owner.read(id,1000),refused('MEMBERSHIP_INVALID'));
+}));
+test('cancellation before/during staging, during read and after admission prevents stale access',()=>fixture(async f=>{
+  const pre=new AbortController();pre.abort();await assert.rejects(f.owner.publish(completed(),{signal:pre.signal}),refused('CANCELED'));
+  const mid=new AbortController();inject((op,file)=>{if(op==='handle.sync'&&file.includes('presentation-publications-v1'))mid.abort();});await assert.rejects(f.owner.publish(completed(),{signal:mid.signal}),refused('CANCELED'));inject();assert.deepEqual(await fs.readdir(path.join(f.space,'sealed')),[]);
+  const id=await f.owner.publish(completed()),reading=new AbortController();inject((op,file)=>{if(op==='readFile'&&file.includes(path.sep+'bytes'+path.sep))reading.abort();});await assert.rejects(f.owner.read(id,1000,{signal:reading.signal}),refused('CANCELED'));inject();const after=new AbortController(),lease=await f.owner.read(id,1000,{signal:after.signal});after.abort();assert.throws(()=>lease.read('application.css'),refused('CANCELED'));lease.dispose();
+}));
+test('interrupted selection preserves previous pointer and retention; lease expiry never redirects',()=>fixture(async f=>{
+  const first=await f.owner.publish(completed(1)),second=await f.owner.publish(completed(2));await f.owner.select(first,0);inject((op,file)=>{if(op==='handle.writeFile'&&file.includes('selected.visual.json.')&&file.endsWith('.tmp'))throw new Error('pointer write failed');});await assert.rejects(f.owner.select(second,1),refused('IO_UNCERTAIN'));inject();const lease=await f.owner.readSelected(1,10);await delay(20);assert.throws(()=>lease.read('application.css'),refused('EXPIRED'));lease.dispose();assert.ok((await fs.stat(path.join(f.space,'sealed','v1'))).isDirectory());assert.ok((await fs.stat(path.join(f.space,'sealed','v2'))).isDirectory());
+}));
+test('commit cancellation race never auto-selects and visible seal always fully verifies',()=>fixture(async f=>{
+  const abort=new AbortController();inject((op,file)=>{if(op==='rename'&&file.endsWith(path.join('sealed','v1')))setTimeout(()=>abort.abort(),0);});let id:string|undefined;try{id=await f.owner.publish(completed(),{signal:abort.signal});}catch(e){assert.ok(e instanceof PresentationPublicationError);assert.equal(e.code,'CANCELED');}inject();await delay(5);const sealed=await fs.readdir(path.join(f.space,'sealed'));assert.ok(sealed.length<=1);if(id){const lease=await f.owner.read(id,1000);lease.dispose();}await assert.rejects(f.owner.readSelected(1,1000),refused('UNSEALED'));
+}));
+test('pending journal and foreign lock refuse without replay, foreign unlink or PID probe',()=>fixture(async f=>{
+  const journal=path.join(f.ownerRoot,'.uib/transactions','b'.repeat(64),'pending.json');await fs.mkdir(path.dirname(journal),{recursive:true});await fs.writeFile(journal,'{pending');await assert.rejects(f.owner.publish(completed()),refused('RECOVERY_REQUIRED'));assert.ok(!events.some(e=>e.op==='readFile'&&e.file===journal));await fs.rm(journal);
+  const lock=path.join(f.graphRoot,'.uib/locks',storageKey('visual-runtime-graph-v1')+'.lock');await fs.mkdir(path.dirname(lock),{recursive:true});await fs.writeFile(lock,'7654321');configure(f.root);await assert.rejects(f.owner.publish(completed(),{timeoutMs:30}),refused('BUSY'));assert.equal(await fs.readFile(lock,'utf8'),'7654321');assert.ok(!events.some(e=>e.op==='rm'));
+}));
+test('bounded canceled queued request, invalid owner and unsupported inputs cannot publish',()=>fixture(async f=>{
+  let enter!:()=>void,release!:()=>void;const ready=new Promise<void>(r=>enter=r),held=new Promise<void>(r=>release=r),holder=withRoleBundleGraph(f.graphRoot,async()=>{enter();await held;},{recovery:'refuse'});await ready;const a=new AbortController(),pending=f.owner.publish(completed(),{signal:a.signal});a.abort();await assert.rejects(pending,refused('CANCELED'));release();await holder;
+  await assert.rejects(createPresentationPublicationOwner({root:f.ownerRoot,graphRoot:f.graphRoot,owner:{kind:'application',id:'folder-label'}}),refused('INVALID_INPUT'));await assert.rejects(f.owner.publish({...completed(),producer:'draft-save'} as any),refused('UNSUPPORTED_PRODUCER'));await assert.rejects(f.owner.publish(completed(),{timeoutMs:0}),refused('INVALID_INPUT'));await assert.rejects(f.owner.read('mutable-current-version',1000),refused('INVALID_INPUT'));
+}));
+test('actual Application settings shape is preserved; invented UUID settings and composed standard template refuse',()=>fixture(async f=>{
+  const invented=completed();invented.files.set('app.settings.json',encoded({appId,name:'Invented shape'}));await assert.rejects(f.owner.publish(invented),refused('INVALID_INPUT'));
+  const composed=completed();composed.files.set('app.settings.json',await fs.readFile(path.resolve(process.cwd(),'templates/standard/files/app.settings.json')));await assert.rejects(f.owner.publish(composed),refused('INVALID_INPUT','UNSUPPORTED_CONTENT'));
+  const id=await f.owner.publish(completed()),lease=await f.owner.read(id,1000);const settings=JSON.parse(Buffer.from(lease.read('app.settings.json')).toString('utf8'));assert.equal(settings.appId,undefined);assert.equal(settings.application.status,'active');lease.dispose();
+}));

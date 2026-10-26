@@ -1,0 +1,27 @@
+✔ pure owner default, normalization and CSS behavior match original byte-preserved functions (3.6712ms)
+✔ actual owner seals exact published JSON/CSS/context/manifest with immutable original version binding (135.0937ms)
+✔ draft matching checksum cannot establish publication, selected version and owner must match (11.5473ms)
+✔ missing CSS or required context and failed/incomplete copy never become partial publication (67.8394ms)
+✔ all declared assets, missing asset, CSS imports/URLs, fonts and custom semantics refuse (12.1223ms)
+✔ missing supplied theme token refuses without substitution or normalization (13.2464ms)
+✔ duplicate manifest versions and same-version replacement cannot overwrite a seal (120.9018ms)
+✔ owner checksum and exact generated CSS must agree; syntactically duplicate JSON keys refuse (9.3163ms)
+✔ input source mutation after copying cannot change pending publication (101.2376ms)
+✔ staging is invisible and interrupted rename does not promote incomplete data (100.0692ms)
+✔ selection versions and generations are separate; old lease retains prior published bytes (343.1728ms)
+✔ concurrent readers, version producers and pointer writers use actual Foundation ordering (455.2012ms)
+✔ disk mutation, missing blob, extra member and altered index refuse while copied leases remain stable (196.6794ms)
+✔ cancellation before/during staging, during read and after admission prevents stale access (141.3271ms)
+✔ interrupted selection preserves previous pointer and retention; lease expiry never redirects (261.9634ms)
+✔ commit cancellation race never auto-selects and visible seal always fully verifies (162.8609ms)
+✔ pending journal and foreign lock refuse without replay, foreign unlink or PID probe (88.2268ms)
+✔ bounded canceled queued request, invalid owner and unsupported inputs cannot publish (65.5463ms)
+✔ actual Application settings shape is preserved; invented UUID settings and composed standard template refuse (111.7686ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2524.0618
