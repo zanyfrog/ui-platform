@@ -3,10 +3,12 @@ import { FixturePreviewPanel } from '../fixture-preview/panel.js';
 import { selectFixturePreview } from './fixture-preview-binding.js';
 import { SavedPreviewRequestController } from './saved-preview-request.js';
 import { savedPreviewUnavailableText } from '../../shared/saved-preview-request.js';
+import type { SavedCardTargetReader, SavedCardTargetSnapshot } from '../visual-artifacts/saved-card-target.js';
 
 export interface ShellViewTab {
   key: string; artifact: WorkspaceArtifact; suspended: boolean; element: HTMLElement;
   state: { dirty: boolean; pending: boolean; conflict?: boolean };
+  savedCardTarget?: SavedCardTargetReader;
 }
 export interface ShellViewState {
   active: boolean; applicationKey: string; tabs: ShellViewTab[]; focused?: string;
@@ -35,6 +37,61 @@ export function createBuilderShellView(actions: ShellViewActions, savedPreview =
   let mounted = false, disposed = false;
   let state: ShellViewState = { active: false, applicationKey: '', tabs: [] };
   let navigation = new Map<string, WorkspaceArtifact>();
+  let ownerReader: SavedCardTargetReader | undefined, ownerKey: string | undefined, ownerEpoch = 0;
+  let ownerGeneration: { selection:number; source:number } | undefined;
+  let unsubscribeOwner = () => {};
+  function detachOwner() { ownerEpoch++; try { unsubscribeOwner(); } catch { /* A failed detach cannot preserve request identity. */ } unsubscribeOwner = () => {}; ownerReader = undefined; ownerKey = undefined; ownerGeneration = undefined; }
+  function focusedSelection() {
+    const focused = state.tabs.find(tab => tab.key === state.focused);
+    return mounted && state.active && focused && !focused.suspended && state.session?.principal ? { focused, base: {
+      subjectId:state.session.principal.subjectId,sessionRevision:state.session.revision,
+      applicationId:focused.artifact.applicationId,applicationKey:focused.artifact.applicationKey,
+      identity:focused.artifact.identity,kind:focused.artifact.kind,dirty:focused.state.dirty,
+    }} : undefined;
+  }
+  function applyOwner(snapshot: SavedCardTargetSnapshot | undefined, force=false) {
+    const selection=focusedSelection();
+    if(!selection){savedPreview.select(undefined,force);return;}
+    try { savedPreview.select({...selection.base,...(snapshot?{ownerSelection:snapshot}:{}),...(snapshot?.state==='identified'?{sourceNode:{nodeId:snapshot.target.source.nodeId,savedRevision:snapshot.target.source.committedHash}}:{})},force); }
+    catch { savedPreview.select({},force); }
+  }
+  function bindOwner() {
+    const selected=focusedSelection(),reader=selected?.focused.savedCardTarget;
+    const key=selected?JSON.stringify([selected.base.subjectId,selected.base.sessionRevision,selected.base.applicationId,selected.base.applicationKey,workspaceIdentityKey(selected.base.identity)]):undefined;
+    if(reader!==ownerReader||key!==ownerKey){
+      detachOwner();ownerReader=reader;ownerKey=key;const epoch=ownerEpoch;
+      // Replace before subscribing so an outgoing reader can never retain a
+      // pending request while the incoming owner publishes its initial value.
+      applyOwner(undefined,true);
+      if(reader){
+        try {
+          const stop=reader.subscribe(snapshot=>{
+            if(disposed||!mounted||epoch!==ownerEpoch||ownerReader!==reader)return;
+            try {
+              const current=reader.snapshot;
+              if(epoch!==ownerEpoch||ownerReader!==reader)return;
+              // A queued emission must still describe this owner's current
+              // metadata. This reads no source and never resolves identity.
+              if(snapshot!==current&&JSON.stringify(snapshot)!==JSON.stringify(current)){
+                if(JSON.stringify(savedPreview.snapshot.selection?.ownerSelection)!==JSON.stringify(current))consumeOwner(current,true);
+                return;
+              }
+              consumeOwner(snapshot,true);
+            }catch{applyOwner(undefined,true);}
+          });
+          if(epoch===ownerEpoch&&!disposed)unsubscribeOwner=stop;else stop();
+        } catch { detachOwner(); applyOwner(undefined,true); }
+      }
+    }
+    if(reader&&reader===ownerReader){const epoch=ownerEpoch;try{const snapshot=reader.snapshot;if(epoch===ownerEpoch)consumeOwner(snapshot);}catch{applyOwner(undefined,true);}}
+    else applyOwner(undefined);
+  }
+  function consumeOwner(snapshot:SavedCardTargetSnapshot,force=false){
+    const generation=snapshot.generation;
+    if(ownerGeneration&&(generation.selection<ownerGeneration.selection||generation.source<ownerGeneration.source)){applyOwner(undefined,true);return;}
+    ownerGeneration={selection:generation.selection,source:generation.source};
+    applyOwner(snapshot,force);
+  }
   function click(event: MouseEvent) {
     if (!mounted || disposed || !(event.target instanceof Element)) return;
     const button = event.target.closest<HTMLButtonElement>('button[data-view-action]');
@@ -71,11 +128,7 @@ export function createBuilderShellView(actions: ShellViewActions, savedPreview =
     selectFixturePreview(preview, mounted && next.active && focused && !focused.suspended && next.session?.principal ? {
       subjectId: next.session.principal.subjectId, sessionId: next.session.revision, artifact: focused.artifact, dirty: focused.state.dirty,
     } : undefined);
-    savedPreview.select(mounted&&next.active&&focused&&!focused.suspended&&next.session?.principal?{
-      subjectId:next.session.principal.subjectId,sessionRevision:next.session.revision,
-      applicationId:focused.artifact.applicationId,applicationKey:focused.artifact.applicationKey,
-      identity:focused.artifact.identity,kind:focused.artifact.kind,dirty:focused.state.dirty,
-    }:undefined);
+    bindOwner();
   }
   return {
     element, preview, savedPreview,
@@ -106,11 +159,11 @@ export function createBuilderShellView(actions: ShellViewActions, savedPreview =
     },
     park() {
       if (disposed) return;
-      mounted = false; element.removeEventListener('click', click); savedPreview.park(); preview.select(); find('[data-stage]').replaceChildren(); element.remove();
+      mounted = false; detachOwner(); element.removeEventListener('click', click); savedPreview.park(); preview.select(); find('[data-stage]').replaceChildren(); element.remove();
     },
     dispose() {
       if (disposed) return;
-      mounted = false; disposed = true; element.removeEventListener('click', click); preview.dispose();
+      mounted = false; disposed = true; detachOwner(); element.removeEventListener('click', click); preview.dispose();
       unsubscribeSaved();savedPreview.dispose();
       navigation.clear(); state = { active: false, applicationKey: '', tabs: [] }; find('[data-stage]').replaceChildren(); element.remove();
     },

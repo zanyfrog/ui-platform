@@ -1,0 +1,25 @@
+{
+  "entry": "scripts/verify-card-request-integration.mjs",
+  "sha256": "40d7da985565a3ec734542834def1541fd834ce918c167ffb84083beead30ee4",
+  "driver": "tests/card-request-integration/checks.mjs",
+  "driverSha256": "407098525361d0c6f9137ffd97b42f0a8e58405a4d21917bbc112a001144cd9a",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "applicationAdmission": "Exact allowlist/replacement map, input copies/hashes before compile, resolved graphs before execution; actual adapter Page branch with explicit memory facades, root syntax only",
+  "typeAdmission": "Shared DTOs, pure Visual types/composition/expression and packages/artifacts/src/types.ts data declarations only; no storage/service module",
+  "platform": "Realm-local plain metadata clone, DOM constructors/Option, deterministic clock, WebCrypto; no native frames",
+  "serial": true,
+  "retries": 0,
+  "change": "Final separately admitted delayed-delivery check: stale emissions never replace current metadata; if current owner refusal was not yet delivered, consume that current refusal and clear the old pending target. Same runtime graph and source ownership."
+}

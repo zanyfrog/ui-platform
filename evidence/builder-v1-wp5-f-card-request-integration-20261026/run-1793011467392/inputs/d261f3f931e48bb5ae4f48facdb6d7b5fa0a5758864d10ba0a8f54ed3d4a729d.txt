@@ -1,0 +1,2346 @@
+"use strict";
+(() => {
+  // ../ui-base/packages/ui-base-core/src/utils.js
+  var idCounter = 0;
+  function createId(prefix = "mt") {
+    idCounter += 1;
+    return `${prefix}-${idCounter}`;
+  }
+  function escapeHtml(value) {
+    return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
+  }
+  function defineUiBaseElement(tagName, elementClass) {
+    installCssClassProperty(elementClass);
+    if (!customElements.get(tagName)) customElements.define(tagName, elementClass);
+    return elementClass;
+  }
+  function cssClassTokens(element) {
+    return String(element?.getAttribute?.("css-class") ?? element?.cssClass ?? "").split(/\s+/).map((value) => value.trim()).filter(Boolean);
+  }
+  function applyCssClassToShadowRoot(element) {
+    if (!element) return;
+    const root = element.shadowRoot || element;
+    const target = root.querySelector("[data-uib-css-class-root]") || Array.from(root.children).find((child) => child instanceof HTMLElement && child.localName !== "style");
+    if (!target) return;
+    const previous = element.__uibCssClassTokens || [];
+    target.classList.remove(...previous);
+    const next = cssClassTokens(element);
+    if (next.length) target.classList.add(...next);
+    element.__uibCssClassTokens = next;
+  }
+  function installCssClassProperty(elementClass) {
+    const prototype = elementClass?.prototype;
+    if (!prototype) return elementClass;
+    if (!Object.getOwnPropertyDescriptor(prototype, "cssClass")) {
+      Object.defineProperty(prototype, "cssClass", {
+        configurable: true,
+        enumerable: true,
+        get() {
+          return this.getAttribute("css-class") || "";
+        },
+        set(value) {
+          setOrRemoveAttribute(this, "css-class", value);
+        }
+      });
+    }
+    const observed = Array.isArray(elementClass.observedAttributes) ? elementClass.observedAttributes : [];
+    if (!observed.includes("css-class")) {
+      Object.defineProperty(elementClass, "observedAttributes", {
+        configurable: true,
+        value: [...observed, "css-class"]
+      });
+    }
+    if (typeof prototype.render === "function" && !prototype.__uibCssClassRenderWrapped) {
+      const render = prototype.render;
+      prototype.render = function renderWithCssClass(...args) {
+        const result = render.apply(this, args);
+        applyCssClassToShadowRoot(this);
+        return result;
+      };
+      prototype.__uibCssClassRenderWrapped = true;
+    }
+    return elementClass;
+  }
+  function setOrRemoveAttribute(element, name, value) {
+    if (value === null || value === void 0 || value === false) {
+      element.removeAttribute(name);
+      return;
+    }
+    if (value === true) {
+      element.setAttribute(name, "");
+      return;
+    }
+    element.setAttribute(name, String(value));
+  }
+  function mergeIds(...ids) {
+    return ids.flatMap((value) => String(value ?? "").split(/\s+/)).map((value) => value.trim()).filter(Boolean).filter((value, index, array) => array.indexOf(value) === index).join(" ");
+  }
+
+  // ../ui-base/packages/ui-base-core/src/validation.js
+  var VALIDATION_STATES = Object.freeze({
+    VALID: "valid",
+    INVALID: "invalid",
+    WARNING: "warning",
+    INFO: "info"
+  });
+
+  // ../ui-base/packages/ui-base-core/src/metadata.js
+  var MATURITY_LEVELS = Object.freeze({
+    EXPERIMENTAL: "experimental",
+    PREVIEW: "preview",
+    STABLE: "stable",
+    DEPRECATED: "deprecated",
+    RETIRED: "retired"
+  });
+
+  // ../ui-base/packages/ui-base-core/src/base-element.js
+  var UibBaseElement = class extends HTMLElement {
+    static commonAttributes = [
+      "name",
+      "label",
+      "help",
+      "help-mode",
+      "title",
+      "disabled",
+      "readonly",
+      "required",
+      "hidden",
+      "invalid",
+      "error",
+      "css-class",
+      "aria-label",
+      "aria-describedby"
+    ];
+    constructor() {
+      super();
+      this._uibId = createId(this.localName || "uib-component");
+    }
+    get componentId() {
+      return this.id || this._uibId;
+    }
+    get name() {
+      return this.getAttribute("name") || "";
+    }
+    set name(value) {
+      setOrRemoveAttribute(this, "name", value);
+    }
+    get label() {
+      return this.getAttribute("label") || "";
+    }
+    set label(value) {
+      setOrRemoveAttribute(this, "label", value);
+    }
+    get help() {
+      return this.getAttribute("help") || "";
+    }
+    set help(value) {
+      setOrRemoveAttribute(this, "help", value);
+    }
+    get helpMode() {
+      const mode = (this.getAttribute("help-mode") || "").toLowerCase();
+      return mode === "inline" ? "inline" : "tooltip";
+    }
+    set helpMode(value) {
+      setOrRemoveAttribute(this, "help-mode", value);
+    }
+    get titleText() {
+      return this.getAttribute("title") || "";
+    }
+    set titleText(value) {
+      setOrRemoveAttribute(this, "title", value);
+    }
+    get disabled() {
+      return this.hasAttribute("disabled");
+    }
+    set disabled(value) {
+      this.toggleAttribute("disabled", Boolean(value));
+    }
+    get readonly() {
+      return this.hasAttribute("readonly");
+    }
+    set readonly(value) {
+      this.toggleAttribute("readonly", Boolean(value));
+    }
+    get required() {
+      return this.hasAttribute("required");
+    }
+    set required(value) {
+      this.toggleAttribute("required", Boolean(value));
+    }
+    get invalid() {
+      return this.hasAttribute("invalid");
+    }
+    set invalid(value) {
+      this.toggleAttribute("invalid", Boolean(value));
+    }
+    get error() {
+      return this.getAttribute("error") || "";
+    }
+    set error(value) {
+      setOrRemoveAttribute(this, "error", value);
+    }
+    get ariaLabel() {
+      return this.getAttribute("aria-label") || "";
+    }
+    get ariaDescribedBy() {
+      return this.getAttribute("aria-describedby") || "";
+    }
+    get cssClass() {
+      return this.getAttribute("css-class") || "";
+    }
+    set cssClass(value) {
+      setOrRemoveAttribute(this, "css-class", value);
+    }
+    describedBy(...internalIds) {
+      return mergeIds(this.ariaDescribedBy, ...internalIds);
+    }
+    emitMtEvent(type, detail = {}, options = {}) {
+      this.dispatchEvent(new CustomEvent(type, {
+        bubbles: options.bubbles ?? true,
+        composed: options.composed ?? true,
+        cancelable: options.cancelable ?? false,
+        detail
+      }));
+    }
+    emitValueChange(componentEventName, oldValue, newValue, extra = {}) {
+      const detail = {
+        name: this.name,
+        oldValue,
+        newValue,
+        ...extra
+      };
+      this.emitMtEvent("change", detail);
+      if (componentEventName) this.emitMtEvent(componentEventName, detail);
+    }
+    attributeChangedCallback() {
+      if (this.isConnected && typeof this.render === "function") this.render();
+    }
+  };
+
+  // ../ui-base/packages/ui-base-icons/src/icon-registry.js
+  var icons = /* @__PURE__ */ new Map();
+  function registerMtIcon(name, svg) {
+    const normalized = String(name || "").trim().toLowerCase();
+    if (!normalized) throw new Error("Icon name is required.");
+    icons.set(normalized, String(svg || ""));
+  }
+  function getMtIcon(name) {
+    return icons.get(String(name || "").trim().toLowerCase()) || "";
+  }
+  registerMtIcon("help", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 17a1.15 1.15 0 1 1 0-2.3 1.15 1.15 0 0 1 0 2.3Zm1.1-5.1v.6h-2.1v-.8c0-1.4.8-2.1 1.6-2.7.7-.5 1.2-.9 1.2-1.7 0-.9-.7-1.5-1.8-1.5-1 0-1.7.5-2.3 1.3L8.2 7.9A4.4 4.4 0 0 1 12.1 6c2.4 0 4 1.4 4 3.3 0 1.8-1.1 2.6-2 3.2-.6.5-1 .8-1 1.4Z" fill="currentColor"/></svg>');
+  registerMtIcon("info", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 10h2v8h-2v-8Zm0-4h2v2h-2V6Zm1-4a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z" fill="currentColor"/></svg>');
+  registerMtIcon("menu", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16v2H4v-2Zm0 4.5h16v2H4v-2Zm0 4.5h16v2H4v-2Z" fill="currentColor"/></svg>');
+  registerMtIcon("close", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.4 5 12.6 12.6-1.4 1.4L5 6.4 6.4 5Zm12.6 1.4L6.4 19 5 17.6 17.6 5 19 6.4Z" fill="currentColor"/></svg>');
+  registerMtIcon("chevron-down", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7.4 8.6 4.6 4.6 4.6-4.6L18 10l-6 6-6-6 1.4-1.4Z" fill="currentColor"/></svg>');
+  registerMtIcon("check", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.2 16.6-4.1-4.1-1.4 1.4 5.5 5.5L20.3 8.3l-1.4-1.4-9.7 9.7Z" fill="currentColor"/></svg>');
+  registerMtIcon("x", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.4 5 12.6 12.6-1.4 1.4L5 6.4 6.4 5Zm12.6 1.4L6.4 19 5 17.6 17.6 5 19 6.4Z" fill="currentColor"/></svg>');
+  registerMtIcon("calendar", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v3h6V2h2v3h3v17H4V5h3V2Zm13 8H6v10h14V10ZM6 8h14V7H6v1Z" fill="currentColor"/></svg>');
+  registerMtIcon("warning", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1.8 21h20.4L12 3Zm1 15h-2v-2h2v2Zm0-4h-2V9h2v5Z" fill="currentColor"/></svg>');
+  registerMtIcon("external-link", '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.4l-8.3 8.3-1.4-1.4L17.6 5H14V3ZM5 5h6v2H7v10h10v-4h2v6H5V5Z" fill="currentColor"/></svg>');
+
+  // ../ui-base/packages/ui-base-icons/src/uib-icon.js
+  var styles = `
+:host{display:inline-flex;width:var(--uib-icon-size,1em);height:var(--uib-icon-size,1em);line-height:1;flex:0 0 auto}*,*::before,*::after{box-sizing:border-box}.uib-icon{display:inline-flex;width:100%;height:100%;align-items:center;justify-content:center}.uib-icon svg,.uib-icon img{width:100%;height:100%;display:block}.uib-icon img{object-fit:contain}
+`;
+  var UibIcon = class extends UibBaseElement {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "name", "src", "url", "size", "decorative"];
+    }
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+    }
+    connectedCallback() {
+      this.render();
+    }
+    get name() {
+      return this.getAttribute("name") || "";
+    }
+    set name(value) {
+      if (value === null || value === void 0) this.removeAttribute("name");
+      else this.setAttribute("name", String(value));
+    }
+    get src() {
+      return this.getAttribute("src") || this.getAttribute("url") || "";
+    }
+    set src(value) {
+      if (value === null || value === void 0) this.removeAttribute("src");
+      else this.setAttribute("src", String(value));
+    }
+    get decorative() {
+      return this.hasAttribute("decorative") || !this.label && !this.ariaLabel && !this.titleText;
+    }
+    set decorative(value) {
+      this.toggleAttribute("decorative", Boolean(value));
+    }
+    render() {
+      const label = this.ariaLabel || this.label || this.titleText || this.name || "Icon";
+      const aria = this.decorative ? 'aria-hidden="true"' : `role="img" aria-label="${escapeHtml(label)}"`;
+      const size = this.getAttribute("size");
+      const sizeStyle = size ? `:host{--uib-icon-size:${escapeHtml(size)}}` : "";
+      const src = this.src;
+      const body = src ? `<img src="` + escapeHtml(src) + `" alt="` + (this.decorative ? "" : escapeHtml(label)) + `">` : getMtIcon(this.name) || getMtIcon("info");
+      this.shadowRoot.innerHTML = `<style> ` + styles + ` ` + sizeStyle + ` </style><span class="uib-icon" part="icon" ` + aria + `> ` + body + ` </span>`;
+    }
+  };
+  defineUiBaseElement("uib-icon", UibIcon);
+
+  // ../ui-base/packages/ui-base-ui/src/layout/index.js
+  var baseStyles = `
+:host{display:block;color:var(--uib-color-ink,#13294b);font-family:var(--uib-font-family-sans,Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif)}*,*::before,*::after{box-sizing:border-box}.placeholder{padding:.75rem;border:1px dashed var(--uib-color-border-strong,#aab8cc);border-radius:var(--uib-radius-md,.75rem);background:var(--uib-color-surface-soft,#f8fbff);color:var(--uib-color-muted,#53657f);font-size:var(--uib-font-size-sm,.875rem)}
+`;
+  var UibLayoutBase = class extends UibBaseElement {
+    connectedCallback() {
+      this.render();
+    }
+  };
+  var UibStack = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "gap", "direction", "align", "justify"];
+    }
+    render() {
+      const gap = this.getAttribute("gap") || "var(--uib-space-3,.75rem)";
+      const direction = this.getAttribute("direction") || "column";
+      const align = this.getAttribute("align") || "stretch";
+      const justify = this.getAttribute("justify") || "start";
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `.uib-stack{display:flex;flex-direction:` + escapeHtml(direction) + `;gap:` + escapeHtml(gap) + `;align-items:` + escapeHtml(align) + `;justify-content:` + escapeHtml(justify) + `}@media(max-width:520px){.uib-stack{flex-wrap:wrap}} </style><div class="uib-stack" part="base"><slot></slot></div>`;
+    }
+  };
+  var UibGrid = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "columns", "min", "gap"];
+    }
+    render() {
+      const columns = this.getAttribute("columns");
+      const min = this.getAttribute("min") || "14rem";
+      const gap = this.getAttribute("gap") || "var(--uib-space-4,1rem)";
+      const template = columns ? `repeat(${Number(columns) || 1}, minmax(0, 1fr))` : `repeat(auto-fit, minmax(${min}, 1fr))`;
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `.uib-grid{display:grid;grid-template-columns:` + template + `;gap:` + escapeHtml(gap) + `}@media(max-width:520px){.uib-grid{grid-template-columns:1fr}} </style><div class="uib-grid" part="base"><slot></slot></div>`;
+    }
+  };
+  var UibRow = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "gap", "align", "justify", "wrap"];
+    }
+    render() {
+      const gap = this.getAttribute("gap") || "var(--uib-space-3,.75rem)";
+      const align = this.getAttribute("align") || "center";
+      const justify = this.getAttribute("justify") || "start";
+      const wrap = this.hasAttribute("wrap") ? "wrap" : "nowrap";
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `.uib-row{display:flex;flex-direction:row;gap:` + escapeHtml(gap) + `;align-items:` + escapeHtml(align) + `;justify-content:` + escapeHtml(justify) + `;flex-wrap:` + wrap + `}@media(max-width:420px){.uib-row{flex-wrap:wrap}} </style><div class="uib-row" part="base"><slot></slot></div>`;
+    }
+  };
+  var UibColumn = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "gap", "align", "justify"];
+    }
+    render() {
+      const gap = this.getAttribute("gap") || "var(--uib-space-3,.75rem)";
+      const align = this.getAttribute("align") || "stretch";
+      const justify = this.getAttribute("justify") || "start";
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `.uib-column{display:flex;flex-direction:column;gap:` + escapeHtml(gap) + `;align-items:` + escapeHtml(align) + `;justify-content:` + escapeHtml(justify) + `} </style><div class="uib-column" part="base"><slot></slot></div>`;
+    }
+  };
+  var UibSurfaceBase = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "heading", "variant", "density"];
+    }
+    surfaceName = "surface";
+    defaultVariant = "outlined";
+    connectedCallback() {
+      this.render();
+    }
+    get heading() {
+      return this.getAttribute("heading") || this.label || "";
+    }
+    get variant() {
+      const value = (this.getAttribute("variant") || this.defaultVariant).toLowerCase();
+      return ["outlined", "elevated", "flat"].includes(value) ? value : this.defaultVariant;
+    }
+    get density() {
+      return this.getAttribute("density") === "compact" ? "compact" : "comfortable";
+    }
+    hasNamedSlot(name) {
+      return Array.from(this.children).some((child) => child.getAttribute?.("slot") === name);
+    }
+    surfaceStyles(extra = "") {
+      return `<style> ` + baseStyles + `.uib-surface{display:block;overflow:hidden;border:1px solid var(--uib-color-border,#d9e2f0);border-radius:var(--uib-radius-lg,1rem);background:var(--uib-color-surface,#fff);color:var(--uib-color-ink,#13294b);text-align:start;text-decoration:none}.uib-surface--elevated{box-shadow:var(--uib-shadow-sm,0 6px 18px rgba(10,31,68,.08))}.uib-surface--outlined{box-shadow:none}.uib-surface--flat{border-color:transparent;box-shadow:none}.uib-surface--disabled{cursor:not-allowed;opacity:.58}.uib-surface__header,.uib-surface__body,.uib-surface__footer,.uib-surface__actions{padding:var(--uib-space-4,1rem)}.uib-surface--compact .uib-surface__header,.uib-surface--compact .uib-surface__body,.uib-surface--compact .uib-surface__footer,.uib-surface--compact .uib-surface__actions{padding:var(--uib-space-3,.75rem)}.uib-surface__header{display:flex;gap:.75rem;align-items:center;justify-content:space-between;border-bottom:1px solid var(--uib-color-border,#d9e2f0);font-weight:850}.uib-surface__header[hidden],.uib-surface__footer[hidden],.uib-surface__actions[hidden],.uib-surface__media[hidden],.uib-surface__collapsible[hidden]{display:none!important}.uib-surface__footer{border-top:1px solid var(--uib-color-border,#d9e2f0);background:var(--uib-color-surface-soft,#f8fbff)}.uib-surface__actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:flex-end;padding-bottom:0}.uib-surface:focus-visible{outline:none;box-shadow:var(--uib-focus-ring,0 0 0 4px rgba(23,74,139,.25))} ` + extra + ` </style>`;
+    }
+    headerMarkup(headingId, visible = true, after = "") {
+      const heading = this.heading;
+      return `<div class="uib-surface__header" part="header" ` + (headingId ? `id="${headingId}"` : "") + (visible ? "" : " hidden") + `><slot name="header">` + escapeHtml(heading) + `</slot>` + after + `</div>`;
+    }
+    bodyMarkup(hidden = false) {
+      return `<div class="uib-surface__body" part="body"` + (hidden ? " hidden" : "") + `><slot></slot></div>`;
+    }
+    footerMarkup(visible = true) {
+      return `<div class="uib-surface__footer" part="footer"` + (visible ? "" : " hidden") + `><slot name="footer"></slot></div>`;
+    }
+    surfaceClasses(...names) {
+      return [
+        "uib-surface",
+        `uib-${this.surfaceName}`,
+        `uib-surface--${this.variant}`,
+        `uib-surface--${this.density}`,
+        this.disabled ? "uib-surface--disabled" : "",
+        ...names
+      ].filter(Boolean).join(" ");
+    }
+  };
+  var UibPanel = class extends UibSurfaceBase {
+    static get observedAttributes() {
+      return [...super.observedAttributes, "collapsible", "open"];
+    }
+    surfaceName = "panel";
+    defaultVariant = "outlined";
+    get collapsible() {
+      return this.hasAttribute("collapsible");
+    }
+    get open() {
+      return !this.collapsible || this.hasAttribute("open");
+    }
+    set open(value) {
+      this.toggleAttribute("open", Boolean(value));
+    }
+    toggle() {
+      if (!this.collapsible || this.disabled) return;
+      const oldValue = this.open;
+      this.open = !oldValue;
+      this.emitValueChange("uib-panel-toggle", oldValue, this.open);
+    }
+    render() {
+      const headingId = this.heading ? `${this.componentId}-heading` : "";
+      const hasHeader = Boolean(this.heading) || this.hasNamedSlot("header") || this.hasNamedSlot("actions") || this.collapsible;
+      const hasActions = this.hasNamedSlot("actions");
+      const hasFooter = this.hasNamedSlot("footer");
+      const open = this.open;
+      const toggleButton = this.collapsible ? `<button class="uib-panel__toggle" part="toggle" type="button" aria-expanded="${open ? "true" : "false"}" ${this.disabled ? "disabled" : ""}><span class="uib-panel__toggle-icon" aria-hidden="true">` + (open ? "-" : "+") + `</span></button>` : "";
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = this.surfaceStyles(`.uib-panel .uib-surface__actions{margin-inline-start:auto;padding:0}.uib-panel__toggle{display:inline-grid;width:2rem;height:2rem;place-items:center;border:1px solid var(--uib-color-border,#d9e2f0);border-radius:var(--uib-radius-pill,999px);background:var(--uib-color-surface,#fff);color:var(--uib-color-ink,#13294b);cursor:pointer}.uib-panel__toggle:disabled{cursor:not-allowed}.uib-panel__toggle:focus-visible{outline:none;box-shadow:var(--uib-focus-ring,0 0 0 4px rgba(23,74,139,.25))}.uib-panel__toggle-icon{font-size:1rem;font-weight:900;line-height:1}`) + `<section class="${this.surfaceClasses()}" part="base" ` + (headingId ? `aria-labelledby="${headingId}"` : "") + (this.disabled ? ' aria-disabled="true"' : "") + `>` + (hasHeader ? this.headerMarkup(headingId, true, `<div class="uib-surface__actions" part="actions"><slot name="actions"></slot></div>${toggleButton}`) : this.headerMarkup("", false)) + `<div class="uib-surface__collapsible" part="content"` + (open ? "" : " hidden") + `>` + (hasActions && !hasHeader ? `<div class="uib-surface__actions" part="actions"><slot name="actions"></slot></div>` : "") + this.bodyMarkup() + this.footerMarkup(hasFooter) + `</div></section>`;
+      this.shadowRoot.querySelector(".uib-panel__toggle")?.addEventListener("click", () => this.toggle());
+    }
+  };
+  var UibCard = class extends UibSurfaceBase {
+    static get observedAttributes() {
+      return [...super.observedAttributes, "href", "target", "rel", "action", "action-token", "interactive", "selectable", "selected"];
+    }
+    surfaceName = "card";
+    defaultVariant = "elevated";
+    connectedCallback() {
+      super.connectedCallback();
+      this._cardSlotObserver ||= new MutationObserver((records) => {
+        if (records.some((record) => record.target === this || record.type === "attributes" && record.target.parentElement === this)) this._updateCardSlots();
+      });
+      this._cardSlotObserver.observe(this, { childList: true, attributes: true, attributeFilter: ["slot"], subtree: true });
+    }
+    disconnectedCallback() {
+      this._cardSlotObserver?.disconnect();
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+      if (oldValue === newValue) return;
+      if (name === "selected" && this.shadowRoot?.querySelector(".uib-card")) {
+        const surface = this.shadowRoot.querySelector(".uib-card");
+        surface.classList.toggle("uib-card--selected", this.selected);
+        if (this.selectable) surface.setAttribute("aria-pressed", String(this.selected));
+        return;
+      }
+      super.attributeChangedCallback(name, oldValue, newValue);
+    }
+    _updateCardSlots() {
+      if (!this.shadowRoot) return;
+      for (const name of ["media", "header", "footer"]) {
+        const wrapper = this.shadowRoot.querySelector(`[part="${name}"]`);
+        if (wrapper) wrapper.hidden = name === "header" ? !this.heading && !this.hasNamedSlot(name) : !this.hasNamedSlot(name);
+      }
+    }
+    get href() {
+      return this.getAttribute("href") || "";
+    }
+    get target() {
+      return this.getAttribute("target") || "";
+    }
+    get rel() {
+      return this.getAttribute("rel") || "";
+    }
+    get action() {
+      return this.getAttribute("action") || "";
+    }
+    get actionToken() {
+      return this.getAttribute("action-token") || "";
+    }
+    get interactive() {
+      return this.hasAttribute("interactive") || Boolean(this.href || this.action || this.actionToken || this.selectable);
+    }
+    get selectable() {
+      return this.hasAttribute("selectable");
+    }
+    get selected() {
+      return this.hasAttribute("selected");
+    }
+    set selected(value) {
+      this.toggleAttribute("selected", Boolean(value));
+    }
+    shouldIgnoreActivation(event, surface) {
+      const interactiveSelector = 'a,button,input,select,textarea,summary,[role="button"],[role="link"],[contenteditable="true"]';
+      for (const item of event?.composedPath?.() || []) {
+        if (item === surface) return false;
+        if (item instanceof HTMLElement && item.matches(interactiveSelector)) return true;
+      }
+      return false;
+    }
+    activate(event) {
+      if (this.disabled) {
+        event?.preventDefault?.();
+        return;
+      }
+      const surface = this.shadowRoot?.querySelector(".uib-card");
+      if (surface && this.shouldIgnoreActivation(event, surface)) return;
+      const oldSelected = this.selected;
+      if (this.selectable) {
+        this.selected = !oldSelected;
+        this.emitValueChange("uib-card-select", oldSelected, this.selected, { selected: this.selected });
+      }
+      if (this.action || this.actionToken) {
+        const allowed = this.dispatchEvent(new CustomEvent("uib-card-action", {
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+          detail: {
+            name: this.name,
+            action: this.action,
+            actionToken: this.actionToken,
+            selected: this.selected
+          }
+        }));
+        if (!allowed) event?.preventDefault?.();
+      }
+    }
+    handleKeydown(event) {
+      if (!this.interactive || this.href) return;
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const surface = this.shadowRoot?.querySelector(".uib-card");
+      if (surface && this.shouldIgnoreActivation(event, surface)) return;
+      event.preventDefault();
+      this.activate(event);
+    }
+    render() {
+      const hadSurfaceFocus = Boolean(this.shadowRoot?.activeElement) && this.shadowRoot.activeElement === this.shadowRoot.querySelector(".uib-card");
+      const headingId = this.heading ? `${this.componentId}-heading` : "";
+      const hasHeader = Boolean(this.heading) || this.hasNamedSlot("header");
+      const hasMedia = this.hasNamedSlot("media");
+      const hasFooter = this.hasNamedSlot("footer");
+      const tag = this.href ? "a" : "section";
+      const href = tag === "a" ? ` href="${escapeHtml(this.href)}"` : "";
+      const target = tag === "a" && this.target ? ` target="${escapeHtml(this.target)}"` : "";
+      const rel = tag === "a" && this.rel ? ` rel="${escapeHtml(this.rel)}"` : "";
+      const role = tag === "section" && this.interactive ? ' role="button"' : "";
+      const tabIndex = this.interactive ? ` tabindex="${this.disabled ? "-1" : "0"}"` : "";
+      const ariaPressed = this.selectable ? ` aria-pressed="${this.selected ? "true" : "false"}"` : "";
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = this.surfaceStyles(`.uib-card{width:100%;font:inherit}.uib-card--interactive{cursor:pointer}.uib-card--selected{border-color:var(--uib-color-primary,#174a8b);box-shadow:var(--uib-focus-ring,0 0 0 4px rgba(23,74,139,.18))}.uib-card__media{display:block;overflow:hidden;background:var(--uib-color-surface-soft,#f8fbff)}.uib-card__media::slotted(img),.uib-card__media::slotted(video),.uib-card__media::slotted(uib-media){display:block;width:100%}`) + `<${tag} class="${this.surfaceClasses(this.interactive ? "uib-card--interactive" : "", this.selected ? "uib-card--selected" : "")}" part="base" ` + (this.ariaLabel ? `aria-label="${escapeHtml(this.ariaLabel)}"` : headingId ? `aria-labelledby="${headingId}"` : "") + (this.ariaDescribedBy ? ` aria-describedby="${escapeHtml(this.ariaDescribedBy)}"` : "") + (this.disabled ? ' aria-disabled="true"' : "") + ariaPressed + role + href + target + rel + tabIndex + `><div class="uib-card__media" part="media"` + (hasMedia ? "" : " hidden") + `><slot name="media"></slot></div>` + this.headerMarkup(headingId, hasHeader) + this.bodyMarkup() + this.footerMarkup(hasFooter) + `</${tag}>`;
+      const surface = this.shadowRoot.querySelector(".uib-card");
+      surface?.addEventListener("click", (event) => this.activate(event));
+      surface?.addEventListener("keydown", (event) => this.handleKeydown(event));
+      if (hadSurfaceFocus && this.interactive && !this.disabled) surface?.focus({ preventScroll: true });
+    }
+  };
+  var UibDialog = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "open", "heading"];
+    }
+    get open() {
+      return this.hasAttribute("open");
+    }
+    set open(value) {
+      this.toggleAttribute("open", Boolean(value));
+    }
+    show() {
+      this.open = true;
+    }
+    close() {
+      const oldValue = true;
+      this.open = false;
+      this.emitValueChange("uib-dialog-close", oldValue, false);
+    }
+    render() {
+      const heading = this.label || this.getAttribute("heading") || "Dialog";
+      const headingId = `${this.componentId}-heading`;
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `:host{display:` + (this.open ? "block" : "none") + `}.uib-dialog{position:fixed;inset:0;z-index:var(--uib-z-index-modal,1100);display:grid;place-items:center;padding:1rem;background:rgba(6,21,40,.48)}.uib-dialog__panel{width:min(42rem,100%);max-height:calc(100vh - 2rem);overflow:auto;border:1px solid var(--uib-color-border,#d9e2f0);border-radius:var(--uib-radius-lg,1rem);background:var(--uib-color-surface,#fff);box-shadow:var(--uib-shadow-lg,0 24px 70px rgba(10,31,68,.14))}.uib-dialog__header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem;border-bottom:1px solid var(--uib-color-border,#d9e2f0);font-weight:850}.uib-dialog__body{padding:1rem}.uib-dialog__footer{padding:1rem;border-top:1px solid var(--uib-color-border,#d9e2f0);background:var(--uib-color-surface-soft,#f8fbff)}button{border:1px solid var(--uib-color-border,#d9e2f0);border-radius:var(--uib-radius-pill,999px);background:var(--uib-color-surface,#fff);padding:.45rem .65rem;cursor:pointer} </style><div class="uib-dialog" part="backdrop"><section class="uib-dialog__panel" part="panel" role="dialog" aria-modal="true" aria-labelledby="` + headingId + `"><div class="uib-dialog__header" part="header"><span id="` + headingId + `"><slot name="header">` + escapeHtml(heading) + `</slot></span><button type="button" part="close-button" aria-label="Close"><uib-icon name="close" decorative></uib-icon></button></div><div class="uib-dialog__body" part="body"><slot></slot></div><div class="uib-dialog__footer" part="footer"><slot name="footer"></slot></div></section></div>`;
+      this.shadowRoot.querySelector("button")?.addEventListener("click", () => this.close());
+      this.shadowRoot.querySelector(".uib-dialog")?.addEventListener("click", (event) => {
+        if (event.target === event.currentTarget) this.close();
+      });
+    }
+  };
+  var UibAccordion = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "open", "heading"];
+    }
+    render() {
+      const heading = this.label || this.getAttribute("heading") || "Accordion";
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `details{border:1px solid var(--uib-color-border,#d9e2f0);border-radius:var(--uib-radius-lg,1rem);background:var(--uib-color-surface,#fff);overflow:hidden}summary{cursor:pointer;padding:1rem;font-weight:850}summary:focus-visible{outline:none;box-shadow:var(--uib-focus-ring,0 0 0 4px rgba(23,74,139,.25))}.uib-accordion__body{padding:0 1rem 1rem} </style><details part="base" ` + (this.hasAttribute("open") ? "open" : "") + `><summary part="summary"><slot name="summary">` + escapeHtml(heading) + `</slot></summary><div class="uib-accordion__body" part="body"><slot></slot></div></details>`;
+      this.shadowRoot.querySelector("details")?.addEventListener("toggle", (event) => {
+        const open = event.currentTarget.open;
+        this.toggleAttribute("open", open);
+        this.emitMtEvent("uib-accordion-toggle", { name: this.name, oldValue: !open, newValue: open });
+      });
+    }
+  };
+  var UibTab = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "selected", "aria-selected", "aria-disabled"];
+    }
+    get disabled() {
+      return this.hasAttribute("disabled") || this.getAttribute("aria-disabled") === "true";
+    }
+    set disabled(value) {
+      this.toggleAttribute("disabled", Boolean(value));
+    }
+    render() {
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `:host{display:inline-flex;align-items:center;justify-content:center;min-height:2.3rem;min-width:2.75rem;padding:.55rem .78rem;border:1px solid var(--uib-color-border,#d9e2f0);border-radius:var(--uib-radius-pill,999px);background:var(--uib-color-surface,#fff);color:var(--uib-color-ink,#13294b);font:inherit;font-weight:850;line-height:1.2;cursor:pointer;user-select:none;outline:none}:host(:focus-visible){box-shadow:var(--uib-focus-ring,0 0 0 4px rgba(23,74,139,.25))}:host([selected]),:host([aria-selected="true"]){border-color:var(--uib-color-primary,#174a8b);background:var(--uib-color-primary,#174a8b);color:var(--uib-color-primary-contrast,#fff)}:host([disabled]),:host([aria-disabled="true"]){cursor:not-allowed;opacity:.58}::slotted(*){pointer-events:none} </style><slot></slot>`;
+    }
+  };
+  var UibTabPanel = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "selected"];
+    }
+    render() {
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `:host{display:block;padding:1rem;border:1px solid var(--uib-color-border,#d9e2f0);border-radius:var(--uib-radius-lg,1rem);background:var(--uib-color-surface,#fff)}:host([hidden]){display:none!important} </style><slot></slot>`;
+    }
+  };
+  var UibTabs = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "selected", "orientation"];
+    }
+    constructor() {
+      super();
+      this._reflectingSelected = false;
+      this._pendingSelected = null;
+      this._syncing = false;
+      this._observer = null;
+      this._boundClick = (event) => this._handleClick(event);
+      this._boundKeydown = (event) => this._handleKeydown(event);
+    }
+    get selected() {
+      return this.getAttribute("selected") || "";
+    }
+    set selected(value) {
+      if (value === null || value === void 0 || value === "") this.removeAttribute("selected");
+      else this.setAttribute("selected", String(value));
+    }
+    get orientation() {
+      return this.getAttribute("orientation") === "vertical" ? "vertical" : "horizontal";
+    }
+    set orientation(value) {
+      if (value === "vertical") this.setAttribute("orientation", "vertical");
+      else this.setAttribute("orientation", "horizontal");
+    }
+    connectedCallback() {
+      this.render();
+      this._connectObserver();
+      this._syncTabs({ emit: false });
+    }
+    disconnectedCallback() {
+      this._observer?.disconnect();
+      this._observer = null;
+      this.removeEventListener("click", this._boundClick);
+      this.removeEventListener("keydown", this._boundKeydown);
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+      if (oldValue === newValue) return;
+      if (name === "selected" && !this._reflectingSelected) this._pendingSelected = newValue;
+      if (this.isConnected) {
+        this.render();
+        this._syncTabs({ emit: false });
+      }
+    }
+    render() {
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `:host{display:block}.uib-tabs{display:grid;gap:.75rem}.uib-tabs--vertical{grid-template-columns:max-content minmax(0,1fr);align-items:start}.uib-tabs__list{display:flex;gap:.35rem;flex-wrap:wrap}.uib-tabs--vertical .uib-tabs__list{flex-direction:column;align-items:stretch}.uib-tabs__panels{min-width:0}@media(max-width:640px){.uib-tabs--vertical{grid-template-columns:1fr}.uib-tabs--vertical .uib-tabs__list{flex-direction:row;align-items:center}} </style><div class="uib-tabs uib-tabs--` + escapeHtml(this.orientation) + `" part="base"><div class="uib-tabs__list" part="tablist" role="tablist" aria-orientation="` + escapeHtml(this.orientation) + `"><slot name="tab"></slot></div><div class="uib-tabs__panels" part="panels"><slot name="panel"></slot></div></div>`;
+      this.removeEventListener("click", this._boundClick);
+      this.removeEventListener("keydown", this._boundKeydown);
+      this.addEventListener("click", this._boundClick);
+      this.addEventListener("keydown", this._boundKeydown);
+    }
+    _connectObserver() {
+      this._observer?.disconnect();
+      this._observer = new MutationObserver(() => this._syncTabs({ emit: false }));
+      this._observer.observe(this, {
+        childList: true,
+        attributes: true,
+        subtree: true,
+        attributeFilter: ["disabled", "aria-disabled"]
+      });
+    }
+    _tabs() {
+      return Array.from(this.children).filter((child) => child.localName === "uib-tab");
+    }
+    _panels() {
+      return Array.from(this.children).filter((child) => child.localName === "uib-tab-panel");
+    }
+    _isDisabled(tab) {
+      return tab.hasAttribute("disabled") || tab.getAttribute("aria-disabled") === "true";
+    }
+    _setManagedAttribute(element, name, value) {
+      if (element.getAttribute(name) !== value) element.setAttribute(name, value);
+    }
+    _parseSelected() {
+      const value = this._pendingSelected ?? this.getAttribute("selected");
+      if (value === null || value === void 0 || value === "") return null;
+      const parsed = Number(value);
+      return Number.isInteger(parsed) && parsed >= 0 ? parsed : null;
+    }
+    _firstEnabledIndex(tabs) {
+      return tabs.findIndex((tab) => !this._isDisabled(tab));
+    }
+    _lastEnabledIndex(tabs) {
+      for (let index = tabs.length - 1; index >= 0; index -= 1) {
+        if (!this._isDisabled(tabs[index])) return index;
+      }
+      return -1;
+    }
+    _normalizeSelected(tabs) {
+      const requested = this._parseSelected();
+      if (requested !== null && tabs[requested] && !this._isDisabled(tabs[requested])) return requested;
+      return this._firstEnabledIndex(tabs);
+    }
+    _reflectSelected(index) {
+      this._reflectingSelected = true;
+      if (index >= 0) this.setAttribute("selected", String(index));
+      else this.removeAttribute("selected");
+      this._reflectingSelected = false;
+      this._pendingSelected = null;
+    }
+    _syncTabs({ emit = false, oldValue = null } = {}) {
+      if (this._syncing) return;
+      this._syncing = true;
+      const tabs = this._tabs();
+      const panels = this._panels();
+      const selectedIndex = this._normalizeSelected(tabs);
+      tabs.forEach((tab, index) => {
+        const selected = index === selectedIndex;
+        const disabled = this._isDisabled(tab);
+        const panel = panels[index];
+        const tabId = tab.id || `${this.componentId}-tab-${index}`;
+        const panelId = panel?.id || `${this.componentId}-panel-${index}`;
+        if (!tab.id) tab.id = tabId;
+        tab.slot = "tab";
+        this._setManagedAttribute(tab, "role", "tab");
+        this._setManagedAttribute(tab, "aria-selected", selected ? "true" : "false");
+        this._setManagedAttribute(tab, "aria-disabled", disabled ? "true" : "false");
+        if (panel) this._setManagedAttribute(tab, "aria-controls", panelId);
+        else tab.removeAttribute("aria-controls");
+        tab.toggleAttribute("selected", selected);
+        tab.tabIndex = selected || selectedIndex < 0 && index === 0 ? 0 : -1;
+      });
+      panels.forEach((panel, index) => {
+        const selected = index === selectedIndex;
+        const tab = tabs[index];
+        const tabId = tab?.id || `${this.componentId}-tab-${index}`;
+        const panelId = panel.id || `${this.componentId}-panel-${index}`;
+        if (!panel.id) panel.id = panelId;
+        panel.slot = "panel";
+        this._setManagedAttribute(panel, "role", "tabpanel");
+        if (tab) this._setManagedAttribute(panel, "aria-labelledby", tabId);
+        else panel.removeAttribute("aria-labelledby");
+        panel.toggleAttribute("hidden", !selected);
+        panel.toggleAttribute("selected", selected);
+        panel.tabIndex = selected ? 0 : -1;
+      });
+      this._reflectSelected(selectedIndex);
+      this._syncing = false;
+      const newValue = selectedIndex >= 0 ? selectedIndex : null;
+      if (emit && oldValue !== newValue) this.emitValueChange("uib-tabs-change", oldValue, newValue);
+    }
+    _selectIndex(index, { emit = true, focus = true } = {}) {
+      const tabs = this._tabs();
+      if (!tabs[index] || this._isDisabled(tabs[index])) {
+        if (focus && tabs[index]) tabs[index].focus();
+        return;
+      }
+      const oldValue = this._normalizeSelected(tabs);
+      this._pendingSelected = String(index);
+      this._syncTabs({ emit, oldValue: oldValue >= 0 ? oldValue : null });
+      if (focus) tabs[index]?.focus();
+    }
+    _handleClick(event) {
+      const tab = event.target.closest?.("uib-tab");
+      if (!tab || tab.parentElement !== this) return;
+      const index = this._tabs().indexOf(tab);
+      this._selectIndex(index, { emit: true, focus: true });
+    }
+    _handleKeydown(event) {
+      const currentTab = event.target.closest?.("uib-tab");
+      if (!currentTab || currentTab.parentElement !== this) return;
+      const tabs = this._tabs();
+      const currentIndex = tabs.indexOf(currentTab);
+      if (currentIndex < 0) return;
+      const nextKey = this.orientation === "vertical" ? "ArrowDown" : "ArrowRight";
+      const previousKey = this.orientation === "vertical" ? "ArrowUp" : "ArrowLeft";
+      if (event.key === nextKey || event.key === previousKey) {
+        event.preventDefault();
+        const direction = event.key === nextKey ? 1 : -1;
+        const nextIndex = (currentIndex + direction + tabs.length) % tabs.length;
+        tabs[nextIndex]?.focus();
+        if (!this._isDisabled(tabs[nextIndex])) this._selectIndex(nextIndex, { emit: true, focus: false });
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        this._selectIndex(this._firstEnabledIndex(tabs), { emit: true, focus: true });
+      } else if (event.key === "End") {
+        event.preventDefault();
+        this._selectIndex(this._lastEnabledIndex(tabs), { emit: true, focus: true });
+      } else if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        this._selectIndex(currentIndex, { emit: true, focus: true });
+      }
+    }
+  };
+  var UibSplitter = class extends UibLayoutBase {
+    static get observedAttributes() {
+      return [...UibBaseElement.commonAttributes, "position"];
+    }
+    render() {
+      const position = this.getAttribute("position") || "1fr 1fr";
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style> ` + baseStyles + `.uib-splitter{display:grid;grid-template-columns:` + escapeHtml(position) + `;gap:var(--uib-space-4,1rem)}.uib-splitter__pane{min-width:0;border:1px solid var(--uib-color-border,#d9e2f0);border-radius:var(--uib-radius-lg,1rem);background:var(--uib-color-surface,#fff);padding:1rem}@media(max-width:700px){.uib-splitter{grid-template-columns:1fr}} </style><div class="uib-splitter" part="base"><section class="uib-splitter__pane" part="pane-start"><slot name="start"></slot></section><section class="uib-splitter__pane" part="pane-end"><slot name="end"></slot><slot></slot></section></div>`;
+    }
+  };
+  defineUiBaseElement("uib-stack", UibStack);
+  defineUiBaseElement("uib-grid", UibGrid);
+  defineUiBaseElement("uib-row", UibRow);
+  defineUiBaseElement("uib-column", UibColumn);
+  defineUiBaseElement("uib-panel", UibPanel);
+  defineUiBaseElement("uib-card", UibCard);
+  defineUiBaseElement("uib-dialog", UibDialog);
+  defineUiBaseElement("uib-accordion", UibAccordion);
+  defineUiBaseElement("uib-tab", UibTab);
+  defineUiBaseElement("uib-tab-panel", UibTabPanel);
+  defineUiBaseElement("uib-tabs", UibTabs);
+  defineUiBaseElement("uib-splitter", UibSplitter);
+
+  // ../ui-base/packages/ui-base-ui/src/platform/definition.js
+  function copySerializable(value) {
+    const seen = /* @__PURE__ */ new Set();
+    const visit = (item, path = "$") => {
+      if (item === null || typeof item === "string" || typeof item === "boolean") return;
+      if (typeof item === "number" && Number.isFinite(item)) return;
+      if (!item || typeof item !== "object") throw new TypeError(`${path} must contain JSON values only.`);
+      if (seen.has(item)) throw new TypeError(`${path} contains a cycle.`);
+      if (!Array.isArray(item) && Object.getPrototypeOf(item) !== Object.prototype && Object.getPrototypeOf(item) !== null) throw new TypeError(`${path} contains a runtime object.`);
+      seen.add(item);
+      for (const [key, descriptor] of Object.entries(Object.getOwnPropertyDescriptors(item))) {
+        if (Array.isArray(item) && key === "length") continue;
+        if (["__proto__", "constructor", "prototype"].includes(key) || descriptor.get || descriptor.set) throw new TypeError(`${path}.${key} is not a data field.`);
+        visit(descriptor.value, `${path}.${key}`);
+      }
+      seen.delete(item);
+    };
+    visit(value);
+    return JSON.parse(JSON.stringify(value));
+  }
+  function freezeDefinition(value) {
+    for (const child of Object.values(value)) if (child && typeof child === "object") freezeDefinition(child);
+    return Object.freeze(value);
+  }
+  var isSettingVisible = (setting, values) => !setting.visibleWhen || values[setting.visibleWhen.setting] === setting.visibleWhen.equals;
+  function defaultSettings(definition) {
+    return Object.fromEntries(Object.entries(definition.builder.settings).map(([name, setting]) => [name, setting.default]));
+  }
+  function safeAuthoringUrl(value, image = false) {
+    if (!value) return true;
+    if (typeof value !== "string" || /[\u0000-\u0020\u007f]/.test(value.trim())) return false;
+    const input = value.trim();
+    if (input.startsWith("//") || input.includes("\\")) return false;
+    if (!/^[a-z][a-z\d+.-]*:/i.test(input)) return true;
+    return image ? /^https?:/i.test(input) : /^(https?|mailto|tel):/i.test(input);
+  }
+  function validateDefinition(input) {
+    const errors = [];
+    let definition;
+    try {
+      definition = copySerializable(input);
+    } catch (error) {
+      return [error.message];
+    }
+    const object = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+    if (!object(definition)) return ["Component Definition must be an object."];
+    if (definition.schemaVersion !== "1.0.0") errors.push("Unsupported Component Definition schema version.");
+    for (const field of ["componentId", "name", "displayName", "description"]) if (typeof definition.identity?.[field] !== "string" || field !== "description" && !definition.identity[field].trim()) errors.push(`identity.${field} is required.`);
+    if (!["platform", "application"].includes(definition.ownership?.scope)) errors.push("Scope must be platform or application.");
+    if (!definition.ownership?.package?.packageId || !definition.version?.packageVersion) errors.push("Owning package and package version are required.");
+    if (!["code", "composite"].includes(definition.implementation?.type)) errors.push("Implementation type must be code or composite.");
+    if (definition.implementation?.type === "composite") errors.push("Composite graph validation is outside this reference stage.");
+    if (typeof definition.implementation?.tagName !== "string" || !definition.implementation.tagName.includes("-")) errors.push("A custom-element tag is required.");
+    if (definition.implementation?.runtimeBinding?.kind !== "custom-element" || definition.implementation.runtimeBinding.tagName !== definition.implementation.tagName) errors.push("Runtime binding must identify the declared custom element.");
+    if (typeof definition.implementation?.importPath !== "string" || typeof definition.implementation?.exportName !== "string") errors.push("Code import path and export name are required.");
+    if (!Array.isArray(definition.implementation?.aliases) || definition.implementation.aliases.some((alias) => !object(alias) || typeof alias.importPath !== "string" || typeof alias.exportName !== "string")) errors.push("Compatibility aliases must declare import paths and export names.");
+    if (definition.tagName !== definition.implementation?.tagName || definition.module !== definition.implementation?.module) errors.push("Legacy manifest projections must match the canonical implementation.");
+    if (!object(definition.runtime?.attributes) || !object(definition.runtime?.properties) || !object(definition.runtime?.events) || !Array.isArray(definition.runtime?.slots) || definition.runtime.slots.some((slot) => !object(slot) || typeof slot.name !== "string")) errors.push("Runtime API sections are required.");
+    if (!object(definition.builder?.settings) || Object.values(definition.builder.settings).some((setting) => !object(setting)) || !Array.isArray(definition.builder?.groups) || definition.builder.groups.some((group) => !object(group) || typeof group.id !== "string")) errors.push("Builder settings/groups are required.");
+    if (!Array.isArray(definition.capabilities) || definition.capabilities.some((capability) => typeof capability !== "string")) errors.push("Capabilities must be named strings.");
+    if (!object(definition.presentation) || !Array.isArray(definition.presentation.cssVariables)) errors.push("Presentation styling hooks are required.");
+    if (!object(definition.dependencies) || !Array.isArray(definition.dependencies.packages) || !Array.isArray(definition.dependencies.services)) errors.push("Package and service dependencies are required.");
+    if (!object(definition.lifecycle) || !["installed", "workspace", "published"].includes(definition.lifecycle.state)) errors.push("An explicit lifecycle state is required.");
+    if (errors.length) return errors;
+    const groups = new Set(definition.builder.groups.map((group) => group.id));
+    const slots = new Set(definition.runtime.slots.map((slot) => slot.name));
+    for (const [name, projection] of Object.entries(definition.presentation.settings || {})) {
+      const setting = definition.builder.settings[name];
+      if (!setting || projection.type !== "select" || JSON.stringify(projection.options) !== JSON.stringify(setting.enum)) errors.push(`${name} legacy presentation projection must match its Builder setting.`);
+    }
+    for (const [name, setting] of Object.entries(definition.builder.settings)) {
+      if (!groups.has(setting.group)) errors.push(`${name} references an unknown editor group.`);
+      if (!["string", "boolean", "number"].includes(setting.type) || typeof setting.default !== setting.type) errors.push(`${name} has an invalid type/default.`);
+      if (setting.enum && !setting.enum.includes(setting.default)) errors.push(`${name} default is outside its allowed values.`);
+      const binding = setting.binding || {};
+      if (binding.kind === "attribute" && !definition.runtime.attributes[binding.name]) errors.push(`${name} binds an unknown attribute.`);
+      else if (binding.kind === "property" && !definition.runtime.properties[binding.name]?.writable) errors.push(`${name} binds a read-only or unknown property.`);
+      else if (binding.kind === "slot" && (!slots.has(binding.name) || !["text", "image"].includes(binding.content))) errors.push(`${name} binds an invalid slot.`);
+      else if (binding.kind === "event" && !definition.runtime.events[binding.name]) errors.push(`${name} binds an unknown event.`);
+      else if (binding.kind === "cssProperty" && !definition.presentation.cssVariables?.includes(binding.name)) errors.push(`${name} binds an unknown styling hook.`);
+      else if (!["attribute", "property", "slot", "slotMetadata", "event", "mode", "cssProperty"].includes(binding.kind)) errors.push(`${name} has an unsupported binding.`);
+      if (setting.visibleWhen && !definition.builder.settings[setting.visibleWhen.setting]) errors.push(`${name} has an unknown visibility condition.`);
+    }
+    for (const [name, setting] of Object.entries(definition.builder.definitionSettings || {})) {
+      if (!["identity.displayName", "identity.description"].includes(setting.binding?.path)) errors.push(`${name} cannot edit this definition field in V1.`);
+    }
+    return errors;
+  }
+  function validateSettings(definition, input, { registry, resolveHandlers = false } = {}) {
+    const errors = [];
+    let values;
+    try {
+      values = copySerializable(input);
+    } catch (error) {
+      return [error.message];
+    }
+    if (!values || Array.isArray(values) || typeof values !== "object") return ["Settings must be an object."];
+    for (const name of Object.keys(values)) if (!definition.builder.settings[name]) errors.push(`Unknown setting: ${name}.`);
+    const effective = { ...defaultSettings(definition), ...values };
+    for (const [name, setting] of Object.entries(definition.builder.settings)) {
+      const value = effective[name];
+      if (typeof value !== setting.type || setting.type === "number" && !Number.isFinite(value)) {
+        errors.push(`${setting.label} must be ${setting.type}.`);
+        continue;
+      }
+      if (setting.enum && !setting.enum.includes(value)) errors.push(`${setting.label} has an unsupported value.`);
+      if (!isSettingVisible(setting, effective) && value !== setting.default) errors.push(`${setting.label} is not allowed in this interaction mode.`);
+      if ((setting.format === "url" || setting.format === "image-url") && !safeAuthoringUrl(value, setting.format === "image-url")) errors.push(`${setting.label} uses an unsupported URL.`);
+      if (resolveHandlers && setting.binding.kind === "event" && value && !registry?.hasHandler(value)) errors.push(`Handler is not registered: ${value}.`);
+    }
+    for (const rule of definition.builder.validation || []) {
+      const applies = !rule.when || effective[rule.when.setting] === rule.when.equals;
+      if (!applies) continue;
+      if (rule.kind === "requiredWhen" && !String(effective[rule.setting] || "").trim()) errors.push(`${definition.builder.settings[rule.setting].label} is required.`);
+      if (rule.kind === "oneOfRequiredWhen" && !rule.settings.some((name) => String(effective[name] || "").trim())) errors.push("An action or action token is required.");
+      if (rule.kind === "accessibleNameWhenInteractive" && effective.interactionMode !== "none" && !rule.settings.some((name) => String(effective[name] || "").trim())) errors.push("Interactive cards need an accessible name.");
+    }
+    return errors;
+  }
+
+  // ../ui-base/packages/ui-base-ui/src/platform/renderer.js
+  function renderComponentInstance(definition, instance, { registry, document: ownerDocument = document, preview = false, onEvent = () => {
+  } } = {}) {
+    if (definition.implementation.type !== "code") throw new Error("Composite rendering is outside this reference stage.");
+    if (definition.implementation.runtimeBinding.kind !== "custom-element") throw new Error("Unsupported runtime binding.");
+    const errors = validateSettings(definition, instance.settings, { registry, resolveHandlers: !preview });
+    if (instance.componentId !== definition.identity.componentId) errors.push("Instance Component identity does not match its Definition.");
+    const serviceRefs = copySerializable(instance.serviceRefs || {});
+    const declaredServices = definition.dependencies.services || [];
+    for (const name of Object.keys(serviceRefs)) if (!declaredServices.some((service) => service.name === name)) errors.push(`Unknown service reference: ${name}.`);
+    for (const service of declaredServices) if (service.required && !serviceRefs[service.name]) errors.push(`Service reference is required: ${service.name}.`);
+    if (errors.length) throw new Error(errors.join("\n"));
+    const tag = definition.implementation.runtimeBinding.tagName;
+    if (!ownerDocument.defaultView.customElements.get(tag)) throw new Error(`Runtime implementation is not registered: ${tag}.`);
+    const element = ownerDocument.createElement(tag);
+    const values = { ...defaultSettings(definition), ...instance.settings };
+    for (const [name, setting] of Object.entries(definition.builder.settings)) {
+      if (!isSettingVisible(setting, values)) continue;
+      const value = values[name];
+      const binding = setting.binding;
+      if (binding.kind === "attribute") {
+        if (setting.type === "boolean") element.toggleAttribute(binding.name, value);
+        else if (value !== "") element.setAttribute(binding.name, String(value));
+      } else if (binding.kind === "property") element[binding.name] = value;
+      else if (binding.kind === "cssProperty") element.style.setProperty(binding.name, value);
+      else if (binding.kind === "slot" && value !== "") {
+        const child = ownerDocument.createElement(binding.content === "image" ? "img" : "span");
+        if (binding.name !== "default") child.slot = binding.name;
+        if (binding.content === "image") {
+          child.src = value;
+          child.alt = values[binding.altSetting] || "";
+        } else child.textContent = value;
+        element.append(child);
+      }
+    }
+    for (const [name, value] of Object.entries(definition.builder.interactionModes?.[values.interactionMode]?.attributes || {})) {
+      if (typeof value === "boolean") element.toggleAttribute(name, value);
+      else element.setAttribute(name, String(value));
+    }
+    for (const service of declaredServices) if (serviceRefs[service.name]) element[service.property] = registry.service(serviceRefs[service.name]);
+    for (const [name, contract] of Object.entries(definition.runtime.events)) {
+      element.addEventListener(name, (event) => {
+        if (event.target !== element) return;
+        const detail = Object.fromEntries(Object.keys(contract.detail).filter((key) => event.detail?.[key] !== void 0).map((key) => [key, event.detail[key]]));
+        const payload = copySerializable(detail);
+        onEvent({ type: name, detail: payload });
+        if (preview) {
+          if (event.cancelable) event.preventDefault();
+          return;
+        }
+        const setting = Object.entries(definition.builder.settings).find(([, item]) => item.binding.kind === "event" && item.binding.name === name);
+        const handlerId = setting && values[setting[0]];
+        if (handlerId && registry.handler(handlerId)(payload, { element, event }) === false && event.cancelable) event.preventDefault();
+      });
+    }
+    if (preview) element.addEventListener("click", (event) => {
+      if (event.composedPath().some((node) => node?.localName === "a")) event.preventDefault();
+    }, { capture: true });
+    return element;
+  }
+
+  // ../ui-base/packages/ui-base-ui/src/platform/registry.js
+  var ComponentRegistry = class {
+    #definitions = /* @__PURE__ */ new Map();
+    #routes = /* @__PURE__ */ new Map();
+    #handlers = /* @__PURE__ */ new Map();
+    #services = /* @__PURE__ */ new Map();
+    registerManifest(manifest, { packageId, scope = "platform" } = {}) {
+      if (!packageId || !Array.isArray(manifest?.components)) throw new Error("Manifest components and package owner are required.");
+      const staged = [];
+      const ids = new Set(this.#definitions.keys());
+      for (const entry of manifest.components) {
+        if (!entry.schemaVersion) continue;
+        const definition = copySerializable(entry);
+        const errors = validateDefinition(definition);
+        if (definition.ownership?.package?.packageId !== packageId || definition.ownership?.scope !== scope) errors.push("Definition does not match its declared owning package/scope.");
+        if (ids.has(definition.identity?.componentId)) errors.push("Component identity is already registered.");
+        if (errors.length) throw new Error(errors.join("\n"));
+        ids.add(definition.identity.componentId);
+        staged.push(freezeDefinition(definition));
+      }
+      for (const definition of staged) {
+        const id = definition.identity.componentId;
+        this.#definitions.set(id, definition);
+        const implementation = definition.implementation;
+        const routes = [
+          id,
+          implementation.tagName,
+          definition.identity.name,
+          `${scope}:${packageId}:${implementation.tagName}`,
+          implementation.importPath,
+          `${implementation.importPath}#${implementation.exportName}`,
+          ...(implementation.aliases || []).flatMap((alias) => [alias.importPath, `${alias.importPath}#${alias.exportName}`])
+        ];
+        for (const route of routes) {
+          if (!this.#routes.has(route)) this.#routes.set(route, /* @__PURE__ */ new Set());
+          this.#routes.get(route).add(id);
+        }
+      }
+      return staged;
+    }
+    resolve(reference, { packageId, scope } = {}) {
+      const candidates = [...this.#routes.get(reference) || []].map((id) => this.#definitions.get(id)).filter((definition) => (!packageId || definition.ownership.package.packageId === packageId) && (!scope || definition.ownership.scope === scope));
+      if (candidates.length !== 1) throw new Error(candidates.length ? `Ambiguous component route: ${reference}. Specify owner/scope.` : `Unknown component: ${reference}.`);
+      return candidates[0];
+    }
+    discover({ scope, capability } = {}) {
+      return [...this.#definitions.values()].filter((definition) => (!scope || definition.ownership.scope === scope) && (!capability || definition.capabilities.includes(capability)));
+    }
+    registerHandler(id, handler) {
+      if (!id || typeof handler !== "function" || this.#handlers.has(id)) throw new Error("A unique handler ID and function are required.");
+      this.#handlers.set(id, handler);
+    }
+    hasHandler(id) {
+      return this.#handlers.has(id);
+    }
+    handler(id) {
+      if (!this.#handlers.has(id)) throw new Error(`Handler is not registered: ${id}.`);
+      return this.#handlers.get(id);
+    }
+    registerService(id, service) {
+      if (!id || service == null || this.#services.has(id)) throw new Error("A unique service ID and runtime service are required.");
+      this.#services.set(id, service);
+    }
+    service(id) {
+      if (!this.#services.has(id)) throw new Error(`Service is not registered: ${id}.`);
+      return this.#services.get(id);
+    }
+  };
+
+  // ../ui-base/packages/ui-base-ui/ui.component.json
+  var ui_component_default = {
+    components: [
+      {
+        tagName: "uib-heading",
+        module: "./src/content/uib-heading.js",
+        importPath: "./heading",
+        presentation: {
+          settings: {
+            size: {
+              type: "select",
+              options: [
+                "compact",
+                "default",
+                "large"
+              ],
+              inheritable: true
+            },
+            align: {
+              type: "select",
+              options: [
+                "start",
+                "center",
+                "end"
+              ],
+              inheritable: true
+            }
+          }
+        }
+      },
+      {
+        tagName: "uib-heading-block",
+        module: "./src/content/uib-heading-block.js",
+        importPath: "./heading-block",
+        presentation: {
+          settings: {
+            size: {
+              type: "select",
+              options: [
+                "compact",
+                "default",
+                "large"
+              ],
+              inheritable: true
+            },
+            align: {
+              type: "select",
+              options: [
+                "start",
+                "center",
+                "end"
+              ],
+              inheritable: true
+            }
+          }
+        }
+      },
+      {
+        tagName: "uib-card",
+        module: "./src/layout/uib-card.js",
+        importPath: "./card",
+        presentation: {
+          settings: {
+            variant: {
+              type: "select",
+              options: [
+                "elevated",
+                "outlined",
+                "flat"
+              ],
+              inheritable: true
+            },
+            density: {
+              type: "select",
+              options: [
+                "comfortable",
+                "compact"
+              ],
+              inheritable: true
+            }
+          },
+          parts: [
+            "base",
+            "media",
+            "header",
+            "body",
+            "footer"
+          ],
+          cssVariables: [
+            "--uib-color-ink",
+            "--uib-font-family-sans",
+            "--uib-color-border",
+            "--uib-radius-lg",
+            "--uib-color-surface",
+            "--uib-color-surface-soft",
+            "--uib-shadow-sm",
+            "--uib-space-3",
+            "--uib-space-4",
+            "--uib-focus-ring",
+            "--uib-color-primary"
+          ]
+        },
+        schemaVersion: "1.0.0",
+        identity: {
+          componentId: "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+          name: "card",
+          displayName: "Card",
+          description: "Repeatable content surface with optional link, action and selection behavior."
+        },
+        ownership: {
+          scope: "platform",
+          package: {
+            packageId: "@ui-base/ui",
+            scope: "platform",
+            version: "0.5.1"
+          },
+          provenance: {
+            origin: "installed-package",
+            promotedFromComponentId: null,
+            promotedFromRevisionId: null
+          }
+        },
+        implementation: {
+          type: "code",
+          tagName: "uib-card",
+          module: "./src/layout/uib-card.js",
+          importPath: "@ui-base/ui/card",
+          exportName: "UibCard",
+          runtimeBinding: {
+            kind: "custom-element",
+            tagName: "uib-card"
+          },
+          aliases: [
+            {
+              importPath: "@ui-base/ui",
+              exportName: "UibCard"
+            },
+            {
+              importPath: "@ui-base/ui/layout",
+              exportName: "UibCard"
+            }
+          ],
+          registrationSideEffects: [
+            "uib-stack",
+            "uib-grid",
+            "uib-row",
+            "uib-column",
+            "uib-panel",
+            "uib-card",
+            "uib-dialog",
+            "uib-accordion",
+            "uib-tab",
+            "uib-tab-panel",
+            "uib-tabs",
+            "uib-splitter",
+            "uib-icon"
+          ]
+        },
+        version: {
+          packageVersion: "0.5.1",
+          runtimeCompatibility: "^0.5.1",
+          revisionId: null
+        },
+        maturity: "experimental",
+        category: "content-surfaces",
+        runtime: {
+          attributes: {
+            name: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            label: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            help: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            "help-mode": {
+              type: "string",
+              default: "tooltip",
+              observed: true,
+              serialization: "string"
+            },
+            title: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            disabled: {
+              type: "boolean",
+              default: false,
+              observed: true,
+              serialization: "presence"
+            },
+            readonly: {
+              type: "boolean",
+              default: false,
+              observed: true,
+              serialization: "presence"
+            },
+            required: {
+              type: "boolean",
+              default: false,
+              observed: true,
+              serialization: "presence"
+            },
+            hidden: {
+              type: "boolean",
+              default: false,
+              observed: true,
+              serialization: "presence"
+            },
+            invalid: {
+              type: "boolean",
+              default: false,
+              observed: true,
+              serialization: "presence"
+            },
+            error: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            "css-class": {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            "aria-label": {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            "aria-describedby": {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            heading: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            variant: {
+              type: "string",
+              default: "elevated",
+              observed: true,
+              serialization: "string",
+              enum: [
+                "elevated",
+                "outlined",
+                "flat"
+              ]
+            },
+            density: {
+              type: "string",
+              default: "comfortable",
+              observed: true,
+              serialization: "string",
+              enum: [
+                "comfortable",
+                "compact"
+              ]
+            },
+            href: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            target: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            rel: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            action: {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            "action-token": {
+              type: "string",
+              default: "",
+              observed: true,
+              serialization: "string"
+            },
+            interactive: {
+              type: "boolean",
+              default: false,
+              observed: true,
+              serialization: "presence"
+            },
+            selectable: {
+              type: "boolean",
+              default: false,
+              observed: true,
+              serialization: "presence"
+            },
+            selected: {
+              type: "boolean",
+              default: false,
+              observed: true,
+              serialization: "presence"
+            }
+          },
+          properties: {
+            name: {
+              type: "string",
+              attribute: "name",
+              writable: true,
+              default: ""
+            },
+            label: {
+              type: "string",
+              attribute: "label",
+              writable: true,
+              default: ""
+            },
+            help: {
+              type: "string",
+              attribute: "help",
+              writable: true,
+              default: ""
+            },
+            helpMode: {
+              type: "string",
+              attribute: "help-mode",
+              writable: true,
+              default: "tooltip"
+            },
+            titleText: {
+              type: "string",
+              attribute: "title",
+              writable: true,
+              default: ""
+            },
+            disabled: {
+              type: "boolean",
+              attribute: "disabled",
+              writable: true,
+              default: false
+            },
+            readonly: {
+              type: "boolean",
+              attribute: "readonly",
+              writable: true,
+              default: false
+            },
+            required: {
+              type: "boolean",
+              attribute: "required",
+              writable: true,
+              default: false
+            },
+            hidden: {
+              type: "boolean",
+              attribute: "hidden",
+              writable: true,
+              default: false
+            },
+            invalid: {
+              type: "boolean",
+              attribute: "invalid",
+              writable: true,
+              default: false
+            },
+            error: {
+              type: "string",
+              attribute: "error",
+              writable: true,
+              default: ""
+            },
+            cssClass: {
+              type: "string",
+              attribute: "css-class",
+              writable: true,
+              default: ""
+            },
+            ariaLabel: {
+              type: "string",
+              attribute: "aria-label",
+              writable: false,
+              default: ""
+            },
+            ariaDescribedBy: {
+              type: "string",
+              attribute: "aria-describedby",
+              writable: false,
+              default: ""
+            },
+            heading: {
+              type: "string",
+              attribute: "heading",
+              writable: false,
+              default: "",
+              fallback: "label"
+            },
+            variant: {
+              type: "string",
+              attribute: "variant",
+              writable: false,
+              default: "elevated",
+              normalization: "lowercase-or-default"
+            },
+            density: {
+              type: "string",
+              attribute: "density",
+              writable: false,
+              default: "comfortable",
+              normalization: "exact-compact-or-default"
+            },
+            href: {
+              type: "string",
+              attribute: "href",
+              writable: false,
+              default: ""
+            },
+            target: {
+              type: "string",
+              attribute: "target",
+              writable: false,
+              default: ""
+            },
+            rel: {
+              type: "string",
+              attribute: "rel",
+              writable: false,
+              default: ""
+            },
+            action: {
+              type: "string",
+              attribute: "action",
+              writable: false,
+              default: ""
+            },
+            actionToken: {
+              type: "string",
+              attribute: "action-token",
+              writable: false,
+              default: ""
+            },
+            interactive: {
+              type: "boolean",
+              attribute: "interactive",
+              writable: false,
+              default: false,
+              computedFrom: [
+                "interactive",
+                "href",
+                "action",
+                "action-token",
+                "selectable"
+              ]
+            },
+            selectable: {
+              type: "boolean",
+              attribute: "selectable",
+              writable: false,
+              default: false
+            },
+            selected: {
+              type: "boolean",
+              attribute: "selected",
+              writable: true,
+              default: false,
+              programmaticSetEmits: false
+            },
+            componentId: {
+              type: "string",
+              writable: false,
+              role: "runtime-instance-id"
+            }
+          },
+          events: {
+            change: {
+              detail: {
+                name: "string",
+                oldValue: "boolean",
+                newValue: "boolean",
+                selected: "boolean"
+              },
+              bubbles: true,
+              composed: true,
+              cancelable: false,
+              selectionAliasOf: "uib-card-select",
+              order: 1
+            },
+            "uib-card-select": {
+              detail: {
+                name: "string",
+                oldValue: "boolean",
+                newValue: "boolean",
+                selected: "boolean"
+              },
+              bubbles: true,
+              composed: true,
+              cancelable: false,
+              order: 2
+            },
+            "uib-card-action": {
+              detail: {
+                name: "string",
+                action: "string",
+                actionToken: "string",
+                selected: "boolean"
+              },
+              bubbles: true,
+              composed: true,
+              cancelable: true,
+              order: 3,
+              cancellation: "prevent-original-event-default-after-selection"
+            }
+          },
+          slots: [
+            {
+              name: "default",
+              content: "text-or-elements"
+            },
+            {
+              name: "media",
+              content: "text-or-elements"
+            },
+            {
+              name: "header",
+              content: "text-or-elements"
+            },
+            {
+              name: "footer",
+              content: "text-or-elements"
+            }
+          ]
+        },
+        children: {
+          runtime: "unrestricted-for-compatibility",
+          builder: {
+            content: [
+              "text",
+              "image"
+            ],
+            nestedInteractiveInLink: false
+          }
+        },
+        builder: {
+          groups: [
+            {
+              id: "content",
+              label: "Content"
+            },
+            {
+              id: "appearance",
+              label: "Appearance"
+            },
+            {
+              id: "interaction",
+              label: "Interaction"
+            },
+            {
+              id: "state",
+              label: "State"
+            },
+            {
+              id: "accessibility",
+              label: "Accessibility"
+            },
+            {
+              id: "events",
+              label: "Event bindings"
+            }
+          ],
+          definitionSettings: {
+            displayName: {
+              label: "Display name",
+              type: "string",
+              required: true,
+              binding: {
+                kind: "definition",
+                path: "identity.displayName"
+              }
+            },
+            description: {
+              label: "Description",
+              type: "string",
+              editor: "textarea",
+              binding: {
+                kind: "definition",
+                path: "identity.description"
+              }
+            }
+          },
+          settings: {
+            heading: {
+              label: "Heading",
+              type: "string",
+              group: "content",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "heading"
+              }
+            },
+            label: {
+              label: "Fallback label",
+              type: "string",
+              group: "content",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "label"
+              }
+            },
+            body: {
+              label: "Body",
+              type: "string",
+              group: "content",
+              default: "Card body",
+              binding: {
+                kind: "slot",
+                name: "default",
+                content: "text"
+              },
+              editor: "textarea"
+            },
+            header: {
+              label: "Header content",
+              type: "string",
+              group: "content",
+              default: "",
+              binding: {
+                kind: "slot",
+                name: "header",
+                content: "text"
+              }
+            },
+            footer: {
+              label: "Footer",
+              type: "string",
+              group: "content",
+              default: "",
+              binding: {
+                kind: "slot",
+                name: "footer",
+                content: "text"
+              }
+            },
+            mediaSrc: {
+              label: "Image URL",
+              type: "string",
+              group: "content",
+              default: "",
+              binding: {
+                kind: "slot",
+                name: "media",
+                content: "image",
+                altSetting: "mediaAlt"
+              },
+              format: "image-url"
+            },
+            mediaAlt: {
+              label: "Image description",
+              type: "string",
+              group: "content",
+              default: "",
+              binding: {
+                kind: "slotMetadata",
+                slot: "media",
+                name: "alt"
+              }
+            },
+            variant: {
+              label: "Variant",
+              type: "string",
+              group: "appearance",
+              default: "elevated",
+              binding: {
+                kind: "attribute",
+                name: "variant"
+              },
+              editor: "select",
+              enum: [
+                "elevated",
+                "outlined",
+                "flat"
+              ]
+            },
+            density: {
+              label: "Density",
+              type: "string",
+              group: "appearance",
+              default: "comfortable",
+              binding: {
+                kind: "attribute",
+                name: "density"
+              },
+              editor: "select",
+              enum: [
+                "comfortable",
+                "compact"
+              ]
+            },
+            cssClass: {
+              label: "CSS classes",
+              type: "string",
+              group: "appearance",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "css-class"
+              }
+            },
+            interactionMode: {
+              label: "Interaction mode",
+              type: "string",
+              group: "interaction",
+              default: "none",
+              binding: {
+                kind: "mode"
+              },
+              editor: "select",
+              enum: [
+                "none",
+                "link",
+                "action",
+                "selectable"
+              ]
+            },
+            href: {
+              label: "Link URL",
+              type: "string",
+              group: "interaction",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "href"
+              },
+              format: "url",
+              visibleWhen: {
+                setting: "interactionMode",
+                equals: "link"
+              }
+            },
+            target: {
+              label: "Link target",
+              type: "string",
+              group: "interaction",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "target"
+              },
+              editor: "select",
+              enum: [
+                "",
+                "_self",
+                "_blank",
+                "_parent",
+                "_top"
+              ],
+              visibleWhen: {
+                setting: "interactionMode",
+                equals: "link"
+              }
+            },
+            rel: {
+              label: "Link relationship",
+              type: "string",
+              group: "interaction",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "rel"
+              },
+              visibleWhen: {
+                setting: "interactionMode",
+                equals: "link"
+              }
+            },
+            action: {
+              label: "Action",
+              type: "string",
+              group: "interaction",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "action"
+              },
+              visibleWhen: {
+                setting: "interactionMode",
+                equals: "action"
+              }
+            },
+            actionToken: {
+              label: "Action token",
+              type: "string",
+              group: "interaction",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "action-token"
+              },
+              visibleWhen: {
+                setting: "interactionMode",
+                equals: "action"
+              }
+            },
+            selected: {
+              label: "Initially selected",
+              type: "boolean",
+              group: "state",
+              default: false,
+              binding: {
+                kind: "attribute",
+                name: "selected"
+              },
+              visibleWhen: {
+                setting: "interactionMode",
+                equals: "selectable"
+              }
+            },
+            disabled: {
+              label: "Disabled",
+              type: "boolean",
+              group: "state",
+              default: false,
+              binding: {
+                kind: "attribute",
+                name: "disabled"
+              }
+            },
+            name: {
+              label: "Event name",
+              type: "string",
+              group: "interaction",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "name"
+              }
+            },
+            ariaLabel: {
+              label: "Accessible name",
+              type: "string",
+              group: "accessibility",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "aria-label"
+              }
+            },
+            ariaDescribedBy: {
+              label: "Description IDs",
+              type: "string",
+              group: "accessibility",
+              default: "",
+              binding: {
+                kind: "attribute",
+                name: "aria-describedby"
+              }
+            },
+            actionHandler: {
+              label: "Action handler ID",
+              type: "string",
+              group: "events",
+              default: "",
+              binding: {
+                kind: "event",
+                name: "uib-card-action"
+              },
+              visibleWhen: {
+                setting: "interactionMode",
+                equals: "action"
+              }
+            },
+            selectionHandler: {
+              label: "Selection handler ID",
+              type: "string",
+              group: "events",
+              default: "",
+              binding: {
+                kind: "event",
+                name: "uib-card-select"
+              },
+              visibleWhen: {
+                setting: "interactionMode",
+                equals: "selectable"
+              }
+            }
+          },
+          interactionModes: {
+            none: {
+              attributes: {
+                interactive: false,
+                selectable: false
+              }
+            },
+            link: {
+              attributes: {
+                interactive: false,
+                selectable: false
+              }
+            },
+            action: {
+              attributes: {
+                interactive: true,
+                selectable: false
+              }
+            },
+            selectable: {
+              attributes: {
+                interactive: false,
+                selectable: true
+              }
+            }
+          },
+          validation: [
+            {
+              kind: "requiredWhen",
+              setting: "href",
+              when: {
+                setting: "interactionMode",
+                equals: "link"
+              }
+            },
+            {
+              kind: "oneOfRequiredWhen",
+              settings: [
+                "action",
+                "actionToken"
+              ],
+              when: {
+                setting: "interactionMode",
+                equals: "action"
+              }
+            },
+            {
+              kind: "accessibleNameWhenInteractive",
+              settings: [
+                "heading",
+                "label",
+                "header",
+                "ariaLabel"
+              ]
+            }
+          ],
+          responsive: {
+            supported: false
+          },
+          preview: {
+            renderer: "runtimeBinding",
+            navigation: "prevent",
+            eventHandlers: "observe-only"
+          },
+          eventBindings: {
+            handlerReference: "registered-handler-id",
+            cancellation: "synchronous-false-only",
+            selectionEvent: "uib-card-select"
+          }
+        },
+        capabilities: [
+          "surface",
+          "container",
+          "interactive",
+          "selectable",
+          "linkable"
+        ],
+        dependencies: {
+          packages: [
+            {
+              packageId: "@ui-base/core",
+              range: "^0.1.0"
+            },
+            {
+              packageId: "@ui-base/icons",
+              range: "^0.1.0"
+            }
+          ],
+          services: []
+        },
+        accessibility: {
+          modes: [
+            "section",
+            "link",
+            "button",
+            "toggle-button"
+          ],
+          keyboard: {
+            nonLink: [
+              "Enter",
+              "Space"
+            ],
+            link: "native"
+          },
+          namePrecedence: [
+            "aria-label",
+            "heading",
+            "label",
+            "header"
+          ],
+          disabled: "aria-disabled; remove-from-tab-order; block-activation"
+        },
+        lifecycle: {
+          state: "installed",
+          save: "workspace-only",
+          publication: "unimplemented-stage-gate",
+          publishedRevisionsImmutable: true,
+          rollback: "new-revision",
+          promotion: "new-identity-with-provenance"
+        },
+        clone: {
+          workspace: "new-workspace-and-instance-ids;same-component-identity",
+          component: "new-component-identity;retain-provenance"
+        },
+        deprecation: {
+          status: "none",
+          replacementComponentId: null
+        },
+        extensions: {}
+      },
+      {
+        tagName: "uib-panel",
+        module: "./src/layout/uib-panel.js",
+        importPath: "./panel",
+        presentation: {
+          settings: {
+            variant: {
+              type: "select",
+              options: [
+                "elevated",
+                "outlined",
+                "flat"
+              ],
+              inheritable: true
+            },
+            density: {
+              type: "select",
+              options: [
+                "comfortable",
+                "compact"
+              ],
+              inheritable: true
+            }
+          }
+        }
+      },
+      {
+        tagName: "uib-instruction",
+        module: "./src/content/uib-instruction.js",
+        importPath: "./instruction",
+        presentation: {
+          settings: {
+            density: {
+              type: "select",
+              options: [
+                "comfortable",
+                "compact"
+              ],
+              inheritable: true
+            }
+          }
+        }
+      },
+      {
+        tagName: "uib-action-group",
+        module: "./src/actions/uib-action-group.js",
+        importPath: "./action-group",
+        presentation: {
+          settings: {
+            align: {
+              type: "select",
+              options: [
+                "start",
+                "center",
+                "end"
+              ],
+              inheritable: true
+            }
+          }
+        }
+      }
+    ]
+  };
+
+  // packages/visual-artifacts/src/source.ts
+  var voidTags = new Set("area base br col embed hr img input link meta param source track wbr".split(" "));
+  var optionalTags = new Set("p li dt dd rt rp option optgroup thead tbody tfoot tr td th".split(" "));
+  var blockTags = new Set("address article aside blockquote div dl fieldset footer form h1 h2 h3 h4 h5 h6 header hr main nav ol p pre section table ul".split(" "));
+
+  // packages/visual-artifacts/src/composition.ts
+  function routePath(route, params = {}) {
+    return route.path.replace(/:([A-Za-z][\w]*)|\[([A-Za-z][\w]*)\]/g, (_, colon, bracket) => {
+      const value = params[colon ?? bracket];
+      if (value === void 0) throw new Error(`Route parameter is required: ${colon ?? bracket}.`);
+      return encodeURIComponent(value);
+    });
+  }
+  function matchCompositionRoute(routes, pathname) {
+    for (const route of [...routes].sort((a, b) => Number(/:|\[/.test(a.path)) - Number(/:|\[/.test(b.path)))) {
+      const keys = [];
+      const pattern = route.path.split("/").map((part) => {
+        const parameter = /^(?::([A-Za-z][\w]*)|\[([A-Za-z][\w]*)\])$/.exec(part);
+        if (parameter) {
+          keys.push(parameter[1] ?? parameter[2]);
+          return "([^/]+)";
+        }
+        return part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }).join("/");
+      const match = new RegExp(`^${pattern}/?$`).exec(pathname);
+      if (match) return { route, params: Object.fromEntries(keys.map((key, i) => [key, decodeURIComponent(match[i + 1])])) };
+    }
+    return void 0;
+  }
+
+  // src/client/fixture-preview/samples.ts
+  var FixtureDenied = class extends Error {
+    constructor(code) {
+      super(code);
+      this.code = code;
+    }
+    code;
+  };
+  function data(input) {
+    if (!input || typeof input !== "object" || Array.isArray(input) || ![Object.prototype, null].includes(Object.getPrototypeOf(input))) throw new FixtureDenied("SAMPLE_SCHEMA_UNSUPPORTED");
+    const descriptors = Object.getOwnPropertyDescriptors(input);
+    if (Reflect.ownKeys(input).length !== Object.keys(descriptors).length || Object.entries(descriptors).some(([key, value]) => ["__proto__", "constructor", "prototype"].includes(key) || value.get || value.set)) throw new FixtureDenied("SAMPLE_FIELDS_UNSUPPORTED");
+    return input;
+  }
+  function fields(input, required, optional = []) {
+    if (required.some((key) => !Object.hasOwn(input, key)) || Object.getOwnPropertyNames(input).some((key) => ![...required, ...optional].includes(key))) throw new FixtureDenied("SAMPLE_FIELDS_UNSUPPORTED");
+  }
+  function text(value, key, limit = 512) {
+    if (typeof value !== "string" || value.length > limit || /[\u0000-\u001f<>]/.test(value)) throw new FixtureDenied(`SAMPLE_TEXT_INVALID:${key}`);
+    return value;
+  }
+  function boolean(value) {
+    if (typeof value !== "boolean") throw new FixtureDenied("SAMPLE_PROPERTY_INVALID");
+    return value;
+  }
+  var surfaceKeys = ["fixture", "heading", "body", "footer", "variant", "density"];
+  var templates = Object.freeze({
+    person: Object.freeze({ routeId: "synthetic-person-route", pageId: "synthetic-person-page", path: "/people/:personId" }),
+    "project-item": Object.freeze({ routeId: "synthetic-project-route", pageId: "synthetic-project-page", path: "/projects/[projectId]/items/:itemId" })
+  });
+  function inspectRoute(sample) {
+    const route = templates[sample.template], path = routePath(route, sample.params);
+    const matched = matchCompositionRoute([route], path);
+    return { template: route.path, path, matched: matched?.params ?? null };
+  }
+  function validateSample(input) {
+    const value = data(input);
+    if (value.fixture === "route-inspector-v1") {
+      fields(value, ["fixture", "template", "params"]);
+      if (value.template !== "person" && value.template !== "project-item") throw new FixtureDenied("ROUTE_TEMPLATE_UNSUPPORTED");
+      const params = data(value.params), names = value.template === "person" ? ["personId"] : ["projectId", "itemId"];
+      fields(params, names);
+      const result = { fixture: value.fixture, template: value.template, params: Object.fromEntries(names.map((key) => {
+        const item = text(params[key], key, 128);
+        if (!item.trim()) throw new FixtureDenied(`ROUTE_PARAMETER_INVALID:${key}`);
+        try {
+          encodeURIComponent(item);
+        } catch {
+          throw new FixtureDenied(`ROUTE_PARAMETER_INVALID:${key}`);
+        }
+        return [key, item];
+      })) };
+      inspectRoute(result);
+      return result;
+    }
+    if (value.fixture !== "native-card-v1" && value.fixture !== "native-panel-v1") throw new FixtureDenied("FIXTURE_RENDERER_NOT_ADMITTED");
+    fields(value, [...surfaceKeys, ...value.fixture === "native-card-v1" ? ["selectable"] : ["collapsible", "open"]], value.fixture === "native-card-v1" ? ["header", "disabled", "selected"] : []);
+    const heading = text(value.heading, "heading"), body = text(value.body, "body"), footer = text(value.footer, "footer");
+    if (typeof value.variant !== "string" || !["outlined", "elevated", "flat"].includes(value.variant) || typeof value.density !== "string" || !["comfortable", "compact"].includes(value.density)) throw new FixtureDenied("SAMPLE_PROPERTY_INVALID");
+    const surface = { heading, body, footer, variant: value.variant, density: value.density };
+    if (value.fixture === "native-panel-v1") return { fixture: value.fixture, ...surface, collapsible: boolean(value.collapsible), open: boolean(value.open) };
+    const selectable = boolean(value.selectable), selected = boolean(Object.hasOwn(value, "selected") ? value.selected : false);
+    if (selected && !selectable) throw new FixtureDenied("CARD_SELECTED_REQUIRES_SELECTABLE");
+    return { fixture: value.fixture, ...surface, header: text(Object.hasOwn(value, "header") ? value.header : "", "header"), selectable, disabled: boolean(Object.hasOwn(value, "disabled") ? value.disabled : false), selected };
+  }
+  var unsupportedFixtures = Object.freeze({
+    component: "PLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain open",
+    package: "PACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admitted",
+    regions: "REGION_SCHEMA_UNSUPPORTED: composition rendering is not admitted",
+    route: "ROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or Menus",
+    form: "FORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admitted",
+    source: "EXECUTABLE_SOURCE_DENIED: no source functions or imports",
+    resource: "RESOURCE_NOT_ADMITTED: no URL or external resource capability",
+    saved: "SAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open"
+  });
+
+  // src/client/fixture-preview/protocol.ts
+  function validChannel(value, expected) {
+    if (!value || typeof value !== "object") return false;
+    const v = value;
+    const fields2 = v.type === "render" ? ["nonce", "session", "identity", "sequence", "type", "sample"] : ["nonce", "session", "identity", "sequence", "type", ...v.reason === void 0 ? [] : ["reason"]];
+    return Object.keys(v).length === fields2.length && Object.keys(v).every((key) => fields2.includes(key)) && ["render", "ready", "unavailable"].includes(v.type) && v.nonce === expected.nonce && v.session === expected.session && v.identity === expected.identity && v.sequence === expected.sequence && Number.isSafeInteger(v.sequence) && v.sequence > 0 && (v.reason === void 0 || typeof v.reason === "string" && v.reason.length <= 256);
+  }
+
+  // src/client/fixture-preview/frame.ts
+  var channel = JSON.parse(document.documentElement.dataset.channel);
+  var parentOrigin = document.documentElement.dataset.parentOrigin;
+  var rendered = false;
+  document.addEventListener("submit", (event) => event.preventDefault(), true);
+  document.addEventListener("click", (event) => {
+    if (event.composedPath().some((item) => item instanceof Element && item.matches("a, input[type=file], [download]"))) event.preventDefault();
+  }, true);
+  document.addEventListener("dragover", (event) => event.preventDefault(), true);
+  document.addEventListener("drop", (event) => event.preventDefault(), true);
+  window.addEventListener("message", (event) => {
+    if (event.source !== parent || event.origin !== parentOrigin || !validChannel(event.data, channel) || event.data.type !== "render" || rendered) return;
+    rendered = true;
+    try {
+      const sample = validateSample(event.data.sample);
+      let element;
+      if (sample.fixture === "native-card-v1") {
+        const definition = ui_component_default.components.find((entry) => entry.schemaVersion && entry.tagName === "uib-card");
+        const registry = new ComponentRegistry();
+        registry.registerManifest({ components: [definition] }, { packageId: "@ui-base/ui" });
+        element = renderComponentInstance(definition, {
+          componentId: definition.identity.componentId,
+          settings: { heading: sample.heading, header: sample.header, body: sample.body, footer: sample.footer, variant: sample.variant, density: sample.density, interactionMode: sample.selectable ? "selectable" : "none", disabled: sample.disabled, selected: sample.selected, ariaLabel: sample.heading || "Synthetic Card" }
+        }, { registry, preview: true });
+      } else if (sample.fixture === "native-panel-v1") {
+        element = document.createElement("uib-panel");
+        if (!(element instanceof UibPanel)) throw new Error("PANEL_NATIVE_CLASS_UNAVAILABLE");
+        for (const key of ["heading", "variant", "density"]) element.setAttribute(key, sample[key]);
+        element.toggleAttribute("collapsible", sample.collapsible);
+        element.toggleAttribute("open", sample.open);
+        for (const [slot, text2] of [["", sample.body], ["footer", sample.footer]]) {
+          const child = document.createElement("span");
+          if (slot) child.slot = slot;
+          child.textContent = text2;
+          element.append(child);
+        }
+      } else {
+        element = document.createElement("pre");
+        element.inert = true;
+        element.textContent = JSON.stringify(inspectRoute(sample), null, 2);
+      }
+      const label = document.createElement("strong");
+      label.textContent = `SAMPLE DATA \xB7 ${sample.fixture === "native-panel-v1" ? "Native Panel layout fixture \xB7 not canonical Component parity" : sample.fixture === "route-inspector-v1" ? "Synthetic route-parameter inspector \xB7 no Page rendering or navigation" : "Card fixture demonstration"}`;
+      document.body.replaceChildren(label, element);
+      parent.postMessage({ ...channel, type: "ready" }, parentOrigin);
+    } catch {
+      document.body.textContent = "Fixture unavailable";
+      parent.postMessage({ ...channel, type: "unavailable", reason: "NATIVE_RENDERER_REJECTED_FIXTURE" }, parentOrigin);
+    }
+  });
+})();

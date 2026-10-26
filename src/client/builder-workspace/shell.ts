@@ -162,7 +162,7 @@ find('[data-create-form]').onclick = () => run(async () => {
 
 function renderTabs() {
   view.render({ active: !parked, applicationKey, focused: coordinator.focused, session: editorSessionSnapshot(),
-    tabs: [...coordinator.tabs.values()].map(tab => ({ key: tab.key, artifact: tab.artifact, suspended: tab.suspended, element: tab.editor.element, state: tab.editor.state() })),
+    tabs: [...coordinator.tabs.values()].map(tab => ({ key: tab.key, artifact: tab.artifact, suspended: tab.suspended, element: tab.editor.element, state: tab.editor.state(), savedCardTarget: tab.editor.savedCardTarget })),
   });
 }
 coordinator.subscribe(renderTabs);

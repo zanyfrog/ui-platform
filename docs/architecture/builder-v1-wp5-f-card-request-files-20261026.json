@@ -1,0 +1,2073 @@
+{
+  "date": "2026-10-26",
+  "increment": "WP5-F Saved Card Identity to Builder Request Integration",
+  "baselineFilesChanged": [
+    "src/client/builder-workspace/shell.ts",
+    "src/client/builder-workspace/shell-view.ts",
+    "src/client/builder-workspace/saved-preview-request.ts",
+    "src/shared/saved-preview-request.ts"
+  ],
+  "files": [
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-card-request-contract-20261026.md",
+      "status": "new",
+      "sha256": "b547d882f684472acf500825ddb8210193df715614a20654c54c5e02288eddaa"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-card-request-implementation-20261026.md",
+      "status": "new",
+      "sha256": "d0ee3a89260d3e6ff23d8909b904cf3b66a95d8e14075d6505ba9ac449735a15"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-card-request-wiring-map-20261026.md",
+      "status": "new",
+      "sha256": "f43d7126ed2e1dac8142b6ac7ad1a5207fba1d05522905948ada618c380bdfb3"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-saved-card-selection-closure-20261026.md",
+      "status": "new",
+      "sha256": "8bf456f997b99a1188dfd714a727183dda72f570d68bc919f50bc2691adeb1b9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/accepted-inventory-confirmation.json",
+      "status": "new",
+      "sha256": "facb08f76303ba08c3c7a30b0bea8f80a20e082e77c931f43fbe620b21995d84"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/baseline.json",
+      "status": "new",
+      "sha256": "0b4aa8e427b2604a0ff0326a84b7744ccb210b4128f961ba8d484912298a5245"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/checks-attempt-1-source.txt",
+      "status": "new",
+      "sha256": "ebf3b75f403e09b880bedf09d025239a734fe9febff912024f51e28d6a0ad272"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/checks-attempt-3-source.txt",
+      "status": "new",
+      "sha256": "924cd374b0668ecff443774d20fbd4a63a99cc02ad4ed99ea17b82caf815807e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/checks-attempt-4-source.txt",
+      "status": "new",
+      "sha256": "81c6723912cef4b3c0cf95d1fbfa06d1f2d0361293982c9e2d059683f5ddc3fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/diff-check.txt",
+      "status": "new",
+      "sha256": "d403bf4507a9b4686f2a78b2597c733742e7b4a10140703e375ed1d007abee10"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/harness-attempt-1-source.txt",
+      "status": "new",
+      "sha256": "c1097d03c647ebfdfb91057d56c97d71c45dd8bf2c7892773805d6a31f4b6418"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/harness-attempt-3-source.txt",
+      "status": "new",
+      "sha256": "1231b3e1ecf70af730a76f8403d7f4b935a03f98dc5fe367b03493f350cb3f3d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/harness-attempt-4-source.txt",
+      "status": "new",
+      "sha256": "aad975ed9f6c44c95d9a20b493fd4109a388a6bc2adf1fe297519ee7ae4bcb2c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/head-before.txt",
+      "status": "new",
+      "sha256": "4fb95449171347fc987f54f58914b5401d7640b9938824c6668e13e5f809948a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/preservation.json",
+      "status": "new",
+      "sha256": "c5bd43cf604b3cbd8db62d1b9121419591d582fb461522aec44a96749a2570c6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/admission.json",
+      "status": "new",
+      "sha256": "2ab04b52b5dc710caf217019b61b57df10bf6604c92d6d14a750d33bccdadf51"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/harness.ts.before.bundle.js",
+      "status": "new",
+      "sha256": "e47dda7199f5e4006eba4796c0b2f12b9c5f165b1f27a771d36ccb381be548d2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/harness.ts.bundle.js",
+      "status": "new",
+      "sha256": "301406752f68886e75e150727ba75a8b45ae56e1a916c65f1f4430e0f226c8c4"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01.txt",
+      "status": "new",
+      "sha256": "0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/1784103a47ed2820e4f16fd850fd383fde58a9c1739d72e1aa652a22119d8b5b.txt",
+      "status": "new",
+      "sha256": "1784103a47ed2820e4f16fd850fd383fde58a9c1739d72e1aa652a22119d8b5b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc.txt",
+      "status": "new",
+      "sha256": "1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1.txt",
+      "status": "new",
+      "sha256": "19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e.txt",
+      "status": "new",
+      "sha256": "21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5.txt",
+      "status": "new",
+      "sha256": "23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb.txt",
+      "status": "new",
+      "sha256": "2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb.txt",
+      "status": "new",
+      "sha256": "3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba.txt",
+      "status": "new",
+      "sha256": "3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469.txt",
+      "status": "new",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5.txt",
+      "status": "new",
+      "sha256": "4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69.txt",
+      "status": "new",
+      "sha256": "57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78.txt",
+      "status": "new",
+      "sha256": "612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de.txt",
+      "status": "new",
+      "sha256": "634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e.txt",
+      "status": "new",
+      "sha256": "71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2.txt",
+      "status": "new",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f.txt",
+      "status": "new",
+      "sha256": "79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891.txt",
+      "status": "new",
+      "sha256": "80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335.txt",
+      "status": "new",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0.txt",
+      "status": "new",
+      "sha256": "82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6.txt",
+      "status": "new",
+      "sha256": "8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb.txt",
+      "status": "new",
+      "sha256": "8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac.txt",
+      "status": "new",
+      "sha256": "8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f.txt",
+      "status": "new",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9.txt",
+      "status": "new",
+      "sha256": "98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d.txt",
+      "status": "new",
+      "sha256": "9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344.txt",
+      "status": "new",
+      "sha256": "a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb.txt",
+      "status": "new",
+      "sha256": "ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a.txt",
+      "status": "new",
+      "sha256": "b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/c1097d03c647ebfdfb91057d56c97d71c45dd8bf2c7892773805d6a31f4b6418.txt",
+      "status": "new",
+      "sha256": "c1097d03c647ebfdfb91057d56c97d71c45dd8bf2c7892773805d6a31f4b6418"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639.txt",
+      "status": "new",
+      "sha256": "c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9.txt",
+      "status": "new",
+      "sha256": "c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41.txt",
+      "status": "new",
+      "sha256": "c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8.txt",
+      "status": "new",
+      "sha256": "ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d.txt",
+      "status": "new",
+      "sha256": "d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a.txt",
+      "status": "new",
+      "sha256": "d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05.txt",
+      "status": "new",
+      "sha256": "d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6.txt",
+      "status": "new",
+      "sha256": "da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961.txt",
+      "status": "new",
+      "sha256": "e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/ebf3b75f403e09b880bedf09d025239a734fe9febff912024f51e28d6a0ad272.txt",
+      "status": "new",
+      "sha256": "ebf3b75f403e09b880bedf09d025239a734fe9febff912024f51e28d6a0ad272"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70.txt",
+      "status": "new",
+      "sha256": "edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/f1da5b9aca178aef0b3b0311dcb2e7561ed1d608826dec0516ce5244d55d4030.txt",
+      "status": "new",
+      "sha256": "f1da5b9aca178aef0b3b0311dcb2e7561ed1d608826dec0516ce5244d55d4030"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e.txt",
+      "status": "new",
+      "sha256": "f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948.txt",
+      "status": "new",
+      "sha256": "f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc.txt",
+      "status": "new",
+      "sha256": "f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/inputs/f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd.txt",
+      "status": "new",
+      "sha256": "f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/integration-checkpoints.json",
+      "status": "new",
+      "sha256": "f73000b4394f47317c13a2a19b1deda25cf95bf6e6477dbf9d583e1063f9e63e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/integration-progress.json",
+      "status": "new",
+      "sha256": "0ace98edc300ca245bfd5ac02bff831aea015307bf47f524439a6111ea1a917a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/integration-results.json",
+      "status": "new",
+      "sha256": "3528231613994c6ba4f5fc4600094cb704ce75908837d06843cd4ee3a74b1ce3"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/production-wiring-proof.json",
+      "status": "new",
+      "sha256": "3c05aab857b8f4585572a60582551122c0b07c6171421d39bfdc6dfb220ca86b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/request.test.mjs",
+      "status": "new",
+      "sha256": "694591cb22b1d8da1d068d9cd4ed178690f853058e5a973cd9cdff0561da5b77"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/request.test.ts.bundle.js",
+      "status": "new",
+      "sha256": "694591cb22b1d8da1d068d9cd4ed178690f853058e5a973cd9cdff0561da5b77"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/resolved-graphs.json",
+      "status": "new",
+      "sha256": "acc42ed06f48cd1b4eacbb536a251db0860f72942db04cbdda4f2e269b335e37"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/result.json",
+      "status": "new",
+      "sha256": "3e2890b4bc18d621905dc880a2c5a872f65ba9878b0e79967759ec7d0090fe63"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/typecheck-admission.json",
+      "status": "new",
+      "sha256": "bea0bcc243ca98c9ed9f57bd70b2573a39162e778b500866f2fe0410df90881c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011203884/unit-results.txt",
+      "status": "new",
+      "sha256": "8726c9b35ec92fdbe3308d20f046edd19a19fcde6a134d9b146cea47144d2e7c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/admission.json",
+      "status": "new",
+      "sha256": "89ff3fe5a8c23a8dc17b347fde23c91655f10737c4dfe8d0f6f6dc1aade6cd11"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/failure.json",
+      "status": "new",
+      "sha256": "44fcf1f9a2e60d3531fea555607f77a56a722c55e819d30f93d5adc918a23739"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/harness.ts.before.bundle.js",
+      "status": "new",
+      "sha256": "36bf4dc307f2faf32f0d2c48d4828b3a18d206f2a5bf13b969cbb7b669857054"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/harness.ts.bundle.js",
+      "status": "new",
+      "sha256": "928527d37a051f02dea99cb2f2414c66c77b137321360023430e2f7130aa4c10"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01.txt",
+      "status": "new",
+      "sha256": "0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/1231b3e1ecf70af730a76f8403d7f4b935a03f98dc5fe367b03493f350cb3f3d.txt",
+      "status": "new",
+      "sha256": "1231b3e1ecf70af730a76f8403d7f4b935a03f98dc5fe367b03493f350cb3f3d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc.txt",
+      "status": "new",
+      "sha256": "1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1.txt",
+      "status": "new",
+      "sha256": "19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e.txt",
+      "status": "new",
+      "sha256": "21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5.txt",
+      "status": "new",
+      "sha256": "23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb.txt",
+      "status": "new",
+      "sha256": "2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb.txt",
+      "status": "new",
+      "sha256": "3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba.txt",
+      "status": "new",
+      "sha256": "3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469.txt",
+      "status": "new",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5.txt",
+      "status": "new",
+      "sha256": "4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/5718bcf9740c040c178cfc4a89f0b4671ce5ac36b34d6c5c9db2fd4eb74a5811.txt",
+      "status": "new",
+      "sha256": "5718bcf9740c040c178cfc4a89f0b4671ce5ac36b34d6c5c9db2fd4eb74a5811"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69.txt",
+      "status": "new",
+      "sha256": "57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78.txt",
+      "status": "new",
+      "sha256": "612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de.txt",
+      "status": "new",
+      "sha256": "634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e.txt",
+      "status": "new",
+      "sha256": "71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2.txt",
+      "status": "new",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f.txt",
+      "status": "new",
+      "sha256": "79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891.txt",
+      "status": "new",
+      "sha256": "80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335.txt",
+      "status": "new",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0.txt",
+      "status": "new",
+      "sha256": "82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6.txt",
+      "status": "new",
+      "sha256": "8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb.txt",
+      "status": "new",
+      "sha256": "8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac.txt",
+      "status": "new",
+      "sha256": "8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f.txt",
+      "status": "new",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/924cd374b0668ecff443774d20fbd4a63a99cc02ad4ed99ea17b82caf815807e.txt",
+      "status": "new",
+      "sha256": "924cd374b0668ecff443774d20fbd4a63a99cc02ad4ed99ea17b82caf815807e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9.txt",
+      "status": "new",
+      "sha256": "98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d.txt",
+      "status": "new",
+      "sha256": "9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344.txt",
+      "status": "new",
+      "sha256": "a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84.txt",
+      "status": "new",
+      "sha256": "ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb.txt",
+      "status": "new",
+      "sha256": "ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a.txt",
+      "status": "new",
+      "sha256": "b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639.txt",
+      "status": "new",
+      "sha256": "c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9.txt",
+      "status": "new",
+      "sha256": "c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41.txt",
+      "status": "new",
+      "sha256": "c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8.txt",
+      "status": "new",
+      "sha256": "ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d.txt",
+      "status": "new",
+      "sha256": "d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a.txt",
+      "status": "new",
+      "sha256": "d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05.txt",
+      "status": "new",
+      "sha256": "d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6.txt",
+      "status": "new",
+      "sha256": "da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961.txt",
+      "status": "new",
+      "sha256": "e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70.txt",
+      "status": "new",
+      "sha256": "edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e.txt",
+      "status": "new",
+      "sha256": "f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948.txt",
+      "status": "new",
+      "sha256": "f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc.txt",
+      "status": "new",
+      "sha256": "f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/inputs/f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd.txt",
+      "status": "new",
+      "sha256": "f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/integration-checkpoints.json",
+      "status": "new",
+      "sha256": "c93d0c1d247b65ae302c4e66597bcdfbde73be19bda0b26fa653c0381712e59d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/integration-progress.json",
+      "status": "new",
+      "sha256": "f8cb29c20b2e959636e584d4f0e05930be090f2900608104dab1f2c939c57de1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/production-wiring-proof.json",
+      "status": "new",
+      "sha256": "3c05aab857b8f4585572a60582551122c0b07c6171421d39bfdc6dfb220ca86b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/request.test.mjs",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/request.test.ts.bundle.js",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/resolved-graphs.json",
+      "status": "new",
+      "sha256": "91e1696a62f83d02f6bfbf50053322e9ccfe6b32c14d87f91aec783208775895"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/typecheck-admission.json",
+      "status": "new",
+      "sha256": "bea0bcc243ca98c9ed9f57bd70b2573a39162e778b500866f2fe0410df90881c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011410522/unit-results.txt",
+      "status": "new",
+      "sha256": "e8732a04bfe03c4a7c71f4c38efdd3ed4867e81d7c61406a5ffe7cf08821d9c9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/admission.json",
+      "status": "new",
+      "sha256": "89ff3fe5a8c23a8dc17b347fde23c91655f10737c4dfe8d0f6f6dc1aade6cd11"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/harness.ts.before.bundle.js",
+      "status": "new",
+      "sha256": "36bf4dc307f2faf32f0d2c48d4828b3a18d206f2a5bf13b969cbb7b669857054"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/harness.ts.bundle.js",
+      "status": "new",
+      "sha256": "928527d37a051f02dea99cb2f2414c66c77b137321360023430e2f7130aa4c10"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01.txt",
+      "status": "new",
+      "sha256": "0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/1231b3e1ecf70af730a76f8403d7f4b935a03f98dc5fe367b03493f350cb3f3d.txt",
+      "status": "new",
+      "sha256": "1231b3e1ecf70af730a76f8403d7f4b935a03f98dc5fe367b03493f350cb3f3d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc.txt",
+      "status": "new",
+      "sha256": "1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1.txt",
+      "status": "new",
+      "sha256": "19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e.txt",
+      "status": "new",
+      "sha256": "21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5.txt",
+      "status": "new",
+      "sha256": "23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb.txt",
+      "status": "new",
+      "sha256": "2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb.txt",
+      "status": "new",
+      "sha256": "3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba.txt",
+      "status": "new",
+      "sha256": "3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469.txt",
+      "status": "new",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5.txt",
+      "status": "new",
+      "sha256": "4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/5718bcf9740c040c178cfc4a89f0b4671ce5ac36b34d6c5c9db2fd4eb74a5811.txt",
+      "status": "new",
+      "sha256": "5718bcf9740c040c178cfc4a89f0b4671ce5ac36b34d6c5c9db2fd4eb74a5811"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69.txt",
+      "status": "new",
+      "sha256": "57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78.txt",
+      "status": "new",
+      "sha256": "612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de.txt",
+      "status": "new",
+      "sha256": "634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e.txt",
+      "status": "new",
+      "sha256": "71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2.txt",
+      "status": "new",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f.txt",
+      "status": "new",
+      "sha256": "79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891.txt",
+      "status": "new",
+      "sha256": "80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335.txt",
+      "status": "new",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0.txt",
+      "status": "new",
+      "sha256": "82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6.txt",
+      "status": "new",
+      "sha256": "8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb.txt",
+      "status": "new",
+      "sha256": "8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac.txt",
+      "status": "new",
+      "sha256": "8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f.txt",
+      "status": "new",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/924cd374b0668ecff443774d20fbd4a63a99cc02ad4ed99ea17b82caf815807e.txt",
+      "status": "new",
+      "sha256": "924cd374b0668ecff443774d20fbd4a63a99cc02ad4ed99ea17b82caf815807e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9.txt",
+      "status": "new",
+      "sha256": "98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d.txt",
+      "status": "new",
+      "sha256": "9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344.txt",
+      "status": "new",
+      "sha256": "a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84.txt",
+      "status": "new",
+      "sha256": "ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb.txt",
+      "status": "new",
+      "sha256": "ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a.txt",
+      "status": "new",
+      "sha256": "b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639.txt",
+      "status": "new",
+      "sha256": "c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9.txt",
+      "status": "new",
+      "sha256": "c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41.txt",
+      "status": "new",
+      "sha256": "c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8.txt",
+      "status": "new",
+      "sha256": "ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d.txt",
+      "status": "new",
+      "sha256": "d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a.txt",
+      "status": "new",
+      "sha256": "d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05.txt",
+      "status": "new",
+      "sha256": "d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6.txt",
+      "status": "new",
+      "sha256": "da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961.txt",
+      "status": "new",
+      "sha256": "e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70.txt",
+      "status": "new",
+      "sha256": "edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e.txt",
+      "status": "new",
+      "sha256": "f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948.txt",
+      "status": "new",
+      "sha256": "f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc.txt",
+      "status": "new",
+      "sha256": "f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/inputs/f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd.txt",
+      "status": "new",
+      "sha256": "f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/integration-checkpoints.json",
+      "status": "new",
+      "sha256": "19db6f32d8bf668945def2f36c65f6a1b65466c1012341816005ce074f7081c0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/integration-progress.json",
+      "status": "new",
+      "sha256": "90afd50ee92945a0d514185e7b86754d202e84f5362281e5910fcb5a8e77e942"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/integration-results.json",
+      "status": "new",
+      "sha256": "10745d2247efd63b3f22b09adf31bfa8519f57e24fcb3135a96af5b94803aad2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/production-wiring-proof.json",
+      "status": "new",
+      "sha256": "3c05aab857b8f4585572a60582551122c0b07c6171421d39bfdc6dfb220ca86b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/request.test.mjs",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/request.test.ts.bundle.js",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/resolved-graphs.json",
+      "status": "new",
+      "sha256": "91e1696a62f83d02f6bfbf50053322e9ccfe6b32c14d87f91aec783208775895"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/result.json",
+      "status": "new",
+      "sha256": "f5da66a59999879ae148c07e2a55bd90ed72ac84f99e5a113e2ac327d44633d0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/typecheck-admission.json",
+      "status": "new",
+      "sha256": "bea0bcc243ca98c9ed9f57bd70b2573a39162e778b500866f2fe0410df90881c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011467392/unit-results.txt",
+      "status": "new",
+      "sha256": "00e77445fb4b29ce5477757e89a93acdcac4d7e9b5fbeefb9fb327dac6d71cb6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/admission.json",
+      "status": "new",
+      "sha256": "53de8aee6f18309516150ea4c85d3de0979629cb76b808801a57d6900a3d5b98"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/harness.ts.before.bundle.js",
+      "status": "new",
+      "sha256": "9df1c4f1448f7b202ea7423c93a40e99b359261cfeafb506650329d68a40a91b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/harness.ts.bundle.js",
+      "status": "new",
+      "sha256": "fb217441f4d2efe28a3fab9ba172348ffc962ee5faf31abc6e7353f38ffb42c1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01.txt",
+      "status": "new",
+      "sha256": "0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc.txt",
+      "status": "new",
+      "sha256": "1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1.txt",
+      "status": "new",
+      "sha256": "19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e.txt",
+      "status": "new",
+      "sha256": "21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5.txt",
+      "status": "new",
+      "sha256": "23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/24b64fc2825bae1f2268b9f31e1bd72fc887c6d4dba624554a49d75e16a2e7b1.txt",
+      "status": "new",
+      "sha256": "24b64fc2825bae1f2268b9f31e1bd72fc887c6d4dba624554a49d75e16a2e7b1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb.txt",
+      "status": "new",
+      "sha256": "2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb.txt",
+      "status": "new",
+      "sha256": "3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba.txt",
+      "status": "new",
+      "sha256": "3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469.txt",
+      "status": "new",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5.txt",
+      "status": "new",
+      "sha256": "4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69.txt",
+      "status": "new",
+      "sha256": "57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78.txt",
+      "status": "new",
+      "sha256": "612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de.txt",
+      "status": "new",
+      "sha256": "634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e.txt",
+      "status": "new",
+      "sha256": "71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2.txt",
+      "status": "new",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f.txt",
+      "status": "new",
+      "sha256": "79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891.txt",
+      "status": "new",
+      "sha256": "80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335.txt",
+      "status": "new",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/81c6723912cef4b3c0cf95d1fbfa06d1f2d0361293982c9e2d059683f5ddc3fb.txt",
+      "status": "new",
+      "sha256": "81c6723912cef4b3c0cf95d1fbfa06d1f2d0361293982c9e2d059683f5ddc3fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0.txt",
+      "status": "new",
+      "sha256": "82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6.txt",
+      "status": "new",
+      "sha256": "8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb.txt",
+      "status": "new",
+      "sha256": "8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac.txt",
+      "status": "new",
+      "sha256": "8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f.txt",
+      "status": "new",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9.txt",
+      "status": "new",
+      "sha256": "98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d.txt",
+      "status": "new",
+      "sha256": "9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344.txt",
+      "status": "new",
+      "sha256": "a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/aad975ed9f6c44c95d9a20b493fd4109a388a6bc2adf1fe297519ee7ae4bcb2c.txt",
+      "status": "new",
+      "sha256": "aad975ed9f6c44c95d9a20b493fd4109a388a6bc2adf1fe297519ee7ae4bcb2c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84.txt",
+      "status": "new",
+      "sha256": "ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb.txt",
+      "status": "new",
+      "sha256": "ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a.txt",
+      "status": "new",
+      "sha256": "b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639.txt",
+      "status": "new",
+      "sha256": "c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9.txt",
+      "status": "new",
+      "sha256": "c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41.txt",
+      "status": "new",
+      "sha256": "c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8.txt",
+      "status": "new",
+      "sha256": "ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d.txt",
+      "status": "new",
+      "sha256": "d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a.txt",
+      "status": "new",
+      "sha256": "d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05.txt",
+      "status": "new",
+      "sha256": "d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6.txt",
+      "status": "new",
+      "sha256": "da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961.txt",
+      "status": "new",
+      "sha256": "e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70.txt",
+      "status": "new",
+      "sha256": "edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e.txt",
+      "status": "new",
+      "sha256": "f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948.txt",
+      "status": "new",
+      "sha256": "f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc.txt",
+      "status": "new",
+      "sha256": "f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/inputs/f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd.txt",
+      "status": "new",
+      "sha256": "f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/integration-checkpoints.json",
+      "status": "new",
+      "sha256": "adddb628f5365db80bcb6c8543d16b1e8e2fcf8b72e8ac8a8ef126b4c074e3d9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/integration-progress.json",
+      "status": "new",
+      "sha256": "ac7ba5a9f115f88b6b0f9befadc9c3415d186fcb031fc92c7f495deb65c77c41"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/integration-results.json",
+      "status": "new",
+      "sha256": "aa5179f44d4d5b51ca3ee9701d56ffb0377753647d390d534399352acdc0c7e1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/production-wiring-proof.json",
+      "status": "new",
+      "sha256": "3c05aab857b8f4585572a60582551122c0b07c6171421d39bfdc6dfb220ca86b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/request.test.mjs",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/request.test.ts.bundle.js",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/resolved-graphs.json",
+      "status": "new",
+      "sha256": "c1cc6514ca1762009443e9f231bcd92992bd0d703989be36126be3a728efe80b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/result.json",
+      "status": "new",
+      "sha256": "736b25cb3830b9e93bd0b51b5b7006e502adbb5411f0b5eab9cfb9dd3680493d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/typecheck-admission.json",
+      "status": "new",
+      "sha256": "bea0bcc243ca98c9ed9f57bd70b2573a39162e778b500866f2fe0410df90881c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011618866/unit-results.txt",
+      "status": "new",
+      "sha256": "227b5b7c5c97a76a9bde78cc1262e04a1201b0f73bc1dd2eb22da04343587ece"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/admission.json",
+      "status": "new",
+      "sha256": "8e9c9ab4dee5322e61fa616672589ee537478b88f6b6fe1e146bdc4e15a37533"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/harness.ts.before.bundle.js",
+      "status": "new",
+      "sha256": "b0e3d997395ab7dc50a36ae30452ae6ff0de66570cd829b223767d3db0bcf9e8"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/harness.ts.bundle.js",
+      "status": "new",
+      "sha256": "fae0419453543571ece524a695c62325a80ba92270efd26ac5abca907826d57d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01.txt",
+      "status": "new",
+      "sha256": "0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc.txt",
+      "status": "new",
+      "sha256": "1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1.txt",
+      "status": "new",
+      "sha256": "19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e.txt",
+      "status": "new",
+      "sha256": "21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5.txt",
+      "status": "new",
+      "sha256": "23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb.txt",
+      "status": "new",
+      "sha256": "2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb.txt",
+      "status": "new",
+      "sha256": "3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba.txt",
+      "status": "new",
+      "sha256": "3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/407098525361d0c6f9137ffd97b42f0a8e58405a4d21917bbc112a001144cd9a.txt",
+      "status": "new",
+      "sha256": "407098525361d0c6f9137ffd97b42f0a8e58405a4d21917bbc112a001144cd9a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469.txt",
+      "status": "new",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5.txt",
+      "status": "new",
+      "sha256": "4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69.txt",
+      "status": "new",
+      "sha256": "57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78.txt",
+      "status": "new",
+      "sha256": "612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de.txt",
+      "status": "new",
+      "sha256": "634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e.txt",
+      "status": "new",
+      "sha256": "71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2.txt",
+      "status": "new",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f.txt",
+      "status": "new",
+      "sha256": "79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891.txt",
+      "status": "new",
+      "sha256": "80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335.txt",
+      "status": "new",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0.txt",
+      "status": "new",
+      "sha256": "82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6.txt",
+      "status": "new",
+      "sha256": "8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb.txt",
+      "status": "new",
+      "sha256": "8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac.txt",
+      "status": "new",
+      "sha256": "8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f.txt",
+      "status": "new",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9.txt",
+      "status": "new",
+      "sha256": "98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d.txt",
+      "status": "new",
+      "sha256": "9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344.txt",
+      "status": "new",
+      "sha256": "a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84.txt",
+      "status": "new",
+      "sha256": "ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb.txt",
+      "status": "new",
+      "sha256": "ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a.txt",
+      "status": "new",
+      "sha256": "b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639.txt",
+      "status": "new",
+      "sha256": "c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9.txt",
+      "status": "new",
+      "sha256": "c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41.txt",
+      "status": "new",
+      "sha256": "c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8.txt",
+      "status": "new",
+      "sha256": "ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d.txt",
+      "status": "new",
+      "sha256": "d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a.txt",
+      "status": "new",
+      "sha256": "d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05.txt",
+      "status": "new",
+      "sha256": "d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6.txt",
+      "status": "new",
+      "sha256": "da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/e373b5ecb326a037399e5433918ef0f97d32523ec06ce89cf3bca4055e413015.txt",
+      "status": "new",
+      "sha256": "e373b5ecb326a037399e5433918ef0f97d32523ec06ce89cf3bca4055e413015"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/e85c4816a726f5f2c977cf45acf5e432c849d6625d7f5cee90f7e48d3948614e.txt",
+      "status": "new",
+      "sha256": "e85c4816a726f5f2c977cf45acf5e432c849d6625d7f5cee90f7e48d3948614e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961.txt",
+      "status": "new",
+      "sha256": "e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70.txt",
+      "status": "new",
+      "sha256": "edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e.txt",
+      "status": "new",
+      "sha256": "f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948.txt",
+      "status": "new",
+      "sha256": "f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc.txt",
+      "status": "new",
+      "sha256": "f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/inputs/f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd.txt",
+      "status": "new",
+      "sha256": "f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/integration-checkpoints.json",
+      "status": "new",
+      "sha256": "7b8baeeaacca9daf9f4d6780d6c339300735c192470062e3c2a43766bdebd3ed"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/integration-progress.json",
+      "status": "new",
+      "sha256": "07e738a8a56788d629a4895b77f8bd4d02c0e7bf198aca974ff97051484d4e06"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/integration-results.json",
+      "status": "new",
+      "sha256": "4a278702772c14c93303f86ac722743de538ec7953adec64b7c953fefe0b5530"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/production-wiring-proof.json",
+      "status": "new",
+      "sha256": "3c05aab857b8f4585572a60582551122c0b07c6171421d39bfdc6dfb220ca86b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/request.test.mjs",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/request.test.ts.bundle.js",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/resolved-graphs.json",
+      "status": "new",
+      "sha256": "df84040344fb8ac1b1cc7d4103ea0cdb6e6de366857e016fe62fc2a694cf0e7f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/result.json",
+      "status": "new",
+      "sha256": "b1e1d2e7bf2b89d4fdcd9e13165f0b77ed44b7ec2297de7cea9446aab45b19ca"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/typecheck-admission.json",
+      "status": "new",
+      "sha256": "bea0bcc243ca98c9ed9f57bd70b2573a39162e778b500866f2fe0410df90881c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793011712386/unit-results.txt",
+      "status": "new",
+      "sha256": "74215a54b290f3e255cdf86e13df67dc6a1358205cc97c163544efee9e7f2d8d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/admission.json",
+      "status": "new",
+      "sha256": "bf9b5902b1874d8a5e6f7a6754976f541203b487759620916244b796d9774d9f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/harness.ts.before.bundle.js",
+      "status": "new",
+      "sha256": "e59b582ff88555cf22d32c0120ef54e568830302bdd651d23fbbc4b09b7b46b3"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/harness.ts.bundle.js",
+      "status": "new",
+      "sha256": "fae0419453543571ece524a695c62325a80ba92270efd26ac5abca907826d57d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01.txt",
+      "status": "new",
+      "sha256": "0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc.txt",
+      "status": "new",
+      "sha256": "1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1.txt",
+      "status": "new",
+      "sha256": "19cb19b5d0b89620d95e37ba18a800beebd73b6819b4dd7e0dfc1069c091f2b1"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e.txt",
+      "status": "new",
+      "sha256": "21d99d4c8053ce27243948ed373dee2da79aafed41cd618a53ce84f5c6a1237e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5.txt",
+      "status": "new",
+      "sha256": "23b4f9e49e51249d6e77d529a6a2b02b983be19efd5da6df8acaa9c39393f8f5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb.txt",
+      "status": "new",
+      "sha256": "2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb.txt",
+      "status": "new",
+      "sha256": "3786b70a7459934392826654a876d82cd9fd2da353266da408271d9bd079a4fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba.txt",
+      "status": "new",
+      "sha256": "3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/407098525361d0c6f9137ffd97b42f0a8e58405a4d21917bbc112a001144cd9a.txt",
+      "status": "new",
+      "sha256": "407098525361d0c6f9137ffd97b42f0a8e58405a4d21917bbc112a001144cd9a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469.txt",
+      "status": "new",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/4a5687bd55abaecb54f967723f921b49c32ce140d6c846f602f0e2412c2332e5.txt",
+      "status": "new",
+      "sha256": "4a5687bd55abaecb54f967723f921b49c32ce140d6c846f602f0e2412c2332e5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5.txt",
+      "status": "new",
+      "sha256": "4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69.txt",
+      "status": "new",
+      "sha256": "57b5e36bf3633dfe6bff1144b05a95e4739a4bfd470b0ecd11c272dfb7773d69"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78.txt",
+      "status": "new",
+      "sha256": "612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de.txt",
+      "status": "new",
+      "sha256": "634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e.txt",
+      "status": "new",
+      "sha256": "71d6ec329c1a822787e25c05f14dfc75963e48a071353c6582b757a45dd0c27e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2.txt",
+      "status": "new",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f.txt",
+      "status": "new",
+      "sha256": "79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891.txt",
+      "status": "new",
+      "sha256": "80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335.txt",
+      "status": "new",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0.txt",
+      "status": "new",
+      "sha256": "82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6.txt",
+      "status": "new",
+      "sha256": "8a1322ea384f25fd83631208ac2ed22a0460c1629cb583ed15eb491a36c50be6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb.txt",
+      "status": "new",
+      "sha256": "8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac.txt",
+      "status": "new",
+      "sha256": "8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f.txt",
+      "status": "new",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9.txt",
+      "status": "new",
+      "sha256": "98f8a89b56f9c99660f60d4809e8334a4db2ec831b4f300e7bb1539bc83f47f9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d.txt",
+      "status": "new",
+      "sha256": "9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344.txt",
+      "status": "new",
+      "sha256": "a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84.txt",
+      "status": "new",
+      "sha256": "ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb.txt",
+      "status": "new",
+      "sha256": "ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a.txt",
+      "status": "new",
+      "sha256": "b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639.txt",
+      "status": "new",
+      "sha256": "c48c688fc0af7a0462ddb190900853792bbe6c14593556a858fcee2b54397639"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9.txt",
+      "status": "new",
+      "sha256": "c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41.txt",
+      "status": "new",
+      "sha256": "c9ba90d65fb47b15ab96d4526f97c496232acbac97dbd22ed56daa3fd2014b41"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8.txt",
+      "status": "new",
+      "sha256": "ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d.txt",
+      "status": "new",
+      "sha256": "d261f3f931e48bb5ae4f48facdb6d7b5fa0a5758864d10ba0a8f54ed3d4a729d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a.txt",
+      "status": "new",
+      "sha256": "d59ca0ef1ef775e93dcc33c2f5ce360501c38de7c78a2390cb323aa439ce7f1a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05.txt",
+      "status": "new",
+      "sha256": "d95f539aae51b7964f0b76b083476f5ea5dfff77ca9bfb32fe0d4d52d8e13a05"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6.txt",
+      "status": "new",
+      "sha256": "da416ac4a84b4f78daea75648748cad4a264295e4695a6921c0ce83bb520dfe6"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/e373b5ecb326a037399e5433918ef0f97d32523ec06ce89cf3bca4055e413015.txt",
+      "status": "new",
+      "sha256": "e373b5ecb326a037399e5433918ef0f97d32523ec06ce89cf3bca4055e413015"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/e85c4816a726f5f2c977cf45acf5e432c849d6625d7f5cee90f7e48d3948614e.txt",
+      "status": "new",
+      "sha256": "e85c4816a726f5f2c977cf45acf5e432c849d6625d7f5cee90f7e48d3948614e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961.txt",
+      "status": "new",
+      "sha256": "e965bd89632b89cb911152e8ae92f11f893e799d3bc16ecaa6f08add14a5b961"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70.txt",
+      "status": "new",
+      "sha256": "edc23d6839dad6507a2b15f924b700b10be4073ed2df7add24253809c45cfe70"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e.txt",
+      "status": "new",
+      "sha256": "f237a83438a2fc2927fed803bd533da1ea3a2f8089241d0396bf24f06cb0397e"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948.txt",
+      "status": "new",
+      "sha256": "f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc.txt",
+      "status": "new",
+      "sha256": "f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd.txt",
+      "status": "new",
+      "sha256": "f5e59f41dd4e1e74dd6d8d62bec916b0da13bd9317448ca2708ad5956ce98fdd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/inputs/f5f3928f4e553aa13b33bff75320f0ca98f2ce2c9f72245af8f871c2e04ff09a.txt",
+      "status": "new",
+      "sha256": "f5f3928f4e553aa13b33bff75320f0ca98f2ce2c9f72245af8f871c2e04ff09a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/integration-checkpoints.json",
+      "status": "new",
+      "sha256": "7b8baeeaacca9daf9f4d6780d6c339300735c192470062e3c2a43766bdebd3ed"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/integration-progress.json",
+      "status": "new",
+      "sha256": "07e738a8a56788d629a4895b77f8bd4d02c0e7bf198aca974ff97051484d4e06"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/integration-results.json",
+      "status": "new",
+      "sha256": "4a278702772c14c93303f86ac722743de538ec7953adec64b7c953fefe0b5530"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/production-wiring-proof.json",
+      "status": "new",
+      "sha256": "3c05aab857b8f4585572a60582551122c0b07c6171421d39bfdc6dfb220ca86b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/request.test.mjs",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/request.test.ts.bundle.js",
+      "status": "new",
+      "sha256": "8df611c94e4e34eccb51ad303327aff4ef056c9e09d7916afe3c60836c0d6cc2"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/resolved-graphs.json",
+      "status": "new",
+      "sha256": "2d2686a75bfd11ecefb76af80e2613ecbd130d8e6104b3184672f82faddb19fe"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/result.json",
+      "status": "new",
+      "sha256": "7e61c897e0fc0ecdefa8a278ffe1e9e65459bba9e8b1784b331b185cb7794505"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/typecheck-admission.json",
+      "status": "new",
+      "sha256": "bea0bcc243ca98c9ed9f57bd70b2573a39162e778b500866f2fe0410df90881c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/typecheck.txt",
+      "status": "new",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/run-1793012122446/unit-results.txt",
+      "status": "new",
+      "sha256": "d708523f9f97ee9add1495c7528743a9a6034aabdb637d58e69d47358067a82b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/saved-preview-request.ts.before.txt",
+      "status": "new",
+      "sha256": "4a5687bd55abaecb54f967723f921b49c32ce140d6c846f602f0e2412c2332e5"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/shared-request.before.txt",
+      "status": "new",
+      "sha256": "f5f3928f4e553aa13b33bff75320f0ca98f2ce2c9f72245af8f871c2e04ff09a"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/shell-view.ts.before.txt",
+      "status": "new",
+      "sha256": "ca9b85f232eb543fd0933c575bce2558577fe877b873b3a013a6a5ed0797e6d8"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/shell.ts.before.txt",
+      "status": "new",
+      "sha256": "84beed1343c76a1952f2c7666ec60068c413cf7880f711799f2d2c02c430b67b"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/status-after.txt",
+      "status": "new",
+      "sha256": "0da25063f154964b30c314e8630f709657899f6b5743dfd6d0c842f7c521f7cf"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/status-before.txt",
+      "status": "new",
+      "sha256": "c07f1b405c33d3c175396007143662b7b37f9954993e227a344e0cf7a16719bd"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-admission-attempt-1.json",
+      "status": "new",
+      "sha256": "93c685f24534e88af0def2bf12c290818683957f6f9265b6ec0870a5d70d3a22"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-admission-attempt-2.json",
+      "status": "new",
+      "sha256": "641549c59c9ad3b1d583fd3c28b8897031053457b0c98a7fd940d5ba22dc5e7c"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-admission-attempt-3.json",
+      "status": "new",
+      "sha256": "69598ce646fdaf7a7c8b5261f1a5474babc1e2ae77dbff5e2660b10bd0bad061"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-admission-attempt-4.json",
+      "status": "new",
+      "sha256": "f853780c1bb80b148d8fe95f28f8cc796137cc15210ce520873ef6b1c690cb28"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-admission-attempt-5.json",
+      "status": "new",
+      "sha256": "490c92235207924224daf2e5540dd755ef27bca1cb3a467d45c017b76fe58549"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-admission-attempt-6.json",
+      "status": "new",
+      "sha256": "df02d6c959871d33ef31100c66c2d15972de1cf9b9e2bc3ef1e9d373108201dc"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-attempt-1-source.txt",
+      "status": "new",
+      "sha256": "df15c72559d5038015057cfe0b2496ea2cdd44f8dbaa17d4b64de0727bb54c31"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-attempt-1.txt",
+      "status": "new",
+      "sha256": "53988666eea05fc023a294acd76b0b47a3af062142ed69356d28abd11dada0cf"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-attempt-2-source.txt",
+      "status": "new",
+      "sha256": "df15c72559d5038015057cfe0b2496ea2cdd44f8dbaa17d4b64de0727bb54c31"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-attempt-2.txt",
+      "status": "new",
+      "sha256": "1c8b2e6aea87bef10de606d068ee6a9e548a8e95be2a4f2bf3deefe0f26b0d91"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-attempt-3.txt",
+      "status": "new",
+      "sha256": "89c37336201408d5ba67539cb5ace68a80e639af128b0afa153f8380df3d42fa"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-attempt-4.txt",
+      "status": "new",
+      "sha256": "1d8a96aa09514a18633226c5816366e095a383dac932f96f201f0c81c7f0dd11"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-attempt-5-source.txt",
+      "status": "new",
+      "sha256": "40d7da985565a3ec734542834def1541fd834ce918c167ffb84083beead30ee4"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-attempt-5.txt",
+      "status": "new",
+      "sha256": "9d969c074c607565dba610e218e0d2c7f113be618f679abbd382ff10965548f3"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/verifier-attempt-6.txt",
+      "status": "new",
+      "sha256": "bde68927a8f8976ea94b5d674bf677aee0ca04dd23d92caf76c94c33e436b26d"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/view-attempt-1-source.txt",
+      "status": "new",
+      "sha256": "f1da5b9aca178aef0b3b0311dcb2e7561ed1d608826dec0516ce5244d55d4030"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/view-attempt-3-source.txt",
+      "status": "new",
+      "sha256": "5718bcf9740c040c178cfc4a89f0b4671ce5ac36b34d6c5c9db2fd4eb74a5811"
+    },
+    {
+      "path": "evidence/builder-v1-wp5-f-card-request-integration-20261026/view-attempt-4-source.txt",
+      "status": "new",
+      "sha256": "24b64fc2825bae1f2268b9f31e1bd72fc887c6d4dba624554a49d75e16a2e7b1"
+    },
+    {
+      "path": "scripts/verify-card-request-integration.mjs",
+      "status": "new",
+      "sha256": "1e1ccfedc77ddc82a7cd758db98b365c77f1b0af3c822c9ec981208605d9f5d9"
+    },
+    {
+      "path": "src/client/builder-workspace/saved-preview-request.ts",
+      "status": "modified",
+      "sha256": "0fa6b62824fd85a278fb7f942007b1fec231644ab90ddb29b33b9f1ae7781e01"
+    },
+    {
+      "path": "src/client/builder-workspace/shell-view.ts",
+      "status": "modified",
+      "sha256": "e85c4816a726f5f2c977cf45acf5e432c849d6625d7f5cee90f7e48d3948614e"
+    },
+    {
+      "path": "src/client/builder-workspace/shell.ts",
+      "status": "modified",
+      "sha256": "3c7d525fce916e0455fc7397582e0e036fe4f3b8a03cd874f254c058d72abf98"
+    },
+    {
+      "path": "src/shared/saved-preview-request.ts",
+      "status": "modified",
+      "sha256": "ad06c6d888e052a1f94175b03e8ac58083e77242f584dd65a24e4910b75407fb"
+    },
+    {
+      "path": "tests/card-request-integration/boundary-facade.ts",
+      "status": "new",
+      "sha256": "4fff0277260651f41d54cc4b06defd0a92017337cd2de827800f6315a1d5c6c5"
+    },
+    {
+      "path": "tests/card-request-integration/checks.mjs",
+      "status": "new",
+      "sha256": "407098525361d0c6f9137ffd97b42f0a8e58405a4d21917bbc112a001144cd9a"
+    },
+    {
+      "path": "tests/card-request-integration/harness.ts",
+      "status": "new",
+      "sha256": "e373b5ecb326a037399e5433918ef0f97d32523ec06ce89cf3bca4055e413015"
+    },
+    {
+      "path": "tests/card-request-integration/request.test.ts",
+      "status": "new",
+      "sha256": "ac5fd950ffeb8c1c495f54bc15e07faa5caa4a1899ae6f2a6994979fd1b8ac84"
+    },
+    {
+      "path": "tests/card-request-integration/session-facade.ts",
+      "status": "new",
+      "sha256": "82de35c0bdcbc17262adf14f97239162a57c0c316fc5a0176ac11fedd911dae0"
+    },
+    {
+      "path": "tests/card-request-integration/type-barrel.ts",
+      "status": "new",
+      "sha256": "3912e77a20d52491cc4f516e3d75e5a2dca471af6be03c65b8222474272219ba"
+    },
+    {
+      "path": "docs/architecture/builder-v1-wp5-f-card-request-files-20261026.json",
+      "status": "new",
+      "sha256": null,
+      "note": "Self entry, no recursive digest"
+    }
+  ]
+}

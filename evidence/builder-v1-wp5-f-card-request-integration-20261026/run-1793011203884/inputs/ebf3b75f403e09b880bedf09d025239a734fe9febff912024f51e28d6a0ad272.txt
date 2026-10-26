@@ -1,0 +1,65 @@
+import assert from 'node:assert/strict';
+export async function verifyIntegration(create,record){
+  const checks=[];
+  const selected=async e=>{e.api.select();await e.until(()=>e.api.saved().selection?.ownerSelection?.state==='identified');return e.saved();};
+  const check=async e=>{e.api.check();await e.until(()=>e.api.saved().outcome!==null);const result=e.saved();assert.equal(result.state,'unavailable');assert.equal(result.outcome.kind,'unavailable');return result;};
+  async function scenario(name,fn){const e=await create(false);try{await fn(e);checks.push(name);record({checks});}finally{await e.close();}}
+  await scenario('actual editor/adapter/coordinator/view/controller preserve exact original identity and unavailable provenance',async e=>{
+    await selected(e);const owner=e.owner();const before=await e.snap(),metrics=e.metrics();const result=await check(e);
+    assert.deepEqual(result.request.selection.ownerSelection,owner);assert.equal(result.request.selection.applicationId,'original-permanent-app');assert.equal(result.request.selection.applicationKey,'routing-key');
+    assert.deepEqual(result.request.selection.identity,owner.target.source.page);assert.equal(result.request.selection.sourceNode.nodeId,owner.target.source.nodeId);assert.equal(result.request.selection.sourceNode.savedRevision,owner.target.source.committedHash);
+    assert.equal(result.request.selection.subjectId,owner.target.context.subjectId);assert.equal(result.request.selection.sessionRevision,owner.target.context.sessionRevision);assert.equal(result.outcome.code,'PROVIDER_NOT_QUALIFIED');
+    assert.deepEqual(await e.snap(),before);assert.deepEqual(e.metrics(),metrics);assert.match(e.status(),/Saved-artifact rendering is unavailable/);
+  });
+  await scenario('dirty edits atomically remove node/hash and cancel pending completion',async e=>{
+    await selected(e);e.api.holdReady();e.api.check();assert.equal(e.saved().state,'pending');e.fill((await e.snap()).source.replace('uip-layout-item','uip-layout-item dirty'));
+    assert.equal(e.saved().request,null);assert.equal(e.saved().selection?.sourceNode,undefined);assert.equal(e.saved().selection?.ownerSelection?.state,'unavailable');e.api.releaseReady();await e.settle();assert.equal(e.saved().outcome,null);
+    const result=await check(e);assert.equal(result.outcome.code,'SOURCE_OWNER_UNAVAILABLE');
+  });
+  await scenario('navigation fences old reader and pending checks; only explicit new Card selection is used',async e=>{
+    await selected(e);e.api.holdReady();e.api.check();await e.api.navigate(true);e.api.releaseReady();await e.settle();assert.equal(e.saved().request,null);assert.equal(e.saved().selection.identity.id,'art_second_page');assert.equal(e.saved().selection.sourceNode,undefined);assert.equal(e.saved().outcome,null);
+    e.api.select('saved_two');await e.until(()=>e.api.saved().selection?.ownerSelection?.state==='identified');const result=await check(e);assert.equal(result.request.selection.sourceNode.nodeId,'saved_two');assert.equal(result.request.selection.identity.id,'art_second_page');
+    await e.api.navigate(false);assert.equal(e.saved().selection.sourceNode,undefined);assert.equal(e.saved().outcome,null);
+  });
+  await scenario('known source revision invalidates before refresh and propagates exact new hash/generations',async e=>{
+    const first=await selected(e);e.api.holdReady();e.api.check();await e.api.external();assert.equal(e.saved().request,null);e.api.releaseReady();await e.settle();assert.equal(e.saved().outcome,null);
+    const next=await selected(e);assert.notEqual(next.selection.sourceNode.savedRevision,first.selection.sourceNode.savedRevision);assert(next.selection.ownerSelection.generation.source>first.selection.ownerSelection.generation.source);assert.equal((await check(e)).outcome.code,'PROVIDER_NOT_QUALIFIED');
+  });
+  await scenario('qualified owner change cannot restore an older request',async e=>{
+    await selected(e);e.api.holdReady();e.api.check();await e.api.ownerChange();e.api.releaseReady();await e.settle();assert.equal(e.saved().selection.identity.owner.revision,'owner-2');assert.equal(e.saved().selection.sourceNode,undefined);await selected(e);assert.equal((await check(e)).request.selection.ownerSelection.target.source.page.owner.revision,'owner-2');
+  });
+  for(const subject of [false,true])await scenario(`${subject?'subject':'session'} change suspends source and controller before late completion`,async e=>{
+    await selected(e);e.api.holdReady();e.api.check();e.api.sessionChange(subject);assert.equal(e.saved().state,'suspended');assert.equal(e.saved().request,null);assert.equal(e.saved().selection,null);e.api.releaseReady();await e.settle();assert.equal(e.saved().state,'suspended');assert.equal(e.saved().outcome,null);
+  });
+  await scenario('park/remount clears bindings and cached targets without changing editor drafts',async e=>{
+    await selected(e);const before=await e.snap();e.api.holdReady();e.api.check();e.api.park();assert.equal(e.saved().state,'parked');assert.equal(e.saved().selection,null);e.api.releaseReady();await e.settle();await e.api.remount();assert.equal(e.saved().selection.sourceNode,undefined);assert.deepEqual(await e.snap(),before);assert.equal(e.saved().outcome,null);await selected(e);
+  });
+  await scenario('reader disappearance immediately clears pending request and target',async e=>{
+    await selected(e);e.api.holdReady();e.api.check();e.api.removeReader();assert.equal(e.saved().request,null);assert.equal(e.saved().selection.sourceNode,undefined);e.api.releaseReady();await e.settle();assert.equal(e.saved().outcome,null);assert.equal((await check(e)).outcome.code,'SAVED_NODE_UNRESOLVED');
+  });
+  await scenario('Undo/Redo never restore cached request identity and remain usable after checks',async e=>{
+    const original=(await e.snap()).source;await selected(e);e.fill(original.replace('uip-layout-item','uip-layout-item first'));await e.advance(751);e.fill(original.replace('uip-layout-item','uip-layout-item second'));e.click('[data-stage] [data-undo]');await e.settle();assert((await e.snap()).source.includes(' first'));assert.equal((await check(e)).outcome.code,'SOURCE_OWNER_UNAVAILABLE');e.click('[data-stage] [data-redo]');await e.settle();assert((await e.snap()).source.includes(' second'));assert.equal(e.saved().request,null);
+  });
+  await scenario('terminal disposal and close remove subscriptions and suppress late check completion',async e=>{
+    await selected(e);e.api.holdReady();e.api.check();await e.api.close();assert.equal(e.saved().selection,null);assert.equal(e.saved().request,null);e.api.releaseReady();await e.settle();assert.equal(e.saved().outcome,null);await e.api.dispose();assert.equal(e.saved().state,'disposed');assert.equal(e.metrics().sessionObservers,0);
+  });
+  const comparisons=[];
+  for(const enabled of [false,true]){
+    const pair=[];
+    for(const before of [true,false]){
+      const e=await create(enabled,{},before);
+      try{
+        const first=await e.snap();e.api.select();if(!before)await e.until(()=>e.api.saved().selection?.ownerSelection?.state==='identified');
+        e.fill(first.source.replace('uip-layout-item','uip-layout-item first'));await e.advance(751);e.fill(first.source.replace('uip-layout-item','uip-layout-item second'));
+        e.click('[data-stage] [data-undo]');await e.settle();e.click('[data-stage] [data-redo]');await e.settle();e.range(3,11);const edited=await e.snap();const effects=e.metrics();if(!before){await check(e);assert.deepEqual(e.metrics(),effects);assert.deepEqual(await e.snap(),edited);}
+        await e.advance(1999);assert.equal(e.metrics().saves.length,0);await e.advance(1);await e.until(async()=>!(await e.snap()).state.pending);
+        const settled=await e.snap();assert.equal(settled.saves.length,enabled?1:0);assert.deepEqual(settled.range,[3,11]);if(enabled)assert.equal(settled.saves[0].time,2751);
+        if(!before){const metrics=e.metrics();await check(e);assert.deepEqual(e.metrics(),metrics);assert.deepEqual(await e.snap(),settled);}
+        pair.push({first,edited,settled,metrics:e.metrics()});
+      }finally{await e.close();}
+    }
+    assert.deepEqual(pair[1],pair[0]);comparisons.push({enabled,before:pair[0],after:pair[1]});
+  }
+  checks.push('matched actual adapter/editor source/checksum/file/range/history/fixture and enabled/disabled autosave traces; readiness creates zero side effects');
+  return{passed:true,checks,comparisons,scope:'Actual production source owner/editor/adapter/coordinator/view/controller, explicit memory session/request facades, no live authority/backend/native execution'};
+}

@@ -1,0 +1,2531 @@
+{
+  "passed": true,
+  "checks": [
+    "actual editor/adapter/coordinator/view/controller preserve exact original identity and unavailable provenance",
+    "dirty edits atomically remove node/hash and cancel pending completion",
+    "navigation fences old reader and pending checks; only explicit new Card selection is used",
+    "known source revision invalidates before refresh and propagates exact new hash/generations",
+    "qualified owner change cannot restore an older request",
+    "session change suspends source and controller before late completion",
+    "subject change suspends source and controller before late completion",
+    "park/remount clears bindings and cached targets without changing editor drafts",
+    "reader disappearance immediately clears pending request and target",
+    "same-node new owner generations invalidate a pending request",
+    "late callbacks from a detached reader cannot replace the current Page",
+    "uncertain reader getters fail closed without retaining old node identity",
+    "Undo/Redo never restore cached request identity and remain usable after checks",
+    "terminal disposal and close remove subscriptions and suppress late check completion",
+    "disposal while a request is pending is terminal after late completion",
+    "matched actual adapter/editor source/checksum/file/range/history/fixture and enabled/disabled autosave traces; readiness creates zero side effects"
+  ],
+  "comparisons": [
+    {
+      "enabled": false,
+      "before": {
+        "first": {
+          "source": "<div class=\"uip-layout-item\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "23510980c6daf5184fb5a0a2be85f3db76146d398af84f41443798bc40bd2421",
+          "file": "source",
+          "range": [
+            172,
+            172
+          ],
+          "state": {
+            "dirty": false,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": false,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureemptySample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "edited": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": true,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureempty · Unsaved changes excluded; editor autosave remains independently governed.Sample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "settled": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": true,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureempty · Unsaved changes excluded; editor autosave remains independently governed.Sample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "metrics": {
+          "unexpected": [],
+          "saves": [],
+          "authCalls": [
+            {
+              "key": "routing-key",
+              "target": {
+                "identity": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                }
+              }
+            }
+          ],
+          "sessionCalls": [
+            "headers"
+          ],
+          "boundaryCalls": [],
+          "sessionObservers": 2,
+          "pendingTasks": 0
+        }
+      },
+      "after": {
+        "first": {
+          "source": "<div class=\"uip-layout-item\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "23510980c6daf5184fb5a0a2be85f3db76146d398af84f41443798bc40bd2421",
+          "file": "source",
+          "range": [
+            172,
+            172
+          ],
+          "state": {
+            "dirty": false,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": false,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureemptySample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "edited": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": true,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureempty · Unsaved changes excluded; editor autosave remains independently governed.Sample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "settled": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": true,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureempty · Unsaved changes excluded; editor autosave remains independently governed.Sample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "metrics": {
+          "unexpected": [],
+          "saves": [],
+          "authCalls": [
+            {
+              "key": "routing-key",
+              "target": {
+                "identity": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                }
+              }
+            }
+          ],
+          "sessionCalls": [
+            "headers"
+          ],
+          "boundaryCalls": [],
+          "sessionObservers": 2,
+          "pendingTasks": 0
+        }
+      }
+    },
+    {
+      "enabled": true,
+      "before": {
+        "first": {
+          "source": "<div class=\"uip-layout-item\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "23510980c6daf5184fb5a0a2be85f3db76146d398af84f41443798bc40bd2421",
+          "file": "source",
+          "range": [
+            172,
+            172
+          ],
+          "state": {
+            "dirty": false,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": false,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureemptySample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "edited": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": true,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureempty · Unsaved changes excluded; editor autosave remains independently governed.Sample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "pending": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": true,
+            "pending": true,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [
+            {
+              "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+              "body": {
+                "mode": "normal",
+                "files": {
+                  "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                  "css": "uib-card { display: block; }",
+                  "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                  "fixtures": "{}",
+                  "code": "export {};"
+                },
+                "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+              },
+              "time": 2751
+            }
+          ],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureempty · Unsaved changes excluded; editor autosave remains independently governed.Sample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "settled": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": false,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [
+            {
+              "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+              "body": {
+                "mode": "normal",
+                "files": {
+                  "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                  "css": "uib-card { display: block; }",
+                  "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                  "fixtures": "{}",
+                  "code": "export {};"
+                },
+                "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+              },
+              "time": 2751
+            }
+          ],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureemptySample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "metrics": {
+          "unexpected": [],
+          "saves": [
+            {
+              "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+              "body": {
+                "mode": "normal",
+                "files": {
+                  "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                  "css": "uib-card { display: block; }",
+                  "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                  "fixtures": "{}",
+                  "code": "export {};"
+                },
+                "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+              },
+              "time": 2751
+            }
+          ],
+          "authCalls": [
+            {
+              "key": "routing-key",
+              "target": {
+                "identity": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                }
+              }
+            }
+          ],
+          "sessionCalls": [
+            "headers",
+            "headers"
+          ],
+          "boundaryCalls": [],
+          "sessionObservers": 2,
+          "pendingTasks": 0
+        }
+      },
+      "after": {
+        "first": {
+          "source": "<div class=\"uip-layout-item\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "23510980c6daf5184fb5a0a2be85f3db76146d398af84f41443798bc40bd2421",
+          "file": "source",
+          "range": [
+            172,
+            172
+          ],
+          "state": {
+            "dirty": false,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": false,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureemptySample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "edited": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": true,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureempty · Unsaved changes excluded; editor autosave remains independently governed.Sample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "pending": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": true,
+            "pending": true,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [
+            {
+              "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+              "body": {
+                "mode": "normal",
+                "files": {
+                  "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                  "css": "uib-card { display: block; }",
+                  "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                  "fixtures": "{}",
+                  "code": "export {};"
+                },
+                "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+              },
+              "time": 2751
+            }
+          ],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureempty · Unsaved changes excluded; editor autosave remains independently governed.Sample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "settled": {
+          "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+          "checksum": "6ae1d8b4ffffe3bba2cdc6dede8c272ec390b34b52d5831549255fe8254bedc8",
+          "file": "source",
+          "range": [
+            3,
+            11
+          ],
+          "state": {
+            "dirty": false,
+            "pending": false,
+            "conflict": false
+          },
+          "undo": true,
+          "redo": false,
+          "saves": [
+            {
+              "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+              "body": {
+                "mode": "normal",
+                "files": {
+                  "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                  "css": "uib-card { display: block; }",
+                  "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                  "fixtures": "{}",
+                  "code": "export {};"
+                },
+                "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+              },
+              "time": 2751
+            }
+          ],
+          "fixture": "Preview · Fixture demonstrationFixture mode · SAMPLE DATA · Saved-artifact Preview unavailableOriginal selection · [\"original-subject\",\"original-session\",\"original-permanent-app\",\"[\\\"application\\\",\\\"original-permanent-app\\\",\\\"owner-1\\\",\\\"visual\\\",[\\\"permanent\\\",\\\"art_original_page\\\"]]\"]No successful captureemptySample typeNative CardNative Panel layout fixtureSynthetic route-parameter inspectorSynthetic sample (JSON)Refresh fixturePreview saved artifactUnsupported fixture contractsPLATFORM_COMPONENT_CAPTURE_UNAVAILABLE: protected capture prerequisites remain openPACKAGE_NOT_ADMITTED: only Card and the native Panel layout fixture are admittedREGION_SCHEMA_UNSUPPORTED: composition rendering is not admittedROUTE_RENDERING_UNAVAILABLE: the pure inspector does not render Pages or MenusFORM_MODE_UNSUPPORTED: create/edit Form renderer closure is not admittedEXECUTABLE_SOURCE_DENIED: no source functions or importsRESOURCE_NOT_ADMITTED: no URL or external resource capabilitySAVED_CAPTURE_UNAVAILABLE: D6 acquisition and trusted revocation prerequisites remain open",
+          "fixtureKind": "card",
+          "fixtureSample": "{\n  \"fixture\": \"native-card-v1\",\n  \"heading\": \"Synthetic Card\",\n  \"header\": \"\",\n  \"body\": \"Authored synthetic slot text\",\n  \"footer\": \"Synthetic footer\",\n  \"variant\": \"outlined\",\n  \"density\": \"comfortable\",\n  \"selectable\": true,\n  \"disabled\": false,\n  \"selected\": false\n}"
+        },
+        "metrics": {
+          "unexpected": [],
+          "saves": [
+            {
+              "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+              "body": {
+                "mode": "normal",
+                "files": {
+                  "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                  "css": "uib-card { display: block; }",
+                  "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                  "fixtures": "{}",
+                  "code": "export {};"
+                },
+                "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+              },
+              "time": 2751
+            }
+          ],
+          "authCalls": [
+            {
+              "key": "routing-key",
+              "target": {
+                "identity": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                }
+              }
+            }
+          ],
+          "sessionCalls": [
+            "headers",
+            "headers"
+          ],
+          "boundaryCalls": [],
+          "sessionObservers": 2,
+          "pendingTasks": 0
+        }
+      }
+    }
+  ],
+  "scope": "Actual production source owner/editor/adapter/coordinator/view/controller, explicit memory session/request facades, no live authority/backend/native execution",
+  "errors": [],
+  "network": [],
+  "frames": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "observations": [
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 5,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 2,
+              "source": 2
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 5,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false,
+            "ownerSelection": {
+              "state": "identified",
+              "reason": "RETAINED_SAVED_VERSION_ONLY",
+              "generation": {
+                "selection": 2,
+                "source": 2
+              },
+              "target": {
+                "source": {
+                  "applicationId": "original-permanent-app",
+                  "page": {
+                    "owner": {
+                      "kind": "application",
+                      "id": "original-permanent-app",
+                      "revision": "owner-1"
+                    },
+                    "format": "visual",
+                    "id": "art_original_page"
+                  },
+                  "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                  "nodeId": "saved"
+                },
+                "implementation": {
+                  "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                  "packageId": "@ui-base/ui",
+                  "packageVersion": "0.5.1",
+                  "importPath": "@ui-base/ui/card",
+                  "exportName": "UibCard",
+                  "definitionRevision": null
+                },
+                "context": {
+                  "subjectId": "original-subject",
+                  "sessionRevision": "original-session"
+                }
+              }
+            },
+            "sourceNode": {
+              "nodeId": "saved",
+              "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "PROVIDER_NOT_QUALIFIED"
+        }
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 2,
+          "source": 2
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 8,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": true,
+          "ownerSelection": {
+            "state": "unavailable",
+            "reason": "SOURCE_CHANGED",
+            "generation": {
+              "selection": 2,
+              "source": 4
+            },
+            "target": null
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 8,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": true,
+            "ownerSelection": {
+              "state": "unavailable",
+              "reason": "SOURCE_CHANGED",
+              "generation": {
+                "selection": 2,
+                "source": 4
+              },
+              "target": null
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "SOURCE_OWNER_UNAVAILABLE"
+        }
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SOURCE_CHANGED",
+        "generation": {
+          "selection": 2,
+          "source": 4
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 16,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "unavailable",
+            "reason": "SELECTION_CHANGED",
+            "generation": {
+              "selection": 3,
+              "source": 3
+            },
+            "target": null
+          }
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SELECTION_CHANGED",
+        "generation": {
+          "selection": 3,
+          "source": 3
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          },
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_second_page"
+              }
+            }
+          },
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 3,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 13,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 3,
+              "source": 7
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2"
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 13,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false,
+            "ownerSelection": {
+              "state": "identified",
+              "reason": "RETAINED_SAVED_VERSION_ONLY",
+              "generation": {
+                "selection": 3,
+                "source": 7
+              },
+              "target": {
+                "source": {
+                  "applicationId": "original-permanent-app",
+                  "page": {
+                    "owner": {
+                      "kind": "application",
+                      "id": "original-permanent-app",
+                      "revision": "owner-1"
+                    },
+                    "format": "visual",
+                    "id": "art_original_page"
+                  },
+                  "committedHash": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2",
+                  "nodeId": "saved"
+                },
+                "implementation": {
+                  "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                  "packageId": "@ui-base/ui",
+                  "packageVersion": "0.5.1",
+                  "importPath": "@ui-base/ui/card",
+                  "exportName": "UibCard",
+                  "definitionRevision": null
+                },
+                "context": {
+                  "subjectId": "original-subject",
+                  "sessionRevision": "original-session"
+                }
+              }
+            },
+            "sourceNode": {
+              "nodeId": "saved",
+              "savedRevision": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2"
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "PROVIDER_NOT_QUALIFIED"
+        }
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 3,
+          "source": 7
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 12,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-2"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 2,
+              "source": 2
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-2"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 12,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-2"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false,
+            "ownerSelection": {
+              "state": "identified",
+              "reason": "RETAINED_SAVED_VERSION_ONLY",
+              "generation": {
+                "selection": 2,
+                "source": 2
+              },
+              "target": {
+                "source": {
+                  "applicationId": "original-permanent-app",
+                  "page": {
+                    "owner": {
+                      "kind": "application",
+                      "id": "original-permanent-app",
+                      "revision": "owner-2"
+                    },
+                    "format": "visual",
+                    "id": "art_original_page"
+                  },
+                  "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                  "nodeId": "saved"
+                },
+                "implementation": {
+                  "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                  "packageId": "@ui-base/ui",
+                  "packageVersion": "0.5.1",
+                  "importPath": "@ui-base/ui/card",
+                  "exportName": "UibCard",
+                  "definitionRevision": null
+                },
+                "context": {
+                  "subjectId": "original-subject",
+                  "sessionRevision": "original-session"
+                }
+              }
+            },
+            "sourceNode": {
+              "nodeId": "saved",
+              "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "PROVIDER_NOT_QUALIFIED"
+        }
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 2,
+          "source": 2
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-2"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          },
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-2"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 3,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "suspended",
+        "generation": 6,
+        "reason": "Session changed.",
+        "selection": null,
+        "request": null,
+        "outcome": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "suspended",
+        "generation": 6,
+        "reason": "Session changed.",
+        "selection": null,
+        "request": null,
+        "outcome": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 13,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 4,
+              "source": 3
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+          }
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 4,
+          "source": 3
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          },
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 7,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 7,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "SAVED_NODE_UNRESOLVED"
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 8,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 4,
+              "source": 2
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+          }
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 4,
+          "source": 2
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 11,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_second_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "unavailable",
+            "reason": "SELECTION_CHANGED",
+            "generation": {
+              "selection": 1,
+              "source": 2
+            },
+            "target": null
+          }
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SELECTION_CHANGED",
+        "generation": {
+          "selection": 1,
+          "source": 2
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          },
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_second_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 3,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 8,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false
+        },
+        "request": null,
+        "outcome": null
+      },
+      "ownerReadError": "Error: Authored uncertain getter",
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 11,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": true,
+          "ownerSelection": {
+            "state": "unavailable",
+            "reason": "SOURCE_CHANGED",
+            "generation": {
+              "selection": 2,
+              "source": 8
+            },
+            "target": null
+          }
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SOURCE_CHANGED",
+        "generation": {
+          "selection": 2,
+          "source": 8
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "disposed",
+        "generation": 9,
+        "reason": "Saved readiness disposed.",
+        "selection": null,
+        "request": null,
+        "outcome": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 0,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "disposed",
+        "generation": 6,
+        "reason": "Saved readiness disposed.",
+        "selection": null,
+        "request": null,
+        "outcome": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 0,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 1,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": true
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SOURCE_CHANGED",
+        "generation": {
+          "selection": 2,
+          "source": 8
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 12,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": true,
+          "ownerSelection": {
+            "state": "unavailable",
+            "reason": "SOURCE_CHANGED",
+            "generation": {
+              "selection": 2,
+              "source": 8
+            },
+            "target": null
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 12,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": true,
+            "ownerSelection": {
+              "state": "unavailable",
+              "reason": "SOURCE_CHANGED",
+              "generation": {
+                "selection": 2,
+                "source": 8
+              },
+              "target": null
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "SOURCE_OWNER_UNAVAILABLE"
+        }
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SOURCE_CHANGED",
+        "generation": {
+          "selection": 2,
+          "source": 8
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 1,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 2,
+          "source": 10
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [
+          {
+            "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+            "body": {
+              "mode": "normal",
+              "files": {
+                "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                "css": "uib-card { display: block; }",
+                "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                "fixtures": "{}",
+                "code": "export {};"
+              },
+              "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+            },
+            "time": 2751
+          }
+        ],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 16,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 2,
+              "source": 10
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059"
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 16,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false,
+            "ownerSelection": {
+              "state": "identified",
+              "reason": "RETAINED_SAVED_VERSION_ONLY",
+              "generation": {
+                "selection": 2,
+                "source": 10
+              },
+              "target": {
+                "source": {
+                  "applicationId": "original-permanent-app",
+                  "page": {
+                    "owner": {
+                      "kind": "application",
+                      "id": "original-permanent-app",
+                      "revision": "owner-1"
+                    },
+                    "format": "visual",
+                    "id": "art_original_page"
+                  },
+                  "committedHash": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059",
+                  "nodeId": "saved"
+                },
+                "implementation": {
+                  "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                  "packageId": "@ui-base/ui",
+                  "packageVersion": "0.5.1",
+                  "importPath": "@ui-base/ui/card",
+                  "exportName": "UibCard",
+                  "definitionRevision": null
+                },
+                "context": {
+                  "subjectId": "original-subject",
+                  "sessionRevision": "original-session"
+                }
+              }
+            },
+            "sourceNode": {
+              "nodeId": "saved",
+              "savedRevision": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059"
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "PROVIDER_NOT_QUALIFIED"
+        }
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 2,
+          "source": 10
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [
+          {
+            "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+            "body": {
+              "mode": "normal",
+              "files": {
+                "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                "css": "uib-card { display: block; }",
+                "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                "fixtures": "{}",
+                "code": "export {};"
+              },
+              "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+            },
+            "time": 2751
+          }
+        ],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    }
+  ]
+}

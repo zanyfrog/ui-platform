@@ -1,0 +1,55 @@
+import { mountWorkspaceEditor } from '../../src/client/builder-workspace/adapters.js';
+import { BuilderWorkspaceCoordinator } from '../../src/client/builder-workspace/coordinator.js';
+import { createBuilderShellView } from '../../src/client/builder-workspace/shell-view.js';
+import { SavedPreviewRequestController } from '../../src/client/builder-workspace/saved-preview-request.js';
+import { configureAutosave } from '../../src/client/artifact-editor/autosave-configuration.js';
+import { workspaceIdentityKey } from '../../src/shared/builder-workspace.js';
+import { fixture,context,digest,source } from '../saved-card-selection/fixtures.js';
+import { editorSessionSnapshot,subscribeEditorSession,changeSession,sessionCalls,sessionObserverCount } from './session-facade.js';
+import { permitWorkspace,boundaryCalls,unexpected } from './boundary-facade.js';
+let active=true,start=0,controller:SavedPreviewRequestController,view:ReturnType<typeof createBuilderShellView>,coordinator:BuilderWorkspaceCoordinator;
+let bundles=new Map<string,any>(),workspace:any,artifacts:any[]=[],saves:any[]=[],authCalls:any[]=[],root:HTMLElement;
+let readyGate:Promise<void>|undefined,releaseReady:()=>void=()=>{},saveGate:Promise<void>|undefined,releaseSave:()=>void=()=>{},unsubSession=()=>{};
+const currentTab=()=>coordinator.focused?coordinator.tabs.get(coordinator.focused):undefined;
+const input=()=>view.element.querySelector<HTMLTextAreaElement>('[data-stage] [data-source]')!;
+const track=new Set<Promise<unknown>>();
+function task(p:Promise<unknown>){track.add(p);void p.catch(e=>unexpected.push(String(e))).finally(()=>track.delete(p));}
+function render(){view.render({active,applicationKey:'routing-key',session:editorSessionSnapshot(),focused:coordinator.focused,tabs:[...coordinator.tabs.values()].map(tab=>({key:tab.key,artifact:tab.artifact,suspended:tab.suspended,element:tab.editor.element,state:tab.editor.state(),savedCardTarget:tab.editor.savedCardTarget}))});}
+(window as any).integrationHarness={
+  async mount(enabled=false){
+    configureAutosave({enabled,delayMs:2000});start=Date.now();root=document.createElement('main');document.body.append(root);
+    const first=await fixture(),second=await fixture(source.replaceAll('saved"','saved_two"'));
+    second.bundle.metadata!.artifactId='art_second_page';second.bundle.files.metadata=JSON.stringify(second.bundle.metadata);second.baseline=structuredClone(second.bundle.files);second.bundle.hash=await digest(JSON.stringify(second.bundle.files));second.bundle.locator='memory/second.visual.json';
+    bundles=new Map([[first.bundle.locator,first.bundle],[second.bundle.locator,second.bundle]]);workspace={pages:[...bundles.values()],components:[],shells:[],packages:first.packages};
+    artifacts=[...bundles.values()].map((bundle,i)=>({identity:{...structuredClone(context.page),id:bundle.metadata.artifactId},applicationId:context.applicationId,applicationKey:'routing-key',locator:bundle.locator,name:i?'Second':'Original',group:'Pages',kind:'page',editable:true,visual:workspace}));
+    controller=new SavedPreviewRequestController(()=>{const gate=readyGate;readyGate=undefined;return gate??Promise.resolve();});
+    view=createBuilderShellView({navigate:(target,key)=>task(coordinator.open(key??'routing-key',target)),close:key=>task(coordinator.close(key))},controller);
+    coordinator=new BuilderWorkspaceCoordinator(async(key,target)=>{authCalls.push({key,target});const value=artifacts.find(a=>workspaceIdentityKey(a.identity)===workspaceIdentityKey(target.identity));if(!value)throw Error('MEMORY_TARGET_UNRESOLVED');return structuredClone({...value,visual:workspace});},authorized=>mountWorkspaceEditor(authorized,()=>render(),()=>{unexpected.push('Edit Definition');throw Error('UNADMITTED_DEFINITION');},()=>{unexpected.push('editor close callback');}),()=>editorSessionSnapshot().principal.subjectId);
+    coordinator.subscribe(render);
+    // Matches the existing production root: suspend readiness before tabs.
+    unsubSession=subscribeEditorSession(()=>{controller.suspend('Session changed.');coordinator.suspend();});
+    globalThis.fetch=(async(url,init)=>{
+      const parsed=new URL(String(url),location.origin),locator=parsed.searchParams.get('locator');
+      if(init?.method!=='PUT'||!locator||!bundles.has(locator)||!parsed.pathname.endsWith('/visual-pages')){unexpected.push('fetch '+String(url));throw Error('UNADMITTED_MEMORY_FETCH');}
+      const body=JSON.parse(String(init.body)),original=bundles.get(locator);if(body.expectedHash!==original.hash)throw Error('MEMORY_HASH_CONFLICT');
+      saves.push({url:String(url),body:structuredClone(body),time:Date.now()-start});if(saveGate)await saveGate;
+      const next={...original,files:structuredClone(body.files),metadata:JSON.parse(body.files.metadata),hash:await digest(JSON.stringify(body.files))};bundles.set(locator,next);workspace.pages=[...bundles.values()];
+      return {ok:true,json:async()=>structuredClone(next)} as Response;
+    })as typeof fetch;
+    view.mount(root,'Actual production request path · memory only');view.artifacts(artifacts);await coordinator.open('routing-key',{identity:artifacts[0].identity});render();
+  },
+  select(node='saved'){const select=view.element.querySelector<HTMLSelectElement>('[data-stage] [data-nodes]')!;select.value=node;select.dispatchEvent(new Event('change'));},
+  saved(){return controller.snapshot;},owner(){return currentTab()?.editor.savedCardTarget?.snapshot;},check(){(view.element.querySelector('[data-view-action="saved-check"]')as HTMLButtonElement).click();},
+  holdReady(){readyGate=new Promise(resolve=>{releaseReady=resolve;});},releaseReady(){releaseReady();},
+  holdSave(){saveGate=new Promise(resolve=>{releaseSave=()=>{saveGate=undefined;resolve();};});},releaseSave(){releaseSave();},
+  async navigate(second=false){await coordinator.open('routing-key',{identity:artifacts[second?1:0].identity});},
+  sessionChange(subject=false){changeSession(subject);},
+  park(){coordinator.park();active=false;view.park();},async remount(){active=true;view.mount(root,'Memory remount');await coordinator.open('routing-key',{identity:artifacts[0].identity});},
+  async external(){const locator=artifacts[0].locator,old=bundles.get(locator),files={...old.files,source:old.files.source.replace('uip-layout-item','uip-layout-item external')};const next={...old,files,hash:await digest(JSON.stringify(files))};bundles.set(locator,next);workspace.pages=[...bundles.values()];permitWorkspace({...artifacts[0],visual:workspace});document.dispatchEvent(new Event('ui-platform-workspace-change'));},
+  async ownerChange(){artifacts[0]={...artifacts[0],identity:{...artifacts[0].identity,owner:{...artifacts[0].identity.owner,revision:'owner-2'}}};await coordinator.open('routing-key',{identity:artifacts[0].identity});},
+  removeReader(){const tab=currentTab()!;const original=tab.editor;Object.defineProperty(tab.editor,'savedCardTarget',{value:undefined,configurable:true});render();return original;},
+  async close(){const key=coordinator.focused!;await coordinator.close(key,true);},
+  async dispose(){view.dispose();unsubSession();await coordinator.dispose();root.remove();},
+  metrics(){return{unexpected:[...unexpected],saves:structuredClone(saves),authCalls:structuredClone(authCalls),sessionCalls:[...sessionCalls],boundaryCalls:structuredClone(boundaryCalls),sessionObservers:sessionObserverCount(),pendingTasks:track.size};},
+  async snapshot(){const field=input();const tab=currentTab();return{source:field?.value,checksum:await digest(field?.value??''),file:tab?.editor.element.querySelector<HTMLSelectElement>('[data-file]')?.value,range:field?[field.selectionStart,field.selectionEnd]:null,state:tab?.editor.state(),undo:!tab?.editor.element.querySelector<HTMLButtonElement>('[data-undo]')?.disabled,redo:!tab?.editor.element.querySelector<HTMLButtonElement>('[data-redo]')?.disabled,saves:structuredClone(saves),fixture:view.element.querySelector('[aria-label="Fixture Preview"]')?.textContent};},
+};

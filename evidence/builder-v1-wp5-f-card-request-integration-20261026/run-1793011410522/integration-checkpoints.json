@@ -1,0 +1,16 @@
+{
+  "checks": [
+    "actual editor/adapter/coordinator/view/controller preserve exact original identity and unavailable provenance",
+    "dirty edits atomically remove node/hash and cancel pending completion",
+    "navigation fences old reader and pending checks; only explicit new Card selection is used",
+    "known source revision invalidates before refresh and propagates exact new hash/generations",
+    "qualified owner change cannot restore an older request",
+    "session change suspends source and controller before late completion",
+    "subject change suspends source and controller before late completion",
+    "park/remount clears bindings and cached targets without changing editor drafts",
+    "reader disappearance immediately clears pending request and target",
+    "same-node new owner generations invalidate a pending request",
+    "late callbacks from a detached reader cannot replace the current Page",
+    "uncertain reader getters fail closed without retaining old node identity"
+  ]
+}

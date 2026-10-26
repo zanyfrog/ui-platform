@@ -1,0 +1,25 @@
+{
+  "entry": "scripts/verify-card-request-integration.mjs",
+  "sha256": "df15c72559d5038015057cfe0b2496ea2cdd44f8dbaa17d4b64de0727bb54c31",
+  "driver": "tests/card-request-integration/checks.mjs",
+  "driverSha256": "924cd374b0668ecff443774d20fbd4a63a99cc02ad4ed99ea17b82caf815807e",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "applicationAdmission": "Exact allowlist/replacement map, input copies/hashes before compile, resolved graphs before execution; actual adapter Page branch with explicit memory facades, root syntax only",
+  "typeAdmission": "Shared DTOs, pure Visual types/composition/expression and packages/artifacts/src/types.ts data declarations only; no storage/service module",
+  "platform": "Realm-local plain metadata clone, DOM constructors/Option, deterministic clock, WebCrypto; no native frames",
+  "serial": true,
+  "retries": 0,
+  "change": "Separately admitted final lifecycle coverage: same-node generations, detached late reader callback, uncertain getter, pending disposal and matched pending autosave checks; fail-closed view getter/subscription/detach fences. Same executable closure."
+}

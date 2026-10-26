@@ -1,0 +1,25 @@
+{
+  "entry": "scripts/verify-card-request-integration.mjs",
+  "sha256": "40d7da985565a3ec734542834def1541fd834ce918c167ffb84083beead30ee4",
+  "driver": "tests/card-request-integration/checks.mjs",
+  "driverSha256": "81c6723912cef4b3c0cf95d1fbfa06d1f2d0361293982c9e2d059683f5ddc3fb",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "applicationAdmission": "Exact allowlist/replacement map, input copies/hashes before compile, resolved graphs before execution; actual adapter Page branch with explicit memory facades, root syntax only",
+  "typeAdmission": "Shared DTOs, pure Visual types/composition/expression and packages/artifacts/src/types.ts data declarations only; no storage/service module",
+  "platform": "Realm-local plain metadata clone, DOM constructors/Option, deterministic clock, WebCrypto; no native frames",
+  "serial": true,
+  "retries": 0,
+  "change": "Final separately admitted currentness review: compare emissions to current owner metadata, fence decreasing source/selection generations per reader binding, verify same-reader delayed emission cannot replace newer request. No new runtime dependency or source interpretation."
+}

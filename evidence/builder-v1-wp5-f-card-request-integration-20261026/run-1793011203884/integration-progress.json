@@ -1,0 +1,1707 @@
+{
+  "observations": [
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 5,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 2,
+              "source": 2
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 5,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false,
+            "ownerSelection": {
+              "state": "identified",
+              "reason": "RETAINED_SAVED_VERSION_ONLY",
+              "generation": {
+                "selection": 2,
+                "source": 2
+              },
+              "target": {
+                "source": {
+                  "applicationId": "original-permanent-app",
+                  "page": {
+                    "owner": {
+                      "kind": "application",
+                      "id": "original-permanent-app",
+                      "revision": "owner-1"
+                    },
+                    "format": "visual",
+                    "id": "art_original_page"
+                  },
+                  "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                  "nodeId": "saved"
+                },
+                "implementation": {
+                  "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                  "packageId": "@ui-base/ui",
+                  "packageVersion": "0.5.1",
+                  "importPath": "@ui-base/ui/card",
+                  "exportName": "UibCard",
+                  "definitionRevision": null
+                },
+                "context": {
+                  "subjectId": "original-subject",
+                  "sessionRevision": "original-session"
+                }
+              }
+            },
+            "sourceNode": {
+              "nodeId": "saved",
+              "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "PROVIDER_NOT_QUALIFIED"
+        }
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 2,
+          "source": 2
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 8,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": true,
+          "ownerSelection": {
+            "state": "unavailable",
+            "reason": "SOURCE_CHANGED",
+            "generation": {
+              "selection": 2,
+              "source": 4
+            },
+            "target": null
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 8,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": true,
+            "ownerSelection": {
+              "state": "unavailable",
+              "reason": "SOURCE_CHANGED",
+              "generation": {
+                "selection": 2,
+                "source": 4
+              },
+              "target": null
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "SOURCE_OWNER_UNAVAILABLE"
+        }
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SOURCE_CHANGED",
+        "generation": {
+          "selection": 2,
+          "source": 4
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 16,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "unavailable",
+            "reason": "SELECTION_CHANGED",
+            "generation": {
+              "selection": 3,
+              "source": 3
+            },
+            "target": null
+          }
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SELECTION_CHANGED",
+        "generation": {
+          "selection": 3,
+          "source": 3
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          },
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_second_page"
+              }
+            }
+          },
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 3,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 13,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 3,
+              "source": 7
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2"
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 13,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false,
+            "ownerSelection": {
+              "state": "identified",
+              "reason": "RETAINED_SAVED_VERSION_ONLY",
+              "generation": {
+                "selection": 3,
+                "source": 7
+              },
+              "target": {
+                "source": {
+                  "applicationId": "original-permanent-app",
+                  "page": {
+                    "owner": {
+                      "kind": "application",
+                      "id": "original-permanent-app",
+                      "revision": "owner-1"
+                    },
+                    "format": "visual",
+                    "id": "art_original_page"
+                  },
+                  "committedHash": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2",
+                  "nodeId": "saved"
+                },
+                "implementation": {
+                  "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                  "packageId": "@ui-base/ui",
+                  "packageVersion": "0.5.1",
+                  "importPath": "@ui-base/ui/card",
+                  "exportName": "UibCard",
+                  "definitionRevision": null
+                },
+                "context": {
+                  "subjectId": "original-subject",
+                  "sessionRevision": "original-session"
+                }
+              }
+            },
+            "sourceNode": {
+              "nodeId": "saved",
+              "savedRevision": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2"
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "PROVIDER_NOT_QUALIFIED"
+        }
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 3,
+          "source": 7
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "4aabc976149c96a3788407b6c1a160f648cabea7987dca0ec88ce95fb2ef8fe2",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 12,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-2"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 2,
+              "source": 2
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-2"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 12,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-2"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false,
+            "ownerSelection": {
+              "state": "identified",
+              "reason": "RETAINED_SAVED_VERSION_ONLY",
+              "generation": {
+                "selection": 2,
+                "source": 2
+              },
+              "target": {
+                "source": {
+                  "applicationId": "original-permanent-app",
+                  "page": {
+                    "owner": {
+                      "kind": "application",
+                      "id": "original-permanent-app",
+                      "revision": "owner-2"
+                    },
+                    "format": "visual",
+                    "id": "art_original_page"
+                  },
+                  "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                  "nodeId": "saved"
+                },
+                "implementation": {
+                  "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                  "packageId": "@ui-base/ui",
+                  "packageVersion": "0.5.1",
+                  "importPath": "@ui-base/ui/card",
+                  "exportName": "UibCard",
+                  "definitionRevision": null
+                },
+                "context": {
+                  "subjectId": "original-subject",
+                  "sessionRevision": "original-session"
+                }
+              }
+            },
+            "sourceNode": {
+              "nodeId": "saved",
+              "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "PROVIDER_NOT_QUALIFIED"
+        }
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 2,
+          "source": 2
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-2"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          },
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-2"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 3,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "suspended",
+        "generation": 6,
+        "reason": "Session changed.",
+        "selection": null,
+        "request": null,
+        "outcome": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "suspended",
+        "generation": 6,
+        "reason": "Session changed.",
+        "selection": null,
+        "request": null,
+        "outcome": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 13,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 4,
+              "source": 3
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+          }
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 4,
+          "source": 3
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          },
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 7,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 7,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "SAVED_NODE_UNRESOLVED"
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 11,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": true,
+          "ownerSelection": {
+            "state": "unavailable",
+            "reason": "SOURCE_CHANGED",
+            "generation": {
+              "selection": 2,
+              "source": 8
+            },
+            "target": null
+          }
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SOURCE_CHANGED",
+        "generation": {
+          "selection": 2,
+          "source": 8
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "disposed",
+        "generation": 9,
+        "reason": "Saved readiness disposed.",
+        "selection": null,
+        "request": null,
+        "outcome": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 0,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 1,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": true
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SOURCE_CHANGED",
+        "generation": {
+          "selection": 2,
+          "source": 8
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 12,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": true,
+          "ownerSelection": {
+            "state": "unavailable",
+            "reason": "SOURCE_CHANGED",
+            "generation": {
+              "selection": 2,
+              "source": 8
+            },
+            "target": null
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 12,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": true,
+            "ownerSelection": {
+              "state": "unavailable",
+              "reason": "SOURCE_CHANGED",
+              "generation": {
+                "selection": 2,
+                "source": 8
+              },
+              "target": null
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "SOURCE_OWNER_UNAVAILABLE"
+        }
+      },
+      "owner": {
+        "state": "unavailable",
+        "reason": "SOURCE_CHANGED",
+        "generation": {
+          "selection": 2,
+          "source": 8
+        },
+        "target": null
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "idle",
+        "generation": 1,
+        "reason": "Original selection changed; explicit check required.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false
+        },
+        "request": null,
+        "outcome": null
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 2,
+          "source": 10
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [
+          {
+            "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+            "body": {
+              "mode": "normal",
+              "files": {
+                "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                "css": "uib-card { display: block; }",
+                "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                "fixtures": "{}",
+                "code": "export {};"
+              },
+              "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+            },
+            "time": 2751
+          }
+        ],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    },
+    {
+      "request": {
+        "state": "unavailable",
+        "generation": 15,
+        "reason": "Readiness is not authorization or available rendering.",
+        "selection": {
+          "subjectId": "original-subject",
+          "sessionRevision": "original-session",
+          "applicationId": "original-permanent-app",
+          "applicationKey": "routing-key",
+          "identity": {
+            "owner": {
+              "kind": "application",
+              "id": "original-permanent-app",
+              "revision": "owner-1"
+            },
+            "format": "visual",
+            "id": "art_original_page"
+          },
+          "kind": "page",
+          "dirty": false,
+          "ownerSelection": {
+            "state": "identified",
+            "reason": "RETAINED_SAVED_VERSION_ONLY",
+            "generation": {
+              "selection": 2,
+              "source": 10
+            },
+            "target": {
+              "source": {
+                "applicationId": "original-permanent-app",
+                "page": {
+                  "owner": {
+                    "kind": "application",
+                    "id": "original-permanent-app",
+                    "revision": "owner-1"
+                  },
+                  "format": "visual",
+                  "id": "art_original_page"
+                },
+                "committedHash": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059",
+                "nodeId": "saved"
+              },
+              "implementation": {
+                "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                "packageId": "@ui-base/ui",
+                "packageVersion": "0.5.1",
+                "importPath": "@ui-base/ui/card",
+                "exportName": "UibCard",
+                "definitionRevision": null
+              },
+              "context": {
+                "subjectId": "original-subject",
+                "sessionRevision": "original-session"
+              }
+            }
+          },
+          "sourceNode": {
+            "nodeId": "saved",
+            "savedRevision": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059"
+          }
+        },
+        "request": {
+          "schema": "saved-preview-request-v1",
+          "generation": 15,
+          "trigger": "explicit-check",
+          "selection": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session",
+            "applicationId": "original-permanent-app",
+            "applicationKey": "routing-key",
+            "identity": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "kind": "page",
+            "dirty": false,
+            "ownerSelection": {
+              "state": "identified",
+              "reason": "RETAINED_SAVED_VERSION_ONLY",
+              "generation": {
+                "selection": 2,
+                "source": 10
+              },
+              "target": {
+                "source": {
+                  "applicationId": "original-permanent-app",
+                  "page": {
+                    "owner": {
+                      "kind": "application",
+                      "id": "original-permanent-app",
+                      "revision": "owner-1"
+                    },
+                    "format": "visual",
+                    "id": "art_original_page"
+                  },
+                  "committedHash": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059",
+                  "nodeId": "saved"
+                },
+                "implementation": {
+                  "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+                  "packageId": "@ui-base/ui",
+                  "packageVersion": "0.5.1",
+                  "importPath": "@ui-base/ui/card",
+                  "exportName": "UibCard",
+                  "definitionRevision": null
+                },
+                "context": {
+                  "subjectId": "original-subject",
+                  "sessionRevision": "original-session"
+                }
+              }
+            },
+            "sourceNode": {
+              "nodeId": "saved",
+              "savedRevision": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059"
+            }
+          }
+        },
+        "outcome": {
+          "kind": "unavailable",
+          "code": "PROVIDER_NOT_QUALIFIED"
+        }
+      },
+      "owner": {
+        "state": "identified",
+        "reason": "RETAINED_SAVED_VERSION_ONLY",
+        "generation": {
+          "selection": 2,
+          "source": 10
+        },
+        "target": {
+          "source": {
+            "applicationId": "original-permanent-app",
+            "page": {
+              "owner": {
+                "kind": "application",
+                "id": "original-permanent-app",
+                "revision": "owner-1"
+              },
+              "format": "visual",
+              "id": "art_original_page"
+            },
+            "committedHash": "e1b48416d2cfff368b025752e61c752324f41147a154ec2d6cb5613a94d1b059",
+            "nodeId": "saved"
+          },
+          "implementation": {
+            "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+            "packageId": "@ui-base/ui",
+            "packageVersion": "0.5.1",
+            "importPath": "@ui-base/ui/card",
+            "exportName": "UibCard",
+            "definitionRevision": null
+          },
+          "context": {
+            "subjectId": "original-subject",
+            "sessionRevision": "original-session"
+          }
+        }
+      },
+      "metrics": {
+        "unexpected": [],
+        "saves": [
+          {
+            "url": "/api/apps/routing-key/visual-pages?locator=memory%2Fpage.visual.json",
+            "body": {
+              "mode": "normal",
+              "files": {
+                "source": "<div class=\"uip-layout-item second\" data-uip-node=\"wrapper\"><uib-card data-uip-node=\"saved\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\"></uib-card></div>",
+                "css": "uib-card { display: block; }",
+                "metadata": "{\"schemaVersion\":1,\"artifactId\":\"art_original_page\",\"kind\":\"page\",\"name\":\"saved-memory\",\"displayName\":\"Saved memory\",\"route\":\"/\"}",
+                "fixtures": "{}",
+                "code": "export {};"
+              },
+              "expectedHash": "814c5d6752790bf9e332860bbb74456e2e8d007575caa5361a335b8b70b2ce50"
+            },
+            "time": 2751
+          }
+        ],
+        "authCalls": [
+          {
+            "key": "routing-key",
+            "target": {
+              "identity": {
+                "owner": {
+                  "kind": "application",
+                  "id": "original-permanent-app",
+                  "revision": "owner-1"
+                },
+                "format": "visual",
+                "id": "art_original_page"
+              }
+            }
+          }
+        ],
+        "sessionCalls": [
+          "headers",
+          "headers"
+        ],
+        "boundaryCalls": [],
+        "sessionObservers": 2,
+        "pendingTasks": 0
+      }
+    }
+  ],
+  "errors": [],
+  "network": [],
+  "frames": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

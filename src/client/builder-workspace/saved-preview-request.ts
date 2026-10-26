@@ -18,14 +18,15 @@ export class SavedPreviewRequestController {
   private cancel(state:SavedPreviewRequestSnapshot['state'],reason:string,clearSelection=false){
     this.value={...this.value,state,generation:this.value.generation+1,reason,request:null,outcome:null,...(clearSelection?{selection:null}:{})};this.emit();
   }
-  select(input?:unknown){
+  select(input?:unknown,forceInvalidation=false){
     if(this.value.state==='disposed')return;
+    if(forceInvalidation&&['parked','suspended'].includes(this.value.state))return;
     let selected:SavedPreviewSelection|null=null;
     try{if(input!==undefined&&input!==null)selected=parseSavedPreviewSelection(input);}
     catch{this.unresolvedIdentity=true;this.cancel('unavailable','Invalid original identity.',true);this.value.outcome={kind:'unavailable',code:'UNRESOLVED_IDENTITY'};this.emit();return;}
     this.unresolvedIdentity=false;
     const changed=(selected?savedPreviewSelectionKey(selected):null)!==(this.value.selection?savedPreviewSelectionKey(this.value.selection):null);
-    if(changed){this.value.selection=selected;this.cancel('idle','Original selection changed; explicit check required.');}
+    if(changed||forceInvalidation){this.value.selection=selected;this.cancel('idle','Original selection changed; explicit check required.');}
     else {this.value.selection=selected;if(selected&&['parked','suspended'].includes(this.value.state))this.cancel('idle','Selection restored; explicit check required.');else this.emit();}
   }
   async check():Promise<SavedPreviewUnavailable|undefined>{

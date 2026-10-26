@@ -1,0 +1,25 @@
+{
+  "entry": "scripts/verify-card-request-integration.mjs",
+  "sha256": "1e1ccfedc77ddc82a7cd758db98b365c77f1b0af3c822c9ec981208605d9f5d9",
+  "driver": "tests/card-request-integration/checks.mjs",
+  "driverSha256": "407098525361d0c6f9137ffd97b42f0a8e58405a4d21917bbc112a001144cd9a",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "applicationAdmission": "Exact allowlist/replacement map, input copies/hashes before compile, resolved graphs before execution; actual adapter Page branch with explicit memory facades, root syntax only",
+  "typeAdmission": "Shared DTOs, pure Visual types/composition/expression and packages/artifacts/src/types.ts data declarations only; no storage/service module",
+  "platform": "Realm-local plain metadata clone, DOM constructors/Option, deterministic clock, WebCrypto; no native frames",
+  "serial": true,
+  "retries": 0,
+  "change": "Final exact-baseline comparison: before bundle resolves the preserved preincrement view, controller AND shared request schema, rather than only the view. Add these two exact saved input files to the allowlist/raw snapshots. Current implementation unchanged."
+}

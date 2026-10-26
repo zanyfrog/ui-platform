@@ -1,0 +1,48 @@
+✔ explicit unavailable outcome: no artifact (1.9211ms)
+✔ explicit unavailable outcome: repair only (0.3675ms)
+✔ explicit unavailable outcome: package definition (0.1445ms)
+✔ explicit unavailable outcome: unresolved saved node (0.0982ms)
+✔ explicit unavailable outcome: unsupported artifact (0.1428ms)
+✔ explicit unavailable outcome: unqualified production provider (0.123ms)
+✔ runtime contract rejects hidden capabilities, fields and inconsistent owner (0.4822ms)
+✔ accessors cannot supply or mutate identity during validation (0.1582ms)
+✔ parsed requests and snapshots are copies of original identity (0.371ms)
+✔ invalid original identity has explicit unresolved unavailable state (0.1851ms)
+✔ dirty-only updates are informational and preserve pending generation (0.2448ms)
+✔ subject change cancels obsolete check (0.2072ms)
+✔ session change cancels obsolete check (0.116ms)
+✔ Application change cancels obsolete check (0.094ms)
+✔ owner change cancels obsolete check (0.094ms)
+✔ artifact change cancels obsolete check (0.0735ms)
+✔ source-node change cancels obsolete check (0.0977ms)
+✔ sourceChanged cancels pending and cannot be undone by completion (0.161ms)
+✔ park cancels pending and cannot be undone by completion (0.0973ms)
+✔ suspend cancels pending and cannot be undone by completion (0.0907ms)
+✔ dispose cancels pending and cannot be undone by completion (0.0752ms)
+✔ later explicit check supersedes prior completion without restoring prior request (0.1747ms)
+✔ park/resume, suspend/reselection and terminal disposal have no automatic check (0.1902ms)
+✔ completion failure stays permanently unavailable without retry or grant (0.2291ms)
+✔ subscription cleanup on disposal makes later operations inert (0.084ms)
+✔ exact owner metadata survives request schema as unavailable retained provenance (12.2765ms)
+✔ rejects conflicting Application (2.0893ms)
+✔ rejects conflicting Page (0.8372ms)
+✔ rejects conflicting owner (0.6557ms)
+✔ rejects conflicting subject (0.6564ms)
+✔ rejects conflicting session (0.6143ms)
+✔ rejects conflicting node (0.615ms)
+✔ rejects conflicting hash (0.5632ms)
+✔ rejects conflicting generation (0.9303ms)
+✔ rejects conflicting extra capability (0.5995ms)
+✔ rejects conflicting invented provenance (0.5307ms)
+✔ unavailable owner cannot retain a source node; exact refusal generations remain (0.6212ms)
+✔ all target identity and generation changes invalidate the identity key (0.6375ms)
+✔ forced owner emissions synchronously replace pending identity and suppress late completion (0.7163ms)
+✔ forced callbacks cannot resume parked/suspended/disposed controllers (3.5129ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 114.3138
