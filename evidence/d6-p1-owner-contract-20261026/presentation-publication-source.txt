@@ -1,0 +1,28 @@
+  const status = await initializePresentationSource(key);
+  const draft = status.draft!;
+  const manifest = status.manifest!;
+  const version = Math.max(0, ...manifest.versions.map((item) => item.version)) + 1;
+  const now = new Date().toISOString();
+  const hash = checksum(draft);
+  const css = renderPresentationCss(draft);
+  if (await compositionSettings(key)) {
+    await compositionWorkspace(key, await discoverComponents(key));
+    await copyCompositionSnapshot(appPath(key), path.join(root(key), 'versions', `v${version}`, 'composition'));
+    await copyReferencedSharedComponents(appPath(key), path.join(root(key), 'versions', `v${version}`, 'composition'), platformComponentsRoot);
+    await atomicWriteText(path.join(root(key), 'versions', `v${version}`, 'composition.source-checksum'), await compositionSourceFingerprint(appPath(key), platformComponentsRoot));
+  }
+  await atomicWriteJson(versionPath(key, version), draft);
+  await atomicWriteText(path.join(root(key), 'versions', `v${version}`, 'application.css'), css);
+  await syncDraftAssetsToActive(key);
+  await copyPresentationAssetsToVersion(key, version);
+  await atomicWriteText(activeCssPath(key), css);
+  await ensurePresentationRuntimeImport(key);
+  await writePresentationRuntime(key, draft);
+  manifest.activeVersion = version;
+  manifest.versions.push({ version, checksum: hash, publishedAt: now, actor: 'local-user' });
+  manifest.draft = { exists: true, modifiedAt: now, checksum: hash };
+  const baseline = await readRoleBundle(presentationLocation(key));
+  if (baseline.checksum !== status.sourceRevision) throw Object.assign(new Error('Presentation changed while preparing Publish. The active pointer was not advanced.'), { status: 409 });
+  await saveRoleBundle(presentationLocation(key), { expectedChecksum: baseline.checksum, files: { ...baseline.files, [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n' }, validate() { validatePresentation(draft); }, admit });
+  await appendHistory(appPath(key), { action: 'presentation.published', version, checksum: hash, actor: 'local-user' });
+  return getApplicationPresentation(key);

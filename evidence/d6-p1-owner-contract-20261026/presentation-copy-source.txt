@@ -1,0 +1,10 @@
+export async function copyPresentationAssetsToVersion(key: string, version: number): Promise<void> {
+  const source = activeAssetsRoot(key);
+  const destination = path.join(root(key), 'versions', `v${version}`, 'assets');
+  await cp(source, destination, { recursive: true, force: true }).catch(() => undefined);
+}
+
+async function syncDraftAssetsToActive(key: string): Promise<void> {
+  await mkdir(activeAssetsRoot(key), { recursive: true });
+  await cp(draftAssetsRoot(key), activeAssetsRoot(key), { recursive: true, force: true }).catch(() => undefined);
+}

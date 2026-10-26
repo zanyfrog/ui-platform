@@ -1,0 +1,92 @@
+{
+  "productExecutionAdmitted": false,
+  "tools": "PowerShell Get-Content/Test-Path, rg source text, SHA256; read-only git status/rev-parse. No imported product module, discovery, saved-source reader, database, compiler or test runner.",
+  "scope": "Ordinary implementation text and accepted evidence only",
+  "sources": [
+    {
+      "sha256": "711501430bc29eb10eccf5357cdd58ee756e9b890533792fca57829121b739c1",
+      "path": "package.json"
+    },
+    {
+      "sha256": "bd4fcd45a05e71df817eeaaab4e26c6d70a4a45db1f5015cfad20e6e6a0e1aef",
+      "path": "src/server/package-installer.ts"
+    },
+    {
+      "sha256": "8f246faabee4023763c3008bf991b3ee3dcf0cdc433ae3045891012ffae67f9a",
+      "path": "src/server/package-acquisition.ts"
+    },
+    {
+      "sha256": "9d24f7d7154b715cc489ea2adf9df9455cd4c9d30868ecd615f4f45806e02635",
+      "path": "src/server/packages.ts"
+    },
+    {
+      "sha256": "f2ead39a4cecda875a314e6fa71964f0c11e4923538c04faba516a3833721e27",
+      "path": "src/server/app-manifests.ts"
+    },
+    {
+      "sha256": "b6b2fd4fe0832a972a926184e8f0f0d4a2597f28e1d94943118d4f830696b6cf",
+      "path": "src/server/component-registry.ts"
+    },
+    {
+      "sha256": "e7339c8ccbd996e4919c287d4e78379c3ee38e7ef0b35455da92cab494e52e15",
+      "path": "src/server/foundation-sources.ts"
+    },
+    {
+      "sha256": "dbfd398f666cce608206e65e9e1dd3acc79771aad5fa8540ca2d5fe9a542ba9a",
+      "path": "src/server/unified-package-catalog.ts"
+    },
+    {
+      "sha256": "7f203773a724d2431a04ffc2d089ee59dd8f04f893dfe02157fd386ac9b46d16",
+      "path": "src/server/application-presentation.ts"
+    },
+    {
+      "sha256": "4b2d84607277f0d94a3f8306286a309db8eee5fece67a1d926f4bdafec0202f4",
+      "path": "src/server/application-composition.ts"
+    },
+    {
+      "sha256": "6e8beb67f49fa7b019ac4ff4b6069a44d8b9317080a6ba95a31daced106b42d5",
+      "path": "src/server/applications.ts"
+    },
+    {
+      "sha256": "7ad8891c4ead7bc2014814279699f73cc8e673819dcaad220ce2c26b9fa37d7b",
+      "path": "src/server/template-updates.ts"
+    },
+    {
+      "sha256": "dce46b4aebd07a1289b73114cbfa8893256aa247dee9487e4c043f17a731cf04",
+      "path": "src/server/index.ts"
+    },
+    {
+      "sha256": "4e22971349a8ff7a155f5f9fce732a91fca55de6f5155bf5e6738c1dbf4f4bce",
+      "path": "src/server/composition-lock.ts"
+    },
+    {
+      "sha256": "729218dfac690026cd073703c3c82245fd59fef9d97dab7fb0e0927baa01d35b",
+      "path": "packages/platform-core/src/package-catalog.ts"
+    },
+    {
+      "sha256": "587676a211b67c6a186c34782b8e48080fc3bb7e828f1f95ce6fa4c50a5906cd",
+      "path": "packages/platform-core/src/manifest.ts"
+    },
+    {
+      "sha256": "2cedb703d4d8f8cc529521460f01e4b2fb07b94d042aa5e9d186a130b1134cbd",
+      "path": "packages/platform-core/src/manifest-discovery.ts"
+    },
+    {
+      "sha256": "cfe60b9995b007cbef055a8a6ff5101ac2bd3f0546bdf3deafb333af59f8025c",
+      "path": "docs/architecture/d6-r2-owner-writer-map-20261026.md"
+    },
+    {
+      "sha256": "e721fc82b9d382b84bd62796df4bb267f8206c8b2cf0f33eddafea80536ec80e",
+      "path": "docs/architecture/d6-r2-capture-gate-report-20261026.md"
+    },
+    {
+      "sha256": "9cb59997891c7dc844595586f918107cc61bb1f324c968c100475c73474756c2",
+      "path": "docs/architecture/builder-v1-wp5-f-l3a-native-admission-20261023.md"
+    },
+    {
+      "sha256": "be3b6e1a351956180cc98cf8411fec91cc4ad747a6a0337ee4958aeb36c4f485",
+      "path": "docs/architecture/builder-v1-wp5-f-l3b-preimplementation-admission-20261024.md"
+    }
+  ],
+  "reason": "Gate B requires an owner-controlled immutable publication protocol absent from existing package/presentation mechanisms; Gate C not admitted."
+}

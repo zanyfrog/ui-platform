@@ -1,0 +1,95 @@
+packages/platform-core/src/package-catalog.ts:6:import { mkdir, readFile, writeFile } from 'node:fs/promises';
+packages/platform-core/src/package-catalog.ts:112:export async function refreshPackageCatalog(options: PackageCatalogRefreshOptions): Promise<PackageCatalogRefreshResult> {
+packages/platform-core/src/package-catalog.ts:134:export async function listGlobalPackageCatalog(options: PackageCatalogRefreshOptions): Promise<PackageCatalogEntry[]> {
+packages/platform-core/src/package-catalog.ts:138:export async function listAppPackageCatalog(options: AppPackageCatalogOptions): Promise<PackageCatalogEntry[]> {
+packages/platform-core/src/package-catalog.ts:143:export async function enablePackageForApp(options: EnablePackageForAppOptions): Promise<PackageCatalogStateManifest> {
+packages/platform-core/src/package-catalog.ts:172:export async function disablePackageForApp(options: EnablePackageForAppOptions): Promise<PackageCatalogStateManifest> {
+packages/platform-core/src/package-catalog.ts:198:export async function loadPackageCatalogState(rootDir: string, stateFilePath?: string): Promise<PackageCatalogStateManifest> {
+packages/platform-core/src/package-catalog.ts:210:export async function savePackageCatalogState(stateFilePath: string, state: PackageCatalogStateManifest): Promise<void> {
+packages/platform-core/src/package-catalog.ts:212:  await writeFile(stateFilePath, `${JSON.stringify(state, null, 2)}\n`, 'utf8');
+src/server/application-presentation.ts:2:import { cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+src/server/application-presentation.ts:7:import { atomicWriteJson, atomicWriteText, readJson } from './json-files.js';
+src/server/application-presentation.ts:14:import { withApplicationMutation } from './composition-lock.js';
+src/server/application-presentation.ts:160:export async function getApplicationPresentation(key: string): Promise<ApplicationPresentationStatus> {
+src/server/application-presentation.ts:174:export async function initializeApplicationPresentation(key: string, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
+src/server/application-presentation.ts:175:  return withApplicationMutation(appPath(key), async () => { await admit(); return initializePresentationSource(key); });
+src/server/application-presentation.ts:191:  await atomicWriteText(activeCssPath(key), '/* Application Presentation has not been published yet. */\n');
+src/server/application-presentation.ts:198:export async function savePresentationDraft(key: string, value: unknown, expectedRevision?: string, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
+src/server/application-presentation.ts:199:  return withApplicationMutation(appPath(key), () => savePresentationDraftSource(key, value, expectedRevision, admit));
+src/server/application-presentation.ts:246:export async function publishPresentation(key: string, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
+src/server/application-presentation.ts:247:  return withApplicationMutation(appPath(key), async () => { await admit(); return publishPresentationSource(key, admit); });
+src/server/application-presentation.ts:261:    await atomicWriteText(path.join(root(key), 'versions', `v${version}`, 'composition.source-checksum'), await compositionSourceFingerprint(appPath(key), platformComponentsRoot));
+src/server/application-presentation.ts:263:  await atomicWriteJson(versionPath(key, version), draft);
+src/server/application-presentation.ts:264:  await atomicWriteText(path.join(root(key), 'versions', `v${version}`, 'application.css'), css);
+src/server/application-presentation.ts:267:  await atomicWriteText(activeCssPath(key), css);
+src/server/application-presentation.ts:300:  await writeFile(entry, `${rendered.trimEnd()}\n\n${runtime}\n`, 'utf8');
+src/server/application-presentation.ts:316:  await atomicWriteText(path.join(root(key), 'runtime.ts'), runtimeModule);
+src/server/application-presentation.ts:318:export async function rollbackPresentation(key: string, sourceVersion: number, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
+src/server/application-presentation.ts:319:  return withApplicationMutation(appPath(key), async () => { await admit(); return rollbackPresentationSource(key, sourceVersion, admit); });
+src/server/application-presentation.ts:326:  await cp(path.join(root(key), 'versions', `v${sourceVersion}`, 'assets'), draftAssetsRoot(key), { recursive: true, force: true }).catch(() => undefined);
+src/server/application-presentation.ts:340:      if (Buffer.from(content.toString('utf8')).equals(content)) await atomicWriteText(target, content.toString('utf8'));
+src/server/application-presentation.ts:341:      else await writeFile(target, content);
+src/server/application-presentation.ts:355:export async function getActivePresentationCss(key: string): Promise<string | null> {
+src/server/application-presentation.ts:361:export async function getDraftPresentationCss(key: string): Promise<string | null> {
+src/server/application-presentation.ts:366:export async function uploadPresentationAsset(key: string, input: { id: string; name: string; type: PresentationAsset['type']; alt?: string; filename: string; content: Buffer }): Promise<ApplicationPresentationStatus> {
+src/server/application-presentation.ts:376:  await writeFile(path.join(draftAssetsRoot(key), id, filename), input.content);
+src/server/application-presentation.ts:380:export async function removePresentationAsset(key: string, id: string): Promise<ApplicationPresentationStatus> {
+src/server/application-presentation.ts:388:  await rm(path.join(draftAssetsRoot(key), id), { recursive: true, force: true });
+src/server/application-presentation.ts:392:export async function getPresentationAssetPath(key: string, id: string): Promise<string> {
+src/server/application-presentation.ts:399:export async function copyPresentationAssetsToVersion(key: string, version: number): Promise<void> {
+src/server/application-presentation.ts:402:  await cp(source, destination, { recursive: true, force: true }).catch(() => undefined);
+src/server/application-presentation.ts:407:  await cp(draftAssetsRoot(key), activeAssetsRoot(key), { recursive: true, force: true }).catch(() => undefined);
+src/server/foundation-sources.ts:6:import { appendFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+src/server/foundation-sources.ts:12:import { atomicWriteJson, readJson } from './json-files.js';
+src/server/foundation-sources.ts:45:export async function listFoundationSources(platformRootDir = platformRoot): Promise<FoundationSourcePayload> {
+src/server/foundation-sources.ts:50:export async function installGitHubFoundationSource(options: InstallGitHubFoundationSourceOptions): Promise<FoundationSource> {
+src/server/foundation-sources.ts:75:      await cp(checkoutRoot, targetRoot, { recursive: true });
+src/server/foundation-sources.ts:100:    await rm(stagingRoot, { recursive: true, force: true });
+src/server/foundation-sources.ts:104:export async function refreshFoundationSource(sourceId: string, platformRootDir = platformRoot): Promise<FoundationSource> {
+src/server/foundation-sources.ts:119:export async function previewFoundationSourceUpdate(sourceId: string, ref?: string, platformRootDir = platformRoot): Promise<FoundationSourceUpdatePlan> {
+src/server/foundation-sources.ts:136:    if (!(await exists(targetRoot))) { await mkdir(path.dirname(targetRoot), { recursive: true }); await cp(checkoutRoot, targetRoot, { recursive: true }); }
+src/server/foundation-sources.ts:146:      return { appKey: app.key, directPackages: imported.selectedPackages, status: missing.length ? 'blocked' as const : 'ready' as const, issues: missing.map((name) => 'Removed or renamed package: ' + name) };
+src/server/foundation-sources.ts:158:  } finally { await rm(stagingRoot, { recursive: true, force: true }); }
+src/server/foundation-sources.ts:161:export async function migrateFoundationSourceUpdate(planId: string, appKeys: string[], platformRootDir = platformRoot): Promise<FoundationMigrationResult[]> {
+src/server/foundation-sources.ts:179:export async function removeFoundationSource(sourceId: string, platformRootDir = platformRoot): Promise<void> {
+src/server/foundation-sources.ts:185:  await rm(workspaceRoot, { recursive: true, force: true });
+src/server/foundation-sources.ts:192:export async function inspectFoundationWorkspace(workspaceRoot: string): Promise<FoundationWorkspacePackage[]> {
+src/server/foundation-sources.ts:215:export async function addAppFoundationDependencies(options: AddAppFoundationDependenciesOptions): Promise<AppFoundationDependencyResult> {
+src/server/foundation-sources.ts:235:  await atomicWriteJson(appPackagePath, appPackage);
+src/server/foundation-sources.ts:257:export async function getAppFoundationDependencies(options: Omit<AddAppFoundationDependenciesOptions, 'packageNames'>): Promise<AppFoundationDependencyPayload> {
+src/server/foundation-sources.ts:290:export async function discoverFoundationImportRequirements(appDir: string): Promise<string[]> {
+src/server/foundation-sources.ts:340:    await atomicWriteJson(packagePath, appPackage);
+src/server/foundation-sources.ts:342:    await runNpm(appDir, ['install', '--ignore-scripts']);
+src/server/foundation-sources.ts:343:    await runNpm(appDir, ['run', 'typecheck']);
+src/server/foundation-sources.ts:344:    await runNpm(appDir, ['run', 'build']);
+src/server/foundation-sources.ts:348:    await writeFile(packagePath, original[0]); await writeFile(manifestPath, original[1]);
+src/server/foundation-sources.ts:349:    if (original[2]) await writeFile(lockPath, original[2]); else await rm(lockPath, { force: true });
+src/server/foundation-sources.ts:359:function runNpm(cwd: string, args: string[]): Promise<void> {
+src/server/foundation-sources.ts:393:  await atomicWriteJson(path.join(rootDir, SOURCE_STATE_FILE), state);
+src/server/app-manifests.ts:5:import { atomicWriteJson, readJson } from './json-files.js';
+src/server/app-manifests.ts:23:export async function ensureAppManifest(keyInput: string): Promise<AppManifest> {
+src/server/app-manifests.ts:41:  await atomicWriteJson(manifestPath, created);
+src/server/app-manifests.ts:45:export async function writeInitialAppManifest(
+src/server/app-manifests.ts:50:  await atomicWriteJson(path.join(appDir, APP_MANIFEST_FILE), manifest);
+src/server/app-manifests.ts:54:export async function setAppPackageDeclaration(
+src/server/app-manifests.ts:69:  await atomicWriteJson(appManifestPathFor(keyInput), next);
+src/server/app-manifests.ts:73:export async function readRawAppManifest(appDir: string): Promise<AppManifest> {
+src/server/app-manifests.ts:77:export async function recordFoundationImport(appDir: string, input: Omit<AppFoundationImport, 'selectedPackages' | 'resolvedPackages' | 'addedAt' | 'updatedAt'> & { selectedPackages: string[]; resolvedPackages: string[] }): Promise<AppManifest> {
+src/server/app-manifests.ts:95:  await atomicWriteJson(path.join(appDir, APP_MANIFEST_FILE), next);
+src/server/app-manifests.ts:99:export async function replaceFoundationImport(appDir: string, input: Omit<AppFoundationImport, 'addedAt' | 'updatedAt'>): Promise<AppManifest> {
+src/server/app-manifests.ts:111:  await atomicWriteJson(path.join(appDir, APP_MANIFEST_FILE), next);
+src/server/packages.ts:40:export async function getGlobalPackageCatalog(): Promise<PackageCatalogPayload> {
+src/server/packages.ts:49:export async function getAppPackageCatalog(key: string): Promise<AppPackageCatalogPayload> {
+src/server/packages.ts:54:export async function resolveAppPackageCatalog(options: ResolveAppPackageCatalogOptions): Promise<AppPackageCatalogPayload> {
+src/server/packages.ts:90:export async function getActiveAppPackages(key: string): Promise<AppPackageListEntry[]> {
+src/server/packages.ts:104:export async function enableAppPackage(key: string, packageName: string, version?: string): Promise<AppPackageCatalogPayload> {
+src/server/packages.ts:125:export async function disableAppPackage(key: string, packageName: string): Promise<AppPackageCatalogPayload> {
+src/server/package-installer.ts:7:import { cp, mkdir, readdir, readFile, rename, rm, stat } from 'node:fs/promises';
+src/server/package-installer.ts:36:export async function installManualPackage(options: InstallManualPackageOptions): Promise<InstalledPackageResult> {
+src/server/package-installer.ts:60:    await rename(stagedPackage, packageRoot);
+src/server/package-installer.ts:87:    await rm(stagingRoot, { recursive: true, force: true });
+src/server/package-installer.ts:137:  await cp(source, destination, {
+src/server/package-acquisition.ts:31:export async function acquirePackageFromUrl(
+src/server/package-acquisition.ts:49:    await runNpmPack(npmSpecFromSource(sourceUrl), stagingRoot);
+src/server/package-acquisition.ts:54:    await rm(stagingRoot, { recursive: true, force: true });
+src/server/package-acquisition.ts:71:function runNpmPack(spec: string, destination: string): Promise<void> {

@@ -1,0 +1,13 @@
+    const commit = (await runGit(['-C', checkoutRoot, 'rev-parse', 'HEAD'])).trim();
+    if (!commitPattern.test(commit)) throw new Error('GitHub source did not resolve to an immutable commit SHA.');
+    const packages = await inspectFoundationWorkspace(checkoutRoot);
+    const workspacePath = path.join('data', 'foundation-sources', sourceId, commit).replaceAll('\\', '/');
+    const targetRoot = path.join(platformRootDir, workspacePath);
+    if (!(await exists(targetRoot))) {
+      await mkdir(path.dirname(targetRoot), { recursive: true });
+      // Staging and platform data may be on different Windows filesystem boundaries.
+      await cp(checkoutRoot, targetRoot, { recursive: true });
+    }
+    const source: FoundationSource = {
+      id: sourceId,
+      kind: 'github',

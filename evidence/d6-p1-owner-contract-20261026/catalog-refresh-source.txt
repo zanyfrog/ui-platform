@@ -1,0 +1,19 @@
+export async function refreshPackageCatalog(options: PackageCatalogRefreshOptions): Promise<PackageCatalogRefreshResult> {
+  const stateFilePath = resolvePackageCatalogStatePath(options.rootDir, options.stateFilePath);
+  const now = resolveNow(options.now);
+  const state = await loadPackageCatalogState(options.rootDir, stateFilePath);
+  const discovery = await discoverPackageManifests(options);
+
+  for (const discovered of discovery.manifests) {
+    const existing = state.packages[discovered.manifest.name];
+    state.packages[discovered.manifest.name] = mergeStateEntry(existing, discovered, now);
+  }
+
+  state.updatedAt = now;
+  await savePackageCatalogState(stateFilePath, state);
+
+  return {
+    entries: discovery.manifests.map((discovered) => toCatalogEntry(discovered, state.packages[discovered.manifest.name])),
+    state,
+    rejected: discovery.rejected,
+    stateFilePath,
