@@ -1,0 +1,37 @@
+{
+  "historicalR2Preservation": {
+    "baselineCount": 1985,
+    "status": "R2 resumption Gate A stopped before product changes",
+    "headBefore": "c898e94df3e846e064f17f846f370633b98d776e",
+    "protectedAcquisition": false,
+    "runtimeImplementation": false,
+    "headAfter": "c898e94df3e846e064f17f846f370633b98d776e",
+    "newTypecheckExecution": false,
+    "changed": [],
+    "newTestExecution": false,
+    "unchangedCount": 1985,
+    "missing": []
+  },
+  "gate": "D6-R2 resumption Gate A acceptance",
+  "execution": "Prior reports and exact digests reviewed; no historical product execution rerun",
+  "comparison": [
+    {
+      "inventory": "docs/architecture/d6-r2-resumption-files-20261026.json",
+      "digestEntries": 19,
+      "mismatches": [],
+      "entries": 20
+    },
+    {
+      "inventory": "docs/architecture/d6-p2-files-20261026.json",
+      "digestEntries": 151,
+      "mismatches": [],
+      "entries": 152
+    },
+    {
+      "inventory": "docs/architecture/d6-p3-files-20261026.json",
+      "digestEntries": 123,
+      "mismatches": [],
+      "entries": 124
+    }
+  ]
+}

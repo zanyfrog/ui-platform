@@ -1,0 +1,26 @@
+  const manifestPath = path.join(appDir, 'app.manifest.json');
+  const lockPath = path.join(appDir, 'package-lock.json');
+  const original = await Promise.all([readFile(packagePath), readFile(manifestPath), readFile(lockPath).catch(() => undefined)]);
+  try {
+    const manifest = await readRawAppManifest(appDir); const imported = manifest.foundationImports[source.id];
+    if (!imported || imported.commit !== plan.fromCommit) return { appKey, status: 'blocked', issues: ['Application is not pinned to the previewed source revision.'] };
+    const selected = resolveSelectedPackages({ ...source, ...plan.candidate }, imported.selectedPackages);
+    const appPackage = JSON.parse(original[0].toString('utf8')) as { dependencies?: Record<string, string> };
+    const dependencies = { ...(appPackage.dependencies ?? {}) };
+    for (const pkg of selected) {
+      const packageRoot = path.join(platformRootDir, plan.candidate.workspacePath, pkg.packagePath);
+      const relative = path.relative(appDir, packageRoot).replaceAll('\\', '/');
+      dependencies[pkg.name] = 'file:' + (relative.startsWith('.') ? relative : './' + relative);
+    }
+    appPackage.dependencies = dependencies;
+    await atomicWriteJson(packagePath, appPackage);
+    await replaceFoundationImport(appDir, { sourceId: source.id, repository: source.repository, commit: plan.toCommit, selectedPackages: imported.selectedPackages, resolvedPackages: selected.map((pkg) => pkg.name) });
+    await runNpm(appDir, ['install', '--ignore-scripts']);
+    await runNpm(appDir, ['run', 'typecheck']);
+    await runNpm(appDir, ['run', 'build']);
+    await appendHistory(appDir, { action: 'foundation.source.migrated', appId: appKey, sourceId: source.id, fromCommit: plan.fromCommit, toCommit: plan.toCommit, selectedPackages: imported.selectedPackages, resolvedPackages: selected.map((pkg) => pkg.name), validation: ['npm install --ignore-scripts', 'npm run typecheck', 'npm run build'] });
+    return { appKey, status: 'migrated', issues: [] };
+  } catch (error) {
+    await writeFile(packagePath, original[0]); await writeFile(manifestPath, original[1]);
+    if (original[2]) await writeFile(lockPath, original[2]); else await rm(lockPath, { force: true });
+    return { appKey, status: 'failed', issues: [error instanceof Error ? error.message : String(error)] };

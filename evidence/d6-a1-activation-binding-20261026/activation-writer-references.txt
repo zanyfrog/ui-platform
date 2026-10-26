@@ -1,0 +1,55 @@
+packages/platform-core/src/package-catalog.ts:6:import { mkdir, readFile, writeFile } from 'node:fs/promises';
+packages/platform-core/src/package-catalog.ts:112:export async function refreshPackageCatalog(options: PackageCatalogRefreshOptions): Promise<PackageCatalogRefreshResult> {
+packages/platform-core/src/package-catalog.ts:134:export async function listGlobalPackageCatalog(options: PackageCatalogRefreshOptions): Promise<PackageCatalogEntry[]> {
+packages/platform-core/src/package-catalog.ts:138:export async function listAppPackageCatalog(options: AppPackageCatalogOptions): Promise<PackageCatalogEntry[]> {
+packages/platform-core/src/package-catalog.ts:143:export async function enablePackageForApp(options: EnablePackageForAppOptions): Promise<PackageCatalogStateManifest> {
+packages/platform-core/src/package-catalog.ts:172:export async function disablePackageForApp(options: EnablePackageForAppOptions): Promise<PackageCatalogStateManifest> {
+packages/platform-core/src/package-catalog.ts:198:export async function loadPackageCatalogState(rootDir: string, stateFilePath?: string): Promise<PackageCatalogStateManifest> {
+packages/platform-core/src/package-catalog.ts:210:export async function savePackageCatalogState(stateFilePath: string, state: PackageCatalogStateManifest): Promise<void> {
+packages/platform-core/src/package-catalog.ts:212:  await writeFile(stateFilePath, `${JSON.stringify(state, null, 2)}\n`, 'utf8');
+src/server/package-installer.ts:7:import { cp, mkdir, readdir, readFile, rename, rm, stat } from 'node:fs/promises';
+src/server/package-installer.ts:37:export async function installManualPackage(options: InstallManualPackageOptions): Promise<InstalledPackageResult> {
+src/server/package-installer.ts:61:    await rename(stagedPackage, packageRoot);
+src/server/app-manifests.ts:5:import { atomicWriteJson, readJson } from './json-files.js';
+src/server/app-manifests.ts:23:export async function ensureAppManifest(keyInput: string): Promise<AppManifest> {
+src/server/app-manifests.ts:41:  await atomicWriteJson(manifestPath, created);
+src/server/app-manifests.ts:45:export async function writeInitialAppManifest(
+src/server/app-manifests.ts:50:  await atomicWriteJson(path.join(appDir, APP_MANIFEST_FILE), manifest);
+src/server/app-manifests.ts:54:export async function setAppPackageDeclaration(
+src/server/app-manifests.ts:69:  await atomicWriteJson(appManifestPathFor(keyInput), next);
+src/server/app-manifests.ts:73:export async function readRawAppManifest(appDir: string): Promise<AppManifest> {
+src/server/app-manifests.ts:77:export async function recordFoundationImport(appDir: string, input: Omit<AppFoundationImport, 'selectedPackages' | 'resolvedPackages' | 'addedAt' | 'updatedAt'> & { selectedPackages: string[]; resolvedPackages: string[] }): Promise<AppManifest> {
+src/server/app-manifests.ts:95:  await atomicWriteJson(path.join(appDir, APP_MANIFEST_FILE), next);
+src/server/app-manifests.ts:99:export async function replaceFoundationImport(appDir: string, input: Omit<AppFoundationImport, 'addedAt' | 'updatedAt'>): Promise<AppManifest> {
+src/server/app-manifests.ts:111:  await atomicWriteJson(path.join(appDir, APP_MANIFEST_FILE), next);
+src/server/foundation-sources.ts:6:import { appendFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+src/server/foundation-sources.ts:12:import { atomicWriteJson, readJson } from './json-files.js';
+src/server/foundation-sources.ts:45:export async function listFoundationSources(platformRootDir = platformRoot): Promise<FoundationSourcePayload> {
+src/server/foundation-sources.ts:50:export async function installGitHubFoundationSource(options: InstallGitHubFoundationSourceOptions): Promise<FoundationSource> {
+src/server/foundation-sources.ts:104:export async function refreshFoundationSource(sourceId: string, platformRootDir = platformRoot): Promise<FoundationSource> {
+src/server/foundation-sources.ts:119:export async function previewFoundationSourceUpdate(sourceId: string, ref?: string, platformRootDir = platformRoot): Promise<FoundationSourceUpdatePlan> {
+src/server/foundation-sources.ts:146:      return { appKey: app.key, directPackages: imported.selectedPackages, status: missing.length ? 'blocked' as const : 'ready' as const, issues: missing.map((name) => 'Removed or renamed package: ' + name) };
+src/server/foundation-sources.ts:161:export async function migrateFoundationSourceUpdate(planId: string, appKeys: string[], platformRootDir = platformRoot): Promise<FoundationMigrationResult[]> {
+src/server/foundation-sources.ts:179:export async function removeFoundationSource(sourceId: string, platformRootDir = platformRoot): Promise<void> {
+src/server/foundation-sources.ts:192:export async function inspectFoundationWorkspace(workspaceRoot: string): Promise<FoundationWorkspacePackage[]> {
+src/server/foundation-sources.ts:215:export async function addAppFoundationDependencies(options: AddAppFoundationDependenciesOptions): Promise<AppFoundationDependencyResult> {
+src/server/foundation-sources.ts:235:  await atomicWriteJson(appPackagePath, appPackage);
+src/server/foundation-sources.ts:257:export async function getAppFoundationDependencies(options: Omit<AddAppFoundationDependenciesOptions, 'packageNames'>): Promise<AppFoundationDependencyPayload> {
+src/server/foundation-sources.ts:290:export async function discoverFoundationImportRequirements(appDir: string): Promise<string[]> {
+src/server/foundation-sources.ts:340:    await atomicWriteJson(packagePath, appPackage);
+src/server/foundation-sources.ts:342:    await runNpm(appDir, ['install', '--ignore-scripts']);
+src/server/foundation-sources.ts:343:    await runNpm(appDir, ['run', 'typecheck']);
+src/server/foundation-sources.ts:344:    await runNpm(appDir, ['run', 'build']);
+src/server/foundation-sources.ts:348:    await writeFile(packagePath, original[0]); await writeFile(manifestPath, original[1]);
+src/server/foundation-sources.ts:349:    if (original[2]) await writeFile(lockPath, original[2]); else await rm(lockPath, { force: true });
+src/server/foundation-sources.ts:359:function runNpm(cwd: string, args: string[]): Promise<void> {
+src/server/foundation-sources.ts:393:  await atomicWriteJson(path.join(rootDir, SOURCE_STATE_FILE), state);
+src/server/packages.ts:19:import { appManifestPathFor, ensureAppManifest, setAppPackageDeclaration } from './app-manifests.js';
+src/server/packages.ts:40:export async function getGlobalPackageCatalog(): Promise<PackageCatalogPayload> {
+src/server/packages.ts:49:export async function getAppPackageCatalog(key: string): Promise<AppPackageCatalogPayload> {
+src/server/packages.ts:54:export async function resolveAppPackageCatalog(options: ResolveAppPackageCatalogOptions): Promise<AppPackageCatalogPayload> {
+src/server/packages.ts:90:export async function getActiveAppPackages(key: string): Promise<AppPackageListEntry[]> {
+src/server/packages.ts:104:export async function enableAppPackage(key: string, packageName: string, version?: string): Promise<AppPackageCatalogPayload> {
+src/server/packages.ts:114:  await setAppPackageDeclaration(key, packageName, {
+src/server/packages.ts:125:export async function disableAppPackage(key: string, packageName: string): Promise<AppPackageCatalogPayload> {
+src/server/packages.ts:136:  await setAppPackageDeclaration(key, packageName, declaration);

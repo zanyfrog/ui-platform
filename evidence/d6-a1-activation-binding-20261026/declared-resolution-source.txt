@@ -1,0 +1,20 @@
+function chooseCandidate(
+  declaration: AppPackageDeclaration | undefined,
+  appCandidate: CandidatePackage | undefined,
+  platformCandidate: CandidatePackage | undefined,
+): CandidatePackage | undefined {
+  switch (declaration?.resolution) {
+    case 'app-only':
+      return appCandidate;
+    case 'platform-first':
+      return platformCandidate ?? appCandidate;
+    case 'platform-only':
+      return platformCandidate;
+    case 'app-first':
+    default:
+      return appCandidate ?? platformCandidate;
+  }
+}
+
+function toPackageListEntry(packageName: string, candidate: CandidatePackage | undefined): PackageListEntry {
+  if (!candidate) {

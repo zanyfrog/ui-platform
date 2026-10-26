@@ -1,0 +1,14 @@
+src/server/presentation-publications.ts:5:import { withRoleBundleGraph, withArtifactLock, recoverRoleBundleRoot, atomicWriteText } from '@ui-platform/artifacts/storage';
+src/server/presentation-publications.ts:83:  private async graph<T>(options: PresentationPublicationOptions, work: () => Promise<T>) {
+src/server/presentation-publications.ts:85:    return withRoleBundleGraph(this.graphRoot, async () => {
+src/server/presentation-publications.ts:152:  private async selection<T>(create: boolean, options: PresentationPublicationOptions, work: (file: string, previous: PresentationPublicationSelection | null) => Promise<T>) {
+src/server/presentation-publications.ts:153:    const directory = await child(await this.namespace(create), 'selection', create), file = path.join(directory, 'selected.visual.json');
+src/server/presentation-publications.ts:167:  async select(publicationId: string, expectedGeneration: number, options: PresentationPublicationOptions = {}): Promise<PresentationPublicationSelection> {
+src/server/presentation-publications.ts:179:  async readSelected(expectedGeneration: number, leaseMs: number, options: PresentationPublicationOptions = {}): Promise<PresentationPublicationLease> {
+src/server/package-publications.ts:5:import { withRoleBundleGraph, withArtifactLock, recoverRoleBundleRoot, atomicWriteText } from '@ui-platform/artifacts/storage';
+src/server/package-publications.ts:111:  private async graph<T>(options: PackagePublicationOptions, work: () => Promise<T>) {
+src/server/package-publications.ts:113:    return withRoleBundleGraph(this.graphRoot, async () => {
+src/server/package-publications.ts:189:  private async selection<T>(create: boolean, options: PackagePublicationOptions, work: (file: string, previous: PackagePublicationSelection | null) => Promise<T>) {
+src/server/package-publications.ts:190:    const directory = await child(await this.namespace(create), 'selection', create), file = path.join(directory, 'selected.visual.json');
+src/server/package-publications.ts:204:  async select(publicationId: string, expectedGeneration: number, options: PackagePublicationOptions = {}): Promise<PackagePublicationSelection> {
+src/server/package-publications.ts:216:  async readSelected(expectedGeneration: number, leaseMs: number, options: PackagePublicationOptions = {}): Promise<PackagePublicationLease> {
