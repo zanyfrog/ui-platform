@@ -1,0 +1,58 @@
+import { mountVisualEditor } from '../../src/client/visual-artifacts/editor.js';
+import { configureAutosave } from '../../src/client/artifact-editor/autosave-configuration.js';
+import { fixture,context,source,digest } from './fixtures.js';
+let editor:Awaited<ReturnType<typeof mountVisualEditor>>,host:HTMLElement,workspace:any,bundle:any,current:any;
+let calls:any[]=[],events:any[]=[],observers=new Set<()=>void>(),unsubscribe:()=>void=()=>{},start=0;
+let gate:Promise<void>|undefined,releaseGate:()=>void=()=>{},failure:number|undefined,allowRefresh=false;
+let corruptHash=false;
+const sourceInput=()=>host.querySelector<HTMLTextAreaElement>('[data-source]')!;
+(window as any).selectionHarness={
+  async mount(enabled=false,configuration:any={}){
+    configureAutosave({enabled,delayMs:2000});calls=[];events=[];observers=new Set();current=structuredClone(context);start=Date.now();
+    const input=await fixture(configuration.source??source,configuration.metadata??{});bundle=input.bundle;
+    if(configuration.packageEdit==='missing')input.packages=[];
+    if(configuration.packageEdit==='duplicate')input.packages.push(structuredClone(input.packages[0]));
+    if(configuration.packageEdit==='missingExport')delete (input.packages[0].definition as any).implementation.exportName;
+    if(configuration.packageEdit==='missingRevision')delete (input.packages[0].definition as any).version.revisionId;
+    workspace={pages:[bundle],components:[],shells:[],packages:input.packages};
+    host=document.createElement('section');document.body.append(host);
+    const request=async(url:string,init?:RequestInit)=>{
+      if(!init?.method && allowRefresh && url.endsWith('/visual-artifacts')){allowRefresh=false;calls.push({method:'MEMORY_GET',url,time:Date.now()-start});return structuredClone(workspace);}
+      if(init?.method!=='PUT')throw Error('UNEXPECTED_SOURCE_ACQUISITION '+url);
+      const body=JSON.parse(String(init.body));calls.push({method:'PUT',url,body,time:Date.now()-start});
+      const pending=gate;if(pending)await pending;
+      if(failure){const status=failure;failure=undefined;throw Object.assign(new Error('Authored memory save failure'),{status});}
+      if(body.expectedHash!==bundle.hash)throw Object.assign(new Error('Memory conflict'),{status:409});
+      bundle={...bundle,files:structuredClone(body.files),metadata:JSON.parse(body.files.metadata),hash:await digest(JSON.stringify(body.files))};workspace.pages=[bundle];
+      if(corruptHash){corruptHash=false;return {...structuredClone(bundle),hash:'0'.repeat(64)};}
+      return structuredClone(bundle);
+    };
+    editor=await mountVisualEditor(host,'routing-key',{applicationId:context.applicationId,workspace,initial:{kind:'page',locator:bundle.locator},request:request as any,captureRequest:()=>request as any,
+      savedCardContext:{get:()=>structuredClone(current),subscribe:fn=>{observers.add(fn);return()=>{observers.delete(fn);};}}});
+    editor.focus(workspace);
+    if(editor.savedCardTarget)unsubscribe=editor.savedCardTarget.subscribe(value=>events.push(value));
+  },
+  target(){return editor.savedCardTarget?.snapshot;},
+  select(candidate='saved'){const select=host.querySelector<HTMLSelectElement>('[data-nodes]')!;select.value=candidate;select.dispatchEvent(new Event('change'));},
+  navigate(candidate?:string){editor.focus(workspace,candidate===undefined?{}:{node:candidate});},
+  contextChange(field='session'){if(field==='session')current.sessionRevision='changed-session';if(field==='owner')current.page.owner.id='different-owner';if(field==='application')current.applicationId='different-app';for(const fn of observers)fn();},
+  hold(){gate=new Promise(resolve=>{releaseGate=()=>{gate=undefined;resolve();};});},
+  release(){releaseGate();},fail(status=500){failure=status;},
+  corruptResponseHash(){corruptHash=true;},
+  async external(markup=source.replace('uip-layout-item','uip-layout-item external'),packageChange=false){
+    const next=await fixture(markup);bundle=next.bundle;workspace.pages=[bundle];if(packageChange)workspace.packages=[];
+    allowRefresh=true;document.dispatchEvent(new Event('ui-platform-workspace-change'));
+  },
+  event(){document.dispatchEvent(new Event('ui-platform-workspace-change'));},
+  visibility(hidden:boolean){Object.defineProperty(document,'visibilityState',{value:hidden?'hidden':'visible',configurable:true});document.dispatchEvent(new Event('visibilitychange'));},
+  park(){editor.deactivate();host.remove();},
+  remount(){document.body.append(host);editor.focus(workspace);},
+  suspend(){editor.suspend();},
+  stopWatching(){unsubscribe();},
+  throwObserver(){return editor.savedCardTarget.subscribe(()=>{throw Error('Authored observer exception');});},
+  detachedSubscription(){const {subscribe}=editor.savedCardTarget;let count=0;const stop=subscribe(()=>{count++;});stop();return count;},
+  reenterOnDispose(){return editor.savedCardTarget.subscribe(value=>{if(value.reason==='DISPOSED')editor.focus(workspace,{node:'saved'});});},
+  async dispose(){await editor.dispose();host.remove();},
+  metrics(){return{observers:observers.size,events:events.map(value=>JSON.parse(JSON.stringify(value))),calls:structuredClone(calls)};},
+  async snapshot(){const input=sourceInput();return{source:input?.value,checksum:await digest(input?.value??''),file:host.querySelector<HTMLSelectElement>('[data-file]')?.value,range:input?[input.selectionStart,input.selectionEnd]:null,state:editor.state(),ids:[...host.querySelector<HTMLSelectElement>('[data-nodes]')?.options??[]].map(o=>o.value),undo:!host.querySelector<HTMLButtonElement>('[data-undo]')?.disabled,redo:!host.querySelector<HTMLButtonElement>('[data-redo]')?.disabled,calls:structuredClone(calls)};},
+};

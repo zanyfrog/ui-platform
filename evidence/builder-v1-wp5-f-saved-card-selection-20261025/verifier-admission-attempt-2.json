@@ -1,0 +1,23 @@
+{
+  "entry": "scripts/verify-saved-card-selection.mjs",
+  "sha256": "0c0c4030124761d66052b180af4c54a1f1afac4584c77d0a24f9c28358fe6775",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "exactApplicationClosure": "Enforced named .ts/.json inputs, prewritten hashes and preexecution bundle graphs; actual editor with injected memory callbacks only",
+  "driver": "tests/saved-card-selection/editor-checks.mjs",
+  "driverSha256": "b68dd8e5e306248d4fab8a12ec1bf75c170fbfa769b730db09021d45f7ff842a",
+  "serial": true,
+  "retries": 0,
+  "correction": "Separately admitted invocation: supply real DOM HTML element constructors in VM test platform; retain first failure and source inputs. No production change."
+}

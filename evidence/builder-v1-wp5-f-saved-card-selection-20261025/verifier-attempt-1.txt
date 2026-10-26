@@ -1,0 +1,13 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+Error: Expected owner transition did not occur: {"state":"unavailable","reason":"SELECTION_CHANGED","generation":{"selection":2,"source":2},"target":null}
+    at Object.until (file:///C:/Projects/Modular/ui-platform/scripts/verify-saved-card-selection.mjs:94:103)
+    at async identified (file:///C:/Projects/Modular/ui-platform/tests/saved-card-selection/editor-checks.mjs:5:35)
+    at async file:///C:/Projects/Modular/ui-platform/tests/saved-card-selection/editor-checks.mjs:8:57
+    at async scenario (file:///C:/Projects/Modular/ui-platform/tests/saved-card-selection/editor-checks.mjs:6:74)
+    at async verifyEditor (file:///C:/Projects/Modular/ui-platform/tests/saved-card-selection/editor-checks.mjs:7:3)
+    at async file:///C:/Projects/Modular/ui-platform/scripts/verify-saved-card-selection.mjs:103:18
+
+Node.js v24.19.0

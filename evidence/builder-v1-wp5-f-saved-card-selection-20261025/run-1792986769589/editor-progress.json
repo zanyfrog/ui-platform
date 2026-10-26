@@ -1,0 +1,46 @@
+{
+  "observations": [
+    {
+      "target": {
+        "state": "unavailable",
+        "reason": "SELECTION_CHANGED",
+        "generation": {
+          "selection": 2,
+          "source": 2
+        },
+        "target": null
+      },
+      "metrics": {
+        "observers": 1,
+        "events": [
+          {
+            "state": "unavailable",
+            "reason": "SELECTION_CHANGED",
+            "generation": {
+              "selection": 1,
+              "source": 2
+            },
+            "target": null
+          },
+          {
+            "state": "unavailable",
+            "reason": "SELECTION_CHANGED",
+            "generation": {
+              "selection": 2,
+              "source": 2
+            },
+            "target": null
+          }
+        ],
+        "calls": []
+      }
+    }
+  ],
+  "errors": [
+    "ReferenceError: HTMLSelectElement is not defined"
+  ],
+  "network": [],
+  "frames": [
+    0
+  ]
+}

@@ -1,0 +1,46 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { identifyRetainedSavedCard, CARD_DEFINITION_ID } from '../../src/client/visual-artifacts/saved-card-target.js';
+import { context,fixture,source } from './fixtures.js';
+test('retained canonical Card preserves original source, hash, implementation and legitimate null revision distinctly',async()=>{
+  const input=await fixture(),value=await identifyRetainedSavedCard(input);assert.equal(value.state,'identified');if(value.state!=='identified')throw Error(value.reason);
+  assert.deepEqual(value.target.source,{applicationId:context.applicationId,page:context.page,committedHash:input.bundle.hash,nodeId:'saved'});
+  assert.deepEqual(value.target.implementation,{componentId:CARD_DEFINITION_ID,packageId:'@ui-base/ui',packageVersion:'0.5.1',importPath:'@ui-base/ui/card',exportName:'UibCard',definitionRevision:null});
+  assert.deepEqual(value.generation,{selection:3,source:5});assert.equal(value.reason,'RETAINED_SAVED_VERSION_ONLY');
+  const before=JSON.stringify(value);input.context.page.owner.id='other';input.bundle.files.source='draft';assert.equal(JSON.stringify(value),before);
+  assert.throws(()=>{(value.target.source.page.owner as any).id='forged';},TypeError);assert.throws(()=>{(value as any).state='available';},TypeError);
+  assert.deepEqual(Object.keys(value).sort(),['generation','reason','state','target']);assert(!/locator|credential|csrf|resourceUrl|sourceBytes|markup/.test(JSON.stringify(value)));
+});
+for(const [label,edit,reason] of [
+  ['missing candidate',(i:any)=>i.candidate='missing','MISSING_NODE'],
+  ['manual candidate',(i:any)=>i.candidate='manual:0','MISSING_NODE'],
+  ['missing hash',(i:any)=>i.bundle.hash='','SOURCE_UNCERTAIN'],
+  ['wrong hash',(i:any)=>i.bundle.hash='0'.repeat(64),'SOURCE_UNCERTAIN'],
+  ['baseline mismatch',(i:any)=>i.baseline.source='changed','SOURCE_UNCERTAIN'],
+  ['metadata mismatch',(i:any)=>i.bundle.metadata.artifactId='art_other','INVALID_SOURCE'],
+  ['missing package',(i:any)=>i.packages=[],'MISSING_DEFINITION'],
+  ['duplicate package',(i:any)=>i.packages.push(structuredClone(i.packages[0])),'AMBIGUOUS_DEFINITION'],
+  ['platform collision',(i:any)=>i.componentIds=[CARD_DEFINITION_ID],'AMBIGUOUS_DEFINITION'],
+  ['missing declaration',(i:any)=>delete i.packages[0].definition,'INVALID_DEFINITION'],
+  ['missing export',(i:any)=>delete i.packages[0].definition.implementation.exportName,'INVALID_DEFINITION'],
+  ['missing revision evidence',(i:any)=>delete i.packages[0].definition.version.revisionId,'INVALID_DEFINITION'],
+  ['wrong package owner',(i:any)=>i.packages[0].packageName='other','INVALID_DEFINITION'],
+  ['wrong package version',(i:any)=>i.packages[0].packageVersion='9.0.0','INVALID_DEFINITION'],
+  ['resource URL in export identity',(i:any)=>i.packages[0].definition.implementation.importPath='https://invalid.example/card','INVALID_DEFINITION'],
+] as const)test(`refuses ${label}`,async()=>{const input=await fixture();edit(input);const value=await identifyRetainedSavedCard(input);assert.equal(value.state,'unavailable');assert.equal(value.reason,reason);assert.equal(value.target,null);assert.throws(()=>{(value as any).target={};},TypeError);});
+for(const [label,markup,metadata,reason] of [
+  ['duplicate node attribute',source.replace('data-uip-node="saved"','data-uip-node="saved" DATA-UIP-NODE="other"'),{},'INVALID_SOURCE'],
+  ['duplicate reference',source.replace(`data-uip-component="${CARD_DEFINITION_ID}"`,`data-uip-component="other" data-uip-component="${CARD_DEFINITION_ID}"`),{},'INVALID_SOURCE'],
+  ['duplicate cross-node id',source+source,{},'INVALID_SOURCE'],
+  ['draft-only node',source.replace('data-uip-node="saved"','data-uip-node="other"'),{},'MISSING_NODE'],
+  ['manual Card',source.replace('data-uip-node="saved"',''),{},'MISSING_NODE'],
+  ['unwrapped Card',`<uib-card data-uip-node="saved" data-uip-component="${CARD_DEFINITION_ID}"></uib-card>`,{},'UNSUPPORTED_NODE'],
+  ['mode',source,{modes:{default:'base',overrides:{base:{}}}},'UNSUPPORTED_SEMANTICS'],
+  ['binding',source,{bindings:[]},'UNSUPPORTED_SEMANTICS'],
+  ['Shell dependency',source,{shellId:'art_shell'},'UNSUPPORTED_SEMANTICS'],
+  ['inline script',source+'<script>const x=1;</script>',{},'UNSUPPORTED_SEMANTICS'],
+  ['inline event',source.replace('<uib-card ','<uib-card onclick="noop()" '),{},'UNSUPPORTED_SEMANTICS'],
+] as const)test(`refuses ${label} from retained baseline`,async()=>{const value=await identifyRetainedSavedCard(await fixture(markup,metadata));assert.equal(value.state,'unavailable');assert.equal(value.reason,reason);});
+test('declared explicit Definition revision is preserved without substitution',async()=>{const input=await fixture();(input.packages[0].definition as any).version.revisionId='declared-revision';const value=await identifyRetainedSavedCard(input);assert.equal(value.state,'identified');if(value.state==='identified')assert.equal(value.target.implementation.definitionRevision,'declared-revision');});
+test('unknown context fields never enter the projected metadata snapshot',async()=>{const input=await fixture();(input.context.page as any).sourceBytes='excluded markup';(input.context.page.owner as any).credential='excluded secret';const value=await identifyRetainedSavedCard(input);assert.equal(value.state,'identified');assert(!/excluded|sourceBytes|credential/.test(JSON.stringify(value)));});
+test('non-string context evidence cannot be promoted into identified metadata',async()=>{const input=await fixture();(input.context as any).subjectId={secret:'wrong-shape'};const value=await identifyRetainedSavedCard(input);assert.equal(value.reason,'NO_CONTEXT');});

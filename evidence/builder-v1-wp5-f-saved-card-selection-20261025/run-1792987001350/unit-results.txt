@@ -1,0 +1,38 @@
+✔ retained canonical Card preserves original source, hash, implementation and legitimate null revision distinctly (12.1284ms)
+✔ refuses missing candidate (0.7864ms)
+✔ refuses manual candidate (0.5584ms)
+✔ refuses missing hash (0.5347ms)
+✔ refuses wrong hash (0.9632ms)
+✔ refuses baseline mismatch (0.6557ms)
+✔ refuses metadata mismatch (1.2834ms)
+✔ refuses missing package (0.8662ms)
+✔ refuses duplicate package (0.9576ms)
+✔ refuses platform collision (0.7693ms)
+✔ refuses missing declaration (0.6047ms)
+✔ refuses missing export (0.4957ms)
+✔ refuses missing revision evidence (0.424ms)
+✔ refuses wrong package owner (0.41ms)
+✔ refuses wrong package version (0.5378ms)
+✔ refuses resource URL in export identity (0.5114ms)
+✔ refuses duplicate node attribute from retained baseline (0.6971ms)
+✔ refuses duplicate reference from retained baseline (0.9048ms)
+✔ refuses duplicate cross-node id from retained baseline (0.4651ms)
+✔ refuses draft-only node from retained baseline (0.3717ms)
+✔ refuses manual Card from retained baseline (0.3819ms)
+✔ refuses unwrapped Card from retained baseline (0.4154ms)
+✔ refuses mode from retained baseline (0.8341ms)
+✔ refuses binding from retained baseline (0.4581ms)
+✔ refuses Shell dependency from retained baseline (0.3919ms)
+✔ refuses inline script from retained baseline (0.4223ms)
+✔ refuses inline event from retained baseline (0.3864ms)
+✔ declared explicit Definition revision is preserved without substitution (0.6482ms)
+✔ unknown context fields never enter the projected metadata snapshot (0.6906ms)
+✔ non-string context evidence cannot be promoted into identified metadata (0.7366ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 114.7047

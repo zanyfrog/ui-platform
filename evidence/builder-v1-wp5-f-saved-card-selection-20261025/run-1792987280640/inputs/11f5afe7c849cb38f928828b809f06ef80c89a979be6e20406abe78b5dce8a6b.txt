@@ -1,0 +1,121 @@
+import assert from 'node:assert/strict';
+export async function verifyEditor(create,record){
+  const checks=[];
+  const unavailable=editor=>{const value=editor.target();assert.equal(value.state,'unavailable');assert.equal(value.target,null);return value;};
+  const identified=async editor=>{await editor.until(()=>editor.target()?.state==='identified');return editor.target();};
+  async function scenario(name,run){const editor=await create(false);try{await run(editor);checks.push(name);record({checks});}finally{await editor.close();}}
+  await scenario('actual owner original identity/hash, deep immutability, subscription isolation',async editor=>{
+    unavailable(editor);editor.api.select();const value=await identified(editor);
+    assert.equal(value.target.source.applicationId,'original-permanent-app');assert.equal(value.target.source.page.id,'art_original_page');
+    assert.equal(value.target.source.page.owner.revision,'owner-1');assert.equal(value.target.source.nodeId,'saved');
+    assert.equal(value.target.implementation.definitionRevision,null);assert.equal(value.reason,'RETAINED_SAVED_VERSION_ONLY');
+    assert(Object.isFrozen(editor.rawTarget().target.source.page.owner));assert.throws(()=>{editor.rawTarget().target.source.page.owner.id='changed';},TypeError);
+    const held=JSON.stringify(value);editor.fill((await editor.snap()).source.replace('uip-layout-item','uip-layout-item edited'));unavailable(editor);assert.equal(JSON.stringify(value),held);
+    editor.api.select();await editor.settle();assert.equal(unavailable(editor).reason,'DIRTY_DRAFT');
+  });
+  await scenario('source edits/Undo/Redo invalidate without cached-target resurrection',async editor=>{
+    editor.api.select();await identified(editor);const initial=(await editor.snap()).source;
+    editor.fill(initial.replace('uip-layout-item','uip-layout-item one'));unavailable(editor);
+    editor.click('[data-undo]');await editor.settle();unavailable(editor);assert.equal((await editor.snap()).source,initial);
+    editor.api.select();await identified(editor);editor.click('[data-redo]');await editor.settle();unavailable(editor);editor.api.select();assert.equal(unavailable(editor).reason,'DIRTY_DRAFT');
+  });
+  await scenario('navigation candidates, root, missing and draft-generated identity refuse',async editor=>{
+    editor.api.navigate('saved');await identified(editor);editor.api.navigate();unavailable(editor);
+    editor.api.navigate('missing');await editor.settle();assert.equal(unavailable(editor).reason,'MISSING_NODE');
+    editor.api.navigate('saved');await identified(editor);editor.click('[data-root]');unavailable(editor);
+    const initial=(await editor.snap()).source;editor.fill(initial.replace('data-uip-node="saved"','data-uip-node="new_draft_id"'));editor.api.select('new_draft_id');assert.equal(unavailable(editor).reason,'DIRTY_DRAFT');
+  });
+  await scenario('draft removal, insertion and rename never establish saved membership',async editor=>{
+    editor.api.select();await identified(editor);const original=(await editor.snap()).source;
+    editor.fill(original.replace(/<uib-card[\s\S]*?<\/uib-card>/,''));unavailable(editor);editor.api.navigate('saved');assert.equal(unavailable(editor).reason,'DIRTY_DRAFT');
+    editor.click('[data-undo]');await editor.settle();unavailable(editor);editor.api.select();await identified(editor);
+    editor.fill(original+'<div class="uip-layout-item" data-uip-node="draft_wrapper"><p data-uip-node="draft_node">Draft</p></div>');editor.api.navigate('draft_node');assert.equal(unavailable(editor).reason,'DIRTY_DRAFT');
+    editor.click('[data-undo]');await editor.settle();unavailable(editor);editor.api.select();await identified(editor);
+    editor.fill(original.replace('data-uip-node="saved"','data-uip-node="renamed"'));editor.api.navigate('renamed');assert.equal(unavailable(editor).reason,'DIRTY_DRAFT');
+  });
+  for(const [label,configuration,reason] of [
+    ['ambiguous node markup',{source:'<div data-uip-node="saved" DATA-UIP-NODE="other"></div>'},'INVALID_SOURCE'],
+    ['missing package',{packageEdit:'missing'},'MISSING_DEFINITION'],
+    ['ambiguous package',{packageEdit:'duplicate'},'AMBIGUOUS_DEFINITION'],
+    ['missing export',{packageEdit:'missingExport'},'INVALID_DEFINITION'],
+    ['missing revision',{packageEdit:'missingRevision'},'INVALID_DEFINITION'],
+    ['semantic Page dependency',{metadata:{shellId:'art_other'}},'UNSUPPORTED_SEMANTICS'],
+  ]){
+    // A Shell-qualified Page would invoke the preexisting design-preview path;
+    // pure owner tests cover that refusal without activating any native frame.
+    if(configuration.metadata?.shellId)continue;
+    const editor=await create(false,configuration);try{editor.api.navigate('saved');await editor.until(()=>editor.target().reason!== 'SELECTION_CHANGED');await editor.settle();assert.equal(unavailable(editor).reason,reason==='MISSING_NODE'?'MISSING_NODE':reason);checks.push(label);}finally{await editor.close();}
+  }
+  await scenario('successful save publishes only completed matching baseline/hash',async editor=>{
+    editor.api.select();const original=await identified(editor);const current=(await editor.snap()).source;editor.fill(current.replace('uip-layout-item','uip-layout-item committed'));
+    unavailable(editor);editor.api.hold();editor.click('[data-save]');await editor.until(()=>editor.metrics().calls.length===1);assert.equal(unavailable(editor).reason,'SAVE_PENDING');
+    editor.api.release();const saved=await identified(editor);assert.notEqual(saved.target.source.committedHash,original.target.source.committedHash);assert.equal((await editor.snap()).state.dirty,false);
+  });
+  for(const status of [500,409])await scenario(`save failure/conflict ${status} never promotes candidate`,async editor=>{
+    editor.api.select();await identified(editor);editor.fill((await editor.snap()).source.replace('uip-layout-item','uip-layout-item dirty'));editor.api.fail(status);editor.click('[data-save]');
+    await editor.until(async()=>!(await editor.snap()).state.pending);unavailable(editor);editor.api.select();assert.equal(unavailable(editor).reason,status===409?'SOURCE_UNCERTAIN':'SAVE_FAILED');
+  });
+  await scenario('selection during pending save prevents late target resurrection',async editor=>{
+    editor.api.select();await identified(editor);editor.fill((await editor.snap()).source.replace('uip-layout-item','uip-layout-item late'));editor.api.hold();editor.click('[data-save]');await editor.until(()=>editor.metrics().calls.length===1);
+    editor.api.select('wrapper');unavailable(editor);const checkpoint=editor.metrics().events.length;editor.api.release();await editor.until(async()=>!(await editor.snap()).state.pending);await editor.settle();unavailable(editor);
+    assert(!editor.metrics().events.slice(checkpoint).some(value=>value.state==='identified'));editor.api.select();await identified(editor);
+  });
+  await scenario('mismatched completed response hash cannot publish a committed target',async editor=>{
+    editor.api.select();await identified(editor);editor.fill((await editor.snap()).source.replace('uip-layout-item','uip-layout-item hashcheck'));editor.api.corruptResponseHash();editor.click('[data-save]');await editor.until(async()=>!(await editor.snap()).state.pending);await editor.settle();assert.equal(unavailable(editor).reason,'SOURCE_UNCERTAIN');
+  });
+  await scenario('context change during pending save suppresses completed target publication',async editor=>{
+    editor.api.select();await identified(editor);editor.fill((await editor.snap()).source.replace('uip-layout-item','uip-layout-item context'));editor.api.hold();editor.click('[data-save]');await editor.until(()=>editor.metrics().calls.length===1);editor.api.contextChange();const checkpoint=editor.metrics().events.length;editor.api.release();await editor.until(async()=>!(await editor.snap()).state.pending);unavailable(editor);assert(!editor.metrics().events.slice(checkpoint).some(value=>value.state==='identified'));
+  });
+  await scenario('concurrent edits and saves cannot publish the older completed candidate',async editor=>{
+    editor.api.select();await identified(editor);const initial=(await editor.snap()).source;editor.fill(initial.replace('uip-layout-item','uip-layout-item first'));editor.api.hold();editor.click('[data-save]');await editor.until(()=>editor.metrics().calls.length===1);
+    editor.fill(initial.replace('uip-layout-item','uip-layout-item second'));editor.click('[data-save]');const checkpoint=editor.metrics().events.length;editor.api.release();await editor.until(()=>editor.metrics().calls.length===2);await identified(editor);
+    const calls=editor.metrics().calls;assert(calls[0].body.files.source.includes(' first'));assert(calls[1].body.files.source.includes(' second'));
+    const published=editor.metrics().events.slice(checkpoint).filter(value=>value.state==='identified');assert.equal(published.length,1);assert.equal(published[0].target.source.committedHash,editor.target().target.source.committedHash);
+  });
+  await scenario('existing external-source event invalidates synchronously and requires new explicit selection',async editor=>{
+    editor.api.select();const original=await identified(editor);await editor.api.external();unavailable(editor);await editor.until(()=>editor.metrics().calls.some(c=>c.method==='MEMORY_GET'));await editor.settle();unavailable(editor);
+    editor.api.select();const current=await identified(editor);assert.notEqual(current.target.source.committedHash,original.target.source.committedHash);
+    await editor.api.external(undefined,true);unavailable(editor);await editor.settle();editor.api.select();await editor.settle();assert.equal(unavailable(editor).reason,'MISSING_DEFINITION');
+  });
+  for(const field of ['session','owner','application'])await scenario(`original ${field} change refuses and late hash completion cannot restore`,async editor=>{
+    editor.holdDigest();editor.api.select();unavailable(editor);editor.api.contextChange(field);unavailable(editor);editor.releaseDigest();await editor.settle();assert.equal(unavailable(editor).reason,'CONTEXT_CHANGED');editor.api.select();assert.equal(unavailable(editor).reason,'CONTEXT_CHANGED');
+  });
+  await scenario('superseded asynchronous selection cannot publish after newer selection',async editor=>{
+    editor.holdDigest();editor.api.select();editor.api.select('wrapper');const checkpoint=editor.metrics().events.length;editor.releaseDigest();await editor.settle();unavailable(editor);assert(!editor.metrics().events.slice(checkpoint).some(e=>e.state==='identified'));
+  });
+  await scenario('park/remount, suspension and visibility remain unavailable until explicit valid evaluation',async editor=>{
+    editor.api.select();await identified(editor);editor.api.park();unavailable(editor);editor.api.remount();unavailable(editor);editor.api.select();await identified(editor);
+    editor.api.visibility(true);unavailable(editor);editor.api.visibility(false);unavailable(editor);editor.api.select();await identified(editor);editor.api.suspend();unavailable(editor);editor.api.select();assert.equal(unavailable(editor).reason,'SUSPENDED');
+  });
+  await scenario('terminal disposal removes context subscription and suppresses late completion',async editor=>{
+    editor.holdDigest();editor.api.select();const stop=editor.api.dispose();assert.equal(editor.target().reason,'DISPOSED');editor.releaseDigest();await stop;await editor.settle();assert.equal(editor.target().reason,'DISPOSED');assert.equal(editor.metrics().observers,0);editor.api.contextChange();assert.equal(editor.target().reason,'DISPOSED');
+  });
+  await scenario('suspension and disposal suppress late authoritative save callbacks',async editor=>{
+    editor.api.select();await identified(editor);editor.fill((await editor.snap()).source.replace('uip-layout-item','uip-layout-item disposal'));editor.api.hold();editor.click('[data-save]');await editor.until(()=>editor.metrics().calls.length===1);editor.api.suspend();unavailable(editor);const completion=editor.api.dispose();assert.equal(editor.target().reason,'DISPOSED');editor.api.release();await completion;await editor.settle();assert.equal(editor.target().reason,'DISPOSED');assert.equal(editor.metrics().observers,0);
+  });
+  await scenario('unsubscribe prevents stale observer delivery',async editor=>{
+    editor.api.select();await identified(editor);editor.api.stopWatching();const count=editor.metrics().events.length;editor.api.navigate('wrapper');await editor.settle();assert.equal(editor.metrics().events.length,count);
+  });
+  await scenario('throwing observers cannot interrupt editing and reentrant disposal stays terminal',async editor=>{
+    assert.equal(editor.api.detachedSubscription(),1);
+    editor.api.throwObserver();editor.api.select();await identified(editor);editor.fill((await editor.snap()).source.replace('uip-layout-item','uip-layout-item edited'));assert((await editor.snap()).state.dirty);unavailable(editor);editor.api.reenterOnDispose();await editor.api.dispose();assert.equal(editor.target().reason,'DISPOSED');await editor.settle();assert.equal(editor.target().reason,'DISPOSED');
+  });
+  const comparisons=[];
+  for(const enabled of [false,true]){
+    const pair=[];
+    for(const before of [true,false]){
+      const editor=await create(enabled,{},before);
+      try{
+        const initial=await editor.snap();editor.api.select();if(!before)await identified(editor);
+        editor.fill(initial.source.replace('uip-layout-item','uip-layout-item first'));await editor.advance(751);
+        editor.fill(initial.source.replace('uip-layout-item','uip-layout-item second'));editor.click('[data-undo]');await editor.settle();assert((await editor.snap()).source.includes(' first'));
+        editor.click('[data-redo]');await editor.settle();assert((await editor.snap()).source.includes(' second'));
+        editor.range(3,11);const edited=await editor.snap();await editor.advance(1999);assert.equal((await editor.snap()).calls.length,0);await editor.advance(1);await editor.until(async()=>!(await editor.snap()).state.pending);
+        const settled=await editor.snap();assert.equal(settled.calls.length,enabled?1:0);assert.deepEqual(settled.range,[3,11]);if(enabled)assert.equal(settled.calls[0].time,2751);pair.push({initial,edited,settled});
+      }finally{await editor.close();}
+    }
+    assert.deepEqual(pair[1],pair[0]);comparisons.push({enabled,before:pair[0],after:pair[1]});
+  }
+  checks.push('matched original-editor/current-editor checksum/source/file/range/Undo/Redo and enabled/disabled autosave traces');
+  return {passed:true,checks,comparisons,scope:'Actual owner/editor in nonpersisting DOM environment, memory callbacks only; no native browser or backend qualification'};
+}

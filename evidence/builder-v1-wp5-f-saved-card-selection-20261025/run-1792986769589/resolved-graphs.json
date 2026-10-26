@@ -1,0 +1,923 @@
+{
+  "tests/saved-card-selection/owner-target.test.ts": {
+    "inputs": {
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 10925,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9296,
+        "imports": [],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17251,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11601,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/source-identity/visual-source-barrel.ts": {
+        "bytes": 513,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/saved-card-selection/source-barrel.ts": {
+        "bytes": 146,
+        "imports": [
+          {
+            "path": "tests/source-identity/visual-source-barrel.ts",
+            "kind": "import-statement",
+            "original": "../source-identity/visual-source-barrel.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/saved-card-target.ts": {
+        "bytes": 9138,
+        "imports": [
+          {
+            "path": "tests/saved-card-selection/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/visual-artifacts"
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/ui.component.json": {
+        "bytes": 28739,
+        "imports": []
+      },
+      "tests/saved-card-selection/fixtures.ts": {
+        "bytes": 1833,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+            "kind": "import-statement",
+            "original": "../../../ui-base/packages/ui-base-ui/ui.component.json"
+          },
+          {
+            "path": "src/client/visual-artifacts/saved-card-target.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/visual-artifacts/saved-card-target.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/saved-card-selection/owner-target.test.ts": {
+        "bytes": 4997,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "src/client/visual-artifacts/saved-card-target.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/visual-artifacts/saved-card-target.js"
+          },
+          {
+            "path": "tests/saved-card-selection/fixtures.ts",
+            "kind": "import-statement",
+            "original": "./fixtures.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "owner-target.test.js": {
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "exports": [],
+        "entryPoint": "tests/saved-card-selection/owner-target.test.ts",
+        "inputs": {
+          "tests/saved-card-selection/owner-target.test.ts": {
+            "bytesInOutput": 5058
+          },
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 6338
+          },
+          "tests/source-identity/visual-source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 3415
+          },
+          "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+            "bytesInOutput": 3483
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/form.ts": {
+            "bytesInOutput": 366
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 16668
+          },
+          "tests/saved-card-selection/source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "src/client/visual-artifacts/saved-card-target.ts": {
+            "bytesInOutput": 6159
+          },
+          "../ui-base/packages/ui-base-ui/ui.component.json": {
+            "bytesInOutput": 27293
+          },
+          "tests/saved-card-selection/fixtures.ts": {
+            "bytesInOutput": 1521
+          }
+        },
+        "bytes": 70821
+      }
+    }
+  },
+  "tests/saved-card-selection/editor-harness.ts": {
+    "inputs": {
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 10925,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9296,
+        "imports": [],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17251,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11601,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/source-identity/visual-source-barrel.ts": {
+        "bytes": 513,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/saved-card-selection/source-barrel.ts": {
+        "bytes": 146,
+        "imports": [
+          {
+            "path": "tests/source-identity/visual-source-barrel.ts",
+            "kind": "import-statement",
+            "original": "../source-identity/visual-source-barrel.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/menu-controls.ts": {
+        "bytes": 7791,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/shared/platform-settings.ts": {
+        "bytes": 2197,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/autosave-configuration.ts": {
+        "bytes": 714,
+        "imports": [
+          {
+            "path": "src/shared/platform-settings.ts",
+            "kind": "import-statement",
+            "original": "../../shared/platform-settings.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/editing-lifecycle.ts": {
+        "bytes": 8230,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "./autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/saved-source.ts": {
+        "bytes": 732,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/specialized-transport.ts": {
+        "bytes": 1933,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/saved-source.ts",
+            "kind": "import-statement",
+            "original": "./saved-source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/authoring-controls.ts": {
+        "bytes": 16247,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/saved-card-target.ts": {
+        "bytes": 9138,
+        "imports": [
+          {
+            "path": "tests/saved-card-selection/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/visual-artifacts"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/editor.ts": {
+        "bytes": 54588,
+        "imports": [
+          {
+            "path": "tests/saved-card-selection/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/visual-artifacts"
+          },
+          {
+            "path": "src/client/visual-artifacts/menu-controls.ts",
+            "kind": "import-statement",
+            "original": "./menu-controls.js"
+          },
+          {
+            "path": "src/client/artifact-editor/editing-lifecycle.ts",
+            "kind": "import-statement",
+            "original": "../artifact-editor/editing-lifecycle.js"
+          },
+          {
+            "path": "src/client/artifact-editor/specialized-transport.ts",
+            "kind": "import-statement",
+            "original": "../artifact-editor/specialized-transport.js"
+          },
+          {
+            "path": "src/client/visual-artifacts/authoring-controls.ts",
+            "kind": "import-statement",
+            "original": "./authoring-controls.js"
+          },
+          {
+            "path": "src/client/visual-artifacts/saved-card-target.ts",
+            "kind": "import-statement",
+            "original": "./saved-card-target.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/ui.component.json": {
+        "bytes": 28739,
+        "imports": []
+      },
+      "tests/saved-card-selection/fixtures.ts": {
+        "bytes": 1833,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+            "kind": "import-statement",
+            "original": "../../../ui-base/packages/ui-base-ui/ui.component.json"
+          },
+          {
+            "path": "src/client/visual-artifacts/saved-card-target.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/visual-artifacts/saved-card-target.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/saved-card-selection/editor-harness.ts": {
+        "bytes": 5145,
+        "imports": [
+          {
+            "path": "src/client/visual-artifacts/editor.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/visual-artifacts/editor.js"
+          },
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/autosave-configuration.js"
+          },
+          {
+            "path": "tests/saved-card-selection/fixtures.ts",
+            "kind": "import-statement",
+            "original": "./fixtures.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "editor-harness.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "tests/saved-card-selection/editor-harness.ts",
+        "inputs": {
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 9915
+          },
+          "tests/source-identity/visual-source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 3505
+          },
+          "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+            "bytesInOutput": 3639
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/form.ts": {
+            "bytesInOutput": 378
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 17109
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 1084
+          },
+          "tests/saved-card-selection/source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "src/client/visual-artifacts/menu-controls.ts": {
+            "bytesInOutput": 1244
+          },
+          "src/shared/platform-settings.ts": {
+            "bytesInOutput": 590
+          },
+          "src/client/artifact-editor/autosave-configuration.ts": {
+            "bytesInOutput": 538
+          },
+          "src/client/artifact-editor/editing-lifecycle.ts": {
+            "bytesInOutput": 8044
+          },
+          "src/client/artifact-editor/saved-source.ts": {
+            "bytesInOutput": 401
+          },
+          "src/client/artifact-editor/specialized-transport.ts": {
+            "bytesInOutput": 1490
+          },
+          "src/client/visual-artifacts/authoring-controls.ts": {
+            "bytesInOutput": 15837
+          },
+          "src/client/visual-artifacts/saved-card-target.ts": {
+            "bytesInOutput": 6281
+          },
+          "src/client/visual-artifacts/editor.ts": {
+            "bytesInOutput": 54541
+          },
+          "../ui-base/packages/ui-base-ui/ui.component.json": {
+            "bytesInOutput": 29495
+          },
+          "tests/saved-card-selection/fixtures.ts": {
+            "bytesInOutput": 1539
+          },
+          "tests/saved-card-selection/editor-harness.ts": {
+            "bytesInOutput": 5698
+          }
+        },
+        "bytes": 162286
+      }
+    }
+  },
+  "tests/saved-card-selection/editor-harness.ts:before": {
+    "inputs": {
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 10925,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9296,
+        "imports": [],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17251,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11601,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/source-identity/visual-source-barrel.ts": {
+        "bytes": 513,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/saved-card-selection/source-barrel.ts": {
+        "bytes": 146,
+        "imports": [
+          {
+            "path": "tests/source-identity/visual-source-barrel.ts",
+            "kind": "import-statement",
+            "original": "../source-identity/visual-source-barrel.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/menu-controls.ts": {
+        "bytes": 7791,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/shared/platform-settings.ts": {
+        "bytes": 2197,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/autosave-configuration.ts": {
+        "bytes": 714,
+        "imports": [
+          {
+            "path": "src/shared/platform-settings.ts",
+            "kind": "import-statement",
+            "original": "../../shared/platform-settings.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/editing-lifecycle.ts": {
+        "bytes": 8230,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "./autosave-configuration.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/saved-source.ts": {
+        "bytes": 732,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/client/artifact-editor/specialized-transport.ts": {
+        "bytes": 1933,
+        "imports": [
+          {
+            "path": "src/client/artifact-editor/saved-source.ts",
+            "kind": "import-statement",
+            "original": "./saved-source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/authoring-controls.ts": {
+        "bytes": 16247,
+        "imports": [],
+        "format": "esm"
+      },
+      "evidence/builder-v1-wp5-f-saved-card-selection-20261025/editor-before.ts.txt": {
+        "bytes": 47578,
+        "imports": [
+          {
+            "path": "tests/saved-card-selection/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/visual-artifacts"
+          },
+          {
+            "path": "src/client/visual-artifacts/menu-controls.ts",
+            "kind": "import-statement",
+            "original": "./menu-controls.js"
+          },
+          {
+            "path": "src/client/artifact-editor/editing-lifecycle.ts",
+            "kind": "import-statement",
+            "original": "../artifact-editor/editing-lifecycle.js"
+          },
+          {
+            "path": "src/client/artifact-editor/specialized-transport.ts",
+            "kind": "import-statement",
+            "original": "../artifact-editor/specialized-transport.js"
+          },
+          {
+            "path": "src/client/visual-artifacts/authoring-controls.ts",
+            "kind": "import-statement",
+            "original": "./authoring-controls.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "../ui-base/packages/ui-base-ui/ui.component.json": {
+        "bytes": 28739,
+        "imports": []
+      },
+      "src/client/visual-artifacts/saved-card-target.ts": {
+        "bytes": 9138,
+        "imports": [
+          {
+            "path": "tests/saved-card-selection/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/visual-artifacts"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/saved-card-selection/fixtures.ts": {
+        "bytes": 1833,
+        "imports": [
+          {
+            "path": "../ui-base/packages/ui-base-ui/ui.component.json",
+            "kind": "import-statement",
+            "original": "../../../ui-base/packages/ui-base-ui/ui.component.json"
+          },
+          {
+            "path": "src/client/visual-artifacts/saved-card-target.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/visual-artifacts/saved-card-target.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/saved-card-selection/editor-harness.ts": {
+        "bytes": 5145,
+        "imports": [
+          {
+            "path": "evidence/builder-v1-wp5-f-saved-card-selection-20261025/editor-before.ts.txt",
+            "kind": "import-statement",
+            "original": "../../src/client/visual-artifacts/editor.js"
+          },
+          {
+            "path": "src/client/artifact-editor/autosave-configuration.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/artifact-editor/autosave-configuration.js"
+          },
+          {
+            "path": "tests/saved-card-selection/fixtures.ts",
+            "kind": "import-statement",
+            "original": "./fixtures.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "editor-harness.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "tests/saved-card-selection/editor-harness.ts",
+        "inputs": {
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 9915
+          },
+          "tests/source-identity/visual-source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 1082
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 377
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 1084
+          },
+          "tests/saved-card-selection/source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "src/client/visual-artifacts/menu-controls.ts": {
+            "bytesInOutput": 1244
+          },
+          "src/shared/platform-settings.ts": {
+            "bytesInOutput": 590
+          },
+          "src/client/artifact-editor/autosave-configuration.ts": {
+            "bytesInOutput": 538
+          },
+          "src/client/artifact-editor/editing-lifecycle.ts": {
+            "bytesInOutput": 8044
+          },
+          "src/client/artifact-editor/saved-source.ts": {
+            "bytesInOutput": 401
+          },
+          "src/client/artifact-editor/specialized-transport.ts": {
+            "bytesInOutput": 1490
+          },
+          "src/client/visual-artifacts/authoring-controls.ts": {
+            "bytesInOutput": 15837
+          },
+          "evidence/builder-v1-wp5-f-saved-card-selection-20261025/editor-before.ts.txt": {
+            "bytesInOutput": 47845
+          },
+          "../ui-base/packages/ui-base-ui/ui.component.json": {
+            "bytesInOutput": 29495
+          },
+          "src/client/visual-artifacts/saved-card-target.ts": {
+            "bytesInOutput": 79
+          },
+          "tests/saved-card-selection/fixtures.ts": {
+            "bytesInOutput": 1539
+          },
+          "tests/saved-card-selection/editor-harness.ts": {
+            "bytesInOutput": 5698
+          }
+        },
+        "bytes": 126118
+      }
+    }
+  }
+}

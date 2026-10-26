@@ -1,0 +1,23 @@
+{
+  "entry": "scripts/verify-saved-card-selection.mjs",
+  "sha256": "80ac6d6994e771ebe22b96c0b9426bf8cd445540acfe000ae7d13229baa6fec1",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "exactApplicationClosure": "Enforced named .ts/.json inputs, prewritten hashes and preexecution bundle graphs; actual editor with injected memory callbacks only",
+  "driver": "tests/saved-card-selection/editor-checks.mjs",
+  "driverSha256": "7acb7b1d1f0e28b888e6ff4593f43f2ff7660f4f4eb3ae0d1e7e1c15f5e4396a",
+  "serial": true,
+  "retries": 0,
+  "correction": "Final coverage invocation: explicit draft removal/insertion/rename, mismatched save-response hash, context/suspension/disposal during pending save; static-only adapter/coordinator syntax and wiring proof. Same runtime module closure."
+}

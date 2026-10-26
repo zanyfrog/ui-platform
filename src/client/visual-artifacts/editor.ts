@@ -5,6 +5,7 @@ import type { ComponentCatalogEntry } from '../../shared/types.js';
 import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
 import { specializedTransport, type SourceRequest } from '../artifact-editor/specialized-transport.js';
 import { compositionAuthoring, valueControls } from './authoring-controls.js';
+import { identifyRetainedSavedCard, immutableSavedCard, savedCardContextKey, type SavedCardContext, type SavedCardTargetSnapshot, type SavedCardTargetReader, type SavedCardRefusal } from './saved-card-target.js';
 
 export interface Workspace { pages: ArtifactBundle[]; components: ArtifactBundle[]; shells: ArtifactBundle[]; packages: ComponentCatalogEntry[] }
 export interface VisualWorkspaceOptions {
@@ -13,6 +14,7 @@ export interface VisualWorkspaceOptions {
   applicationId?: string;
   onDefinition?: (componentId: string) => void; onStateChange?: () => void;
   applicationKey?: () => string;
+  savedCardContext?: { get(): SavedCardContext | undefined; subscribe(invalidate: () => void): () => void };
 }
 const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
@@ -30,6 +32,71 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   let files: ArtifactFiles, baseline: ArtifactFiles, hash = '', role: keyof ArtifactFiles = 'source', selectedNode = '', conflict = false, saving = false;
   let preview: HTMLIFrameElement | undefined, polling = false;
   const actionDrafts = new Map<string, NonNullable<import('./authoring-controls.js').AuthoringOptions['draft']>>();
+  const readCardContext = () => { try { return options.savedCardContext?.get(); } catch { return undefined; } };
+  const originalCardContextKey = savedCardContextKey(readCardContext());
+  let cardEpoch = 0, cardSelectionGeneration = 0, cardSourceGeneration = 0, cardPending = false, cardTerminal = false;
+  const cardListeners = new Set<(snapshot: SavedCardTargetSnapshot) => void>();
+  const cardGenerations = () => ({ selection: cardSelectionGeneration, source: cardSourceGeneration });
+  let cardValue: SavedCardTargetSnapshot = immutableSavedCard({ state: 'unavailable', reason: 'NO_SELECTION', generation: cardGenerations(), target: null });
+  let cardCompletion: { record: object; epoch: number; selection: number; context: string | undefined; editing: number } | undefined;
+  function publishCard(value: SavedCardTargetSnapshot) {
+    cardValue = immutableSavedCard(value);
+    for (const listener of [...cardListeners]) { if (cardValue !== value) break; if (!cardListeners.has(listener)) continue; try { listener(value); } catch { /* Metadata observers cannot interrupt editing. */ } }
+  }
+  function invalidateCard(reason: SavedCardRefusal, selection = false) {
+    if (cardTerminal) return;
+    cardEpoch++; if (selection) cardSelectionGeneration++; else cardSourceGeneration++;
+    cardPending = false; cardCompletion = undefined;
+    publishCard({ state: 'unavailable', reason, generation: cardGenerations(), target: null });
+  }
+  function cardRefusal(): SavedCardRefusal | undefined {
+    if (disposed || cardTerminal) return 'DISPOSED';
+    if (!originalCardContextKey) return 'NO_CONTEXT';
+    if (savedCardContextKey(readCardContext()) !== originalCardContextKey || readCardContext()?.applicationId !== options.applicationId) return 'CONTEXT_CHANGED';
+    if (copy?.lifecycle.suspended) return 'SUSPENDED';
+    if (!active || !target.isConnected || target.hidden || document.visibilityState === 'hidden') return 'NOT_ACTIVE';
+    if (!copy || selectedKind !== 'page' || !selectedNode) return 'NO_SELECTION';
+    if (copy.lifecycle.inFlight || copy.lifecycle.state === 'saving') return 'SAVE_PENDING';
+    if (copy.lifecycle.state === 'conflict') return 'SOURCE_UNCERTAIN';
+    if (copy.lifecycle.failure || copy.lifecycle.state === 'error') return 'SAVE_FAILED';
+    if (copy.lifecycle.dirty) return 'DIRTY_DRAFT';
+  }
+  function cardSignature() {
+    return JSON.stringify([savedCardContextKey(readCardContext()), selectedNode, copy?.bundle, copy?.lifecycle.baseline,
+      copy?.lifecycle.generation, copy?.lifecycle.savedGeneration, copy?.lifecycle.state, copy?.lifecycle.dirty,
+      workspace.packages, workspace.components.map(bundle => bundle.metadata?.componentId)]);
+  }
+  function evaluateCard() {
+    if (cardTerminal) return;
+    const refusal = cardRefusal();
+    if (refusal) { publishCard({ state: 'unavailable', reason: refusal, generation: cardGenerations(), target: null }); return; }
+    const epoch = cardEpoch, signature = cardSignature(); cardPending = true;
+    // Only the already-retained committed bundle/baseline is copied. No current
+    // draft bytes, Component source, URL, transport or executable capability.
+    const input = structuredClone({ context: readCardContext()!, bundle: copy!.bundle, baseline: copy!.lifecycle.baseline,
+      candidate: selectedNode, packages: workspace.packages, componentIds: workspace.components.map(bundle => bundle.metadata?.componentId), generation: cardGenerations() });
+    void identifyRetainedSavedCard(input).then(value => {
+      if (cardTerminal || epoch !== cardEpoch) return;
+      cardPending = false;
+      if (cardRefusal() || signature !== cardSignature()) { invalidateCard('SOURCE_UNCERTAIN'); return; }
+      publishCard(value);
+    });
+  }
+  const cardVisibility = () => invalidateCard('NOT_ACTIVE');
+  function currentCardSnapshot() {
+    const reason = cardRefusal();
+    if ((cardValue.state === 'identified' || cardPending) && reason) invalidateCard(reason);
+    return cardValue;
+  }
+  const savedCardTarget: SavedCardTargetReader = Object.freeze({
+    get snapshot() { return currentCardSnapshot(); },
+    subscribe(listener: (snapshot: SavedCardTargetSnapshot) => void) {
+      const current = currentCardSnapshot();
+      if (!cardTerminal) cardListeners.add(listener);
+      try { listener(current); } catch { /* Observers do not affect editing. */ }
+      return () => { cardListeners.delete(listener); };
+    },
+  });
   const dirty = () => !!copy?.lifecycle.dirty;
   const list = (kind: string) => kind === 'page' ? workspace.pages : kind === 'shell' ? workspace.shells : workspace.components;
   const plural = (kind: string) => kind === 'page' ? 'pages' : kind === 'shell' ? 'shells' : 'components';
@@ -100,6 +167,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     find<HTMLButtonElement>('[data-redo]').disabled = !lifecycle?.canRedo;
   }
   function changed(group?: string): void {
+    invalidateCard('SOURCE_CHANGED');
     if (copy && JSON.stringify(files) !== JSON.stringify(copy.lifecycle.current)) { copy.saveRequest = transport.capture(); copy.lifecycle.edit(files, group); }
     paintState(); if (role !== 'source') find<HTMLTextAreaElement>('[data-source]').value = files[role];
     try { renderStructure(); } catch { status('Invalid local source retained. Repair source before using structured controls.'); }
@@ -278,6 +346,8 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     inspector.querySelector('[data-breakpoint]')!.addEventListener('change', renderLayout); renderLayout();
   }
   function open(bundle: ArtifactBundle, kind: 'page' | 'component' | 'shell', replace = false): void {
+    invalidateCard('SOURCE_CHANGED');
+    bundle = structuredClone(bundle);
     const key = `${kind}:${bundle.locator}`;
     let retained = copies.get(key);
     if (!retained) {
@@ -285,16 +355,26 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       record.lifecycle = new EditingLifecycle(bundle.files, async candidate => {
         const authorized = record.saveRequest;
         if (!authorized) throw new Error('The original authorized editing context is required.');
+        const stamp = { record, epoch: cardEpoch, selection: cardSelectionGeneration, context: savedCardContextKey(readCardContext()), editing: record.lifecycle.generation };
         const saved = await authorized<ArtifactBundle>(`${base}/visual-${plural(record.kind)}?locator=${encodeURIComponent(record.bundle.locator)}`, { method: 'PUT', body: JSON.stringify({ mode: 'normal', files: candidate, expectedHash: record.bundle.hash }) });
-        record.bundle = saved; return saved.files;
+        record.bundle = structuredClone(saved);
+        if (!cardTerminal && stamp.epoch === cardEpoch && stamp.selection === cardSelectionGeneration && stamp.context === savedCardContextKey(readCardContext())) cardCompletion = stamp;
+        return saved.files;
       });
       record.lifecycle.subscribe(() => {
+        const completion = cardCompletion;
+        const completed = copy === record && completion?.record === record && completion.epoch === cardEpoch &&
+          completion.selection === cardSelectionGeneration && completion.context === savedCardContextKey(readCardContext()) &&
+          completion.editing === record.lifecycle.generation && record.lifecycle.savedGeneration === record.lifecycle.generation &&
+          !record.lifecycle.inFlight && !record.lifecycle.dirty && record.lifecycle.state === 'saved' && !record.lifecycle.failure;
+        invalidateCard(record.lifecycle.suspended ? 'SUSPENDED' : record.lifecycle.state === 'saving' ? 'SAVE_PENDING' : record.lifecycle.failure ? 'SAVE_FAILED' : 'SOURCE_CHANGED');
         if (copy === record) {
           const changedSource = JSON.stringify(files) !== JSON.stringify(record.lifecycle.current);
           files = structuredClone(record.lifecycle.current); baseline = structuredClone(record.lifecycle.baseline); selected = record.bundle; hash = record.bundle.hash;
           if (changedSource) { find<HTMLTextAreaElement>('[data-source]').value = files[role]; try { renderStructure(); } catch { /* Invalid draft remains editable. */ } }
           paintState();
         } else options.onStateChange?.();
+        if (completed) evaluateCard();
       });
       copies.set(key, record); retained = record;
     } else if (!retained.lifecycle.inFlight) {
@@ -333,8 +413,8 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   })));
   find('[data-file]').addEventListener('change', () => { role = find<HTMLSelectElement>('[data-file]').value as keyof ArtifactFiles; find<HTMLTextAreaElement>('[data-source]').value = files[role]; });
   find('[data-source]').addEventListener('input', () => { files[role] = find<HTMLTextAreaElement>('[data-source]').value; changed(`source:${role}`); });
-  find('[data-nodes]').addEventListener('change', () => { selectedNode = find<HTMLSelectElement>('[data-nodes]').value; renderInspector(); });
-  find('[data-root]').addEventListener('click', () => { selectedNode = ''; renderStructure(); });
+  find('[data-nodes]').addEventListener('change', () => { invalidateCard('SELECTION_CHANGED', true); selectedNode = find<HTMLSelectElement>('[data-nodes]').value; renderInspector(); evaluateCard(); });
+  find('[data-root]').addEventListener('click', () => { invalidateCard('SELECTION_CHANGED', true); selectedNode = ''; renderStructure(); evaluateCard(); });
   target.querySelectorAll<HTMLButtonElement>('[data-move]').forEach(button => button.addEventListener('click', safe(() => { files.source = moveNode(files.source, selectedNode, button.dataset.move as 'up' | 'down'); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })));
   find('[data-add]').addEventListener('click', safe(() => {
     if (selectedKind === 'page' && workingMetadata().shellId) {
@@ -397,6 +477,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   }
   find('[data-preview]').addEventListener('click', safe(showPreview));
   async function refresh(event?: Event): Promise<void> {
+    if (event) invalidateCard('SOURCE_CHANGED');
     if (disposed || options.initial && !active) return;
     if (!target.isConnected) return;
     if (polling || saving || operations > 0) return; polling = true;
@@ -404,7 +485,8 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       const next = await request<Workspace>(`${base}/visual-artifacts`);
       if (disposed || options.initial && !active) return;
       const dependenciesChanged = JSON.stringify([workspace.shells, workspace.components].flat().map(bundle => bundle?.hash)) !== JSON.stringify([next.shells, next.components].flat().map(bundle => bundle?.hash));
-      workspace = next; renderList();
+      if (dependenciesChanged || JSON.stringify(workspace.packages) !== JSON.stringify(next.packages) || list(selectedKind).find(bundle => bundle.locator === selected?.locator)?.hash !== (selectedKind === 'page' ? next.pages : selectedKind === 'shell' ? next.shells : next.components).find(bundle => bundle.locator === selected?.locator)?.hash) invalidateCard('SOURCE_CHANGED');
+      workspace = structuredClone(next); renderList();
       if (selected) {
         const disk = list(selectedKind).find(b => b.locator === selected!.locator);
         if (!disk || disk.hash !== hash) {
@@ -415,17 +497,22 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       }
     } catch (error) { status(String(error)); } finally { polling = false; }
   }
-  workspace = options.workspace ?? await request<Workspace>(`${base}/visual-artifacts`); renderList(); status('Select or create a Visual Artifact');
+  workspace = structuredClone(options.workspace ?? await request<Workspace>(`${base}/visual-artifacts`)); renderList(); status('Select or create a Visual Artifact');
   if (options.initial) { find('[data-artifacts]').parentElement!.hidden = true; const bundle = list(options.initial.kind).find(b => b.locator === options.initial!.locator); if (!bundle) throw new Error('Artifact unavailable.'); open(bundle, options.initial.kind); }
   const unprotect = protectEditingDraft(() => [...copies.values()].some(item => item.lifecycle.dirty || item.lifecycle.state === 'conflict'));
   const timer = setInterval(() => { void refresh(); }, 3000);
   document.addEventListener('ui-platform-workspace-change', refresh);
+  const unsubscribeCardContext = options.savedCardContext?.subscribe(() => invalidateCard('CONTEXT_CHANGED')) ?? (() => {});
+  document.addEventListener('visibilitychange', cardVisibility);
   return {
+    savedCardTarget,
     state: () => ({ dirty: [...copies.values()].some(item => item.lifecycle.dirty), pending: saving || operations > 0, conflict }),
-    deactivate() { active = false; preview?.remove(); preview = undefined; },
-    suspend() { actionDrafts.clear(); for (const item of copies.values()) item.lifecycle.suspend(); target.hidden = true; },
+    deactivate() { invalidateCard('NOT_ACTIVE'); active = false; preview?.remove(); preview = undefined; },
+    suspend() { invalidateCard('SUSPENDED'); actionDrafts.clear(); for (const item of copies.values()) item.lifecycle.suspend(); target.hidden = true; },
     focus(next: Workspace, navigation: { node?: string; section?: string } = {}) {
-      workspace = next;
+      if (disposed) return;
+      invalidateCard('SELECTION_CHANGED', true);
+      workspace = structuredClone(next);
       const disk = list(selectedKind).find(b => b.locator === selected?.locator);
       if (!disk) throw new Error('Artifact unavailable.');
       if (disk.hash !== hash && !copy?.lifecycle.inFlight) {
@@ -439,7 +526,8 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       find<HTMLSelectElement>('[data-file]').value = role;
       find<HTMLTextAreaElement>('[data-source]').value = files[role];
       try { renderStructure(); } catch { status('Invalid local source retained. Repair source before using structured controls.'); }
+      if (navigation.node !== undefined) evaluateCard();
     },
-    async dispose() { disposed = true; active = false; clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(item => item.lifecycle.dispose())); preview?.remove(); target.replaceChildren(); },
+    async dispose() { disposed = true; active = false; if (!cardTerminal) { cardTerminal = true; cardEpoch++; cardSourceGeneration++; cardPending = false; cardCompletion = undefined; publishCard({ state: 'unavailable', reason: 'DISPOSED', generation: cardGenerations(), target: null }); } unsubscribeCardContext(); document.removeEventListener('visibilitychange', cardVisibility); cardListeners.clear(); clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(item => item.lifecycle.dispose())); preview?.remove(); target.replaceChildren(); },
   };
 }

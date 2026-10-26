@@ -1,6 +1,7 @@
 import type { AuthorizedWorkspaceArtifact, WorkspaceTarget } from '../../shared/builder-workspace.js';
 import type { WorkspaceEditorAdapter, WorkspaceEditorState } from './coordinator.js';
-import { createEditorSessionBinding, editorSessionSnapshot } from '../artifact-editor/session.js';
+import { createEditorSessionBinding, editorSessionSnapshot, subscribeEditorSession } from '../artifact-editor/session.js';
+import type { SavedCardTargetReader, SavedCardContext } from '../visual-artifacts/saved-card-target.js';
 import { EditorRuntimeContext } from '../artifact-editor/context.js';
 import { mountEditorShell } from '../artifact-editor/shell.js';
 import { mountVisualEditor } from '../visual-artifacts/editor.js';
@@ -30,6 +31,7 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
     }
   }
   let state = (): WorkspaceEditorState => ({ dirty: false, pending: false });
+  let savedCardTarget: SavedCardTargetReader | undefined;
   let deactivate = () => {}, suspend = () => {}, dispose = async () => {};
   let focus = async (_next: AuthorizedWorkspaceArtifact, _target: WorkspaceTarget) => {};
   const assert = () => {
@@ -101,8 +103,15 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
       focus = async (next, target) => { if (!context.hasCopy) await context.open(next.locator); if (!next.editable && context.snapshot?.artifact.capabilities.edit) context.suspend(); view.navigate(target.section, target.source); context.refreshPresentation(); };
     } else if (initial.visual) {
       const editor = await mountVisualEditor(element, originalApp, { request, captureRequest, applicationId: initial.applicationId, workspace: initial.visual,
+        savedCardContext: { get: () => {
+          binding.assert(); const session = editorSessionSnapshot();
+          if (disposed || !session?.principal || session.principal.subjectId !== originalSubject || artifact.applicationId !== initial.applicationId ||
+              artifact.identity.owner.kind !== 'application' || artifact.identity.format !== 'visual' || !artifact.identity.id || artifact.identity.repairLocator) return;
+          return { applicationId: initial.applicationId, page: artifact.identity as SavedCardContext['page'], subjectId: originalSubject!, sessionRevision: session.revision };
+        }, subscribe: subscribeEditorSession },
         initial: { kind: initial.kind as 'page' | 'component' | 'shell', locator: initial.locator }, onDefinition: related, onStateChange: changed, applicationKey: () => artifact.applicationKey });
       state = editor.state; deactivate = editor.deactivate; suspend = editor.suspend; dispose = async () => editor.dispose();
+      savedCardTarget = editor.savedCardTarget;
       focus = async (next, target) => editor.focus(next.visual!, target);
     } else if (initial.generic) {
       const context = new EditorRuntimeContext(originalApp);
@@ -134,6 +143,7 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
     }
   } catch (error) { await dispose(); element.remove(); throw error; }
   return {
+    get savedCardTarget() { return savedCardTarget; },
     element, state,
     async focus(next, target) {
       if (disposed || editorSessionSnapshot()?.principal?.subjectId !== originalSubject) throw new Error('Original authorized identity required.');

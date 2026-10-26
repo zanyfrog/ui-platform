@@ -1,0 +1,23 @@
+{
+  "entry": "scripts/verify-saved-card-selection.mjs",
+  "sha256": "80ac6d6994e771ebe22b96c0b9426bf8cd445540acfe000ae7d13229baa6fec1",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "exactApplicationClosure": "Enforced named .ts/.json inputs, prewritten hashes and preexecution bundle graphs; actual editor with injected memory callbacks only",
+  "driver": "tests/saved-card-selection/editor-checks.mjs",
+  "driverSha256": "11f5afe7c849cb38f928828b809f06ef80c89a979be6e20406abe78b5dce8a6b",
+  "serial": true,
+  "retries": 0,
+  "correction": "Final reader-boundary invocation: subscription uses a closure rather than receiver binding, computes initial current snapshot before registration, and verifies detached subscription exactly once. Same admitted executable graph."
+}

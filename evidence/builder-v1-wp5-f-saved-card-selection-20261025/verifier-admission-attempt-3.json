@@ -1,0 +1,23 @@
+{
+  "entry": "scripts/verify-saved-card-selection.mjs",
+  "sha256": "0c0c4030124761d66052b180af4c54a1f1afac4584c77d0a24f9c28358fe6775",
+  "node": "v24.19.0",
+  "toolImports": [
+    "node:fs",
+    "node:path",
+    "node:assert/strict",
+    "node:crypto",
+    "node:child_process",
+    "node:module",
+    "node:vm",
+    "esbuild",
+    "packages/artifacts/node_modules/typescript",
+    "happy-dom from ui-base"
+  ],
+  "exactApplicationClosure": "Enforced named .ts/.json inputs, prewritten hashes and preexecution bundle graphs; actual editor with injected memory callbacks only",
+  "driver": "tests/saved-card-selection/editor-checks.mjs",
+  "driverSha256": "7231593bf0e655752f1404649fe3c5848615b86c822a352a1276fde752bace46",
+  "serial": true,
+  "retries": 0,
+  "correction": "Final separately admitted invocation after output-projection and terminal-disposal review. Same executable closure; add unknown-field/type and reentrant/throwing observer checks. All source inputs snapshotted before execution."
+}

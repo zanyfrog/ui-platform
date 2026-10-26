@@ -1,7 +1,9 @@
 import { workspaceIdentityKey, type AuthorizedWorkspaceArtifact, type WorkspaceArtifact, type WorkspaceTarget } from '../../shared/builder-workspace.js';
+import type { SavedCardTargetReader } from '../visual-artifacts/saved-card-target.js';
 
 export interface WorkspaceEditorState { dirty: boolean; pending: boolean; conflict?: boolean; error?: string }
 export interface WorkspaceEditorAdapter {
+  readonly savedCardTarget?: SavedCardTargetReader;
   element: HTMLElement;
   focus(artifact: AuthorizedWorkspaceArtifact, target: WorkspaceTarget): Promise<void>;
   deactivate(): void;

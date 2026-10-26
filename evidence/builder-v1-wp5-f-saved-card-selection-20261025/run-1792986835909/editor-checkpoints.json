@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "actual owner original identity/hash, deep immutability, subscription isolation",
+    "source edits/Undo/Redo invalidate without cached-target resurrection",
+    "navigation candidates, root, missing and draft-generated identity refuse",
+    "ambiguous node markup",
+    "missing package",
+    "ambiguous package",
+    "missing export",
+    "missing revision",
+    "successful save publishes only completed matching baseline/hash",
+    "save failure/conflict 500 never promotes candidate",
+    "save failure/conflict 409 never promotes candidate",
+    "selection during pending save prevents late target resurrection",
+    "concurrent edits and saves cannot publish the older completed candidate",
+    "existing external-source event invalidates synchronously and requires new explicit selection",
+    "original session change refuses and late hash completion cannot restore",
+    "original owner change refuses and late hash completion cannot restore",
+    "original application change refuses and late hash completion cannot restore",
+    "superseded asynchronous selection cannot publish after newer selection",
+    "park/remount, suspension and visibility remain unavailable until explicit valid evaluation",
+    "terminal disposal removes context subscription and suppresses late completion",
+    "unsubscribe prevents stale observer delivery"
+  ]
+}
