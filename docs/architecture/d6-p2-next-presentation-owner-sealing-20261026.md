@@ -1,0 +1,15 @@
+# Proposed next increment — Presentation Owner Sealing
+
+2026-10-26. Ready for separate authorization after P2 review; not implemented or activated here.
+
+Extend the existing presentation owner to explicitly publish a closed version containing exact presentation JSON, CSS/theme/token inputs and complete required resource membership/bytes, with a seal distinct from its mutable selected-publication reference. Preserve draft editing and existing legacy Publish/rollback behavior; legacy versions remain unsealed unless an explicit owner publication is separately completed. No migration or read-triggered republishing.
+
+Before implementation, map published versus draft identities and all asset upload/remove/copy, publish, rollback, composition/theme/settings/template writers. Establish one approved owner staging/publication boundary and selection-generation fence through the existing Foundation graph/role ordering. Asset mutation must be covered before its first relevant byte change; a later locked metadata save is insufficient. Failed/missing copies, incomplete resource closure, implicit/default theme, unsupported imports/URLs/fonts/media and uncertain published versions must refuse. No suppressed copy failure may produce a seal.
+
+Reuse the approved owner-seal concepts and Foundation recovery-free mode without a new registry or global lock. Package and presentation publications retain their own authoritative identities and dependency indexes. Any shared implementation extraction must preserve the accepted package profile/protocol and be separately inventoried/tested; it is not permission to make a generic permissive source adapter.
+
+Use scoped serial, zero-retry actual owner tests on disposable roots for resource/theme membership, publication interruption, mutations, writer participation, selection concurrency, cancellation, immutable leases/retention, unsupported inputs and preserved legacy editing/Publish/rollback semantics. Admit exact code/initialization before execution; retain failures and strict no-emit typecheck evidence. No protected presentation/package/Page/Component acquisition, live publication, authority/database execution, recovery, migration or native rendering.
+
+Return to D6-R2 only after the package and presentation owner contracts can supply complete immutable closures and the trusted original Application/session/owner read-admission interface is separately defined. D6-R2 must still resolve the real saved Page/node/hash, propagate R1 mode on every acquisition edge, validate the entire closure under original authority, invalidate superseded results and keep delivery/provider unavailable. A later named operational acquisition requires separate approval of identities, roots, participating writers, private namespace safety, source visibility, bounds and redacted evidence.
+
+Cleanup remains disabled until a separately approved retention/GC contract covers lease lifetime, crashes, deletion eligibility and authority. Complete WP5-F, D6 and WP5-I remain open and unaccepted; all 40 umbrella requirements remain unchecked.

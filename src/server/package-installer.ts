@@ -12,6 +12,7 @@ import { getManifestFileName, getUnscopedPackageName, isOfficialUibPackageName, 
 import { appPath } from './applications.js';
 import { appendHistory } from './history.js';
 import { runtimeDir, platformRoot } from './paths.js';
+export { createPackagePublicationOwner, PackagePublicationError } from './package-publications.js';
 
 export type PackageInstallScope = 'platform' | 'app';
 

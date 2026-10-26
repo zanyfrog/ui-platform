@@ -1,0 +1,12 @@
+diff --git a/src/server/package-installer.ts b/src/server/package-installer.ts
+index ea08bf1..52dbd9d 100644
+--- a/src/server/package-installer.ts
++++ b/src/server/package-installer.ts
+@@ -12,6 +12,7 @@ import { getManifestFileName, getUnscopedPackageName, isOfficialUibPackageName,
+ import { appPath } from './applications.js';
+ import { appendHistory } from './history.js';
+ import { runtimeDir, platformRoot } from './paths.js';
++export { createPackagePublicationOwner, PackagePublicationError } from './package-publications.js';
+ 
+ export type PackageInstallScope = 'platform' | 'app';
+ 

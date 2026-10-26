@@ -1,0 +1,24 @@
+✔ actual owner publishes complete pinned static closure and returns immutable copy-isolated lease (197.7162ms)
+✔ incomplete staging, missing seal and legacy mutable files cannot be read or promoted (78.2804ms)
+✔ failed writes remain staged and invisible; no rollback, recovery or cleanup (60.0352ms)
+✔ rename failure leaves completed candidate invisible without overwrite or retry (144.9943ms)
+✔ duplicate publication is never overwritten; same-version changed byte refuses (180.5702ms)
+✔ missing, duplicate effective membership, extra modules/assets and unsupported writer refuse (22.7175ms)
+✔ Definition/export ambiguity or changed metadata cannot pass a pinned declaration (18.3218ms)
+✔ copy-before-await isolates staged snapshot from a competing mutable producer buffer (181.4673ms)
+✔ selection compare-and-set generation is separate from package installation; old lease retains exact bytes (301.77ms)
+✔ concurrent readers and selection writers serialize without mixed generation or seal deletion (528.0917ms)
+✔ sealed byte/index tampering or unexpected membership refuses; admitted memory lease is unchanged (270.577ms)
+✔ cancellation before admission, during staging, during reads and after lease prevents late success (260.7655ms)
+✔ finite lease expiration/disposal never deletes retained publications or redirects to mutable source (290.3368ms)
+✔ pending journal and foreign/dead lock refuse without replay, foreign deletion or PID probes (113.5353ms)
+✔ bounded contention and canceled queued acquisition never publish or reacquire callback (233.0002ms)
+✔ invalid owner, unsupported profiles and invalid limits refuse without inventing identity (50.5291ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3064.6392

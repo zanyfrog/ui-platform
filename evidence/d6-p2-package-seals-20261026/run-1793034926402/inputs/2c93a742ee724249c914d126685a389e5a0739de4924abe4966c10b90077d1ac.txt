@@ -1,0 +1,239 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as fs from 'node:fs/promises';
+import path from 'node:path';
+import { createHash } from 'node:crypto';
+import { setTimeout as delay } from 'node:timers/promises';
+import { createPackagePublicationOwner, PackagePublicationError } from '../../src/server/package-publications.js';
+import { nativeCardPublicationProfile as profile, nativeCardPublicationRevision as revision } from '../../src/server/package-publication-profile.js';
+import { withRoleBundleGraph } from '../../packages/artifacts/src/role-bundle.js';
+import { storageKey } from '../../packages/artifacts/src/storage.js';
+import { configure, inject, events } from '../d6-r1/fs-guard.js';
+const parent = path.resolve(process.cwd(), 'evidence/d6-p2-package-seals-20261026/disposable');
+const appId = '4bdc70a0-9bb4-4bf1-9dd4-3abbaf59f220';
+const traces: unknown[] = []; let pidProbes = 0;
+const originalKill = process.kill; process.kill = (() => { pidProbes++; throw new Error('FORBIDDEN_PID_PROBE'); }) as typeof process.kill;
+process.env.UI_GRAPH_LOCK_TRACE = '0'; delete process.env.UI_GRAPH_LOCK_METRICS;
+test.after(async () => {
+  process.kill = originalKill;
+  assert.equal(pidProbes, 0);
+  const file = process.env.D6_P2_TRACE_FILE!;
+  assert.ok(path.resolve(file).startsWith(path.resolve(process.cwd(), 'evidence/d6-p2-package-seals-20261026') + path.sep));
+  await fs.writeFile(file, JSON.stringify({ traces, pidProbes, nativeCodeExecuted: false }, null, 2));
+});
+async function setup() {
+  await fs.mkdir(parent, { recursive: true }); const root = await fs.mkdtemp(path.join(parent, 'owner-'));
+  const ownerRoot = path.join(root, 'owner'), graphRoot = path.join(root, 'graph'); await fs.mkdir(ownerRoot); await fs.mkdir(graphRoot);
+  configure(root);
+  const owner = await createPackagePublicationOwner({ root: ownerRoot, graphRoot, owner: { kind: 'application', id: appId } });
+  const files = new Map<string, Uint8Array>();
+  for (const r of profile.resources) {
+    const bytes = await fs.readFile(path.resolve(process.cwd(), 'tests/d6-p2/bytes', r.sha256 + '.txt'));
+    assert.equal(createHash('sha256').update(bytes).digest('hex'), r.sha256); files.set(r.id, new Uint8Array(bytes));
+  }
+  const snapshot = { producer: 'owner-staged-native-card-v1' as const, revision, files };
+  const space = path.join(ownerRoot, '.uib/package-publications-v1');
+  return { root, ownerRoot, graphRoot, owner, files, snapshot, space };
+}
+async function fixture(run: (f: Awaited<ReturnType<typeof setup>>) => Promise<void>) {
+  const f = await setup();
+  try { await run(f); }
+  finally {
+    traces.push({ fixture: f.root, events: [...events] }); inject();
+    assert.ok(path.resolve(f.root).startsWith(parent + path.sep + 'owner-'));
+    async function writable(dir: string) { for (const e of await fs.readdir(dir, { withFileTypes: true })) { const p = path.join(dir, e.name); if (e.isDirectory()) await writable(p); else await fs.chmod(p, 0o666); } }
+    await writable(f.root); await fs.rm(f.root, { recursive: true, force: true });
+  }
+}
+const refused = (expected: string) => (error: any) => { assert.ok(error instanceof PackagePublicationError); assert.equal(error.code, expected); assert.equal(error.cause, undefined); assert.ok(!String(error).includes(process.cwd())); return true; };
+const baseId = profile.resources[0].id;
+async function publish(f: Awaited<ReturnType<typeof setup>>) { return f.owner.publish(f.snapshot, { timeoutMs: 1000 }); }
+test('actual owner publishes complete pinned static closure and returns immutable copy-isolated lease', () => fixture(async f => {
+  const id = await publish(f); assert.match(id, /^pub_[a-f0-9]{64}$/);
+  const lease = await f.owner.read(id, 1000);
+  assert.equal(lease.index.owner.id, appId); assert.equal(lease.index.resources.length, 17);
+  assert.equal(lease.index.implementation.componentId, profile.componentId);
+  assert.equal(lease.index.implementation.definitionRevision, null);
+  assert.equal(lease.index.implementation.definitionBinding.implementation.importPath, '@ui-base/ui/card');
+  assert.equal(lease.index.implementation.definitionBinding.implementation.exportName, 'UibCard');
+  assert.equal(lease.index.implementation.definitionBinding.ownership.scope, 'platform');
+  assert.ok(Object.isFrozen(lease.index.resources)); assert.ok(Object.isFrozen(lease.index.resources[0].dependencies));
+  const bytes = lease.read(baseId), original = bytes[0]; bytes[0] ^= 1;
+  assert.equal(lease.read(baseId)[0], original); assert.deepEqual(lease.read(baseId), f.files.get(baseId));
+  lease.dispose(); assert.throws(() => lease.read(baseId), refused('DISPOSED'));
+  assert.ok((await fs.stat(path.join(f.space, 'sealed', id))).isDirectory());
+}));
+test('incomplete staging, missing seal and legacy mutable files cannot be read or promoted', () => fixture(async f => {
+  const fake = 'pub_' + 'a'.repeat(64);
+  await fs.mkdir(path.join(f.space, 'staging', fake), { recursive: true });
+  await fs.writeFile(path.join(f.space, 'staging', fake, 'index.json'), '{}');
+  await fs.writeFile(path.join(f.ownerRoot, 'legacy-package.json'), '{"version":"0.5.1"}');
+  await assert.rejects(f.owner.read(fake, 1000), refused('UNSEALED'));
+  await assert.rejects(f.owner.readSelected(1, 1000), refused('UNSEALED'));
+  assert.equal(await fs.readFile(path.join(f.ownerRoot, 'legacy-package.json'), 'utf8'), '{"version":"0.5.1"}');
+}));
+test('failed writes remain staged and invisible; no rollback, recovery or cleanup', () => fixture(async f => {
+  inject((op, file) => { if (op === 'handle.writeFile' && file.includes(path.sep + 'bytes' + path.sep)) throw new Error('secret native file fault'); });
+  await assert.rejects(publish(f), refused('IO_UNCERTAIN')); inject();
+  assert.equal((await fs.readdir(path.join(f.space, 'sealed'))).length, 0);
+  assert.equal((await fs.readdir(path.join(f.space, 'staging'))).length, 1);
+  assert.ok(!events.some(e => e.op === 'rm' && e.file.includes('package-publications-v1')));
+}));
+test('rename failure leaves completed candidate invisible without overwrite or retry', () => fixture(async f => {
+  inject((op, file) => { if (op === 'rename' && file.includes(path.sep + 'staging' + path.sep)) throw new Error('rename rejected'); });
+  await assert.rejects(publish(f), refused('IO_UNCERTAIN')); inject();
+  assert.deepEqual(await fs.readdir(path.join(f.space, 'sealed')), []);
+  assert.equal(events.filter(e => e.op === 'rename').length, 1);
+}));
+test('duplicate publication is never overwritten; same-version changed byte refuses', () => fixture(async f => {
+  const id = await publish(f), index = await fs.readFile(path.join(f.space, 'sealed', id, 'index.json'));
+  await assert.rejects(publish(f), refused('PUBLICATION_EXISTS'));
+  f.files.get(baseId)![0] ^= 1;
+  await assert.rejects(publish(f), refused('CONTENT_CHANGED'));
+  assert.deepEqual(await fs.readFile(path.join(f.space, 'sealed', id, 'index.json')), index);
+  assert.deepEqual(await fs.readdir(path.join(f.space, 'sealed')), [id]);
+}));
+test('missing, duplicate effective membership, extra modules/assets and unsupported writer refuse', () => fixture(async f => {
+  const original = f.files.get(baseId)!; f.files.delete(baseId);
+  await assert.rejects(publish(f), refused('MEMBERSHIP_INVALID')); f.files.set(baseId, original);
+  f.files.set('duplicate-card', original); await assert.rejects(publish(f), refused('MEMBERSHIP_INVALID')); f.files.delete('duplicate-card');
+  f.files.set('external-image.png', original); await assert.rejects(publish(f), refused('MEMBERSHIP_INVALID')); f.files.delete('external-image.png');
+  await assert.rejects(f.owner.publish({ ...f.snapshot, producer: 'npm-discovery' } as any), refused('UNSUPPORTED_PRODUCER'));
+  await assert.rejects(f.owner.publish({ ...f.snapshot, revision: 'same-version-label' }), refused('UNSUPPORTED_PRODUCER'));
+  assert.ok(!events.some(e => e.op.startsWith('open')));
+}));
+test('Definition/export ambiguity or changed metadata cannot pass a pinned declaration', () => fixture(async f => {
+  const definition = profile.resources.find(r => r.id.endsWith('ui.component.json'))!;
+  const packageJson = profile.resources.find(r => r.id === '@ui-base/ui/package.json')!;
+  for (const resource of [definition, packageJson]) {
+    const before = f.files.get(resource.id)!;
+    const value = JSON.parse(Buffer.from(before).toString('utf8'));
+    if (resource === definition) value.components.push(value.components.find((c: any) => c.identity?.componentId === profile.componentId));
+    else value.exports['./card'] = './ambiguous.js';
+    f.files.set(resource.id, Buffer.from(JSON.stringify(value)));
+    await assert.rejects(publish(f), refused('CONTENT_CHANGED')); f.files.set(resource.id, before);
+  }
+}));
+test('copy-before-await isolates staged snapshot from a competing mutable producer buffer', () => fixture(async f => {
+  const promise = publish(f); f.files.get(baseId)![0] ^= 1;
+  const id = await promise, lease = await f.owner.read(id, 1000);
+  assert.notDeepEqual(lease.read(baseId), f.files.get(baseId)); lease.dispose();
+}));
+test('selection compare-and-set generation is separate from package installation; old lease retains exact bytes', () => fixture(async f => {
+  const id = await publish(f), first = await f.owner.select(id, 0);
+  assert.equal(first.generation, 1); assert.equal(first.owner.id, appId);
+  const lease = await f.owner.readSelected(1, 1000);
+  const second = await f.owner.select(id, 1); assert.equal(second.generation, 2);
+  await assert.rejects(f.owner.select(id, 1), refused('SELECTION_CHANGED'));
+  await assert.rejects(f.owner.readSelected(1, 1000), refused('SELECTION_CHANGED'));
+  assert.deepEqual(lease.read(baseId), f.files.get(baseId)); lease.dispose();
+  assert.ok(!events.some(e => /app\.manifest\.json|package\.json$/.test(e.file)));
+}));
+test('concurrent readers and selection writers serialize without mixed generation or seal deletion', () => fixture(async f => {
+  const id = await publish(f); await f.owner.select(id, 0);
+  const [a,b] = await Promise.all([f.owner.read(id, 1000), f.owner.read(id, 1000)]);
+  const results = await Promise.allSettled([f.owner.select(id, 1), f.owner.select(id, 1)]);
+  assert.equal(results.filter(r => r.status === 'fulfilled').length, 1);
+  assert.equal(results.filter(r => r.status === 'rejected' && r.reason.code === 'SELECTION_CHANGED').length, 1);
+  assert.deepEqual(a.read(baseId), b.read(baseId)); a.dispose(); b.dispose();
+  assert.ok(!events.some(e => e.op === 'rm' && e.file.includes(path.sep + 'sealed' + path.sep)));
+}));
+test('sealed byte/index tampering or unexpected membership refuses; admitted memory lease is unchanged', () => fixture(async f => {
+  const id = await publish(f), lease = await f.owner.read(id, 1000), directory = path.join(f.space, 'sealed', id);
+  const target = path.join(directory, 'bytes', profile.resources[0].sha256), original = await fs.readFile(target);
+  await fs.chmod(target, 0o666); const changed = Buffer.from(original); changed[0] ^= 1; await fs.writeFile(target, changed);
+  await assert.rejects(f.owner.read(id, 1000), refused('CONTENT_CHANGED')); assert.deepEqual(lease.read(baseId), new Uint8Array(original)); lease.dispose();
+  await fs.writeFile(target, original); await fs.writeFile(path.join(directory, 'bytes', 'extra'), 'unexpected');
+  await assert.rejects(f.owner.read(id, 1000), refused('MEMBERSHIP_INVALID'));
+  await fs.rm(path.join(directory, 'bytes', 'extra')); const index = path.join(directory, 'index.json'); await fs.chmod(index, 0o666); await fs.writeFile(index, '{}');
+  await assert.rejects(f.owner.read(id, 1000), refused('CONTENT_CHANGED'));
+}));
+test('cancellation before admission, during staging, during reads and after lease prevents late success', () => fixture(async f => {
+  const pre = new AbortController(); pre.abort(); await assert.rejects(publishWith(pre.signal), refused('CANCELED'));
+  async function publishWith(signal: AbortSignal) { return f.owner.publish(f.snapshot, { signal }); }
+  const mid = new AbortController(); inject((op,file) => { if (op === 'handle.sync' && file.includes('package-publications-v1')) mid.abort(); });
+  await assert.rejects(publishWith(mid.signal), refused('CANCELED')); inject();
+  assert.deepEqual(await fs.readdir(path.join(f.space, 'sealed')), []);
+  const id = await publish(f), readAbort = new AbortController();
+  inject((op,file) => { if (op === 'readFile' && file.includes(path.sep + 'bytes' + path.sep)) readAbort.abort(); });
+  await assert.rejects(f.owner.read(id, 1000, { signal: readAbort.signal }), refused('CANCELED')); inject();
+  const after = new AbortController(), lease = await f.owner.read(id, 1000, { signal: after.signal }); after.abort();
+  assert.throws(() => lease.read(baseId), refused('CANCELED')); lease.dispose();
+}));
+test('finite lease expiration/disposal never deletes retained publications or redirects to mutable source', () => fixture(async f => {
+  const id = await publish(f), lease = await f.owner.read(id, 15); await delay(25);
+  assert.throws(() => lease.read(baseId), refused('EXPIRED')); lease.dispose();
+  assert.ok((await fs.stat(path.join(f.space, 'sealed', id))).isDirectory());
+  const fresh = await f.owner.read(id, 1000); assert.deepEqual(fresh.read(baseId), f.files.get(baseId)); fresh.dispose();
+  await assert.rejects(f.owner.read(id, 30001), refused('INVALID_INPUT'));
+}));
+test('pending journal and foreign/dead lock refuse without replay, foreign deletion or PID probes', () => fixture(async f => {
+  const journal = path.join(f.ownerRoot, '.uib/transactions', 'b'.repeat(64), 'pending.json');
+  await fs.mkdir(path.dirname(journal), { recursive: true }); await fs.writeFile(journal, '{interrupted secret');
+  await assert.rejects(publish(f), refused('RECOVERY_REQUIRED'));
+  assert.ok(!events.some(e => e.op === 'readFile' && e.file === journal)); await fs.rm(journal);
+  const lock = path.join(f.graphRoot, '.uib/locks', storageKey('visual-runtime-graph-v1') + '.lock');
+  await fs.mkdir(path.dirname(lock), { recursive: true }); await fs.writeFile(lock, '7654321'); configure(f.root);
+  await assert.rejects(f.owner.publish(f.snapshot, { timeoutMs: 35 }), refused('BUSY'));
+  assert.equal(await fs.readFile(lock, 'utf8'), '7654321'); assert.ok(!events.some(e => e.op === 'rm'));
+}));
+test('bounded contention and canceled queued acquisition never publish or reacquire callback', () => fixture(async f => {
+  let enter!: () => void, release!: () => void;
+  const ready = new Promise<void>(r => enter = r), held = new Promise<void>(r => release = r);
+  const holder = withRoleBundleGraph(f.graphRoot, async () => { enter(); await held; }, { recovery: 'refuse' }); await ready;
+  const abort = new AbortController(), pending = f.owner.publish(f.snapshot, { signal: abort.signal, timeoutMs: 500 }); abort.abort();
+  await assert.rejects(pending, refused('CANCELED'));
+  await assert.rejects(f.owner.publish(f.snapshot, { timeoutMs: 30 }), refused('BUSY'));
+  release(); await holder; const id = await publish(f); assert.match(id, /^pub_/);
+}));
+test('invalid owner, unsupported profiles and invalid limits refuse without inventing identity', () => fixture(async f => {
+  await assert.rejects(createPackagePublicationOwner({ root: f.ownerRoot, graphRoot: f.graphRoot, owner: { kind: 'application', id: 'directory-label' } }), refused('INVALID_INPUT'));
+  await assert.rejects(f.owner.publish(f.snapshot, { timeoutMs: 5001 }), refused('INVALID_INPUT'));
+  await assert.rejects(f.owner.publish(f.snapshot, { timeoutMs: 0 }), refused('INVALID_INPUT'));
+  await assert.rejects(f.owner.read('live-package-path', 1000), refused('INVALID_INPUT'));
+}));
+test('concurrent publishers cannot overwrite the same content identity', () => fixture(async f => {
+  const results = await Promise.allSettled([publish(f), publish(f)]);
+  assert.equal(results.filter(r => r.status === 'fulfilled').length, 1);
+  assert.equal(results.filter(r => r.status === 'rejected' && r.reason.code === 'PUBLICATION_EXISTS').length, 1);
+  assert.equal((await fs.readdir(path.join(f.space, 'sealed'))).length, 1);
+}));
+test('interrupted selection write preserves previous generation and seal without recovery', () => fixture(async f => {
+  const id = await publish(f); await f.owner.select(id, 0);
+  inject((op, file) => { if (op === 'handle.writeFile' && file.includes('selected.visual.json.') && file.endsWith('.tmp')) throw new Error('interrupted pointer write'); });
+  await assert.rejects(f.owner.select(id, 1), refused('IO_UNCERTAIN')); inject();
+  const lease = await f.owner.readSelected(1, 1000); assert.equal(lease.publicationId, id); lease.dispose();
+  await assert.rejects(f.owner.readSelected(2, 1000), refused('SELECTION_CHANGED'));
+}));
+test('missing required sealed member or wrong original Application owner refuses', () => fixture(async f => {
+  const id = await publish(f);
+  const wrong = await createPackagePublicationOwner({ root: f.ownerRoot, graphRoot: f.graphRoot, owner: { kind: 'application', id: '2bdc70a0-9bb4-4bf1-9dd4-3abbaf59f220' } });
+  await assert.rejects(wrong.read(id, 1000), refused('CONTENT_CHANGED'));
+  const blob = path.join(f.space, 'sealed', id, 'bytes', profile.resources[0].sha256);
+  await fs.chmod(blob, 0o666); await fs.rm(blob);
+  await assert.rejects(f.owner.read(id, 1000), refused('MEMBERSHIP_INVALID'));
+}));
+test('cancellation racing after commit cannot select or return a late target; completed seal stays verifiable', () => fixture(async f => {
+  const abort = new AbortController();
+  // The guard sees the final destination before rename; queue abort for the
+  // next IO completion, allowing either legal side of the commit race.
+  inject((op, file) => { if (op === 'rename' && file.includes(path.sep + 'sealed' + path.sep)) setTimeout(() => abort.abort(), 0); });
+  let completed: string | undefined;
+  try { completed = await f.owner.publish(f.snapshot, { signal: abort.signal }); }
+  catch (error) { assert.ok(error instanceof PackagePublicationError); assert.equal(error.code, 'CANCELED'); }
+  inject(); await delay(5);
+  const sealed = await fs.readdir(path.join(f.space, 'sealed'));
+  assert.ok(sealed.length <= 1);
+  if (completed) assert.equal(completed, sealed[0]);
+  for (const id of sealed) { const lease = await f.owner.read(id, 1000); assert.equal(lease.index.resources.length, 17); lease.dispose(); }
+  await assert.rejects(f.owner.readSelected(1, 1000), refused('UNSEALED'));
+}));
+test('unsafe sealed namespace and uncertain lock cleanup refuse without a result', () => fixture(async f => {
+  const id = await publish(f);
+  inject((op, file) => { if (op === 'handle.closed' && file.endsWith(storageKey('visual-runtime-graph-v1') + '.lock')) throw new Error('close outcome uncertain'); });
+  await assert.rejects(f.owner.read(id, 1000), refused('IO_UNCERTAIN')); inject();
+  // Explicit test-fixture reset only; product has no cleanup or recovery branch.
+  const lock = path.join(f.graphRoot, '.uib/locks', storageKey('visual-runtime-graph-v1') + '.lock'); await fs.rm(lock);
+  const sealed = path.join(f.space, 'sealed'); await fs.rename(sealed, path.join(f.space, 'retained-sealed')); await fs.writeFile(sealed, 'not a directory');
+  await assert.rejects(f.owner.read(id, 1000), refused('UNSAFE'));
+}));

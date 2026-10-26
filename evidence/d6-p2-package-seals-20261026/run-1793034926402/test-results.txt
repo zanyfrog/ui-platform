@@ -1,0 +1,29 @@
+✔ actual owner publishes complete pinned static closure and returns immutable copy-isolated lease (214.6647ms)
+✔ incomplete staging, missing seal and legacy mutable files cannot be read or promoted (84.4075ms)
+✔ failed writes remain staged and invisible; no rollback, recovery or cleanup (67.9843ms)
+✔ rename failure leaves completed candidate invisible without overwrite or retry (149.2002ms)
+✔ duplicate publication is never overwritten; same-version changed byte refuses (171.991ms)
+✔ missing, duplicate effective membership, extra modules/assets and unsupported writer refuse (19.4919ms)
+✔ Definition/export ambiguity or changed metadata cannot pass a pinned declaration (20.3727ms)
+✔ copy-before-await isolates staged snapshot from a competing mutable producer buffer (215.6628ms)
+✔ selection compare-and-set generation is separate from package installation; old lease retains exact bytes (378.8346ms)
+✔ concurrent readers and selection writers serialize without mixed generation or seal deletion (457.1259ms)
+✔ sealed byte/index tampering or unexpected membership refuses; admitted memory lease is unchanged (266.3273ms)
+✔ cancellation before admission, during staging, during reads and after lease prevents late success (240.4345ms)
+✔ finite lease expiration/disposal never deletes retained publications or redirects to mutable source (256.3851ms)
+✔ pending journal and foreign/dead lock refuse without replay, foreign deletion or PID probes (106.4116ms)
+✔ bounded contention and canceled queued acquisition never publish or reacquire callback (233.0363ms)
+✔ invalid owner, unsupported profiles and invalid limits refuse without inventing identity (50.472ms)
+✔ concurrent publishers cannot overwrite the same content identity (261.7254ms)
+✔ interrupted selection write preserves previous generation and seal without recovery (440.884ms)
+✔ missing required sealed member or wrong original Application owner refuses (246.878ms)
+✔ cancellation racing after commit cannot select or return a late target; completed seal stays verifiable (237.9521ms)
+✔ unsafe sealed namespace and uncertain lock cleanup refuse without a result (241.255ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4492.037

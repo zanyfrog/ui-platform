@@ -1,0 +1,158 @@
+// Exact accepted native Card implementation profile; source bytes are never executed here.
+export const nativeCardPublicationProfile = {
+  "schema": "native-card-owner-profile-v1",
+  "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+  "packageId": "@ui-base/ui",
+  "packageVersion": "0.5.1",
+  "definitionRevision": null,
+  "definitionDigest": "sha256:9445a78d24cf269e3c89193362f17f384f7786550952e0e27dff52d0c7293656",
+  "nativeAdmissionClosureDigest": "sha256:c5b2fe68d5ddeec6d2a5a4a9bdcbe78b1312dd1ddac4d8d716a103381a417227",
+  "exports": {
+    "card": "./src/layout/uib-card.js",
+    "renderer": "./src/platform/renderer.js",
+    "registry": "./src/platform/registry.js"
+  },
+  "resources": [
+    {
+      "id": "@ui-base/core/package.json",
+      "sha256": "a6db0302261f806f3afe9a1becfe63c80d5abaa3c2717424b91c809eef068e98",
+      "byteLength": 629,
+      "mediaType": "application/json",
+      "dependencies": []
+    },
+    {
+      "id": "@ui-base/core/src/base-element.js",
+      "sha256": "52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097",
+      "byteLength": 3277,
+      "mediaType": "text/javascript",
+      "dependencies": [
+        "@ui-base/core/src/utils.js"
+      ]
+    },
+    {
+      "id": "@ui-base/core/src/index.js",
+      "sha256": "70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a",
+      "byteLength": 167,
+      "mediaType": "text/javascript",
+      "dependencies": [
+        "@ui-base/core/src/base-element.js",
+        "@ui-base/core/src/localization.js",
+        "@ui-base/core/src/metadata.js",
+        "@ui-base/core/src/utils.js",
+        "@ui-base/core/src/validation.js"
+      ]
+    },
+    {
+      "id": "@ui-base/core/src/localization.js",
+      "sha256": "807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f",
+      "byteLength": 2018,
+      "mediaType": "text/javascript",
+      "dependencies": []
+    },
+    {
+      "id": "@ui-base/core/src/metadata.js",
+      "sha256": "0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca",
+      "byteLength": 647,
+      "mediaType": "text/javascript",
+      "dependencies": []
+    },
+    {
+      "id": "@ui-base/core/src/utils.js",
+      "sha256": "ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1",
+      "byteLength": 6535,
+      "mediaType": "text/javascript",
+      "dependencies": []
+    },
+    {
+      "id": "@ui-base/core/src/validation.js",
+      "sha256": "1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4",
+      "byteLength": 3321,
+      "mediaType": "text/javascript",
+      "dependencies": []
+    },
+    {
+      "id": "@ui-base/icons/package.json",
+      "sha256": "ba6d6d2513977cc66dd5294284990f74c30a3412d76ad804ca2aeb41d7061257",
+      "byteLength": 533,
+      "mediaType": "application/json",
+      "dependencies": []
+    },
+    {
+      "id": "@ui-base/icons/src/icon-registry.js",
+      "sha256": "a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3",
+      "byteLength": 2512,
+      "mediaType": "text/javascript",
+      "dependencies": []
+    },
+    {
+      "id": "@ui-base/icons/src/uib-icon.js",
+      "sha256": "e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30",
+      "byteLength": 2388,
+      "mediaType": "text/javascript",
+      "dependencies": [
+        "@ui-base/core/src/index.js",
+        "@ui-base/icons/src/icon-registry.js"
+      ]
+    },
+    {
+      "id": "@ui-base/ui/package.json",
+      "sha256": "308a510a0ffb8693bb9c93dee15e406ecf9cb4f445cd9954a74b2d08b2cb8edd",
+      "byteLength": 2511,
+      "mediaType": "application/json",
+      "dependencies": []
+    },
+    {
+      "id": "@ui-base/ui/src/layout/index.js",
+      "sha256": "e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a",
+      "byteLength": 33754,
+      "mediaType": "text/javascript",
+      "dependencies": [
+        "@ui-base/core/src/index.js",
+        "@ui-base/icons/src/uib-icon.js"
+      ]
+    },
+    {
+      "id": "@ui-base/ui/src/layout/uib-card.js",
+      "sha256": "4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45",
+      "byteLength": 39,
+      "mediaType": "text/javascript",
+      "dependencies": [
+        "@ui-base/ui/src/layout/index.js"
+      ]
+    },
+    {
+      "id": "@ui-base/ui/src/platform/definition.js",
+      "sha256": "89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2",
+      "byteLength": 10865,
+      "mediaType": "text/javascript",
+      "dependencies": []
+    },
+    {
+      "id": "@ui-base/ui/src/platform/registry.js",
+      "sha256": "fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85",
+      "byteLength": 3890,
+      "mediaType": "text/javascript",
+      "dependencies": [
+        "@ui-base/ui/src/platform/definition.js"
+      ]
+    },
+    {
+      "id": "@ui-base/ui/src/platform/renderer.js",
+      "sha256": "5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4",
+      "byteLength": 4189,
+      "mediaType": "text/javascript",
+      "dependencies": [
+        "@ui-base/ui/src/layout/uib-card.js",
+        "@ui-base/ui/src/platform/definition.js"
+      ]
+    },
+    {
+      "id": "@ui-base/ui/ui.component.json",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469",
+      "byteLength": 28739,
+      "mediaType": "application/json",
+      "dependencies": []
+    }
+  ]
+} as const;
+export const nativeCardPublicationRevision = 'ab2f84d0a36002a961c65418cfde2cdada7054f7fb617fa0b02303daa35085be';
