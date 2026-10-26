@@ -1,0 +1,6 @@
+10:import { readRoleBundle, saveRoleBundle, recoverRoleBundleRoot, type RoleBundleLocation, type RoleBundleReadOptions } from '@ui-platform/artifacts/storage';
+40:  async list(options: RoleBundleReadOptions = {}): Promise<ArtifactBundle[]> {
+42:    await recoverRoleBundleRoot(this.root, options);
+76:  async read(locator: string, options: RoleBundleReadOptions = {}): Promise<ArtifactBundle> {
+81:    const snapshot = await readRoleBundle(location, options);
+119:    const location = await this.location(locator), original = await readRoleBundle(location), stem = path.basename(location.anchor, '.visual.json');

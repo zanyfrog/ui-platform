@@ -1,0 +1,76 @@
+{
+  "preservation": {
+    "operationalPublication": false,
+    "headBefore": "41ca1ab8b2eab0db10db0c1acf7b73bc893bd8a8",
+    "headAfter": "41ca1ab8b2eab0db10db0c1acf7b73bc893bd8a8",
+    "automaticSealing": false,
+    "existingRuntimeFilesModified": [
+      "src/server/application-presentation.ts"
+    ],
+    "protectedAcquisition": false,
+    "changed": [
+      {
+        "after": "e63578046afe69bfea5b43e00f62b566ea3d3952c1197ce5a91e2b0614b2b4b7",
+        "path": "src/server/application-presentation.ts",
+        "before": "7f203773a724d2431a04ffc2d089ee59dd8f04f893dfe02157fd386ac9b46d16"
+      }
+    ],
+    "missing": [],
+    "baselineCount": 1862,
+    "change": "Exact pure owner function extraction and compatible additive imports/reexports; normal edit/Publish/copy/rollback/selection bodies equivalent",
+    "unchangedCount": 1861
+  },
+  "verification": "Historical evidence read and hashed; no historical product/test execution rerun.",
+  "result": {
+    "passed": true,
+    "tests": 20,
+    "serial": true,
+    "retries": 0,
+    "strictTypecheckDiagnostics": 0,
+    "sourceHashesUnchanged": true,
+    "normalBackendOrProtectedRead": false
+  },
+  "rawTestSummary": [
+    "ℹ tests 20",
+    "ℹ suites 0",
+    "ℹ pass 20",
+    "ℹ fail 0",
+    "ℹ cancelled 0",
+    "ℹ skipped 0",
+    "ℹ todo 0",
+    "ℹ duration_ms 3011.1518"
+  ],
+  "retainedScopes": [
+    {
+      "run": "run-1793036827265",
+      "admissionExists": true,
+      "rawOutputExists": true
+    },
+    {
+      "run": "run-1793036957464",
+      "admissionExists": true,
+      "rawOutputExists": true
+    },
+    {
+      "run": "run-1793037045417",
+      "admissionExists": true,
+      "rawOutputExists": true
+    },
+    {
+      "run": "run-1793037354450",
+      "admissionExists": true,
+      "rawOutputExists": true
+    }
+  ],
+  "digestEntries": 123,
+  "compatibility": {
+    "workflowBodiesByteEquivalentAfterLineEndingNormalization": true,
+    "pureFunctionBodiesExact": true,
+    "originalSourceHash": "7f203773a724d2431a04ffc2d089ee59dd8f04f893dfe02157fd386ac9b46d16",
+    "noAutomaticPublishHook": true,
+    "normalBackendExecuted": false
+  },
+  "mismatches": [],
+  "typecheckDiagnosticBytes": 0,
+  "inventoryEntries": 124
+}

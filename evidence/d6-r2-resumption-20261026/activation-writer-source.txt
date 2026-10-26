@@ -1,0 +1,17 @@
+export async function setAppPackageDeclaration(
+  keyInput: string,
+  packageName: string,
+  declaration: AppPackageDeclaration,
+): Promise<AppManifest> {
+  assertPackageName(packageName);
+  const manifest = await ensureAppManifest(keyInput);
+  const next: AppManifest = {
+    ...manifest,
+    updatedAt: new Date().toISOString(),
+    packages: {
+      ...manifest.packages,
+      [packageName]: normalizePackageDeclaration(declaration),
+    },
+  };
+  await atomicWriteJson(appManifestPathFor(keyInput), next);
+  return next;

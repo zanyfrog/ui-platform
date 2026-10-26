@@ -1,0 +1,5 @@
+  if (options.recovery !== undefined && options.recovery !== 'refuse') throw new Error('Invalid artifact recovery mode.');
+  const key = path.join(root, storageKey(identity));
+  const held = (heldLocks.getStore() ?? []).filter(lock => lock.active);
+  if (held.some(lock => lock.key === key) || identity === 'visual-runtime-graph-v1' && held.length)
+    throw new Error('Artifact lock order violation: nested or role-to-graph acquisition.');
