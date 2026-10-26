@@ -1,0 +1,76 @@
+✔ healthy role, graph and actual Visual read/list preserve bytes/hash and release only own locks (157.0243ms)
+✔ valid foreign/dead owner remains busy without probe, callback, reclaim or guard (58.6548ms)
+✔ empty, malformed and ambiguous owner publication stays unresolved (71.1715ms)
+✔ recovery guard and nonfile lock refuse before any acquisition or owner read (25.3601ms)
+✔ pending, malformed, legacy and missing-anchor journals refuse without reading or replaying bytes (128.2385ms)
+✔ unknown transaction membership and injected status failure are sanitized recovery refusals (29.52ms)
+✖ default recovery mode still reclaims injected dead fixture lock and restores retained journal (888.9195ms)
+✖ default save admission and normal source writing remain functional (916.5041ms)
+✔ bounded queue contention and cancellation do not enter or jump a live holder (78.7433ms)
+✔ foreign contention cancellation and pre-abort preserve exact reason without mutation (49.0131ms)
+✔ callback error is returned once without acquisition retry (26.1547ms)
+✔ canonical role and graph identities, lock ordering and nested refusal remain exact (55.2445ms)
+✔ cleanup failure prevents success and never reacquires admitted work (15.6583ms)
+✔ Visual list refuses a locked sibling and preserves default diagnostic behavior (127.737ms)
+✔ invalid recovery mode refuses before coordination, and signal abort during root check stops capture (36.5012ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 13
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2776.1105
+
+✖ failing tests:
+
+test at evidence\d6-r1-recovery-free-read-20261026\run-1793025701950\recovery-free.test.mjs:1160:1
+✖ default recovery mode still reclaims injected dead fixture lock and restores retained journal (888.9195ms)
+  Error: Source recovery is required. Reads and writes are blocked until recovery succeeds.
+      at withArtifactLock.timeoutMs (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:529:13)
+      at async file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:295:20
+      ... 2 lines matching cause stack trace ...
+      at async recoverRoleBundleRoot (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:587:7)
+      at async file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:1167:3
+      at async fixture (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:1045:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    code: 'source.recovery-required',
+    [cause]: Error: EPERM: operation not permitted, rename 'C:\Users\zanyf\AppData\Local\Packages\sandbox.{7da4be70-e68f-48d8-9aff-6cbb1200ad75}\AC\Temp\d6-r1-kUSCxS\one\page.css.7b961860-7a2c-4da0-92cc-589b056deea0.tmp' -> 'C:\Users\zanyf\AppData\Local\Packages\sandbox.{7da4be70-e68f-48d8-9aff-6cbb1200ad75}\AC\Temp\d6-r1-kUSCxS\one\page.css'
+        at async Module.rename (node:internal/fs/promises:842:10)
+        at async retryWindowsFileOperation (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:87:14)
+        at async atomicWriteText (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:108:5)
+        at async writeSnapshot (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:210:10)
+        at async recoverTransaction (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:445:3)
+        at async withArtifactLock.timeoutMs (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:525:12)
+        at async file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:295:20
+        at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:408:16)
+        at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:288:16)
+        at async recoverRoleBundleRoot (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:587:7) {
+      errno: -4048,
+      code: 'EPERM',
+      syscall: 'rename',
+      path: 'C:\\Users\\zanyf\\AppData\\Local\\Packages\\sandbox.{7da4be70-e68f-48d8-9aff-6cbb1200ad75}\\AC\\Temp\\d6-r1-kUSCxS\\one\\page.css.7b961860-7a2c-4da0-92cc-589b056deea0.tmp',
+      dest: 'C:\\Users\\zanyf\\AppData\\Local\\Packages\\sandbox.{7da4be70-e68f-48d8-9aff-6cbb1200ad75}\\AC\\Temp\\d6-r1-kUSCxS\\one\\page.css'
+    }
+  }
+
+test at evidence\d6-r1-recovery-free-read-20261026\run-1793025701950\recovery-free.test.mjs:1171:1
+✖ default save admission and normal source writing remain functional (916.5041ms)
+  Error: EPERM: operation not permitted, rename 'C:\Users\zanyf\AppData\Local\Packages\sandbox.{7da4be70-e68f-48d8-9aff-6cbb1200ad75}\AC\Temp\d6-r1-x4aJgu\.uib\transactions\fe110289b7fbad2cfd94cfe00570ae7357b316c26ef45df61f2d05b702475bb9\pending.json.1a811c08-ce43-476f-923e-557ab87d5a5f.tmp' -> 'C:\Users\zanyf\AppData\Local\Packages\sandbox.{7da4be70-e68f-48d8-9aff-6cbb1200ad75}\AC\Temp\d6-r1-x4aJgu\.uib\transactions\fe110289b7fbad2cfd94cfe00570ae7357b316c26ef45df61f2d05b702475bb9\pending.json'
+      at async Module.rename (node:internal/fs/promises:842:10)
+      at async retryWindowsFileOperation (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:87:14)
+      at async atomicWriteText (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:108:5)
+      at async commitTransaction (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:458:3)
+      at async file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:637:7
+      at async file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:295:20
+      at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:408:16)
+      at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:288:16)
+      at async file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:1175:17
+      at async fixture (file:///C:/Projects/Modular/ui-platform/evidence/d6-r1-recovery-free-read-20261026/run-1793025701950/recovery-free.test.mjs:1045:5) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'rename',
+    path: 'C:\\Users\\zanyf\\AppData\\Local\\Packages\\sandbox.{7da4be70-e68f-48d8-9aff-6cbb1200ad75}\\AC\\Temp\\d6-r1-x4aJgu\\.uib\\transactions\\fe110289b7fbad2cfd94cfe00570ae7357b316c26ef45df61f2d05b702475bb9\\pending.json.1a811c08-ce43-476f-923e-557ab87d5a5f.tmp',
+    dest: 'C:\\Users\\zanyf\\AppData\\Local\\Packages\\sandbox.{7da4be70-e68f-48d8-9aff-6cbb1200ad75}\\AC\\Temp\\d6-r1-x4aJgu\\.uib\\transactions\\fe110289b7fbad2cfd94cfe00570ae7357b316c26ef45df61f2d05b702475bb9\\pending.json'
+  }

@@ -12,6 +12,8 @@ export interface RoleBundleLocation {
   paths: readonly string[];
 }
 export interface RoleBundleSnapshot { files: Record<string, string | null>; checksum: string }
+/** Acquisition options only; never a permission grant or a freshness claim. */
+export type RoleBundleReadOptions = ArtifactLockOptions;
 export class RoleBundleRecoveryRequiredError extends Error {
   readonly code = 'source.recovery-required';
   constructor(cause: unknown) { super('Source recovery is required. Reads and writes are blocked until recovery succeeds.', { cause }); }
@@ -55,23 +57,34 @@ function validateSnapshot(snapshot: Snapshot, paths: readonly string[]) {
   if (!snapshot || typeof snapshot !== 'object' || Array.isArray(snapshot) || Object.keys(snapshot).length !== paths.length || paths.some(name => !Object.hasOwn(snapshot, name) || snapshot[name] !== null && typeof snapshot[name] !== 'string')) throw new Error('The source journal/candidate does not match the declared role bundle.');
 }
 const project = (files: Snapshot): RoleBundleSnapshot => ({ files: structuredClone(files), checksum: checksum(files) });
-async function locked<T>(location: RoleBundleLocation, work: (resolved: Awaited<ReturnType<typeof canonical>>, files: Snapshot) => Promise<T>) {
+async function locked<T>(location: RoleBundleLocation, work: (resolved: Awaited<ReturnType<typeof canonical>>, files: Snapshot) => Promise<T>, options: RoleBundleReadOptions = {}) {
   const resolved = await canonical(location);
   return withArtifactLock(resolved.root, resolved.directory, async () => {
-    try { await recoverTransaction(resolved.root, resolved.directory, { identity: resolved.identity, validate: files => validateSnapshot(files, resolved.paths) }); }
-    catch (error) { throw new RoleBundleRecoveryRequiredError(error); }
+    try {
+      if (options.recovery === 'refuse') await recoverRoleBundleRoot(resolved.root, options);
+      else await recoverTransaction(resolved.root, resolved.directory, { identity: resolved.identity, validate: files => validateSnapshot(files, resolved.paths) });
+    }
+    catch (error) {
+      options.signal?.throwIfAborted();
+      if (error instanceof RoleBundleRecoveryRequiredError) throw error;
+      throw new RoleBundleRecoveryRequiredError(options.recovery === 'refuse' ? undefined : error);
+    }
+    options.signal?.throwIfAborted();
     const files = await capture(resolved.directory, resolved.paths, { includeManifest: false });
     return work(resolved, files);
-  }, resolved.identity, { timeoutMs: 5_000 });
+  }, resolved.identity, { timeoutMs: 5_000, ...options });
 }
 /** Cooperating readers wait for writes/rollback and recover a retained journal first. */
-export function readRoleBundle(location: RoleBundleLocation): Promise<RoleBundleSnapshot> {
-  return locked(location, async (_, files) => project(files));
+export function readRoleBundle(location: RoleBundleLocation, options: RoleBundleReadOptions = {}): Promise<RoleBundleSnapshot> {
+  return locked(location, async (_, files) => project(files), { ...options });
 }
 /** Recover before collection discovery, including bundles whose anchor was lost.
  * A legacy/unlocatable journal remains blocked for explicit operator recovery.
  */
-export async function recoverRoleBundleRoot(ownerRoot: string): Promise<void> {
+export async function recoverRoleBundleRoot(ownerRoot: string, options: RoleBundleReadOptions = {}): Promise<void> {
+  options = { ...options };
+  if (options.recovery !== undefined && options.recovery !== 'refuse') throw new Error('Invalid artifact recovery mode.');
+  options.signal?.throwIfAborted();
   const root = await realpath(ownerRoot).catch(error => { if (error.code === 'ENOENT') return undefined; throw error; });
   if (!root) return;
   const transactions = path.join(root, '.uib', 'transactions');
@@ -85,10 +98,19 @@ export async function recoverRoleBundleRoot(ownerRoot: string): Promise<void> {
       if (stat && (stat.isSymbolicLink() || !stat.isDirectory())) throw new Error('Unsafe source transaction storage.');
     }
     for (const name of await readdir(transactions).catch(error => { if (error.code === 'ENOENT') return []; throw error; })) {
+      options.signal?.throwIfAborted();
+      if (options.recovery === 'refuse' && !/^[a-f0-9]{64}$/.test(name)) throw new RoleBundleRecoveryRequiredError(undefined);
       const directory = path.join(transactions, name);
       if ((await lstat(directory)).isSymbolicLink() || !(await lstat(directory)).isDirectory()) throw new Error('Unsafe source transaction storage.');
       const journalFile = path.join(directory, 'pending.json');
-      if ((await lstat(journalFile).catch(error => { if (error.code === 'ENOENT') return undefined; throw error; }))?.isSymbolicLink()) throw new Error('Unsafe source transaction journal.');
+      const journalStat = await lstat(journalFile).catch(error => { if (error.code === 'ENOENT') return undefined; throw error; });
+      // Membership can depend on any retained journal, even without an anchor.
+      // Do not read or interpret journal bytes, replay or create storage here.
+      if (options.recovery === 'refuse') {
+        if (journalStat) throw new RoleBundleRecoveryRequiredError(undefined);
+        continue;
+      }
+      if (journalStat?.isSymbolicLink()) throw new Error('Unsafe source transaction journal.');
       const text = await readFile(journalFile, 'utf8').catch(error => { if (error.code === 'ENOENT') return undefined; throw error; });
       if (text === undefined) continue;
       const journal = JSON.parse(text);
@@ -99,18 +121,27 @@ export async function recoverRoleBundleRoot(ownerRoot: string): Promise<void> {
       await readRoleBundle({ root, directory: journal.bundle, anchor, paths });
       if (await lstat(journalFile).catch(error => { if (error.code === 'ENOENT') return undefined; throw error; })) throw new Error('The original journal identity was not recovered. Explicit location recovery is required.');
     }
-  } catch (error) { if (error instanceof RoleBundleRecoveryRequiredError) throw error; throw new RoleBundleRecoveryRequiredError(error); }
+  } catch (error) {
+    options.signal?.throwIfAborted();
+    if (error instanceof RoleBundleRecoveryRequiredError) throw error;
+    throw new RoleBundleRecoveryRequiredError(options.recovery === 'refuse' ? undefined : error);
+  }
 }
 /** Cooperating Visual graph compilers/mutators share this outer admission lock.
  * Acquire it before any individual role lock; it is not a multi-artifact commit.
  */
 export async function withRoleBundleGraph<T>(ownerRoot: string, work: () => Promise<T>, options: ArtifactLockOptions = {}): Promise<T> {
+  options = { ...options };
   const root = await realpath(ownerRoot);
   for (let ancestor = path.resolve(ownerRoot); ; ancestor = path.dirname(ancestor)) {
     if ((await lstat(ancestor)).isSymbolicLink()) throw new Error('Source graph roots cannot contain symlinks.');
     if (path.dirname(ancestor) === ancestor) break;
   }
-  return withArtifactLock(root, root, work, 'visual-runtime-graph-v1', {
+  return withArtifactLock(root, root, async () => {
+    if (options.recovery === 'refuse') await recoverRoleBundleRoot(root, options);
+    options.signal?.throwIfAborted();
+    return work();
+  }, 'visual-runtime-graph-v1', {
     // Measured WP4/WP5-B holds reached 1.66s. A 5s acquisition budget
     // accommodates brief serial work; it never extends or retries admitted work.
     timeoutMs: 5_000,

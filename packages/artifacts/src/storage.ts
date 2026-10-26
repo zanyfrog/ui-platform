@@ -94,7 +94,14 @@ export class ArtifactOwnerUnresolvedError extends ArtifactBusyError {
     this.message = 'Artifact lock ownership is unresolved; exclusive admission was not obtained.';
   }
 }
+export class ArtifactAdmissionUnsafeError extends Error {
+  readonly code = 'source.admission-unsafe';
+  readonly status = 503;
+  constructor() { super('Safe artifact admission could not be established.'); }
+}
 export interface ArtifactLockOptions {
+  /** Opt in to admission without PID probing or foreign/stale lock reclamation. */
+  recovery?: 'refuse';
   /** Acquisition budget only; never interrupts or retries admitted work. */
   timeoutMs?: number;
   signal?: AbortSignal;
@@ -112,6 +119,8 @@ export async function withArtifactLock<T>(
   identity = bundle,
   options: ArtifactLockOptions = {},
 ): Promise<T> {
+  options = { ...options };
+  if (options.recovery !== undefined && options.recovery !== 'refuse') throw new Error('Invalid artifact recovery mode.');
   const key = path.join(root, storageKey(identity));
   const held = (heldLocks.getStore() ?? []).filter(lock => lock.active);
   if (held.some(lock => lock.key === key) || identity === 'visual-runtime-graph-v1' && held.length)
@@ -167,7 +176,7 @@ export async function withArtifactLock<T>(
           const scope = { key, active: true, graph: identity === 'visual-runtime-graph-v1' };
           try { return await heldLocks.run([...held, scope], run); }
           finally { scope.active = false; }
-        }, identity);
+        }, identity, options.recovery);
       } catch (error) {
         if (error instanceof LockCleanupFailure) throw error.outcome;
         if (entered) throw error;
@@ -191,9 +200,16 @@ async function acquireArtifactLock<T>(
   bundle: string,
   run: () => Promise<T>,
   identity: string,
+  recoveryMode?: 'refuse',
 ): Promise<T> {
   const directory = await storageDirectory(root, "locks");
   const file = path.join(directory, `${storageKey(identity)}.lock`);
+  if (recoveryMode === 'refuse') {
+    for (const candidate of [file, file + '.recovery']) {
+      const stat = await lstat(candidate).catch(error => { if (error.code === 'ENOENT') return undefined; throw error; });
+      if (stat && (candidate !== file || stat.isSymbolicLink() || !stat.isFile())) throw new ArtifactAdmissionUnsafeError();
+    }
+  }
   // No timed lock stealing: slow writers must not lose their locks.
   let handle: FileHandle | undefined;
   let hasPrimary = false;
@@ -229,6 +245,8 @@ async function acquireArtifactLock<T>(
       };
       // An unknown owner is never dead; retain the original guarded authority.
       const owner = parseOwner(await ownerText());
+      // No liveness inference, recovery guard or foreign unlink in this mode.
+      if (recoveryMode === 'refuse') throw new ArtifactBusyError();
       try {
         process.kill(owner, 0);
       } catch (probe) {

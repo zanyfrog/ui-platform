@@ -7,7 +7,7 @@ import { atomicWriteText } from './json-files.js';
 import { moveToOsTrash } from './trash.js';
 import { appPath } from './applications.js';
 import { appsDir, platformRoot } from './paths.js';
-import { readRoleBundle, saveRoleBundle, recoverRoleBundleRoot, type RoleBundleLocation } from '@ui-platform/artifacts/storage';
+import { readRoleBundle, saveRoleBundle, recoverRoleBundleRoot, type RoleBundleLocation, type RoleBundleReadOptions } from '@ui-platform/artifacts/storage';
 
 export const platformComponentsRoot = path.join(platformRoot, 'components');
 const roles = { source: '.html', css: '.css', metadata: '.visual.json', fixtures: '.fixtures.json', code: '.functions.ts' } as const;
@@ -37,8 +37,9 @@ export class VisualArtifactService {
     }
     return realpath(current).catch(error => { if (error.code === 'ENOENT') return current; throw error; });
   }
-  async list(): Promise<ArtifactBundle[]> {
-    await recoverRoleBundleRoot(this.root);
+  async list(options: RoleBundleReadOptions = {}): Promise<ArtifactBundle[]> {
+    options = { ...options };
+    await recoverRoleBundleRoot(this.root, options);
     const locators: string[] = [];
     const walk = async (dir: string, prefix = '') => {
       for (const entry of await readdir(dir, { withFileTypes: true }).catch(error => { if (error.code === 'ENOENT') return []; throw error; })) {
@@ -55,8 +56,11 @@ export class VisualArtifactService {
     // retains its own Foundation lock/recovery; output remains locator-ordered.
     for (let offset = 0; offset < locators.length; offset += 4) {
       bundles.push(...await Promise.all(locators.slice(offset, offset + 4).map(async locator => {
-        try { return await this.read(locator); }
-        catch (error) { return { locator, hash: '', files: { source: '', css: '', metadata: '', fixtures: '', code: '' }, diagnostics: [{ severity: 'error' as const, message: String(error) }] }; }
+        try { return await this.read(locator, options); }
+        catch (error) {
+          if (options.recovery === 'refuse') throw error;
+          return { locator, hash: '', files: { source: '', css: '', metadata: '', fixtures: '', code: '' }, diagnostics: [{ severity: 'error' as const, message: String(error) }] };
+        }
       })));
     }
     for (const key of ['artifactId', 'componentId'] as const) {
@@ -69,11 +73,12 @@ export class VisualArtifactService {
     }
     return bundles;
   }
-  async read(locator: string): Promise<ArtifactBundle> {
+  async read(locator: string, options: RoleBundleReadOptions = {}): Promise<ArtifactBundle> {
+    options = { ...options };
     const location = await this.location(locator), file = path.join(location.directory, location.anchor);
     const stem = file.slice(0, -'.visual.json'.length);
     const files = {} as ArtifactFiles;
-    const snapshot = await readRoleBundle(location);
+    const snapshot = await readRoleBundle(location, options);
     for (const [role, extension] of Object.entries(roles)) files[role as keyof ArtifactFiles] = snapshot.files[path.basename(stem) + extension] ?? '';
     if (!files.metadata) throw new Error('Visual Artifact metadata is missing.');
     const parsed = parseMetadata(files.metadata);

@@ -1,0 +1,21 @@
+Ordinary-source inspection errors retained from this increment (no product execution):
+
+1. PowerShell rejected a brace-list path expression before running rg:
+ParserError:
+Line | 2 | ... '^import|^export .*from' packages/visual-artifacts/src/{model,source,e ...
+Missing argument in parameter list.
+Corrected to a scoped directory search.
+
+2. An initial read/search used the wrong ordinary-source path:
+rg: src/server/runtime-read-admission.ts: The system cannot find the file specified. (os error 2)
+Correct source subsequently found at packages/visual-artifacts/src/runtime-read-admission.ts.
+
+3. An initial dependency path guess was absent:
+rg: packages/dataset-operations/src/expression.ts: IO error for operation on packages/dataset-operations/src/expression.ts: The system cannot find the path specified. (os error 3)
+The package declaration then identified the actual pure source at ../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts.
+
+4. An initial verifier-name glob was not expanded by PowerShell:
+rg: scripts/verify-builder-v1-wp5-f-card-request*.mjs: IO error for operation on scripts/verify-builder-v1-wp5-f-card-request*.mjs: The filename, directory name, or volume label syntax is incorrect. (os error 123)
+Corrected using rg --files; the existing verifier was read as ordinary source only.
+
+All executable verification failures retain full raw admission, source, bundle and test/typecheck output in their numbered run directories. No unsuccessful evidence was replaced.

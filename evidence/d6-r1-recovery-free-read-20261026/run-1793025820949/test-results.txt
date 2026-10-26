@@ -1,0 +1,24 @@
+✔ healthy role, graph and actual Visual read/list preserve bytes/hash and release only own locks (226.4743ms)
+✔ valid foreign/dead owner remains busy without probe, callback, reclaim or guard (71.8816ms)
+✔ empty, malformed and ambiguous owner publication stays unresolved (82.8892ms)
+✔ recovery guard and nonfile lock refuse before any acquisition or owner read (37.7264ms)
+✔ pending, malformed, legacy and missing-anchor journals refuse without reading or replaying bytes (126.7823ms)
+✔ unknown transaction membership and injected status failure are sanitized recovery refusals (30.918ms)
+✔ default recovery mode still reclaims injected dead fixture lock and restores retained journal (94.7298ms)
+✔ default save admission and normal source writing remain functional (124.2704ms)
+✔ bounded queue contention and cancellation do not enter or jump a live holder (88.5778ms)
+✔ foreign contention cancellation and pre-abort preserve exact reason without mutation (51.2379ms)
+✔ callback error is returned once without acquisition retry (30.5376ms)
+✔ canonical role and graph identities, lock ordering and nested refusal remain exact (52.2213ms)
+✔ cleanup failure prevents success and never reacquires admitted work (19.0449ms)
+✔ Visual list refuses a locked sibling and preserves default diagnostic behavior (104.2545ms)
+✔ invalid recovery mode refuses before coordination, and signal abort during root check stops capture (24.4909ms)
+✔ caller mutation cannot downgrade an already requested recovery-free read or graph (49.7ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1369.795
