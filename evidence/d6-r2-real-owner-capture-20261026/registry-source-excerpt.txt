@@ -1,0 +1,18 @@
+  }
+  byKey(key: string): Registration | undefined {
+    const row = this.db.prepare('SELECT application_id, application_key, created_by FROM development_applications WHERE application_key=?').get(key) as { application_id: string; application_key: string; created_by: string } | undefined;
+    if (!row) return undefined;
+    try { this.manifest(key, row.application_id); } catch { return undefined; }
+    return { applicationId: row.application_id, key: row.application_key, createdBy: row.created_by };
+  }
+  byApplicationId(applicationId: string): Registration | undefined {
+    const row = this.db.prepare('SELECT application_key FROM development_applications WHERE application_id=?').get(applicationId) as { application_key: string } | undefined;
+    return row ? this.byKey(row.application_key) : undefined;
+  }
+  readonly provisioning: NonNullable<AdministrationConfiguration['applicationProvisioning']> = {
+    resolve: applicationId => {
+      const row = this.db.prepare('SELECT application_key FROM development_applications WHERE application_id=?').get(applicationId) as { application_key: string } | undefined;
+      if (!row) return undefined;
+      try {
+        const bytes = this.manifest(row.application_key, applicationId);
+        return { resource: { authorityId: V1_AUTHORITY_ID, applicationId, kind: 'application', id: applicationId },

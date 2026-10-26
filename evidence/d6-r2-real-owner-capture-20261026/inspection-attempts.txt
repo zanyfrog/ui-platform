@@ -1,0 +1,10 @@
+No product modules, tests or typecheck were executed in D6-R2. Ordinary-source text searches had the following non-success outcomes, retained here:
+
+1. A combined source search returned exit 1 because no saved-preview/productionSavedPreview match was found in src/server or the requests module. Other independently returned source excerpts were inspected. The actual unavailable controller was subsequently read at src/client/builder-workspace/saved-preview-request.ts. Absence of a search match alone was not treated as proof of a missing authority contract.
+
+2. Optional AGENTS discovery returned:
+rg: C:/Projects/Modular/.agents: The system cannot find the file specified. (os error 2)
+rg: C:/Projects/Modular/ui-platform/.agents: The system cannot find the file specified. (os error 2)
+Explicit parent AGENTS.md existence checks subsequently found no applicable parent file.
+
+Some combined ordinary-source output exceeded the display limit; narrower named excerpts and reference files were then retained. No protected source or state was searched. Historical R1 executable failures remain in their original run directories and are confirmed in r1-acceptance-review.json.

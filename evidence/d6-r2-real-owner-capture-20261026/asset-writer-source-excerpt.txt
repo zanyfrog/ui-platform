@@ -1,0 +1,14 @@
+export async function uploadPresentationAsset(key: string, input: { id: string; name: string; type: PresentationAsset['type']; alt?: string; filename: string; content: Buffer }): Promise<ApplicationPresentationStatus> {
+  const status = await initializeApplicationPresentation(key);
+  const id = input.id.trim().toLowerCase();
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) throw new Error('Asset ID must contain lowercase letters, numbers, and hyphens only.');
+  if (!['logo', 'image', 'icon', 'illustration', 'background', 'favicon', 'other'].includes(input.type)) throw new Error('Asset type is not supported.');
+  const filename = path.basename(input.filename);
+  if (!filename || filename === '.' || filename === '..') throw new Error('Asset filename is required.');
+  const relativePath = `${id}/${filename}`;
+  const existing = status.draft!.assets.filter((asset) => asset.id !== id);
+  await mkdir(path.join(draftAssetsRoot(key), id), { recursive: true });
+  await writeFile(path.join(draftAssetsRoot(key), id, filename), input.content);
+  return savePresentationDraft(key, { ...status.draft!, assets: [...existing, { id, name: input.name.trim() || id, type: input.type, path: relativePath, alt: input.alt, active: true }] });
+}
+

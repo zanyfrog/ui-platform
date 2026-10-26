@@ -1,0 +1,17 @@
+      if (parts.length === 4 && parts[3] === 'packages' && method === 'POST') {
+        const input = await body(req);
+        return json(res, 201, await installManualPackage({ sourcePath: String(input.sourcePath ?? ''), scope: 'app', appKey: key }));
+      }
+      if (parts.length === 5 && parts[3] === 'packages' && parts[4] === 'acquire' && method === 'POST') return json(res, 201, await acquirePackage(await body(req), 'app', key));
+      if (parts.length === 4 && parts[3] === 'foundation-dependencies' && method === 'POST') {
+        const input = await body(req);
+        const packageNames = Array.isArray(input.packageNames) ? input.packageNames.map((value: unknown) => String(value)) : [];
+        return json(res, 200, await addAppFoundationDependencies({ appKey: key, sourceId: String(input.sourceId ?? ''), packageNames }));
+      }
+      if (parts.length === 5 && parts[3] === 'foundation-dependencies' && parts[4] && method === 'GET') {
+        return json(res, 200, await getAppFoundationDependencies({ appKey: key, sourceId: decodeURIComponent(parts[4]) }));
+      }
+      if (parts.length === 6 && parts[3] === 'packages' && parts[5] === 'enable' && method === 'POST') {
+        const input = await body(req);
+        return json(res, 200, await enableAppPackage(key, decodeURIComponent(parts[4]), input.version ? String(input.version) : undefined));
+      }

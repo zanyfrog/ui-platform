@@ -1,0 +1,20 @@
+src/server/package-installer.ts:3: * Use: The package API calls installManualPackage before refreshing discovery or offering app enablement.
+src/server/package-installer.ts:36:export async function installManualPackage(options: InstallManualPackageOptions): Promise<InstalledPackageResult> {
+src/server/package-installer.ts:60:    await rename(stagedPackage, packageRoot);
+src/server/app-manifests.ts:54:export async function setAppPackageDeclaration(
+src/server/packages.ts:19:import { appManifestPathFor, ensureAppManifest, setAppPackageDeclaration } from './app-manifests.js';
+src/server/packages.ts:104:export async function enableAppPackage(key: string, packageName: string, version?: string): Promise<AppPackageCatalogPayload> {
+src/server/packages.ts:114:  await setAppPackageDeclaration(key, packageName, {
+src/server/packages.ts:125:export async function disableAppPackage(key: string, packageName: string): Promise<AppPackageCatalogPayload> {
+src/server/packages.ts:136:  await setAppPackageDeclaration(key, packageName, declaration);
+src/server/composition-lock.ts:2:import { withRoleBundleGraph } from '@ui-platform/artifacts/storage';
+src/server/composition-lock.ts:9:export async function withApplicationMutation<T>(_root: string, work: () => Promise<T>, options: ArtifactLockOptions = {}): Promise<T> {
+src/server/composition-lock.ts:12:  return withRoleBundleGraph(path.join(platformRoot, 'components'), work, { signal: requestSignals.getStore(), ...options });
+src/server/application-presentation.ts:14:import { withApplicationMutation } from './composition-lock.js';
+src/server/application-presentation.ts:175:  return withApplicationMutation(appPath(key), async () => { await admit(); return initializePresentationSource(key); });
+src/server/application-presentation.ts:199:  return withApplicationMutation(appPath(key), () => savePresentationDraftSource(key, value, expectedRevision, admit));
+src/server/application-presentation.ts:247:  return withApplicationMutation(appPath(key), async () => { await admit(); return publishPresentationSource(key, admit); });
+src/server/application-presentation.ts:300:  await writeFile(entry, `${rendered.trimEnd()}\n\n${runtime}\n`, 'utf8');
+src/server/application-presentation.ts:319:  return withApplicationMutation(appPath(key), async () => { await admit(); return rollbackPresentationSource(key, sourceVersion, admit); });
+src/server/application-presentation.ts:341:      else await writeFile(target, content);
+src/server/application-presentation.ts:376:  await writeFile(path.join(draftAssetsRoot(key), id, filename), input.content);

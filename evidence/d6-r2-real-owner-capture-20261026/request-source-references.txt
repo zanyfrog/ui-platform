@@ -1,0 +1,20 @@
+7:  state:'unavailable';reason:string;generation:{selection:number;source:number};target:null;
+9:  state:'identified';reason:'RETAINED_SAVED_VERSION_ONLY';generation:{selection:number;source:number};
+10:  target:{source:{applicationId:string;page:WorkspaceIdentity;committedHash:string;nodeId:string};implementation:{componentId:string;packageId:string;packageVersion:string;importPath:string;exportName:string;definitionRevision:string|null};context:{subjectId:string;sessionRevision:string}};
+15:  sourceNode?:{nodeId:string;savedRevision:string};
+16:  ownerSelection?:SavedPreviewOwnerSelection;
+18:export interface SavedPreviewRequest {schema:'saved-preview-request-v1';generation:number;trigger:'explicit-check';selection:SavedPreviewSelection|null}
+20:export class SavedPreviewRequestError extends Error {constructor(){super('SAVED_PREVIEW_REQUEST_INVALID');}}
+21:function invalid():never {throw new SavedPreviewRequestError();}
+29:  fields(value,['subjectId','sessionRevision','applicationId','applicationKey','identity','kind','dirty'],['sourceNode','ownerSelection']);
+38:  if(value.sourceNode!==undefined){fields(value.sourceNode,['nodeId','savedRevision']);if(!text(value.sourceNode.nodeId)||!text(value.sourceNode.savedRevision))invalid();}
+39:  if(value.ownerSelection!==undefined){
+40:    fields(value.ownerSelection,['state','reason','generation','target']);const selected=value.ownerSelection;
+44:      if(!text(selected.reason)||selected.target!==null||value.sourceNode!==undefined)invalid();
+56:      fields(value.sourceNode,['nodeId','savedRevision']);
+57:      if(value.sourceNode.nodeId!==source.nodeId||value.sourceNode.savedRevision!==source.committedHash)invalid();
+62:export function parseSavedPreviewRequest(value:unknown):SavedPreviewRequest {
+68:  return JSON.stringify([s.subjectId,s.sessionRevision,s.applicationId,s.applicationKey,workspaceIdentityKey(s.identity),s.kind,s.sourceNode?.nodeId??null,s.sourceNode?.savedRevision??null,s.ownerSelection??null]);
+71:export function productionSavedPreviewUnavailable(request:SavedPreviewRequest):SavedPreviewUnavailable {
+72:  const s=parseSavedPreviewRequest(request).selection;
+74:    s.identity.format!=='visual'||!['page','shell','component','form'].includes(s.kind)?'UNSUPPORTED_ARTIFACT':s.ownerSelection?.state==='unavailable'?'SOURCE_OWNER_UNAVAILABLE':!s.sourceNode?'SAVED_NODE_UNRESOLVED':'PROVIDER_NOT_QUALIFIED';
