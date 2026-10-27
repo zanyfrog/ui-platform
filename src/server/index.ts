@@ -401,7 +401,8 @@ const server = http.createServer(async (req, res) => {
       if (parts.length === 4 && ['visual-artifacts', 'visual-pages', 'visual-components', 'visual-shells'].includes(parts[3])) {
         await getApp(key);
         if (parts[3] === 'visual-artifacts' && method === 'GET') {
-          return json(res, 200, await withApplicationMutation(appPath(key), async () => visualWorkspace(key, await discoverComponents(key))));
+          const readOptions = { recovery: 'refuse' as const, signal: acquisition.signal };
+          return json(res, 200, await withApplicationMutation(appPath(key), async () => visualWorkspace(key, await discoverComponents(key), readOptions), readOptions));
         }
         const kind = parts[3] === 'visual-components' ? 'component' : parts[3] === 'visual-shells' ? 'shell' : 'page';
         const service = new VisualArtifactService(kind === 'component' ? platformComponentsRoot : path.join(appPath(key), kind === 'shell' ? 'shells' : 'src/pages'), kind);
@@ -412,15 +413,16 @@ const server = http.createServer(async (req, res) => {
             const owner = (await getApp(key)).appId;
             return json(res, 200, await visualPreviewRevision(key, kind, locator, url.searchParams.get('hash') ?? '', async related => {
               if (v1Identity && !await v1Identity.authorize(req, related === 'shell' ? 'ui.presentation.view' : 'ui.application.view', { authorityId: 'ui-platform-development', applicationId: owner, kind: related === 'shell' ? 'artifact' : 'application', id: related === 'shell' ? 'presentation' : owner, ...(related === 'shell' ? { parentId: owner } : {}) })) throw Object.assign(new Error('Preview dependencies require current source read authority.'), { status: 403 });
-            }));
+            }, { recovery: 'refuse', signal: acquisition.signal }));
           }
-          const bundle = locator ? await service.read(locator) : null;
+          const readOptions = { recovery: 'refuse' as const, signal: acquisition.signal };
+          const bundle = locator ? await service.read(locator, readOptions) : null;
           if (bundle && url.searchParams.get('code') === '1') {
             if (url.searchParams.get('hash') !== bundle.hash) throw Object.assign(new Error('Preview code revision changed. Reload the complete preview.'), { status: 409 });
             const code = isolatedPreviewCode(bundle);
             res.writeHead(200, { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'no-store' }); return res.end(code);
           }
-          return json(res, 200, bundle ?? await service.list());
+          return json(res, 200, bundle ?? await service.list(readOptions));
         }
         const input = await body(req);
         if (method === 'POST') return await withApplicationMutation(appPath(key), async () => {

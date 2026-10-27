@@ -1,0 +1,17 @@
+✔ actual workspace graph/list/read keeps membership, identity and saved hash (115.8202ms)
+✔ every collection pending journal refuses without replay, including missing anchor (171.3958ms)
+✔ direct read refuses valid replayable journal without changing source or journal (83.1133ms)
+✔ foreign graph and role locks are refused, never probed or cleaned (138.3382ms)
+✔ identity diagnostics, wrong collection kind and duplicate permanent identities survive (102.9322ms)
+✔ ordinary save validates and admits once; stale hash and identity replacement still refuse (263.3063ms)
+✔ cancellation through request context cleans graph and role locks before returning (97.073ms)
+✔ caller options cannot downgrade workspace refusal after entry (62.4252ms)
+✔ composition workspace propagates refusal through its Page, Shell and Component lists (133.797ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1264.497

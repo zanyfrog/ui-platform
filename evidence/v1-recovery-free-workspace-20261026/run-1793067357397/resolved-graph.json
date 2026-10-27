@@ -1,0 +1,763 @@
+{
+  "inputs": {
+    "tests/d6-r1/fs-guard.ts": {
+      "bytes": 2390,
+      "imports": [
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "tests/workspace-reads/fs-guard.ts": {
+      "bytes": 218,
+      "imports": [
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "../d6-r1/fs-guard.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/model.ts": {
+      "bytes": 9885,
+      "imports": [],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/source.ts": {
+      "bytes": 16985,
+      "imports": [
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+      "bytes": 7951,
+      "imports": [],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/expression.ts": {
+      "bytes": 284,
+      "imports": [
+        {
+          "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/dataset-operations/expression"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/form.ts": {
+      "bytes": 7849,
+      "imports": [
+        {
+          "path": "packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./source.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/validation.ts": {
+      "bytes": 17364,
+      "imports": [
+        {
+          "path": "packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./source.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/expression.ts",
+          "kind": "import-statement",
+          "original": "./expression.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/form.ts",
+          "kind": "import-statement",
+          "original": "./form.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/composition.ts": {
+      "bytes": 11601,
+      "imports": [
+        {
+          "path": "packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./source.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/composition-validation.ts": {
+      "bytes": 8039,
+      "imports": [
+        {
+          "path": "packages/visual-artifacts/src/validation.ts",
+          "kind": "import-statement",
+          "original": "./validation.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./source.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/composition.ts",
+          "kind": "import-statement",
+          "original": "./composition.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/index.ts": {
+      "bytes": 229,
+      "imports": [
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./source.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/expression.ts",
+          "kind": "import-statement",
+          "original": "./expression.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/validation.ts",
+          "kind": "import-statement",
+          "original": "./validation.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/form.ts",
+          "kind": "import-statement",
+          "original": "./form.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/composition.ts",
+          "kind": "import-statement",
+          "original": "./composition.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/composition-validation.ts",
+          "kind": "import-statement",
+          "original": "./composition-validation.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/file-operations.ts": {
+      "bytes": 1469,
+      "imports": [
+        {
+          "path": "tests/workspace-reads/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/bundle.ts": {
+      "bytes": 7263,
+      "imports": [
+        {
+          "path": "tests/workspace-reads/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/storage.ts": {
+      "bytes": 14784,
+      "imports": [
+        {
+          "path": "packages/artifacts/src/file-operations.ts",
+          "kind": "import-statement",
+          "original": "./file-operations.js"
+        },
+        {
+          "path": "tests/workspace-reads/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/artifacts/src/bundle.ts",
+          "kind": "import-statement",
+          "original": "./bundle.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/role-bundle.ts": {
+      "bytes": 12356,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/workspace-reads/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:fs",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/artifacts/src/bundle.ts",
+          "kind": "import-statement",
+          "original": "./bundle.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage.ts",
+          "kind": "import-statement",
+          "original": "./storage.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/storage-api.ts": {
+      "bytes": 531,
+      "imports": [
+        {
+          "path": "packages/artifacts/src/file-operations.ts",
+          "kind": "import-statement",
+          "original": "./file-operations.js"
+        },
+        {
+          "path": "packages/artifacts/src/role-bundle.ts",
+          "kind": "import-statement",
+          "original": "./role-bundle.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage.ts",
+          "kind": "import-statement",
+          "original": "./storage.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/json-files.ts": {
+      "bytes": 485,
+      "imports": [
+        {
+          "path": "tests/workspace-reads/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "packages/artifacts/src/storage-api.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/artifacts/storage"
+        }
+      ],
+      "format": "esm"
+    },
+    "tests/workspace-reads/boundaries.ts": {
+      "bytes": 1041,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/visual-artifacts.ts": {
+      "bytes": 16086,
+      "imports": [
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/workspace-reads/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/visual-artifacts/src/index.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/visual-artifacts"
+        },
+        {
+          "path": "src/server/json-files.ts",
+          "kind": "import-statement",
+          "original": "./json-files.js"
+        },
+        {
+          "path": "tests/workspace-reads/boundaries.ts",
+          "kind": "import-statement",
+          "original": "./trash.js"
+        },
+        {
+          "path": "tests/workspace-reads/boundaries.ts",
+          "kind": "import-statement",
+          "original": "./applications.js"
+        },
+        {
+          "path": "tests/workspace-reads/boundaries.ts",
+          "kind": "import-statement",
+          "original": "./paths.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage-api.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/artifacts/storage"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/composition-lock.ts": {
+      "bytes": 946,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/artifacts/src/storage-api.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/artifacts/storage"
+        },
+        {
+          "path": "tests/workspace-reads/boundaries.ts",
+          "kind": "import-statement",
+          "original": "./paths.js"
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/application-composition.ts": {
+      "bytes": 18590,
+      "imports": [
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/workspace-reads/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/visual-artifacts/src/index.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/visual-artifacts"
+        },
+        {
+          "path": "tests/workspace-reads/boundaries.ts",
+          "kind": "import-statement",
+          "original": "./applications.js"
+        },
+        {
+          "path": "src/server/json-files.ts",
+          "kind": "import-statement",
+          "original": "./json-files.js"
+        },
+        {
+          "path": "src/server/visual-artifacts.ts",
+          "kind": "import-statement",
+          "original": "./visual-artifacts.js"
+        },
+        {
+          "path": "src/server/composition-lock.ts",
+          "kind": "import-statement",
+          "original": "./composition-lock.js"
+        },
+        {
+          "path": "tests/workspace-reads/boundaries.ts",
+          "kind": "import-statement",
+          "original": "esbuild"
+        },
+        {
+          "path": "tests/workspace-reads/boundaries.ts",
+          "kind": "import-statement",
+          "original": "./component-registry.js"
+        },
+        {
+          "path": "tests/workspace-reads/boundaries.ts",
+          "kind": "dynamic-import",
+          "original": "./visual-candidate.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "tests/workspace-reads/workspace.test.ts": {
+      "bytes": 10552,
+      "imports": [
+        {
+          "path": "node:test",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/server/visual-artifacts.ts",
+          "kind": "import-statement",
+          "original": "../../src/server/visual-artifacts.js"
+        },
+        {
+          "path": "src/server/application-composition.ts",
+          "kind": "import-statement",
+          "original": "../../src/server/application-composition.js"
+        },
+        {
+          "path": "src/server/composition-lock.ts",
+          "kind": "import-statement",
+          "original": "../../src/server/composition-lock.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage.ts",
+          "kind": "import-statement",
+          "original": "../../packages/artifacts/src/storage.js"
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "../d6-r1/fs-guard.js"
+        },
+        {
+          "path": "tests/workspace-reads/boundaries.ts",
+          "kind": "import-statement",
+          "original": "./boundaries.js"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "workspace.test.js": {
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:test",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "exports": [],
+      "entryPoint": "tests/workspace-reads/workspace.test.ts",
+      "inputs": {
+        "tests/workspace-reads/boundaries.ts": {
+          "bytesInOutput": 590
+        },
+        "tests/workspace-reads/workspace.test.ts": {
+          "bytesInOutput": 10109
+        },
+        "src/server/visual-artifacts.ts": {
+          "bytesInOutput": 13686
+        },
+        "tests/d6-r1/fs-guard.ts": {
+          "bytesInOutput": 1846
+        },
+        "tests/workspace-reads/fs-guard.ts": {
+          "bytesInOutput": 0
+        },
+        "packages/visual-artifacts/src/model.ts": {
+          "bytesInOutput": 3801
+        },
+        "packages/visual-artifacts/src/index.ts": {
+          "bytesInOutput": 0
+        },
+        "packages/visual-artifacts/src/source.ts": {
+          "bytesInOutput": 6449
+        },
+        "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+          "bytesInOutput": 3483
+        },
+        "packages/visual-artifacts/src/expression.ts": {
+          "bytesInOutput": 0
+        },
+        "packages/visual-artifacts/src/form.ts": {
+          "bytesInOutput": 3732
+        },
+        "packages/visual-artifacts/src/validation.ts": {
+          "bytesInOutput": 16756
+        },
+        "packages/visual-artifacts/src/composition.ts": {
+          "bytesInOutput": 7155
+        },
+        "packages/visual-artifacts/src/composition-validation.ts": {
+          "bytesInOutput": 7016
+        },
+        "packages/artifacts/src/file-operations.ts": {
+          "bytesInOutput": 1053
+        },
+        "packages/artifacts/src/storage-api.ts": {
+          "bytesInOutput": 0
+        },
+        "packages/artifacts/src/role-bundle.ts": {
+          "bytesInOutput": 9838
+        },
+        "packages/artifacts/src/bundle.ts": {
+          "bytesInOutput": 2480
+        },
+        "packages/artifacts/src/storage.ts": {
+          "bytesInOutput": 11039
+        },
+        "src/server/application-composition.ts": {
+          "bytesInOutput": 8164
+        },
+        "src/server/composition-lock.ts": {
+          "bytesInOutput": 457
+        }
+      },
+      "bytes": 108871
+    }
+  }
+}

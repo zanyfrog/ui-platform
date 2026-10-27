@@ -1,0 +1,152 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as fs from 'node:fs/promises';
+import path from 'node:path';
+import { createHash } from 'node:crypto';
+import { VisualArtifactService, visualWorkspace, platformComponentsRoot } from '../../src/server/visual-artifacts.js';
+import { compositionWorkspace } from '../../src/server/application-composition.js';
+import { withApplicationMutation, withGraphRequest } from '../../src/server/composition-lock.js';
+import { storageKey } from '../../packages/artifacts/src/storage.js';
+import { configure, events } from '../d6-r1/fs-guard.js';
+import { platformRoot as root, appPath } from './boundaries.js';
+const refuse = { recovery: 'refuse' as const, timeoutMs: 30 };
+const traces: unknown[] = [];
+let probes = 0;
+const originalKill = process.kill;
+process.kill = (() => { probes++; throw Error('PID_PROBE_FORBIDDEN'); }) as typeof process.kill;
+test.after(async () => {
+  process.kill = originalKill;
+  await fs.writeFile(process.env.D6_R1_TRACE_FILE!, JSON.stringify({ traces, probes, normalSessionTest: false }, null, 2));
+});
+async function fixture(work: (f: Awaited<ReturnType<typeof setup>>) => Promise<void>) {
+  const f = await setup();
+  try { await work(f); assert.equal(probes, 0); }
+  finally {
+    traces.push({ events: [...events] });
+    assert.ok(root.startsWith(path.resolve('evidence/v1-recovery-free-workspace-20261026') + path.sep));
+    await fs.rm(root, { recursive: true, force: true });
+  }
+}
+async function setup() {
+  const app = appPath('fixture');
+  const roots = { page: path.join(app, 'src/pages'), component: platformComponentsRoot, shell: path.join(app, 'shells') };
+  for (const [kind, owner] of Object.entries(roots)) {
+    const directory = path.join(owner, 'one'); await fs.mkdir(directory, { recursive: true });
+    const metadata = { schemaVersion: 1, artifactId: 'art_' + kind, kind, name: 'one', displayName: 'One', ...(kind === 'page' ? { route: '/one' } : kind === 'component' ? { componentId: 'cmp_one', public: { properties: {}, events: {}, slots: [] } } : {}) };
+    for (const [extension, text] of Object.entries({ '.html': '<section data-uip-node="node_one"></section>', '.css': '', '.visual.json': JSON.stringify(metadata), '.fixtures.json': '{}', '.functions.ts': 'export {};' })) await fs.writeFile(path.join(directory, kind + extension), text);
+  }
+  await fs.writeFile(path.join(app, 'app.settings.json'), '{}');
+  configure(root);
+  const service = new VisualArtifactService(roots.page, 'page'), locator = 'one/page.visual.json';
+  const identity = await fs.realpath(path.join(roots.page, locator));
+  const lock = path.join(roots.page, '.uib/locks', storageKey(identity) + '.lock');
+  const journal = path.join(roots.page, '.uib/transactions', storageKey(identity), 'pending.json');
+  return { app, roots, service, locator, identity, lock, journal };
+}
+const code = (expected: string) => (error: any) => error.code === expected;
+async function put(file: string, text: string) { await fs.mkdir(path.dirname(file), { recursive: true }); await fs.writeFile(file, text); }
+const workspace = () => withApplicationMutation(appPath('fixture'), () => visualWorkspace('fixture', [], refuse), refuse);
+async function noOwnedLocks(f: Awaited<ReturnType<typeof setup>>, retained: string[] = []) {
+  for (const owner of Object.values(f.roots)) {
+    const files = await fs.readdir(path.join(owner, '.uib/locks')).catch(() => []);
+    assert.deepEqual(files.sort(), retained.filter(p => path.dirname(p) === path.join(owner, '.uib/locks')).map(p => path.basename(p)).sort());
+  }
+}
+test('actual workspace graph/list/read keeps membership, identity and saved hash', () => fixture(async f => {
+  const saved = await f.service.read(f.locator, refuse);
+  const result = await workspace();
+  assert.deepEqual([result.pages, result.components, result.shells].map(items => items.map(b => b.metadata?.artifactId)), [['art_page'], ['art_component'], ['art_shell']]);
+  assert.equal(result.components[0].metadata?.componentId, 'cmp_one');
+  assert.equal(result.pages[0].hash, saved.hash);
+  assert.equal(saved.hash, createHash('sha256').update(JSON.stringify(saved.files)).digest('hex'));
+  assert.ok(events.some(e => e.op === 'open:wx'));
+  assert.ok(events.some(e => e.op === 'handle.writeFile'));
+  assert.ok(!events.some(e => e.file.endsWith('pending.json') && e.op === 'readFile'));
+  await noOwnedLocks(f);
+}));
+test('every collection pending journal refuses without replay, including missing anchor', () => fixture(async f => {
+  for (const [kind, owner] of Object.entries(f.roots)) {
+    const journal = path.join(owner, '.uib/transactions', 'a'.repeat(64), 'pending.json');
+    await put(journal, '{opaque pending'); configure(root);
+    await assert.rejects(workspace(), code('source.recovery-required'));
+    assert.equal(await fs.readFile(journal, 'utf8'), '{opaque pending');
+    assert.ok(!events.some(e => e.op === 'readFile' && e.file === journal));
+    await noOwnedLocks(f);
+    await fs.rm(path.join(owner, 'one', kind + '.visual.json'));
+    await assert.rejects(workspace(), code('source.recovery-required'));
+    await fs.rm(journal);
+  }
+}));
+test('direct read refuses valid replayable journal without changing source or journal', () => fixture(async f => {
+  const before = await f.service.read(f.locator, refuse);
+  await put(f.journal, JSON.stringify({ bundle: path.join(f.roots.page, 'one'), identity: f.identity, original: { 'page.html': 'REPLAY MUST NOT HAPPEN' } }));
+  const journal = await fs.readFile(f.journal, 'utf8'); configure(root);
+  await assert.rejects(f.service.read(f.locator, refuse), code('source.recovery-required'));
+  assert.equal(await fs.readFile(path.join(f.roots.page, 'one/page.html'), 'utf8'), before.files.source);
+  assert.equal(await fs.readFile(f.journal, 'utf8'), journal);
+  assert.ok(!events.some(e => e.op === 'readFile' && e.file === f.journal));
+  await noOwnedLocks(f);
+}));
+test('foreign graph and role locks are refused, never probed or cleaned', () => fixture(async f => {
+  const graph = path.join(platformComponentsRoot, '.uib/locks', storageKey('visual-runtime-graph-v1') + '.lock');
+  for (const foreign of [graph, f.lock]) {
+    await put(foreign, '7654321'); configure(root);
+    await assert.rejects(workspace(), code('source.busy'));
+    assert.equal(await fs.readFile(foreign, 'utf8'), '7654321');
+    assert.ok(!events.some(e => e.op === 'rm' && e.file === foreign));
+    assert.ok(!events.some(e => e.file.endsWith('.recovery')));
+    await noOwnedLocks(f, [foreign]); await fs.rm(foreign);
+  }
+}));
+test('identity diagnostics, wrong collection kind and duplicate permanent identities survive', () => fixture(async f => {
+  const directory = path.join(f.roots.page, 'two'); await fs.mkdir(directory);
+  for (const name of await fs.readdir(path.join(f.roots.page, 'one'))) await fs.copyFile(path.join(f.roots.page, 'one', name), path.join(directory, name));
+  const result = await workspace();
+  assert.equal(result.pages.length, 2);
+  assert.ok(result.pages.every(b => b.diagnostics.some(d => d.message.includes('Duplicate permanent identity'))));
+  const metadata = path.join(directory, 'page.visual.json');
+  const changed = JSON.parse(await fs.readFile(metadata, 'utf8')); changed.kind = 'shell'; await fs.writeFile(metadata, JSON.stringify(changed));
+  assert.ok((await f.service.read('two/page.visual.json', refuse)).diagnostics.some(d => d.message.includes('Expected a page')));
+  await assert.rejects(f.service.read('../page.visual.json', refuse), /Invalid Visual Artifact locator/);
+  await noOwnedLocks(f);
+}));
+test('ordinary save validates and admits once; stale hash and identity replacement still refuse', () => fixture(async f => {
+  const before = await f.service.read(f.locator, refuse); let validates = 0, admits = 0;
+  const files = { ...before.files, source: '<section data-uip-node="node_one">Saved edit</section>' };
+  const save = () => withApplicationMutation(f.app, () => f.service.saveCandidate(f.locator, files, before.hash, { validate: async () => { validates++; }, admit: async () => { admits++; } }));
+  const saved = await save();
+  assert.equal(validates, 1); assert.equal(admits, 1);
+  assert.equal((await workspace()).pages[0].hash, saved.hash);
+  assert.equal((await f.service.read(f.locator, refuse)).files.source, files.source);
+  await assert.rejects(save(), /changed|Reload/i);
+  const altered = { ...files, metadata: JSON.stringify({ ...saved.metadata, artifactId: 'replacement' }) };
+  await assert.rejects(f.service.saveCandidate(f.locator, altered, saved.hash, { validate: async () => {}, admit: async () => {} }), /identity/i);
+  await noOwnedLocks(f);
+}));
+test('cancellation through request context cleans graph and role locks before returning', () => fixture(async f => {
+  await put(f.lock, '7654321');
+  const controller = new AbortController(), reason = new Error('disconnected fixture');
+  const result = withGraphRequest(controller.signal, () => withApplicationMutation(f.app, () => visualWorkspace('fixture', [], { ...refuse, signal: controller.signal, timeoutMs: 1000 }), { recovery: 'refuse', timeoutMs: 1000 }));
+  setTimeout(() => controller.abort(reason), 20);
+  await assert.rejects(result, error => error === reason);
+  await noOwnedLocks(f, [f.lock]);
+  assert.equal(await fs.readFile(f.lock, 'utf8'), '7654321');
+  await fs.rm(f.lock); await workspace(); await noOwnedLocks(f);
+}));
+test('caller options cannot downgrade workspace refusal after entry', () => fixture(async f => {
+  await put(f.journal, '{pending');
+  const options: { recovery?: 'refuse'; timeoutMs: number } = { ...refuse };
+  const result = visualWorkspace('fixture', [], options); delete options.recovery;
+  await assert.rejects(result, code('source.recovery-required'));
+  await noOwnedLocks(f);
+}));
+test('composition workspace propagates refusal through its Page, Shell and Component lists', () => fixture(async f => {
+  await fs.writeFile(path.join(f.app, 'app.settings.json'), JSON.stringify({ presentation: { model: 'composition-v1', assetsRoot: 'assets', branding: { applicationName: 'Fixture' }, siteStyles: [] } }));
+  for (const owner of Object.values(f.roots)) {
+    const journal = path.join(owner, '.uib/transactions', 'b'.repeat(64), 'pending.json');
+    await put(journal, '{pending');
+    await assert.rejects(compositionWorkspace('fixture', [], undefined, refuse), code('source.recovery-required'));
+    assert.equal(await fs.readFile(journal, 'utf8'), '{pending');
+    await fs.rm(journal); await noOwnedLocks(f);
+  }
+}));

@@ -10,17 +10,23 @@ import { VisualArtifactService, toRuntime, platformComponentsRoot } from './visu
 import { withApplicationMutation } from './composition-lock.js';
 import { transform } from 'esbuild';
 import { discoverComponents } from './component-registry.js';
+import type { RoleBundleReadOptions } from '@ui-platform/artifacts/storage';
 
 const hash = (text: string) => createHash('sha256').update(text).digest('hex');
 export async function compositionSettings(appKey: string): Promise<CompositionSettings | undefined> {
   const settings = JSON.parse(await readFile(path.join(appPath(appKey), 'app.settings.json'), 'utf8'));
   return settings.presentation?.model === 'composition-v1' ? settings.presentation : undefined;
 }
-export async function compositionWorkspace(appKey: string, packages: PackageComponent[] = [], candidate?: { path: string; content: string }): Promise<CompositionDefinition | null> {
+export async function compositionWorkspace(appKey: string, packages: PackageComponent[] = [], candidate?: { path: string; content: string }, options: RoleBundleReadOptions = {}): Promise<CompositionDefinition | null> {
+  options = { ...options };
   const settings: CompositionSettings | undefined = candidate?.path === 'app.settings.json' ? JSON.parse(candidate.content).presentation : await compositionSettings(appKey); if (!settings || settings.model !== 'composition-v1') return null;
   if (settings.assetsRoot !== 'assets' || !settings.branding?.applicationName || !Array.isArray(settings.siteStyles)) throw new Error('Composition requires branding, source styles and the Application assets root.');
   const app = appPath(appKey);
-  const [shells, pages] = await Promise.all([new VisualArtifactService(path.join(app, 'shells'), 'shell').list(), new VisualArtifactService(path.join(app, 'src/pages'), 'page').list()]);
+  const reads = [new VisualArtifactService(path.join(app, 'shells'), 'shell').list(options), new VisualArtifactService(path.join(app, 'src/pages'), 'page').list(options)];
+  const [shells, pages] = await Promise.all(reads).catch(async error => {
+    if (options.recovery === 'refuse') await Promise.allSettled(reads);
+    throw error;
+  });
   const menus: ApplicationMenu[] = [];
   const read = async (relative: string) => candidate?.path === relative ? candidate.content : (await readCompositionSource(appKey, relative)).content;
   const menuFiles = new Set(await readdir(path.join(app, 'menus')).catch(() => []));
@@ -31,7 +37,7 @@ export async function compositionWorkspace(appKey: string, packages: PackageComp
   }
   const valid = (items: typeof shells) => items.map(item => { if (!item.metadata || item.diagnostics.some(d => d.severity === 'error')) throw new Error(`Repair ${item.locator}.`); return toRuntime(item)!; });
   const runtimePages = valid(pages), runtimeShells = valid(shells);
-  const sharedComponents = await new VisualArtifactService(platformComponentsRoot, 'component').list();
+  const sharedComponents = await new VisualArtifactService(platformComponentsRoot, 'component').list(options);
   const components = sharedComponents.map(toRuntime).filter((item): item is NonNullable<typeof item> => Boolean(item));
   for (const artifact of [...runtimePages, ...runtimeShells]) {
     const errors = validateArtifact(artifact, components, packages).filter(diagnostic => diagnostic.severity === 'error');

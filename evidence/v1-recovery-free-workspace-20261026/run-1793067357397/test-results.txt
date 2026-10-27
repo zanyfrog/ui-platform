@@ -1,0 +1,65 @@
+✔ actual workspace graph/list/read keeps membership, identity and saved hash (118.3991ms)
+✔ every collection pending journal refuses without replay, including missing anchor (170.6084ms)
+✔ direct read refuses valid replayable journal without changing source or journal (77.8737ms)
+✖ foreign graph and role locks are refused, never probed or cleaned (68.8111ms)
+✔ identity diagnostics, wrong collection kind and duplicate permanent identities survive (108.4303ms)
+✖ ordinary save validates and admits once; stale hash and identity replacement still refuse (266.5987ms)
+✔ cancellation through request context cleans graph and role locks before returning (96.065ms)
+✔ caller options cannot downgrade workspace refusal after entry (60.5746ms)
+✔ composition workspace propagates refusal through its Page, Shell and Component lists (135.0794ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 7
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1197.1215
+
+✖ failing tests:
+
+test at evidence\v1-recovery-free-workspace-20261026\run-1793067357397\recovery-free.test.mjs:1879:1
+✖ foreign graph and role locks are refused, never probed or cleaned (68.8111ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!events.some((e) => e.file.endsWith(".recovery")))
+  
+      at file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1887:12
+      at async fixture (file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1805:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at evidence\v1-recovery-free-workspace-20261026\run-1793067357397\recovery-free.test.mjs:1907:1
+✖ ordinary save validates and admits once; stale hash and identity replacement still refuse (266.5987ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /identity/i. Input:
+  
+  'Error: Artifact, Route and Component identities and kind are immutable.'
+  
+      at async file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1923:3
+      at async fixture (file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1805:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: Artifact, Route and Component identities and kind are immutable.
+        at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1572:175)
+        at file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1393:17
+        at withArtifactLock.timeoutMs (file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1293:12)
+        at async file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1057:20
+        at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1170:16)
+        at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1050:16)
+        at async VisualArtifactService.saveCandidate (file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1567:5)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async file:///C:/Projects/Modular/ui-platform/evidence/v1-recovery-free-workspace-20261026/run-1793067357397/recovery-free.test.mjs:1923:3,
+    expected: /identity/i,
+    operator: 'rejects',
+    diff: 'simple'
+  }

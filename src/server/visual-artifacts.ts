@@ -55,13 +55,17 @@ export class VisualArtifactService {
     // Independent read-only role captures may run in a bounded batch. Each
     // retains its own Foundation lock/recovery; output remains locator-ordered.
     for (let offset = 0; offset < locators.length; offset += 4) {
-      bundles.push(...await Promise.all(locators.slice(offset, offset + 4).map(async locator => {
+      const reads = locators.slice(offset, offset + 4).map(async locator => {
         try { return await this.read(locator, options); }
         catch (error) {
           if (options.recovery === 'refuse') throw error;
           return { locator, hash: '', files: { source: '', css: '', metadata: '', fixtures: '', code: '' }, diagnostics: [{ severity: 'error' as const, message: String(error) }] };
         }
-      })));
+      });
+      bundles.push(...await Promise.all(reads).catch(async error => {
+        if (options.recovery === 'refuse') await Promise.allSettled(reads);
+        throw error;
+      }));
     }
     for (const key of ['artifactId', 'componentId'] as const) {
       const ids = new Set<string>();
@@ -156,10 +160,15 @@ export function pageEntry(): string {
   return `import source from './page.html?raw';\nimport css from './page.css?raw';\nimport metadata from './page.visual.json';\nimport * as functions from './page.functions';\nimport { components, packages } from 'virtual:uip-visual-artifacts';\nimport { createVisualPage } from '@ui-platform/visual-artifacts/runtime';\nimport type { ArtifactMetadata } from '@ui-platform/visual-artifacts';\nexport const route = metadata.route;\nexport const title = metadata.displayName;\nimport { createApplicationDataServices } from '@uib/platform-core/application-data';\nexport const { render } = createVisualPage({ source, css, metadata: metadata as ArtifactMetadata, functions }, { components, packages, services: createApplicationDataServices() });\n`;
 }
 export function toRuntime(bundle: ArtifactBundle): RuntimeArtifact | undefined { return bundle.metadata ? { metadata: bundle.metadata, source: bundle.files.source, css: bundle.files.css } : undefined; }
-export async function visualWorkspace(appKey: string, packages: PackageComponent[]) {
+export async function visualWorkspace(appKey: string, packages: PackageComponent[], options: RoleBundleReadOptions = {}) {
+  options = { ...options };
   const pageService = new VisualArtifactService(path.join(appPath(appKey), 'src', 'pages'), 'page');
   const componentService = new VisualArtifactService(platformComponentsRoot, 'component');
-  const [pages, components, shells] = await Promise.all([pageService.list(), componentService.list(), new VisualArtifactService(path.join(appPath(appKey), 'shells'), 'shell').list()]);
+  const reads = [pageService.list(options), componentService.list(options), new VisualArtifactService(path.join(appPath(appKey), 'shells'), 'shell').list(options)];
+  const [pages, components, shells] = await Promise.all(reads).catch(async error => {
+    if (options.recovery === 'refuse') await Promise.allSettled(reads);
+    throw error;
+  });
   const runtime = components.map(toRuntime).filter((item): item is RuntimeArtifact => Boolean(item));
   for (const bundle of [...pages, ...components, ...shells]) if (bundle.metadata) {
     try { bundle.diagnostics.push(...validateArtifact(toRuntime(bundle)!, runtime, packages)); }

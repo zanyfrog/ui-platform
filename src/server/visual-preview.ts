@@ -6,6 +6,7 @@ import { visualWorkspace } from './visual-artifacts.js';
 import { compositionWorkspace } from './application-composition.js';
 import { discoverComponents } from './component-registry.js';
 import { platformComponentsRoot } from './visual-artifacts.js';
+import type { RoleBundleReadOptions } from '@ui-platform/artifacts/storage';
 
 /** The isolated inspector preview has no Application Vite helper graph.
  * Helpers continue to work in the Application runtime; explicitly block an
@@ -15,12 +16,13 @@ export function isolatedPreviewCode(bundle: ArtifactBundle): string {
   assertIsolatedPreviewFunctions(bundle.files.code);
   return compileVisualFunctions(bundle.files.code);
 }
-export function visualPreviewRevision(key: string, kind: string, locator: string, expectedHash: string, authorizeRelated: (kind: 'shell' | 'component') => Promise<void> = async () => {}) {
+export function visualPreviewRevision(key: string, kind: string, locator: string, expectedHash: string, authorizeRelated: (kind: 'shell' | 'component') => Promise<void> = async () => {}, options: RoleBundleReadOptions = {}) {
+  options = { ...options };
   return withRuntimeGraphRead(platformComponentsRoot, async () => {
-    const packages = await discoverComponents(key), workspace = await visualWorkspace(key, packages);
+    const packages = await discoverComponents(key), workspace = await visualWorkspace(key, packages, options);
     const selected = (kind === 'page' ? workspace.pages : kind === 'shell' ? workspace.shells : kind === 'component' ? workspace.components : []).find(bundle => bundle.locator === locator);
     if (!selected || selected.hash !== expectedHash) throw Object.assign(new Error('Preview source changed. Reload its complete revision before previewing.'), { status: 409 });
-    const composition = selected.metadata?.shellId || kind === 'shell' ? await compositionWorkspace(key, packages) : null;
+    const composition = selected.metadata?.shellId || kind === 'shell' ? await compositionWorkspace(key, packages, undefined, options) : null;
     const shells = composition ? workspace.shells.filter(shell => shell.metadata?.artifactId === (kind === 'shell' ? selected.metadata?.artifactId : selected.metadata?.shellId)) : [];
     const required = new Set([selected, ...shells].flatMap(bundle => [...componentReferences(bundle.files.source), ...(bundle.metadata?.dependencies ?? [])]));
     const components: ArtifactBundle[] = [];
@@ -36,9 +38,9 @@ export function visualPreviewRevision(key: string, kind: string, locator: string
     if (participating.some(bundle => !bundle.metadata || bundle.diagnostics.some(d => d.severity === 'error'))) throw Object.assign(new Error('Correct the complete preview graph before loading this revision.'), { status: 422 });
     const code = Object.fromEntries(participating.map(bundle => [bundle.hash, isolatedPreviewCode(bundle)]));
     // External source actors ignore our graph lock: recheck all participating bytes.
-    const next = await visualWorkspace(key, packages);
+    const next = await visualWorkspace(key, packages, options);
     for (const bundle of participating) if (![...next.pages, ...next.shells, ...next.components].some(item => item.locator === bundle.locator && item.hash === bundle.hash)) throw Object.assign(new Error('Preview dependency changed while capturing its revision.'), { status: 409 });
-    if (composition && JSON.stringify(await compositionWorkspace(key, packages)) !== JSON.stringify(composition)) throw Object.assign(new Error('Preview composition changed while capturing its revision.'), { status: 409 });
+    if (composition && JSON.stringify(await compositionWorkspace(key, packages, undefined, options)) !== JSON.stringify(composition)) throw Object.assign(new Error('Preview composition changed while capturing its revision.'), { status: 409 });
     return { bundle: selected, packages: workspace.packages, components, shells, composition: composition ? { ...composition, pages: kind === 'page' ? composition.pages.filter(page => page.metadata.artifactId === selected.metadata?.artifactId) : [], shells: composition.shells.filter(shell => shells.some(bundle => bundle.metadata?.artifactId === shell.metadata.artifactId)) } : null, code };
-  });
+  }, options);
 }

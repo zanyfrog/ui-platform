@@ -1,0 +1,16 @@
+/** Disposable path mapping only. This supplies no session or authorization. */
+import path from 'node:path';
+import type { PackageComponent } from '../../packages/visual-artifacts/src/model.js';
+const denied = (..._args: unknown[]): never => { throw new Error('UNADMITTED_WORKSPACE_BRANCH'); };
+export const platformRoot = process.env.V1_WORKSPACE_FIXTURE_ROOT!;
+if (!platformRoot || !path.isAbsolute(platformRoot)) throw new Error('FIXTURE_ROOT_REQUIRED');
+export const appsDir = path.join(platformRoot, 'apps');
+export function appPath(key: string): string {
+  if (key !== 'fixture') return denied();
+  return path.join(appsDir, key);
+}
+export const moveToOsTrash = denied;
+export async function discoverComponents(_key: string): Promise<PackageComponent[]> { return denied(); }
+export const prepareVisualCandidate = denied;
+export async function transform(_text: string, _options: unknown): Promise<{ warnings: { text: string }[] }> { return denied(); }
+export function compileVisualFunctions(_text: string): string { return denied(); }
