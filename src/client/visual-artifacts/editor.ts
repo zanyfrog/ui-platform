@@ -195,6 +195,9 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     }
     if (!node) {
       inspector.innerHTML = '<p class="note">Select a managed node to edit settings and bindings.</p>';
+      const manualIndex = /^manual:(\d+)$/.exec(selectedNode);
+      const manual = manualIndex ? parsed.nodes[Number(manualIndex[1])] : undefined;
+      if (manual && !manual.id) inspector.firstElementChild!.textContent = `This ${manual.tag} is an unmanaged/manual node: its HTML has no usable data-uip-node identity. A component reference alone does not make it managed. Existing source is preserved; insert a new instance using the insertion controls.`;
       const metadata = workingMetadata();
       compositionAuthoring(inspector, { metadata, change: changeMetadata, workflows: async () => (await request<import('../../shared/automation-service-contract.js').AutomationAuthoringCatalog>(`${base}/automation-catalog`)).workflows, datasets: () => request(`${base}/datasets/discovery`), error: cause => status(String(cause)) });
       if (selectedKind === 'page' && metadata.shellId) {
