@@ -194,6 +194,14 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
           if (!pkg) throw new Error(`Unresolved component: ${componentId}.`);
           if (!customElements.get(pkg.tagName)) throw new Error(`Package runtime is not registered: ${pkg.tagName}.`);
           if (pkg.definition) {
+            // Authored HTML slot children own their content. Suppress only the
+            // generated default, preserving explicitly stored legacy values.
+            const stored = JSON.parse(element.getAttribute('data-uip-settings') ?? '{}');
+            for (const [key, contract] of Object.entries(pkg.definition.builder.settings)) if (contract.binding?.kind === 'slot' && !Object.hasOwn(stored, key)) {
+              const slot = contract.binding.name || 'default';
+              const authored = [...element.childNodes].some(child => child.nodeType === Node.TEXT_NODE ? slot === 'default' && Boolean(child.textContent?.trim()) : child instanceof Element && (child.getAttribute('slot') || 'default') === slot);
+              if (authored) settings[key] = '';
+            }
             output = renderComponentInstance(pkg.definition, { componentId, settings }, { registry, document, preview: false });
             const ownedAttributes = new Set(Object.values(pkg.definition.builder.settings).filter(s => s.binding?.kind === 'attribute').map(s => s.binding!.name));
             for (const attr of element.attributes) if (!ownedAttributes.has(attr.name) && !['data-uip-settings', 'data-uip-component'].includes(attr.name)) output.setAttribute(attr.name, attr.value);

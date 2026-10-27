@@ -1,5 +1,5 @@
 import { parseSource, isWrapper } from './source.js';
-import { packageSettingErrors, readPackageSettings, legacyPackageSettingContracts } from './model.js';
+import { packageSettingErrors, readPackageSettings, readLegacyPackageSettings, legacyPackageSettingContracts } from './model.js';
 import { calculationOrder, expressionType } from './expression.js';
 import { formCalculations, formExpressionFields } from './form.js';
 import type { ArtifactMetadata, Diagnostic, Expression, PackageComponent, PropertyContract, RuntimeArtifact } from './model.js';
@@ -110,6 +110,7 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
         const definitions = pkg[0].definition?.builder.settings;
         if (pkg[0].definition) for (const child of node.children) if (!pkg[0].definition.runtime.slots.some(slot => slot.name === (child.attributes.slot || 'default'))) error(`Unknown installed Package slot: ${child.attributes.slot}.`, node.id);
         if (pkg[0].definition) settings = readPackageSettings(pkg[0].definition, node.attributes, settings);
+        else settings = readLegacyPackageSettings(pkg[0], node.attributes, settings);
         if (pkg[0].definition && !(m.bindings ?? []).some(binding => binding.node === node.id && binding.target.startsWith('setting:'))) packageSettingErrors(pkg[0].definition, settings).forEach(message => error(message, node.id));
         for (const [key, value] of Object.entries(settings)) {
           const contract = definitions?.[key];

@@ -1,0 +1,19 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n[\n  'node_907b58e0-e878-4f36-aa3e-99db310fe12c',\n  'node_a576fc9d-5d8f-4fbc-984d-323e3e9d99f5'\n]\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n[\n  'node_907b58e0-e878-4f36-aa3e-99db310fe12c',\n  'node_a576fc9d-5d8f-4fbc-984d-323e3e9d99f5'\n]\n\n    at file:///C:/Projects/Modular/ui-platform/scripts/verify-html-first.mjs:56:153",
+  "source": "<!-- authored fixture Page -->\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_777a99fc-4451-4ad0-808b-0f66e276f451\">\n  <uib-card data-uip-node=\"node_907b58e0-e878-4f36-aa3e-99db310fe12c\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" heading=\"HTML &quot;Card&quot; &amp; &lt;literal>\" variant=\"outlined\" density=\"compact\"><span data-uip-node=\"node_1e833ce6-bf61-447b-9b91-9b28937e6196\">Saved body $1 &amp; &quot;quotes&quot; &lt;text></span><span data-uip-node=\"node_74deaefa-b2dc-4728-b50b-dbca2c4ac502\" slot=\"header\">Saved header</span><span data-uip-node=\"node_2b02d7fd-c3d8-4745-849d-e370cbd595af\" slot=\"footer\">Saved footer</span></uib-card>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_6fa3583d-b5a7-4cf8-931b-598a3ce44391\">\n  <uib-panel data-uip-node=\"node_a576fc9d-5d8f-4fbc-984d-323e3e9d99f5\" data-uip-component=\"@ui-base/ui:uib-panel\" variant=\"flat\" density=\"compact\"></uib-panel>\n</div>\n",
+  "status": "Visual ArtifactsSaved\n    Create PageCreate ShellCreate Platform ComponentCreate Form from DatasetCreate blank FormSelect an artifactFixture\n    UndoRedoSave NowAdvanced source repair saveReload / discard editor changesDownload editor recoveryDelete artifactDesign previewChange Page ShellAdd RegionPlace Application MenuRemove selected node\n    Layout is manual because this node has no Builder wrapper.Layout is manual because this node has no Builder wrapper.Layout is manual because this node has no Builder wrapper.Structurediv node_777a99fc-4451-4ad0-808b-0f66e276f451uib-card node_907b58e0-e878-4f36-aa3e-99db310fe12cspan node_1e833ce6-bf61-447b-9b91-9b28937e6196span node_74deaefa-b2dc-4728-b50b-dbca2c4ac502span node_2b02d7fd-c3d8-4745-849d-e370cbd595afdiv node_6fa3583d-b5a7-4cf8-931b-598a3ce44391uib-panel node_a576fc9d-5d8f-4fbc-984d-323e3e9d99f5\n    Insert into selected HTML container, or artifact rootsectiondivarticleph2abuttonimgullispanuip-slotCardPanelInsert with layout wrapperSelect artifact rootMove layout item upMove layout item downCSS classesLegacy package metadata: only declared attributes/properties are configurable. Typed public slots/events are unavailable unless explicitly declared.variantelevatedoutlinedflatdensitycomfortablecompactInstance bindingBinding targetattribute:variantattribute:densityBindingBinding sourceNamed source pathLiteral textLiteral numberLiteral booleanBinding valueApply bindingEvent actionNo public event metadata is declared for this Component.BreakpointbasetabletmobilewidthheightmarginpaddingdisplaygridTemplateColumnsgridColumngapalignItemsjustifyContentflexDirection\n    Source filesourcecssmetadatafixturescodeUse the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.",
+  "calls": [
+    {
+      "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+      "method": "PUT"
+    },
+    {
+      "method": "NONPRODUCTION_OWNER_ADMISSION"
+    },
+    {
+      "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+      "method": "GET"
+    }
+  ]
+}

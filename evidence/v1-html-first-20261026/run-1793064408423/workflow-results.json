@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "autosave": false,
+      "cardId": "node_22c65700-e029-4717-bbef-209ed2544e7c",
+      "panelId": "node_32156340-380a-4ccf-a195-9b07d54cacd9",
+      "savedHash": "c44b4c586be61fe621ab0045396022ab93906b3c3037b40bc9839586a0b619f8",
+      "savedSource": "<!-- authored fixture Page -->\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_cb0e153d-0fc1-4e8e-bcca-21d02b734794\">\n  <uib-card data-uip-node=\"node_22c65700-e029-4717-bbef-209ed2544e7c\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" variant=\"outlined\" density=\"compact\" heading=\"Second saved heading\"><span data-uip-node=\"node_49d88e09-d336-4c1e-8aef-53a0ec3f3d89\">Saved body $1 &amp; &quot;quotes&quot; &lt;text>\nSecond literal line</span><span data-uip-node=\"node_92677436-c972-48fd-abae-7dc91f8c1283\" slot=\"header\">Saved header</span><span data-uip-node=\"node_ecb7f2b2-a864-43ae-90b6-80ad8b8f6875\" slot=\"footer\">Saved footer</span></uib-card>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_40b276a3-c672-4852-b117-c50e5e78f859\">\n  <uib-panel data-uip-node=\"node_32156340-380a-4ccf-a195-9b07d54cacd9\" data-uip-component=\"@ui-base/ui:uib-panel\" variant=\"flat\" density=\"compact\"></uib-panel>\n</div>\n",
+      "previewRequest": {
+        "type": "uip-preview",
+        "design": true,
+        "locator": "page/page.visual.json",
+        "kind": "page",
+        "hash": "c44b4c586be61fe621ab0045396022ab93906b3c3037b40bc9839586a0b619f8",
+        "appKey": "fixture-app"
+      },
+      "nativeCardClass": "UibCard",
+      "nativePanelClass": "UibPanel",
+      "cardText": "Saved body $1 & \"quotes\" <text>\nSecond literal lineSaved headerSaved footer",
+      "nativeHeading": "Second saved heading",
+      "calls": [
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?preview=1&locator=page%2Fpage.visual.json&hash=c44b4c586be61fe621ab0045396022ab93906b3c3037b40bc9839586a0b619f8",
+          "method": "GET"
+        }
+      ],
+      "network": [],
+      "errors": []
+    },
+    {
+      "autosave": true,
+      "cardId": "node_9a8ce9f0-6789-457e-9e66-5906ee7098f1",
+      "panelId": "node_5d14da3c-2d9f-4a2e-a828-03476e0e114e",
+      "savedHash": "23381fc032d286559dabff07b94b75aef4b2697e4fd6cec356a0d235c406f59f",
+      "savedSource": "<!-- authored fixture Page -->\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_b9a6e650-76ac-4a32-8b4f-f707bc269d90\">\n  <uib-card data-uip-node=\"node_9a8ce9f0-6789-457e-9e66-5906ee7098f1\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" variant=\"outlined\" density=\"compact\" heading=\"Second saved heading\"><span data-uip-node=\"node_231c479d-a1f2-423e-9ea0-02f7cfb0271f\">Saved body $1 &amp; &quot;quotes&quot; &lt;text>\nSecond literal line</span><span data-uip-node=\"node_57de0fb8-caaa-4cbb-933b-7be0b3355a91\" slot=\"header\">Saved header</span><span data-uip-node=\"node_b80d4d05-2671-4215-b03a-00cfc9e021f5\" slot=\"footer\">Saved footer</span></uib-card>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_aa01a6b7-ef48-4523-9136-9db5710be684\">\n  <uib-panel data-uip-node=\"node_5d14da3c-2d9f-4a2e-a828-03476e0e114e\" data-uip-component=\"@ui-base/ui:uib-panel\" variant=\"flat\" density=\"compact\"></uib-panel>\n</div>\n",
+      "previewRequest": {
+        "type": "uip-preview",
+        "design": true,
+        "locator": "page/page.visual.json",
+        "kind": "page",
+        "hash": "23381fc032d286559dabff07b94b75aef4b2697e4fd6cec356a0d235c406f59f",
+        "appKey": "fixture-app"
+      },
+      "nativeCardClass": "UibCard",
+      "nativePanelClass": "UibPanel",
+      "cardText": "Saved body $1 & \"quotes\" <text>\nSecond literal lineSaved headerSaved footer",
+      "nativeHeading": "Second saved heading",
+      "calls": [
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?preview=1&locator=page%2Fpage.visual.json&hash=23381fc032d286559dabff07b94b75aef4b2697e4fd6cec356a0d235c406f59f",
+          "method": "GET"
+        }
+      ],
+      "network": [],
+      "errors": []
+    }
+  ],
+  "realRenderer": true,
+  "productionAuthorityQualified": false,
+  "iframeTransport": "isolated DOM simulation"
+}

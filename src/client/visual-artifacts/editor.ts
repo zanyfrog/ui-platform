@@ -1,4 +1,4 @@
-import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readPackageSettings, setNodeAttribute, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
 import { chooseNamedValue } from './menu-controls.js';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
 import type { ComponentCatalogEntry } from '../../shared/types.js';
@@ -265,8 +265,12 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     const component = workspace.components.find(c => c.metadata?.componentId === node.attributes['data-uip-component']);
     const contracts = pkg?.definition?.builder.settings ?? (pkg ? legacyPackageSettingContracts(pkg) : component?.metadata?.public?.properties ?? {});
     let settings: Record<string, unknown>;
-    try { settings = JSON.parse(node.attributes['data-uip-settings'] ?? '{}'); } catch { inspector.textContent = 'Repair settings JSON in source first.'; return; }
-    if (pkg?.definition) settings = readPackageSettings(pkg.definition, node.attributes, settings);
+    try { settings = pkg ? readNodeSettings(files.source, selectedNode, pkg.definition, contracts) : JSON.parse(node.attributes['data-uip-settings'] ?? '{}'); } catch { inspector.textContent = 'Repair settings/source before editing properties.'; return; }
+    const writeSetting = (key: string, value: unknown) => {
+      settings[key] = value;
+      if (pkg) files.source = setNodeSetting(files.source, selectedNode, key, value, pkg.definition, contracts);
+      else files.source = setNodeAttribute(files.source, selectedNode, 'data-uip-settings', JSON.stringify(settings));
+    };
     if (pkg && !pkg.definition) {
       inspector.append(Object.assign(document.createElement('p'), { textContent: 'Legacy package metadata: only declared attributes/properties are configurable. Typed public slots/events are unavailable unless explicitly declared.' }));
       const unavailable = Object.keys(pkg.presentation?.settings ?? {}).filter(key => !contracts[key]);
@@ -285,24 +289,23 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       if (packageSetting?.visibleWhen && (settings[packageSetting.visibleWhen.setting] ?? contracts[packageSetting.visibleWhen.setting]?.default) !== packageSetting.visibleWhen.equals) continue;
       if (contract.type === 'object' || contract.type === 'array') {
         valueControls(inspector, `Setting ${key}`, settings[key] ?? contract.default ?? (contract.type === 'array' ? [] : {}), value => {
-          settings[key] = value; files.source = setNodeAttribute(files.source, selectedNode, 'data-uip-settings', JSON.stringify(settings)); changed();
+          writeSetting(key, value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
         }); continue;
       }
       const label = document.createElement('label'); label.textContent = key;
       const values = key === 'mode' && component?.metadata?.modes ? Object.keys(component.metadata.modes.overrides) : contract.enum;
-      const input = values ? document.createElement('select') : document.createElement('input');
+      const input = values ? document.createElement('select') : packageSetting?.binding?.kind === 'slot' && packageSetting.binding.content === 'text' ? document.createElement('textarea') : document.createElement('input');
       if (input instanceof HTMLSelectElement) values!.forEach(value => { const option = document.createElement('option'); option.value = JSON.stringify(value); option.textContent = String(value); input.append(option); });
       if (input instanceof HTMLInputElement) input.type = contract.type === 'boolean' ? 'checkbox' : contract.type === 'number' ? 'number' : 'text';
       const value = settings[key] ?? contract.default;
       if (input instanceof HTMLSelectElement) input.value = JSON.stringify(value);
-      else if (input.type === 'checkbox') input.checked = Boolean(value);
+      else if (input instanceof HTMLInputElement && input.type === 'checkbox') input.checked = Boolean(value);
       else input.value = typeof value === 'object' ? JSON.stringify(value) : String(value ?? '');
       input.setAttribute('aria-label', `Setting ${key}`);
       input.addEventListener('change', safe(() => {
-        settings[key] = input instanceof HTMLSelectElement ? JSON.parse(input.value) : input.type === 'checkbox' ? input.checked : input.type === 'number' ? Number(input.value) : ['object', 'array'].includes(contract.type) ? JSON.parse(input.value) : input.value;
+        writeSetting(key, input instanceof HTMLSelectElement ? JSON.parse(input.value) : input instanceof HTMLInputElement && input.type === 'checkbox' ? input.checked : input.type === 'number' ? Number(input.value) : ['object', 'array'].includes(contract.type) ? JSON.parse(input.value) : input.value);
         // Reset mode-specific settings exactly as the installed Definition requires.
-        for (const [name, item] of Object.entries(pkg?.definition?.builder.settings ?? {})) if (item.visibleWhen && (settings[item.visibleWhen.setting] ?? pkg!.definition!.builder.settings[item.visibleWhen.setting].default) !== item.visibleWhen.equals) settings[name] = item.default;
-        files.source = setNodeAttribute(files.source, selectedNode, 'data-uip-settings', JSON.stringify(settings));
+        if (packageSetting?.binding?.kind === 'mode') for (const [name, item] of Object.entries(pkg?.definition?.builder.settings ?? {})) if (item.visibleWhen && (settings[item.visibleWhen.setting] ?? pkg!.definition!.builder.settings[item.visibleWhen.setting].default) !== item.visibleWhen.equals) writeSetting(name, item.default);
         find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
       }));
       label.append(input); inspector.append(label);

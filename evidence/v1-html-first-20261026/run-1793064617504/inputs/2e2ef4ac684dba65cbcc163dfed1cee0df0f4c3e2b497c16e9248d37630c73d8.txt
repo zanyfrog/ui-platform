@@ -1,0 +1,52 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createServer} from 'node:http';
+/** Disposable loopback fixture only. Actual editor iframe/message/client/native rendering. */
+export async function verifyRealBrowser({playwright,createFixture,editorCode,previewCode,previewHtml,out}){
+ const f=await createFixture(),requests=[],blocked=[],errors=[];let browser;
+ const initial=JSON.stringify(JSON.stringify(await f.workspace())).replaceAll('<','\\u003c');
+ const html='<!doctype html><html><head><link rel="icon" href="data:,"></head><body><script>window.htmlFirstInitial='+initial+';window.htmlFirstBridge=async(url,init)=>{const r=await fetch(url,init?JSON.parse(init):{});if(!r.ok)throw Error(await r.text());return r.text();};</script><script src="/editor.js"></script></body></html>';
+ const server=createServer(async(req,res)=>{
+  requests.push({url:req.url,method:req.method});
+  try{
+   if(req.method==='GET'&&req.url==='/'){res.writeHead(200,{'content-type':'text/html'}).end(html);return;}
+   if(req.method==='GET'&&req.url==='/editor.js'){res.writeHead(200,{'content-type':'text/javascript'}).end(editorCode);return;}
+   if(req.method==='GET'&&req.url==='/visual-preview.html'){res.writeHead(200,{'content-type':'text/html'}).end(previewHtml);return;}
+   if(req.method==='GET'&&req.url==='/src/client/visual-artifacts/preview.ts'){res.writeHead(200,{'content-type':'text/javascript'}).end(previewCode);return;}
+   if(req.method==='GET'&&req.url==='/favicon.ico'){res.writeHead(204).end();return;}
+   if(req.url?.startsWith('/api/apps/fixture-app/visual-')&&['GET','PUT'].includes(req.method)){
+    let body='';for await(const chunk of req)body+=chunk;
+    const result=await f.bridge(req.url,req.method==='PUT'?JSON.stringify({method:'PUT',body}):undefined);
+    res.writeHead(200,{'content-type':'application/json','cache-control':'no-store'}).end(result);return;
+   }
+   blocked.push({url:req.url,method:req.method});res.writeHead(403).end('UNADMITTED_FIXTURE_ROUTE');
+  }catch(error){res.writeHead(409,{'content-type':'application/json'}).end(JSON.stringify({error:String(error)}));}
+ });
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+ try{
+  browser=await playwright.chromium.launch({headless:true,channel:'msedge'});const context=await browser.newContext();
+  await context.route('**/*',route=>{if(new URL(route.request().url()).origin!==origin){blocked.push({url:route.request().url()});return route.abort();}return route.continue();});
+  const page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));await page.goto(origin);await page.waitForFunction(()=>window.htmlFirst);await page.evaluate(()=>window.htmlFirst.mount(false));
+  const settle=()=>page.waitForFunction(()=>!window.htmlFirst.dirty().pending&&!window.htmlFirst.busy());
+  await page.evaluate(id=>window.htmlFirst.add(id),f.packages[0].id);await settle();
+  const cardId=await page.evaluate(()=>window.htmlFirst.nodes().find(n=>n.tag==='uib-card').id);
+  const body='Real browser saved body\nSecond literal line';
+  for(const[key,value]of Object.entries({heading:'Browser first heading',variant:'outlined',density:'compact',body,header:'Browser header',footer:'Browser footer'})){await page.evaluate(({key,value})=>window.htmlFirst.property(key,value),{key,value});await settle();}
+  await page.evaluate(()=>{window.htmlFirst.root();});await page.evaluate(id=>window.htmlFirst.add(id),f.packages[1].id);await settle();
+  for(const[key,value]of Object.entries({variant:'flat',density:'compact'})){await page.evaluate(({key,value})=>window.htmlFirst.property(key,value),{key,value});await settle();}
+  const source=await page.evaluate(()=>window.htmlFirst.source());assert.ok(!source.includes('data-uip-settings'));
+  await page.evaluate(()=>window.htmlFirst.save());await page.waitForFunction(()=>!window.htmlFirst.dirty().dirty&&!window.htmlFirst.dirty().pending);assert.equal((await f.read()).files.source,source);
+  await page.evaluate(()=>window.htmlFirst.reload());await settle();assert.equal(await page.evaluate(()=>window.htmlFirst.source()),source);
+  await page.evaluate(id=>window.htmlFirst.select(id),cardId);await page.evaluate(()=>window.htmlFirst.property('heading','Browser second saved heading'));await settle();
+  await page.evaluate(()=>window.htmlFirst.save());await page.waitForFunction(()=>!window.htmlFirst.dirty().dirty&&!window.htmlFirst.dirty().pending);const saved=await f.read();
+  await page.evaluate(()=>window.htmlFirst.reload());await settle();await page.evaluate(()=>window.htmlFirst.preview());await settle();
+  const iframe=page.locator('[data-preview-host] iframe');await iframe.waitFor();const frame=await (await iframe.elementHandle()).contentFrame();assert.ok(frame);
+  const card=frame.locator('uib-card');await card.waitFor();assert.equal(await card.getAttribute('heading'),'Browser second saved heading');assert.ok((await card.textContent()).includes(body));assert.ok(!(await card.textContent()).includes('Card body'));
+  const panel=frame.locator('uib-panel');assert.equal(await panel.getAttribute('variant'),'flat');
+  const identity=await card.evaluate(el=>({name:el.constructor.name,registered:el.constructor===customElements.get('uib-card'),shadow:!!el.shadowRoot,body:el.textContent}));assert.ok(identity.registered&&identity.shadow);
+  await frame.locator('[data-uip-artifact]').screenshot({path:path.join(out,'saved-native-card.png')});
+  await page.evaluate(id=>window.htmlFirst.select(id),cardId);await page.evaluate(()=>window.htmlFirst.property('heading','Browser UNSAVED draft'));await settle();
+  await page.evaluate(()=>window.htmlFirst.preview());await settle();assert.equal(await card.getAttribute('heading'),'Browser second saved heading');assert.equal((await f.read()).hash,saved.hash);
+  assert.deepEqual(blocked,[]);assert.deepEqual(errors,[]);await page.evaluate(()=>window.htmlFirst.dispose());
+  fs.writeFileSync(path.join(out,'real-browser-results.json'),JSON.stringify({passed:true,browserVersion:browser.version(),savedHash:saved.hash,savedSource:saved.files.source,identity,requests,blocked,errors,transport:'actual same-origin design iframe, postMessage, Preview client, saved source owner and actual native renderer',productionAuthorityQualified:false},null,2));
+ }catch(error){fs.writeFileSync(path.join(out,'real-browser-failure.json'),JSON.stringify({error:String(error),stack:error.stack,requests,blocked,errors},null,2));throw error;}
+ finally{await browser?.close();await new Promise(r=>server.close(r));const trace=await f.close();fs.writeFileSync(path.join(out,'real-browser-fs-trace.json'),JSON.stringify(trace,null,2));}
+}

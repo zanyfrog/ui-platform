@@ -121,3 +121,9 @@ export function readPackageSettings(definition: PackageDefinition, attributes: R
   }
   return { ...values, ...stored };
 }
+/** Same direct attribute mapping already used by legacy package rendering. */
+export function readLegacyPackageSettings(pkg: PackageComponent, attributes: Record<string, string>, stored: Record<string, unknown>): Record<string, unknown> {
+  const values: Record<string, unknown> = {};
+  for (const [key, contract] of Object.entries(legacyPackageSettingContracts(pkg))) if (Object.hasOwn(attributes, key)) values[key] = contract.type === 'boolean' ? attributes[key] !== 'false' : contract.type === 'number' ? Number(attributes[key]) : attributes[key];
+  return { ...values, ...stored };
+}

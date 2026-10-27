@@ -1,4 +1,5 @@
 import type { Diagnostic } from './model.js';
+import { readPackageSettings, valueErrors, type PackageDefinition, type PropertyContract } from './model.js';
 
 export interface SourceNode { id?: string; tag: string; attributes: Record<string, string>; start: number; openEnd: number; end: number; closeStart: number; parent?: SourceNode; children: SourceNode[]; manual: boolean }
 const voidTags = new Set('area base br col embed hr img input link meta param source track wbr'.split(' '));
@@ -108,6 +109,80 @@ export function setNodeAttribute(source: string, id: string, name: string, value
   const attr = ` ${name}="${escapeAttribute(value)}"`;
   const next = pattern.test(opening) ? opening.replace(pattern, () => attr) : opening.replace(/\s*\/?>$/, end => attr + end);
   return source.slice(0, node.start) + next + source.slice(node.openEnd);
+}
+/** Remove an attribute through the same admitted source reader; leave other bytes intact. */
+export function removeNodeAttribute(source: string, id: string, name: string): string {
+  if (!/^[a-z][a-z0-9:-]*$/.test(name)) throw new Error('Invalid attribute name.');
+  const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);
+  if (parsed.diagnostics.some(d => d.severity === 'error') || !node || node.manual) throw new Error('Select an unambiguous editor-managed node.');
+  const opening = source.slice(node.start, node.openEnd);
+  const next = opening.replace(new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`, 'gi'), '');
+  return source.slice(0, node.start) + next + source.slice(node.openEnd);
+}
+function literalNode(source: string, id: string) {
+  const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);
+  if (parsed.diagnostics.some(d => d.severity === 'error') || !node || node.manual) throw new Error('Repair source before editing instance values.');
+  const stored = JSON.parse(node.attributes['data-uip-settings'] ?? '{}');
+  if (!stored || Array.isArray(stored) || typeof stored !== 'object') throw new Error('Component settings must be an object.');
+  return { node, stored: stored as Record<string, unknown> };
+}
+function slotText(source: string, node: SourceNode, name: string): { start: number; end: number; text: string } | undefined {
+  const children = node.children.filter(child => (child.attributes.slot || 'default') === name);
+  const direct: Array<{ start: number; end: number; text: string }> = [];
+  if (name === 'default') {
+    let start = node.openEnd;
+    for (const end of [...node.children.map(child => child.start), node.closeStart]) {
+      const text = source.slice(start, end); if (text.trim()) direct.push({ start, end, text });
+      start = node.children.find(child => child.start === end)?.end ?? node.closeStart;
+    }
+  }
+  if (!direct.length && children.length === 1 && !children[0].children.length && children[0].tag === 'span') {
+    const child = children[0], text = source.slice(child.openEnd, child.closeStart);
+    if (!text.includes('<')) return { start: child.openEnd, end: child.closeStart, text: decode(text) };
+  }
+  if (!children.length && direct.length === 1 && !direct[0].text.includes('<')) return { ...direct[0], text: decode(direct[0].text) };
+  return undefined;
+}
+/** Existing JSON-only values retain compatibility; new literal fields live in HTML. */
+export function readNodeSettings(source: string, id: string, definition?: PackageDefinition, contracts: Record<string, PropertyContract> = {}): Record<string, unknown> {
+  const { node, stored } = literalNode(source, id);
+  const values = definition ? readPackageSettings(definition, node.attributes, stored) : { ...stored };
+  for (const [key, contract] of Object.entries(definition?.builder.settings ?? contracts)) {
+    const binding = definition?.builder.settings[key]?.binding;
+    if (!definition && /^[a-z][a-z0-9-]*$/.test(key) && Object.hasOwn(node.attributes, key) && !Object.hasOwn(stored, key)) values[key] = contract.type === 'boolean' ? node.attributes[key] !== 'false' : contract.type === 'number' ? Number(node.attributes[key]) : node.attributes[key];
+    if (binding?.kind === 'slot' && binding.content === 'text' && !Object.hasOwn(stored, key)) {
+      const slot = slotText(source, node, binding.name || 'default'); if (slot) values[key] = slot.text;
+    }
+  }
+  return values;
+}
+/** Explicit property edits replace only that property's old JSON override. No bulk migration. */
+export function setNodeSetting(source: string, id: string, key: string, value: unknown, definition?: PackageDefinition, contracts: Record<string, PropertyContract> = {}): string {
+  const { node, stored } = literalNode(source, id), contract = definition?.builder.settings[key] ?? contracts[key];
+  if (!contract || valueErrors(value, contract, key).length) throw new Error('Invalid declared component value.');
+  const binding = definition?.builder.settings[key]?.binding;
+  const attribute = binding?.kind === 'attribute' ? binding.name : !definition && /^[a-z][a-z0-9-]*$/.test(key) ? key : undefined;
+  let next = source;
+  if (attribute && ['string', 'number', 'boolean'].includes(contract.type) && !(value === false && contract.default === true)) {
+    next = removeNodeAttribute(next, id, attribute);
+    next = contract.type === 'boolean' && value === false ? removeNodeAttribute(next, id, attribute) : setNodeAttribute(next, id, attribute, contract.type === 'boolean' ? '' : String(value));
+    delete stored[key];
+  } else if (binding?.kind === 'slot' && binding.content === 'text' && typeof value === 'string') {
+    const name = binding.name || 'default', slot = slotText(source, node, name);
+    if (slot) next = source.slice(0, slot.start) + escapeAttribute(value) + source.slice(slot.end);
+    else {
+      const directText = name === 'default' ? node.children.reduce((text, child) => text.replace(source.slice(child.start, child.end), ''), source.slice(node.openEnd, node.closeStart)).trim() : '';
+      if (node.children.some(child => (child.attributes.slot || 'default') === name) || directText) throw new Error('Edit nested or mixed slot content in HTML; it cannot be replaced as a literal.');
+      const markup = `<span data-uip-node="node_${globalThis.crypto.randomUUID()}"${name === 'default' ? '' : ` slot="${escapeAttribute(name)}"`}>${escapeAttribute(value)}</span>`;
+      next = source.slice(0, node.closeStart) + markup + source.slice(node.closeStart);
+    }
+    delete stored[key];
+  } else {
+    // Complex/mode/event mappings keep their existing representation until a
+    // compatible literal mapping is established. Never infer aliases.
+    stored[key] = value;
+  }
+  return Object.keys(stored).length ? setNodeAttribute(next, id, 'data-uip-settings', JSON.stringify(stored)) : removeNodeAttribute(next, id, 'data-uip-settings');
 }
 export function insertNode(source: string, tag: string, componentId?: string, parentId?: string, newId = () => `node_${globalThis.crypto.randomUUID()}`, slot?: string): string {
   if (!/^[a-z][a-z0-9-]*$/.test(tag) || ['script', 'style', 'iframe'].includes(tag)) throw new Error('Unsupported insertion tag.');
