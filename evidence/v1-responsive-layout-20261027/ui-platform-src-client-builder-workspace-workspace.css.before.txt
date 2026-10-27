@@ -1,0 +1,20 @@
+.builder-workspace { padding: 1rem; border: 1px solid var(--uib-color-border, #ccc); border-radius: .5rem; }
+.builder-workspace > header, .builder-workspace [role=tablist] { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.workspace-layout { display: grid; grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr); gap: 1rem; }
+.navigation-collapsed .workspace-layout { grid-template-columns: minmax(0, 1fr); }
+.builder-workspace nav button { display: block; width: 100%; text-align: left; margin: .25rem 0; }
+.builder-workspace summary { padding: .5rem 0; cursor: pointer; font-weight: 600; }
+.workspace-main { min-width: 0; }
+.builder-workspace [role=tab][aria-selected=true] { font-weight: bold; border-bottom: 3px solid currentColor; }
+.workspace-editor { margin-top: 1rem; }
+.workspace-editor textarea { max-width: 100%; }
+.builder-workspace [hidden] { display: none !important; }
+.builder-workspace button { border-radius: .35rem; padding: .35rem .6rem; font-size: .875rem; line-height: 1.4; min-width: 0; }
+.builder-workspace nav { align-self: start; max-height: 75vh; overflow: auto; }
+.builder-workspace nav button { background: transparent; color: inherit; border: 1px solid #d2dce8; }
+.workspace-editor .editor-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.workspace-editor .builder-layout { background: transparent; padding: 0; }
+.workspace-editor .builder-layout > .stack { min-width: 0; }
+.workspace-editor .source-editor { width: 100%; box-sizing: border-box; }
+.workspace-editor pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 800px) { .workspace-layout { grid-template-columns: minmax(0, 1fr); } }
