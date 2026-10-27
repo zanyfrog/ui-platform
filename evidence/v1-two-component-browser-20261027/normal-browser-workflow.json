@@ -1,0 +1,96 @@
+{
+  "application": {
+    "key": "v1-identity-fixture",
+    "id": "dev-v1-identity-fixture",
+    "principal": "Application Admin (admin@example.local)"
+  },
+  "page": {
+    "locator": "v1-two-component-20261027/page.visual.json",
+    "artifactId": "art_118018ee-5b6b-47e4-96bc-d98ffde987ed",
+    "name": "v1-two-component-20261027",
+    "route": "/v1-two-component-20261027"
+  },
+  "components": {
+    "card": {
+      "nodeId": "node_0b12d213-1aa2-406b-bc4f-974aed2be630",
+      "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+      "heading": "Two-component Card",
+      "body": "Saved Card body in the two-component workflow.",
+      "footer": "Card footer saved"
+    },
+    "panel": {
+      "nodeId": "node_4db07aad-8520-4aa4-a990-8794811135af",
+      "componentId": "@ui-base/ui:uib-panel",
+      "variant": "outlined",
+      "density": "compact",
+      "contentLimit": "Installed legacy contract declares only variant/density; no body/heading or public insertion slots"
+    }
+  },
+  "initial": {
+    "savedEqualsReloaded": true,
+    "savedHash": "d46ed59fc3abee397eaf88cd75811be3ec1039afab451507431752ea2a733e96",
+    "previewHash": "d46ed59fc3abee397eaf88cd75811be3ec1039afab451507431752ea2a733e96",
+    "matches": true,
+    "sourceMatches": true,
+    "app": "dev-v1-identity-fixture",
+    "locator": "v1-two-component-20261027/page.visual.json",
+    "rendered": [
+      {
+        "content": "Saved Card body in the two-component workflow.Card footer saved",
+        "density": "comfortable",
+        "hasShadowRoot": true,
+        "heading": "Two-component Card",
+        "nodeId": "node_0b12d213-1aa2-406b-bc4f-974aed2be630",
+        "tag": "UIB-CARD",
+        "variant": "outlined"
+      },
+      {
+        "content": "",
+        "density": "compact",
+        "hasShadowRoot": true,
+        "heading": null,
+        "nodeId": "node_4db07aad-8520-4aa4-a990-8794811135af",
+        "tag": "UIB-PANEL",
+        "variant": "outlined"
+      }
+    ]
+  },
+  "reorder": {
+    "savedEqualsReloaded": true,
+    "savedHash": "fd93462f9867bc3cf754cbeddd506e4e27e1b4bd5580adee770ab7309dbcd4c2",
+    "previewHash": "fd93462f9867bc3cf754cbeddd506e4e27e1b4bd5580adee770ab7309dbcd4c2",
+    "hashMatches": true,
+    "sourceMatchesReload": true,
+    "rendered": [
+      {
+        "content": "",
+        "density": "compact",
+        "hasShadowRoot": true,
+        "heading": null,
+        "nodeId": "node_4db07aad-8520-4aa4-a990-8794811135af",
+        "tag": "UIB-PANEL",
+        "variant": "outlined"
+      },
+      {
+        "content": "Saved Card body in the two-component workflow.Card footer saved",
+        "density": "comfortable",
+        "hasShadowRoot": true,
+        "heading": "Two-component Card",
+        "nodeId": "node_0b12d213-1aa2-406b-bc4f-974aed2be630",
+        "tag": "UIB-CARD",
+        "variant": "outlined"
+      }
+    ]
+  },
+  "unsavedNormalTest": {
+    "principal": "Application Admin (admin@example.local)",
+    "enabled": true,
+    "toggleDisabled": true,
+    "saveDisabled": true,
+    "reason": "Only Platform administrators may modify settings.",
+    "unsavedNormalTest": "not performed: cannot disable the two-second autosave under this principal; no race or permission bypass attempted"
+  },
+  "hashMethod": "Existing authenticated saved read and expected-hash Preview revision read in normal Chrome; response sources matched the editor Reload. Iframe rendered the same IDs and values. No network interception or test authority substitute.",
+  "productDefects": "No new functional defect reproduced. Initial automation fill did not commit change-driven text controls; ordinary keyboard typing and blur succeeded.",
+  "normalBrowserWorkflow": "Create, insert, independent selection/edit, save, reload, saved design rendering, reorder/save/reload/preview passed; stable unsaved experiment not permitted under current settings authority"
+}

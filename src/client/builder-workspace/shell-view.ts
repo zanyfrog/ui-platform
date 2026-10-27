@@ -22,7 +22,7 @@ const groups = ['Pages', 'Shells', 'Components and Forms', 'Datasets', 'Workflow
 export function createBuilderShellView(actions: ShellViewActions, savedPreview = new SavedPreviewRequestController()) {
   const element = document.createElement('section'); element.className = 'builder-workspace'; element.setAttribute('aria-label', 'Application Builder workspace');
   element.innerHTML = `<header><button data-collapse aria-expanded="true">Application navigation</button><strong data-title></strong><button data-refresh>Refresh artifacts</button><button data-create-dataset>Create Dataset</button><button data-create-form>Create Form</button><button data-return-link hidden>Return and link Dataset to Form</button><button data-cancel-link hidden>Cancel Dataset link</button></header>
-    <p data-status role="status"></p><div class="workspace-layout"><nav aria-label="Application artifacts"></nav><section class="workspace-main"><div role="tablist" aria-label="Open artifacts"></div><div data-stage></div></section></div>`;
+    <p data-status role="status"></p><p class="note">Navigation opens artifacts or component definitions. To add a component instance, open a Page and use its insertion controls.</p><div class="workspace-layout"><nav aria-label="Application artifacts"></nav><section class="workspace-main"><div role="tablist" aria-label="Open artifacts"></div><div data-stage></div></section></div>`;
   const find = <T extends HTMLElement>(selector: string) => element.querySelector<T>(selector)!;
   const preview = new FixturePreviewPanel(); element.append(preview.element);
   const savedSection=document.createElement('section');savedSection.setAttribute('aria-label','Saved Preview readiness');

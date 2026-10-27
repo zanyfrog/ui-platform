@@ -1,0 +1,25 @@
+diff --git a/ui-platform/evidence/v1-design-preview-button-20261027/run-1793111845618/inputs/373817170ea7f0acd4897b50a02a82ee7dd2a384f6afcf02e7cea2125250bd31.txt "b/ui-platform\\evidence\\v1-two-component-browser-20261027\\ui-platform-src-client-visual-artifacts-editor.ts.before.txt"
+index 2587e88..d332117 100644
+--- a/ui-platform/evidence/v1-design-preview-button-20261027/run-1793111845618/inputs/373817170ea7f0acd4897b50a02a82ee7dd2a384f6afcf02e7cea2125250bd31.txt
++++ "b/ui-platform\\evidence\\v1-two-component-browser-20261027\\ui-platform-src-client-visual-artifacts-editor.ts.before.txt"
+@@ -524,7 +524,11 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+   workspace = structuredClone(options.workspace ?? await request<Workspace>(`${base}/visual-artifacts`)); renderList(); status('Select or create a Visual Artifact');
+   if (options.initial) { find('[data-artifacts]').parentElement!.hidden = true; const bundle = list(options.initial.kind).find(b => b.locator === options.initial!.locator); if (!bundle) throw new Error('Artifact unavailable.'); open(bundle, options.initial.kind); }
+   const unprotect = protectEditingDraft(() => [...copies.values()].some(item => item.lifecycle.dirty || item.lifecycle.state === 'conflict'));
+-  const timer = setInterval(() => { void refresh(); }, 3000);
++  // Workspace navigation supplies freshly authorized source; save events refresh it.
++  // Standalone editors retain their source watcher.
++  const timer = options.initial ? undefined : setInterval(() => { void refresh(); }, 3000);
++  const resumeRefresh = () => { if (document.visibilityState !== 'hidden') void refresh(); };
++  window.addEventListener('focus', resumeRefresh);
+   document.addEventListener('ui-platform-workspace-change', refresh);
+   const unsubscribeCardContext = options.savedCardContext?.subscribe(() => invalidateCard('CONTEXT_CHANGED')) ?? (() => {});
+   document.addEventListener('visibilitychange', cardVisibility);
+@@ -552,6 +556,6 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+       try { renderStructure(); } catch { status('Invalid local source retained. Repair source before using structured controls.'); }
+       if (navigation.node !== undefined) evaluateCard();
+     },
+-    async dispose() { disposed = true; active = false; if (!cardTerminal) { cardTerminal = true; cardEpoch++; cardSourceGeneration++; cardPending = false; cardCompletion = undefined; publishCard({ state: 'unavailable', reason: 'DISPOSED', generation: cardGenerations(), target: null }); } unsubscribeCardContext(); window.removeEventListener('message', previewFeedback); document.removeEventListener('visibilitychange', cardVisibility); cardListeners.clear(); clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(item => item.lifecycle.dispose())); preview?.remove(); target.replaceChildren(); },
++    async dispose() { disposed = true; active = false; if (!cardTerminal) { cardTerminal = true; cardEpoch++; cardSourceGeneration++; cardPending = false; cardCompletion = undefined; publishCard({ state: 'unavailable', reason: 'DISPOSED', generation: cardGenerations(), target: null }); } unsubscribeCardContext(); window.removeEventListener('message', previewFeedback); document.removeEventListener('visibilitychange', cardVisibility); cardListeners.clear(); clearInterval(timer); window.removeEventListener('focus', resumeRefresh); document.removeEventListener('ui-platform-workspace-change', refresh); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(item => item.lifecycle.dispose())); preview?.remove(); target.replaceChildren(); },
+   };
+ }

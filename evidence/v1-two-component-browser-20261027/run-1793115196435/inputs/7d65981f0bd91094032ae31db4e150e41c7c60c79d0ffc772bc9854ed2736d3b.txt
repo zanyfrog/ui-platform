@@ -1,0 +1,38 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+
+export async function runCreationChecks(root, ts, Window) {
+  const read = relative => fs.readFileSync(path.join(root, relative), 'utf8').replaceAll('\r\n', '\n');
+  const baseline = file => read('evidence/v1-two-component-browser-20261027/ui-platform-' + file.replaceAll('/', '-') + '.before.txt');
+  const editor = 'src/client/visual-artifacts/editor.ts';
+  const expectedEditor = baseline(editor)
+    .replace('Insert into selected HTML container, or artifact root', 'Insert into selected container, or artifact root')
+    .replace('<button data-add>Insert with layout wrapper</button>', '<p class="note">Choose an item here, then click Insert selected item. The navigation list inspects component definitions.</p><button data-add>Insert selected item</button>');
+  assert.equal(read(editor), expectedEditor, 'Only insertion wording may change; pre-existing polling/focus code must remain exact');
+  const shell = 'src/client/builder-workspace/shell-view.ts';
+  assert.equal(read(shell), baseline(shell).replace('<p data-status role="status"></p>', '<p data-status role="status"></p><p class="note">Navigation opens artifacts or component definitions. To add a component instance, open a Page and use its insertion controls.</p>'), 'Only shell help text may change');
+  assert.equal(ts.createSourceFile(shell, read(shell), ts.ScriptTarget.Latest, true).parseDiagnostics.length, 0);
+  const source = read('src/client/visual-artifacts/creation.ts');
+  const emitted = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext }, reportDiagnostics: true });
+  assert.equal(emitted.diagnostics.length, 0);
+  const window = new Window();
+  const choose = new Function('document', 'Option', emitted.outputText.replace('export function', 'function') + ';return chooseVisualCreation;')(window.document, window.Option);
+  try {
+    const page = choose('page', [{ id: 'shell_fixture', name: 'Fixture Shell' }]);
+    let dialog = window.document.querySelector('dialog');
+    assert.deepEqual([...dialog.querySelectorAll('label')].map(label => label.firstChild.textContent), ['Page name', 'Page route', 'Page Shell']);
+    const name = dialog.querySelector('[aria-label="Page name"]');
+    name.value = 'Invalid Name'; dialog.querySelector('button').click();
+    assert.ok(window.document.querySelector('dialog'), 'Existing lowercase/hyphen validation must still refuse invalid input');
+    name.value = 'two-components'; dialog.querySelector('[aria-label="Page route"]').value = '/two-components';
+    dialog.querySelector('[aria-label="Page Shell"]').value = 'shell_fixture'; dialog.querySelector('button').click();
+    assert.deepEqual(await page, { name: 'two-components', route: '/two-components', shellId: 'shell_fixture' });
+    const component = choose('component', []); dialog = window.document.querySelector('dialog');
+    assert.ok(dialog.querySelector('[aria-label="Page route"]').parentElement.hidden);
+    assert.ok(dialog.querySelector('[aria-label="Page Shell"]').parentElement.hidden);
+    dialog.querySelectorAll('button')[1].click(); assert.equal(await component, undefined);
+    assert.equal(window.document.querySelector('dialog'), null);
+    return { passed: true, cases: ['visible and accessible Page labels', 'invalid name still refused', 'unchanged name/route/shell return contract', 'non-Page fields remain hidden', 'cancel resolves without creation'], preExistingRefreshChange: 'preserved byte-for-byte apart from line-ending normalization in comparison', editorChange: 'only exact text replacements', shellChange: 'only exact help text replacement; full source parses', backendExecuted: false };
+  } finally { await window.happyDOM.close(); }
+}
