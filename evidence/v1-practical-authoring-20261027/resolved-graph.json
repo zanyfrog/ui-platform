@@ -1,0 +1,134 @@
+{
+  "inputs": {
+    "ui-platform/packages/visual-artifacts/src/model.ts": {
+      "bytes": 9885,
+      "imports": [],
+      "format": "esm"
+    },
+    "ui-platform/packages/visual-artifacts/src/source.ts": {
+      "bytes": 16985,
+      "imports": [
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+      "bytes": 7951,
+      "imports": [],
+      "format": "esm"
+    },
+    "ui-platform/packages/visual-artifacts/src/expression.ts": {
+      "bytes": 284,
+      "imports": [
+        {
+          "path": "UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/dataset-operations/expression"
+        }
+      ],
+      "format": "esm"
+    },
+    "ui-platform/packages/visual-artifacts/src/form.ts": {
+      "bytes": 7849,
+      "imports": [
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./source.js"
+        },
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "ui-platform/packages/visual-artifacts/src/validation.ts": {
+      "bytes": 17364,
+      "imports": [
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./source.js"
+        },
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        },
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/expression.ts",
+          "kind": "import-statement",
+          "original": "./expression.js"
+        },
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/form.ts",
+          "kind": "import-statement",
+          "original": "./form.js"
+        },
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "<stdin>": {
+      "bytes": 166,
+      "imports": [
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./packages/visual-artifacts/src/source.ts"
+        },
+        {
+          "path": "ui-platform/packages/visual-artifacts/src/validation.ts",
+          "kind": "import-statement",
+          "original": "./packages/visual-artifacts/src/validation.ts"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "stdin.js": {
+      "imports": [],
+      "exports": [
+        "parseSource",
+        "setNodeAttribute",
+        "validateArtifact"
+      ],
+      "entryPoint": "<stdin>",
+      "inputs": {
+        "ui-platform/packages/visual-artifacts/src/model.ts": {
+          "bytesInOutput": 3801
+        },
+        "ui-platform/packages/visual-artifacts/src/source.ts": {
+          "bytesInOutput": 7481
+        },
+        "<stdin>": {
+          "bytesInOutput": 0
+        },
+        "UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+          "bytesInOutput": 3483
+        },
+        "ui-platform/packages/visual-artifacts/src/expression.ts": {
+          "bytesInOutput": 0
+        },
+        "ui-platform/packages/visual-artifacts/src/form.ts": {
+          "bytesInOutput": 366
+        },
+        "ui-platform/packages/visual-artifacts/src/validation.ts": {
+          "bytesInOutput": 16389
+        }
+      },
+      "bytes": 31898
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "scope": "Pure source helper/shared validator only; unsafe URLs never navigated, rendered or saved",
+  "existingHelperRejectsJavascriptScheme": false,
+  "findings": [
+    {
+      "tag": "a",
+      "attribute": "href",
+      "value": "javascript:alert(1)",
+      "source": "<a data-uip-node=\"node_probe\" href=\"javascript:alert(1)\">Link</a>",
+      "errors": []
+    },
+    {
+      "tag": "img",
+      "attribute": "src",
+      "value": "data:image/svg+xml,<svg></svg>",
+      "source": "<img data-uip-node=\"node_probe\" src=\"data:image/svg+xml,&lt;svg>&lt;/svg>\">",
+      "errors": []
+    },
+    {
+      "tag": "a",
+      "attribute": "href",
+      "value": "/ordinary-route",
+      "source": "<a data-uip-node=\"node_probe\" href=\"/ordinary-route\">Link</a>",
+      "errors": []
+    },
+    {
+      "tag": "img",
+      "attribute": "alt",
+      "value": "A \"quoted\" & <literal> description",
+      "source": "<img data-uip-node=\"node_probe\" alt=\"A &quot;quoted&quot; &amp; &lt;literal> description\">",
+      "errors": []
+    }
+  ]
+}
