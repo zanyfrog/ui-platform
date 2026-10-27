@@ -475,16 +475,31 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     if (dirty() || conflict) throw new Error('Save or recover changes before deletion.'); if (!confirm('Move this artifact bundle to the Recycle Bin?')) return;
     await request(url(), { method: 'DELETE', body: JSON.stringify({ expectedHash: hash }) }); if (copy) { await copy.lifecycle.dispose(); copies.delete(`${selectedKind}:${selected!.locator}`); } copy = undefined; selected = undefined; find('[data-work]').hidden = true; workspace = await request<Workspace>(`${base}/visual-artifacts`); renderList(); status('Deleted');
   }));
-  async function showPreview(): Promise<void> {
+  async function showPreview(reveal = false): Promise<void> {
     if (!active || disposed) return;
     if (dirty() || conflict) throw new Error('Save source before previewing.');
+    const host = find<HTMLElement>('[data-preview-host]');
+    host.replaceChildren(); host.tabIndex = -1; host.setAttribute('aria-label', 'Saved design preview');
+    const heading = document.createElement('h3'); heading.textContent = 'Saved design preview';
+    const feedback = document.createElement('p'); feedback.setAttribute('role', 'status'); feedback.textContent = 'Loading saved design preview…';
+    host.append(heading, feedback);
+    find('[data-diagnostics]').before(host);
     preview?.remove(); preview = document.createElement('iframe'); preview.title = 'Nonpersisting Visual Artifact design preview'; preview.src = '/visual-preview.html'; preview.style.cssText = 'width:100%;min-height:500px;border:1px solid #ccc';
     if (!active || disposed || !preview) return;
     const frame = preview, previewApplicationKey = options.applicationKey?.() ?? appKey;
-    frame.addEventListener('load', () => { if (active && !disposed && frame === preview) frame.contentWindow!.postMessage({ type: 'uip-preview', design: true, locator: selected!.locator, kind: selectedKind, hash, appKey: previewApplicationKey }, location.origin); });
-    find('[data-preview-host]').append(preview);
+    const request = { type: 'uip-preview', design: true, locator: selected!.locator, kind: selectedKind, hash, appKey: previewApplicationKey };
+    frame.addEventListener('load', () => { if (active && !disposed && frame === preview) frame.contentWindow!.postMessage(request, location.origin); });
+    frame.addEventListener('error', () => { if (frame === preview) feedback.textContent = 'Design preview could not load. Check the development server, then retry Design preview.'; });
+    host.append(preview);
+    if (reveal) { host.scrollIntoView({ block: 'start' }); host.focus({ preventScroll: true }); }
   }
-  find('[data-preview]').addEventListener('click', safe(showPreview));
+  const previewFeedback = (event: MessageEvent) => {
+    if (disposed || !active || !preview || event.origin !== location.origin || event.source !== preview.contentWindow || event.data?.type !== 'uip-design-preview-state') return;
+    const feedback = find('[data-preview-host] [role="status"]');
+    feedback.textContent = event.data.error ? `Design preview blocked: ${String(event.data.error)} Reload saved source and retry; if access is denied, check your Application permissions.` : 'Saved design preview ready.';
+  };
+  window.addEventListener('message', previewFeedback);
+  find('[data-preview]').addEventListener('click', safe(() => showPreview(true)));
   async function refresh(event?: Event): Promise<void> {
     if (event) invalidateCard('SOURCE_CHANGED');
     if (disposed || options.initial && !active) return;
@@ -509,7 +524,9 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   workspace = structuredClone(options.workspace ?? await request<Workspace>(`${base}/visual-artifacts`)); renderList(); status('Select or create a Visual Artifact');
   if (options.initial) { find('[data-artifacts]').parentElement!.hidden = true; const bundle = list(options.initial.kind).find(b => b.locator === options.initial!.locator); if (!bundle) throw new Error('Artifact unavailable.'); open(bundle, options.initial.kind); }
   const unprotect = protectEditingDraft(() => [...copies.values()].some(item => item.lifecycle.dirty || item.lifecycle.state === 'conflict'));
-  const timer = setInterval(() => { void refresh(); }, 3000);
+  // Workspace navigation supplies freshly authorized source; save events refresh it.
+  // Standalone editors retain their source watcher.
+  const timer = options.initial ? undefined : setInterval(() => { void refresh(); }, 3000);
   document.addEventListener('ui-platform-workspace-change', refresh);
   const unsubscribeCardContext = options.savedCardContext?.subscribe(() => invalidateCard('CONTEXT_CHANGED')) ?? (() => {});
   document.addEventListener('visibilitychange', cardVisibility);
@@ -537,6 +554,6 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       try { renderStructure(); } catch { status('Invalid local source retained. Repair source before using structured controls.'); }
       if (navigation.node !== undefined) evaluateCard();
     },
-    async dispose() { disposed = true; active = false; if (!cardTerminal) { cardTerminal = true; cardEpoch++; cardSourceGeneration++; cardPending = false; cardCompletion = undefined; publishCard({ state: 'unavailable', reason: 'DISPOSED', generation: cardGenerations(), target: null }); } unsubscribeCardContext(); document.removeEventListener('visibilitychange', cardVisibility); cardListeners.clear(); clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(item => item.lifecycle.dispose())); preview?.remove(); target.replaceChildren(); },
+    async dispose() { disposed = true; active = false; if (!cardTerminal) { cardTerminal = true; cardEpoch++; cardSourceGeneration++; cardPending = false; cardCompletion = undefined; publishCard({ state: 'unavailable', reason: 'DISPOSED', generation: cardGenerations(), target: null }); } unsubscribeCardContext(); window.removeEventListener('message', previewFeedback); document.removeEventListener('visibilitychange', cardVisibility); cardListeners.clear(); clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(item => item.lifecycle.dispose())); preview?.remove(); target.replaceChildren(); },
   };
 }

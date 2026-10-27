@@ -204,8 +204,9 @@ subscribeEditorSession(() => {
     status('Access suspended. Select the original authorized identity to reopen and recover retained tabs.');
   }
 });
-// Refresh authority while visible, even when the development cookie identity is unchanged.
-setInterval(() => {
+// Revalidate on return to the Builder rather than polling unchanged authority.
+function refreshFocusedAuthority() {
+  if (document.visibilityState === 'hidden') return;
   if (parked || checking || !coordinator.focused) return;
   const tab = coordinator.tabs.get(coordinator.focused)!; checking = true;
   const observedKey = tab.key, observedApplication = tab.artifact.applicationKey;
@@ -214,7 +215,9 @@ setInterval(() => {
     if (!current()) return;
     if (next.editable !== tab.artifact.editable) throw new Error('Artifact authority changed.');
   }).catch(() => { if (!current()) return; savedPreview.suspend('Artifact access or owner changed.'); clearProblems(); coordinator.suspend(); discovery = []; view.artifacts([]); status('Artifact access changed. Source hidden; reauthorize under the original identity to recover.'); }).finally(() => { checking = false; });
-}, 2000);
+}
+window.addEventListener('focus', refreshFocusedAuthority);
+document.addEventListener('visibilitychange', refreshFocusedAuthority);
 export function parkWorkspace() { view.park(); parked = true; navigationSequence++; latestProblems.invalidate(); clearTimeout(refreshTimer); coordinator.park(); }
 export async function mountApplicationWorkspace(target: HTMLElement, app: { key: string; name: string }) {
   retainDevelopmentWorkspaceSession();

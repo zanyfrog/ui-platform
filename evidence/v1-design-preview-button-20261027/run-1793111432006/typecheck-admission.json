@@ -1,0 +1,940 @@
+{
+  "roots": [
+    "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\src\\source.ts",
+    "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\src\\validation.ts",
+    "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\src\\runtime.ts",
+    "C:\\Projects\\Modular\\ui-platform\\src\\client\\visual-artifacts\\editor.ts"
+  ],
+  "sources": [
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es5.d.ts",
+      "sha256": "bcd24271a113971ba9eb71ff8cb01bc6b0f872a85c23fdbe5d93065b375933cd"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.d.ts",
+      "sha256": "3f88bedbeb09c6f5a6645cb24c7c55f1aa22d19ae96c8e6959cbd8b85a707bc6"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2016.d.ts",
+      "sha256": "7fe93b39b810eadd916be8db880dd7f0f7012a5cc6ffb62de8f62a2117fa6f1f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2017.d.ts",
+      "sha256": "bb0074cc08b84a2374af33d8bf044b80851ccc9e719a5e202eacf40db2c31600"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2018.d.ts",
+      "sha256": "1a7daebe4f45fb03d9ec53d60008fbf9ac45a697fdc89e4ce218bc94b94f94d6"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2019.d.ts",
+      "sha256": "f94b133a3cb14a288803be545ac2683e0d0ff6661bcd37e31aaaec54fc382aed"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2020.d.ts",
+      "sha256": "f59d0650799f8782fd74cf73c19223730c6d1b9198671b1c5b3a38e1188b5953"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2021.d.ts",
+      "sha256": "8a15b4607d9a499e2dbeed9ec0d3c0d7372c850b2d5f1fb259e8f6d41d468a84"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2022.d.ts",
+      "sha256": "26e0fe14baee4e127f4365d1ae0b276f400562e45e19e35fd2d4c296684715e6"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.dom.d.ts",
+      "sha256": "d6b1eba8496bdd0eed6fc8a685768fe01b2da4a0388b5fe7df558290bffcf32f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.dom.iterable.d.ts",
+      "sha256": "7f57fc4404ff020bc45b9c620aff2b40f700b95fe31164024c453a5e3c163c54"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.core.d.ts",
+      "sha256": "eadcffda2aa84802c73938e589b9e58248d74c59cb7fcbca6474e3435ac15504"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.collection.d.ts",
+      "sha256": "105ba8ff7ba746404fe1a2e189d1d3d2e0eb29a08c18dded791af02f29fb4711"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.generator.d.ts",
+      "sha256": "00343ca5b2e3d48fa5df1db6e32ea2a59afab09590274a6cccb1dbae82e60c7c"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+      "sha256": "ebd9f816d4002697cb2864bea1f0b70a103124e18a8cd9645eeccc09bdf80ab4"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.promise.d.ts",
+      "sha256": "2c1afac30a01772cd2a9a298a7ce7706b5892e447bb46bdbeef720f7b5da77ad"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+      "sha256": "7b0225f483e4fa685625ebe43dd584bb7973bbd84e66a6ba7bbe175ee1048b4f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+      "sha256": "c0a4b8ac6ce74679c1da2b3795296f5896e31c38e888469a8e0f99dc3305de60"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+      "sha256": "3084a7b5f569088e0146533a00830e206565de65cae2239509168b11434cd84f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+      "sha256": "c5079c53f0f141a0698faa903e76cb41cd664e3efb01cc17a5c46ec2eb0bef42"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2016.array.include.d.ts",
+      "sha256": "32cafbc484dea6b0ab62cf8473182bbcb23020d70845b406f80b7526f38ae862"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2016.intl.d.ts",
+      "sha256": "fca4cdcb6d6c5ef18a869003d02c9f0fd95df8cfaf6eb431cd3376bc034cad36"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2017.arraybuffer.d.ts",
+      "sha256": "b93ec88115de9a9dc1b602291b85baf825c85666bf25985cc5f698073892b467"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2017.date.d.ts",
+      "sha256": "f5c06dcc3fe849fcb297c247865a161f995cc29de7aa823afdd75aaaddc1419b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2017.object.d.ts",
+      "sha256": "b77e16112127a4b169ef0b8c3a4d730edf459c5f25fe52d5e436a6919206c4d7"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+      "sha256": "fbffd9337146eff822c7c00acbb78b01ea7ea23987f6c961eba689349e744f8c"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2017.string.d.ts",
+      "sha256": "a995c0e49b721312f74fdfb89e4ba29bd9824c770bbb4021d74d2bf560e4c6bd"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2017.intl.d.ts",
+      "sha256": "c7b3542146734342e440a84b213384bfa188835537ddbda50d30766f0593aff9"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+      "sha256": "ce6180fa19b1cccd07ee7f7dbb9a367ac19c0ed160573e4686425060b6df7f57"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
+      "sha256": "3f02e2476bccb9dbe21280d6090f0df17d2f66b74711489415a8aa4df73c9675"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
+      "sha256": "45e3ab34c1c013c8ab2dc1ba4c80c780744b13b5676800ae2e3be27ae862c40c"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2018.intl.d.ts",
+      "sha256": "805c86f6cca8d7702a62a844856dbaa2a3fd2abef0536e65d48732441dde5b5b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2018.promise.d.ts",
+      "sha256": "e42e397f1a5a77994f0185fd1466520691456c772d06bf843e5084ceb879a0ad"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2018.regexp.d.ts",
+      "sha256": "f4c2b41f90c95b1c532ecc874bd3c111865793b23aebcc1c3cbbabcd5d76ffb0"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2019.array.d.ts",
+      "sha256": "ab26191cfad5b66afa11b8bf935ef1cd88fabfcb28d30b2dfa6fad877d050332"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2019.object.d.ts",
+      "sha256": "2088bc26531e38fb05eedac2951480db5309f6be3fa4a08d2221abb0f5b4200d"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2019.string.d.ts",
+      "sha256": "cb9d366c425fea79716a8fb3af0d78e6b22ebbab3bd64d25063b42dc9f531c1e"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "sha256": "500934a8089c26d57ebdb688fc9757389bb6207a3c8f0674d68efa900d2abb34"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2019.intl.d.ts",
+      "sha256": "689da16f46e647cef0d64b0def88910e818a5877ca5379ede156ca3afb780ac3"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2020.bigint.d.ts",
+      "sha256": "bc21cc8b6fee4f4c2440d08035b7ea3c06b3511314c8bab6bef7a92de58a2593"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2020.date.d.ts",
+      "sha256": "7ca53d13d2957003abb47922a71866ba7cb2068f8d154877c596d63c359fed25"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2020.promise.d.ts",
+      "sha256": "54725f8c4df3d900cb4dac84b64689ce29548da0b4e9b7c2de61d41c79293611"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2020.sharedmemory.d.ts",
+      "sha256": "e5594bc3076ac29e6c1ebda77939bc4c8833de72f654b6e376862c0473199323"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2020.string.d.ts",
+      "sha256": "2f3eb332c2d73e729f3364fcc0c2b375e72a121e8157d25a82d67a138c83a95c"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
+      "sha256": "6f4427f9642ce8d500970e4e69d1397f64072ab73b97e476b4002a646ac743b1"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2020.intl.d.ts",
+      "sha256": "48915f327cd1dea4d7bd358d9dc7732f58f9e1626a29cc0c05c8c692419d9bb7"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2020.number.d.ts",
+      "sha256": "b7bf9377723203b5a6a4b920164df22d56a43f593269ba6ae1fdc97774b68855"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2021.promise.d.ts",
+      "sha256": "db9709688f82c9e5f65a119c64d835f906efe5f559d08b11642d56eb85b79357"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2021.string.d.ts",
+      "sha256": "4b25b8c874acd1a4cf8444c3617e037d444d19080ac9f634b405583fd10ce1f7"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2021.weakref.d.ts",
+      "sha256": "37be57d7c90cf1f8112ee2636a068d8fd181289f82b744160ec56a7dc158a9f5"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2021.intl.d.ts",
+      "sha256": "a917a49ac94cd26b754ab84e113369a75d1a47a710661d7cd25e961cc797065f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2022.array.d.ts",
+      "sha256": "6d3261badeb7843d157ef3e6f5d1427d0eeb0af0cf9df84a62cfd29fd47ac86e"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2022.error.d.ts",
+      "sha256": "195daca651dde22f2167ac0d0a05e215308119a3100f5e6268e8317d05a92526"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2022.intl.d.ts",
+      "sha256": "8b11e4285cd2bb164a4dc09248bdec69e9842517db4ca47c1ba913011e44ff2f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2022.object.d.ts",
+      "sha256": "0508571a52475e245b02bc50fa1394065a0a3d05277fbf5120c3784b85651799"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2022.string.d.ts",
+      "sha256": "8f9af488f510c3015af3cc8c267a9e9d96c4dd38a1fdff0e11dc5a544711415b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2022.regexp.d.ts",
+      "sha256": "fc611fea8d30ea72c6bbfb599c9b4d393ce22e2f5bfef2172534781e7d138104"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.es2025.float16.d.ts",
+      "sha256": "f128dae7c44d8f35ee42e0a437000a57c9f06cc04f8b4fb42eebf44954d53dc8"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.esnext.disposable.d.ts",
+      "sha256": "1ecb8e347cb6b2a8927c09b86263663289418df375f5e68e11a0ae683776978f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.decorators.d.ts",
+      "sha256": "1ce14b81c5cc821994aa8ec1d42b220dd41b27fcc06373bce3958af7421b77d4"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/node_modules/typescript/lib/lib.decorators.legacy.d.ts",
+      "sha256": "b3a048b3e9302ef9a34ef4ebb9aecfb28b66abb3bce577206a79fee559c230da"
+    },
+    {
+      "path": "C:/Projects/Modular/UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+      "sha256": "8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/composition.ts",
+      "sha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/model.ts",
+      "sha256": "898f0c5ab040e7bf6d4aac3bfd564d05ab7d3ebb3d5668d800d0c35a9012b1d7"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/source.ts",
+      "sha256": "fe365861011b80ee04425f2aec480b02a49cc10ad8347403d768cdba8afba305"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/expression.ts",
+      "sha256": "f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/form.ts",
+      "sha256": "b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/validation.ts",
+      "sha256": "5f21dab9237a073bd25d04bc4618c8c4c7a64bb4b13d5c5db63252f0db65712d"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/tests/html-first/native-types.d.ts",
+      "sha256": "002594311c1a2c2f29e7f93cf1be1461d02dc80cd3352db40366db65f40e5a7b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/revision-guard.ts",
+      "sha256": "f5ce4fc5dbfa6aedb437f08a97678036a6756ba2ab6c2531d10af8240fd396eb"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/composition-runtime.ts",
+      "sha256": "602910ef1a56519b0e513b358423dd3c8b506eadf920f0f39677895f1f41dabe"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/tests/html-first/unused.ts",
+      "sha256": "0c1c6cbbd031b60e5ba85023d423828eed4bcf45cfc8cff4b8eb33e855fd7b74"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/form-runtime.ts",
+      "sha256": "8ef4ad2c8cc400ed72970f1ffe5207a757c89601f15e500faf2ac35994489526"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/visual-artifacts/src/runtime.ts",
+      "sha256": "63a3bdc5ba797fdc916eb53eee3271a21207883937c44706943d557aa2dee535"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/tests/html-first/source-barrel.ts",
+      "sha256": "e5a8b12b5a910b0ee571cd85fcd4e83126f0295a699e7fdcec3f43b13cd8a27a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/client/visual-artifacts/menu-controls.ts",
+      "sha256": "8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/shared/types.ts",
+      "sha256": "f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/shared/platform-settings.ts",
+      "sha256": "2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/client/artifact-editor/autosave-configuration.ts",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/client/artifact-editor/editing-lifecycle.ts",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/vite/types/hot.d.ts",
+      "sha256": "4e003c868b0d8f8ad200b96cbc653e18e513fa23e1c19c4fe3cc25d4394efc47"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/vite/types/importGlob.d.ts",
+      "sha256": "e50d04d261120f8f9d07e85698735d5b88f3a66bc395c08ce26c3d817d141a73"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/vite/types/importMeta.d.ts",
+      "sha256": "72429cda84a47f092a3bf777bbc4ece9dda492fe0f02324aa7f197f3800089c6"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/vite/client.d.ts",
+      "sha256": "74b98be6ab7723114273526706070ff9885fdf990d5c4e722801addca4d264e1"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/client/artifact-editor/saved-source.ts",
+      "sha256": "c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/packages/artifacts/src/types.ts",
+      "sha256": "1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/shared/editor-presentation.ts",
+      "sha256": "a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/shared/artifact-editor.ts",
+      "sha256": "80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/shared/editor-security.ts",
+      "sha256": "97e01ac699f0b7a17b9f96f2230c53a73b5a5943c4d89f6a3fe379886d7c5dc1"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/client/artifact-editor/session.ts",
+      "sha256": "dcae41c7a0bc652bb840f23207ec085ff12754e26b85b6894394e8a2804ef4c8"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/client/artifact-editor/specialized-transport.ts",
+      "sha256": "9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/client/visual-artifacts/authoring-controls.ts",
+      "sha256": "79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/client/visual-artifacts/saved-card-target.ts",
+      "sha256": "634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/shared/automation-service-contract.ts",
+      "sha256": "645e9414f8faba73df0a81ec0f26ea12d54de17d376c6b90e54a9953f28325b2"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/src/client/visual-artifacts/editor.ts",
+      "sha256": "49f5c3d9a4544cecf8397904e07f3b7a224d64bceb7abf9119fdd609e749715c"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/globals.typedarray.d.ts",
+      "sha256": "0ccdaa19852d25ecd84eec365c3bfa16e7859cadecf6e9ca6d0dbbbee439743f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/buffer.buffer.d.ts",
+      "sha256": "f9b68a1c3f8f45b4c199fa5b3ac09497230cb8f2f0cdcfebe5817b30b836a64a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/globals.d.ts",
+      "sha256": "f53a7652392cf26ebbe4e29fd0672aa87c93bd6d0241289c13fab87b9ac35c8a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/abortcontroller.d.ts",
+      "sha256": "e5e01375c9e124a83b52ee4b3244ed1a4d214a6cfb54ac73e164a823a4a7860a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/blob.d.ts",
+      "sha256": "f90ae2bbce1505e67f2f6502392e318f5714bae82d2d969185c4a6cecc8af2fc"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/console.d.ts",
+      "sha256": "4b58e207b93a8f1c88bbf2a95ddc686ac83962b13830fe8ad3f404ffc7051fb4"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/crypto.d.ts",
+      "sha256": "1fefabcb2b06736a66d2904074d56268753654805e829989a46a0161cd8412c5"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/domexception.d.ts",
+      "sha256": "b00a630557d1622ad312633bdbfbdb9c6b7220d948dca9f899db30679f160074"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/encoding.d.ts",
+      "sha256": "c18a99f01eb788d849ad032b31cafd49de0b19e083fe775370834c5675d7df8e"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/events.d.ts",
+      "sha256": "5247874c2a23b9a62d178ae84f2db6a1d54e6c9a2e7e057e178cc5eea13757fc"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/utility.d.ts",
+      "sha256": "cdcf9ea426ad970f96ac930cd176d5c69c6c24eebd9fc580e1572d6c6a88f62c"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/header.d.ts",
+      "sha256": "88809d6c1b9c78d04a133646a6feb926def05a8774c308c7c93bc32ee163d271"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/readable.d.ts",
+      "sha256": "156a859e21ef3244d13afeeba4e49760a6afa035c149dda52f0c45ea8903b338"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/fetch.d.ts",
+      "sha256": "3ac40516c33b87f751f7507346933081a26cdb8a3e11a6b3aa07d23f803c85db"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/formdata.d.ts",
+      "sha256": "615754924717c0b1e293e083b83503c0a872717ad5aa60ed7f1a699eb1b4ea5c"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/connector.d.ts",
+      "sha256": "14e9acf826baba0ef4b5665704084896e7bcc06f65a9ab13af7e93d27d6b7069"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/client-stats.d.ts",
+      "sha256": "68834d631c8838c715f225509cfc3927913b9cc7a4870460b5b60c8dbdb99baf"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/client.d.ts",
+      "sha256": "829bc57ee8f287b490ab5bbc5a962fca57e432c1e38ec680ecd3ecaf12800613"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/errors.d.ts",
+      "sha256": "eec76bf6b9346f3f95fa402621b889489e96930e72295b0369022f332e9b4a6a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/dispatcher.d.ts",
+      "sha256": "3a3ff14da53d5013f3e6d8c4ad55225e3649c08786c4421ce639c00d8d589b7d"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/global-dispatcher.d.ts",
+      "sha256": "ea6bc8de8b59f90a7a3960005fd01988f98fd0784e14bc6922dde2e93305ec7d"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/global-origin.d.ts",
+      "sha256": "36107995674b29284a115e21a0618c4c2751b32a8766dd4cb3ba740308b16d59"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/pool-stats.d.ts",
+      "sha256": "914a0ae30d96d71915fc519ccb4efbf2b62c0ddfb3a3fc6129151076bc01dc60"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/pool.d.ts",
+      "sha256": "38004e6801340cb890afb8cb5a9fc8972297e7f88ab94026e4b0b3c61fb32f8a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/handlers.d.ts",
+      "sha256": "d243db6b25788f439e7e2f03c05688e92f46764351673bb0e7b2f3631232e186"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/balanced-pool.d.ts",
+      "sha256": "4d327f7d72ad0918275cea3eee49a6a8dc8114ae1d5b7f3f5d0774de75f7439a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/round-robin-pool.d.ts",
+      "sha256": "149f9a9e7f04e67afa0e2a49fc0ff421035c01d6b793cfcae7d2e9f6819431e2"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/h2c-client.d.ts",
+      "sha256": "e8a9dfa4c75ef6d25df8b40eaa9c31e0a69452aaf2ced4a3f4215dbdbaa876f4"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/agent.d.ts",
+      "sha256": "a70af845a2eb9dd6e2723e319e14ea7fb28b129ec1361c21509b49305448c323"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/dispatcher1-wrapper.d.ts",
+      "sha256": "b53dc572d4f187904207ae1166652de47aab8eeb00c254d009cb226863076b56"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/mock-interceptor.d.ts",
+      "sha256": "0a60a292b89ca7218b8616f78e5bbd1c96b87e048849469cccb4355e98af959a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/mock-call-history.d.ts",
+      "sha256": "0b6e25234b4eec6ed96ab138d96eb70b135690d7dd01f3dd8a8ab291c35a683a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/mock-agent.d.ts",
+      "sha256": "9666f2f84b985b62400d2e5ab0adae9ff44de9b2a34803c2c5bd3c8325b17dc0"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/mock-client.d.ts",
+      "sha256": "40cd35c95e9cf22cfa5bd84e96408b6fcbca55295f4ff822390abb11afbc3dca"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/mock-pool.d.ts",
+      "sha256": "b1616b8959bf557feb16369c6124a97a0e74ed6f49d1df73bb4b9ddf68acf3f3"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/snapshot-agent.d.ts",
+      "sha256": "f501234c5aeeeb5d7659412335227466aaacf30b952372d60afeb21c02c96348"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/mock-errors.d.ts",
+      "sha256": "40b463c6766ca1b689bfcc46d26b5e295954f32ad43e37ee6953c0a677e4ae2b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/proxy-agent.d.ts",
+      "sha256": "9ac977503f15bf13ca7c82ad9a32a782f42d43e474824e8b3bffe228fd5f2639"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/socks5-proxy-agent.d.ts",
+      "sha256": "8b91ff5bb912be3ea213cbcf0075aace1f5d4ff249a0d227ed673868cb7bfabc"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/env-http-proxy-agent.d.ts",
+      "sha256": "80aae6afc67faa5ac0b32b5b8bc8cc9f7fa299cff15cf09cc2e11fd28c6ae29e"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/retry-handler.d.ts",
+      "sha256": "f473cd2288991ff3221165dcf73cd5d24da30391f87e85b3dd4d0450c787a391"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/retry-agent.d.ts",
+      "sha256": "499e5b055a5aba1e1998f7311a6c441a369831c70905cc565ceac93c28083d53"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/api.d.ts",
+      "sha256": "8aee8b6d4f9f62cf3776cda1305fb18763e2aade7e13cea5bbe699112df85214"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/cache-interceptor.d.ts",
+      "sha256": "98498b101803bb3dde9f76a56e65c14b75db1cc8bec5f4db72be541570f74fc5"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/interceptors.d.ts",
+      "sha256": "7cb4f431a4591b0e23002bed805dc871a874dfed6b9a3994dce68a6df73e6739"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/util.d.ts",
+      "sha256": "5d0375ca7310efb77e3ef18d068d53784faf62705e0ad04569597ae0e755c401"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/cookies.d.ts",
+      "sha256": "59af37caec41ecf7b2e76059c9672a49e682c1a2aa6f9d7dc78878f53aa284d6"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/patch.d.ts",
+      "sha256": "addf417b9eb3f938fddf8d81e96393a165e4be0d4a8b6402292f9c634b1cb00d"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/websocket.d.ts",
+      "sha256": "436d7b4543b340b0f3eef4310d524242e41369b9652aa9c70428767c4dcac455"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/eventsource.d.ts",
+      "sha256": "adf27937dba6af9f08a68c5b1d3fce0ca7d4b960c57e6d6c844e7d1a8e53adae"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/diagnostics-channel.d.ts",
+      "sha256": "12950411eeab8563b349cb7959543d92d8d02c289ed893d78499a19becb5a8cc"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/content-type.d.ts",
+      "sha256": "2e85db9e6fd73cfa3d7f28e0ab6b55417ea18931423bd47b409a96e4a169e8e6"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/cache.d.ts",
+      "sha256": "c46e079fe54c76f95c67fb89081b3e399da2c7d109e7dca8e4b58d83e332e605"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/undici-types/index.d.ts",
+      "sha256": "e99963ae1e3a48ca7a7958c02f3e88bb963eb7978c28b68ae6b8c9f03309d83c"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/fetch.d.ts",
+      "sha256": "c3f5289820990ab66b70c7fb5b63cb674001009ff84b13de40619619a9c8175f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/importmeta.d.ts",
+      "sha256": "b3275d55fac10b799c9546804126239baf020d220136163f763b55a74e50e750"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/messaging.d.ts",
+      "sha256": "fa68a0a3b7cb32c00e39ee3cd31f8f15b80cac97dce51b6ee7fc14a1e8deb30b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/navigator.d.ts",
+      "sha256": "1cf059eaf468efcc649f8cf6075d3cb98e9a35a0fe9c44419ec3d2f5428d7123"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/performance.d.ts",
+      "sha256": "6c36e755bced82df7fb6ce8169265d0a7bb046ab4e2cb6d0da0cb72b22033e89"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/storage.d.ts",
+      "sha256": "e7721c4f69f93c91360c26a0a84ee885997d748237ef78ef665b153e622b36c1"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/streams.d.ts",
+      "sha256": "7a93de4ff8a63bafe62ba86b89af1df0ccb5e40bb85b0c67d6bbcfdcf96bf3d4"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/timers.d.ts",
+      "sha256": "90e85f9bc549dfe2b5749b45fe734144e96cd5d04b38eae244028794e142a77e"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/web-globals/url.d.ts",
+      "sha256": "e0a5deeb610b2a50a6350bd23df6490036a1773a8a71d70f2f9549ab009e67ee"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/assert.d.ts",
+      "sha256": "594ae90cacd813fa392ff80d2e0a8eff4e41f4a136329a940e321399dd8895b4"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/assert/strict.d.ts",
+      "sha256": "d1f333ade8ff35a409b4984e1f11956fe11c61855b0c7e9b59f0313e48b40c4a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/async_hooks.d.ts",
+      "sha256": "0224aa4b3464895d69c413a640a19ac2166778a74eb5eb3b36b021c72d42b274"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/buffer.d.ts",
+      "sha256": "2e6fca0024dd8a076a886d9ec031a936ea59ad878a25b944820495d92f8381dd"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/child_process.d.ts",
+      "sha256": "47d917e731d06acf182baa38ac2fbd720c3555fa9160e6a40d47994515f7f0ea"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/cluster.d.ts",
+      "sha256": "2fbf504c4791f9d32cd766cfe6b605bcda63289b925401953a7900db9af85348"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/console.d.ts",
+      "sha256": "ed0fb633cae35948d9e144004299a4bdf1ab912667c787b7fbffcd6d8c7b92a2"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/constants.d.ts",
+      "sha256": "1678b04557dca52feab73cc67610918a7f5e25bfdba3e7fa081acd625d93106d"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/crypto.d.ts",
+      "sha256": "4c8a22ece1ef9fb4659ec034e1131310ca188975f39948ab38f7e4485cb46d1f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/dgram.d.ts",
+      "sha256": "9c90f502816bd0179556bb875e86c944af3f6b995cde63199edbe4e0b1219aba"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/diagnostics_channel.d.ts",
+      "sha256": "98fc7231d6c846a8ed19bdef026ddffe5e2182cc818be74899287421ad370a87"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/dns.d.ts",
+      "sha256": "e494b286c8e27c52f8c7f945aa80ff223f2a3cd4f7a2619fa8991f1459e26f07"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/dns/promises.d.ts",
+      "sha256": "f54f5f9e10bbceba7515dfad0ffc89dffdb8d749d0604594c57a725cf6d79c20"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/domain.d.ts",
+      "sha256": "41d17e1ad9a002feb11c8cdd2777e5bbc0cdb1e3f595d237e4dded0b6949983b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/events.d.ts",
+      "sha256": "8c7e618c2a91ea7f6b5cca272a295864e92c16413be8fc56a943e8c7d5320011"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/ffi.d.ts",
+      "sha256": "79a85c64bf083c5f4dd7074e804d1000c0c47301b84d48417a224decd681be30"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/fs.d.ts",
+      "sha256": "9d37b8a9678efbcdf38238b59ce8e6f7db70aba1a516f3a4a671a301dbacfb3d"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/fs/promises.d.ts",
+      "sha256": "a47a792b8cff71443be8dfb199f2b77e102a7bf9d4f90c18059f05d9af2d7413"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/http.d.ts",
+      "sha256": "77c33fa85a1485ccf0d7cd8e0f50677924045cc4086a39af564f608e21a46343"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/http2.d.ts",
+      "sha256": "22e77cc53de19959fdb4c4876e7bafd2f2a8cf8ead059abf7b299efe85f76251"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/https.d.ts",
+      "sha256": "2c2bdaa1d8ead9f68628d6d9d250e46ee8e81aa4898b4769a36956ae15e060fe"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/inspector.d.ts",
+      "sha256": "ba389fd3d7fba6670e97bc82eb12469dcb371d22f24e63859c1df5a083c823ed"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/inspector.generated.d.ts",
+      "sha256": "5ff4433a2deae4f85ab1377e90a7554ce6b47ae51c69a84ca30a6e22fae85834"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/inspector/promises.d.ts",
+      "sha256": "82b91e4e42e6c41bc7fc1b6c2dc5eba6a2ba98375eb1f210e6ff6bba2d54177e"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/module.d.ts",
+      "sha256": "97234c5303866576f913d0ccae7d58d6322d9e803c7bf1228a3fda46ab8087b2"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/net.d.ts",
+      "sha256": "5336674547d832b901f47d5602c61dd4ba91796a4711235aa4aead3386ce05a4"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/os.d.ts",
+      "sha256": "73eeb740dacc45adc607a4f59f90fa9dbe2717d93d82f115f45f34e18f8d644a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/path.d.ts",
+      "sha256": "ec501101c2a96133a6c695f934c8f6642149cc728571b29cbb7b770984c1088e"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/path/posix.d.ts",
+      "sha256": "b214ebcf76c51b115453f69729ee8aa7b7f8eccdae2a922b568a45c2d7ff52f7"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/path/win32.d.ts",
+      "sha256": "429c9cdfa7d126255779efd7e6d9057ced2d69c81859bbab32073bad52e9ba76"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/perf_hooks.d.ts",
+      "sha256": "b17f272f903d155b9ec21791b5889b638977bc1dee181efb2bc317ce006d8c9b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/process.d.ts",
+      "sha256": "18b03a8395192811131170042d6af50c4292b0d708789dbf5bc805b6dd9f4c14"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/punycode.d.ts",
+      "sha256": "230763250f20449fa7b3c9273e1967adb0023dc890d4be1553faca658ee65971"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/querystring.d.ts",
+      "sha256": "c3e9078b60cb329d1221f5878e88cecfa3e74460550e605a58fcfb41a66029ff"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/quic.d.ts",
+      "sha256": "cd2f3cdc3954c55199d688feebdc2aaa68670e86963e30b7fab2f27c0dc94553"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/readline.d.ts",
+      "sha256": "441b9bb09013654aa3d050e68b06464d8959b473e85868249d9d18f692acd35b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/readline/promises.d.ts",
+      "sha256": "bc18a1991ba681f03e13285fa1d7b99b03b67ee671b7bc936254467177543890"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/repl.d.ts",
+      "sha256": "55246f15e33ff1e2e9e679b25fa9790a48db55dc63d567fe25fac8b6a0efe911"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/sea.d.ts",
+      "sha256": "fa94bbf532b7af8f394b95fa310980d6e20bd2d4c871c6a6cb9f70f03750a44b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/sqlite.d.ts",
+      "sha256": "925734f303b7f0cc111d42aeb21781d38a79e6d5ac05b2b1400cd1861a75d27b"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/stream.d.ts",
+      "sha256": "5b26c4dd672d88336bb929787c9bfb55119e80ba89ec6dc923da1c063892843e"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/stream/consumers.d.ts",
+      "sha256": "7fa2214bb0d64701bc6f9ce8cde2fd2ff8c571e0b23065fa04a8a5a6beb91511"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/stream/iter.d.ts",
+      "sha256": "b8e805bcd8cfb7986d2bcf5e785e34fdfe0cb2f31a89b585e2c9204513efa8cf"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/stream/promises.d.ts",
+      "sha256": "f12624a4a8d042b68914eac1b0a16571fc1c523173fcdf2517c65d191bd5a86c"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/stream/web.d.ts",
+      "sha256": "b4769767f13a1692a66186e01c3aa186ff808d5ff72ed36eda8c37738fb2ac92"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/string_decoder.d.ts",
+      "sha256": "841983e39bd4cbb463be385e92fda11057cab368bf27100a801c492f1d86cbaa"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/test.d.ts",
+      "sha256": "441a29b18cc64c37fb196172ec1e499f60d5792edc89648e6cb550180c81050f"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/test/reporters.d.ts",
+      "sha256": "1ec3f3a5f04cc42df33274fbe5c0937d9a9e06f249a7a26288d7d54f0763ffd4"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/timers.d.ts",
+      "sha256": "e4156ddb25aa0e3b5303d372f26957b36778f0f6bbd4326359269873295e3058"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/timers/promises.d.ts",
+      "sha256": "cc1b433a84cae05ddc5672d4823170af78606ad21ecef60dbc4570190cbf1357"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/tls.d.ts",
+      "sha256": "76619734a63492651c3467de6fd43d93d7bdd836aff49b86f0e83e2c1e17111a"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/trace_events.d.ts",
+      "sha256": "7f78cfb2b343838612c192cb251746e3a7c62ac7675726a47e130d9b213f6580"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/tty.d.ts",
+      "sha256": "aed8f3e5c7e53462565eedf34a9bcb700393cb2c1ab0c768602b929c3ed3145d"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/url.d.ts",
+      "sha256": "8e2577e7262051fd3c5bd6ca2b2056d358ff8853565720f92455860824c25188"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/util.d.ts",
+      "sha256": "7ec8d7d483f7394f9da611b10d3a0e402f76ff5c991261e6ce43a15f81ca4258"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/util/types.d.ts",
+      "sha256": "bb9dbb4b2ad81e3e71ec5ba4314973718555b9d04ba2a17dfbf875efecb8e2c0"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/v8.d.ts",
+      "sha256": "9021dc5be8f3a87af5cede29221188a6497e2092b6889e0be212ef6b6b7153e9"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/vfs.d.ts",
+      "sha256": "db3939c70002734d9e344f35f33d151cf302d326ef08338e9beb8e7f9937d2a2"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/vm.d.ts",
+      "sha256": "32eccc272f35e34ff1c3d33d2c8d05e6821a6e95f648e118a5f4a0f3512895ac"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/wasi.d.ts",
+      "sha256": "99ab6d0d660ce4d21efb52288a39fd35bb3f556980ec5463b1ae8f304a3bbc85"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/worker_threads.d.ts",
+      "sha256": "632c45ccb4cdc2c3a80c7a36a63dd7763016e59cac5e07bfb3e37e3548957028"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/zlib.d.ts",
+      "sha256": "c9a2daf6cd1eb854cd5b9e424247c5e306692055738c2effd35f7871d942b76e"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/zlib/iter.d.ts",
+      "sha256": "afa1c49f8e559e413d57343339db857d2a8159435cf9cf7d4deb41718fff1b88"
+    },
+    {
+      "path": "C:/Projects/Modular/ui-platform/node_modules/@types/node/index.d.ts",
+      "sha256": "c46f111af647c4134ae869653130610d62da321f90ebf19e186a3ea4bed79350"
+    }
+  ],
+  "options": {
+    "target": 9,
+    "module": 199,
+    "moduleResolution": 99,
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "lib.es2022.d.ts",
+      "lib.dom.d.ts",
+      "lib.dom.iterable.d.ts"
+    ],
+    "typeRoots": [
+      "C:\\Projects\\Modular\\ui-platform\\node_modules\\@types"
+    ],
+    "paths": {
+      "@ui-platform/visual-artifacts": [
+        "C:\\Projects\\Modular\\ui-platform\\tests\\html-first\\source-barrel.ts"
+      ],
+      "@ui-platform/artifacts/storage": [
+        "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts\\src\\storage-api.ts"
+      ],
+      "@ui-platform/artifacts": [
+        "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts\\src\\types.ts"
+      ],
+      "@ui-platform/dataset-operations/expression": [
+        "C:\\Projects\\Modular\\UI Platform Data Services\\packages\\dataset-operations\\src\\declarative-expression.ts"
+      ],
+      "@ui-platform/visual-artifacts/runtime": [
+        "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\src\\runtime.ts"
+      ],
+      "@ui-base/ui/component-reference": [
+        "C:\\Projects\\Modular\\ui-platform\\tests\\html-first\\native-types.d.ts"
+      ],
+      "@ui-base/forms": [
+        "C:\\Projects\\Modular\\ui-platform\\tests\\html-first\\unused.ts"
+      ]
+    }
+  }
+}

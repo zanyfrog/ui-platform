@@ -39,5 +39,9 @@ window.addEventListener('message', async event => {
     instance = composition && page.metadata.shellId ? mountComposedPage(composition, page, { ...options, editor: true, routeId: page.metadata.routeId, assetUrl: relative => `/api/apps/${encodeURIComponent(appKey)}/composition-asset?path=${encodeURIComponent(relative)}` }) : mountVisualArtifact(artifact, options);
     for (const name of Object.keys(artifact.metadata.public?.events ?? {})) instance.host.addEventListener(name, event => { events.textContent += `${name}: ${JSON.stringify((event as CustomEvent).detail)}\n`; });
     output.replaceChildren(instance.host);
-  } catch (error) { if (current === sequence) output.textContent = `Preview blocked: ${String(error)}`; }
+    if (event.data.design) parent.postMessage({ type: 'uip-design-preview-state' }, location.origin);
+  } catch (error) { if (current === sequence) {
+    output.textContent = `Preview blocked: ${String(error)}`;
+    if (event.data.design) parent.postMessage({ type: 'uip-design-preview-state', error: String(error) }, location.origin);
+  } }
 });

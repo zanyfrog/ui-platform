@@ -1,0 +1,34 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    beforeDiagnostics: true,\n+   feedback: 'Design preview could not load. Check the development server, then retry Design preview.',\n-   feedback: 'Loading saved design preview…',\n    focusable: true,\n    frames: 1,\n    heading: 'Saved design preview',\n    scrolled: true\n  }\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    beforeDiagnostics: true,\n+   feedback: 'Design preview could not load. Check the development server, then retry Design preview.',\n-   feedback: 'Loading saved design preview…',\n    focusable: true,\n    frames: 1,\n    heading: 'Saved design preview',\n    scrolled: true\n  }\n\n    at file:///C:/Projects/Modular/ui-platform/scripts/verify-design-preview-button.mjs:69:50",
+  "source": "<!-- authored fixture Page -->\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_c421d55a-c0cb-478e-a1f3-2f2bde111761\">\n  <uib-card data-uip-node=\"node_058d3749-77f2-4da3-8b24-84f63852182f\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" variant=\"outlined\" density=\"compact\" heading=\"Second saved heading\"><span data-uip-node=\"node_0dc7e32d-e4b9-4a57-b86b-09fdbac478c9\">Saved body $1 &amp; &quot;quotes&quot; &lt;text>\nSecond literal line</span><span data-uip-node=\"node_800fc4fe-c48b-4587-afda-55679706221c\" slot=\"header\">Saved header</span><span data-uip-node=\"node_ed933974-05fa-4819-8b9a-3dfb3885c10b\" slot=\"footer\">Saved footer</span></uib-card>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_f17ba350-a63f-4315-80bc-3011584772f5\">\n  <uib-panel data-uip-node=\"node_ff59e10e-8d6b-4899-b126-a60dfb86b3ac\" data-uip-component=\"@ui-base/ui:uib-panel\" variant=\"flat\" density=\"compact\"></uib-panel>\n</div>\n",
+  "status": "Visual ArtifactsSaved · Source baseline replaced. Undo/Redo history reset.\n    Create PageCreate ShellCreate Platform ComponentCreate Form from DatasetCreate blank FormSelect an artifactFixture\n    UndoRedoSave NowAdvanced source repair saveReload / discard editor changesDownload editor recoveryDelete artifactDesign previewChange Page ShellAdd RegionPlace Application MenuRemove selected node\n    Saved design previewDesign preview could not load. Check the development server, then retry Design preview.Layout is manual because this node has no Builder wrapper.Layout is manual because this node has no Builder wrapper.Layout is manual because this node has no Builder wrapper.Structurediv node_c421d55a-c0cb-478e-a1f3-2f2bde111761uib-card node_058d3749-77f2-4da3-8b24-84f63852182fspan node_0dc7e32d-e4b9-4a57-b86b-09fdbac478c9span node_800fc4fe-c48b-4587-afda-55679706221cspan node_ed933974-05fa-4819-8b9a-3dfb3885c10bdiv node_f17ba350-a63f-4315-80bc-3011584772f5uib-panel node_ff59e10e-8d6b-4899-b126-a60dfb86b3ac\n    Insert into selected HTML container, or artifact rootsectiondivarticleph2abuttonimgullispanuip-slotCardPanelInsert with layout wrapperSelect artifact rootMove layout item upMove layout item downSelect a managed node to edit settings and bindings.Artifact display namePage routeLocal stateNew local stateNew local state typeresultstringnumberbooleanobjectarrayDeclare local state\n    Source filesourcecssmetadatafixturescodeUse the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.",
+  "calls": [
+    {
+      "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+      "method": "PUT"
+    },
+    {
+      "method": "NONPRODUCTION_OWNER_ADMISSION"
+    },
+    {
+      "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+      "method": "GET"
+    },
+    {
+      "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+      "method": "PUT"
+    },
+    {
+      "method": "NONPRODUCTION_OWNER_ADMISSION"
+    },
+    {
+      "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+      "method": "GET"
+    }
+  ],
+  "preview": "<div id=\"preview\"></div>",
+  "events": "",
+  "errors": [],
+  "network": []
+}
