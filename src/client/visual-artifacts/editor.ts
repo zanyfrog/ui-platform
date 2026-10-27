@@ -527,6 +527,8 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   // Workspace navigation supplies freshly authorized source; save events refresh it.
   // Standalone editors retain their source watcher.
   const timer = options.initial ? undefined : setInterval(() => { void refresh(); }, 3000);
+  const resumeRefresh = () => { if (document.visibilityState !== 'hidden') void refresh(); };
+  window.addEventListener('focus', resumeRefresh);
   document.addEventListener('ui-platform-workspace-change', refresh);
   const unsubscribeCardContext = options.savedCardContext?.subscribe(() => invalidateCard('CONTEXT_CHANGED')) ?? (() => {});
   document.addEventListener('visibilitychange', cardVisibility);
@@ -554,6 +556,6 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       try { renderStructure(); } catch { status('Invalid local source retained. Repair source before using structured controls.'); }
       if (navigation.node !== undefined) evaluateCard();
     },
-    async dispose() { disposed = true; active = false; if (!cardTerminal) { cardTerminal = true; cardEpoch++; cardSourceGeneration++; cardPending = false; cardCompletion = undefined; publishCard({ state: 'unavailable', reason: 'DISPOSED', generation: cardGenerations(), target: null }); } unsubscribeCardContext(); window.removeEventListener('message', previewFeedback); document.removeEventListener('visibilitychange', cardVisibility); cardListeners.clear(); clearInterval(timer); document.removeEventListener('ui-platform-workspace-change', refresh); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(item => item.lifecycle.dispose())); preview?.remove(); target.replaceChildren(); },
+    async dispose() { disposed = true; active = false; if (!cardTerminal) { cardTerminal = true; cardEpoch++; cardSourceGeneration++; cardPending = false; cardCompletion = undefined; publishCard({ state: 'unavailable', reason: 'DISPOSED', generation: cardGenerations(), target: null }); } unsubscribeCardContext(); window.removeEventListener('message', previewFeedback); document.removeEventListener('visibilitychange', cardVisibility); cardListeners.clear(); clearInterval(timer); window.removeEventListener('focus', resumeRefresh); document.removeEventListener('ui-platform-workspace-change', refresh); unprotect(); transport.dispose(); await Promise.all([...copies.values()].map(item => item.lifecycle.dispose())); preview?.remove(); target.replaceChildren(); },
   };
 }
