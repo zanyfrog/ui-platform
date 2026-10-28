@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "selected": "node_e906a698-03c1-4d78-9411-a58b2879c96e",
+      "beforeIds": [
+        "node_layout_container",
+        "node_2ca3ee5d-e7e1-4ecb-b694-b4b6d8145752",
+        "node_e0e8fcc4-2be8-4589-93e7-8c51ea8e9075",
+        "node_3ea24d69-a9a9-4e3f-a330-fbd99fb04d05",
+        "node_11b0c3ed-a16d-45ec-bf89-71998a957080",
+        "node_80bf0b44-0fa7-49be-ac91-5073c7104586",
+        "node_a7cf0ef3-de6b-4307-a2c2-d0b7a0a3bda6"
+      ],
+      "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_layout_container\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_2ca3ee5d-e7e1-4ecb-b694-b4b6d8145752\">\n  <h2 data-uip-node=\"node_e0e8fcc4-2be8-4589-93e7-8c51ea8e9075\">Feature</h2>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_3ea24d69-a9a9-4e3f-a330-fbd99fb04d05\">\n  <p data-uip-node=\"node_11b0c3ed-a16d-45ec-bf89-71998a957080\">Original paragraph</p>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_80bf0b44-0fa7-49be-ac91-5073c7104586\">\n  <uib-card data-uip-node=\"node_a7cf0ef3-de6b-4307-a2c2-d0b7a0a3bda6\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" heading=\"Original Card\"></uib-card>\n</div>\n</section>\n<section class=\"uip-layout-item\" data-uip-node=\"node_e906a698-03c1-4d78-9411-a58b2879c96e\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_3ae663eb-6d62-4aa8-bb14-48aa6e77ed4a\">\n  <h2 data-uip-node=\"node_4251ff47-2aa6-4b62-9b4f-b6ea27ebdc0b\">Feature</h2>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_3a32d679-330b-4f6a-80f2-48afcf32fd65\">\n  <p data-uip-node=\"node_48ac066a-57a4-46b5-8e12-551c5798195b\">Original paragraph</p>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_aa1470f3-23de-433d-85d6-2fac7f6f78bc\">\n  <uib-card data-uip-node=\"node_98e5fdec-e8a2-4a41-84b8-6e9d8285dd38\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" heading=\"Independent copy\"></uib-card>\n</div>\n</section>\n",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_html_first",
+        "kind": "page",
+        "name": "fixture",
+        "displayName": "Fixture",
+        "route": "/fixture",
+        "layout": {
+          "node_layout_container": {
+            "base": {
+              "padding": "24px"
+            },
+            "mobile": {
+              "padding": "12px"
+            }
+          },
+          "node_e906a698-03c1-4d78-9411-a58b2879c96e": {
+            "base": {
+              "padding": "40px"
+            },
+            "mobile": {
+              "padding": "12px"
+            }
+          }
+        }
+      },
+      "savedHash": "d92dba51515661515a5272c8a54899b2373f2c1e10443111fd95e1327d1857a5",
+      "calls": [
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        }
+      ]
+    }
+  ],
+  "realRenderer": true,
+  "productionAuthorityQualified": false,
+  "iframeTransport": "isolated DOM simulation"
+}

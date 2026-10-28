@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "selected": "node_464451dc-854f-4cd4-9d14-7a0d1af17c20",
+      "beforeIds": [
+        "node_layout_container",
+        "node_d8340bb9-9128-498d-aab0-7d46da0fce27",
+        "node_74eb9bc2-8464-469d-a3f5-c4189545cffd",
+        "node_b8f1d53c-de2d-49e6-a50d-a99dd017e285",
+        "node_88ab3ff5-3a0f-4483-9322-f0ff4122de8d",
+        "node_13849e7f-9c30-4aff-9305-1177d61d38ff",
+        "node_2ee4ca78-8d1f-47be-bcd4-900a42975116"
+      ],
+      "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_layout_container\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_d8340bb9-9128-498d-aab0-7d46da0fce27\">\n  <h2 data-uip-node=\"node_74eb9bc2-8464-469d-a3f5-c4189545cffd\">Feature</h2>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_b8f1d53c-de2d-49e6-a50d-a99dd017e285\">\n  <p data-uip-node=\"node_88ab3ff5-3a0f-4483-9322-f0ff4122de8d\">Original paragraph</p>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_13849e7f-9c30-4aff-9305-1177d61d38ff\">\n  <uib-card data-uip-node=\"node_2ee4ca78-8d1f-47be-bcd4-900a42975116\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" heading=\"Original Card\"></uib-card>\n</div>\n</section>\n<section class=\"uip-layout-item\" data-uip-node=\"node_464451dc-854f-4cd4-9d14-7a0d1af17c20\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_8aadfe99-df0d-4b54-8928-db4434a2d8f8\">\n  <h2 data-uip-node=\"node_30fd4405-581f-49fb-bdbf-b260c848260a\">Feature</h2>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_5383a080-0ea7-40dc-ba9c-4cbe620bee73\">\n  <p data-uip-node=\"node_8e1ddc51-1850-4fdb-89e7-9b3c23fe312f\">Original paragraph</p>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_228c38a2-f892-4903-8cc1-1925f905503a\">\n  <uib-card data-uip-node=\"node_deeeb6bf-b6fe-41cb-a15a-fb22a2377453\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" heading=\"Independent copy\"></uib-card>\n</div>\n</section>\n",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_html_first",
+        "kind": "page",
+        "name": "fixture",
+        "displayName": "Fixture",
+        "route": "/fixture",
+        "layout": {
+          "node_layout_container": {
+            "base": {
+              "padding": "24px"
+            },
+            "mobile": {
+              "padding": "12px"
+            }
+          },
+          "node_464451dc-854f-4cd4-9d14-7a0d1af17c20": {
+            "base": {
+              "padding": "40px"
+            },
+            "mobile": {
+              "padding": "12px"
+            }
+          }
+        }
+      },
+      "savedHash": "06a364d3bd740bcfc980417e8df100a449f4f8938f53203dc82f5ebd3f4e9610",
+      "calls": [
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        }
+      ]
+    }
+  ],
+  "realRenderer": true,
+  "productionAuthorityQualified": false,
+  "iframeTransport": "isolated DOM simulation"
+}

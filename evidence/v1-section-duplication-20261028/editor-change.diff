@@ -1,0 +1,32 @@
+diff --git a/C:/Projects/Modular/ui-platform/evidence/v1-section-duplication-20261028/inputs/editor.ts.before b/C:/Projects/Modular/ui-platform/src/client/visual-artifacts/editor.ts
+index 1bdc5c5..0fe79ce 100644
+--- a/C:/Projects/Modular/ui-platform/evidence/v1-section-duplication-20261028/inputs/editor.ts.before
++++ b/C:/Projects/Modular/ui-platform/src/client/visual-artifacts/editor.ts
+@@ -1,4 +1,4 @@
+-import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
++import { insertNode, isWrapper, moveNode, duplicateSection, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+ import { chooseNamedValue } from './menu-controls.js';
+ import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
+ import type { ComponentCatalogEntry } from '../../shared/types.js';
+@@ -106,7 +106,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+     <div class="editor-actions"><button data-create="page">Create Page</button><button data-create="component">Create Platform Component</button><button data-create="form-dataset">Create Form from Dataset</button><button data-create="form">Create blank Form</button><select aria-label="Visual Artifact" data-artifacts><option value="">Select an artifact</option></select></div>
+     <div data-work hidden><div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-repair>Advanced source repair save</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Design preview</button><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
+     <div data-diagnostics></div><div class="builder-layout" style="grid-template-columns:minmax(180px,1fr) minmax(220px,2fr)"><div class="stack"><strong>Structure</strong><select data-nodes size="8" aria-label="Visual node"></select>
+-    <label>Insert into selected container, or artifact root<select data-insert aria-label="Insert element"></select></label><p class="note">Choose an item here, then click Insert selected item. The navigation list inspects component definitions.</p><button data-add>Insert selected item</button><button data-root>Select artifact root</button><button data-move="up">Move layout item up</button><button data-move="down">Move layout item down</button><div data-inspector></div></div>
++    <label>Insert into selected container, or artifact root<select data-insert aria-label="Insert element"></select></label><p class="note">Choose an item here, then click Insert selected item. The navigation list inspects component definitions.</p><button data-add>Insert selected item</button><button data-root>Select artifact root</button><button data-move="up">Move layout item up</button><button data-move="down">Move layout item down</button><button data-duplicate-section>Duplicate section</button><div data-inspector></div></div>
+     <div class="stack"><label>Source file<select data-file aria-label="Visual source file">${['source', 'css', 'metadata', 'fixtures', 'code'].map(name => `<option>${name}</option>`).join('')}</select></label><textarea data-source aria-label="Visual source" class="source-editor" spellcheck="false"></textarea><p class="note">Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.</p></div></div><div data-preview-host></div></div></div>`;
+   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
+   const status = (message: string) => { find('[data-status]').textContent = message; options.onStateChange?.(); };
+@@ -446,6 +446,12 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+   find('[data-nodes]').addEventListener('change', () => { invalidateCard('SELECTION_CHANGED', true); selectedNode = find<HTMLSelectElement>('[data-nodes]').value; renderInspector(); evaluateCard(); });
+   find('[data-root]').addEventListener('click', () => { invalidateCard('SELECTION_CHANGED', true); selectedNode = ''; renderStructure(); evaluateCard(); });
+   target.querySelectorAll<HTMLButtonElement>('[data-move]').forEach(button => button.addEventListener('click', safe(() => { files.source = moveNode(files.source, selectedNode, button.dataset.move as 'up' | 'down'); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })));
++  find('[data-duplicate-section]').addEventListener('click', safe(() => {
++    if (selectedKind !== 'page') throw new Error('Duplicate section is available only for Page sections.');
++    const result = duplicateSection(files, selectedNode, workspace.packages);
++    files = result.files; selectedNode = result.selectedNode;
++    find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
++  }));
+   find('[data-add]').addEventListener('click', safe(() => {
+     if (selectedKind === 'page' && workingMetadata().shellId) {
+       let container = parseSource(files.source).nodes.find(node => node.id === selectedNode);

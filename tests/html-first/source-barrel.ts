@@ -1,5 +1,6 @@
 export * from '../../packages/visual-artifacts/src/model.js';
 export * from '../../packages/visual-artifacts/src/source.js';
+export * from '../../packages/visual-artifacts/src/duplicate-section.js';
 export * from '../../packages/visual-artifacts/src/validation.js';
 export * from '../../packages/visual-artifacts/src/composition.js';
 export {generateForm} from '../../packages/visual-artifacts/src/form.js';

@@ -1,0 +1,66 @@
+import {isWrapper,parseSource,setNodeAttribute} from './source.js';
+import {parseMetadata,validateArtifact} from './validation.js';
+import type {ArtifactFiles,PackageComponent} from './model.js';
+
+/** One content-only source/layout edit. No mutation of inputs or persistent ID map. */
+export function duplicateSection(files: ArtifactFiles, selectedId: string, packages: PackageComponent[], newId: () => string = () => `node_${crypto.randomUUID()}`): {files: ArtifactFiles; selectedNode: string} {
+  const refuse = (reason: string): never => { throw new Error(`Cannot duplicate section: ${reason}`); };
+  const metadata = parseMetadata(files.metadata).metadata;
+  if (!metadata || metadata.kind !== 'page') refuse('select a valid Page section.');
+  const originalMetadata = metadata!;
+  const allowedMetadata = new Set(['schemaVersion','artifactId','kind','name','displayName','description','route','routeId','developmentOnly','layout']);
+  if (Object.keys(originalMetadata).some(key => !allowedMetadata.has(key))) refuse('this Page has behavior, composition or metadata outside content-only duplication.');
+  if (files.css.trim() || !/^(?:\s*|\s*export\s*\{\s*\}\s*;?\s*)$/.test(files.code)) refuse('custom Page CSS/functions are not supported.');
+  try { const fixtures = JSON.parse(files.fixtures || '{}'); if (!fixtures || Array.isArray(fixtures) || typeof fixtures !== 'object' || Object.keys(fixtures).length) refuse('only empty Page fixtures are supported.'); }
+  catch { refuse('only valid empty Page fixtures are supported.'); }
+  const parsed = parseSource(files.source);
+  if (parsed.diagnostics.some(d => d.severity === 'error') || parsed.nodes.some(n => !n.id || n.manual)) refuse('source must contain only unambiguous managed elements with explicit balanced tags.');
+  const section = parsed.nodes.find(n => n.id === selectedId);
+  if (!section || section.tag !== 'section') refuse('select the section itself in Structure.');
+  const selected = section!;
+  const item = selected.parent && isWrapper(selected.parent) ? selected.parent : selected;
+  if (item.parent || item !== selected && (item.children.length !== 1 || item.children[0] !== selected)) refuse('only a Page-root section and its own outer wrapper are supported.');
+  const ordinary = new Set(['section','div','article','p','h1','h2','h3','h4','h5','h6','a','img','ul','ol','li','span','strong','em','br']);
+  const common = new Set(['data-uip-node','class','title','lang','dir','aria-label','role']);
+  for (const node of parsed.nodes) {
+    const componentId = node.attributes['data-uip-component'];
+    const matches = packages.filter(p => p.id === componentId);
+    const card = componentId && matches.length === 1 && matches[0].tagName === 'uib-card' && node.tag === 'uib-card' && matches[0].definition && !matches[0].activationIssues?.length ? matches[0] : undefined;
+    if (componentId && !card || !componentId && !ordinary.has(node.tag)) refuse('only ordinary literal HTML and the admitted native Card contract are supported.');
+    const attributes = new Set(common);
+    if (node.tag === 'a') attributes.add('href');
+    if (node.tag === 'img') {attributes.add('src');attributes.add('alt');}
+    if (card) {
+      attributes.add('data-uip-component');
+      const literalCard = new Set(['heading','label','variant','density','disabled','css-class','aria-label']);
+      for (const contract of Object.values(card.definition!.builder.settings)) if (contract.binding?.kind === 'attribute' && contract.binding.name && literalCard.has(contract.binding.name.toLowerCase())) attributes.add(contract.binding.name.toLowerCase());
+    }
+    const names = Object.keys(node.attributes).map(name => name.toLowerCase());
+    if (new Set(names).size !== names.length || names.some(name => !attributes.has(name))) refuse('IDs, slots, Regions, reference-bearing or unknown attributes are not supported.');
+    if (node.tag === 'a' && Object.entries(node.attributes).some(([name,value]) => name.toLowerCase() === 'href' && (value.startsWith('#') || value.includes('#')))) refuse('fragment references are not supported.');
+  }
+  const assertValid = (candidate: ArtifactFiles) => {
+    const m = parseMetadata(candidate.metadata).metadata;
+    if (!m) refuse('invalid metadata.');
+    const errors = validateArtifact({metadata:m!,source:candidate.source,css:candidate.css},[],packages).filter(d => d.severity === 'error');
+    if (errors.length) refuse(errors.map(d => d.message).join(' '));
+  };
+  assertValid(files);
+  const included = parsed.nodes.filter(n => n.start >= item.start && n.end <= item.end);
+  const reserved = new Set(parsed.nodes.map(n => n.id!)), ids = new Map<string,string>();
+  for (const node of included) {
+    let fresh: string | undefined;
+    for (let attempt=0;attempt<32;attempt++) { const value=newId(); if (/^[A-Za-z][\w-]*$/.test(value) && !reserved.has(value)) {fresh=value;break;} }
+    if (!fresh) refuse('could not generate a fresh node identity; no changes were made.');
+    reserved.add(fresh!); ids.set(node.id!,fresh!);
+  }
+  let cloned = files.source.slice(item.start,item.end);
+  for (const [oldId,fresh] of ids) cloned = setNodeAttribute(cloned,oldId,'data-uip-node',fresh);
+  const nextMetadata = structuredClone(originalMetadata);
+  for (const [oldId,fresh] of ids) if (originalMetadata.layout && Object.hasOwn(originalMetadata.layout,oldId)) {
+    nextMetadata.layout ??= {}; nextMetadata.layout[fresh] = structuredClone(originalMetadata.layout[oldId]);
+  }
+  const next = {...files,source:files.source.slice(0,item.end)+'\n'+cloned+files.source.slice(item.end),metadata:JSON.stringify(nextMetadata,null,2)+'\n'};
+  assertValid(next);
+  return {files:next,selectedNode:ids.get(selected.id!)!};
+}
