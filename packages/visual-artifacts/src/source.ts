@@ -118,6 +118,16 @@ export function parseSource(source: string): { nodes: SourceNode[]; diagnostics:
 }
 export function isWrapper(node?: SourceNode): boolean { return Boolean(node?.attributes.class?.split(/\s+/).includes('uip-layout-item')); }
 export function serializeSource(source: string): string { return source; }
+/** Change only a managed heading's paired tag names; retain all other bytes. */
+export function setHeadingLevel(source: string, id: string, level: string): string {
+  if (!/^h[1-6]$/.test(level)) throw new Error('Choose a heading level from H1 to H6.');
+  const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);
+  if (parsed.diagnostics.some(d => d.severity === 'error') || !node || node.manual || !/^h[1-6]$/.test(node.tag) || node.attributes['data-uip-component']) throw new Error('Select an unambiguous managed HTML heading.');
+  const opening = source.slice(node.start, node.openEnd), closing = source.slice(node.closeStart, node.end);
+  if (!/^<h[1-6](?=\s|>)/i.test(opening) || !/^<\/h[1-6]\s*>$/i.test(closing)) throw new Error('Heading requires explicit paired tags.');
+  if (node.tag === level) return source;
+  return source.slice(0, node.start) + opening.replace(/^<h[1-6]/i, '<' + level) + source.slice(node.openEnd, node.closeStart) + closing.replace(/^<\/h[1-6]/i, '</' + level) + source.slice(node.end);
+}
 export function setNodeAttribute(source: string, id: string, name: string, value: string): string {
   if (!/^[\w:-]+$/.test(name)) throw new Error('Invalid attribute name.');
   const parsed = parseSource(source);

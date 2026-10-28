@@ -1,4 +1,4 @@
-import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+import { insertNode, isWrapper, moveNode, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
 import { chooseNamedValue } from './menu-controls.js';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
 import type { ComponentCatalogEntry } from '../../shared/types.js';
@@ -17,6 +17,7 @@ export interface VisualWorkspaceOptions {
   savedCardContext?: { get(): SavedCardContext | undefined; subscribe(invalidate: () => void): () => void };
 }
 const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
+const headingLabels = ['H1 — Page title', 'H2 — Section heading', 'H3 — Subsection heading', 'H4 — Heading level 4', 'H5 — Heading level 5', 'H6 — Heading level 6'];
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, { ...init, headers: { 'content-type': 'application/json', ...init?.headers } });
   const data = await response.json(); if (!response.ok) throw new Error(data.error ?? 'Visual Artifact request failed.'); return data;
@@ -156,7 +157,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     const select = find<HTMLSelectElement>('[data-artifacts]');
     select.innerHTML = '<option value="">Select an artifact</option>' + [['Pages', workspace.pages], ['Shells', workspace.shells ?? []], ['Platform Components', workspace.components]].map(([label, items]) => `<optgroup label="${label}">${(items as ArtifactBundle[]).map(b => `<option value="${label === 'Pages' ? 'page' : label === 'Shells' ? 'shell' : 'component'}:${esc(b.locator)}">${esc(b.metadata?.displayName ?? b.locator)}${b.diagnostics.some(d => d.severity === 'error') ? ' (needs repair)' : ''}</option>`).join('')}</optgroup>`).join('');
     if (selected) select.value = `${selectedKind}:${selected.locator}`;
-    find<HTMLSelectElement>('[data-insert]').innerHTML = '<optgroup label="HTML">' + ['section', 'div', 'article', 'p', 'h2', 'a', 'button', 'img', 'ul', 'li', 'span', 'uip-slot'].map(tag => `<option value="html:${tag}">${tag}</option>`).join('') + '</optgroup><optgroup label="Package Components">' + workspace.packages.filter(p => !p.activationIssues?.length).map(p => `<option value="package:${esc(p.id)}">${esc(p.name ?? p.tagName)}</option>`).join('') + '</optgroup><optgroup label="Platform Components">' + workspace.components.filter(b => b.metadata && !b.diagnostics.some(d => d.severity === 'error')).map(b => `<option value="component:${esc(b.metadata!.componentId)}">${esc(b.metadata!.displayName)}</option>`).join('') + '</optgroup>';
+    find<HTMLSelectElement>('[data-insert]').innerHTML = '<optgroup label="HTML">' + ['section', 'div', 'article', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'button', 'img', 'ul', 'li', 'span', 'uip-slot'].map(tag => `<option value="html:${tag}">${/^h[1-6]$/.test(tag) ? headingLabels[Number(tag[1]) - 1] : tag}</option>`).join('') + '</optgroup><optgroup label="Package Components">' + workspace.packages.filter(p => !p.activationIssues?.length).map(p => `<option value="package:${esc(p.id)}">${esc(p.name ?? p.tagName)}</option>`).join('') + '</optgroup><optgroup label="Platform Components">' + workspace.components.filter(b => b.metadata && !b.diagnostics.some(d => d.severity === 'error')).map(b => `<option value="component:${esc(b.metadata!.componentId)}">${esc(b.metadata!.displayName)}</option>`).join('') + '</optgroup>';
     if (Array.from(insert.options).some(option => option.value === insertion)) insert.value = insertion;
   }
   function workingMetadata(): ArtifactMetadata { const metadata = parseMetadata(files.metadata).metadata; if (!metadata) throw new Error('Repair metadata JSON first.'); return metadata; }
@@ -244,6 +245,13 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       return;
     }
     if (node.manual) { inspector.textContent = 'Manual region: edit source directly.'; return; }
+    if (/^h[1-6]$/.test(node.tag) && !node.attributes['data-uip-component']) {
+      const label = document.createElement('label'); label.textContent = 'Heading level';
+      const select = document.createElement('select'); select.setAttribute('aria-label', 'Heading level');
+      headingLabels.forEach((text, index) => select.add(new Option(text, `h${index + 1}`))); select.value = node.tag;
+      select.addEventListener('change', safe(() => { files.source = setHeadingLevel(files.source, selectedNode, select.value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); }));
+      label.append(select); inspector.append(label);
+    }
     for (const name of node.tag === 'a' ? ['href'] : node.tag === 'img' ? ['src', 'alt'] : []) {
       const label = document.createElement('label'); label.textContent = name === 'href' ? 'Link destination (href)' : name === 'src' ? 'Image source (src)' : 'Alternative text (alt)';
       const input = document.createElement('input'); input.value = Object.entries(node.attributes).find(([key]) => key.toLowerCase() === name)?.[1] ?? ''; input.setAttribute('aria-label', label.textContent);

@@ -1,0 +1,33 @@
+import type { Diagnostic } from './model.js';
+import { type PackageDefinition, type PropertyContract } from './model.js';
+export interface SourceNode {
+    id?: string;
+    tag: string;
+    attributes: Record<string, string>;
+    start: number;
+    openEnd: number;
+    end: number;
+    closeStart: number;
+    parent?: SourceNode;
+    children: SourceNode[];
+    manual: boolean;
+}
+export declare const escapeAttribute: (value: string) => string;
+/** Literal managed HTML URL policy. Validation never rewrites authoritative HTML. */
+export declare function validateManagedUrlAttribute(tag: string, name: string, value: string): void;
+/** Conservative, offset-based HTML reader. Unsupported regions remain untouched, never round-tripped through a DOM serializer. */
+export declare function parseSource(source: string): {
+    nodes: SourceNode[];
+    diagnostics: Diagnostic[];
+};
+export declare function isWrapper(node?: SourceNode): boolean;
+export declare function serializeSource(source: string): string;
+export declare function setNodeAttribute(source: string, id: string, name: string, value: string): string;
+/** Remove an attribute through the same admitted source reader; leave other bytes intact. */
+export declare function removeNodeAttribute(source: string, id: string, name: string): string;
+/** Existing JSON-only values retain compatibility; new literal fields live in HTML. */
+export declare function readNodeSettings(source: string, id: string, definition?: PackageDefinition, contracts?: Record<string, PropertyContract>): Record<string, unknown>;
+/** Explicit property edits replace only that property's old JSON override. No bulk migration. */
+export declare function setNodeSetting(source: string, id: string, key: string, value: unknown, definition?: PackageDefinition, contracts?: Record<string, PropertyContract>): string;
+export declare function insertNode(source: string, tag: string, componentId?: string, parentId?: string, newId?: () => string, slot?: string): string;
+export declare function moveNode(source: string, id: string, direction: 'up' | 'down'): string;

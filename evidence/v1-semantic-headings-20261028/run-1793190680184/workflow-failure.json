@@ -1,0 +1,23 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n... Skipped lines\n\n  '<section class=\"uip-layout-item\" data-uip-node=\"node_layout_container\">\\n' +\n    '<div class=\"uip-layout-item\" data-uip-node=\"node_0cd152c4-bc0f-4460-b430-62f23b1a842f\">\\n' +\n    '  <h1 data-uip-node=\"node_8452f645-58dc-416f-b328-3c4916b62f02\">Page title</h1>\\n' +\n    '</div>\\n' +\n    '\\n' +\n...\n    '<div class=\"uip-layout-item\" data-uip-node=\"node_8efb7b85-e734-4ba7-bf3a-5040cda74d44\">\\n' +\n+   '  <h6 data-uip-node=\"node_9332bef1-1041-4826-b1c7-7d23487c882a\">Subsection heading</h6>\\n' +\n-   '  <h4 data-uip-node=\"node_9332bef1-1041-4826-b1c7-7d23487c882a\">Subsection heading</h4>\\n' +\n    '</div>\\n' +\n    '</section>\\n'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n... Skipped lines\n\n  '<section class=\"uip-layout-item\" data-uip-node=\"node_layout_container\">\\n' +\n    '<div class=\"uip-layout-item\" data-uip-node=\"node_0cd152c4-bc0f-4460-b430-62f23b1a842f\">\\n' +\n    '  <h1 data-uip-node=\"node_8452f645-58dc-416f-b328-3c4916b62f02\">Page title</h1>\\n' +\n    '</div>\\n' +\n    '\\n' +\n...\n    '<div class=\"uip-layout-item\" data-uip-node=\"node_8efb7b85-e734-4ba7-bf3a-5040cda74d44\">\\n' +\n+   '  <h6 data-uip-node=\"node_9332bef1-1041-4826-b1c7-7d23487c882a\">Subsection heading</h6>\\n' +\n-   '  <h4 data-uip-node=\"node_9332bef1-1041-4826-b1c7-7d23487c882a\">Subsection heading</h4>\\n' +\n    '</div>\\n' +\n    '</section>\\n'\n\n    at file:///C:/Projects/Modular/ui-platform/scripts/verify-semantic-headings.mjs:73:103",
+  "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_layout_container\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_0cd152c4-bc0f-4460-b430-62f23b1a842f\">\n  <h1 data-uip-node=\"node_8452f645-58dc-416f-b328-3c4916b62f02\">Page title</h1>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_2e2b56d6-07f1-406c-9531-ff9ff43435ea\">\n  <h2 data-uip-node=\"node_8ab192a2-bf28-4bd5-a7a3-62657c76d825\">Section heading</h2>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_8efb7b85-e734-4ba7-bf3a-5040cda74d44\">\n  <h6 data-uip-node=\"node_9332bef1-1041-4826-b1c7-7d23487c882a\">Subsection heading</h6>\n</div>\n</section>\n",
+  "status": "Visual ArtifactsUnsaved\n    Create PageCreate ShellCreate Platform ComponentCreate Form from DatasetCreate blank FormSelect an artifactFixture\n    UndoRedoSave NowAdvanced source repair saveReload / discard editor changesDownload editor recoveryDelete artifactDesign previewChange Page ShellAdd RegionPlace Application MenuRemove selected node\n    Structuresection — Page title  div — Page title    h1 — Page title  div — Section heading    h2 — Section heading  div — Subsection heading    h6 — Subsection heading\n    Insert into selected container, or artifact rootsectiondivarticlepH1 — Page titleH2 — Section headingH3 — Subsection headingH4 — Heading level 4H5 — Heading level 5H6 — Heading level 6abuttonimgullispanuip-slotCardPanelChoose an item here, then click Insert selected item. The navigation list inspects component definitions.Insert selected itemSelect artifact rootMove layout item upMove layout item downHeading levelH1 — Page titleH2 — Section headingH3 — Subsection headingH4 — Heading level 4H5 — Heading level 5H6 — Heading level 6CSS classesText contentInstance bindingBinding targettextattribute:hrefattribute:aria-labelproperty:disabledBindingBinding sourceNamed source pathLiteral textLiteral numberLiteral booleanBinding valueApply bindingEvent actionAction eventclickchangeinputsubmitAction kindNavigateSet local stateEmit public eventExisting Dataset serviceProtected single-record deleteRun approved WorkflowAction local stateAction valueAction value sourceNamed source pathLiteral textLiteral numberLiteral booleanAction value valueAdd event actionBreakpointbasetabletmobilewidthheightmarginpaddingdisplaygridTemplateColumnsgridColumngapalignItemsjustifyContentflexDirection\n    Source filesourcecssmetadatafixturescodeUse the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.",
+  "calls": [
+    {
+      "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+      "method": "PUT"
+    },
+    {
+      "method": "NONPRODUCTION_OWNER_ADMISSION"
+    },
+    {
+      "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+      "method": "GET"
+    }
+  ],
+  "preview": "<div id=\"preview\"></div>",
+  "events": "",
+  "errors": [],
+  "network": []
+}

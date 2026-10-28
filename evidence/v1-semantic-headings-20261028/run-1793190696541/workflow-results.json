@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "headings": [
+        {
+          "id": "node_ef2a1229-0e4b-4aff-b2ba-d1e9ea8ec953",
+          "tag": "h1",
+          "text": "Page title"
+        },
+        {
+          "id": "node_e14fc5f3-6418-4416-865c-82dc39966e28",
+          "tag": "h2",
+          "text": "Section heading"
+        },
+        {
+          "id": "node_5b9b7941-18df-4176-98ec-557ff455e999",
+          "tag": "h3",
+          "text": "Subsection heading"
+        }
+      ],
+      "savedHash": "72b4a329899be9111dbdc403d4e64f8ca3816ffd37d9e8f515247bdb29fbb396",
+      "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_layout_container\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_b13d98ab-686e-4a10-821c-8b50e1780103\">\n  <h1 data-uip-node=\"node_ef2a1229-0e4b-4aff-b2ba-d1e9ea8ec953\">Page title</h1>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_ed43f2bd-1c6c-455c-b9cc-81998fb7a65e\">\n  <h2 data-uip-node=\"node_e14fc5f3-6418-4416-865c-82dc39966e28\">Section heading</h2>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_a2bff5f9-9a97-4156-96b1-ca9a8867e713\">\n  <h4 data-uip-node=\"node_5b9b7941-18df-4176-98ec-557ff455e999\">Subsection heading</h4>\n</div>\n</section>\n",
+      "labels": [
+        {
+          "id": "node_layout_container",
+          "text": "section — Page title"
+        },
+        {
+          "id": "node_b13d98ab-686e-4a10-821c-8b50e1780103",
+          "text": "  div — Page title"
+        },
+        {
+          "id": "node_ef2a1229-0e4b-4aff-b2ba-d1e9ea8ec953",
+          "text": "    h1 — Page title"
+        },
+        {
+          "id": "node_ed43f2bd-1c6c-455c-b9cc-81998fb7a65e",
+          "text": "  div — Section heading"
+        },
+        {
+          "id": "node_e14fc5f3-6418-4416-865c-82dc39966e28",
+          "text": "    h2 — Section heading"
+        },
+        {
+          "id": "node_a2bff5f9-9a97-4156-96b1-ca9a8867e713",
+          "text": "  div — Subsection heading"
+        },
+        {
+          "id": "node_5b9b7941-18df-4176-98ec-557ff455e999",
+          "text": "    h4 — Subsection heading"
+        }
+      ],
+      "calls": [
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        }
+      ]
+    }
+  ],
+  "realRenderer": true,
+  "productionAuthorityQualified": false,
+  "iframeTransport": "isolated DOM simulation"
+}
