@@ -6,6 +6,27 @@ const voidTags = new Set('area base br col embed hr img input link meta param so
 const optionalTags = new Set('p li dt dd rt rp option optgroup thead tbody tfoot tr td th'.split(' '));
 const blockTags = new Set('address article aside blockquote div dl fieldset footer form h1 h2 h3 h4 h5 h6 header hr main nav ol p pre section table ul'.split(' '));
 export const escapeAttribute = (value: string): string => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+/** Literal managed HTML URL policy. Validation never rewrites authoritative HTML. */
+export function validateManagedUrlAttribute(tag: string, name: string, value: string): void {
+  if (!((tag === 'a' && name === 'href') || (tag === 'img' && name === 'src'))) return;
+  if (!value) return; // Empty fields are unset references, not an admitted scheme.
+  const invalid = () => { throw new Error(`Unsupported or malformed ${tag} ${name} URL. Use an allowed scheme or a relative path without whitespace or backslashes.`); };
+  if (/[\s\u0000-\u001f\u007f\\<>"`]/u.test(value) || /^\/\//.test(value) || /&(?:#|[a-z]+;)/i.test(value) || /%(?![0-9a-f]{2})/i.test(value) || /%(?:0[0-9a-f]|1[0-9a-f]|7f)/i.test(value)) invalid();
+  const scheme = /^([a-z][a-z0-9+.-]*):/i.exec(value)?.[1].toLowerCase();
+  if (scheme && !(tag === 'a' ? ['http', 'https', 'mailto', 'tel'] : ['http', 'https']).includes(scheme)) invalid();
+  if (scheme === 'http' || scheme === 'https') {
+    if (!/^https?:\/\/[^/]/i.test(value)) invalid();
+  } else if (scheme) {
+    if (!value.slice(scheme.length + 1) || value.slice(scheme.length + 1).startsWith('//')) invalid();
+  } else {
+    if (value.split(/[/?#]/, 1)[0].includes(':') || (tag === 'img' && /^[?#]/.test(value))) invalid();
+  }
+  try {
+    const parsed = new URL(value, 'https://managed.invalid/');
+    if (!scheme && parsed.origin !== 'https://managed.invalid') invalid();
+    if (scheme && parsed.protocol !== scheme + ':') invalid();
+  } catch { invalid(); }
+}
 const decode = (value: string): string => value.replaceAll('&quot;', '"').replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&amp;', '&');
 
 /** Conservative, offset-based HTML reader. Unsupported regions remain untouched, never round-tripped through a DOM serializer. */
@@ -103,9 +124,10 @@ export function setNodeAttribute(source: string, id: string, name: string, value
   if (parsed.diagnostics.some(diagnostic => diagnostic.severity === 'error')) throw new Error('Repair source structure before editing attributes.');
   const node = parsed.nodes.find(n => n.id === id);
   if (!node || node.manual || parsed.nodes.filter(n => n.id === id).length !== 1) throw new Error('Select an unambiguous editor-managed node.');
+  validateManagedUrlAttribute(node.tag, name.toLowerCase(), value);
   const opening = source.slice(node.start, node.openEnd);
   const identityName = /^(data-uip-node|data-uip-component)$/i.test(name);
-  const pattern = new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`, identityName ? 'i' : '');
+  const pattern = new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`, identityName || /^(href|src|alt)$/i.test(name) ? 'i' : '');
   const attr = ` ${name}="${escapeAttribute(value)}"`;
   const next = pattern.test(opening) ? opening.replace(pattern, () => attr) : opening.replace(/\s*\/?>$/, end => attr + end);
   return source.slice(0, node.start) + next + source.slice(node.openEnd);

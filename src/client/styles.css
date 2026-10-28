@@ -123,6 +123,18 @@ button, input, select, textarea { font: inherit; }
 .app-title-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .app-title-row h1 { margin: 0; font-size: clamp(1.75rem, 2.5vw, 2.25rem); line-height: 1.05; letter-spacing: 0; }
 .app-summary { display: grid; gap: .55rem; min-width: 0; }
+.app-hero.is-compact { grid-template-columns: minmax(0, 1fr) auto; padding: .75rem 1rem; gap: .75rem; }
+.app-hero.is-compact .app-icon { display: none; }
+.app-hero.is-compact h1 { font-size: 1.2rem; }
+.app-header-actions { display: flex; align-items: center; gap: .65rem; }
+.app-details-toggle { background: transparent; border: 1px solid var(--platform-border); border-radius: 8px; padding: .45rem .65rem; color: var(--platform-ink); }
+.app-actions { position: relative; }
+.app-actions summary { display: flex; align-items: center; justify-content: center; list-style: none; cursor: pointer; font-size: 1.5rem; }
+.app-actions summary::-webkit-details-marker { display: none; }
+.app-actions-list { position: absolute; right: 0; top: calc(100% + .4rem); z-index: 10; min-width: 12rem; padding: .4rem; background: white; border: 1px solid var(--platform-border); border-radius: 8px; box-shadow: 0 8px 24px #0002; }
+.app-actions-list button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: .65rem; border-radius: 4px; color: var(--platform-ink); }
+.app-actions-list button:hover, .app-actions-list button:focus-visible { background: #edf3fb; }
+.app-header-actions [hidden] { display: none; }
 .app-summary p { margin: 0; color: var(--platform-muted); font-size: 1rem; }
 .app-summary p:first-of-type { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .app-id { display: inline-flex; align-items: center; gap: .45rem; overflow-wrap: anywhere; }

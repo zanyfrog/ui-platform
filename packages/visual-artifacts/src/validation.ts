@@ -1,4 +1,4 @@
-import { parseSource, isWrapper } from './source.js';
+import { parseSource, isWrapper, validateManagedUrlAttribute } from './source.js';
 import { packageSettingErrors, readPackageSettings, readLegacyPackageSettings, legacyPackageSettingContracts } from './model.js';
 import { calculationOrder, expressionType } from './expression.js';
 import { formCalculations, formExpressionFields } from './form.js';
@@ -85,6 +85,10 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
     };
     const requireNode = (id: string) => { if (!nodes.has(id)) error(`Unknown managed node: ${id}.`, id); return nodes.get(id); };
     for (const node of parsed.nodes) {
+      if (node.id && !node.manual) for (const [name, value] of Object.entries(node.attributes)) {
+        try { validateManagedUrlAttribute(node.tag, name.toLowerCase(), value); }
+        catch (cause) { error(cause instanceof Error ? cause.message : String(cause), node.id); }
+      }
       const id = node.attributes['data-uip-component'];
       if (node.tag === 'uip-page' || node.attributes['data-uip-page']) error('Pages cannot be nested.', node.id);
       if (node.tag === 'uip-slot' && !m.public?.slots.includes(node.attributes.name ?? '')) error(`Undeclared public slot: ${node.attributes.name}.`, node.id);

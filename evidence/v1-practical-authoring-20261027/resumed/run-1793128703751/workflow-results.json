@@ -1,0 +1,128 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "autosave": false,
+      "cardId": "node_de03b86b-44a0-4983-8698-de9e7b8d236f",
+      "panelId": "node_606f3f51-cf75-45f3-b22f-cf0d6a364fb4",
+      "savedHash": "938d376af7cc2630547d53f05cfc644b742b74c99d78fdcc39fccad6ab4341c6",
+      "savedSource": "<section class=\"uip-layout-item\" data-uip-node=\"node_layout_container\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_0b984e80-9ffb-472f-884a-528d91270a91\">\n  <uib-card data-uip-node=\"node_de03b86b-44a0-4983-8698-de9e7b8d236f\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" variant=\"outlined\" density=\"compact\" heading=\"Second saved heading\"><span data-uip-node=\"node_c5ad3f44-1606-4cff-b6b3-6eba2c1a0dc4\">Saved body $1 &amp; &quot;quotes&quot; &lt;text>\nSecond literal line</span><span data-uip-node=\"node_afb43670-ec37-4ff2-8cb0-78d7a02e2a10\" slot=\"header\">Saved header</span><span data-uip-node=\"node_7c9f2707-d5e8-4651-a940-4dab8a97f312\" slot=\"footer\">Saved footer</span></uib-card>\n</div>\n</section>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_a309da28-db53-46c6-9831-056b85eaf7cf\">\n  <uib-panel data-uip-node=\"node_606f3f51-cf75-45f3-b22f-cf0d6a364fb4\" data-uip-component=\"@ui-base/ui:uib-panel\" variant=\"flat\" density=\"compact\"></uib-panel>\n</div>\n",
+      "previewRequest": {
+        "type": "uip-preview",
+        "design": true,
+        "locator": "page/page.visual.json",
+        "kind": "page",
+        "hash": "938d376af7cc2630547d53f05cfc644b742b74c99d78fdcc39fccad6ab4341c6",
+        "appKey": "fixture-app"
+      },
+      "nativeCardClass": "UibCard",
+      "nativePanelClass": "UibPanel",
+      "cardText": "Saved body $1 & \"quotes\" <text>\nSecond literal lineSaved headerSaved footer",
+      "nativeHeading": "Second saved heading",
+      "calls": [
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?preview=1&locator=page%2Fpage.visual.json&hash=938d376af7cc2630547d53f05cfc644b742b74c99d78fdcc39fccad6ab4341c6",
+          "method": "GET"
+        }
+      ],
+      "network": [],
+      "errors": []
+    },
+    {
+      "autosave": true,
+      "cardId": "node_339455c0-2cb5-4400-8f75-88a93e916156",
+      "panelId": "node_c129e538-dd9d-4c89-8171-c06b3d5d2cb3",
+      "savedHash": "31dc59214524d9fe0c90a5dcea613eecda40dbaea5b39e5c989df8f3899ed813",
+      "savedSource": "<section class=\"uip-layout-item\" data-uip-node=\"node_layout_container\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_700be609-f118-43e8-961f-b4619c79ce74\">\n  <uib-card data-uip-node=\"node_339455c0-2cb5-4400-8f75-88a93e916156\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" variant=\"outlined\" density=\"compact\" heading=\"Second saved heading\"><span data-uip-node=\"node_6da8d384-44e0-4d67-8a92-7d618c7eafb4\">Saved body $1 &amp; &quot;quotes&quot; &lt;text>\nSecond literal line</span><span data-uip-node=\"node_9f24c522-6034-45f7-aa8b-f7f28d2e07e7\" slot=\"header\">Saved header</span><span data-uip-node=\"node_0e900ed8-a552-4595-955e-19603f0494f9\" slot=\"footer\">Saved footer</span></uib-card>\n</div>\n</section>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_7cf74283-4aed-43d9-a0c0-4730d87ff2f4\">\n  <uib-panel data-uip-node=\"node_c129e538-dd9d-4c89-8171-c06b3d5d2cb3\" data-uip-component=\"@ui-base/ui:uib-panel\" variant=\"flat\" density=\"compact\"></uib-panel>\n</div>\n",
+      "previewRequest": {
+        "type": "uip-preview",
+        "design": true,
+        "locator": "page/page.visual.json",
+        "kind": "page",
+        "hash": "31dc59214524d9fe0c90a5dcea613eecda40dbaea5b39e5c989df8f3899ed813",
+        "appKey": "fixture-app"
+      },
+      "nativeCardClass": "UibCard",
+      "nativePanelClass": "UibPanel",
+      "cardText": "Saved body $1 & \"quotes\" <text>\nSecond literal lineSaved headerSaved footer",
+      "nativeHeading": "Second saved heading",
+      "calls": [
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "PUT"
+        },
+        {
+          "method": "NONPRODUCTION_OWNER_ADMISSION"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?locator=page%2Fpage.visual.json",
+          "method": "GET"
+        },
+        {
+          "url": "/api/apps/fixture-app/visual-pages?preview=1&locator=page%2Fpage.visual.json&hash=31dc59214524d9fe0c90a5dcea613eecda40dbaea5b39e5c989df8f3899ed813",
+          "method": "GET"
+        }
+      ],
+      "network": [],
+      "errors": []
+    }
+  ],
+  "realRenderer": true,
+  "productionAuthorityQualified": false,
+  "iframeTransport": "isolated DOM simulation"
+}

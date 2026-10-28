@@ -227,7 +227,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     const fragment = template.content.cloneNode(true) as DocumentFragment;
     for (const child of [...fragment.children]) child.replaceWith(...process(child, scope(), 'root'));
     const style = document.createElement('style');
-    const css = `:host{display:block}.uip-layout-item{box-sizing:border-box;min-width:0}\n${options.presentationCss ?? ''}\n${artifact.css}\n${layoutCss(m.layout)}`;
+    const css = `:host{display:block}.uip-layout-item{box-sizing:border-box;min-width:0}img{max-width:100%;height:auto}\n${options.presentationCss ?? ''}\n${artifact.css}\n${layoutCss(m.layout)}`;
     style.textContent = options.assetUrl ? css.replace(/url\(\s*(['"]?)((?:\.\.\/|\.\/)*assets\/[^)'"\s]+)\1\s*\)/g, (_, _quote, relative: string) => `url("${options.assetUrl!(relative.replace(/^(?:\.\.\/)+|^\.\//, ''))}")`) : css;
     root.replaceChildren(style, fragment);
     formRuntime?.paint();

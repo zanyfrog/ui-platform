@@ -165,16 +165,16 @@ function sidebar(): string {
     </aside>`;
 }
 
-function shell(content: string): void {
+function shell(content: string, applicationListControls = true): void {
   parkBuilder();
   root!.innerHTML = `
     <main class="shell">
       ${sidebar()}
       <section class="workspace">
-        <header class="topbar">
+        ${applicationListControls ? `<header class="topbar">
           <uib-forms-textbox class="global-search" name="applicationSearch" label="Search applications" placeholder="Search applications..." value="${esc(currentSearch)}"></uib-forms-textbox>
           ${actionButton('new', 'New Application', { variant: 'primary' })}
-        </header>
+        </header>` : ''}
         ${content}
       </section>
     </main>`;
@@ -499,14 +499,26 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
   }).join('');
   shell(`
     <div class="breadcrumb"><button type="button" data-action="home">Applications</button><span>/</span><strong>${esc(app.name)}</strong></div>
-    <section class="app-hero">
+    <section class="app-hero" data-app-header>
       <div class="app-icon">${esc(appInitial(app))}</div>
       <div class="app-summary">
         <div class="app-title-row"><h1>${esc(app.name)}</h1>${appStatusBadge(app.status)}</div>
-        <p><span>/${esc(app.key)}</span><span class="app-id">${icon('info')}${esc(app.appId)}</span></p>
-        <p>${esc(app.settings?.description ?? 'A sample application built with the UI Platform.')}</p>
+        <div id="application-header-details">
+          <p><span>/${esc(app.key)}</span><span class="app-id">${icon('info')}${esc(app.appId)}</span></p>
+          <p>${esc(app.settings?.description ?? 'A sample application built with the UI Platform.')}</p>
+        </div>
       </div>
-      <button class="icon-button" type="button" aria-label="More application actions">${icon('menu')}</button>
+      <div class="app-header-actions">
+        <button type="button" class="app-details-toggle" data-app-details-toggle aria-controls="application-header-details" aria-expanded="true" hidden>Show details</button>
+        <details class="app-actions">
+          <summary class="icon-button" aria-label="Application actions" title="Application actions">⋯</summary>
+          <div class="app-actions-list">
+            <button type="button" data-app-action="preview">Current Preview</button>
+            <button type="button" data-app-action="export">Export ZIP</button>
+            <button type="button" data-app-action="delete">Delete to OS Trash</button>
+          </div>
+        </details>
+      </div>
     </section>
     ${app.valid?'':`<div class="error">${app.issues.map((x:string)=>esc(x)).join('<br>')}</div>`}
     <uib-tabs class="app-tabs" selected="0">
@@ -545,7 +557,7 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
           <p class="note">Persistent template settings are edited in Overview. Package and page tools live in their own tabs.</p>
         </uib-panel>
       </uib-tab-panel>
-    </uib-tabs>`);
+    </uib-tabs>`, false);
   void mountBuilder(root!.querySelector<HTMLElement>('#builderTarget')!, { key: app.key, name: app.name, appId: app.appId });
   void mountAppPackages(root!.querySelector<HTMLElement>('#appPackagesTarget')!, app.key);
   void mountPresentation(root!.querySelector<HTMLElement>('#presentationTarget')!, app.key);
@@ -564,6 +576,21 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
   form.addEventListener('submit', event => { event.preventDefault(); void saveSettings(); });
 
   const tabs = root!.querySelector<any>('uib-tabs.app-tabs')!;
+  const header = root!.querySelector<HTMLElement>('[data-app-header]')!;
+  const details = root!.querySelector<HTMLElement>('#application-header-details')!;
+  const detailsToggle = root!.querySelector<HTMLButtonElement>('[data-app-details-toggle]')!;
+  const showHeaderDetails = (expanded: boolean) => {
+    details.hidden = !expanded;
+    header.classList.toggle('is-compact', !expanded);
+    detailsToggle.setAttribute('aria-expanded', String(expanded));
+    detailsToggle.textContent = expanded ? 'Hide details' : 'Show details';
+  };
+  detailsToggle.addEventListener('click', () => showHeaderDetails(details.hidden));
+  root!.querySelectorAll<HTMLButtonElement>('[data-app-action]').forEach(button => button.addEventListener('click', () => {
+    const menu = button.closest('details')!; menu.open = false;
+    menu.querySelector<HTMLElement>('summary')!.focus();
+    root!.querySelector<HTMLElement>(`#settingsForm [data-action="${button.dataset.appAction}"]`)?.click();
+  }));
   let previewStarted = false;
   let previewStarting = false;
   const preview = async () => {
@@ -585,7 +612,11 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
     finally { previewStarting = false; }
   };
   tabs.addEventListener('uib-tabs-change', (event: Event) => {
-    if (Number((event as CustomEvent<{ newValue?: number }>).detail?.newValue) === 4) void preview();
+    if (event.target !== tabs) return;
+    const selected = Number((event as CustomEvent<{ newValue?: number }>).detail?.newValue);
+    detailsToggle.hidden = selected === 0;
+    showHeaderDetails(selected === 0);
+    if (selected === 4) void preview();
   });
   root!.querySelector('[data-action="preview"]')?.addEventListener('click', () => {
     tabs.selected = '4';

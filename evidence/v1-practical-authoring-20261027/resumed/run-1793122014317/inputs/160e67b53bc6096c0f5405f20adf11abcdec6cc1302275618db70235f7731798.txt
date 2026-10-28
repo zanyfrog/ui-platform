@@ -1,0 +1,24 @@
+import '../html-first/source.test.js';
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {setNodeAttribute,parseSource,validateManagedUrlAttribute} from '../../packages/visual-artifacts/src/source.js';
+import {validateArtifact} from '../../packages/visual-artifacts/src/validation.js';
+import {fixture} from '../html-first/backend.js';
+const metadata={schemaVersion:1 as const,artifactId:'art_url_test',kind:'page' as const,name:'url-test',displayName:'URL test',route:'/url-test'};
+test('shared literal URL policy permits supported URLs without rewriting',()=>{
+ for(const url of ['https://example.test/image.png','http://localhost:4390/asset','assets/logo.svg','./assets/a.png','../assets/a.png','/api/apps/fixture-app/composition-asset?path=assets%2Fa.png','/a?x=1&y=2']) for(const tag of ['a','img']) assert.doesNotThrow(()=>validateManagedUrlAttribute(tag,tag==='a'?'href':'src',url));
+ for(const url of ['#feature','mailto:hello@example.test','tel:+15551234','?page=2','']) assert.doesNotThrow(()=>validateManagedUrlAttribute('a','href',url));
+});
+test('helper and shared validation refuse unsafe, obfuscated and malformed managed URL attributes',()=>{
+ const denied=['javascript:alert(1)','data:text/html,test','vbscript:msgbox(1)','file:///C:/test','ftp://example.test/a','//example.test/a','https:\\example.test','java\nscript:alert(1)',' javaScript:alert(1)','java\tscript:alert(1)','jav&#97;script:alert(1)','javascript&colon;alert(1)','https://','https:/example.test','http:example.test','./a%zz','/%0a/test','https:////example.test'];
+ for(const tag of ['a','img']) for(const value of denied){const name=tag==='a'?'href':'src',source=tag==='a'?'<a data-uip-node="node_url">Text</a>':'<img data-uip-node="node_url">';assert.throws(()=>setNodeAttribute(source,'node_url',name,value),undefined,value);const unsafe=source.replace('data-uip-node=',`${name}="${value}" data-uip-node=`);assert.ok(validateArtifact({metadata,source:unsafe,css:''}).some(d=>d.severity==='error'),value);}
+ for(const value of ['mailto:a@example.test','tel:123','#fragment']) assert.throws(()=>validateManagedUrlAttribute('img','src',value));
+});
+test('alt escaping, uppercase attributes and unmanaged legacy source preservation',()=>{
+ const source='<img data-uip-node="node_image" SRC="assets/old.png">';const updated=setNodeAttribute(source,'node_image','src','assets/new.png');assert.equal((updated.match(/src=/gi)||[]).length,1);assert.equal(parseSource(updated).nodes[0].attributes.src,'assets/new.png');
+ const alt='A "quote" & <literal>';assert.equal(parseSource(setNodeAttribute(updated,'node_image','alt',alt)).nodes[0].attributes.alt,alt);
+ const legacy='<a href="javascript:legacy()">Legacy</a>';assert.equal(validateArtifact({metadata,source:legacy,css:''}).filter(d=>d.severity==='error').length,0);assert.throws(()=>setNodeAttribute(legacy,'missing','href','/safe'));assert.equal(legacy,'<a href="javascript:legacy()">Legacy</a>');
+});
+test('normal service Save candidate rejects unsafe managed URL and retains saved hash',async()=>{
+ const f=await fixture();try{const before=await f.read();await assert.rejects(()=>f.bridge('/api/apps/fixture-app/visual-pages',JSON.stringify({method:'PUT',body:JSON.stringify({files:{...before.files,source:'<a data-uip-node="node_link" href="javascript:alert(1)">No</a>'},expectedHash:before.hash})})));assert.equal((await f.read()).hash,before.hash);}finally{await f.close();}
+});

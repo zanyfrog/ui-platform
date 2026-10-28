@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    "main.ts syntax",
+    "Applications list controls retained",
+    "selected application list controls removed",
+    "Overview details retained",
+    "editing tab compact and accessible toggle",
+    "Overview restores details",
+    "ellipsis forwards existing action and closes"
+  ],
+  "scope": "Exact shell/renderApp declarations in isolated DOM; mock data/mounts, no services or normal-session claim",
+  "normalBrowser": "not run: admitted localhost:5374 unavailable"
+}

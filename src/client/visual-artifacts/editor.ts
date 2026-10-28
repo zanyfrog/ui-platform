@@ -179,7 +179,14 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     const parsed = parseSource(files.source);
     const selector = find<HTMLSelectElement>('[data-nodes]');
     const shell = selectedKind === 'page' ? workspace.shells?.find(shell => shell.metadata?.artifactId === workingMetadata().shellId) : undefined;
-    selector.innerHTML = (shell ? '<optgroup label="Shell context — locked; edit the Shell">' + parseSource(shell.files.source).nodes.filter(n => !n.attributes['data-uip-region']).map(n => `<option disabled>🔒 ${esc(n.tag + ' ' + (n.id ?? ''))}</option>`).join('') + '</optgroup>' : '') + parsed.nodes.map((n, index) => `<option value="${esc(n.id ?? `manual:${index}`)}">${esc(`${n.attributes['data-uip-region'] ?? n.tag} ${n.attributes['data-uip-region-name'] ?? n.id ?? '(manual)'}`)}</option>`).join('');
+    const label = (n: typeof parsed.nodes[number]): string => {
+      let depth = 0; for (let parent = n.parent; parent; parent = parent.parent) depth++;
+      const heading = parsed.nodes.find(child => child.start >= n.openEnd && child.end <= n.closeStart && /^h[1-6]$/.test(child.tag));
+      const text = (item: typeof n) => { const template = document.createElement('template'); template.innerHTML = files.source.slice(item.openEnd, item.closeStart); return template.content.textContent ?? ''; };
+      const summary = (n.attributes['data-uip-region-name'] || n.attributes.heading || n.attributes.alt || (heading ? text(heading) : text(n))).replace(/\s+/g, ' ').trim().slice(0, 60);
+      return '\u00a0\u00a0'.repeat(depth) + n.tag + (summary ? ` — ${summary}` : '') + (!n.id || n.manual ? ' (manual)' : '');
+    };
+    selector.innerHTML = (shell ? '<optgroup label="Shell context — locked; edit the Shell">' + parseSource(shell.files.source).nodes.filter(n => !n.attributes['data-uip-region']).map(n => `<option disabled>🔒 ${esc(n.tag + ' ' + (n.id ?? ''))}</option>`).join('') + '</optgroup>' : '') + parsed.nodes.map((n, index) => `<option value="${esc(n.id ?? `manual:${index}`)}" title="${esc(n.id ?? 'Unmanaged HTML')}">${esc(label(n))}</option>`).join('');
     selector.value = selectedNode;
     find('[data-diagnostics]').innerHTML = [...(selected?.diagnostics ?? []), ...parsed.diagnostics].map(d => `<p class="${d.severity === 'error' ? 'error' : 'note'}">${esc(d.message)}</p>`).join('');
     renderInspector();
@@ -237,6 +244,12 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       return;
     }
     if (node.manual) { inspector.textContent = 'Manual region: edit source directly.'; return; }
+    for (const name of node.tag === 'a' ? ['href'] : node.tag === 'img' ? ['src', 'alt'] : []) {
+      const label = document.createElement('label'); label.textContent = name === 'href' ? 'Link destination (href)' : name === 'src' ? 'Image source (src)' : 'Alternative text (alt)';
+      const input = document.createElement('input'); input.value = Object.entries(node.attributes).find(([key]) => key.toLowerCase() === name)?.[1] ?? ''; input.setAttribute('aria-label', label.textContent);
+      input.addEventListener('change', safe(() => { files.source = setNodeAttribute(files.source, selectedNode, name, input.value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); }));
+      label.append(input); inspector.append(label);
+    }
     const classLabel = document.createElement('label'); classLabel.textContent = 'CSS classes'; const classInput = document.createElement('input'); classInput.value = node.attributes.class ?? '';
     classInput.addEventListener('change', safe(() => { files.source = setNodeAttribute(files.source, selectedNode, 'class', classInput.value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })); classLabel.append(classInput); inspector.append(classLabel);
     if (selectedKind === 'shell' && ['img', 'strong', 'span', 'p', 'h1', 'h2', 'h3'].includes(node.tag)) {

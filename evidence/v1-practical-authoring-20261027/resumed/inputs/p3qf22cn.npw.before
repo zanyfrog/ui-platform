@@ -1,0 +1,7 @@
+import type { ArtifactMetadata, Diagnostic, PackageComponent, RuntimeArtifact } from './model.js';
+export declare function parseMetadata(text: string): {
+    metadata?: ArtifactMetadata;
+    diagnostics: Diagnostic[];
+};
+export declare function validateArtifact(artifact: RuntimeArtifact, components?: RuntimeArtifact[], packages?: PackageComponent[], services?: string[]): Diagnostic[];
+export declare function componentReferences(source: string): string[];
