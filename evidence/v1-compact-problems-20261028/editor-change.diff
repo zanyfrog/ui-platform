@@ -1,0 +1,27 @@
+diff --git a/C:/Projects/Modular/ui-platform/evidence/v1-compact-problems-20261028/inputs/editor.ts.before b/C:/Projects/Modular/ui-platform/src/client/visual-artifacts/editor.ts
+index 0fe79ce..a4f3c86 100644
+--- a/C:/Projects/Modular/ui-platform/evidence/v1-compact-problems-20261028/inputs/editor.ts.before
++++ b/C:/Projects/Modular/ui-platform/src/client/visual-artifacts/editor.ts
+@@ -1,5 +1,6 @@
+ import { insertNode, isWrapper, moveNode, duplicateSection, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+ import { chooseNamedValue } from './menu-controls.js';
++import { renderEditorProblems } from './editor-problems.js';
+ import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
+ import type { ComponentCatalogEntry } from '../../shared/types.js';
+ import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
+@@ -189,7 +190,14 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+     };
+     selector.innerHTML = (shell ? '<optgroup label="Shell context — locked; edit the Shell">' + parseSource(shell.files.source).nodes.filter(n => !n.attributes['data-uip-region']).map(n => `<option disabled>🔒 ${esc(n.tag + ' ' + (n.id ?? ''))}</option>`).join('') + '</optgroup>' : '') + parsed.nodes.map((n, index) => `<option value="${esc(n.id ?? `manual:${index}`)}" title="${esc(n.id ?? 'Unmanaged HTML')}">${esc(label(n))}</option>`).join('');
+     selector.value = selectedNode;
+-    find('[data-diagnostics]').innerHTML = [...(selected?.diagnostics ?? []), ...parsed.diagnostics].map(d => `<p class="${d.severity === 'error' ? 'error' : 'note'}">${esc(d.message)}</p>`).join('');
++    renderEditorProblems(find('[data-diagnostics]'), {
++      saved: selected?.diagnostics ?? [], local: parsed.diagnostics, revision: selected?.hash,
++      targets: new Map(parsed.nodes.filter(n => n.id && !n.manual).map(n => [n.id!, label(n)])),
++      select: id => {
++        if (!parseSource(files.source).nodes.some(n => n.id === id && !n.manual) || ![...selector.options].some(o => o.value === id)) return false;
++        selector.value = id; selector.dispatchEvent(new Event('change')); selector.focus(); return true;
++      },
++    });
+     renderInspector();
+   }
+   function renderInspector(): void {

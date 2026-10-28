@@ -1,0 +1,59 @@
+{
+  "unit": {
+    "inputs": {
+      "src/client/visual-artifacts/editor-problems.ts": {
+        "bytes": 4363,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/compact-problems/source.test.ts": {
+        "bytes": 1836,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "src/client/visual-artifacts/editor-problems.ts",
+            "kind": "import-statement",
+            "original": "../../src/client/visual-artifacts/editor-problems.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "source.test.js": {
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "exports": [],
+        "entryPoint": "tests/compact-problems/source.test.ts",
+        "inputs": {
+          "tests/compact-problems/source.test.ts": {
+            "bytesInOutput": 1902
+          },
+          "src/client/visual-artifacts/editor-problems.ts": {
+            "bytesInOutput": 1017
+          }
+        },
+        "bytes": 3053
+      }
+    }
+  }
+}
