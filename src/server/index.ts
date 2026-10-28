@@ -35,7 +35,7 @@ import { compileVisualFunctions } from '@ui-platform/artifacts';
 import { build as bundleBrowserModule } from 'esbuild';
 import { AutomationStore } from './automation-store.js';
 import { platformRoot } from './paths.js';
-import { regions, primaryRouteSignature } from '@ui-platform/visual-artifacts';
+import { assertPlainPageRoute, assertPageUnused, regions, primaryRouteSignature } from '@ui-platform/visual-artifacts';
 import { withApplicationMutation, withGraphRequest } from './composition-lock.js';
 import { prepareVisualCandidate, VisualCandidateError, validateVisualRoleSyntax } from './visual-candidate.js';
 import { applyTemplateUpdate, compareTemplate } from './template-updates.js';
@@ -435,6 +435,7 @@ const server = http.createServer(async (req, res) => {
               const signature = primaryRouteSignature(input.route ?? `/${input.name}`);
               if ((await service.list()).some(page => page.metadata?.route && primaryRouteSignature(page.metadata.route) === signature)) throw new Error('A Page already owns that primary Route.');
             }
+          if (kind === 'page' && !composition) assertPlainPageRoute(input.route ?? `/${input.name}`, await service.list({ recovery: 'refuse' }));
           const created = await service.create(String(input.name ?? ''), input.route, input.form ? { ...input.form, authoring: true } : undefined, shellId, initialRegionId, admitManagement);
           return json(res, 201, created);
         });
@@ -463,7 +464,11 @@ const server = http.createServer(async (req, res) => {
             return json(res, 200, saved);
           });
         }
-        if (method === 'DELETE') return await withApplicationMutation(appPath(key), async () => { if (kind === 'shell') await assertShellUnused(key, (await service.read(locator)).metadata!.artifactId); await service.remove(locator, input.expectedHash, await knownVisualArtifacts(), admitManagement); return json(res, 200, { removed: true }); });
+        if (method === 'DELETE') return await withApplicationMutation(appPath(key), async () => {
+          if (kind === 'shell') await assertShellUnused(key, (await service.read(locator)).metadata!.artifactId);
+          if (kind === 'page') { const page = await service.read(locator, { recovery: 'refuse' }); if (!page.metadata?.shellId && page.metadata?.route) assertPageUnused(page.metadata.route, await service.list({ recovery: 'refuse' }), locator); }
+          await service.remove(locator, input.expectedHash, await knownVisualArtifacts(), admitManagement); return json(res, 200, { removed: true });
+        });
       }
       if (parts.length === 3 && method === 'GET') {
         const app = await getApp(key);

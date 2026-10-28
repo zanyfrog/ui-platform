@@ -1,0 +1,48 @@
+import { type VisualHelperBoundary } from './helper-boundary.js';
+import type { RuntimeArtifact, PackageComponent } from './model.js';
+import type { ViteDevServer } from 'vite';
+export declare const visualExtensions: readonly [".html", ".css", ".visual.json", ".fixtures.json", ".functions.ts"];
+export interface CapturedVisual extends RuntimeArtifact {
+    file: string;
+    code: string;
+    fixtures: string;
+}
+/** One ephemeral compilation, with no retained historical-generation map. */
+export declare class RuntimeRevision {
+    private watch;
+    private checks;
+    private inputs;
+    private bytes;
+    constructor(watch: (file: string) => void);
+    private bound;
+    text(file: string): Promise<string>;
+    directory(directory: string): Promise<import("node:fs").Dirent<string>[]>;
+    visual(file: string, ownerRoot: string, immutable?: boolean): Promise<CapturedVisual>;
+    finish(module: string, artifacts: CapturedVisual[], helpers: VisualHelperBoundary): Promise<string>;
+}
+export declare function validateRuntimeCss(source: string): Promise<void>;
+export declare function validateRuntimeFunctionSource(source: string): Promise<void>;
+export declare function runtimeReaderServer(server: ViteDevServer, root: string, managedRoots?: string[]): void;
+/** Watch events are hints. Publish a refresh only after the complete reader
+ * contract succeeds; retry the short cross-process admission window.
+ */
+export declare const runtimeRefreshClient = "\nconst session = import.meta.hot ? (import.meta.hot.data.visualRefresh ??= { active: new Map(), pending: undefined }) : { active: new Map(), pending: undefined };\nconst active = session.active;\nfunction differs(id, digest) { const pending = session.pending; return pending && Object.hasOwn(pending.modules, id) && (pending.force || pending.modules[id] !== digest); }\nexport function register(id, digest) {\n  if (active.size >= 1000 && !active.has(id)) { location.reload(); return; }\n  active.set(id, digest);\n  if (differs(id, digest)) location.reload();\n}\nif (import.meta.hot) {\n  import.meta.hot.accept();\n  import.meta.hot.on('uip:validated-visual-refresh', data => {\n    // A helper/asset hint during bootstrap must not be erased by a later\n    // same-generation source hint before the first module registers.\n    session.pending = !active.size && session.pending?.force ? { ...data, force: true } : data;\n    if ([...active].some(([id, digest]) => differs(id, digest))) location.reload();\n  });\n}\n";
+/** Compare the browser's own compiled generation, never a server-global latest
+ * load: two browsers may legitimately own different immutable generations.
+ * No Form values, identities or service results cross this development channel.
+ */
+export declare function runtimeRefreshModule(watchId: string, id: string, code: string): {
+    code: string;
+    meta: {
+        uipVisualRefreshDigest: string;
+    };
+};
+export declare function runtimeRevisionRefresh(server: ViteDevServer, relevant: (file: string) => boolean, captured?: (file: string) => boolean): {
+    refresh: (file: string) => void;
+    close: () => void;
+    relevant: (file: string) => boolean;
+};
+export declare function runtimeLiteral(artifact: CapturedVisual, index: number): string;
+export declare function runtimePackageDefinitions(revision: RuntimeRevision, root: string, module?: (file: string) => void): Promise<PackageComponent[]>;
+/** Guard both dependency resolution and direct Vite HTTP raw/JSON requests. */
+export declare function assertNotVisualRole(file: string, managedRoots?: string[]): Promise<void>;

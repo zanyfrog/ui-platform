@@ -45,11 +45,11 @@ export class RuntimeRevision {
       JSON.parse(values['.fixtures.json'] || '{}');
       return { file, metadata: JSON.parse(values['.visual.json']), source: values['.html'], css: values['.css'], code: values['.functions.ts'], fixtures: values['.fixtures.json'] };
     }
-    const snapshot = await readRoleBundle(location);
+    const snapshot = await readRoleBundle(location, { recovery: 'refuse' });
     this.bound(Object.values(snapshot.files));
     for (const name of location.paths) this.watch(path.join(location.directory, name));
     this.inputs.push(file, snapshot.checksum);
-    this.checks.push(async () => { if ((await readRoleBundle(location)).checksum !== snapshot.checksum) throw new Error('Visual dependency changed during revision compilation. Retry after the source is stable.'); });
+    this.checks.push(async () => { if ((await readRoleBundle(location, { recovery: 'refuse' })).checksum !== snapshot.checksum) throw new Error('Visual dependency changed during revision compilation. Retry after the source is stable.'); });
     const get = (extension: string) => snapshot.files[basename + extension] ?? '';
     if (!get('.visual.json') || snapshot.files[basename + '.html'] === null) throw new Error('Visual runtime requires complete metadata and HTML.');
     JSON.parse(get('.fixtures.json') || '{}');

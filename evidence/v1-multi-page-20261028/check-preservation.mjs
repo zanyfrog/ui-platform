@@ -1,0 +1,15 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+const root=path.resolve(import.meta.dirname,'../..'),out=import.meta.dirname;
+const hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const baseline=JSON.parse(fs.readFileSync(path.join(out,'baseline.json')));
+const pages=baseline.filter(r=>r.path.includes('\\apps\\v1-identity-fixture\\src\\pages\\'));
+for(const r of pages)assert.equal(hash(r.path),r.sha256,'Accepted Page changed: '+r.path);
+const previous=JSON.parse(fs.readFileSync(path.join(root,'docs/architecture/v1-anchor-navigation-files-20261028.json')));
+for(const r of previous.preservedQualifiedReadChanges)assert.equal(hash(r.path),r.sha256);
+const old=JSON.parse(fs.readFileSync(path.join(root,'docs/architecture/v1-recovery-free-website-host-files-20261028.json')));
+const historical=old.files.filter(r=>r.path.startsWith(path.join(root,'evidence/v1-recovery-free-host-20261028')+path.sep)||r.path===path.join(root,'docs/architecture/v1-recovery-free-website-host-20261028.md'));
+for(const r of historical)assert.equal(hash(r.path),r.sha256);
+const original=JSON.parse(fs.readFileSync(path.join(root,'evidence/v1-recovery-free-host-20261028/baseline.json'))).files.filter(r=>r.path.includes('\\references\\visual-artifacts\\'));
+for(const r of original)assert.equal(hash(r.path),r.sha256);
+const editor=fs.readFileSync(path.join(root,'src/client/visual-artifacts/editor.ts'),'utf8');const before=baseline.find(r=>r.path===path.join(root,'src/client/visual-artifacts/editor.ts'));const originalEditor=fs.readFileSync(path.join(out,'before',before.sha256),'utf8');assert.equal(editor.slice(editor.indexOf('  async function refresh(')),originalEditor.slice(originalEditor.indexOf('  async function refresh(')));
+const result={passed:true,acceptedPageFilesUnchanged:pages.length,qualifiedRecoveryReadModulesUnchanged:previous.preservedQualifiedReadChanges.length,historicalHostEvidenceUnchanged:historical.length,originalReferenceFilesUnchanged:original.length,refreshSchedulingSuffixUnchanged:true};fs.writeFileSync(path.join(out,'preservation.json'),JSON.stringify(result,null,2));console.log(result);

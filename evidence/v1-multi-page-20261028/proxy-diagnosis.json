@@ -1,0 +1,10 @@
+{
+  "status": "Builder proxy stalled after development reload; direct API healthy",
+  "directHealth": { "url": "http://localhost:4390/api/health", "body": { "ok": true }, "observedIn": "normal Chrome" },
+  "directApplication": { "url": "http://localhost:4390/api/apps/v1-identity-fixture", "valid": true, "routesInclude": ["/home", "/about", "/contact"], "observedIn": "normal Chrome" },
+  "builderProxy": { "url": "http://localhost:5374/api/health", "result": "Browser Page.navigate timed out at 10000ms" },
+  "operatorLog": "Contains expected duplicate-route and invalid-route Error stacks, normal incoming-reference VisualCandidateError with status 422, and Vite HTML reload. No process exit is shown.",
+  "sourceReview": "server/index.ts catches request errors, logs them and returns JSON; the expected validation logs do not demonstrate a process exit.",
+  "correction": "Earlier shell connection failures did not establish that the API was stopped.",
+  "action": "Requested clean restart of the same disposable command with unchanged fresh-cache environment; no proxy, permission or recovery code was changed."
+}

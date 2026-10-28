@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-28",
+  "preservedFailures": [
+    "Initial source searches used PowerShell-incompatible brace/glob syntax; corrected to explicit paths. No source was changed by those searches.",
+    "A python launcher could not execute; the intended text edit did not run. Ordinary Node source editing was then used. A package build was initially called from the parent without package.json, then passed from ui-platform.",
+    "A PowerShell deployment loop combined relative filenames incorrectly and reported missing input paths; rerun with explicit string-array entries succeeded. Final source/build copies are hash-compared.",
+    "Early isolated-DOM runs lacked structuredClone and the existing spec-correct replaceWith(self) test shim; raw run artifacts remain. The shim is test-only. Missing editor-problems type input and an inherited result-variable name were corrected in the new runner; earlier failures remain.",
+    "Locator fill without a focused change/blur did not author content; inspected HTML showed that immediately. Normal keyboard entry and blur were then used; no source textarea was edited.",
+    "Chrome's removal confirmation caused automation timeouts. The operator located the actual UI Platform tab and supplied a screenshot showing the refusal. On resumption the target and HTML were unchanged. No timeout was represented as completed removal evidence.",
+    "First Preview navigation scrolled and owned its iframe hash but lost focus when temporary tabindex was immediately removed. Runtime now restores the temporary attribute on blur/update/disposal. Final normal Chrome focus is true.",
+    "First website navigation loaded stale immutable dependency URLs using the old cache version; it rendered but did not navigate. A new disposable host cache directory was configured, preserving the old cache. Vite's normal automatic config restart issued fresh modules, after which direct fragments, clicks, keyboard and history passed. No router replacement or security setting change occurred.",
+    "A local diagnostic HTTP request was refused by the execution environment's socket permissions. A direct module-source browser navigation was blocked by the browser client. Neither was bypassed or used to justify a Windows investigation. The supported loaded-asset inventory identified the actual admitted runtime paths instead.",
+    "Native Chrome-window state inspection timed out, so the Preview frame context menu could not be automated. The operator reported Reload frame; subsequent DOM observations retained the fragment, focus, ready status and Builder URL. This manual action is identified separately in the report.",
+    "Immediate website history observations preceded the scheduled focus frame. Both immediate and settled readings are retained; settled observations show the correct focused target after the existing router remount.",
+    "Final artifact-kind narrowing triggered Vite's ordinary editor reload. The existing authorized identity remained; reopening the fresh saved Page preserved all HTML/identities. The Page-only refusal and saved Preview were checked again.",
+    "The final evidence checker initially used a parent directory one level too high and failed on a nonexistent ordinary Page file. The path was corrected; the final checker passes without reading journals or lock state."
+  ],
+  "sourceBaselineCaveat": "The initial four-file source snapshot predates anchor edits. The additional preservation listing captured server/Preview after their first edits and is not claimed as their pre-edit baseline. The physical disposable pre-deployment server/Preview snapshots retain their prior versions. Whole-file comparison proves original reference files and all 55 prior Page files unchanged; the refresh scheduling suffix and header files are checked separately.",
+  "normalSession": "Existing development Application Admin identity selected through the ordinary UI; no invented session, role change or production-authorization callback.",
+  "packageBuild": { "command": "npm.cmd run build --workspace @ui-platform/visual-artifacts", "workingDirectory": "C:\\Projects\\Modular\\ui-platform", "exitCode": 0 },
+  "noSecurityOrRecoveryWork": true,
+  "noCommitsOrPushes": true
+}

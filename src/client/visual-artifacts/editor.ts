@@ -1,5 +1,6 @@
-import { insertNode, isWrapper, moveNode, duplicateSection, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+import { isPageRootSection, removeNodeAttribute, removeManagedNode, insertNode, isWrapper, moveNode, duplicateSection, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
 import { chooseNamedValue } from './menu-controls.js';
+import { isPlainPageRoute, validatePageLinks } from '../../../packages/visual-artifacts/src/page-links.js';
 import { renderEditorProblems } from './editor-problems.js';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
 import type { ComponentCatalogEntry } from '../../shared/types.js';
@@ -137,7 +138,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   find('[data-remove-node]').addEventListener('click', safe(() => {
     const node = parseSource(files.source).nodes.find(node => node.id === selectedNode); if (!node) throw new Error('Select a Page-owned or Shell-owned node.');
     if (!confirm('Remove selected node and its children? Removing a Page Region restores the Shell default; keeping an empty Region suppresses it.')) return;
-    files.source = files.source.slice(0, node.start) + files.source.slice(node.end); selectedNode = ''; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
+    files.source = selectedKind === 'page' ? removeManagedNode(files.source, selectedNode) : files.source.slice(0, node.start) + files.source.slice(node.end); selectedNode = ''; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
   }));
   find('[data-change-shell]').addEventListener('click', safe(async () => {
     if (dirty() || conflict) throw new Error('Save or recover changes before changing Shell.');
@@ -253,6 +254,12 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       return;
     }
     if (node.manual) { inspector.textContent = 'Manual region: edit source directly.'; return; }
+    if (selectedKind === 'page' && !workingMetadata().shellId && isPageRootSection(node)) {
+      const label = document.createElement('label'); label.textContent = 'Anchor ID';
+      const input = document.createElement('input'); input.setAttribute('aria-label', 'Anchor ID'); input.value = node.attributes.id ?? ''; input.placeholder = 'features';
+      input.addEventListener('change', safe(() => { files.source = input.value ? setNodeAttribute(files.source, selectedNode, 'id', input.value, 'page') : removeNodeAttribute(files.source, selectedNode, 'id', 'page'); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); }));
+      label.append(input); inspector.append(label);
+    }
     if (/^h[1-6]$/.test(node.tag) && !node.attributes['data-uip-component']) {
       const label = document.createElement('label'); label.textContent = 'Heading level';
       const select = document.createElement('select'); select.setAttribute('aria-label', 'Heading level');
@@ -263,8 +270,14 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     for (const name of node.tag === 'a' ? ['href'] : node.tag === 'img' ? ['src', 'alt'] : []) {
       const label = document.createElement('label'); label.textContent = name === 'href' ? 'Link destination (href)' : name === 'src' ? 'Image source (src)' : 'Alternative text (alt)';
       const input = document.createElement('input'); input.value = Object.entries(node.attributes).find(([key]) => key.toLowerCase() === name)?.[1] ?? ''; input.setAttribute('aria-label', label.textContent);
-      input.addEventListener('change', safe(() => { files.source = setNodeAttribute(files.source, selectedNode, name, input.value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); }));
+      const setValue = (value: string) => { const next = setNodeAttribute(files.source, selectedNode, name, value, selectedKind); if (selectedKind === 'page' && name === 'href' && !workingMetadata().shellId) validatePageLinks(files.source, next, workspace.pages); files.source = next; input.value = value; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); };
+      input.addEventListener('change', safe(() => setValue(input.value)));
       label.append(input); inspector.append(label);
+      if (name === 'href' && selectedKind === 'page' && !workingMetadata().shellId) {
+        const destination = document.createElement('select'); destination.setAttribute('aria-label', 'Saved Page destination'); destination.add(new Option('Choose a saved Page', ''));
+        for (const page of workspace.pages) if (isPlainPageRoute(page.metadata?.route) && !page.metadata?.shellId && !page.diagnostics.some(d => d.severity === 'error') && workspace.pages.filter(p => p.metadata?.route === page.metadata!.route).length === 1) destination.add(new Option(`${page.metadata.displayName} — ${page.metadata.route}`, page.metadata.route));
+        destination.value = input.value; destination.addEventListener('change', safe(() => { if (destination.value) setValue(destination.value); })); inspector.append(destination);
+      }
     }
     const classLabel = document.createElement('label'); classLabel.textContent = 'CSS classes'; const classInput = document.createElement('input'); classInput.value = node.attributes.class ?? '';
     classInput.addEventListener('change', safe(() => { files.source = setNodeAttribute(files.source, selectedNode, 'class', classInput.value); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })); classLabel.append(classInput); inspector.append(classLabel);

@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { lstat, mkdir, readdir, readFile, rename, realpath, rm } from 'node:fs/promises';
 import path from 'node:path';
-import { componentReferences, generateForm, parseMetadata, validateArtifact } from '@ui-platform/visual-artifacts';
+import { validatePageAnchorChange, componentReferences, generateForm, parseMetadata, validateArtifact } from '@ui-platform/visual-artifacts';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, DatasetDefinition, PackageComponent, RuntimeArtifact } from '@ui-platform/visual-artifacts';
 import { atomicWriteText } from './json-files.js';
 import { moveToOsTrash } from './trash.js';
@@ -131,6 +131,7 @@ export class VisualArtifactService {
         const previous = parseMetadata(previousFiles.metadata).metadata, incoming = parseMetadata(staged.metadata);
         if (incoming.metadata && previous && (['artifactId', 'componentId', 'kind', 'routeId'] as const).some(key => previous[key] && incoming.metadata![key] !== previous[key])) throw new Error('Artifact, Route and Component identities and kind are immutable.');
         if (!options.repair) {
+          if (this.kind === 'page') validatePageAnchorChange(previousFiles.source, staged.source, incoming.metadata);
           const diagnostics = [...incoming.diagnostics];
           if (incoming.metadata?.kind !== this.kind) diagnostics.push({ severity: 'error', message: 'Visual kind does not match its owner collection.' });
           try { JSON.parse(staged.fixtures || '{}'); } catch { diagnostics.push({ severity: 'error', message: 'Preview fixtures are invalid JSON.' }); }

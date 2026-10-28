@@ -1,0 +1,630 @@
+{
+  "inputs": {
+    "tests/d6-r1/fs-guard.ts": {
+      "bytes": 2390,
+      "imports": [
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/helper-boundary.ts": {
+      "bytes": 14513,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/node_modules/typescript/lib/typescript.js",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/visual-artifacts/src/runtime-revision.ts",
+          "kind": "import-statement",
+          "original": "./runtime-revision.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/file-operations.ts": {
+      "bytes": 1469,
+      "imports": [
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/bundle.ts": {
+      "bytes": 7263,
+      "imports": [
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/storage.ts": {
+      "bytes": 14784,
+      "imports": [
+        {
+          "path": "packages/artifacts/src/file-operations.ts",
+          "kind": "import-statement",
+          "original": "./file-operations.js"
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/artifacts/src/bundle.ts",
+          "kind": "import-statement",
+          "original": "./bundle.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/role-bundle.ts": {
+      "bytes": 12356,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:fs",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/artifacts/src/bundle.ts",
+          "kind": "import-statement",
+          "original": "./bundle.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage.ts",
+          "kind": "import-statement",
+          "original": "./storage.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/artifacts/src/storage-api.ts": {
+      "bytes": 531,
+      "imports": [
+        {
+          "path": "packages/artifacts/src/file-operations.ts",
+          "kind": "import-statement",
+          "original": "./file-operations.js"
+        },
+        {
+          "path": "packages/artifacts/src/role-bundle.ts",
+          "kind": "import-statement",
+          "original": "./role-bundle.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage.ts",
+          "kind": "import-statement",
+          "original": "./storage.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/runtime-revision.ts": {
+      "bytes": 16711,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:url",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "esbuild",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/visual-artifacts/src/helper-boundary.ts",
+          "kind": "import-statement",
+          "original": "./helper-boundary.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage-api.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/artifacts/storage"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/page-entry.ts": {
+      "bytes": 4475,
+      "imports": [
+        {
+          "path": "file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/node_modules/typescript/lib/typescript.js",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/model.ts": {
+      "bytes": 9885,
+      "imports": [],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/source.ts": {
+      "bytes": 19628,
+      "imports": [
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+      "bytes": 7951,
+      "imports": [],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/expression.ts": {
+      "bytes": 284,
+      "imports": [
+        {
+          "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/dataset-operations/expression"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/form.ts": {
+      "bytes": 7849,
+      "imports": [
+        {
+          "path": "packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./source.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/validation.ts": {
+      "bytes": 17679,
+      "imports": [
+        {
+          "path": "packages/visual-artifacts/src/source.ts",
+          "kind": "import-statement",
+          "original": "./source.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/expression.ts",
+          "kind": "import-statement",
+          "original": "./expression.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/form.ts",
+          "kind": "import-statement",
+          "original": "./form.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/model.ts",
+          "kind": "import-statement",
+          "original": "./model.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/runtime-read-admission.ts": {
+      "bytes": 536,
+      "imports": [
+        {
+          "path": "packages/artifacts/src/storage-api.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/artifacts/storage"
+        }
+      ],
+      "format": "esm"
+    },
+    "packages/visual-artifacts/src/revision-vite.ts": {
+      "bytes": 12274,
+      "imports": [
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "node:fs/promises"
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:module",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/visual-artifacts/src/helper-boundary.ts",
+          "kind": "import-statement",
+          "original": "./helper-boundary.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/page-entry.ts",
+          "kind": "import-statement",
+          "original": "./page-entry.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/validation.ts",
+          "kind": "import-statement",
+          "original": "./validation.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage-api.ts",
+          "kind": "import-statement",
+          "original": "@ui-platform/artifacts/storage"
+        },
+        {
+          "path": "packages/visual-artifacts/src/runtime-read-admission.ts",
+          "kind": "import-statement",
+          "original": "./runtime-read-admission.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/runtime-revision.ts",
+          "kind": "import-statement",
+          "original": "./runtime-revision.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "tests/runtime-host/host-read.test.ts": {
+      "bytes": 5872,
+      "imports": [
+        {
+          "path": "node:test",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "packages/visual-artifacts/src/runtime-revision.ts",
+          "kind": "import-statement",
+          "original": "../../packages/visual-artifacts/src/runtime-revision.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/revision-vite.ts",
+          "kind": "import-statement",
+          "original": "../../packages/visual-artifacts/src/revision-vite.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/runtime-read-admission.ts",
+          "kind": "import-statement",
+          "original": "../../packages/visual-artifacts/src/runtime-read-admission.js"
+        },
+        {
+          "path": "packages/visual-artifacts/src/helper-boundary.ts",
+          "kind": "import-statement",
+          "original": "../../packages/visual-artifacts/src/helper-boundary.js"
+        },
+        {
+          "path": "packages/artifacts/src/storage.ts",
+          "kind": "import-statement",
+          "original": "../../packages/artifacts/src/storage.js"
+        },
+        {
+          "path": "tests/d6-r1/fs-guard.ts",
+          "kind": "import-statement",
+          "original": "../d6-r1/fs-guard.js"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "host-read.test.js": {
+      "imports": [
+        {
+          "path": "node:test",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:url",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "esbuild",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/node_modules/typescript/lib/typescript.js",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:timers/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:module",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "file:///C:/Projects/Modular/ui-platform/packages/visual-artifacts/node_modules/typescript/lib/typescript.js",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "exports": [],
+      "entryPoint": "tests/runtime-host/host-read.test.ts",
+      "inputs": {
+        "tests/runtime-host/host-read.test.ts": {
+          "bytesInOutput": 6021
+        },
+        "packages/visual-artifacts/src/runtime-revision.ts": {
+          "bytesInOutput": 13034
+        },
+        "tests/d6-r1/fs-guard.ts": {
+          "bytesInOutput": 1846
+        },
+        "packages/visual-artifacts/src/helper-boundary.ts": {
+          "bytesInOutput": 13051
+        },
+        "packages/artifacts/src/file-operations.ts": {
+          "bytesInOutput": 1053
+        },
+        "packages/artifacts/src/storage-api.ts": {
+          "bytesInOutput": 0
+        },
+        "packages/artifacts/src/role-bundle.ts": {
+          "bytesInOutput": 8433
+        },
+        "packages/artifacts/src/bundle.ts": {
+          "bytesInOutput": 2480
+        },
+        "packages/artifacts/src/storage.ts": {
+          "bytesInOutput": 9880
+        },
+        "packages/visual-artifacts/src/revision-vite.ts": {
+          "bytesInOutput": 11142
+        },
+        "packages/visual-artifacts/src/page-entry.ts": {
+          "bytesInOutput": 4237
+        },
+        "packages/visual-artifacts/src/model.ts": {
+          "bytesInOutput": 3828
+        },
+        "packages/visual-artifacts/src/source.ts": {
+          "bytesInOutput": 7650
+        },
+        "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+          "bytesInOutput": 3483
+        },
+        "packages/visual-artifacts/src/expression.ts": {
+          "bytesInOutput": 0
+        },
+        "packages/visual-artifacts/src/form.ts": {
+          "bytesInOutput": 366
+        },
+        "packages/visual-artifacts/src/validation.ts": {
+          "bytesInOutput": 16749
+        },
+        "packages/visual-artifacts/src/runtime-read-admission.ts": {
+          "bytesInOutput": 162
+        }
+      },
+      "bytes": 104422
+    }
+  }
+}

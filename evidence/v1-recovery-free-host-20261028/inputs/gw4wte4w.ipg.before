@@ -1,0 +1,8 @@
+import type { Plugin } from 'vite';
+/** Discovery is a build-time source import, not a generated runtime artifact or HTTP dependency. */
+export declare function revisionVisualArtifacts(options: {
+    revisionPinned?: true;
+    componentsRoot?: string;
+    packageManifests?: string[];
+    applicationRoot?: string;
+}): Plugin;

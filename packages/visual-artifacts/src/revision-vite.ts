@@ -56,8 +56,8 @@ export function revisionVisualArtifacts(options: { revisionPinned?: true; compon
         return viteServer ? runtimeRefreshModule(watchId, id, code) : code;
       }
       return withRuntimeGraphRead(options.componentsRoot ?? options.applicationRoot ?? projectRoot, async () => {
-      if (options.componentsRoot) await recoverRoleBundleRoot(options.componentsRoot);
-      if (pageFile) await recoverRoleBundleRoot(pageOwner());
+      if (options.componentsRoot) await recoverRoleBundleRoot(options.componentsRoot, { recovery: 'refuse' });
+      if (pageFile) await recoverRoleBundleRoot(pageOwner(), { recovery: 'refuse' });
       const helpers = boundary ??= new VisualHelperBoundary(async (request, importer) => {
         if (/^(?:https?:|data:|blob:)/.test(request)) throw new Error('Visual functions cannot load unverified remote helper modules.');
         const resolved = await this.resolve(request, importer, { skipSelf: true });
@@ -137,7 +137,7 @@ export function revisionVisualArtifacts(options: { revisionPinned?: true; compon
       }
       const code = await revision.finish(`${imports.join('\n')}\nexport const components=[${components.join(',')}];\nexport const packages=[${packages.join(',')}];\nexport const composition=undefined; export const assetUrls={};\n${pageExport}\nregisterManagedVisualGraph(runtimeRevision,[...components${pageFile ? ',page' : ''}]);`, captured, helpers);
       return viteServer ? runtimeRefreshModule(watchId, id, code) : code;
-      });
+      }, { recovery: 'refuse' });
     },
     transform(code, id) {
       if (boundary?.isHelper(id)) { boundary.check(code, id); return; }

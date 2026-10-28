@@ -2,7 +2,7 @@ import path from 'node:path';
 import { readFile, readdir } from 'node:fs/promises';
 import { transform } from 'esbuild';
 import { compileVisualFunctions } from '@ui-platform/artifacts';
-import { componentReferences, parseMetadata, validateArtifact, validateCompositionDefinition } from '@ui-platform/visual-artifacts';
+import { assertPlainPageRoute, assertPageUnused, validatePageLinks, componentReferences, parseMetadata, validateArtifact, validateCompositionDefinition } from '@ui-platform/visual-artifacts';
 import type { ArtifactBundle, ArtifactFiles, CompositionDefinition, PackageComponent, RuntimeArtifact } from '@ui-platform/visual-artifacts';
 import { validateRuntimeFunctionSource } from '@ui-platform/visual-artifacts/vite';
 import { VisualArtifactService, platformComponentsRoot, toRuntime, visualWorkspace, knownVisualArtifacts } from './visual-artifacts.js';
@@ -50,6 +50,14 @@ export async function prepareVisualCandidate(appKey: string, kind: 'page' | 'she
         if (!old || collection.filter(bundle => bundle.metadata?.artifactId === candidate.metadata!.artifactId).length !== 1) throw new Error('The authoritative Visual identity is missing or ambiguous. Resolve the source conflict before normal editing.');
         if (kind === 'page' && !allowShellChange && old?.metadata?.shellId !== candidate.metadata.shellId) throw new Error('Use Change Page Shell to map or discard unmatched Regions explicitly.');
         const replace = (items: ArtifactBundle[], target: string) => items.map(bundle => kind === target && bundle.locator === locator ? candidate : bundle);
+        if (kind === 'page' && !definition && !candidate.metadata.shellId) {
+          const pages = replace(workspace.pages, 'page');
+          if (old.metadata?.route !== candidate.metadata.route) {
+            assertPlainPageRoute(candidate.metadata.route, workspace.pages, locator);
+            if (old.metadata?.route) assertPageUnused(old.metadata.route, pages, '');
+          } else if (workspace.pages.some(page => page.locator !== locator && page.metadata?.route === candidate.metadata!.route)) throw new Error('Duplicate saved Page route.');
+          validatePageLinks(old.files.source, candidate.files.source, pages);
+        }
         const components = replace(workspace.components, 'component').map(toRuntime).filter((item): item is RuntimeArtifact => !!item);
         const runtime = toRuntime(candidate)!;
         const errors = validateArtifact(runtime, components, packages).filter(d => d.severity === 'error');

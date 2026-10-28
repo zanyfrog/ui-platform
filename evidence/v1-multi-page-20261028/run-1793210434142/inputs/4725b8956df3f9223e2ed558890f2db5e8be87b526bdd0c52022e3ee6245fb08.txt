@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { isPlainPageRoute, assertPlainPageRoute, validatePageLinks, assertPageUnused } from '../../packages/visual-artifacts/src/page-links.js';
+import type { ArtifactBundle } from '../../packages/visual-artifacts/src/model.js';
+const page = (route: string, locator = route.slice(1)) => ({locator,metadata:{route},files:{source:''},diagnostics:[]}) as unknown as ArtifactBundle;
+const pages = [page('/home'),page('/about'),page('/contact')];
+const link = (href: string) => `<section data-uip-node="s"><a data-uip-node="link" href="${href}">Go</a></section>`;
+test('canonical plain routes and uniqueness',()=>{ for(const route of ['/home','/about','/contact','/','/a/b']) assert.equal(isPlainPageRoute(route),true); for(const route of ['//x','/x/','/x?y','/x#y','/:id','/a/../b','/A','/%61']) assert.equal(isPlainPageRoute(route),false); assert.throws(()=>assertPlainPageRoute('/home',pages)); assert.doesNotThrow(()=>assertPlainPageRoute('/home',pages,'home')); });
+test('new managed links resolve exactly one saved plain Page',()=>{ assert.doesNotThrow(()=>validatePageLinks('',link('/about'),pages)); for(const value of ['/missing','/about#x','/about?x','/:id'])assert.throws(()=>validatePageLinks('',link(value),pages)); assert.throws(()=>validatePageLinks('',link('/about'),[...pages,page('/about','duplicate')])); });
+test('external and unchanged legacy links retain existing policy',()=>{assert.doesNotThrow(()=>validatePageLinks('',link('https://external.invalid/path'),pages)); assert.doesNotThrow(()=>validatePageLinks(link('/legacy'),link('/legacy'),pages));assert.throws(()=>validatePageLinks(link('/legacy'),link('/missing'),pages));});
+test('incoming reference reports Page and managed link; self references do not prevent deleting self',()=>{const incoming=page('/home'); incoming.files.source=link('/about');assert.throws(()=>assertPageUnused('/about',[incoming,...pages.slice(1)],'about'),/home \(link\)/);assert.doesNotThrow(()=>assertPageUnused('/about',[incoming,...pages.slice(1)],'home'));});
+test('unsupported and invalid saved targets refuse',()=>{const shell=page('/about');shell.metadata!.shellId='shell';assert.throws(()=>validatePageLinks('',link('/about'),[shell]));const invalid=page('/about');invalid.diagnostics.push({severity:'error',message:'invalid'});assert.throws(()=>validatePageLinks('',link('/about'),[invalid]));});

@@ -1,0 +1,22 @@
+✔ literal anchor/link editing preserves content, managed IDs, containment and order (1.5468ms)
+✔ ordinary insertion outer wrapper supports a Page-root anchor without changing wrapper identity (1.0417ms)
+✔ invalid, duplicate, nested and unmanaged targets and unsupported references refuse (4.475ms)
+✔ surviving links prevent rename, clear and subtree removal with referring identity (1.182ms)
+✔ unchanged legacy fragments are preserved; new external URLs are not local references (0.3871ms)
+✔ normal authorized fixture Save retains hash on failed anchor admission and persists valid HTML (380.276ms)
+✔ accepted duplication continues refusing anchored/reference-bearing Pages (0.9042ms)
+✔ Page admission does not expand generic Component/Shell fragment policy (0.3923ms)
+✔ canonical plain routes and uniqueness (0.2506ms)
+✔ new managed links resolve exactly one saved plain Page (0.4251ms)
+✔ external and unchanged legacy links retain existing policy (0.1962ms)
+✔ incoming reference reports Page and managed link; self references do not prevent deleting self (0.2112ms)
+✔ unsupported and invalid saved targets refuse (0.1615ms)
+✔ route change protects a surviving self link while deletion excludes it (0.1197ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 527.9248

@@ -1,0 +1,290 @@
+import type { ArtifactMetadata, Diagnostic } from './model.js';
+import { readPackageSettings, valueErrors, type PackageDefinition, type PropertyContract } from './model.js';
+
+export interface SourceNode { id?: string; tag: string; attributes: Record<string, string>; start: number; openEnd: number; end: number; closeStart: number; parent?: SourceNode; children: SourceNode[]; manual: boolean }
+const voidTags = new Set('area base br col embed hr img input link meta param source track wbr'.split(' '));
+const optionalTags = new Set('p li dt dd rt rp option optgroup thead tbody tfoot tr td th'.split(' '));
+const blockTags = new Set('address article aside blockquote div dl fieldset footer form h1 h2 h3 h4 h5 h6 header hr main nav ol p pre section table ul'.split(' '));
+export const escapeAttribute = (value: string): string => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+/** Literal managed HTML URL policy. Validation never rewrites authoritative HTML. */
+export function validateManagedUrlAttribute(tag: string, name: string, value: string): void {
+  if (!((tag === 'a' && name === 'href') || (tag === 'img' && name === 'src'))) return;
+  if (!value) return; // Empty fields are unset references, not an admitted scheme.
+  const invalid = () => { throw new Error(`Unsupported or malformed ${tag} ${name} URL. Use an allowed scheme or a relative path without whitespace or backslashes.`); };
+  if (/[\s\u0000-\u001f\u007f\\<>"`]/u.test(value) || /^\/\//.test(value) || /&(?:#|[a-z]+;)/i.test(value) || /%(?![0-9a-f]{2})/i.test(value) || /%(?:0[0-9a-f]|1[0-9a-f]|7f)/i.test(value)) invalid();
+  const scheme = /^([a-z][a-z0-9+.-]*):/i.exec(value)?.[1].toLowerCase();
+  if (scheme && !(tag === 'a' ? ['http', 'https', 'mailto', 'tel'] : ['http', 'https']).includes(scheme)) invalid();
+  if (scheme === 'http' || scheme === 'https') {
+    if (!/^https?:\/\/[^/]/i.test(value)) invalid();
+  } else if (scheme) {
+    if (!value.slice(scheme.length + 1) || value.slice(scheme.length + 1).startsWith('//')) invalid();
+  } else {
+    if (value.split(/[/?#]/, 1)[0].includes(':') || (tag === 'img' && /^[?#]/.test(value))) invalid();
+  }
+  try {
+    const parsed = new URL(value, 'https://managed.invalid/');
+    if (!scheme && parsed.origin !== 'https://managed.invalid') invalid();
+    if (scheme && parsed.protocol !== scheme + ':') invalid();
+  } catch { invalid(); }
+}
+const decode = (value: string): string => value.replaceAll('&quot;', '"').replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&amp;', '&');
+
+/** Conservative, offset-based HTML reader. Unsupported regions remain untouched, never round-tripped through a DOM serializer. */
+export function parseSource(source: string): { nodes: SourceNode[]; diagnostics: Diagnostic[] } {
+  const nodes: SourceNode[] = [], stack: SourceNode[] = [], diagnostics: Diagnostic[] = [];
+  const implicitClose = (offset: number) => {
+    const node = stack.pop()!; node.closeStart = offset; node.end = offset; node.manual = true;
+    diagnostics.push({ severity: 'warning', message: `Implicitly closed ${node.tag} is preserved as a manual region.`, node: node.id });
+  };
+  // The final alternative retains malformed/incomplete openings as refusals,
+  // rather than skipping their identity markup. It never creates a node.
+  const token = /<!--[\s\S]*?-->|<![^>]*>|<\/?[A-Za-z][\w:-]*(?:\s+(?:[^>"']|"[^"]*"|'[^']*')*)?\s*\/?>|(<\/?[A-Za-z][\w:-]*[^<>]*(?:>|(?=<)|$)|<(?:\s+\/?[A-Za-z]|\/\s+[A-Za-z]|[0-9])[^<>]*\bdata-uip-(?:node|component)\b[^<>]*(?:>|(?=<)|$)|<!--[\s\S]*$|<![^>]*$|<\?[^>]*(?:>|$))/gi;
+  let match: RegExpExecArray | null;
+  while ((match = token.exec(source))) {
+    const raw = match[0];
+    if (match[1]) { diagnostics.push({ severity: 'error', message: `Malformed opening tag at offset ${match.index}.` }); continue; }
+    if (raw.startsWith('<!')) continue;
+    const tag = /^<\/?([\w:-]+)/.exec(raw)![1].toLowerCase();
+    if (raw.startsWith('</')) {
+      if (!/^<\/[\w:-]+\s*>$/.test(raw)) diagnostics.push({ severity: 'error', message: `Malformed closing tag at offset ${match.index}.` });
+      while (stack.length && stack.at(-1)!.tag !== tag && optionalTags.has(stack.at(-1)!.tag)) implicitClose(match.index);
+      const node = stack.at(-1);
+      if (!node || node.tag !== tag) { diagnostics.push({ severity: 'error', message: `Unmatched closing tag ${tag}. Visual editing requires explicit balanced markup.` }); continue; }
+      node.closeStart = match.index; node.end = token.lastIndex; stack.pop(); continue;
+    }
+    while (stack.length) {
+      const top = stack.at(-1)!.tag;
+      const closes = (top === 'p' && blockTags.has(tag)) || (['li', 'option', 'optgroup', 'tr', 'thead', 'tbody', 'tfoot'].includes(top) && top === tag) || (['dt', 'dd'].includes(top) && ['dt', 'dd'].includes(tag)) || (['td', 'th'].includes(top) && ['td', 'th'].includes(tag));
+      if (!closes) break;
+      implicitClose(match.index);
+    }
+    const attributes: Record<string, string> = {};
+    const selfClosing = raw.endsWith('/>');
+    const attrs = raw.slice(tag.length + 1, selfClosing ? -2 : -1);
+    // Sticky consumption prevents gaps/malformed syntax from inventing names.
+    // Only identity names are ASCII-case folded; no encoded name is an alias.
+    const attribute = /\s+([^\s=/'"><`&]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'`=<>]+)))?/y;
+    const identities = new Set<string>();
+    let cursor = 0;
+    while (cursor < attrs.length && !/^\s*$/.test(attrs.slice(cursor))) {
+      attribute.lastIndex = cursor;
+      const attr = attribute.exec(attrs);
+      if (!attr) { diagnostics.push({ severity: 'error', message: `Malformed or unsupported attributes at offset ${match.index + tag.length + 1 + cursor}.` }); break; }
+      cursor = attribute.lastIndex;
+      const folded = attr[1].replace(/[A-Z]/g, letter => letter.toLowerCase());
+      const identity = folded === 'data-uip-node' || folded === 'data-uip-component';
+      const name = identity ? folded : attr[1];
+      const value = attr[2] ?? attr[3] ?? attr[4];
+      if (identity) {
+        if (identities.has(name)) { diagnostics.push({ severity: 'error', message: `Duplicate identity attribute ${name} at offset ${match.index}.` }); continue; }
+        identities.add(name);
+        if (!value || /&(?!(?:quot|lt|gt|amp);)/.test(value) || selfClosing && attr[4] !== undefined && cursor === attrs.length) {
+          diagnostics.push({ severity: 'error', message: `Malformed or unsupported identity value for ${name} at offset ${match.index}.` }); continue;
+        }
+      }
+      // Preserve the old ordinary-attribute value on unquoted `value/>`.
+      // Identity values in that ambiguous spelling were refused above.
+      const ordinarySlash = !identity && selfClosing && attr[4] !== undefined && cursor === attrs.length ? '/' : '';
+      Object.defineProperty(attributes, name, { value: decode(value ?? '') + ordinarySlash, writable: true, enumerable: true, configurable: true });
+    }
+    const node: SourceNode = { id: attributes['data-uip-node'], tag, attributes, start: match.index, openEnd: token.lastIndex, closeStart: token.lastIndex, end: token.lastIndex, parent: stack.at(-1), children: [], manual: !attributes['data-uip-node'] };
+    node.parent?.children.push(node); nodes.push(node);
+    if (['script', 'style', 'textarea'].includes(tag)) {
+      if (identities.size) diagnostics.push({ severity: 'error', message: `Managed identity is unsupported on raw-text ${tag} at offset ${match.index}.` });
+      const close = new RegExp(`</${tag}\\s*>`, 'ig'); close.lastIndex = token.lastIndex;
+      const ending = close.exec(source);
+      if (ending) { node.closeStart = ending.index; node.end = close.lastIndex; token.lastIndex = close.lastIndex; }
+      else diagnostics.push({ severity: 'error', message: `Unclosed ${tag}.` });
+      node.manual = true;
+    } else if (!voidTags.has(tag) && !raw.endsWith('/>')) stack.push(node);
+  }
+  while (stack.length && optionalTags.has(stack.at(-1)!.tag)) implicitClose(source.length);
+  for (const node of stack) diagnostics.push({ severity: 'error', message: `Unclosed ${node.tag}.` });
+  const ids = new Set<string>();
+  for (const node of nodes) if (node.id) {
+    if (!/^[A-Za-z][\w-]*$/.test(node.id) || ids.has(node.id)) diagnostics.push({ severity: 'error', message: `Invalid or duplicate node ID: ${node.id}.`, node: node.id });
+    ids.add(node.id);
+    if (!isWrapper(node) && !isWrapper(node.parent)) diagnostics.push({ severity: 'warning', message: 'Layout is manual because this node has no Builder wrapper.', node: node.id });
+  }
+  // Inspection offsets survive errors; managed identities/references do not.
+  // All callers, including editors and componentReferences, see this refusal.
+  if (diagnostics.some(diagnostic => diagnostic.severity === 'error')) for (const node of nodes) {
+    delete node.id;
+    delete node.attributes['data-uip-node'];
+    delete node.attributes['data-uip-component'];
+    node.manual = true;
+  }
+  return { nodes, diagnostics };
+}
+export function isWrapper(node?: SourceNode): boolean { return Boolean(node?.attributes.class?.split(/\s+/).includes('uip-layout-item')); }
+export function serializeSource(source: string): string { return source; }
+/** Same Page-root/sole outer layout wrapper boundary as content-only duplication. */
+export function isPageRootSection(node: SourceNode): boolean {
+  const item = node.parent && isWrapper(node.parent) ? node.parent : node;
+  return node.tag === 'section' && !!node.id && !node.manual && !node.attributes['data-uip-component'] && !item.parent && (item === node || !!item.id && !item.manual && item.children.length === 1 && item.children[0] === node && !item.attributes['data-uip-component']);
+}
+/** Page-local references are derived from candidate HTML; unchanged legacy values are not migrated. */
+export function validatePageAnchorChange(previous: string, candidate: string, metadata?: ArtifactMetadata): void {
+  const before = parseSource(previous), after = parseSource(candidate);
+  if (after.diagnostics.some(d => d.severity === 'error')) throw new Error('Repair source structure before editing anchors.');
+  const attribute = (n: SourceNode, name: string) => Object.entries(n.attributes).filter(([key]) => key.toLowerCase() === name);
+  const old = new Map(before.nodes.filter(n => n.id).map(n => [n.id!, n]));
+  const anchorSetChanged = JSON.stringify(before.nodes.filter(n => attribute(n, 'id').length).map(n => [n.id, attribute(n, 'id')])) !== JSON.stringify(after.nodes.filter(n => attribute(n, 'id').length).map(n => [n.id, attribute(n, 'id')]));
+  const referencesChanged = after.nodes.some(n => n.id && n.tag === 'a' && attribute(n, 'href').some(([, href]) => href.startsWith('#')) && JSON.stringify(attribute(n, 'href')) !== JSON.stringify(old.has(n.id) ? attribute(old.get(n.id)!, 'href') : []));
+  if ((anchorSetChanged || referencesChanged) && metadata && (metadata.shellId || metadata.form || metadata.bindings?.length || metadata.repeaters?.length || metadata.events?.length || metadata.onLoad?.length || metadata.conditions?.length)) throw new Error('Anchor authoring requires a plain Page without Shell, Form or dynamic binding/event/repeater behavior.');
+  if (anchorSetChanged && after.nodes.some(n => n.tag === 'a' && attribute(n, 'href').some(([, href]) => href.startsWith('#') && (n.manual || !/^#[a-z][a-z0-9-]*$/.test(href))))) throw new Error('Anchor changes are refused while unsupported or unmanaged fragment references survive. Correct those references explicitly.');
+  for (const node of after.nodes) {
+    if (!node.id || node.manual) continue;
+    const prior = old.get(node.id);
+    if ((!prior || previous.slice(prior.start, prior.openEnd) !== candidate.slice(node.start, node.openEnd)) && ['id', ...(node.tag === 'a' ? ['href'] : [])].some(name => (candidate.slice(node.start, node.openEnd).match(new RegExp('\\s' + name + '\\s*=', 'gi')) ?? []).length > 1)) throw new Error('Ambiguous duplicate anchor/reference attributes are unsupported.');
+    const ids = attribute(node, 'id'), priorIds = prior ? attribute(prior, 'id') : [];
+    if (JSON.stringify(ids) !== JSON.stringify(priorIds) && ids.length) {
+      const value = ids[0][1];
+      if (ids.length !== 1 || !isPageRootSection(node) || !/^[a-z][a-z0-9-]*$/.test(value)) throw new Error('Anchor ID requires a managed Page-root section and a lowercase slug starting with a letter.');
+      if (after.nodes.filter(n => attribute(n, 'id').some(([, id]) => id === value)).length !== 1) throw new Error(`Anchor ID ${value} is already used in this Page.`);
+    }
+    const hrefs = attribute(node, 'href'), priorHrefs = prior ? attribute(prior, 'href') : [];
+    if (node.tag !== 'a' || !hrefs.some(([, href]) => href.startsWith('#'))) continue;
+    const href = hrefs[0][1], target = href.slice(1);
+    const targets = after.nodes.filter(n => attribute(n, 'id').some(([, id]) => id === target));
+    const wasChanged = JSON.stringify(hrefs) !== JSON.stringify(priorHrefs);
+    const oldTargets = before.nodes.filter(n => attribute(n, 'id').some(([, id]) => id === target));
+    const targetChanged = JSON.stringify(targets.map(n => [n.id, n.tag, n.parent?.id, isPageRootSection(n), attribute(n, 'id')])) !== JSON.stringify(oldTargets.map(n => [n.id, n.tag, n.parent?.id, attribute(n, 'id')]));
+    if (!wasChanged && !targetChanged) continue;
+    let componentParent = node.parent; while (componentParent && !componentParent.attributes['data-uip-component']) componentParent = componentParent.parent;
+    if (componentParent || node.attributes.target !== undefined || node.attributes.download !== undefined || hrefs.length !== 1 || !/^[a-z][a-z0-9-]*$/.test(target) || targets.length !== 1 || attribute(targets[0], 'id').length !== 1 || (candidate.slice(targets[0].start, targets[0].openEnd).match(/\sid\s*=/gi) ?? []).length !== 1 || !isPageRootSection(targets[0])) throw new Error(`Link ${node.id} (${href}) requires one managed Page-root section target. Correct the referring link before renaming, clearing or removing its anchor.`);
+  }
+}
+export function removeManagedNode(source: string, id: string): string {
+  const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);
+  if (parsed.diagnostics.some(d => d.severity === 'error') || !node || node.manual) throw new Error('Select an unambiguous managed node.');
+  const candidate = source.slice(0, node.start) + source.slice(node.end);
+  validatePageAnchorChange(source, candidate);
+  return candidate;
+}
+/** Change only a managed heading's paired tag names; retain all other bytes. */
+export function setHeadingLevel(source: string, id: string, level: string): string {
+  if (!/^h[1-6]$/.test(level)) throw new Error('Choose a heading level from H1 to H6.');
+  const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);
+  if (parsed.diagnostics.some(d => d.severity === 'error') || !node || node.manual || !/^h[1-6]$/.test(node.tag) || node.attributes['data-uip-component']) throw new Error('Select an unambiguous managed HTML heading.');
+  const opening = source.slice(node.start, node.openEnd), closing = source.slice(node.closeStart, node.end);
+  if (!/^<h[1-6](?=\s|>)/i.test(opening) || !/^<\/h[1-6]\s*>$/i.test(closing)) throw new Error('Heading requires explicit paired tags.');
+  if (node.tag === level) return source;
+  return source.slice(0, node.start) + opening.replace(/^<h[1-6]/i, '<' + level) + source.slice(node.openEnd, node.closeStart) + closing.replace(/^<\/h[1-6]/i, '</' + level) + source.slice(node.end);
+}
+export function setNodeAttribute(source: string, id: string, name: string, value: string): string {
+  if (!/^[\w:-]+$/.test(name)) throw new Error('Invalid attribute name.');
+  const parsed = parseSource(source);
+  if (parsed.diagnostics.some(diagnostic => diagnostic.severity === 'error')) throw new Error('Repair source structure before editing attributes.');
+  const node = parsed.nodes.find(n => n.id === id);
+  if (!node || node.manual || parsed.nodes.filter(n => n.id === id).length !== 1) throw new Error('Select an unambiguous editor-managed node.');
+  validateManagedUrlAttribute(node.tag, name.toLowerCase(), value);
+  const opening = source.slice(node.start, node.openEnd);
+  const identityName = /^(data-uip-node|data-uip-component)$/i.test(name);
+  const pattern = new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`, identityName || /^(id|href|src|alt)$/i.test(name) ? 'i' : '');
+  const attr = ` ${name}="${escapeAttribute(value)}"`;
+  const next = pattern.test(opening) ? opening.replace(pattern, () => attr) : opening.replace(/\s*\/?>$/, end => attr + end);
+  const candidate = source.slice(0, node.start) + next + source.slice(node.openEnd);
+  if (/^(id|href)$/i.test(name)) validatePageAnchorChange(source, candidate);
+  return candidate;
+}
+/** Remove an attribute through the same admitted source reader; leave other bytes intact. */
+export function removeNodeAttribute(source: string, id: string, name: string): string {
+  if (!/^[a-z][a-z0-9:-]*$/.test(name)) throw new Error('Invalid attribute name.');
+  const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);
+  if (parsed.diagnostics.some(d => d.severity === 'error') || !node || node.manual) throw new Error('Select an unambiguous editor-managed node.');
+  const opening = source.slice(node.start, node.openEnd);
+  const next = opening.replace(new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`, 'gi'), '');
+  const candidate = source.slice(0, node.start) + next + source.slice(node.openEnd);
+  if (/^(id|href)$/i.test(name)) validatePageAnchorChange(source, candidate);
+  return candidate;
+}
+function literalNode(source: string, id: string) {
+  const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);
+  if (parsed.diagnostics.some(d => d.severity === 'error') || !node || node.manual) throw new Error('Repair source before editing instance values.');
+  const stored = JSON.parse(node.attributes['data-uip-settings'] ?? '{}');
+  if (!stored || Array.isArray(stored) || typeof stored !== 'object') throw new Error('Component settings must be an object.');
+  return { node, stored: stored as Record<string, unknown> };
+}
+function slotText(source: string, node: SourceNode, name: string): { start: number; end: number; text: string } | undefined {
+  const children = node.children.filter(child => (child.attributes.slot || 'default') === name);
+  const direct: Array<{ start: number; end: number; text: string }> = [];
+  if (name === 'default') {
+    let start = node.openEnd;
+    for (const end of [...node.children.map(child => child.start), node.closeStart]) {
+      const text = source.slice(start, end); if (text.trim()) direct.push({ start, end, text });
+      start = node.children.find(child => child.start === end)?.end ?? node.closeStart;
+    }
+  }
+  if (!direct.length && children.length === 1 && !children[0].children.length && children[0].tag === 'span') {
+    const child = children[0], text = source.slice(child.openEnd, child.closeStart);
+    if (!text.includes('<')) return { start: child.openEnd, end: child.closeStart, text: decode(text) };
+  }
+  if (!children.length && direct.length === 1 && !direct[0].text.includes('<')) return { ...direct[0], text: decode(direct[0].text) };
+  return undefined;
+}
+/** Existing JSON-only values retain compatibility; new literal fields live in HTML. */
+export function readNodeSettings(source: string, id: string, definition?: PackageDefinition, contracts: Record<string, PropertyContract> = {}): Record<string, unknown> {
+  const { node, stored } = literalNode(source, id);
+  const values = definition ? readPackageSettings(definition, node.attributes, stored) : { ...stored };
+  for (const [key, contract] of Object.entries(definition?.builder.settings ?? contracts)) {
+    const binding = definition?.builder.settings[key]?.binding;
+    if (!definition && /^[a-z][a-z0-9-]*$/.test(key) && Object.hasOwn(node.attributes, key) && !Object.hasOwn(stored, key)) values[key] = contract.type === 'boolean' ? node.attributes[key] !== 'false' : contract.type === 'number' ? Number(node.attributes[key]) : node.attributes[key];
+    if (binding?.kind === 'slot' && binding.content === 'text' && !Object.hasOwn(stored, key)) {
+      const slot = slotText(source, node, binding.name || 'default'); if (slot) values[key] = slot.text;
+    }
+  }
+  return values;
+}
+/** Explicit property edits replace only that property's old JSON override. No bulk migration. */
+export function setNodeSetting(source: string, id: string, key: string, value: unknown, definition?: PackageDefinition, contracts: Record<string, PropertyContract> = {}): string {
+  const { node, stored } = literalNode(source, id), contract = definition?.builder.settings[key] ?? contracts[key];
+  if (!contract || valueErrors(value, contract, key).length) throw new Error('Invalid declared component value.');
+  const binding = definition?.builder.settings[key]?.binding;
+  const attribute = binding?.kind === 'attribute' ? binding.name : !definition && /^[a-z][a-z0-9-]*$/.test(key) ? key : undefined;
+  let next = source;
+  if (attribute && ['string', 'number', 'boolean'].includes(contract.type) && !(value === false && contract.default === true)) {
+    next = removeNodeAttribute(next, id, attribute);
+    next = contract.type === 'boolean' && value === false ? removeNodeAttribute(next, id, attribute) : setNodeAttribute(next, id, attribute, contract.type === 'boolean' ? '' : String(value));
+    delete stored[key];
+  } else if (binding?.kind === 'slot' && binding.content === 'text' && typeof value === 'string') {
+    const name = binding.name || 'default', slot = slotText(source, node, name);
+    if (slot) next = source.slice(0, slot.start) + escapeAttribute(value) + source.slice(slot.end);
+    else {
+      const directText = name === 'default' ? node.children.reduce((text, child) => text.replace(source.slice(child.start, child.end), ''), source.slice(node.openEnd, node.closeStart)).trim() : '';
+      if (node.children.some(child => (child.attributes.slot || 'default') === name) || directText) throw new Error('Edit nested or mixed slot content in HTML; it cannot be replaced as a literal.');
+      const markup = `<span data-uip-node="node_${globalThis.crypto.randomUUID()}"${name === 'default' ? '' : ` slot="${escapeAttribute(name)}"`}>${escapeAttribute(value)}</span>`;
+      next = source.slice(0, node.closeStart) + markup + source.slice(node.closeStart);
+    }
+    delete stored[key];
+  } else {
+    // Complex/mode/event mappings keep their existing representation until a
+    // compatible literal mapping is established. Never infer aliases.
+    stored[key] = value;
+  }
+  return Object.keys(stored).length ? setNodeAttribute(next, id, 'data-uip-settings', JSON.stringify(stored)) : removeNodeAttribute(next, id, 'data-uip-settings');
+}
+export function insertNode(source: string, tag: string, componentId?: string, parentId?: string, newId = () => `node_${globalThis.crypto.randomUUID()}`, slot?: string): string {
+  if (!/^[a-z][a-z0-9-]*$/.test(tag) || ['script', 'style', 'iframe'].includes(tag)) throw new Error('Unsupported insertion tag.');
+  const parsed = parseSource(source);
+  if (parsed.diagnostics.some(d => d.severity === 'error')) throw new Error('Repair source structure before inserting.');
+  const parent = parentId ? parsed.nodes.find(n => n.id === parentId) : undefined;
+  if (parentId && (!parent || parent.attributes['data-uip-component'] && slot === undefined || voidTags.has(parent.tag))) throw new Error('Insert into an ordinary HTML container or layout wrapper.');
+  const offset = parent?.closeStart ?? source.length;
+  const markup = `\n<div class="uip-layout-item" data-uip-node="${newId()}"${slot !== undefined ? ` slot="${escapeAttribute(slot)}"` : ''}>\n  <${tag} data-uip-node="${newId()}"${componentId ? ` data-uip-component="${escapeAttribute(componentId)}"` : ''}>${voidTags.has(tag) ? '' : `</${tag}>`}\n</div>\n`;
+  return source.slice(0, offset) + markup + source.slice(offset);
+}
+
+export function moveNode(source: string, id: string, direction: 'up' | 'down'): string {
+  const parsed = parseSource(source);
+  if (parsed.diagnostics.some(d => d.severity === 'error')) throw new Error('Repair source structure before moving.');
+  const selected = parsed.nodes.find(n => n.id === id);
+  const node = isWrapper(selected?.parent) ? selected!.parent! : selected;
+  if (!node || !node.id) throw new Error('Select a managed layout node.');
+  const siblings = parsed.nodes.filter(n => n.parent === node.parent);
+  const adjacent = siblings[siblings.indexOf(node) + (direction === 'up' ? -1 : 1)];
+  if (!adjacent) return source;
+  if (!adjacent.id || adjacent.manual) throw new Error('Move only between managed siblings; edit manual regions in source.');
+  const [first, second] = node.start < adjacent.start ? [node, adjacent] : [adjacent, node];
+  return source.slice(0, first.start) + source.slice(second.start, second.end) + source.slice(first.end, second.start) + source.slice(first.start, first.end) + source.slice(second.end);
+}

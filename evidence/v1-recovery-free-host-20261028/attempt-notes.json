@@ -1,0 +1,7 @@
+{
+  "earlyStaticCheckFailure": "The first runner resolved the root TypeScript 7 package, whose export did not provide the expected compiler API (ScriptTarget.Latest). The runner now explicitly uses the existing Visual package's TypeScript 6.0.3 compiler for both static inspection and fixture imports. No package installation or product policy change.",
+  "foreignLockFixtureFailure": "An initial assertion forbade even lstat of a .recovery guard. Refusal mode legitimately checks guard presence without reading/creating/removing it. The corrected assertion permits metadata lstat only, while still forbidding foreign unlink, journal bytes, guard open/write and PID probes. Full failing output is retained in run-1793198266069.",
+  "inputResolverFailure": "The first host-input inspection used CommonJS require.resolve for an import-only runtime export and received ERR_PACKAGE_PATH_NOT_EXPORTED. The inspection now reads the existing ESM import export condition; package exports were not changed.",
+  "pageDialogLocator": "Page route matched both the existing editor field and Create Page dialog. The strict locator failed before editing either route; the action was scoped to the dialog and succeeded.",
+  "managementApiAfterHostLaunch": "A final optional browser saved-role comparison at localhost:5374 was refused. No restart/recovery was attempted. Website rendering, source identity checks and captured UI-authored source remain the evidence; no final management API hash comparison is claimed."
+}

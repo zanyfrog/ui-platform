@@ -25,6 +25,10 @@ export interface RuntimeOptions extends FormRuntimeOptions {
   assetUrl?: (relative: string) => string;
   services?: Record<string, (input: unknown) => unknown | Promise<unknown>>;
   onError?: (error: unknown) => void;
+  /** Explicit URL ownership for plain pathname hosts or the Preview iframe. */
+  pageFragmentNavigation?: boolean;
+  /** Explicit saved Page paths admitted by the owning pathname host. */
+  pageRoutes?: string[];
 }
 export interface ArtifactInstance { host: HTMLElement; root: ShadowRoot; state: Record<string, unknown>; update: (inputs: Record<string, unknown>) => void; destroy: () => void }
 
@@ -54,6 +58,56 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
   const nested = new Map<string, ArtifactInstance>();
   const boundEvents = new Map<HTMLElement, Array<{ name: string; listener: EventListener }>>();
   const report = options.onError ?? (error => console.error(error));
+  const view = document.defaultView!;
+  let fragmentFrame = 0;
+  let releaseFragmentFocus: (() => void) | undefined;
+  const fragmentFeedback = (message: string) => {
+    report(new Error(message));
+    let feedback = root.querySelector<HTMLElement>('[data-uip-anchor-feedback]');
+    if (!feedback) { feedback = document.createElement('p'); feedback.dataset.uipAnchorFeedback = ''; feedback.setAttribute('role', 'status'); root.append(feedback); }
+    feedback.textContent = message;
+  };
+  const followFragment = (requested = view.location.hash, scroll = true) => {
+    if (disposed || !host.isConnected || !requested) return false;
+    const hash = requested;
+    if (!/^#[a-z][a-z0-9-]*$/.test(hash)) { fragmentFeedback('This Page supports only literal lowercase section fragments.'); return false; }
+    const targets = [...root.querySelectorAll<HTMLElement>('[id]')].filter(n => n.id === hash.slice(1));
+    const target = targets[0];
+    const wrapper = target?.parentElement;
+    const atPageRoot = target?.parentNode === root || wrapper?.parentNode === root && wrapper.classList.contains('uip-layout-item') && !!wrapper.dataset.uipNode && !wrapper.hasAttribute('data-uip-component') && wrapper.children.length === 1;
+    if (targets.length !== 1 || target.tagName !== 'SECTION' || !atPageRoot || !target.dataset.uipNode || target.hasAttribute('data-uip-component') || !target.getClientRects().length || view.getComputedStyle(target).visibility === 'hidden' || target.closest('[hidden],[inert]')) { fragmentFeedback(`Cannot navigate to ${hash}: the section is missing, ambiguous, unsupported or hidden.`); return false; }
+    if (!scroll) return true;
+    root.querySelector('[data-uip-anchor-feedback]')?.remove();
+    releaseFragmentFocus?.();
+    if (!target.hasAttribute('tabindex')) {
+      target.setAttribute('tabindex', '-1');
+      const release = () => { target.removeEventListener('blur', release); if (target.getAttribute('tabindex') === '-1') target.removeAttribute('tabindex'); if (releaseFragmentFocus === release) releaseFragmentFocus = undefined; };
+      releaseFragmentFocus = release; target.addEventListener('blur', release, { once: true });
+    }
+    target.focus({ preventScroll: true }); target.scrollIntoView({ block: 'start' });
+    return true;
+  };
+  const scheduleFragment = () => { view.cancelAnimationFrame(fragmentFrame); fragmentFrame = view.requestAnimationFrame(() => followFragment()); };
+  const fragmentClick = (event: Event) => {
+    const mouse = event as MouseEvent;
+    if (event.defaultPrevented || mouse.button !== 0 || mouse.ctrlKey || mouse.metaKey || mouse.shiftKey || mouse.altKey) return;
+    const link = event.composedPath().find(n => n instanceof HTMLAnchorElement) as HTMLAnchorElement | undefined;
+    if (!link || link.getRootNode() !== root || link.target || link.hasAttribute('download')) return;
+    const href = link.getAttribute('href');
+    if (href?.startsWith('/') && !href.startsWith('//') && options.pageRoutes && options.navigate) {
+      event.preventDefault();
+      if (options.pageRoutes.filter(route => route === href).length !== 1) { fragmentFeedback(`Cannot navigate to missing or ambiguous Page ${href}.`); return; }
+      options.navigate(href); return;
+    }
+    if (!href?.startsWith('#')) return;
+    event.preventDefault();
+    if (!/^#[a-z][a-z0-9-]*$/.test(href)) { fragmentFeedback('Unsupported section fragment. Use a literal lowercase Anchor ID.'); return; }
+    if (!followFragment(href, false)) return;
+    if (view.location.hash !== href) view.history.pushState(view.history.state, '', href);
+    followFragment(href);
+  };
+  const fragmentsEnabled = m.kind === 'page' && !m.shellId && options.pageFragmentNavigation === true;
+  if (fragmentsEnabled) { root.addEventListener('click', fragmentClick); view.addEventListener('hashchange', scheduleFragment); view.addEventListener('popstate', scheduleFragment); }
   const registry = new ComponentRegistry();
   for (const pkg of options.packages) if (pkg.definition) registry.registerManifest({ components: [pkg.definition] }, { packageId: (pkg.definition as unknown as { ownership: { package: { packageId: string } } }).ownership.package.packageId });
   const validateInputs = (next: Record<string, unknown>) => {
@@ -128,6 +182,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
   for (const name of listeners) root.addEventListener(name, event => event.stopPropagation());
   function render(): void {
     if (disposed) return;
+    releaseFragmentFocus?.();
     formRuntime?.prepare();
     // Nested hosts survive parent renders; their parent-owned listeners must not accumulate.
     for (const [element, bindings] of boundEvents) for (const binding of bindings) element.removeEventListener(binding.name, binding.listener);
@@ -230,6 +285,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     const css = `:host{display:block}.uip-layout-item{box-sizing:border-box;min-width:0}img{max-width:100%;height:auto}\n${options.presentationCss ?? ''}\n${artifact.css}\n${layoutCss(m.layout)}`;
     style.textContent = options.assetUrl ? css.replace(/url\(\s*(['"]?)((?:\.\.\/|\.\/)*assets\/[^)'"\s]+)\1\s*\)/g, (_, _quote, relative: string) => `url("${options.assetUrl!(relative.replace(/^(?:\.\.\/)+|^\.\//, ''))}")`) : css;
     root.replaceChildren(style, fragment);
+    if (fragmentsEnabled) scheduleFragment();
     formRuntime?.paint();
     for (const [key, instance] of nested) if (!used.has(key)) { instance.destroy(); nested.delete(key); }
   }
@@ -242,12 +298,12 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     if (service) void Promise.resolve(service(undefined)).then(value => { if (!disposed) { data[name] = value; repaint(); } }).catch(report);
   }
   if (initialize && m.onLoad?.length) void actions(m.onLoad, scope());
-  return { host, root, state, update(next) { inputs = validateInputs(next); render(); }, destroy() { disposed = true; options.sharedScope?.subscribers.delete(render); formRuntime?.destroy(); nested.forEach(instance => instance.destroy()); nested.clear(); for (const [element, bindings] of boundEvents) for (const binding of bindings) element.removeEventListener(binding.name, binding.listener); boundEvents.clear(); host.remove(); } };
+  return { host, root, state, update(next) { inputs = validateInputs(next); render(); }, destroy() { disposed = true; releaseFragmentFocus?.(); view.cancelAnimationFrame(fragmentFrame); root.removeEventListener('click', fragmentClick); view.removeEventListener('hashchange', scheduleFragment); view.removeEventListener('popstate', scheduleFragment); options.sharedScope?.subscribers.delete(render); formRuntime?.destroy(); nested.forEach(instance => instance.destroy()); nested.clear(); for (const [element, bindings] of boundEvents) for (const binding of bindings) element.removeEventListener(binding.name, binding.listener); boundEvents.clear(); host.remove(); } };
 }
 
 const pageDefinitions = new Map<string, { artifact: RuntimeArtifact; options: RuntimeOptions }>();
 /** Fits existing application routers that render Page modules as HTML strings. */
-export function createVisualPage(artifact: RuntimeArtifact, options: RuntimeOptions): { render: (context?: { navigate?: (to: string) => void; route?: string; params?: Record<string, unknown>; settings?: Record<string, unknown> }) => string } {
+export function createVisualPage(artifact: RuntimeArtifact, options: RuntimeOptions): { render: (context?: { navigate?: (to: string) => void; route?: string; params?: Record<string, unknown>; settings?: Record<string, unknown>; pageFragmentNavigation?: boolean; pageRoutes?: string[] }) => string } {
   if (artifact.metadata.kind !== 'page') throw new Error('Only Pages register routes.');
   const tag = `uip-page-${artifact.metadata.artifactId.toLowerCase().replaceAll('_', '-')}`;
   pageDefinitions.set(tag, { artifact, options });
@@ -256,5 +312,5 @@ export function createVisualPage(artifact: RuntimeArtifact, options: RuntimeOpti
     connectedCallback() { const current = pageDefinitions.get(tag)!, graph = managedVisualComposition(current.artifact); this.instance = graph ? mountComposedPage(graph.definition as CompositionDefinition, current.artifact, { ...current.options, routeId: current.artifact.metadata.routeId, assetUrl: graph.assetUrl }) : mountVisualArtifact(current.artifact, current.options); this.replaceChildren(this.instance.host); }
     disconnectedCallback() { this.instance?.destroy(); }
   });
-  return { render(context = {}) { pageDefinitions.set(tag, { artifact, options: { ...options, navigate: context.navigate ?? options.navigate, context: context.settings ?? options.context, route: { path: context.route, ...options.route, ...context.params } } }); return `<${tag}></${tag}>`; } };
+  return { render(context = {}) { pageDefinitions.set(tag, { artifact, options: { ...options, pageRoutes: context.pageRoutes, pageFragmentNavigation: context.pageFragmentNavigation === true, navigate: context.navigate ?? options.navigate, context: context.settings ?? options.context, route: { path: context.route, ...options.route, ...context.params } } }); return `<${tag}></${tag}>`; } };
 }

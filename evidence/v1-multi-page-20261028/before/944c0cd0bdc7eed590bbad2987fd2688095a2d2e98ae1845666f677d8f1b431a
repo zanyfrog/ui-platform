@@ -1,0 +1,19 @@
+import {defineConfig} from 'vite';
+import path from 'node:path';
+import fs from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {visualArtifacts} from '@ui-platform/visual-artifacts/vite';
+const root=path.dirname(fileURLToPath(import.meta.url));
+const project=path.resolve(root,'../..');
+const applicationRoot=path.resolve(project,'../apps/v1-identity-fixture');
+const componentsRoot=path.join(root,'.inputs/components');
+for(const input of [root,applicationRoot,componentsRoot,path.join(project,'node_modules')]){
+  if(fs.lstatSync(input).isSymbolicLink()||fs.realpathSync(input).toLowerCase()!==path.resolve(input).toLowerCase())throw Error('Host inputs must remain inside the admitted physical disposable roots.');
+}
+const owner=JSON.parse(fs.readFileSync(path.join(applicationRoot,'app.manifest.json'),'utf8'));
+const marker=JSON.parse(fs.readFileSync(path.join(applicationRoot,'.v1-development-fixture.json'),'utf8'));
+const applicationPackage=JSON.parse(fs.readFileSync(path.join(applicationRoot,'package.json'),'utf8'));
+if(owner.appId!=='dev-v1-identity-fixture'||marker.applicationId!==owner.appId)throw Error('Disposable Application ownership mismatch.');
+if(Object.keys(applicationPackage.dependencies??{}).length||Object.keys(owner.packages??{}).length)throw Error('This plain host admits no Application package/manifest dependencies.');
+export default defineConfig({root,cacheDir:path.join(root,'.vite-cache-anchors-20261028'),optimizeDeps:{exclude:['@ui-platform/visual-artifacts','@ui-platform/visual-artifacts/runtime','@ui-platform/visual-artifacts/revision-guard']},resolve:{dedupe:['@ui-platform/visual-artifacts','@uib/platform-core']},plugins:[visualArtifacts({applicationRoot,componentsRoot,packageManifests:[]})],server:{host:'127.0.0.1',port:5188,strictPort:true,fs:{strict:true,allow:[root,applicationRoot,path.join(project,'node_modules')]}},build:{outDir:path.join(root,'dist'),emptyOutDir:false}});
+

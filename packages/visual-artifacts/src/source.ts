@@ -1,4 +1,4 @@
-import type { Diagnostic } from './model.js';
+import type { ArtifactMetadata, Diagnostic } from './model.js';
 import { readPackageSettings, valueErrors, type PackageDefinition, type PropertyContract } from './model.js';
 
 export interface SourceNode { id?: string; tag: string; attributes: Record<string, string>; start: number; openEnd: number; end: number; closeStart: number; parent?: SourceNode; children: SourceNode[]; manual: boolean }
@@ -118,6 +118,53 @@ export function parseSource(source: string): { nodes: SourceNode[]; diagnostics:
 }
 export function isWrapper(node?: SourceNode): boolean { return Boolean(node?.attributes.class?.split(/\s+/).includes('uip-layout-item')); }
 export function serializeSource(source: string): string { return source; }
+/** Same Page-root/sole outer layout wrapper boundary as content-only duplication. */
+export function isPageRootSection(node: SourceNode): boolean {
+  const item = node.parent && isWrapper(node.parent) ? node.parent : node;
+  return node.tag === 'section' && !!node.id && !node.manual && !node.attributes['data-uip-component'] && !item.parent && (item === node || !!item.id && !item.manual && item.children.length === 1 && item.children[0] === node && !item.attributes['data-uip-component']);
+}
+/** Page-local references are derived from candidate HTML; unchanged legacy values are not migrated. */
+export function validatePageAnchorChange(previous: string, candidate: string, metadata?: ArtifactMetadata): void {
+  const before = parseSource(previous), after = parseSource(candidate);
+  if (after.diagnostics.some(d => d.severity === 'error')) throw new Error('Repair source structure before editing anchors.');
+  const attribute = (n: SourceNode, name: string) => Object.entries(n.attributes).filter(([key]) => key.toLowerCase() === name);
+  const old = new Map(before.nodes.filter(n => n.id).map(n => [n.id!, n]));
+  const anchorSetChanged = JSON.stringify(before.nodes.filter(n => attribute(n, 'id').length).map(n => [n.id, attribute(n, 'id')])) !== JSON.stringify(after.nodes.filter(n => attribute(n, 'id').length).map(n => [n.id, attribute(n, 'id')]));
+  const referencesChanged = after.nodes.some(n => n.id && n.tag === 'a' && attribute(n, 'href').some(([, href]) => href.startsWith('#')) && JSON.stringify(attribute(n, 'href')) !== JSON.stringify(old.has(n.id) ? attribute(old.get(n.id)!, 'href') : []));
+  // The conservative reader does not decode arbitrary HTML character references.
+  // Refuse the ambiguous proof; never migrate/rewrite preserved legacy HTML.
+  if ((anchorSetChanged || referencesChanged) && after.nodes.some(n => attribute(n, 'id').some(([, value]) => value.includes('&')) || (candidate.slice(n.start, n.openEnd).match(/\sid\s*=/gi) ?? []).length > 1 || n.tag === 'a' && attribute(n, 'href').some(([, value]) => /&(?:#|[a-z]+;)/i.test(value)))) throw new Error('Anchor/reference admission cannot prove uniqueness with encoded or duplicate legacy IDs/references. Existing HTML is preserved; correct unsupported references explicitly.');
+  if ((anchorSetChanged || referencesChanged) && metadata && (metadata.shellId || metadata.form || metadata.bindings?.length || metadata.repeaters?.length || metadata.events?.length || metadata.onLoad?.length || metadata.conditions?.length)) throw new Error('Anchor authoring requires a plain Page without Shell, Form or dynamic binding/event/repeater behavior.');
+  if (anchorSetChanged && after.nodes.some(n => n.tag === 'a' && attribute(n, 'href').some(([, href]) => href.startsWith('#') && (n.manual || !/^#[a-z][a-z0-9-]*$/.test(href))))) throw new Error('Anchor changes are refused while unsupported or unmanaged fragment references survive. Correct those references explicitly.');
+  for (const node of after.nodes) {
+    if (!node.id || node.manual) continue;
+    const prior = old.get(node.id);
+    if ((!prior || previous.slice(prior.start, prior.openEnd) !== candidate.slice(node.start, node.openEnd)) && ['id', ...(node.tag === 'a' ? ['href'] : [])].some(name => (candidate.slice(node.start, node.openEnd).match(new RegExp('\\s' + name + '\\s*=', 'gi')) ?? []).length > 1)) throw new Error('Ambiguous duplicate anchor/reference attributes are unsupported.');
+    const ids = attribute(node, 'id'), priorIds = prior ? attribute(prior, 'id') : [];
+    if (JSON.stringify(ids) !== JSON.stringify(priorIds) && ids.length) {
+      const value = ids[0][1];
+      if (ids.length !== 1 || !isPageRootSection(node) || !/^[a-z][a-z0-9-]*$/.test(value)) throw new Error('Anchor ID requires a managed Page-root section and a lowercase slug starting with a letter.');
+      if (after.nodes.filter(n => attribute(n, 'id').some(([, id]) => id === value)).length !== 1) throw new Error(`Anchor ID ${value} is already used in this Page.`);
+    }
+    const hrefs = attribute(node, 'href'), priorHrefs = prior ? attribute(prior, 'href') : [];
+    if (node.tag !== 'a' || !hrefs.some(([, href]) => href.startsWith('#'))) continue;
+    const href = hrefs[0][1], target = href.slice(1);
+    const targets = after.nodes.filter(n => attribute(n, 'id').some(([, id]) => id === target));
+    const wasChanged = JSON.stringify(hrefs) !== JSON.stringify(priorHrefs);
+    const oldTargets = before.nodes.filter(n => attribute(n, 'id').some(([, id]) => id === target));
+    const targetChanged = JSON.stringify(targets.map(n => [n.id, n.tag, n.parent?.id, isPageRootSection(n), attribute(n, 'id')])) !== JSON.stringify(oldTargets.map(n => [n.id, n.tag, n.parent?.id, attribute(n, 'id')]));
+    if (!wasChanged && !targetChanged) continue;
+    let componentParent = node.parent; while (componentParent && !componentParent.attributes['data-uip-component']) componentParent = componentParent.parent;
+    if (componentParent || node.attributes.target !== undefined || node.attributes.download !== undefined || hrefs.length !== 1 || !/^[a-z][a-z0-9-]*$/.test(target) || targets.length !== 1 || attribute(targets[0], 'id').length !== 1 || (candidate.slice(targets[0].start, targets[0].openEnd).match(/\sid\s*=/gi) ?? []).length !== 1 || !isPageRootSection(targets[0])) throw new Error(`Link ${node.id} (${href}) requires one managed Page-root section target. Correct the referring link before renaming, clearing or removing its anchor.`);
+  }
+}
+export function removeManagedNode(source: string, id: string): string {
+  const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);
+  if (parsed.diagnostics.some(d => d.severity === 'error') || !node || node.manual) throw new Error('Select an unambiguous managed node.');
+  const candidate = source.slice(0, node.start) + source.slice(node.end);
+  validatePageAnchorChange(source, candidate);
+  return candidate;
+}
 /** Change only a managed heading's paired tag names; retain all other bytes. */
 export function setHeadingLevel(source: string, id: string, level: string): string {
   if (!/^h[1-6]$/.test(level)) throw new Error('Choose a heading level from H1 to H6.');
@@ -128,7 +175,7 @@ export function setHeadingLevel(source: string, id: string, level: string): stri
   if (node.tag === level) return source;
   return source.slice(0, node.start) + opening.replace(/^<h[1-6]/i, '<' + level) + source.slice(node.openEnd, node.closeStart) + closing.replace(/^<\/h[1-6]/i, '</' + level) + source.slice(node.end);
 }
-export function setNodeAttribute(source: string, id: string, name: string, value: string): string {
+export function setNodeAttribute(source: string, id: string, name: string, value: string, scope?: ArtifactMetadata['kind']): string {
   if (!/^[\w:-]+$/.test(name)) throw new Error('Invalid attribute name.');
   const parsed = parseSource(source);
   if (parsed.diagnostics.some(diagnostic => diagnostic.severity === 'error')) throw new Error('Repair source structure before editing attributes.');
@@ -137,19 +184,23 @@ export function setNodeAttribute(source: string, id: string, name: string, value
   validateManagedUrlAttribute(node.tag, name.toLowerCase(), value);
   const opening = source.slice(node.start, node.openEnd);
   const identityName = /^(data-uip-node|data-uip-component)$/i.test(name);
-  const pattern = new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`, identityName || /^(href|src|alt)$/i.test(name) ? 'i' : '');
+  const pattern = new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`, identityName || /^(href|src|alt)$/i.test(name) || scope === 'page' && /^id$/i.test(name) ? 'i' : '');
   const attr = ` ${name}="${escapeAttribute(value)}"`;
   const next = pattern.test(opening) ? opening.replace(pattern, () => attr) : opening.replace(/\s*\/?>$/, end => attr + end);
-  return source.slice(0, node.start) + next + source.slice(node.openEnd);
+  const candidate = source.slice(0, node.start) + next + source.slice(node.openEnd);
+  if (scope === 'page' && /^(id|href)$/i.test(name)) validatePageAnchorChange(source, candidate);
+  return candidate;
 }
 /** Remove an attribute through the same admitted source reader; leave other bytes intact. */
-export function removeNodeAttribute(source: string, id: string, name: string): string {
+export function removeNodeAttribute(source: string, id: string, name: string, scope?: ArtifactMetadata['kind']): string {
   if (!/^[a-z][a-z0-9:-]*$/.test(name)) throw new Error('Invalid attribute name.');
   const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);
   if (parsed.diagnostics.some(d => d.severity === 'error') || !node || node.manual) throw new Error('Select an unambiguous editor-managed node.');
   const opening = source.slice(node.start, node.openEnd);
   const next = opening.replace(new RegExp(`\\s${name}(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+))?(?=\\s|/?>)`, 'gi'), '');
-  return source.slice(0, node.start) + next + source.slice(node.openEnd);
+  const candidate = source.slice(0, node.start) + next + source.slice(node.openEnd);
+  if (/^(id|href)$/i.test(name)) validatePageAnchorChange(source, candidate);
+  return candidate;
 }
 function literalNode(source: string, id: string) {
   const parsed = parseSource(source), node = parsed.nodes.find(n => n.id === id);

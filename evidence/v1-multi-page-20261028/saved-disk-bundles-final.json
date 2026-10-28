@@ -1,0 +1,69 @@
+[
+  {
+    "name": "home",
+    "locator": "home/page.visual.json",
+    "hash": "48b2e2d7a5b73ef6cd13d4e9524eae05a5890b0a7416e75db3adee898f61a68b",
+    "files": {
+      "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_f1055e2e-9274-44b5-bdda-0bf809562fbc\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_59e1f113-bc7b-49a5-b3fc-a19b880bcfc1\">\n  <h1 data-uip-node=\"node_bf16aa38-6a34-405b-916f-cf70da779808\">Home</h1>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_d9ca8a92-a8b3-4f05-842c-a47d3d994eaa\">\n  <a data-uip-node=\"node_c8dd5f56-409b-4181-ad62-9489672aa315\" href=\"/about\">About</a>\n</div>\n</section>\n",
+      "css": "",
+      "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_47c10a1f-248d-4404-ac39-ee46a7db6c48\",\n  \"kind\": \"page\",\n  \"name\": \"home\",\n  \"displayName\": \"home\",\n  \"route\": \"/home\",\n  \"layout\": {\n    \"node_59e1f113-bc7b-49a5-b3fc-a19b880bcfc1\": {\n      \"base\": {\n        \"height\": \"1200px\"\n      }\n    }\n  }\n}\n",
+      "fixtures": "{}\n",
+      "code": "export {};\n"
+    },
+    "metadata": {
+      "schemaVersion": 1,
+      "artifactId": "art_47c10a1f-248d-4404-ac39-ee46a7db6c48",
+      "kind": "page",
+      "name": "home",
+      "displayName": "home",
+      "route": "/home",
+      "layout": {
+        "node_59e1f113-bc7b-49a5-b3fc-a19b880bcfc1": {
+          "base": {
+            "height": "1200px"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "about",
+    "locator": "about/page.visual.json",
+    "hash": "e108a661ce886f9543fe7af5e5d5cf5a5c8894735d7d1a137db2a780d9e80c79",
+    "files": {
+      "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_03a5a7df-9673-475b-a43b-a0b7fda435d1\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_65817602-4791-437c-86d7-d3e5e74ddacb\">\n  <h1 data-uip-node=\"node_22ff243a-7698-439f-ae51-e43869c4396e\">About</h1>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_3fd78316-754c-4b42-8191-e2833f01adab\">\n  <a data-uip-node=\"node_cae729e0-c48e-45d8-9e06-744857003d05\" href=\"/contact\">Contact</a>\n</div>\n</section>\n",
+      "css": "",
+      "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_831b8cb4-a60f-4264-97ed-99d33205857a\",\n  \"kind\": \"page\",\n  \"name\": \"about\",\n  \"displayName\": \"about\",\n  \"route\": \"/about\"\n}\n",
+      "fixtures": "{}\n",
+      "code": "export {};\n"
+    },
+    "metadata": {
+      "schemaVersion": 1,
+      "artifactId": "art_831b8cb4-a60f-4264-97ed-99d33205857a",
+      "kind": "page",
+      "name": "about",
+      "displayName": "about",
+      "route": "/about"
+    }
+  },
+  {
+    "name": "contact",
+    "locator": "contact/page.visual.json",
+    "hash": "fe9176fa530046d221d976d8d4fb3e9a3b326952d26d969b8c9d1dcf520348ae",
+    "files": {
+      "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_e2e566c6-b5d5-4e01-899f-cf85cd077ffd\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_69a35366-aaa6-4a17-b5a8-50aa878901db\">\n  <h1 data-uip-node=\"node_d1ea76c6-7832-43a2-821c-38bd1728e9eb\">Contact</h1>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_f457b98c-7e6e-4d8d-a51c-856bf1ebc644\">\n  <a data-uip-node=\"node_7e8be7a6-0f08-4aca-9462-7d19de402a53\" href=\"/home\">Home</a>\n</div>\n</section>\n",
+      "css": "",
+      "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_380e4d4e-6289-413a-99b3-c7d345030806\",\n  \"kind\": \"page\",\n  \"name\": \"contact\",\n  \"displayName\": \"contact\",\n  \"route\": \"/contact\"\n}\n",
+      "fixtures": "{}\n",
+      "code": "export {};\n"
+    },
+    "metadata": {
+      "schemaVersion": 1,
+      "artifactId": "art_380e4d4e-6289-413a-99b3-c7d345030806",
+      "kind": "page",
+      "name": "contact",
+      "displayName": "contact",
+      "route": "/contact"
+    }
+  }
+]

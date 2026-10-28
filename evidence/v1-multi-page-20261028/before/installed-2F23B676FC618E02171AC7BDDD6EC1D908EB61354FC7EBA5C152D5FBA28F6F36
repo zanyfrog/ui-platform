@@ -1,0 +1,52 @@
+import { mountComposedPage } from './composition-runtime.js';
+export { mountComposedPage };
+import '@ui-base/forms';
+import type { FormRuntimeOptions } from './form-runtime.js';
+import type { PackageComponent, RuntimeArtifact } from './model.js';
+export interface RuntimeOptions extends FormRuntimeOptions {
+    components: RuntimeArtifact[];
+    packages: PackageComponent[];
+    inputs?: Record<string, unknown>;
+    sources?: Record<string, unknown>;
+    context?: Record<string, unknown>;
+    route?: Record<string, unknown>;
+    slots?: Node[];
+    navigate?: (to: string) => void;
+    presentationCss?: string;
+    regions?: Record<string, RuntimeArtifact>;
+    /** Internal composition scope: all Regions of one Page share state and sources. */
+    sharedScope?: {
+        state: Record<string, unknown>;
+        data: Record<string, unknown>;
+        subscribers: Set<() => void>;
+        initialized: boolean;
+    };
+    regionScope?: RuntimeOptions['sharedScope'];
+    regionInputs?: Record<string, unknown>;
+    assetUrl?: (relative: string) => string;
+    services?: Record<string, (input: unknown) => unknown | Promise<unknown>>;
+    onError?: (error: unknown) => void;
+    /** Explicit URL ownership for plain pathname hosts or the Preview iframe. */
+    pageFragmentNavigation?: boolean;
+}
+export interface ArtifactInstance {
+    host: HTMLElement;
+    root: ShadowRoot;
+    state: Record<string, unknown>;
+    update: (inputs: Record<string, unknown>) => void;
+    destroy: () => void;
+}
+export declare function loadRuntimePackages(packages: PackageComponent[]): Promise<void>;
+export declare function layoutCss(layout: RuntimeArtifact['metadata']['layout']): string;
+/** Both preview and application pages call this renderer. Shadow roots are artifact/instance CSS boundaries. */
+export declare function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeOptions): ArtifactInstance;
+/** Fits existing application routers that render Page modules as HTML strings. */
+export declare function createVisualPage(artifact: RuntimeArtifact, options: RuntimeOptions): {
+    render: (context?: {
+        navigate?: (to: string) => void;
+        route?: string;
+        params?: Record<string, unknown>;
+        settings?: Record<string, unknown>;
+        pageFragmentNavigation?: boolean;
+    }) => string;
+};

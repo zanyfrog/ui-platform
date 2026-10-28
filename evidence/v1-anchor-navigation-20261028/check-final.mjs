@@ -1,0 +1,35 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+const root=path.resolve(import.meta.dirname,'../..'),ev=import.meta.dirname;
+const original=path.resolve(root,'..'),project=path.join(original,'v1-normal-smoke-20261026-01/ui-platform');
+const page=path.join(original,'v1-normal-smoke-20261026-01/apps/v1-identity-fixture/src/pages/v1-anchor-navigation-20261028');
+const hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const sha=text=>createHash('sha256').update(text).digest('hex');
+const saved=JSON.parse(fs.readFileSync(path.join(ev,'normal-saved-bundle.json'))),preview=JSON.parse(fs.readFileSync(path.join(ev,'normal-authorized-preview-response.json')));
+const extensions={source:'.html',css:'.css',metadata:'.visual.json',fixtures:'.fixtures.json',code:'.functions.ts'};
+const files=Object.fromEntries(Object.entries(extensions).map(([role,ext])=>[role,fs.readFileSync(path.join(page,'page'+ext),'utf8')]));
+assert.deepEqual(files,saved.files);assert.deepEqual(files,preview.bundle.files);assert.equal(sha(JSON.stringify(files)),saved.hash);assert.equal(saved.hash,preview.bundle.hash);
+assert.equal(files.source,fs.readFileSync(path.join(ev,'browser-authored-before-save.html'),'utf8'));
+const rendered=JSON.parse(fs.readFileSync(path.join(ev,'rendered-dom-comparison.json')));
+assert.deepEqual(rendered.preview.nodes,rendered.website.nodes);assert.equal(rendered.preview.css,rendered.website.css);
+assert.deepEqual(rendered.preview.nodes.map(n=>n.node),[...files.source.matchAll(/data-uip-node="([^"]+)"/g)].map(m=>m[1]));
+const baseline=JSON.parse(fs.readFileSync(path.join(ev,'preservation-baseline.json')));
+const pages=baseline.filter(r=>r.path.includes('\\apps\\v1-identity-fixture\\src\\pages\\'));
+for(const r of pages)assert.equal(hash(r.path),r.sha256.toLowerCase());
+const old=JSON.parse(fs.readFileSync(path.join(root,'evidence/v1-recovery-free-host-20261028/baseline.json')));
+const reference=old.files.filter(r=>r.path.includes('\\references\\visual-artifacts\\'));
+for(const r of reference)assert.equal(hash(r.path),r.sha256.toLowerCase());
+const inventory=JSON.parse(fs.readFileSync(path.join(root,'docs/architecture/v1-recovery-free-website-host-files-20261028.json')));
+const safety=inventory.files.filter(r=>r.path.startsWith(root+'\\packages\\visual-artifacts\\src\\')&&/\\(revision-vite|runtime-read-admission|runtime-revision)\.ts$/.test(r.path));
+assert.equal(safety.length,3);for(const r of safety)assert.equal(hash(r.path),r.sha256.toLowerCase());
+const evidencePreserved=inventory.files.filter(r=>r.path.startsWith(path.join(root,'evidence/v1-recovery-free-host-20261028')+path.sep)||r.path===path.join(root,'docs/architecture/v1-recovery-free-website-host-20261028.md'));
+for(const r of evidencePreserved)assert.equal(hash(r.path),r.sha256.toLowerCase());
+const editor=fs.readFileSync(path.join(root,'src/client/visual-artifacts/editor.ts'),'utf8'),prior=fs.readFileSync(path.join(ev,'inputs/editor.ts'),'utf8');
+assert.equal(editor.slice(editor.indexOf('  async function refresh(')),prior.slice(prior.indexOf('  async function refresh(')));
+for(const r of baseline.filter(r=>/\\src\\client\\(main\.ts|styles\.css)$/.test(r.path)))assert.equal(hash(r.path),r.sha256.toLowerCase());
+const copies=[];for(const base of [path.join(project,'packages/visual-artifacts'),path.join(project,'node_modules/@ui-platform/visual-artifacts')])for(const name of ['source','runtime'])for(const rel of [`src/${name}.ts`,`dist/${name}.js`,`dist/${name}.d.ts`]){assert.equal(hash(path.join(base,rel)),hash(path.join(root,'packages/visual-artifacts',rel)));copies.push(path.join(base,rel));}
+for(const rel of ['src/client/visual-artifacts/editor.ts','src/client/visual-artifacts/preview.ts','src/server/visual-artifacts.ts']){assert.equal(hash(path.join(project,rel)),hash(path.join(root,rel)));copies.push(path.join(project,rel));}
+const result={passed:true,savedHash:saved.hash,authorizedPreviewHash:preview.bundle.hash,sourceSha256:sha(files.source),metadataSha256:sha(files.metadata),pageFiles:fs.readdirSync(page).filter(n=>!n.startsWith('.')).map(n=>({path:path.join(page,n),sha256:hash(path.join(page,n))})),existingPageFilesUnchanged:pages.length,originalReferenceFilesUnchanged:reference.length,qualifiedReadBoundaryFilesUnchanged:safety.length,priorHostEvidenceFilesUnchanged:evidencePreserved.length,refreshSchedulingSuffixUnchanged:true,applicationHeaderFilesUnchanged:true,copies,limitations:'No host-emitted service bundle hash: host source role bytes match the normal saved/Preview response; its existing loader verifies its own role-bundle revision. No journal/lock state is inspected by this checker.'};
+fs.writeFileSync(path.join(ev,'final-comparison.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));

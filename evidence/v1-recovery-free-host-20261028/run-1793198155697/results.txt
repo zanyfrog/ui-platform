@@ -1,0 +1,13 @@
+✔ actual loader captures one Page with explicit refusal and no operational dependencies (225.98ms)
+✔ actual Component and Page root admission refuses pending state without journal reads (93.6597ms)
+✔ RuntimeRevision initial role read refuses recovery, and finish recheck also refuses (120.385ms)
+✔ foreign graph lock stays busy without callback, PID probe or cleanup; cancellation preserved (82.1252ms)
+✔ actual Page entry outside Application is refused before any graph acquisition (31.7937ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 913.4429

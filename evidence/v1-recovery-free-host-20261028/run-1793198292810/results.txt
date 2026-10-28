@@ -1,0 +1,14 @@
+✔ foreign Page role lock is never reclaimed by RuntimeRevision (5074.7677ms)
+✔ actual loader captures one Page with explicit refusal and no operational dependencies (302.1202ms)
+✔ actual Component and Page root admission refuses pending state without journal reads (104.3486ms)
+✔ RuntimeRevision initial role read refuses recovery, and finish recheck also refuses (144.8876ms)
+✔ foreign graph lock stays busy without callback, PID probe or cleanup; cancellation preserved (95.6357ms)
+✔ actual Page entry outside Application is refused before any graph acquisition (42.566ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6151.5781
