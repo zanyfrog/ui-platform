@@ -1,0 +1,82 @@
+✖ all thirteen captured plain Pages remain admitted with all public routes and no Route identity allocation (7.5507ms)
+✖ hypothetical three composed Pages coexist with ten unchanged plain Pages (3.9956ms)
+✔ partial composed identities, missing Shell, absent Region membership and wrong Regions refuse (13.8236ms)
+✔ incidental Region markup never infers composition; orphan Route identity refuses (0.3264ms)
+✔ duplicate identities and routes across either Page kind refuse (5.1517ms)
+✖ literal references to either Page type remain visible and missing targets refuse (2.3438ms)
+✔ normal mutation contract supports valid cross-kind changes and refuses dangling links and surviving removals (3.5333ms)
+✖ all-composed configuration retains strict valid behavior (2.8488ms)
+✖ menu Page destinations may reference plain Pages; Route destinations need real identities (3.3754ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 4
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 153.9058
+
+✖ failing tests:
+
+test at evidence\v1-mixed-page-admission-20261028\run-1793240754011\unit.mjs:791:1
+✖ all thirteen captured plain Pages remain admitted with all public routes and no Route identity allocation (7.5507ms)
+  Error: Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1.
+      at validateCompositionDefinition (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:772:20)
+      at check (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:790:20)
+      at TestContext.<anonymous> (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:794:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at evidence\v1-mixed-page-admission-20261028\run-1793240754011\unit.mjs:799:1
+✖ hypothetical three composed Pages coexist with ten unchanged plain Pages (3.9956ms)
+  Error: Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1.
+      at validateCompositionDefinition (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:772:20)
+      at check (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:790:20)
+      at TestContext.<anonymous> (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:801:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at evidence\v1-mixed-page-admission-20261028\run-1793240754011\unit.mjs:832:1
+✖ literal references to either Page type remain visible and missing targets refuse (2.3438ms)
+  Error: Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1.
+      at validateCompositionDefinition (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:772:20)
+      at check (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:790:20)
+      at TestContext.<anonymous> (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:834:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at evidence\v1-mixed-page-admission-20261028\run-1793240754011\unit.mjs:852:1
+✖ all-composed configuration retains strict valid behavior (2.8488ms)
+  Error: Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1.
+      at validateCompositionDefinition (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:772:20)
+      at check (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:790:20)
+      at TestContext.<anonymous> (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:854:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at evidence\v1-mixed-page-admission-20261028\run-1793240754011\unit.mjs:860:1
+✖ menu Page destinations may reference plain Pages; Route destinations need real identities (3.3754ms)
+  Error: Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1.
+      at validateCompositionDefinition (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:772:20)
+      at check (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:790:20)
+      at TestContext.<anonymous> (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793240754011/unit.mjs:864:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

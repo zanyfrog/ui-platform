@@ -1,5 +1,13 @@
 import { parseSource } from './source.js';
-import type { ArtifactBundle } from './model.js';
+import type { ArtifactBundle, ArtifactMetadata } from './model.js';
+import { matchCompositionRoute } from './composition.js';
+
+/** Static paths take precedence over existing parameterized composed routes. */
+export function resolvePageLinkTargets<T extends { metadata?: ArtifactMetadata }>(href: string, pages: T[], allowComposed = false): T[] {
+  const exact = pages.filter(page => page.metadata?.route === href);
+  if (exact.length || !allowComposed) return exact;
+  return pages.filter(page => { const m = page.metadata; return !!(m?.shellId && m.routeId && m.route && matchCompositionRoute([{ pageId: m.artifactId, routeId: m.routeId, path: m.route }], href)); });
+}
 
 /** Bounded ordinary Page addresses; parameter routes remain composition-owned. */
 export function isPlainPageRoute(route: unknown): route is string {
@@ -16,14 +24,15 @@ export function assertPlainPageRoute(route: unknown, pages: ArtifactBundle[], lo
   if (pages.some(page => page.locator !== locator && page.metadata?.route === route)) throw new Error(`A saved Page already owns route ${route}.`);
 }
 export function assertPageUnused(route: string, pages: ArtifactBundle[], locator: string): void {
-  const incoming = pages.filter(page => page.locator !== locator).flatMap(page => pageLinks(page.files.source).filter(link => link.href === route).map(link => `${page.locator} (${link.node})`));
+  const incoming = pages.filter(page => page.locator !== locator).flatMap(page => pageLinks(page.files.source).filter(link => link.href === route || !/[?#]/.test(link.href) && !pages.some(target => target.metadata?.route === link.href && target.metadata.route !== route) && !!matchCompositionRoute([{ pageId: locator, path: route }], link.href)).map(link => `${page.locator} (${link.node})`));
   if (incoming.length) throw new Error(`Page ${route} is referenced by: ${incoming.join(', ')}. Repair these links first.`);
 }
-export function validatePageLinks(previous: string, candidate: string, pages: ArtifactBundle[]): void {
+export function validatePageLinks(previous: string, candidate: string, pages: ArtifactBundle[], options: { allowComposed?: boolean } = {}): void {
   const old = new Map(pageLinks(previous).map(link => [link.node, link.href]));
   for (const link of pageLinks(candidate)) {
     if (old.get(link.node) === link.href) continue;
-    const targets = pages.filter(page => page.metadata?.route === link.href);
-    if (!isPlainPageRoute(link.href) || targets.length !== 1 || targets[0].metadata?.shellId || targets[0].diagnostics.some(d => d.severity === 'error')) throw new Error(`Link ${link.node}: saved Page destination ${link.href} is missing, ambiguous or unsupported.`);
+    const targets = resolvePageLinkTargets(link.href, pages, options.allowComposed);
+    const concreteComposed = options.allowComposed && !/[?#]/.test(link.href) && new URL(link.href, 'https://page.invalid/').pathname === link.href && targets.some(target => target.metadata?.shellId && target.metadata.routeId);
+    if (!(isPlainPageRoute(link.href) || concreteComposed) || targets.length !== 1 || !options.allowComposed && targets[0].metadata?.shellId || targets[0].diagnostics.some(d => d.severity === 'error')) throw new Error(`Link ${link.node}: saved Page destination ${link.href} is missing, ambiguous or unsupported.`);
   }
 }

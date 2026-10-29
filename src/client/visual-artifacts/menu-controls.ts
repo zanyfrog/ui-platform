@@ -34,7 +34,7 @@ export function chooseMenuItem(definition: CompositionDefinition, existing?: Men
     }
     function draw(reset = false) {
       destination.replaceChildren();
-      const choices = kind.value === 'page' ? definition.pages.map(page => [page.metadata.artifactId, `${page.metadata.displayName} (${page.metadata.route})`]) : definition.routes.map(route => [route.routeId, route.path]);
+      const choices = kind.value === 'page' ? definition.pages.map(page => [page.metadata.artifactId, `${page.metadata.displayName} (${page.metadata.route})`]) : definition.routes.filter(route => route.routeId).map(route => [route.routeId!, route.path]);
       for (const [id, text] of choices) destination.add(new Option(text, id));
       const id = selected.kind === 'page' ? selected.pageId : selected.kind === 'route' ? selected.routeId : '';
       if (!reset && id && !choices.some(([key]) => key === id)) destination.add(new Option(`Missing target: ${id}`, id));

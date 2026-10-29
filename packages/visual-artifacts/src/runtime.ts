@@ -6,6 +6,7 @@ import type { CompositionDefinition } from './composition.js';
 import '@ui-base/forms';
 import { evaluate } from './expression.js';
 import { resolveMode } from './form.js';
+import { pageAdmissionKind } from './page-admission.js';
 import { attachFormRuntime } from './form-runtime.js';
 import type { FormRuntimeOptions } from './form-runtime.js';
 import { readPackageSettings, valueErrors } from './model.js';
@@ -309,7 +310,7 @@ export function createVisualPage(artifact: RuntimeArtifact, options: RuntimeOpti
   pageDefinitions.set(tag, { artifact, options });
   if (!customElements.get(tag)) customElements.define(tag, class extends HTMLElement {
     instance?: ArtifactInstance;
-    connectedCallback() { const current = pageDefinitions.get(tag)!, graph = managedVisualComposition(current.artifact); this.instance = graph ? mountComposedPage(graph.definition as CompositionDefinition, current.artifact, { ...current.options, routeId: current.artifact.metadata.routeId, assetUrl: graph.assetUrl }) : mountVisualArtifact(current.artifact, current.options); this.replaceChildren(this.instance.host); }
+    connectedCallback() { const current = pageDefinitions.get(tag)!, graph = managedVisualComposition(current.artifact); this.instance = graph && pageAdmissionKind(current.artifact.metadata) === 'composed' ? mountComposedPage(graph.definition as CompositionDefinition, current.artifact, { ...current.options, routeId: current.artifact.metadata.routeId, assetUrl: graph.assetUrl }) : mountVisualArtifact(current.artifact, current.options); this.replaceChildren(this.instance.host); }
     disconnectedCallback() { this.instance?.destroy(); }
   });
   return { render(context = {}) { pageDefinitions.set(tag, { artifact, options: { ...options, pageRoutes: context.pageRoutes, pageFragmentNavigation: context.pageFragmentNavigation === true, navigate: context.navigate ?? options.navigate, context: context.settings ?? options.context, route: { path: context.route, ...options.route, ...context.params } } }); return `<${tag}></${tag}>`; } };

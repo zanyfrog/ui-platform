@@ -1,7 +1,7 @@
 import { assertIsolatedPreviewFunctions, withRuntimeGraphRead } from '@ui-platform/visual-artifacts/vite';
 import { compileVisualFunctions } from '@ui-platform/artifacts';
 import type { ArtifactBundle } from '@ui-platform/visual-artifacts';
-import { componentReferences } from '@ui-platform/visual-artifacts';
+import { componentReferences, pageAdmissionKind } from '@ui-platform/visual-artifacts';
 import { visualWorkspace } from './visual-artifacts.js';
 import { compositionWorkspace } from './application-composition.js';
 import { discoverComponents } from './component-registry.js';
@@ -22,7 +22,7 @@ export function visualPreviewRevision(key: string, kind: string, locator: string
     const packages = await discoverComponents(key), workspace = await visualWorkspace(key, packages, options);
     const selected = (kind === 'page' ? workspace.pages : kind === 'shell' ? workspace.shells : kind === 'component' ? workspace.components : []).find(bundle => bundle.locator === locator);
     if (!selected || selected.hash !== expectedHash) throw Object.assign(new Error('Preview source changed. Reload its complete revision before previewing.'), { status: 409 });
-    const composition = selected.metadata?.shellId || kind === 'shell' ? await compositionWorkspace(key, packages, undefined, options) : null;
+    const composition = kind === 'page' || kind === 'shell' ? await compositionWorkspace(key, packages, undefined, options) : null;
     const shells = composition ? workspace.shells.filter(shell => shell.metadata?.artifactId === (kind === 'shell' ? selected.metadata?.artifactId : selected.metadata?.shellId)) : [];
     const required = new Set([selected, ...shells].flatMap(bundle => [...componentReferences(bundle.files.source), ...(bundle.metadata?.dependencies ?? [])]));
     const components: ArtifactBundle[] = [];
@@ -33,7 +33,7 @@ export function visualPreviewRevision(key: string, kind: string, locator: string
       for (const nested of [...componentReferences(component.files.source), ...(component.metadata?.dependencies ?? [])]) required.add(nested);
     }
     const participating = [selected, ...components, ...shells];
-    if (shells.length) await authorizeRelated('shell');
+    if (composition) await authorizeRelated('shell');
     if (components.length || kind === 'component') await authorizeRelated('component');
     if (participating.some(bundle => !bundle.metadata || bundle.diagnostics.some(d => d.severity === 'error'))) throw Object.assign(new Error('Correct the complete preview graph before loading this revision.'), { status: 422 });
     const code = Object.fromEntries(participating.map(bundle => [bundle.hash, isolatedPreviewCode(bundle)]));
@@ -41,6 +41,6 @@ export function visualPreviewRevision(key: string, kind: string, locator: string
     const next = await visualWorkspace(key, packages, options);
     for (const bundle of participating) if (![...next.pages, ...next.shells, ...next.components].some(item => item.locator === bundle.locator && item.hash === bundle.hash)) throw Object.assign(new Error('Preview dependency changed while capturing its revision.'), { status: 409 });
     if (composition && JSON.stringify(await compositionWorkspace(key, packages, undefined, options)) !== JSON.stringify(composition)) throw Object.assign(new Error('Preview composition changed while capturing its revision.'), { status: 409 });
-    return { bundle: selected, packages: workspace.packages, components, shells, composition: composition ? { ...composition, pages: kind === 'page' ? composition.pages.filter(page => page.metadata.artifactId === selected.metadata?.artifactId) : [], shells: composition.shells.filter(shell => shells.some(bundle => bundle.metadata?.artifactId === shell.metadata.artifactId)) } : null, code };
+    return { bundle: selected, packages: workspace.packages, components, shells, composition: composition && (kind === 'shell' || selected.metadata && pageAdmissionKind(selected.metadata) === 'composed') ? { ...composition, pages: kind === 'page' ? composition.pages.filter(page => page.metadata.artifactId === selected.metadata?.artifactId) : [], shells: composition.shells.filter(shell => shells.some(bundle => bundle.metadata?.artifactId === shell.metadata.artifactId)) } : null, code };
   }, options);
 }

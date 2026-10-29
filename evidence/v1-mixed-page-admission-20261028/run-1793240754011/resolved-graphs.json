@@ -1,0 +1,264 @@
+{
+  "unit": {
+    "inputs": {
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9885,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 25918,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-links.ts": {
+        "bytes": 2214,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-admission.ts": {
+        "bytes": 1842,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "./page-links.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17679,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11602,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition-validation.ts": {
+        "bytes": 9148,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          },
+          {
+            "path": "./source.js",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "./page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "./page-links.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "./composition.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/mixed-page-admission/source.test.ts": {
+        "bytes": 6485,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition-validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition-validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-links.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "source.test.js": {
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "exports": [],
+        "entryPoint": "tests/mixed-page-admission/source.test.ts",
+        "inputs": {
+          "tests/mixed-page-admission/source.test.ts": {
+            "bytesInOutput": 6327
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 3806
+          },
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 7765
+          },
+          "packages/visual-artifacts/src/page-links.ts": {
+            "bytesInOutput": 1498
+          },
+          "packages/visual-artifacts/src/page-admission.ts": {
+            "bytesInOutput": 1388
+          },
+          "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+            "bytesInOutput": 3483
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/form.ts": {
+            "bytesInOutput": 366
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 16707
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 7152
+          },
+          "packages/visual-artifacts/src/composition-validation.ts": {
+            "bytesInOutput": 8018
+          }
+        },
+        "bytes": 57078
+      }
+    }
+  }
+}

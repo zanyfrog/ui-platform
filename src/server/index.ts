@@ -30,12 +30,12 @@ import { V1_FIXTURE_APPLICATION_KEY, developmentUsers } from './v1-development-p
 import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID } from './v1-development-policy.js';
 import { managementCheck } from './v1-management-routes.js';
 import { ensureV1DevelopmentApplication } from './v1-development-app.js';
-import { VisualArtifactService, knownVisualArtifacts, platformComponentsRoot, visualWorkspace } from './visual-artifacts.js';
+import { VisualArtifactService, knownVisualArtifacts, platformComponentsRoot, visualWorkspace, toRuntime } from './visual-artifacts.js';
 import { compileVisualFunctions } from '@ui-platform/artifacts';
 import { build as bundleBrowserModule } from 'esbuild';
 import { AutomationStore } from './automation-store.js';
 import { platformRoot } from './paths.js';
-import { assertPlainPageRoute, assertPageUnused, regions, primaryRouteSignature } from '@ui-platform/visual-artifacts';
+import { validateCompositionDefinition, assertPlainPageRoute, assertPageUnused, regions, primaryRouteSignature } from '@ui-platform/visual-artifacts';
 import { withApplicationMutation, withGraphRequest } from './composition-lock.js';
 import { prepareVisualCandidate, VisualCandidateError, validateVisualRoleSyntax } from './visual-candidate.js';
 import { applyTemplateUpdate, compareTemplate } from './template-updates.js';
@@ -466,7 +466,17 @@ const server = http.createServer(async (req, res) => {
         }
         if (method === 'DELETE') return await withApplicationMutation(appPath(key), async () => {
           if (kind === 'shell') await assertShellUnused(key, (await service.read(locator)).metadata!.artifactId);
-          if (kind === 'page') { const page = await service.read(locator, { recovery: 'refuse' }); if (!page.metadata?.shellId && page.metadata?.route) assertPageUnused(page.metadata.route, await service.list({ recovery: 'refuse' }), locator); }
+          if (kind === 'page') {
+            const page = await service.read(locator, { recovery: 'refuse' });
+            if (page.metadata?.route) assertPageUnused(page.metadata.route, await service.list({ recovery: 'refuse' }), locator);
+            const definition = await compositionWorkspace(key, await discoverComponents(key), undefined, { recovery: 'refuse' });
+            if (definition) {
+              const pages = definition.pages.filter(item => item.metadata.artifactId !== page.metadata?.artifactId);
+              const packages = await discoverComponents(key), workspace = await visualWorkspace(key, packages, { recovery: 'refuse' });
+              if (page.metadata?.route) assertPageUnused(page.metadata.route, [...workspace.pages, ...workspace.shells], locator);
+              validateCompositionDefinition({ ...definition, pages, routes: definition.routes.filter(route => route.pageId !== page.metadata?.artifactId) }, workspace.components.map(toRuntime).filter((item): item is NonNullable<typeof item> => !!item), packages);
+            }
+          }
           await service.remove(locator, input.expectedHash, await knownVisualArtifacts(), admitManagement); return json(res, 200, { removed: true });
         });
       }

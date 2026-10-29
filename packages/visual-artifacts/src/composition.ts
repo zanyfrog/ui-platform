@@ -10,7 +10,7 @@ export interface CompositionSettings {
   assetsRoot: string;
   shellConfiguration?: Record<string, Record<string, unknown>>;
 }
-export interface CompositionRoute { routeId: string; pageId: string; path: string }
+export interface CompositionRoute { routeId?: string; pageId: string; path: string }
 export type MenuDestination = { kind: 'page'; pageId: string; params?: Record<string, string> } | { kind: 'route'; routeId: string; params?: Record<string, string> } | { kind: 'url'; url: string } | { kind: 'action'; actions: Action[] };
 export interface MenuItem { itemId: string; label: string; destination: MenuDestination; target?: '_self' | '_blank' | '_parent' | '_top'; hidden?: boolean; disabled?: boolean; children?: MenuItem[] }
 export interface ApplicationMenu { schemaVersion: 1; menuId: string; name: string; items: MenuItem[]; sourcePath?: string }

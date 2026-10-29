@@ -11,6 +11,7 @@ import { withApplicationMutation } from './composition-lock.js';
 import { transform } from 'esbuild';
 import { discoverComponents } from './component-registry.js';
 import type { RoleBundleReadOptions } from '@ui-platform/artifacts/storage';
+import { pageAdmissionKind, validatePageMembership, capturePageRoutes } from '@ui-platform/visual-artifacts';
 
 const hash = (text: string) => createHash('sha256').update(text).digest('hex');
 export async function compositionSettings(appKey: string): Promise<CompositionSettings | undefined> {
@@ -43,19 +44,15 @@ export async function compositionWorkspace(appKey: string, packages: PackageComp
     const errors = validateArtifact(artifact, components, packages).filter(diagnostic => diagnostic.severity === 'error');
     if (errors.length) throw new Error(`${artifact.metadata.displayName}: ${errors.map(error => error.message).join(' ')}`);
     regions(artifact.source);
-    if (artifact.metadata.kind === 'page') for (const node of parseSource(artifact.source).nodes) {
-      let parent: typeof node | undefined = node;
-      while (parent && !Object.hasOwn(parent.attributes, 'data-uip-region')) parent = parent.parent;
-      if (!parent) throw new Error(`Page content must belong to a Shell Region: ${artifact.metadata.displayName}.`);
-    }
+    if (artifact.metadata.kind === 'page') validatePageMembership(artifact);
   }
   if (!runtimeShells.some(shell => shell.metadata.artifactId === settings.defaultShellId)) throw new Error('Application default Shell is missing.');
   const routeIds = new Set<string>(), paths = new Set<string>();
   const routes = runtimePages.map(page => {
     const m = page.metadata;
-    if (!m.routeId || !m.shellId || !runtimeShells.some(shell => shell.metadata.artifactId === m.shellId)) throw new Error(`Page requires permanent Route and Shell identities: ${m.name}.`);
+    if (pageAdmissionKind(m) === 'composed' && (!m.routeId || !m.shellId || !runtimeShells.some(shell => shell.metadata.artifactId === m.shellId))) throw new Error(`Page requires permanent Route and Shell identities: ${m.name}.`);
     const signature = primaryRouteSignature(m.route!);
-    if (routeIds.has(m.routeId) || paths.has(signature)) throw new Error('Each Page requires a unique primary Route.'); routeIds.add(m.routeId); paths.add(signature);
+    if (m.routeId && routeIds.has(m.routeId) || paths.has(signature)) throw new Error('Each Page requires a unique primary Route.'); if (m.routeId) routeIds.add(m.routeId); paths.add(signature);
     return { pageId: m.artifactId, routeId: m.routeId, path: m.route! };
   });
   const menuIds = new Set<string>(); for (const menu of menus) { if (menuIds.has(menu.menuId)) throw new Error('Duplicate Menu identity.'); menuIds.add(menu.menuId); }
@@ -63,6 +60,7 @@ export async function compositionWorkspace(appKey: string, packages: PackageComp
   const siteCss = (await Promise.all((settings.siteStyles as string[]).map(read))).join('\n');
   const definition = { settings, shells: runtimeShells, pages: runtimePages, routes, menus, siteCss };
   for (const page of runtimePages) {
+    if (pageAdmissionKind(page.metadata) === 'plain') continue;
     const shell = runtimeShells.find(shell => shell.metadata.artifactId === page.metadata.shellId)!;
     const available = new Set(regions(shell.source).map(region => region.regionId));
     if (regions(page.source).some(region => !available.has(region.regionId))) throw new Error(`Map or discard unmatched Regions in ${page.metadata.displayName}.`);

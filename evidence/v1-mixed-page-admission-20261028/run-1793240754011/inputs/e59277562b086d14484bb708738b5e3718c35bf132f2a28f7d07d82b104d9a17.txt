@@ -1,0 +1,29 @@
+import { parseSource } from './source.js';
+import type { ArtifactBundle } from './model.js';
+
+/** Bounded ordinary Page addresses; parameter routes remain composition-owned. */
+export function isPlainPageRoute(route: unknown): route is string {
+  return typeof route === 'string' && /^(?:\/|\/[a-z][a-z0-9-]*(?:\/[a-z][a-z0-9-]*)*)$/.test(route);
+}
+export function pageLinks(source: string) {
+  return parseSource(source).nodes.filter(node => {
+    const href = node.attributes.href;
+    return node.tag === 'a' && !!href && !href.startsWith('#') && !href.startsWith('//') && !/^[a-z][a-z0-9+.-]*:/i.test(href);
+  }).map(node => ({ node: node.id ?? `offset ${node.start}`, href: node.attributes.href }));
+}
+export function assertPlainPageRoute(route: unknown, pages: ArtifactBundle[], locator?: string): void {
+  if (!isPlainPageRoute(route)) throw new Error('Use a canonical Page path such as /home, without parameters, query or fragment.');
+  if (pages.some(page => page.locator !== locator && page.metadata?.route === route)) throw new Error(`A saved Page already owns route ${route}.`);
+}
+export function assertPageUnused(route: string, pages: ArtifactBundle[], locator: string): void {
+  const incoming = pages.filter(page => page.locator !== locator).flatMap(page => pageLinks(page.files.source).filter(link => link.href === route).map(link => `${page.locator} (${link.node})`));
+  if (incoming.length) throw new Error(`Page ${route} is referenced by: ${incoming.join(', ')}. Repair these links first.`);
+}
+export function validatePageLinks(previous: string, candidate: string, pages: ArtifactBundle[], options: { allowComposed?: boolean } = {}): void {
+  const old = new Map(pageLinks(previous).map(link => [link.node, link.href]));
+  for (const link of pageLinks(candidate)) {
+    if (old.get(link.node) === link.href) continue;
+    const targets = pages.filter(page => page.metadata?.route === link.href);
+    if (!isPlainPageRoute(link.href) || targets.length !== 1 || !options.allowComposed && targets[0].metadata?.shellId || targets[0].diagnostics.some(d => d.severity === 'error')) throw new Error(`Link ${link.node}: saved Page destination ${link.href} is missing, ambiguous or unsupported.`);
+  }
+}

@@ -7,6 +7,7 @@ import type { ArtifactBundle, ArtifactFiles, CompositionDefinition, PackageCompo
 import { validateRuntimeFunctionSource } from '@ui-platform/visual-artifacts/vite';
 import { VisualArtifactService, platformComponentsRoot, toRuntime, visualWorkspace, knownVisualArtifacts } from './visual-artifacts.js';
 import { appPath } from './applications.js';
+import { pageAdmissionKind, validatePageMembership, capturePageRoutes } from '@ui-platform/visual-artifacts';
 
 export class VisualCandidateError extends Error { readonly status = 422; readonly code = 'source.validation'; }
 export async function validateVisualRoleSyntax(files: ArtifactFiles): Promise<void> {
@@ -50,13 +51,15 @@ export async function prepareVisualCandidate(appKey: string, kind: 'page' | 'she
         if (!old || collection.filter(bundle => bundle.metadata?.artifactId === candidate.metadata!.artifactId).length !== 1) throw new Error('The authoritative Visual identity is missing or ambiguous. Resolve the source conflict before normal editing.');
         if (kind === 'page' && !allowShellChange && old?.metadata?.shellId !== candidate.metadata.shellId) throw new Error('Use Change Page Shell to map or discard unmatched Regions explicitly.');
         const replace = (items: ArtifactBundle[], target: string) => items.map(bundle => kind === target && bundle.locator === locator ? candidate : bundle);
-        if (kind === 'page' && !definition && !candidate.metadata.shellId) {
+        if (kind === 'page') {
           const pages = replace(workspace.pages, 'page');
+          if (definition) validatePageMembership(toRuntime(candidate)!);
+          else if (pageAdmissionKind(candidate.metadata) === 'composed') throw new Error('Composed Page requires Application composition admission.');
           if (old.metadata?.route !== candidate.metadata.route) {
-            assertPlainPageRoute(candidate.metadata.route, workspace.pages, locator);
-            if (old.metadata?.route) assertPageUnused(old.metadata.route, pages, '');
+            if (pageAdmissionKind(candidate.metadata) === 'plain') assertPlainPageRoute(candidate.metadata.route, workspace.pages, locator);
+            if (old.metadata?.route) assertPageUnused(old.metadata.route, [...pages, ...workspace.shells], '');
           } else if (workspace.pages.some(page => page.locator !== locator && page.metadata?.route === candidate.metadata!.route)) throw new Error('Duplicate saved Page route.');
-          validatePageLinks(old.files.source, candidate.files.source, pages);
+          validatePageLinks(old.files.source, candidate.files.source, pages, { allowComposed: !!definition });
         }
         const components = replace(workspace.components, 'component').map(toRuntime).filter((item): item is RuntimeArtifact => !!item);
         const runtime = toRuntime(candidate)!;
@@ -65,7 +68,7 @@ export async function prepareVisualCandidate(appKey: string, kind: 'page' | 'she
         if (definition) {
           const required = (items: ArtifactBundle[]) => items.map(bundle => { if (!bundle.metadata) throw new Error('Related source requires repair before this composition candidate can be validated.'); return toRuntime(bundle)!; });
           const pages = required(replace(workspace.pages, 'page')), shells = required(replace(workspace.shells, 'shell'));
-          try { validateCompositionDefinition({ ...definition, pages, shells, routes: pages.map(page => ({ pageId: page.metadata.artifactId, routeId: page.metadata.routeId!, path: page.metadata.route! })) }, components, packages); }
+          try { validateCompositionDefinition({ ...definition, pages, shells, routes: capturePageRoutes(pages) }, components, packages); }
           catch { throw new Error('The complete candidate conflicts with Application composition. Check its Shell Regions, routes, Menus and related source. Local changes are retained.'); }
         }
         if (kind === 'component' && JSON.stringify(old?.metadata?.public) !== JSON.stringify(candidate.metadata.public)) {

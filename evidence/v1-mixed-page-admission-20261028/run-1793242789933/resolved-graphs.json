@@ -1,0 +1,844 @@
+{
+  "unit": {
+    "inputs": {
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9885,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 25918,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17679,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/duplicate-section.ts": {
+        "bytes": 6666,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-r1/fs-guard.ts": {
+        "bytes": 2390,
+        "imports": [
+          {
+            "path": "node:fs/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11602,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/html-first/source-barrel.ts": {
+        "bytes": 408,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/duplicate-section.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/duplicate-section.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/form.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-links.ts": {
+        "bytes": 2842,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "./composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/multi-page/source-barrel.ts": {
+        "bytes": 116,
+        "imports": [
+          {
+            "path": "tests/html-first/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "../html-first/source-barrel.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-links.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-admission.ts": {
+        "bytes": 1842,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "./page-links.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition-validation.ts": {
+        "bytes": 9159,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          },
+          {
+            "path": "./source.js",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "./page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "./page-links.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "./composition.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/mixed-page-admission/source-barrel.ts": {
+        "bytes": 199,
+        "imports": [
+          {
+            "path": "tests/multi-page/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "../multi-page/source-barrel.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition-validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition-validation.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/file-operations.ts": {
+        "bytes": 1469,
+        "imports": [
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:timers/promises",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/bundle.ts": {
+        "bytes": 7263,
+        "imports": [
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/storage.ts": {
+        "bytes": 14784,
+        "imports": [
+          {
+            "path": "packages/artifacts/src/file-operations.ts",
+            "kind": "import-statement",
+            "original": "./file-operations.js"
+          },
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:async_hooks",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:timers/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/artifacts/src/bundle.ts",
+            "kind": "import-statement",
+            "original": "./bundle.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/role-bundle.ts": {
+        "bytes": 12356,
+        "imports": [
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/artifacts/src/bundle.ts",
+            "kind": "import-statement",
+            "original": "./bundle.js"
+          },
+          {
+            "path": "packages/artifacts/src/storage.ts",
+            "kind": "import-statement",
+            "original": "./storage.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/storage-api.ts": {
+        "bytes": 531,
+        "imports": [
+          {
+            "path": "packages/artifacts/src/file-operations.ts",
+            "kind": "import-statement",
+            "original": "./file-operations.js"
+          },
+          {
+            "path": "packages/artifacts/src/role-bundle.ts",
+            "kind": "import-statement",
+            "original": "./role-bundle.js"
+          },
+          {
+            "path": "packages/artifacts/src/storage.ts",
+            "kind": "import-statement",
+            "original": "./storage.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/server/json-files.ts": {
+        "bytes": 485,
+        "imports": [
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "packages/artifacts/src/storage-api.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/artifacts/storage"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/html-first/unused.ts": {
+        "bytes": 625,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/server/visual-artifacts.ts": {
+        "bytes": 16230,
+        "imports": [
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/mixed-page-admission/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/visual-artifacts"
+          },
+          {
+            "path": "src/server/json-files.ts",
+            "kind": "import-statement",
+            "original": "./json-files.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "./trash.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "./applications.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "./paths.js"
+          },
+          {
+            "path": "packages/artifacts/src/storage-api.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/artifacts/storage"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/responsive-layout/backend.ts": {
+        "bytes": 3541,
+        "imports": [
+          {
+            "path": "node:fs/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "src/server/visual-artifacts.ts",
+            "kind": "import-statement",
+            "original": "../../src/server/visual-artifacts.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "packages/artifacts/src/role-bundle.ts",
+            "kind": "import-statement",
+            "original": "../../packages/artifacts/src/role-bundle.js"
+          },
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "../d6-r1/fs-guard.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/anchor-navigation/source.test.ts": {
+        "bytes": 5550,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/duplicate-section.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/duplicate-section.js"
+          },
+          {
+            "path": "tests/responsive-layout/backend.ts",
+            "kind": "import-statement",
+            "original": "../html-first/backend.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/multi-page/source.test.ts": {
+        "bytes": 4219,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/anchor-navigation/source.test.ts",
+            "kind": "import-statement",
+            "original": "../anchor-navigation/source.test.js"
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-links.js"
+          },
+          {
+            "path": "tests/responsive-layout/backend.ts",
+            "kind": "import-statement",
+            "original": "../html-first/backend.js"
+          },
+          {
+            "path": "packages/artifacts/src/role-bundle.ts",
+            "kind": "import-statement",
+            "original": "../../packages/artifacts/src/role-bundle.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/mixed-page-admission/source.test.ts": {
+        "bytes": 8416,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/multi-page/source.test.ts",
+            "kind": "import-statement",
+            "original": "../multi-page/source.test.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition-validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition-validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-links.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "source.test.js": {
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:timers/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:async_hooks",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:timers/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "exports": [],
+        "entryPoint": "tests/mixed-page-admission/source.test.ts",
+        "inputs": {
+          "tests/mixed-page-admission/source.test.ts": {
+            "bytesInOutput": 8464
+          },
+          "tests/multi-page/source.test.ts": {
+            "bytesInOutput": 4282
+          },
+          "tests/anchor-navigation/source.test.ts": {
+            "bytesInOutput": 5545
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 3806
+          },
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 16408
+          },
+          "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+            "bytesInOutput": 3483
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/form.ts": {
+            "bytesInOutput": 3732
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 17071
+          },
+          "packages/visual-artifacts/src/duplicate-section.ts": {
+            "bytesInOutput": 6462
+          },
+          "tests/responsive-layout/backend.ts": {
+            "bytesInOutput": 3640
+          },
+          "src/server/visual-artifacts.ts": {
+            "bytesInOutput": 12493
+          },
+          "tests/d6-r1/fs-guard.ts": {
+            "bytesInOutput": 1892
+          },
+          "tests/html-first/source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 7880
+          },
+          "tests/multi-page/source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/page-links.ts": {
+            "bytesInOutput": 2289
+          },
+          "tests/mixed-page-admission/source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/page-admission.ts": {
+            "bytesInOutput": 1406
+          },
+          "packages/visual-artifacts/src/composition-validation.ts": {
+            "bytesInOutput": 8034
+          },
+          "packages/artifacts/src/file-operations.ts": {
+            "bytesInOutput": 1055
+          },
+          "packages/artifacts/src/storage-api.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/artifacts/src/role-bundle.ts": {
+            "bytesInOutput": 9838
+          },
+          "packages/artifacts/src/bundle.ts": {
+            "bytesInOutput": 2482
+          },
+          "packages/artifacts/src/storage.ts": {
+            "bytesInOutput": 11042
+          },
+          "tests/html-first/unused.ts": {
+            "bytesInOutput": 135
+          }
+        },
+        "bytes": 132667
+      }
+    }
+  }
+}

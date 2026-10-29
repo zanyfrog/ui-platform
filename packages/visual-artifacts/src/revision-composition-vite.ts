@@ -9,6 +9,7 @@ import { validateCompositionDefinition } from './composition-validation.js';
 import type { CompositionDefinition } from './composition.js';
 import { recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
 import { withRuntimeGraphRead } from './runtime-read-admission.js';
+import { capturePageRoutes } from './page-admission.js';
 
 /** Development reads source; builds read the composition snapshot selected by existing Publish. */
 export function revisionApplicationComposition(options: { revisionPinned?: true; root: string; sharedComponentsRoot?: string }): Plugin {
@@ -86,7 +87,7 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
       const runtimeComponents = captured.filter(item => item.metadata.kind === 'component');
       const runtimePages = captured.filter(item => item.metadata.kind === 'page');
       const runtimeShells = captured.filter(item => item.metadata.kind === 'shell');
-      const definition: CompositionDefinition = { settings, pages: runtimePages, shells: runtimeShells, menus: menuValues, siteCss: styles.join('\n'), routes: runtimePages.map(page => ({ pageId: page.metadata.artifactId, routeId: page.metadata.routeId!, path: page.metadata.route! })) };
+      const definition: CompositionDefinition = { settings, pages: runtimePages, shells: runtimeShells, menus: menuValues, siteCss: styles.join('\n'), routes: capturePageRoutes(runtimePages) };
       const packages = await runtimePackageDefinitions(revision, options.root, file => imports.push(`import ${JSON.stringify(file.replaceAll('\\', '/'))};`));
       validateCompositionDefinition(definition, runtimeComponents, packages);
       await validateRuntimeCss(definition.siteCss);

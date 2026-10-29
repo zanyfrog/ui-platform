@@ -1,0 +1,68 @@
+✔ literal anchor/link editing preserves content, managed IDs, containment and order (1.3289ms)
+✔ ordinary insertion outer wrapper supports a Page-root anchor without changing wrapper identity (0.9337ms)
+✔ invalid, duplicate, nested and unmanaged targets and unsupported references refuse (2.4693ms)
+✔ surviving links prevent rename, clear and subtree removal with referring identity (0.7934ms)
+✔ unchanged legacy fragments are preserved; new external URLs are not local references (0.3193ms)
+✔ normal authorized fixture Save retains hash on failed anchor admission and persists valid HTML (251.9915ms)
+✔ accepted duplication continues refusing anchored/reference-bearing Pages (1.0241ms)
+✔ Page admission does not expand generic Component/Shell fragment policy (0.2627ms)
+✔ canonical plain routes and uniqueness (0.3258ms)
+✔ new managed links resolve exactly one saved plain Page (0.809ms)
+✔ external and unchanged legacy links retain existing policy (0.2631ms)
+✔ incoming reference reports Page and managed link; self references do not prevent deleting self (0.2858ms)
+✔ unsupported and invalid saved targets refuse (0.1479ms)
+✔ route change protects a surviving self link while deletion excludes it (0.0968ms)
+✔ existing Foundation graph serializes competing route checks and creates (158.8864ms)
+✔ graph-scoped link refusal preserves the actual saved role bundle (78.3997ms)
+✔ all thirteen captured plain Pages remain admitted with all public routes and no Route identity allocation (4.4496ms)
+✔ hypothetical three composed Pages coexist with ten unchanged plain Pages (3.7096ms)
+✔ partial composed identities, missing Shell, absent Region membership and wrong Regions refuse (10.4889ms)
+✔ incidental Region markup never infers composition; orphan Route identity refuses (0.136ms)
+✔ duplicate identities and routes across either Page kind refuse (4.6674ms)
+✔ literal references to either Page type remain visible and missing targets refuse (6.8202ms)
+✔ normal mutation contract supports valid cross-kind changes and refuses dangling links and surviving removals (2.2367ms)
+✔ all-composed configuration retains strict valid behavior (5.8013ms)
+✔ menu Page destinations may reference plain Pages; Route destinations need real identities (4.5786ms)
+✔ all-composed independent diagnostics remain available for malformed candidates (2.2408ms)
+✔ mixed admission does not relax Component dependency validation (2.2313ms)
+✔ composed Route identities remain unique even at different public paths (2.0207ms)
+✖ existing composed parameter routes still resolve concrete literal Page paths (2.6245ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 28
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 639.388
+
+✖ failing tests:
+
+test at evidence\v1-mixed-page-admission-20261028\run-1793242789933\unit.mjs:2210:1
+✖ existing composed parameter routes still resolve concrete literal Page paths (2.6245ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception.
+  Actual message: "Link a: saved Page destination /records/42 is missing, ambiguous or unsupported."
+      at TestContext.<anonymous> (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793242789933/unit.mjs:2217:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: Error: Link a: saved Page destination /records/42 is missing, ambiguous or unsupported.
+        at validatePageLinks (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793242789933/unit.mjs:963:190)
+        at file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793242789933/unit.mjs:2217:30
+        at getActual (node:assert:611:5)
+        at strict.doesNotThrow (node:assert:779:32)
+        at TestContext.<anonymous> (file:///C:/Projects/Modular/ui-platform/evidence/v1-mixed-page-admission-20261028/run-1793242789933/unit.mjs:2217:11)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1382:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+        at Test.postRun (node:internal/test_runner/test:1522:19)
+        at Test.run (node:internal/test_runner/test:1447:12),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }

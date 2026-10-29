@@ -1,5 +1,7 @@
 import { validateArtifact, componentReferences } from './validation.js';
 import { parseSource } from './source.js';
+import { pageAdmissionKind, validatePageMembership } from './page-admission.js';
+import { isPlainPageRoute, pageLinks, resolvePageLinkTargets } from './page-links.js';
 import { regions, themeCss, validateMenu, applyMenuOverrides, composeShellMenus, type CompositionDefinition } from './composition.js';
 import { valueErrors, type RuntimeArtifact, type PackageComponent } from './model.js';
 
@@ -45,6 +47,7 @@ export function compositionDiagnostics(definition: CompositionDefinition, compon
       diagnostics.push(...validateArtifact(artifact, components, packages).map(d => ({ ...d, code: 'visual.validation', artifactId })));
     }, { artifactId });
   }
+  for (const artifact of [...pages, ...shells]) check('composition.page-link', () => { for (const link of pageLinks(artifact.source)) if (isPlainPageRoute(link.href) && resolvePageLinkTargets(link.href, pages, true).length !== 1) issue('composition.page-link', `Page link ${link.node} has a missing or ambiguous destination: ${link.href}.`, { artifactId: artifact.metadata.artifactId }); }, { artifactId: artifact.metadata.artifactId });
   if (!shells.some(shell => shell.metadata.artifactId === settings.defaultShellId)) issue('composition.default-shell', 'Application default Shell is missing.', { field: 'defaultShellId' });
   const routeIds = new Set<string>(), paths = new Set<string>();
   for (const page of pages) {
@@ -52,18 +55,16 @@ export function compositionDiagnostics(definition: CompositionDefinition, compon
     const location = { artifactId: m.artifactId };
     check('composition.page-validation', () => {
       const shell = shells.find(shell => shell.metadata.artifactId === m.shellId);
-      if (!m.routeId || !m.shellId || !shell) issue('composition.page-identities', `Page requires permanent Route and Shell identities: ${m.name}.`, location);
+      const composed = pageAdmissionKind(m) === 'composed';
+      check(composed ? 'composition.page-region' : 'composition.page-membership', () => validatePageMembership(page), location);
+      if (composed && (!m.routeId || !m.shellId || !shell)) issue('composition.page-identities', `Page requires permanent Route and Shell identities: ${m.name}.`, location);
       let signature: string | undefined;
       try { signature = primaryRouteSignature(m.route!); }
       catch { issue(m.route !== undefined && typeof m.route !== 'string' ? 'composition.page-validation' : 'composition.route-path', 'Primary Route path is invalid.', { ...location, field: 'route' }); }
-      if (routeIds.has(m.routeId ?? '') || signature !== undefined && paths.has(signature)) issue('composition.route-duplicate', 'Each Page requires a unique primary Route.', location);
-      routeIds.add(m.routeId ?? ''); if (signature !== undefined) paths.add(signature);
+      if (m.routeId && routeIds.has(m.routeId) || signature !== undefined && paths.has(signature)) issue('composition.route-duplicate', 'Each Page requires a unique primary Route.', location);
+      if (m.routeId) routeIds.add(m.routeId); if (signature !== undefined) paths.add(signature);
       if (!routes.some(route => route.routeId === m.routeId && route.pageId === m.artifactId && route.path === m.route)) issue('composition.route-capture', 'Runtime Route does not match its captured Page.', location);
-      for (const node of parseSource(page.source).nodes) {
-        let parent: typeof node | undefined = node;
-        while (parent && !Object.hasOwn(parent.attributes, 'data-uip-region')) parent = parent.parent;
-        if (!parent) issue('composition.page-region', `Page content must belong to a Shell Region: ${m.displayName}.`, { ...location, node: node.id });
-      }
+      if (!composed) return;
       if (shell) check('composition.region-mapping', () => {
         const allowed = new Set(regions(shell.source).map(region => region.regionId));
         if (regions(page.source).some(region => !allowed.has(region.regionId))) throw new Error(`Map or discard unmatched Regions in ${m.displayName}.`);
@@ -79,6 +80,11 @@ export function compositionDiagnostics(definition: CompositionDefinition, compon
   const menuIds = new Set<string>(); for (const menu of menus) {
     check('composition.menu', () => validateMenu(menu), { menuId: menu.menuId });
     if (menuIds.has(menu.menuId)) issue('composition.menu-duplicate', 'Duplicate Menu identity.', { menuId: menu.menuId }); menuIds.add(menu.menuId);
+    const targets = (items: typeof menu.items) => { for (const item of items) {
+      const destination = item.destination;
+      if (destination?.kind === 'page' && pages.filter(page => page.metadata.artifactId === destination.pageId).length !== 1 || destination?.kind === 'route' && routes.filter(route => route.routeId === destination.routeId).length !== 1) issue('composition.menu-target', `Menu ${menu.menuId} item ${item.itemId} has a missing or ambiguous destination.`, { menuId: menu.menuId });
+      targets(item.children ?? []);
+    } }; check('composition.menu-target', () => targets(menu.items), { menuId: menu.menuId });
   }
   check('composition.theme', () => { themeCss(settings); });
   for (const [shellId, values] of Object.entries(settings.shellConfiguration ?? {})) {
