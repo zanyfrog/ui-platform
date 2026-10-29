@@ -1,0 +1,1874 @@
+{
+  "unit": {
+    "inputs": {
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9885,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 25918,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17679,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/duplicate-section.ts": {
+        "bytes": 6666,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-r1/fs-guard.ts": {
+        "bytes": 2390,
+        "imports": [
+          {
+            "path": "node:fs/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11602,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/html-first/source-barrel.ts": {
+        "bytes": 408,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/duplicate-section.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/duplicate-section.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/form.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-links.ts": {
+        "bytes": 3291,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "./composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/multi-page/source-barrel.ts": {
+        "bytes": 116,
+        "imports": [
+          {
+            "path": "tests/html-first/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "../html-first/source-barrel.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-links.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-admission.ts": {
+        "bytes": 1842,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "./page-links.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition-validation.ts": {
+        "bytes": 9159,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          },
+          {
+            "path": "./source.js",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "./page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "./page-links.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "./composition.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/mixed-page-admission/source-barrel.ts": {
+        "bytes": 199,
+        "imports": [
+          {
+            "path": "tests/multi-page/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "../multi-page/source-barrel.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition-validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition-validation.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/file-operations.ts": {
+        "bytes": 1469,
+        "imports": [
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:timers/promises",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/bundle.ts": {
+        "bytes": 7263,
+        "imports": [
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/storage.ts": {
+        "bytes": 14784,
+        "imports": [
+          {
+            "path": "packages/artifacts/src/file-operations.ts",
+            "kind": "import-statement",
+            "original": "./file-operations.js"
+          },
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:async_hooks",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:timers/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/artifacts/src/bundle.ts",
+            "kind": "import-statement",
+            "original": "./bundle.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/role-bundle.ts": {
+        "bytes": 12356,
+        "imports": [
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/artifacts/src/bundle.ts",
+            "kind": "import-statement",
+            "original": "./bundle.js"
+          },
+          {
+            "path": "packages/artifacts/src/storage.ts",
+            "kind": "import-statement",
+            "original": "./storage.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/artifacts/src/storage-api.ts": {
+        "bytes": 531,
+        "imports": [
+          {
+            "path": "packages/artifacts/src/file-operations.ts",
+            "kind": "import-statement",
+            "original": "./file-operations.js"
+          },
+          {
+            "path": "packages/artifacts/src/role-bundle.ts",
+            "kind": "import-statement",
+            "original": "./role-bundle.js"
+          },
+          {
+            "path": "packages/artifacts/src/storage.ts",
+            "kind": "import-statement",
+            "original": "./storage.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/server/json-files.ts": {
+        "bytes": 485,
+        "imports": [
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "packages/artifacts/src/storage-api.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/artifacts/storage"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/html-first/unused.ts": {
+        "bytes": 625,
+        "imports": [],
+        "format": "esm"
+      },
+      "src/server/visual-artifacts.ts": {
+        "bytes": 16230,
+        "imports": [
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "node:fs/promises"
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/mixed-page-admission/source-barrel.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/visual-artifacts"
+          },
+          {
+            "path": "src/server/json-files.ts",
+            "kind": "import-statement",
+            "original": "./json-files.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "./trash.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "./applications.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "./paths.js"
+          },
+          {
+            "path": "packages/artifacts/src/storage-api.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/artifacts/storage"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/responsive-layout/backend.ts": {
+        "bytes": 3541,
+        "imports": [
+          {
+            "path": "node:fs/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "src/server/visual-artifacts.ts",
+            "kind": "import-statement",
+            "original": "../../src/server/visual-artifacts.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/validation.js"
+          },
+          {
+            "path": "packages/artifacts/src/role-bundle.ts",
+            "kind": "import-statement",
+            "original": "../../packages/artifacts/src/role-bundle.js"
+          },
+          {
+            "path": "tests/d6-r1/fs-guard.ts",
+            "kind": "import-statement",
+            "original": "../d6-r1/fs-guard.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/anchor-navigation/source.test.ts": {
+        "bytes": 5550,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/duplicate-section.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/duplicate-section.js"
+          },
+          {
+            "path": "tests/responsive-layout/backend.ts",
+            "kind": "import-statement",
+            "original": "../html-first/backend.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/multi-page/source.test.ts": {
+        "bytes": 4219,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/anchor-navigation/source.test.ts",
+            "kind": "import-statement",
+            "original": "../anchor-navigation/source.test.js"
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-links.js"
+          },
+          {
+            "path": "tests/responsive-layout/backend.ts",
+            "kind": "import-statement",
+            "original": "../html-first/backend.js"
+          },
+          {
+            "path": "packages/artifacts/src/role-bundle.ts",
+            "kind": "import-statement",
+            "original": "../../packages/artifacts/src/role-bundle.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/mixed-page-admission/source.test.ts": {
+        "bytes": 9173,
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "tests/multi-page/source.test.ts",
+            "kind": "import-statement",
+            "original": "../multi-page/source.test.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition-validation.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/composition-validation.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/page-links.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "source.test.js": {
+        "imports": [
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:test",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:timers/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:fs",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:path",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:crypto",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:async_hooks",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:timers/promises",
+            "kind": "import-statement",
+            "external": true
+          },
+          {
+            "path": "node:assert/strict",
+            "kind": "import-statement",
+            "external": true
+          }
+        ],
+        "exports": [],
+        "entryPoint": "tests/mixed-page-admission/source.test.ts",
+        "inputs": {
+          "tests/mixed-page-admission/source.test.ts": {
+            "bytesInOutput": 9275
+          },
+          "tests/multi-page/source.test.ts": {
+            "bytesInOutput": 4282
+          },
+          "tests/anchor-navigation/source.test.ts": {
+            "bytesInOutput": 5545
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 3806
+          },
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 16408
+          },
+          "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+            "bytesInOutput": 3483
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/form.ts": {
+            "bytesInOutput": 3732
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 17071
+          },
+          "packages/visual-artifacts/src/duplicate-section.ts": {
+            "bytesInOutput": 6462
+          },
+          "tests/responsive-layout/backend.ts": {
+            "bytesInOutput": 3640
+          },
+          "src/server/visual-artifacts.ts": {
+            "bytesInOutput": 12493
+          },
+          "tests/d6-r1/fs-guard.ts": {
+            "bytesInOutput": 1892
+          },
+          "tests/html-first/source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 7880
+          },
+          "tests/multi-page/source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/page-links.ts": {
+            "bytesInOutput": 2749
+          },
+          "tests/mixed-page-admission/source-barrel.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/page-admission.ts": {
+            "bytesInOutput": 1406
+          },
+          "packages/visual-artifacts/src/composition-validation.ts": {
+            "bytesInOutput": 8034
+          },
+          "packages/artifacts/src/file-operations.ts": {
+            "bytesInOutput": 1055
+          },
+          "packages/artifacts/src/storage-api.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/artifacts/src/role-bundle.ts": {
+            "bytesInOutput": 9838
+          },
+          "packages/artifacts/src/bundle.ts": {
+            "bytesInOutput": 2482
+          },
+          "packages/artifacts/src/storage.ts": {
+            "bytesInOutput": 11042
+          },
+          "tests/html-first/unused.ts": {
+            "bytesInOutput": 135
+          }
+        },
+        "bytes": 133938
+      }
+    }
+  },
+  "browser": {
+    "inputs": {
+      "tests/d6-p2/bytes/ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1.txt": {
+        "bytes": 6535,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f.txt": {
+        "bytes": 2018,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4.txt": {
+        "bytes": 3321,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca.txt": {
+        "bytes": 647,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097.txt": {
+        "bytes": 3277,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1.txt",
+            "kind": "import-statement",
+            "original": "./utils.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a.txt": {
+        "bytes": 167,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1.txt",
+            "kind": "import-statement",
+            "original": "./utils.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f.txt",
+            "kind": "import-statement",
+            "original": "./localization.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4.txt",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca.txt",
+            "kind": "import-statement",
+            "original": "./metadata.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097.txt",
+            "kind": "import-statement",
+            "original": "./base-element.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3.txt": {
+        "bytes": 2512,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30.txt": {
+        "bytes": 2388,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a.txt",
+            "kind": "import-statement",
+            "original": "@ui-base/core"
+          },
+          {
+            "path": "tests/d6-p2/bytes/a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3.txt",
+            "kind": "import-statement",
+            "original": "./icon-registry.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a.txt": {
+        "bytes": 33754,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a.txt",
+            "kind": "import-statement",
+            "original": "@ui-base/core"
+          },
+          {
+            "path": "tests/d6-p2/bytes/e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30.txt",
+            "kind": "import-statement",
+            "original": "@ui-base/icons/icon"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45.txt": {
+        "bytes": 39,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a.txt",
+            "kind": "import-statement",
+            "original": "./index.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2.txt": {
+        "bytes": 10865,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4.txt": {
+        "bytes": 4189,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45.txt",
+            "kind": "import-statement",
+            "original": "../layout/uib-card.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2.txt",
+            "kind": "import-statement",
+            "original": "./definition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85.txt": {
+        "bytes": 3890,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2.txt",
+            "kind": "import-statement",
+            "original": "./definition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/html-first/native.ts": {
+        "bytes": 118,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4.txt",
+            "kind": "import-statement",
+            "original": "html-native-renderer"
+          },
+          {
+            "path": "tests/d6-p2/bytes/fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85.txt",
+            "kind": "import-statement",
+            "original": "html-native-registry"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9885,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 25918,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11602,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/revision-guard.ts": {
+        "bytes": 13473,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition-runtime.ts": {
+        "bytes": 3476,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "./composition.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/runtime.ts",
+            "kind": "import-statement",
+            "original": "./runtime.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/revision-guard.ts",
+            "kind": "import-statement",
+            "original": "./revision-guard.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/html-first/unused.ts": {
+        "bytes": 625,
+        "imports": [],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-links.ts": {
+        "bytes": 3291,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "./composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-admission.ts": {
+        "bytes": 1842,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "./page-links.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form-runtime.ts": {
+        "bytes": 11441,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17679,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/runtime.ts": {
+        "bytes": 27527,
+        "imports": [
+          {
+            "path": "tests/html-first/native.ts",
+            "kind": "import-statement",
+            "original": "@ui-base/ui/component-reference"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition-runtime.ts",
+            "kind": "import-statement",
+            "original": "./composition-runtime.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/revision-guard.ts",
+            "kind": "import-statement",
+            "original": "./revision-guard.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "@ui-base/forms"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "./page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form-runtime.ts",
+            "kind": "import-statement",
+            "original": "./form-runtime.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/anchor-navigation/browser.ts": {
+        "bytes": 213,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/runtime.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/runtime.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/mixed-page-admission/browser.ts": {
+        "bytes": 416,
+        "imports": [
+          {
+            "path": "tests/anchor-navigation/browser.ts",
+            "kind": "import-statement",
+            "original": "../anchor-navigation/browser.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/runtime.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/runtime.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/revision-guard.ts",
+            "kind": "import-statement",
+            "original": "../../packages/visual-artifacts/src/revision-guard.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "browser.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "tests/mixed-page-admission/browser.ts",
+        "inputs": {
+          "tests/d6-p2/bytes/ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1.txt": {
+            "bytesInOutput": 3002
+          },
+          "tests/d6-p2/bytes/70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a.txt": {
+            "bytesInOutput": 0
+          },
+          "tests/d6-p2/bytes/1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4.txt": {
+            "bytesInOutput": 133
+          },
+          "tests/d6-p2/bytes/0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca.txt": {
+            "bytesInOutput": 179
+          },
+          "tests/d6-p2/bytes/52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097.txt": {
+            "bytesInOutput": 3265
+          },
+          "tests/d6-p2/bytes/a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3.txt": {
+            "bytesInOutput": 2342
+          },
+          "tests/d6-p2/bytes/e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30.txt": {
+            "bytesInOutput": 2138
+          },
+          "tests/d6-p2/bytes/e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a.txt": {
+            "bytesInOutput": 32783
+          },
+          "tests/d6-p2/bytes/4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45.txt": {
+            "bytesInOutput": 0
+          },
+          "tests/d6-p2/bytes/89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2.txt": {
+            "bytesInOutput": 10541
+          },
+          "tests/d6-p2/bytes/5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4.txt": {
+            "bytesInOutput": 4060
+          },
+          "tests/html-first/native.ts": {
+            "bytesInOutput": 0
+          },
+          "tests/d6-p2/bytes/fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85.txt": {
+            "bytesInOutput": 3540
+          },
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 3901
+          },
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 8033
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 7358
+          },
+          "packages/visual-artifacts/src/revision-guard.ts": {
+            "bytesInOutput": 2925
+          },
+          "packages/visual-artifacts/src/composition-runtime.ts": {
+            "bytesInOutput": 2860
+          },
+          "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+            "bytesInOutput": 6555
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 0
+          },
+          "packages/visual-artifacts/src/form.ts": {
+            "bytesInOutput": 3260
+          },
+          "packages/visual-artifacts/src/page-admission.ts": {
+            "bytesInOutput": 139
+          },
+          "packages/visual-artifacts/src/form-runtime.ts": {
+            "bytesInOutput": 10658
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 17137
+          },
+          "packages/visual-artifacts/src/runtime.ts": {
+            "bytesInOutput": 25229
+          },
+          "tests/anchor-navigation/browser.ts": {
+            "bytesInOutput": 51
+          },
+          "tests/mixed-page-admission/browser.ts": {
+            "bytesInOutput": 85
+          }
+        },
+        "bytes": 151798
+      }
+    }
+  },
+  "preview-client": {
+    "inputs": {
+      "packages/visual-artifacts/src/model.ts": {
+        "bytes": 9885,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/source.ts": {
+        "bytes": 25918,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition.ts": {
+        "bytes": 11602,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-links.ts": {
+        "bytes": 3291,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "./composition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/html-first/unused.ts": {
+        "bytes": 625,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1.txt": {
+        "bytes": 6535,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f.txt": {
+        "bytes": 2018,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4.txt": {
+        "bytes": 3321,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca.txt": {
+        "bytes": 647,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097.txt": {
+        "bytes": 3277,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1.txt",
+            "kind": "import-statement",
+            "original": "./utils.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a.txt": {
+        "bytes": 167,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1.txt",
+            "kind": "import-statement",
+            "original": "./utils.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f.txt",
+            "kind": "import-statement",
+            "original": "./localization.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4.txt",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca.txt",
+            "kind": "import-statement",
+            "original": "./metadata.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097.txt",
+            "kind": "import-statement",
+            "original": "./base-element.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3.txt": {
+        "bytes": 2512,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30.txt": {
+        "bytes": 2388,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a.txt",
+            "kind": "import-statement",
+            "original": "@ui-base/core"
+          },
+          {
+            "path": "tests/d6-p2/bytes/a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3.txt",
+            "kind": "import-statement",
+            "original": "./icon-registry.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a.txt": {
+        "bytes": 33754,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a.txt",
+            "kind": "import-statement",
+            "original": "@ui-base/core"
+          },
+          {
+            "path": "tests/d6-p2/bytes/e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30.txt",
+            "kind": "import-statement",
+            "original": "@ui-base/icons/icon"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45.txt": {
+        "bytes": 39,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a.txt",
+            "kind": "import-statement",
+            "original": "./index.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2.txt": {
+        "bytes": 10865,
+        "imports": [],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4.txt": {
+        "bytes": 4189,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45.txt",
+            "kind": "import-statement",
+            "original": "../layout/uib-card.js"
+          },
+          {
+            "path": "tests/d6-p2/bytes/89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2.txt",
+            "kind": "import-statement",
+            "original": "./definition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/d6-p2/bytes/fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85.txt": {
+        "bytes": 3890,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2.txt",
+            "kind": "import-statement",
+            "original": "./definition.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "tests/html-first/native.ts": {
+        "bytes": 118,
+        "imports": [
+          {
+            "path": "tests/d6-p2/bytes/5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4.txt",
+            "kind": "import-statement",
+            "original": "html-native-renderer"
+          },
+          {
+            "path": "tests/d6-p2/bytes/fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85.txt",
+            "kind": "import-statement",
+            "original": "html-native-registry"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/revision-guard.ts": {
+        "bytes": 13473,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/composition-runtime.ts": {
+        "bytes": 3476,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/composition.ts",
+            "kind": "import-statement",
+            "original": "./composition.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/runtime.ts",
+            "kind": "import-statement",
+            "original": "./runtime.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/revision-guard.ts",
+            "kind": "import-statement",
+            "original": "./revision-guard.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+        "bytes": 7951,
+        "imports": [],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/expression.ts": {
+        "bytes": 284,
+        "imports": [
+          {
+            "path": "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts",
+            "kind": "import-statement",
+            "original": "@ui-platform/dataset-operations/expression"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form.ts": {
+        "bytes": 7849,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/page-admission.ts": {
+        "bytes": 1842,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "./page-links.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/form-runtime.ts": {
+        "bytes": 11441,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/validation.ts": {
+        "bytes": 17679,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/source.ts",
+            "kind": "import-statement",
+            "original": "./source.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "packages/visual-artifacts/src/runtime.ts": {
+        "bytes": 27527,
+        "imports": [
+          {
+            "path": "tests/html-first/native.ts",
+            "kind": "import-statement",
+            "original": "@ui-base/ui/component-reference"
+          },
+          {
+            "path": "packages/visual-artifacts/src/composition-runtime.ts",
+            "kind": "import-statement",
+            "original": "./composition-runtime.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/revision-guard.ts",
+            "kind": "import-statement",
+            "original": "./revision-guard.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "@ui-base/forms"
+          },
+          {
+            "path": "packages/visual-artifacts/src/expression.ts",
+            "kind": "import-statement",
+            "original": "./expression.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form.ts",
+            "kind": "import-statement",
+            "original": "./form.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/page-admission.ts",
+            "kind": "import-statement",
+            "original": "./page-admission.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/form-runtime.ts",
+            "kind": "import-statement",
+            "original": "./form-runtime.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/model.ts",
+            "kind": "import-statement",
+            "original": "./model.js"
+          },
+          {
+            "path": "packages/visual-artifacts/src/validation.ts",
+            "kind": "import-statement",
+            "original": "./validation.js"
+          }
+        ],
+        "format": "esm"
+      },
+      "src/client/visual-artifacts/preview.ts": {
+        "bytes": 8780,
+        "imports": [
+          {
+            "path": "packages/visual-artifacts/src/page-links.ts",
+            "kind": "import-statement",
+            "original": "../../../packages/visual-artifacts/src/page-links.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "./data-services.js"
+          },
+          {
+            "path": "tests/html-first/unused.ts",
+            "kind": "import-statement",
+            "original": "@uib/platform-core/application-data"
+          },
+          {
+            "path": "packages/visual-artifacts/src/runtime.ts",
+            "kind": "dynamic-import",
+            "original": "@ui-platform/visual-artifacts/runtime"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "preview.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "src/client/visual-artifacts/preview.ts",
+        "inputs": {
+          "packages/visual-artifacts/src/model.ts": {
+            "bytesInOutput": 3989
+          },
+          "packages/visual-artifacts/src/source.ts": {
+            "bytesInOutput": 8209
+          },
+          "packages/visual-artifacts/src/composition.ts": {
+            "bytesInOutput": 7494
+          },
+          "packages/visual-artifacts/src/page-links.ts": {
+            "bytesInOutput": 290
+          },
+          "tests/html-first/unused.ts": {
+            "bytesInOutput": 514
+          },
+          "tests/d6-p2/bytes/ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1.txt": {
+            "bytesInOutput": 3214
+          },
+          "tests/d6-p2/bytes/807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f.txt": {
+            "bytesInOutput": 192
+          },
+          "tests/d6-p2/bytes/1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4.txt": {
+            "bytesInOutput": 372
+          },
+          "tests/d6-p2/bytes/0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca.txt": {
+            "bytesInOutput": 420
+          },
+          "tests/d6-p2/bytes/52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097.txt": {
+            "bytesInOutput": 4043
+          },
+          "tests/d6-p2/bytes/70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a.txt": {
+            "bytesInOutput": 581
+          },
+          "tests/d6-p2/bytes/a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3.txt": {
+            "bytesInOutput": 2590
+          },
+          "tests/d6-p2/bytes/e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30.txt": {
+            "bytesInOutput": 2676
+          },
+          "tests/d6-p2/bytes/e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a.txt": {
+            "bytesInOutput": 35396
+          },
+          "tests/d6-p2/bytes/4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45.txt": {
+            "bytesInOutput": 273
+          },
+          "tests/d6-p2/bytes/89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2.txt": {
+            "bytesInOutput": 10758
+          },
+          "tests/d6-p2/bytes/5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4.txt": {
+            "bytesInOutput": 4414
+          },
+          "tests/d6-p2/bytes/fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85.txt": {
+            "bytesInOutput": 4101
+          },
+          "tests/html-first/native.ts": {
+            "bytesInOutput": 234
+          },
+          "packages/visual-artifacts/src/revision-guard.ts": {
+            "bytesInOutput": 2196
+          },
+          "packages/visual-artifacts/src/composition-runtime.ts": {
+            "bytesInOutput": 3074
+          },
+          "../UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts": {
+            "bytesInOutput": 6743
+          },
+          "packages/visual-artifacts/src/expression.ts": {
+            "bytesInOutput": 135
+          },
+          "packages/visual-artifacts/src/form.ts": {
+            "bytesInOutput": 3387
+          },
+          "packages/visual-artifacts/src/page-admission.ts": {
+            "bytesInOutput": 291
+          },
+          "packages/visual-artifacts/src/form-runtime.ts": {
+            "bytesInOutput": 10804
+          },
+          "packages/visual-artifacts/src/validation.ts": {
+            "bytesInOutput": 17346
+          },
+          "packages/visual-artifacts/src/runtime.ts": {
+            "bytesInOutput": 26098
+          },
+          "src/client/visual-artifacts/preview.ts": {
+            "bytesInOutput": 8101
+          }
+        },
+        "bytes": 170415
+      }
+    }
+  }
+}

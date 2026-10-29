@@ -12,7 +12,7 @@ import { withRuntimeGraphRead } from './runtime-read-admission.js';
 import { capturePageRoutes } from './page-admission.js';
 
 /** Development reads source; builds read the composition snapshot selected by existing Publish. */
-export function revisionApplicationComposition(options: { revisionPinned?: true; root: string; sharedComponentsRoot?: string }): Plugin {
+export function revisionApplicationComposition(options: { revisionPinned?: true; root: string; sharedComponentsRoot?: string; packageManifests?: string[] }): Plugin {
   const id = 'virtual:uip-application-composition';
   const watchId = 'virtual:uip-composition-watch';
   let production = false;
@@ -38,7 +38,9 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
         if (!manifest.activeVersion) throw new Error('Publish this Application presentation before building its production composition.');
         root = path.join(root, 'presentation/versions', `v${manifest.activeVersion}`, 'composition');
       }
-      if (!production) for (const owner of [path.join(root, 'src/pages'), path.join(root, 'shells'), options.sharedComponentsRoot, path.join(root, 'presentation/platform-components')]) if (owner) await recoverRoleBundleRoot(owner);
+      // Runtime admission never repairs source. A pending transaction blocks the
+      // complete capture before any role is read, including unused collections.
+      if (!production) for (const owner of [path.join(root, 'src/pages'), path.join(root, 'shells'), options.sharedComponentsRoot, path.join(root, 'presentation/platform-components')]) if (owner) await recoverRoleBundleRoot(owner, { recovery: 'refuse' });
       const imports: string[] = [], shells: string[] = [], pages: string[] = [], components: string[] = [], menus: string[] = [], styles: string[] = [];
       const watch = (file: string) => { if (viteServer) viteServer.watcher.add(file); else this.addWatchFile(file); };
       const revision = new RuntimeRevision(watch);
@@ -89,6 +91,19 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
       const runtimeShells = captured.filter(item => item.metadata.kind === 'shell');
       const definition: CompositionDefinition = { settings, pages: runtimePages, shells: runtimeShells, menus: menuValues, siteCss: styles.join('\n'), routes: capturePageRoutes(runtimePages) };
       const packages = await runtimePackageDefinitions(revision, options.root, file => imports.push(`import ${JSON.stringify(file.replaceAll('\\', '/'))};`));
+      // Same explicit installed-package manifest contract as visualArtifacts.
+      // Hosts must admit these physical package inputs; no catalog discovery.
+      for (const file of options.packageManifests ?? []) {
+        const manifest = JSON.parse(await revision.text(file));
+        const packageInfo = JSON.parse(await revision.text(path.join(path.dirname(file), 'package.json')));
+        if (typeof packageInfo.name !== 'string' || !packageInfo.name) throw new Error('Explicit composition package name is missing.');
+        for (const entry of manifest.components ?? []) if (entry.module) {
+          const id = entry.identity?.componentId ?? entry.id ?? `${packageInfo.name}:${entry.tagName}`;
+          if (packages.some(item => item.id === id)) throw new Error('Duplicate explicit composition package identity.');
+          packages.push({ ...entry, id, definition: entry.identity && entry.builder && entry.runtime ? entry : undefined });
+          imports.push(`import ${JSON.stringify(path.resolve(path.dirname(file), entry.module).replaceAll('\\', '/'))};`);
+        }
+      }
       validateCompositionDefinition(definition, runtimeComponents, packages);
       await validateRuntimeCss(definition.siteCss);
       const code = await revision.finish(`${imports.join('\n')}\nconst pages=[${pages.join(',')}];\nexport const platformComponents=[${components.join(',')}];\nexport const packages=${JSON.stringify(packages)};\nexport const assetUrls={${assetEntries.join(',')}};\nexport const definition={settings:${JSON.stringify(settings)},shells:[${shells.join(',')}],pages,menus:[${menus.join(',')}],siteCss:${JSON.stringify(styles.join('\n'))},routes:pages.map(p=>({pageId:p.metadata.artifactId,routeId:p.metadata.routeId,path:p.metadata.route}))};\nregisterManagedVisualGraph(runtimeRevision,[...definition.pages,...definition.shells,...platformComponents],definition,assetUrls);`, captured, helpers);

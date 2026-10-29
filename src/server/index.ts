@@ -39,7 +39,7 @@ import { validateCompositionDefinition, assertPlainPageRoute, assertPageUnused, 
 import { withApplicationMutation, withGraphRequest } from './composition-lock.js';
 import { prepareVisualCandidate, VisualCandidateError, validateVisualRoleSyntax } from './visual-candidate.js';
 import { applyTemplateUpdate, compareTemplate } from './template-updates.js';
-import { assertShellUnused, changePageShell, compositionAssetInfo, compositionSourceChoices, compositionSettings, compositionSourcePath, compositionWorkspace, readCompositionSource, saveCompositionAsset, saveCompositionSource, validateCompositionEdit } from './application-composition.js';
+import { enableApplicationComposition, assertShellUnused, changePageShell, compositionAssetInfo, compositionSourceChoices, compositionSettings, compositionSourcePath, compositionWorkspace, readCompositionSource, saveCompositionAsset, saveCompositionSource, validateCompositionEdit } from './application-composition.js';
 
 import { DevelopmentApplicationRegistry } from './development-application-registry.js';
 import { DevelopmentApplicationRuntime } from './development-application-runtime.js';
@@ -384,6 +384,11 @@ const server = http.createServer(async (req, res) => {
       }
       if (parts.length === 4 && parts[3] === 'composition') {
         if (method === 'GET') return json(res, 200, await compositionWorkspace(key, await discoverComponents(key)));
+        if (method === 'POST') {
+          const input = await body(req);
+          if (editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true);
+          return json(res, 200, await enableApplicationComposition(key, input.shellId, input.expectedHash, async () => { if (editorSecurity.enabled) editorSecurity.workspacePrincipal(req, true); await admitManagement(); }));
+        }
       }
       if (parts.length === 4 && parts[3] === 'composition-source') {
         const file = url.searchParams.get('path'); if (!file) throw new Error('Source path is required.');

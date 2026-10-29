@@ -10,6 +10,7 @@ import { editForm, formSource } from '../artifact-editor/form-editor.js';
 import type { WorkspaceLinkOrigin } from './coordinator.js';
 import { chooseFormCreation } from '../artifact-editor/form-creation.js';
 import { chooseVisualCreation } from '../visual-artifacts/creation.js';
+import { chooseNamedValue } from '../visual-artifacts/menu-controls.js';
 import { LatestProblems } from './problems.js';
 import { subscribeSourceSaved } from '../artifact-editor/saved-source.js';
 import type { ProblemsReport } from '../../shared/application-diagnostics.js';
@@ -59,6 +60,23 @@ const scheduleProblems = (key?: string) => {
 subscribeSourceSaved(scheduleProblems);
 subscribeSourceSaved(key => { if (!key || key === applicationKey) { fixturePreview.invalidate('SAVED_SOURCE_CHANGED: explicit Refresh required'); savedPreview.sourceChanged(); } });
 document.addEventListener('ui-platform-workspace-change', () => { scheduleProblems(); fixturePreview.invalidate('WORKSPACE_CHANGED: explicit Refresh required'); savedPreview.sourceChanged('Workspace changed; explicit check required.'); });
+const setupWebsite = document.createElement('button'); setupWebsite.textContent = 'Set up shared website'; find('header').append(setupWebsite);
+setupWebsite.onclick = () => run(async () => {
+  const key = applicationKey, binding = createEditorSessionBinding();
+  const owner = discovery[0]?.applicationId; if (!owner) throw new Error('Refresh and authorize the Application before continuing.');
+  const shellId = await chooseNamedValue('Shared website Shell', discovery.filter(item => item.kind === 'shell' && item.identity.format === 'visual' && item.identity.id).map(item => ({ value: item.identity.id!, label: item.name })));
+  if (!shellId || parked || key !== applicationKey) return;
+  const headers = { ...await binding.headers(), 'x-editor-application-id': owner, 'content-type': 'application/json' };
+  const base = `/api/apps/${encodeURIComponent(key)}`;
+  const sourceResponse = await fetch(`${base}/composition-source?path=app.settings.json`, { headers, cache: 'no-store' });
+  const source = await sourceResponse.json(); binding.assert(); if (!sourceResponse.ok) throw new Error(source.error ?? 'Application settings unavailable.');
+  if (parked || key !== applicationKey) return;
+  const response = await fetch(`${base}/composition`, { method: 'POST', headers, body: JSON.stringify({ shellId, expectedHash: source.hash }) });
+  const value = await response.json(); binding.assert(); if (!response.ok) throw new Error(value.error ?? 'Website setup denied.');
+  if (parked || key !== applicationKey) return;
+  await discover(); status('Shared website enabled. Select each saved Page and use Change Page Shell to adopt it.');
+  document.dispatchEvent(new Event('ui-platform-workspace-change'));
+});
 for (const operation of ['Create Menu', 'Upload Application asset']) {
   const button = document.createElement('button'); button.textContent = operation; find('header').append(button);
   button.onclick = () => run(async () => {

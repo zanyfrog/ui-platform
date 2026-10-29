@@ -29,7 +29,7 @@ export async function prepareVisualCandidate(appKey: string, kind: 'page' | 'she
   let definition: CompositionDefinition | undefined;
   if (settings?.model === 'composition-v1') {
     const menus = [];
-    for (const name of await readdir(path.join(root, 'menus'))) if (name.endsWith('.json')) menus.push(JSON.parse(await read('menus/' + name)));
+    for (const name of await readdir(path.join(root, 'menus')).catch(error => { if (error.code === 'ENOENT') return []; throw error; })) if (name.endsWith('.json')) menus.push(JSON.parse(await read('menus/' + name)));
     const siteCss = (await Promise.all(settings.siteStyles.map((file: string) => read(file)))).join('\n');
     definition = { settings, menus, siteCss, pages: [], shells: [], routes: [] };
   }

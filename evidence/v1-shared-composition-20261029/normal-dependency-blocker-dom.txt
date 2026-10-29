@@ -1,0 +1,252 @@
+- link "Skip to content":
+  - /url: "#app"
+- text: Development identity
+- combobox "Development identity":
+  - option "Sign out"
+  - option "Security Admin (security@example.local)"
+  - option "Page, Form and Workflow Editor (combined@example.local)"
+  - option "Page and Form Editor (page-form-editor@example.local)"
+  - option "Mixed Permissions (mixed@example.local)"
+  - option "Workflow Editor (workflow-editor@example.local)"
+  - option "Application Admin (admin@example.local)" [selected]
+- button "Manage Triggers and Workflows"
+- main:
+  - complementary:
+    - button "Modular UI Platform home":
+      - generic: M
+      - generic: MODULAR
+      - strong: UI Platform
+    - navigation "Platform navigation":
+      - button "Applications":
+        - generic: Applications
+      - button "Packages":
+        - generic: Packages
+      - button "Templates" [disabled]:
+        - generic: Templates
+      - button "Settings":
+        - generic: Settings
+    - generic: U
+    - strong: User
+    - generic: user@example.com
+  - button "Applications"
+  - generic: /
+  - strong: V1 Development Identity Fixture
+  - heading "V1 Development Identity Fixture" [level=1]
+  - generic: active
+  - button "Show details"
+  - generic "Application actions": ⋯
+  - tablist:
+    - tab "Overview":
+      - generic: Overview
+    - tab "Pages" [selected]:
+      - generic: Pages
+    - tab "Packages":
+      - generic: Packages
+    - tab "Presentation":
+      - generic: Presentation
+    - tab "Preview":
+      - generic: Preview
+    - tab "Settings":
+      - generic: Settings
+  - tabpanel "Pages":
+    - region "Application Builder workspace":
+      - button "Application navigation" [expanded]
+      - strong: V1 Development Identity Fixture
+      - button "Refresh artifacts"
+      - button "Create Dataset"
+      - button "Create Form"
+      - button "Validate Application" [active]
+      - button "Set up shared website"
+      - button "Create Menu"
+      - button "Upload Application asset"
+      - button "Create Page"
+      - button "Create Shell"
+      - button "Create Platform Component"
+      - status: Artifact authorized. Existing editor save behavior applies.
+      - paragraph: Navigation opens artifacts or component definitions. To add a component instance, open a Page and use its insertion controls.
+      - navigation "Application artifacts":
+        - generic "Pages"
+        - button "about"
+        - button "contact"
+        - button "home"
+        - button "v1 anchor navigation 20261028"
+        - button "v1 card panel smoke"
+        - button "v1 compact problems 20261028"
+        - button "v1 layout card 20261027"
+        - button "v1 practical website 20261027"
+        - button "v1 responsive card 20261027"
+        - button "v1 section duplication 20261028"
+        - button "v1 semantic headings 20261028"
+        - button "v1 two component 20261027"
+        - button "v1 website host 20261028"
+        - button "V1 Development Fixture (source inspection) (repair-only locator) (read-only)"
+        - generic "Shells"
+        - button "shared website"
+        - generic "Workflows"
+        - button "V1 workflow"
+        - generic "Application presentation/settings"
+        - button "app.settings.json (read-only)"
+        - generic "Other artifacts"
+        - button "V1 form"
+      - tablist "Open artifacts":
+        - tab "home" [selected]
+        - button "Close home": ×
+      - article "page editor":
+        - strong: Visual Artifacts
+        - generic: The complete candidate conflicts with Application composition. Check its Shell Regions, routes, Menus and related source. Local changes are retained.
+        - button "Undo" [disabled]
+        - button "Redo" [disabled]
+        - button "Save Now" [disabled]
+        - button "Advanced source repair save"
+        - button "Reload / discard editor changes"
+        - button "Download editor recovery"
+        - button "Delete artifact"
+        - button "Design preview"
+        - button "Change Page Shell"
+        - button "Remove selected node"
+        - group "Editor Problems":
+          - generic "Problems — 0 errors, 0 warnings"
+        - strong: Structure
+        - listbox "Visual node":
+          - option "section — Home"
+          - option "div — Home"
+          - option "h1 — Home"
+          - option "div — About"
+          - option "a — About"
+        - text: Insert into selected container, or artifact root
+        - combobox "Insert element":
+          - option "section" [selected]
+          - option "header"
+          - option "nav"
+          - option "footer"
+          - option "div"
+          - option "article"
+          - option "p"
+          - option "H1 — Page title"
+          - option "H2 — Section heading"
+          - option "H3 — Subsection heading"
+          - option "H4 — Heading level 4"
+          - option "H5 — Heading level 5"
+          - option "H6 — Heading level 6"
+          - option "a"
+          - option "button"
+          - option "img"
+          - option "ul"
+          - option "li"
+          - option "span"
+          - option "uip-slot"
+        - paragraph: Choose an item here, then click Insert selected item. The navigation list inspects component definitions.
+        - button "Insert selected item"
+        - button "Select artifact root"
+        - button "Move layout item up"
+        - button "Move layout item down"
+        - button "Duplicate section"
+        - paragraph: Select a managed node to edit settings and bindings.
+        - text: Artifact display name
+        - textbox "Artifact display name": home
+        - text: Page route
+        - textbox "Page route": /home
+        - group "Local state":
+          - generic: Local state
+          - text: New local state
+          - textbox "New local state"
+          - text: New local state type
+          - combobox "New local state type":
+            - option "result" [selected]
+            - option "string"
+            - option "number"
+            - option "boolean"
+            - option "object"
+            - option "array"
+          - button "Declare local state"
+        - text: Source file
+        - combobox "Visual source file":
+          - option "source" [selected]
+          - option "css"
+          - option "metadata"
+          - option "fixtures"
+          - option "code"
+        - textbox "Visual source": <section class="uip-layout-item" data-uip-node="node_f1055e2e-9274-44b5-bdda-0bf809562fbc"> <div class="uip-layout-item" data-uip-node="node_59e1f113-bc7b-49a5-b3fc-a19b880bcfc1"> <h1 data-uip-node="node_bf16aa38-6a34-405b-916f-cf70da779808">Home</h1> </div> <div class="uip-layout-item" data-uip-node="node_d9ca8a92-a8b3-4f05-842c-a47d3d994eaa"> <a data-uip-node="node_c8dd5f56-409b-4181-ad62-9489672aa315" href="/about">About</a> </div> </section>
+        - paragraph: Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.
+      - region "Application Problems":
+        - heading "Application Problems" [level=3]
+        - status: Incomplete saved-source validation · full refresh · 18 source validators run. Local unsaved drafts are separate. This is not Publish approval.
+        - list:
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ d220d6b86dcc]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ d220d6b86dcc]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ d220d6b86dcc]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [visual @ d220d6b86dcc]"'
+          - button "ERROR · application.reference-unresolved · A required reference cannot be resolved to an authorized source or approved service contract. [visual @ d220d6b86dcc]"
+          - button "ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [visual @ d220d6b86dcc]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 58ba5c737611]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 58ba5c737611]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 8e2dda14324e]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [visual @ 8e2dda14324e]"'
+          - button "ERROR · application.reference-unresolved · A required reference cannot be resolved to an authorized source or approved service contract. [visual @ 8e2dda14324e]"
+          - button "ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [visual @ 8e2dda14324e]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ a7535d9946d9]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [visual @ a7535d9946d9]"'
+          - button "ERROR · application.reference-unresolved · A required reference cannot be resolved to an authorized source or approved service contract. [visual @ a7535d9946d9]"
+          - button "ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [visual @ a7535d9946d9]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ e8a4a5cf9c6e]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [visual @ e8a4a5cf9c6e]"'
+          - button "ERROR · application.reference-unresolved · A required reference cannot be resolved to an authorized source or approved service contract. [visual @ e8a4a5cf9c6e]"
+          - button "ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [visual @ e8a4a5cf9c6e]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ f91912a4a281]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ f91912a4a281]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [visual @ f91912a4a281]"'
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [visual @ f91912a4a281]"'
+          - button "ERROR · application.reference-unresolved · A required reference cannot be resolved to an authorized source or approved service contract. [visual @ f91912a4a281]"
+          - button "ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [visual @ f91912a4a281]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ fd93462f9867]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ fd93462f9867]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: @ui-base/ui:uib-panel. [visual @ fd93462f9867]"'
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [visual @ fd93462f9867]"'
+          - button "ERROR · application.reference-unresolved · A required reference cannot be resolved to an authorized source or approved service contract. [visual @ fd93462f9867]"
+          - button "ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [visual @ fd93462f9867]"
+          - button "ERROR · form.fields · Form must contain a fields array. [generic @ 510e3d95a60c]"
+          - 'button "ERROR · artifact.unknown-type · Unknown artifact type: workflow [generic @ 67298569eb87]"'
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ d220d6b86dcc]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ d220d6b86dcc]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ d220d6b86dcc]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [composition @ d220d6b86dcc]"'
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 58ba5c737611]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 58ba5c737611]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 8e2dda14324e]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [composition @ 8e2dda14324e]"'
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ a7535d9946d9]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [composition @ a7535d9946d9]"'
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ e8a4a5cf9c6e]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [composition @ e8a4a5cf9c6e]"'
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ f91912a4a281]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ f91912a4a281]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [composition @ f91912a4a281]"'
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [composition @ f91912a4a281]"'
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ fd93462f9867]"
+          - button "WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ fd93462f9867]"
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: @ui-base/ui:uib-panel. [composition @ fd93462f9867]"'
+          - 'button "ERROR · visual.validation · Unknown or ambiguous Component dependency: cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1. [composition @ fd93462f9867]"'
+          - button "ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [composition @ 7d4636034d0a]"
+          - button "INFO · legacy.validation-unavailable · Legacy TypeScript Page source is read-only inspection. Full authoring validation is unavailable; use a supported Visual Page. [legacy @ b4ac65450dc6]"
+          - button "ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [legacy @ b4ac65450dc6]"
+          - listitem: WARNING · application.validation-incomplete · Some validation scopes are unavailable to this session. Only authorized sources are shown. [application]
+      - region "Fixture Preview":
+        - heading "Preview · Fixture demonstration" [level=3]
+        - paragraph: Fixture mode · SAMPLE DATA · Saved-artifact Preview unavailable
+        - paragraph: Original selection · ["usr_f01e0c1c58424bed9ac4e8601ff9890a","4eb3e72c8f9daaad36a4c49ab5af90348a06fb88a60cf3e734033c7d27431e2c","dev-v1-identity-fixture","[\"application\",\"dev-v1-identity-fixture\",null,\"visual\",[\"permanent\",\"art_47c10a1f-248d-4404-ac39-ee46a7db6c48\"]]"]
+        - paragraph: No successful capture
+        - status: empty
+        - text: Sample type
+        - combobox "Sample type":
+          - option "Native Card" [selected]
+          - option "Native Panel layout fixture"
+          - option "Synthetic route-parameter inspector"
+        - text: Synthetic sample (JSON)
+        - textbox "Synthetic sample (JSON)": "{ \"fixture\": \"native-card-v1\", \"heading\": \"Synthetic Card\", \"header\": \"\", \"body\": \"Authored synthetic slot text\", \"footer\": \"Synthetic footer\", \"variant\": \"outlined\", \"density\": \"comfortable\", \"selectable\": true, \"disabled\": false, \"selected\": false }"
+        - button "Refresh fixture"
+        - button "Preview saved artifact"
+        - generic "Unsupported fixture contracts"
+      - region "Saved Preview readiness":
+        - heading "Saved Preview · unavailable" [level=3]
+        - button "Check saved Preview availability"
+        - status: Saved-artifact rendering is unavailable. Original selection changed; explicit check required.

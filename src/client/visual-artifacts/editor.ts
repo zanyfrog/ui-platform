@@ -114,6 +114,16 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   const status = (message: string) => { find('[data-status]').textContent = message; options.onStateChange?.(); };
   const safe = (run: () => Promise<void> | void) => async () => { if (disposed || !active) return; operations++; try { await run(); } catch (error) { status(error instanceof Error ? error.message : String(error)); } finally { operations--; options.onStateChange?.(); } };
   find('[data-create="page"]').insertAdjacentHTML('afterend', '<button data-create="shell">Create Shell</button>');
+  find('[data-change-shell]').insertAdjacentHTML('afterend', '<button data-enable-composition>Set up shared website</button>');
+  find('[data-enable-composition]').addEventListener('click', safe(async () => {
+    if (dirty() || conflict) throw new Error('Save or recover changes before setting up the website.');
+    const shellId = await chooseNamedValue('Shared website Shell', workspace.shells.filter(shell => shell.metadata && !shell.diagnostics.some(d => d.severity === 'error')).map(shell => ({ value: shell.metadata!.artifactId, label: shell.metadata!.displayName })));
+    if (!shellId) return;
+    const source = await request<{ hash: string }>(`${base}/composition-source?path=app.settings.json`);
+    await request(`${base}/composition`, { method: 'POST', body: JSON.stringify({ shellId, expectedHash: source.hash }) });
+    status('Shared website enabled. Use Change Page Shell to adopt each saved Page.');
+    document.dispatchEvent(new Event('ui-platform-workspace-change'));
+  }));
   find('[data-add-region]').insertAdjacentHTML('afterend', '<button data-place-menu>Place Application Menu</button>');
   find('[data-place-menu]').addEventListener('click', safe(async () => {
     const composition = await request<import('@ui-platform/visual-artifacts').CompositionDefinition>(`${base}/composition`);
@@ -142,7 +152,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   }));
   find('[data-change-shell]').addEventListener('click', safe(async () => {
     if (dirty() || conflict) throw new Error('Save or recover changes before changing Shell.');
-    const shellId = prompt('New Shell ID:\n' + workspace.shells.map(shell => `${shell.metadata?.displayName}: ${shell.metadata?.artifactId}`).join('\n')); if (!shellId) return;
+    const shellId = await chooseNamedValue('Page Shell', workspace.shells.filter(shell => shell.metadata).map(shell => ({ value: shell.metadata!.artifactId, label: shell.metadata!.displayName }))); if (!shellId) return;
     const shell = workspace.shells.find(shell => shell.metadata?.artifactId === shellId); if (!shell) throw new Error('Shell is missing.');
     const available = regions(shell.files.source).map(region => region.regionId), decisions: Record<string, string | null> = {};
     for (const region of regions(files.source)) if (!available.includes(region.regionId)) {
@@ -155,11 +165,11 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   function renderList(): void {
     const insert = find<HTMLSelectElement>('[data-insert]');
     const insertion = insert.value;
-    find('[data-create="shell"]').hidden = !workspace.shells?.length;
+    find('[data-create="shell"]').hidden = false;
     const select = find<HTMLSelectElement>('[data-artifacts]');
     select.innerHTML = '<option value="">Select an artifact</option>' + [['Pages', workspace.pages], ['Shells', workspace.shells ?? []], ['Platform Components', workspace.components]].map(([label, items]) => `<optgroup label="${label}">${(items as ArtifactBundle[]).map(b => `<option value="${label === 'Pages' ? 'page' : label === 'Shells' ? 'shell' : 'component'}:${esc(b.locator)}">${esc(b.metadata?.displayName ?? b.locator)}${b.diagnostics.some(d => d.severity === 'error') ? ' (needs repair)' : ''}</option>`).join('')}</optgroup>`).join('');
     if (selected) select.value = `${selectedKind}:${selected.locator}`;
-    find<HTMLSelectElement>('[data-insert]').innerHTML = '<optgroup label="HTML">' + ['section', 'div', 'article', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'button', 'img', 'ul', 'li', 'span', 'uip-slot'].map(tag => `<option value="html:${tag}">${/^h[1-6]$/.test(tag) ? headingLabels[Number(tag[1]) - 1] : tag}</option>`).join('') + '</optgroup><optgroup label="Package Components">' + workspace.packages.filter(p => !p.activationIssues?.length).map(p => `<option value="package:${esc(p.id)}">${esc(p.name ?? p.tagName)}</option>`).join('') + '</optgroup><optgroup label="Platform Components">' + workspace.components.filter(b => b.metadata && !b.diagnostics.some(d => d.severity === 'error')).map(b => `<option value="component:${esc(b.metadata!.componentId)}">${esc(b.metadata!.displayName)}</option>`).join('') + '</optgroup>';
+    find<HTMLSelectElement>('[data-insert]').innerHTML = '<optgroup label="HTML">' + ['section', 'header', 'nav', 'footer', 'div', 'article', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'button', 'img', 'ul', 'li', 'span', 'uip-slot'].map(tag => `<option value="html:${tag}">${/^h[1-6]$/.test(tag) ? headingLabels[Number(tag[1]) - 1] : tag}</option>`).join('') + '</optgroup><optgroup label="Package Components">' + workspace.packages.filter(p => !p.activationIssues?.length).map(p => `<option value="package:${esc(p.id)}">${esc(p.name ?? p.tagName)}</option>`).join('') + '</optgroup><optgroup label="Platform Components">' + workspace.components.filter(b => b.metadata && !b.diagnostics.some(d => d.severity === 'error')).map(b => `<option value="component:${esc(b.metadata!.componentId)}">${esc(b.metadata!.displayName)}</option>`).join('') + '</optgroup>';
     if (Array.from(insert.options).some(option => option.value === insertion)) insert.value = insertion;
   }
   function workingMetadata(): ArtifactMetadata { const metadata = parseMetadata(files.metadata).metadata; if (!metadata) throw new Error('Repair metadata JSON first.'); return metadata; }
@@ -435,7 +445,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     copy = retained; selected = retained.bundle; selectedKind = kind; files = structuredClone(retained.lifecycle.current); baseline = structuredClone(retained.lifecycle.baseline); hash = retained.bundle.hash; conflict = retained.lifecycle.state === 'conflict'; selectedNode = ''; role = 'source';
     find('[data-work]').hidden = false; find<HTMLSelectElement>('[data-file]').value = role; find<HTMLTextAreaElement>('[data-source]').value = files.source;
     renderList(); changed();
-    find('[data-change-shell]').hidden = kind !== 'page' || !bundle.metadata?.shellId;
+    find('[data-change-shell]').hidden = kind !== 'page';
     find('[data-add-region]').hidden = kind === 'component' || kind === 'page' && !bundle.metadata?.shellId;
     find('[data-place-menu]').hidden = kind !== 'shell';
     if (kind === 'page' && bundle.metadata?.shellId) void showPreview();
@@ -570,7 +580,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     } catch (error) { status(String(error)); } finally { polling = false; }
   }
   workspace = structuredClone(options.workspace ?? await request<Workspace>(`${base}/visual-artifacts`)); renderList(); status('Select or create a Visual Artifact');
-  if (options.initial) { find('[data-artifacts]').parentElement!.hidden = true; const bundle = list(options.initial.kind).find(b => b.locator === options.initial!.locator); if (!bundle) throw new Error('Artifact unavailable.'); open(bundle, options.initial.kind); }
+  if (options.initial) { find('[data-enable-composition]').hidden = true; find('[data-artifacts]').parentElement!.hidden = true; const bundle = list(options.initial.kind).find(b => b.locator === options.initial!.locator); if (!bundle) throw new Error('Artifact unavailable.'); open(bundle, options.initial.kind); }
   const unprotect = protectEditingDraft(() => [...copies.values()].some(item => item.lifecycle.dirty || item.lifecycle.state === 'conflict'));
   // Workspace navigation supplies freshly authorized source; save events refresh it.
   // Standalone editors retain their source watcher.

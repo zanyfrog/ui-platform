@@ -171,6 +171,21 @@ export async function saveCompositionSource(appKey: string, relative: string, co
     return { path: relative, content, hash: hash(content) };
   });
 }
+/** Explicit setup of the existing settings contract; never adopts Pages. */
+export async function enableApplicationComposition(appKey: string, shellId: string, expectedHash: string, admit: () => Promise<void>) {
+    const original = await readCompositionSource(appKey, 'app.settings.json');
+    if (original.hash !== expectedHash) throw Object.assign(new Error('Application settings changed. Reload before setup.'), { status: 409 });
+    const config = JSON.parse(original.content);
+    if (config.presentation !== undefined) throw new Error('Application presentation is already configured. Use its existing composition controls.');
+    const shells = await new VisualArtifactService(path.join(appPath(appKey), 'shells'), 'shell').list({ recovery: 'refuse' });
+    if (shells.filter(shell => shell.metadata?.artifactId === shellId && !shell.diagnostics.some(d => d.severity === 'error')).length !== 1) throw new Error('Select one valid saved Shell.');
+    if (!config.application?.name) throw new Error('Application name is missing.');
+    const presentation = { model: 'composition-v1', branding: { applicationName: config.application.name }, assetsRoot: 'assets', siteStyles: [], defaultShellId: shellId, theme: {} };
+    // Preserve the original text outside the appended presentation member.
+    const end = original.content.lastIndexOf('}');
+    const content = original.content.slice(0, end).trimEnd() + ',\n  "presentation": ' + JSON.stringify(presentation, null, 2).replaceAll('\n', '\n  ') + '\n' + original.content.slice(end);
+    return saveCompositionSource(appKey, 'app.settings.json', content, expectedHash, admit);
+}
 export async function validateCompositionEdit(appKey: string, kind: 'page' | 'shell', locator: string, role: string, content: string): Promise<void> {
   if (!await compositionSettings(appKey)) return;
   const app = appPath(appKey), service = new VisualArtifactService(path.join(app, kind === 'shell' ? 'shells' : 'src/pages'), kind);
@@ -195,8 +210,13 @@ export async function changePageShell(appKey: string, locator: string, shellId: 
     const page = await pages.read(locator); if (page.hash !== expectedHash) throw new Error('Page changed. Reload before changing Shell.');
     const shell = (await new VisualArtifactService(path.join(appPath(appKey), 'shells'), 'shell').list()).find(shell => shell.metadata?.artifactId === shellId);
     if (!shell) throw new Error('Selected Shell is missing.');
-    const source = remapPageRegions(page.files.source, shell.files.source, decisions);
+    if (!await compositionSettings(appKey)) throw new Error('Enable Application composition before adopting a Page.');
+    const plain = pageAdmissionKind(page.metadata!) === 'plain';
+    if (plain && regions(page.files.source).length) throw new Error('Plain Page already contains Regions; repair its membership explicitly.');
+    if (plain && !regions(shell.files.source).some(region => region.regionId === 'region-main')) throw new Error('Plain Page adoption requires the selected Shell main Region.');
+    const source = plain ? `<main data-uip-node="node_${randomUUID()}" data-uip-region="region-main" data-uip-region-name="Main Content">\n${page.files.source}</main>\n` : remapPageRegions(page.files.source, shell.files.source, decisions);
     const metadata = structuredClone(page.metadata!); metadata.shellId = shellId;
+    if (plain) metadata.routeId = `route_${randomUUID()}`;
     const retainedIds = new Set(parseSource(source).nodes.map(node => node.id));
     for (const key of ['bindings', 'conditions', 'repeaters', 'events'] as const) metadata[key] = metadata[key]?.filter(item => retainedIds.has(item.node)) as never;
     if (metadata.layout) metadata.layout = Object.fromEntries(Object.entries(metadata.layout).filter(([id]) => retainedIds.has(id)));

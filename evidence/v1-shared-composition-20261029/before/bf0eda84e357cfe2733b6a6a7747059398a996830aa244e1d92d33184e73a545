@@ -1,0 +1,97 @@
+import type { Action, ArtifactMetadata, RuntimeArtifact } from './model.js';
+export declare const recommendedRegionIds: readonly ["region-header", "region-navigation", "region-hero", "region-main", "region-sidebar", "region-secondary", "region-footer"];
+export interface CompositionSettings {
+    model: 'composition-v1';
+    defaultShellId: string;
+    theme: Record<string, string>;
+    siteStyles: string[];
+    defaultMenus?: Record<string, string>;
+    branding: {
+        applicationName: string;
+        shortName?: string;
+        primaryLogo?: string;
+        secondaryLogo?: string;
+        favicon?: string;
+    };
+    assetsRoot: string;
+    shellConfiguration?: Record<string, Record<string, unknown>>;
+}
+export interface CompositionRoute {
+    routeId: string;
+    pageId: string;
+    path: string;
+}
+export type MenuDestination = {
+    kind: 'page';
+    pageId: string;
+    params?: Record<string, string>;
+} | {
+    kind: 'route';
+    routeId: string;
+    params?: Record<string, string>;
+} | {
+    kind: 'url';
+    url: string;
+} | {
+    kind: 'action';
+    actions: Action[];
+};
+export interface MenuItem {
+    itemId: string;
+    label: string;
+    destination: MenuDestination;
+    target?: '_self' | '_blank' | '_parent' | '_top';
+    hidden?: boolean;
+    disabled?: boolean;
+    children?: MenuItem[];
+}
+export interface ApplicationMenu {
+    schemaVersion: 1;
+    menuId: string;
+    name: string;
+    items: MenuItem[];
+    sourcePath?: string;
+}
+export type MenuOverrides = Record<string, {
+    items?: Record<string, {
+        hidden?: boolean;
+        disabled?: boolean;
+    }>;
+    additions?: Array<{
+        parentItemId?: string;
+        item: MenuItem;
+    }>;
+}>;
+export interface CompositionDefinition {
+    settings: CompositionSettings;
+    shells: RuntimeArtifact[];
+    pages: RuntimeArtifact[];
+    routes: CompositionRoute[];
+    menus: ApplicationMenu[];
+    siteCss: string;
+}
+/** Explicit source containers distinguish absent content from intentionally empty content. */
+export declare function regions(source: string): Array<{
+    regionId: string;
+    displayName: string;
+    nodeId?: string;
+    content: string;
+    start: number;
+    openEnd: number;
+    closeStart: number;
+    end: number;
+}>;
+export declare function remapPageRegions(source: string, shellSource: string, decisions: Record<string, string | null>): string;
+export declare function themeCss(settings: CompositionSettings): string;
+export declare function applyMenuOverrides(menu: ApplicationMenu, overrides?: MenuOverrides): ApplicationMenu;
+export declare function validateMenu(menu: ApplicationMenu): void;
+export declare function routePath(route: CompositionRoute, params?: Record<string, string>): string;
+export declare function matchCompositionRoute(routes: CompositionRoute[], pathname: string): {
+    route: CompositionRoute;
+    params: Record<string, string>;
+} | undefined;
+export declare function renderMenu(menu: ApplicationMenu, routes: CompositionRoute[], currentPageId: string, currentRouteId: string, params?: Record<string, string>, placementId?: string): {
+    source: string;
+    events: NonNullable<ArtifactMetadata['events']>;
+};
+export declare function composeShellMenus(shell: RuntimeArtifact, definition: CompositionDefinition, page: RuntimeArtifact, routeId: string, params?: Record<string, string>): RuntimeArtifact;

@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';import path from 'node:path';import crypto from 'node:crypto';import assert from 'node:assert/strict';
+const dir=path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/i,'$1'));
+const baseline=JSON.parse(await fs.readFile(path.join(dir,'baseline.json'),'utf8'));
+const record=baseline.records.find(r=>r.file.endsWith('app.settings.json'));
+const before=await fs.readFile(path.join(dir,'before',record.hash),'utf8'),after=await fs.readFile(record.file,'utf8');
+const a=JSON.parse(before),b=JSON.parse(after),presentation=b.presentation;delete b.presentation;assert.deepEqual(b,a);
+assert.deepEqual(Object.keys(presentation).sort(),['model','branding','assetsRoot','siteStyles','defaultShellId','theme'].sort());
+assert.deepEqual(presentation.branding,{applicationName:a.application.name});assert.deepEqual(presentation.theme,{});assert.deepEqual(presentation.siteStyles,[]);assert.equal(presentation.assetsRoot,'assets');assert.equal(presentation.model,'composition-v1');
+const shell=JSON.parse(await fs.readFile(path.join(baseline.app,'shells/shared-website/shell.visual.json'),'utf8'));assert.equal(presentation.defaultShellId,shell.artifactId);
+await fs.writeFile(path.join(dir,'settings-after.json'),after);
+await fs.writeFile(path.join(dir,'settings-before-after.json'),JSON.stringify({file:record.file,beforeHash:record.hash,afterHash:crypto.createHash('sha256').update(after).digest('hex'),before:JSON.parse(before),after:JSON.parse(after),outsidePresentationUnchanged:true,actualShellId:shell.artifactId,originalApplicationTextRetained:after.includes(before.slice(before.indexOf('  "application"'),before.lastIndexOf('\n}')))},null,2));
+console.log('PASS approved settings fields and preserved Application settings');

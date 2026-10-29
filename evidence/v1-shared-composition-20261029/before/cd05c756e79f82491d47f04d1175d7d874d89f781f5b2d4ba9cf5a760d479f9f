@@ -1,0 +1,7 @@
+import type { Plugin } from 'vite';
+/** Development reads source; builds read the composition snapshot selected by existing Publish. */
+export declare function revisionApplicationComposition(options: {
+    revisionPinned?: true;
+    root: string;
+    sharedComponentsRoot?: string;
+}): Plugin;

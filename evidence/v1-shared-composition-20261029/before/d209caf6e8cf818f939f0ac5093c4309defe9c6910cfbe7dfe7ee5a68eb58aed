@@ -1,0 +1,10 @@
+import type { ArtifactBundle } from './model.js';
+/** Bounded ordinary Page addresses; parameter routes remain composition-owned. */
+export declare function isPlainPageRoute(route: unknown): route is string;
+export declare function pageLinks(source: string): {
+    node: string;
+    href: string;
+}[];
+export declare function assertPlainPageRoute(route: unknown, pages: ArtifactBundle[], locator?: string): void;
+export declare function assertPageUnused(route: string, pages: ArtifactBundle[], locator: string): void;
+export declare function validatePageLinks(previous: string, candidate: string, pages: ArtifactBundle[]): void;

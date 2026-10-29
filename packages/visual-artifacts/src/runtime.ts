@@ -93,14 +93,14 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     const mouse = event as MouseEvent;
     if (event.defaultPrevented || mouse.button !== 0 || mouse.ctrlKey || mouse.metaKey || mouse.shiftKey || mouse.altKey) return;
     const link = event.composedPath().find(n => n instanceof HTMLAnchorElement) as HTMLAnchorElement | undefined;
-    if (!link || link.getRootNode() !== root || link.target || link.hasAttribute('download')) return;
+    if (!link || link.getRootNode() !== root || link.target && link.target !== '_self' || link.hasAttribute('download')) return;
     const href = link.getAttribute('href');
     if (href?.startsWith('/') && !href.startsWith('//') && options.pageRoutes && options.navigate) {
       event.preventDefault();
       if (options.pageRoutes.filter(route => route === href).length !== 1) { fragmentFeedback(`Cannot navigate to missing or ambiguous Page ${href}.`); return; }
       options.navigate(href); return;
     }
-    if (!href?.startsWith('#')) return;
+    if (!fragmentsEnabled || !href?.startsWith('#')) return;
     event.preventDefault();
     if (!/^#[a-z][a-z0-9-]*$/.test(href)) { fragmentFeedback('Unsupported section fragment. Use a literal lowercase Anchor ID.'); return; }
     if (!followFragment(href, false)) return;
@@ -108,7 +108,9 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     followFragment(href);
   };
   const fragmentsEnabled = m.kind === 'page' && !m.shellId && options.pageFragmentNavigation === true;
-  if (fragmentsEnabled) { root.addEventListener('click', fragmentClick); view.addEventListener('hashchange', scheduleFragment); view.addEventListener('popstate', scheduleFragment); }
+  const pageLinksEnabled = (m.kind === 'page' || m.kind === 'shell') && options.pageFragmentNavigation === true;
+  if (pageLinksEnabled) root.addEventListener('click', fragmentClick);
+  if (fragmentsEnabled) { view.addEventListener('hashchange', scheduleFragment); view.addEventListener('popstate', scheduleFragment); }
   const registry = new ComponentRegistry();
   for (const pkg of options.packages) if (pkg.definition) registry.registerManifest({ components: [pkg.definition] }, { packageId: (pkg.definition as unknown as { ownership: { package: { packageId: string } } }).ownership.package.packageId });
   const validateInputs = (next: Record<string, unknown>) => {

@@ -26,7 +26,7 @@ async function go(to: string, data: PreviewRequest): Promise<void> {
   try {
     const targets = (await fetchPages(data.appKey)).filter(page => page.metadata?.route === to);
     if (generation !== sequence) return;
-    if (!isPlainPageRoute(to) || targets.length !== 1 || targets[0].metadata?.shellId || targets[0].diagnostics.some(d => d.severity === 'error')) throw new Error('Saved Page destination is missing, ambiguous or unsupported.');
+    if (!isPlainPageRoute(to) || targets.length !== 1 || targets[0].diagnostics.some(d => d.severity === 'error')) throw new Error('Saved Page destination is missing, ambiguous or unsupported.');
     history.replaceState({ ...history.state, pageScroll: window.scrollY }, '');
     await show({ ...data, locator: targets[0].locator, hash: targets[0].hash, page: to }, 'push');
   } catch (error) { events.textContent = String(error); }
@@ -40,7 +40,7 @@ async function show(data: PreviewRequest, mode: 'initial' | 'push' | 'pop' = 'in
     const revision = await response.json(); if (!response.ok) throw new Error(revision.error ?? 'Preview revision unavailable.');
     if (current !== sequence) return;
     const { bundle, components, packages, composition, shells, code } = revision as { bundle: ArtifactBundle; components: ArtifactBundle[]; shells: ArtifactBundle[]; packages: PackageComponent[]; composition?: CompositionDefinition; code: Record<string, string> };
-    const pages: ArtifactBundle[] = data.design && kind === 'page' && !bundle.metadata?.shellId ? await fetchPages(appKey) : [];
+    const pages: ArtifactBundle[] = data.design && kind === 'page' ? await fetchPages(appKey) : [];
     if (current !== sequence) return;
     events.textContent = '';
     const runtime = async (item: ArtifactBundle, _kind: 'pages' | 'components' | 'shells'): Promise<RuntimeArtifact> => {
@@ -54,23 +54,23 @@ async function show(data: PreviewRequest, mode: 'initial' | 'push' | 'pop' = 'in
     const { mountVisualArtifact, mountComposedPage } = await import('@ui-platform/visual-artifacts/runtime');
     const fixtures = JSON.parse(bundle.files.fixtures || '{}');
     const artifact = await runtime(bundle, bundle.metadata!.kind === 'page' ? 'pages' : bundle.metadata!.kind === 'shell' ? 'shells' : 'components');
-    const options = { pageRoutes: pages.filter(p => isPlainPageRoute(p.metadata?.route) && !p.metadata?.shellId && !p.diagnostics.some(d => d.severity === 'error')).map(p => p.metadata!.route!), pageFragmentNavigation: data.design === true, components: await Promise.all(components.filter(c => c.metadata && !c.diagnostics.some(d => d.severity === 'error')).map(c => runtime(c, 'components'))), packages,
+    const options = { pageRoutes: pages.filter(p => isPlainPageRoute(p.metadata?.route) && !p.diagnostics.some(d => d.severity === 'error')).map(p => p.metadata!.route!), pageFragmentNavigation: data.design === true, components: await Promise.all(components.filter(c => c.metadata && !c.diagnostics.some(d => d.severity === 'error')).map(c => runtime(c, 'components'))), packages,
       inputs: { ...fixtures.public, ...data.publicInputs }, sources: fixtures.sources, context: fixtures.context, route: fixtures.route,
       services: data.design ? {} : data.testId ? createApplicationDataServices(new ApplicationDataClient(createSessionApplicationDataTransport({ endpoint: `/api/apps/${encodeURIComponent(appKey)}/form-tests/${encodeURIComponent(data.testId)}` }))) : visualDatasetServices,
-      navigate: (to: string) => { if (data.design && kind === 'page' && !bundle.metadata?.shellId) void go(to, data); else events.textContent += `Navigation requested: ${to}\n`; }, onError: (error: unknown) => { events.textContent += `Runtime error: ${String(error)}\n`; } };
+      navigate: (to: string) => { if (data.design && kind === 'page') void go(to, data); else events.textContent += `Navigation requested: ${to}\n`; }, onError: (error: unknown) => { events.textContent += `Runtime error: ${String(error)}\n`; } };
     if (composition) composition.shells = await Promise.all((shells ?? []).map(shell => runtime(shell, 'shells')));
     if (current !== sequence) return;
     const page = artifact.metadata.kind === 'shell' ? { metadata: { schemaVersion: 1 as const, artifactId: 'art_shell_preview', kind: 'page' as const, name: 'shell-preview', displayName: 'Shell Preview', route: '/', shellId: artifact.metadata.artifactId }, source: '', css: '' } : artifact;
     instance?.destroy();
     instance = composition && page.metadata.shellId ? mountComposedPage(composition, page, { ...options, editor: true, routeId: page.metadata.routeId, assetUrl: relative => `/api/apps/${encodeURIComponent(appKey)}/composition-asset?path=${encodeURIComponent(relative)}` }) : mountVisualArtifact(artifact, options);
     for (const name of Object.keys(artifact.metadata.public?.events ?? {})) instance.host.addEventListener(name, event => { events.textContent += `${name}: ${JSON.stringify((event as CustomEvent).detail)}\n`; });
-    if (data.design && kind === 'page' && !bundle.metadata?.shellId) {
+    if (data.design && kind === 'page') {
       const next = previewUrl({ ...data, page: bundle.metadata!.route });
       if (mode === 'push') history.pushState({}, '', next); else if (mode === 'initial') history.replaceState(history.state, '', next + location.hash);
     }
     output.replaceChildren(instance.host);
     mountedSearch = location.search;
-    if (mode === 'push') { window.scrollTo(0, 0); const focus = instance.root.querySelector<HTMLElement>('h1') ?? instance.root.querySelector<HTMLElement>('main,section'); if (focus) { const temporary = !focus.hasAttribute('tabindex'); if (temporary) { focus.tabIndex = -1; focus.addEventListener('blur', () => focus.removeAttribute('tabindex'), { once: true }); } focus.focus({ preventScroll: true }); } }
+    if (mode === 'push') { window.scrollTo(0, 0); const pageRoot = instance.root.querySelector('[data-uip-region="region-main"]')?.firstElementChild?.shadowRoot ?? instance.root; const focus = pageRoot.querySelector<HTMLElement>('h1') ?? pageRoot.querySelector<HTMLElement>('main,section'); if (focus) { const temporary = !focus.hasAttribute('tabindex'); if (temporary) { focus.tabIndex = -1; focus.addEventListener('blur', () => focus.removeAttribute('tabindex'), { once: true }); } focus.focus({ preventScroll: true }); } }
     if (mode === 'pop' && !location.hash) requestAnimationFrame(() => window.scrollTo(0, Number(history.state?.pageScroll ?? 0)));
     if (data.design) parent.postMessage({ type: 'uip-design-preview-state' }, location.origin);
   } catch (error) { if (current === sequence) {
