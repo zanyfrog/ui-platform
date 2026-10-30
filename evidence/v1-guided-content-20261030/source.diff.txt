@@ -1,0 +1,144 @@
+diff --git a/src/client/builder-workspace/shell-view.ts b/src/client/builder-workspace/shell-view.ts
+index a0fdba4..a7cfe5c 100644
+--- a/src/client/builder-workspace/shell-view.ts
++++ b/src/client/builder-workspace/shell-view.ts
+@@ -26,12 +26,12 @@ export function createBuilderShellView(actions: ShellViewActions, savedPreview =
+   const find = <T extends HTMLElement>(selector: string) => element.querySelector<T>(selector)!;
+   const preview = new FixturePreviewPanel(); element.append(preview.element);
+   const savedSection=document.createElement('section');savedSection.setAttribute('aria-label','Saved Preview readiness');
+-  const savedHeading=document.createElement('h3');savedHeading.textContent='Saved Preview · unavailable';
+-  const savedCheck=document.createElement('button');savedCheck.textContent='Check saved Preview availability';savedCheck.dataset.viewAction='saved-check';
++  const savedHeading=document.createElement('h3');savedHeading.textContent='Restricted Saved Preview readiness · unavailable';
++  const savedCheck=document.createElement('button');savedCheck.textContent='Check restricted Saved Preview readiness';savedCheck.dataset.viewAction='saved-check';
+   const savedStatus=document.createElement('p');savedStatus.setAttribute('role','status');savedStatus.dataset.savedPreviewStatus='';savedSection.append(savedHeading,savedCheck,savedStatus);element.append(savedSection);
+   const unsubscribeSaved=savedPreview.subscribe(value=>{
+     savedCheck.disabled=['parked','suspended','disposed'].includes(value.state);
+-    savedStatus.textContent=`Saved-artifact rendering is unavailable. ${value.outcome?savedPreviewUnavailableText[value.outcome.code]:value.reason}${value.selection?.dirty?' Unsaved changes are excluded; editor autosave remains unchanged.':''}`;
++    savedStatus.textContent=`Restricted Saved Preview is unavailable. For saved Page content, use Saved Design Preview in the Page editor. Fixture demonstration is a separate testing facility. ${value.outcome?savedPreviewUnavailableText[value.outcome.code]:value.reason}${value.selection?.dirty?' Unsaved changes are excluded; editor autosave remains unchanged.':''}`;
+     savedSection.dataset.state=value.state;savedSection.dataset.code=value.outcome?.code??'';
+   });
+   let mounted = false, disposed = false;
+diff --git a/src/client/visual-artifacts/editor.ts b/src/client/visual-artifacts/editor.ts
+index 850aff1..6a97abe 100644
+--- a/src/client/visual-artifacts/editor.ts
++++ b/src/client/visual-artifacts/editor.ts
+@@ -1,5 +1,6 @@
+ import { isPageRootSection, removeNodeAttribute, removeManagedNode, insertNode, isWrapper, moveNode, duplicateSection, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+ import { chooseNamedValue } from './menu-controls.js';
++import { mainContentRegion } from './main-content.js';
+ import { isPlainPageRoute, validatePageLinks } from '../../../packages/visual-artifacts/src/page-links.js';
+ import { renderEditorProblems } from './editor-problems.js';
+ import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
+@@ -106,8 +107,8 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+   const url = () => `${base}/visual-${plural(selectedKind)}?locator=${encodeURIComponent(selected!.locator)}`;
+   target.innerHTML = `<div class="stack"><div class="pane-heading"><strong>Visual Artifacts</strong><span data-status aria-live="polite"></span></div>
+     <div class="editor-actions"><button data-create="page">Create Page</button><button data-create="component">Create Platform Component</button><button data-create="form-dataset">Create Form from Dataset</button><button data-create="form">Create blank Form</button><select aria-label="Visual Artifact" data-artifacts><option value="">Select an artifact</option></select></div>
+-    <div data-work hidden><div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-repair>Advanced source repair save</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Design preview</button><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
+-    <div data-diagnostics></div><div class="builder-layout" style="grid-template-columns:minmax(180px,1fr) minmax(220px,2fr)"><div class="stack"><strong>Structure</strong><select data-nodes size="8" aria-label="Visual node"></select>
++    <div data-work hidden><div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-repair>Advanced source repair save</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Saved Design Preview</button><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
++    <p class="note">Saved Design Preview displays saved content. Save changes before opening it. Fixture demonstration is a separate testing facility; restricted Saved Preview readiness does not control Design Preview.</p><section data-main-content aria-label="Page main content" hidden></section><div data-diagnostics></div><div class="builder-layout" style="grid-template-columns:minmax(180px,1fr) minmax(220px,2fr)"><div class="stack"><strong>Structure</strong><select data-nodes size="8" aria-label="Visual node"></select>
+     <label>Insert into selected container, or artifact root<select data-insert aria-label="Insert element"></select></label><p class="note">Choose an item here, then click Insert selected item. The navigation list inspects component definitions.</p><button data-add>Insert selected item</button><button data-root>Select artifact root</button><button data-move="up">Move layout item up</button><button data-move="down">Move layout item down</button><button data-duplicate-section>Duplicate section</button><div data-inspector></div></div>
+     <div class="stack"><label>Source file<select data-file aria-label="Visual source file">${['source', 'css', 'metadata', 'fixtures', 'code'].map(name => `<option>${name}</option>`).join('')}</select></label><textarea data-source aria-label="Visual source" class="source-editor" spellcheck="false"></textarea><p class="note">Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.</p></div></div><div data-preview-host></div></div></div>`;
+   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
+@@ -140,11 +141,52 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+     const choices = shell ? regions(shell.files.source).map(region => region.regionId) : [...recommendedRegionIds];
+     const id = prompt('Region ID (stable; custom region- IDs allowed in Shells):\n' + choices.join('\n'), choices[0]); if (!id) return;
+     if (shell && !choices.includes(id)) throw new Error('Choose a Region from the Page Shell.');
+-    if (regions(files.source).some(region => region.regionId === id)) throw new Error('Region already exists.');
+     const name = prompt('Region display name:', id); if (name === null) return;
+-    files.source += `\n<section class="uip-layout-item" data-uip-node="node_${crypto.randomUUID()}" data-uip-region="${esc(id)}" data-uip-region-name="${esc(name)}"></section>\n`;
+-    regions(files.source); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
++    addRegion(id, name);
+   }));
++  function addRegion(id: string, name: string): void {
++    const shell = selectedKind === 'page' ? workspace.shells.find(shell => shell.metadata?.artifactId === workingMetadata().shellId) : undefined;
++    if (selectedKind === 'page' && (!shell || !regions(shell.files.source).some(region => region.regionId === id))) throw new Error('Choose a Region from the Page Shell.');
++    if (regions(files.source).some(region => region.regionId === id)) throw new Error('Region already exists.');
++    const nodeId = `node_${crypto.randomUUID()}`;
++    const candidate = files.source + `\n<section class="uip-layout-item" data-uip-node="${nodeId}" data-uip-region="${esc(id)}" data-uip-region-name="${esc(name)}"></section>\n`;
++    regions(candidate); files.source = candidate; selectedNode = nodeId;
++    find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
++  }
++  function renderMainContent(): void {
++    const host = find<HTMLElement>('[data-main-content]'); host.replaceChildren();
++    host.hidden = selectedKind !== 'page' || !workingMetadata().shellId;
++    if (host.hidden) return;
++    try {
++      const shells = workspace.shells.filter(shell => shell.metadata?.artifactId === workingMetadata().shellId);
++      if (shells.length !== 1 || shells[0].diagnostics.some(d => d.severity === 'error')) throw new Error('The shared Shell is missing, ambiguous or needs repair.');
++      const region = mainContentRegion(shells[0].files.source);
++      const owned = regions(files.source).find(item => item.regionId === region.regionId);
++      const label = region.displayName === region.regionId ? 'Main content' : region.displayName;
++      const note = document.createElement('p'); note.textContent = `${label}: ${owned ? 'This Page uses Page-specific main content.' : 'This Page inherits the shared Shell default main content. No Page override exists.'}`; host.append(note);
++      const button = document.createElement('button'); button.textContent = owned ? 'Edit Page-specific main content' : 'Create Page-specific main content';
++      button.addEventListener('click', safe(() => {
++        const current = mainContentRegion(shells[0].files.source);
++        const existing = regions(files.source).find(item => item.regionId === current.regionId);
++        if (existing) { if (!existing.nodeId) throw new Error('The Page content area needs a managed identity. Repair source first.'); selectedNode = existing.nodeId; renderStructure(); }
++        else addRegion(current.regionId, label);
++        find<HTMLSelectElement>('[data-nodes]').focus();
++      })); host.append(button);
++      if (!owned) {
++        const useDefault = document.createElement('button'); useDefault.textContent = 'Use shared Shell default main content';
++        useDefault.addEventListener('click', () => status('Using shared default main content. No Page override has been created.')); host.append(useDefault);
++      }
++      const guidance = document.createElement('p'); guidance.textContent = owned ? 'Add a Heading, Paragraph or Link here. Select an element in Structure to edit it.' : 'Creating Page-specific content replaces the inherited default in this area. The shared Shell is preserved.'; host.append(guidance);
++      for (const [tag, label] of [['h1', 'Heading'], ['p', 'Paragraph'], ['a', 'Link']]) {
++        const add = document.createElement('button'); add.textContent = `Add ${label}`; add.disabled = !owned?.nodeId;
++        add.addEventListener('click', safe(() => {
++          const current = regions(files.source).find(item => item.regionId === region.regionId);
++          if (!current?.nodeId) throw new Error('Choose Page-specific main content first.');
++          selectedNode = current.nodeId; find<HTMLSelectElement>('[data-insert]').value = `html:${tag}`; find<HTMLButtonElement>('[data-add]').click();
++        })); host.append(add);
++      }
++    } catch (error) { host.textContent = error instanceof Error ? error.message : String(error); }
++  }
+   find('[data-remove-node]').addEventListener('click', safe(() => {
+     const node = parseSource(files.source).nodes.find(node => node.id === selectedNode); if (!node) throw new Error('Select a Page-owned or Shell-owned node.');
+     if (!confirm('Remove selected node and its children? Removing a Page Region restores the Shell default; keeping an empty Region suppresses it.')) return;
+@@ -209,7 +251,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+         selector.value = id; selector.dispatchEvent(new Event('change')); selector.focus(); return true;
+       },
+     });
+-    renderInspector();
++    renderMainContent(); renderInspector();
+   }
+   function renderInspector(): void {
+     const inspector = find('[data-inspector]'); const parsed = parseSource(files.source);
+@@ -280,12 +322,12 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+     for (const name of node.tag === 'a' ? ['href'] : node.tag === 'img' ? ['src', 'alt'] : []) {
+       const label = document.createElement('label'); label.textContent = name === 'href' ? 'Link destination (href)' : name === 'src' ? 'Image source (src)' : 'Alternative text (alt)';
+       const input = document.createElement('input'); input.value = Object.entries(node.attributes).find(([key]) => key.toLowerCase() === name)?.[1] ?? ''; input.setAttribute('aria-label', label.textContent);
+-      const setValue = (value: string) => { const next = setNodeAttribute(files.source, selectedNode, name, value, selectedKind); if (selectedKind === 'page' && name === 'href' && !workingMetadata().shellId) validatePageLinks(files.source, next, workspace.pages); files.source = next; input.value = value; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); };
++      const setValue = (value: string) => { const next = setNodeAttribute(files.source, selectedNode, name, value, selectedKind); if (selectedKind === 'page' && name === 'href') validatePageLinks(files.source, next, workspace.pages, { allowComposed: !!workingMetadata().shellId }); files.source = next; input.value = value; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); };
+       input.addEventListener('change', safe(() => setValue(input.value)));
+       label.append(input); inspector.append(label);
+-      if (name === 'href' && selectedKind === 'page' && !workingMetadata().shellId) {
++      if (name === 'href' && selectedKind === 'page') {
+         const destination = document.createElement('select'); destination.setAttribute('aria-label', 'Saved Page destination'); destination.add(new Option('Choose a saved Page', ''));
+-        for (const page of workspace.pages) if (isPlainPageRoute(page.metadata?.route) && !page.metadata?.shellId && !page.diagnostics.some(d => d.severity === 'error') && workspace.pages.filter(p => p.metadata?.route === page.metadata!.route).length === 1) destination.add(new Option(`${page.metadata.displayName} — ${page.metadata.route}`, page.metadata.route));
++        for (const page of workspace.pages) if (isPlainPageRoute(page.metadata?.route) && (!page.metadata?.shellId || !!workingMetadata().shellId && !!page.metadata.routeId && workspace.shells.filter(shell => shell.metadata?.artifactId === page.metadata!.shellId && !shell.diagnostics.some(d => d.severity === 'error')).length === 1) && !page.diagnostics.some(d => d.severity === 'error') && workspace.pages.filter(p => p.metadata?.route === page.metadata!.route).length === 1) destination.add(new Option(`${page.metadata.displayName} — ${page.metadata.route}`, page.metadata.route));
+         destination.value = input.value; destination.addEventListener('change', safe(() => { if (destination.value) setValue(destination.value); })); inspector.append(destination);
+       }
+     }
+@@ -537,8 +579,9 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+     if (!active || disposed) return;
+     if (dirty() || conflict) throw new Error('Save source before previewing.');
+     const host = find<HTMLElement>('[data-preview-host]');
+-    host.replaceChildren(); host.tabIndex = -1; host.setAttribute('aria-label', 'Saved design preview');
+-    const heading = document.createElement('h3'); heading.textContent = 'Saved design preview';
++    host.replaceChildren(); host.tabIndex = -1; host.setAttribute('aria-label', 'Saved Design Preview');
++    host.dataset.savedRevision = hash;
++    const heading = document.createElement('h3'); heading.textContent = 'Saved Design Preview';
+     const feedback = document.createElement('p'); feedback.setAttribute('role', 'status'); feedback.textContent = 'Loading saved design preview…';
+     host.append(heading, feedback);
+     find('[data-diagnostics]').before(host);
+@@ -554,7 +597,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+   const previewFeedback = (event: MessageEvent) => {
+     if (disposed || !active || !preview || event.origin !== location.origin || event.source !== preview.contentWindow || event.data?.type !== 'uip-design-preview-state') return;
+     const feedback = find('[data-preview-host] [role="status"]');
+-    feedback.textContent = event.data.error ? `Design preview blocked: ${String(event.data.error)} Reload saved source and retry; if access is denied, check your Application permissions.` : 'Saved design preview ready.';
++    feedback.textContent = event.data.error ? `Design preview blocked: ${String(event.data.error)} Reload saved source and retry; if access is denied, check your Application permissions.` : `Saved Design Preview ready. Opened saved revision: ${find<HTMLElement>('[data-preview-host]').dataset.savedRevision}. Save changes and reopen Preview to view a newer revision.`;
+   };
+   window.addEventListener('message', previewFeedback);
+   find('[data-preview]').addEventListener('click', safe(() => showPreview(true)));

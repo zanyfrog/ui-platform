@@ -26,12 +26,12 @@ export function createBuilderShellView(actions: ShellViewActions, savedPreview =
   const find = <T extends HTMLElement>(selector: string) => element.querySelector<T>(selector)!;
   const preview = new FixturePreviewPanel(); element.append(preview.element);
   const savedSection=document.createElement('section');savedSection.setAttribute('aria-label','Saved Preview readiness');
-  const savedHeading=document.createElement('h3');savedHeading.textContent='Saved Preview · unavailable';
-  const savedCheck=document.createElement('button');savedCheck.textContent='Check saved Preview availability';savedCheck.dataset.viewAction='saved-check';
+  const savedHeading=document.createElement('h3');savedHeading.textContent='Restricted Saved Preview readiness · unavailable';
+  const savedCheck=document.createElement('button');savedCheck.textContent='Check restricted Saved Preview readiness';savedCheck.dataset.viewAction='saved-check';
   const savedStatus=document.createElement('p');savedStatus.setAttribute('role','status');savedStatus.dataset.savedPreviewStatus='';savedSection.append(savedHeading,savedCheck,savedStatus);element.append(savedSection);
   const unsubscribeSaved=savedPreview.subscribe(value=>{
     savedCheck.disabled=['parked','suspended','disposed'].includes(value.state);
-    savedStatus.textContent=`Saved-artifact rendering is unavailable. ${value.outcome?savedPreviewUnavailableText[value.outcome.code]:value.reason}${value.selection?.dirty?' Unsaved changes are excluded; editor autosave remains unchanged.':''}`;
+    savedStatus.textContent=`Restricted Saved Preview is unavailable. For saved Page content, use Saved Design Preview in the Page editor. Fixture demonstration is a separate testing facility. ${value.outcome?savedPreviewUnavailableText[value.outcome.code]:value.reason}${value.selection?.dirty?' Unsaved changes are excluded; editor autosave remains unchanged.':''}`;
     savedSection.dataset.state=value.state;savedSection.dataset.code=value.outcome?.code??'';
   });
   let mounted = false, disposed = false;
