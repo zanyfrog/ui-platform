@@ -1,0 +1,37 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+const require=createRequire(path.resolve('../ui-base/package.json')), {Window}=require('happy-dom');
+const base='evidence/v1-mixed-page-admission-20261028';
+const run=fs.readdirSync(base).filter(n=>n.startsWith('run-')).sort().at(-1);
+const code=fs.readFileSync(path.join(base,run,'preview-client.mjs'),'utf8');
+const meta={schemaVersion:1,kind:'page',shellId:'art_shared'};
+const bundles=['home','about','contact'].map((name,i)=>({locator:name+'/page.visual.json',hash:String(i+1).repeat(64),metadata:{...meta,artifactId:'art_'+name,routeId:'route_'+name,name,displayName:name,route:'/'+name},files:{source:`<main data-uip-node="main_${name}" data-uip-region="region-main"><h1 data-uip-node="h_${name}">${name}</h1><a data-uip-node="next_${name}" href="/${['about','contact','home'][i]}">Page next</a></main>`,css:'',fixtures:'{}',code:'export {};'},diagnostics:[]}));
+const shell={locator:'shared/shell.visual.json',hash:'4'.repeat(64),metadata:{schemaVersion:1,kind:'shell',artifactId:'art_shared',name:'shared',displayName:'Shared'},files:{source:'<header data-uip-node="header"><span data-uip-node="brand" data-uip-branding="applicationName"></span></header><nav data-uip-node="nav" data-uip-menu="menu-main"></nav><main data-uip-node="shell_main" data-uip-region="region-main"></main><footer data-uip-node="footer">Shared footer</footer>',css:'',fixtures:'{}',code:'export {};'},diagnostics:[]};
+const runtime=b=>({metadata:b.metadata,source:b.files.source,css:b.files.css});
+const definition={settings:{model:'composition-v1',defaultShellId:'art_shared',branding:{applicationName:'Fixture'},theme:{},siteStyles:[],assetsRoot:'assets'},pages:bundles.map(runtime),shells:[runtime(shell)],menus:[{schemaVersion:1,menuId:'menu-main',name:'Main',items:bundles.map(b=>({itemId:'item-'+b.metadata.name,label:b.metadata.name,destination:{kind:'page',pageId:b.metadata.artifactId}}))}],routes:bundles.map(b=>({pageId:b.metadata.artifactId,routeId:b.metadata.routeId,path:b.metadata.route})),siteCss:''};
+const calls=[];let deny=false;
+function windowAt(url) {
+ const w=new Window({url:'http://fixture.invalid'+url});w.structuredClone=structuredClone;w.document.body.innerHTML='<div id="preview"></div><pre id="events"></pre>';
+ const replace=w.Element.prototype.replaceWith;w.Element.prototype.replaceWith=function(...nodes){if(nodes.length===1&&nodes[0]===this)return;return replace.apply(this,nodes);};
+ w.fetch=async input=>{const u=new URL(String(input),'http://fixture.invalid');calls.push(u.pathname+u.search);if(!u.searchParams.has('preview'))return{ok:true,json:async()=>bundles};const b=bundles.find(b=>b.locator===u.searchParams.get('locator'));const ok=!deny&&b?.hash===u.searchParams.get('hash');return{ok,json:async()=>ok?{bundle:b,components:[],packages:[],shells:[shell],code:{},composition:structuredClone({...definition,pages:[runtime(b)]})}:{error:'Saved composed revision changed'}};};w.eval(code);return w;
+}
+const settle=async w=>{await w.happyDOM.whenAsyncComplete();await new Promise(r=>setTimeout(r,40));};
+const root=w=>w.document.querySelector('[data-uip-artifact]').shadowRoot;
+const pageRoot=w=>root(w).querySelector('[data-uip-region]').firstElementChild.shadowRoot;
+const url='/visual-preview.html?'+new URLSearchParams({app:'fixture',locator:bundles[0].locator,revision:bundles[0].hash,kind:'page',design:'1',page:'/home'});
+const w=windowAt(url);await settle(w);
+assert.equal(pageRoot(w).querySelector('h1').textContent,'home');assert.equal(root(w).querySelector('[data-uip-branding]').textContent,'Fixture');
+const old=w.document.querySelector('[data-uip-artifact]');
+root(w).querySelector('a[href="/about"]').click();await settle(w);
+assert.equal(old.isConnected,false);assert.equal(pageRoot(w).querySelector('h1').textContent,'about');assert.equal(pageRoot(w).activeElement?.tagName,'H1');
+assert.equal(root(w).querySelector('a[aria-current=page]').textContent,'about');
+assert.equal(new URLSearchParams(w.location.search).get('page'),'/about');
+const restored=windowAt(w.location.pathname+w.location.search);await settle(restored);assert.equal(pageRoot(restored).querySelector('h1').textContent,'about');
+pageRoot(w).querySelector('a').click();await settle(w);assert.equal(pageRoot(w).querySelector('h1').textContent,'contact');
+w.history.back();await settle(w);assert.equal(pageRoot(w).querySelector('h1').textContent,'about');w.history.forward();await settle(w);assert.equal(pageRoot(w).querySelector('h1').textContent,'contact');
+const before=w.location.href,retained=w.document.querySelector('[data-uip-artifact]');deny=true;root(w).querySelector('a[href="/home"]').click();await settle(w);assert.equal(w.location.href,before);assert.equal(retained.isConnected,true);assert.match(w.document.querySelector('#events').textContent,/revision changed/);
+await w.happyDOM.close();await restored.happyDOM.close();
+fs.writeFileSync('evidence/v1-shared-composition-20261029/native-composed-preview-lifecycle.json',JSON.stringify({passed:true,compiledClient:path.join(base,run,'preview-client.mjs'),menuNavigation:true,pageLiteralNavigation:true,branding:true,activeMenu:true,pageFocus:true,reload:true,back:true,forward:true,disposal:true,failedRevisionRetainsMountAndUrl:true,calls,scope:'Actual Preview client/runtime; isolated DOM and fake saved transport. Not browser or authority evidence.'},null,2));
+console.log('PASS composed saved Preview lifecycle');

@@ -1,0 +1,607 @@
+{
+  "inputs": {
+    "tests/shared-composition/native-boundaries.ts": {
+      "bytes": 588,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/json-files.ts": {
+      "bytes": 485,
+      "imports": [
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/artifacts/storage",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/app-manifests.ts": {
+      "bytes": 9597,
+      "imports": [
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./paths.js"
+        },
+        {
+          "path": "src/server/json-files.ts",
+          "kind": "import-statement",
+          "original": "./json-files.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/history.ts": {
+      "bytes": 457,
+      "imports": [
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/native-ui-base.ts": {
+      "bytes": 3634,
+      "imports": [
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@uib/platform-core",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/composition-lock.ts": {
+      "bytes": 946,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/artifacts/storage",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./paths.js"
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/packages.ts": {
+      "bytes": 13108,
+      "imports": [
+        {
+          "path": "@uib/platform-core",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/server/app-manifests.ts",
+          "kind": "import-statement",
+          "original": "./app-manifests.js"
+        },
+        {
+          "path": "src/server/history.ts",
+          "kind": "import-statement",
+          "original": "./history.js"
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./applications.js"
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./paths.js"
+        },
+        {
+          "path": "src/server/native-ui-base.ts",
+          "kind": "import-statement",
+          "original": "./native-ui-base.js"
+        },
+        {
+          "path": "src/server/composition-lock.ts",
+          "kind": "import-statement",
+          "original": "./composition-lock.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/component-registry.ts": {
+      "bytes": 10552,
+      "imports": [
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./paths.js"
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./applications.js"
+        },
+        {
+          "path": "src/server/packages.ts",
+          "kind": "import-statement",
+          "original": "./packages.js"
+        },
+        {
+          "path": "src/server/native-ui-base.ts",
+          "kind": "import-statement",
+          "original": "./native-ui-base.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/visual-artifacts.ts": {
+      "bytes": 16230,
+      "imports": [
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/visual-artifacts",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/server/json-files.ts",
+          "kind": "import-statement",
+          "original": "./json-files.js"
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./trash.js"
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./applications.js"
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./paths.js"
+        },
+        {
+          "path": "@ui-platform/artifacts/storage",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/visual-candidate.ts": {
+      "bytes": 8495,
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "esbuild",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/artifacts",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/visual-artifacts",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/visual-artifacts/vite",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/server/visual-artifacts.ts",
+          "kind": "import-statement",
+          "original": "./visual-artifacts.js"
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./applications.js"
+        },
+        {
+          "path": "@ui-platform/visual-artifacts",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    "src/server/application-composition.ts": {
+      "bytes": 20997,
+      "imports": [
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/visual-artifacts",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./applications.js"
+        },
+        {
+          "path": "src/server/json-files.ts",
+          "kind": "import-statement",
+          "original": "./json-files.js"
+        },
+        {
+          "path": "src/server/visual-artifacts.ts",
+          "kind": "import-statement",
+          "original": "./visual-artifacts.js"
+        },
+        {
+          "path": "src/server/composition-lock.ts",
+          "kind": "import-statement",
+          "original": "./composition-lock.js"
+        },
+        {
+          "path": "esbuild",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/server/component-registry.ts",
+          "kind": "import-statement",
+          "original": "./component-registry.js"
+        },
+        {
+          "path": "@ui-platform/visual-artifacts",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/server/visual-candidate.ts",
+          "kind": "dynamic-import",
+          "original": "./visual-candidate.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "tests/shared-composition/native.ts": {
+      "bytes": 4898,
+      "imports": [
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "src/server/packages.ts",
+          "kind": "import-statement",
+          "original": "../../src/server/packages.js"
+        },
+        {
+          "path": "src/server/component-registry.ts",
+          "kind": "import-statement",
+          "original": "../../src/server/component-registry.js"
+        },
+        {
+          "path": "src/server/application-composition.ts",
+          "kind": "import-statement",
+          "original": "../../src/server/application-composition.js"
+        },
+        {
+          "path": "src/server/visual-artifacts.ts",
+          "kind": "import-statement",
+          "original": "../../src/server/visual-artifacts.js"
+        },
+        {
+          "path": "tests/shared-composition/native-boundaries.ts",
+          "kind": "import-statement",
+          "original": "./native-boundaries.js"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "native.js": {
+      "imports": [
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/artifacts/storage",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/visual-artifacts",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/artifacts/storage",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@uib/platform-core",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@uib/platform-core",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/artifacts/storage",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:async_hooks",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:crypto",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:fs/promises",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:path",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/visual-artifacts",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "esbuild",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "@ui-platform/visual-artifacts",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "exports": [
+        "verify"
+      ],
+      "entryPoint": "tests/shared-composition/native.ts",
+      "inputs": {
+        "tests/shared-composition/native-boundaries.ts": {
+          "bytesInOutput": 703
+        },
+        "src/server/json-files.ts": {
+          "bytesInOutput": 462
+        },
+        "src/server/visual-artifacts.ts": {
+          "bytesInOutput": 13976
+        },
+        "tests/shared-composition/native.ts": {
+          "bytesInOutput": 4783
+        },
+        "src/server/packages.ts": {
+          "bytesInOutput": 9124
+        },
+        "src/server/app-manifests.ts": {
+          "bytesInOutput": 5854
+        },
+        "src/server/history.ts": {
+          "bytesInOutput": 409
+        },
+        "src/server/native-ui-base.ts": {
+          "bytesInOutput": 3259
+        },
+        "src/server/composition-lock.ts": {
+          "bytesInOutput": 424
+        },
+        "src/server/component-registry.ts": {
+          "bytesInOutput": 8625
+        },
+        "src/server/application-composition.ts": {
+          "bytesInOutput": 11504
+        }
+      },
+      "bytes": 59877
+    }
+  }
+}

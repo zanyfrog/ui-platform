@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-29",
+  "verification": "Operator-assisted normal Chrome saved Design Preview iframe Reload",
+  "requestedWorkflow": "Fixture Application → Pages → home → Design preview → shared Menu Contact → Chrome right-click Reload frame",
+  "initialOperatorReport": "After Reload Items, Contact comes back",
+  "clarificationAsked": "Did Reload Items mean Chrome's right-click Reload frame inside the saved Preview, and did the Builder address remain http://localhost:5374/?",
+  "operatorConfirmation": "yes, and yes",
+  "contactRestoredAfterFrameReload": true,
+  "chromeReloadFrameConfirmed": true,
+  "builderAddressUnchanged": "http://localhost:5374/",
+  "qualification": "Operator-reported result. Automation could not independently re-observe the final Reload because Chrome control was timing out. Shared header/footer and three-Page navigation were observed by automation before the operator restart; this confirmation is not represented as a new automated screenshot or raw network capture."
+}

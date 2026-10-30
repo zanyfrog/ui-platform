@@ -162,7 +162,7 @@ export async function saveCompositionSource(appKey: string, relative: string, co
     if (relative.startsWith('styles/')) {
       await validateCompositionStyle(content);
     }
-    try { await compositionWorkspace(appKey, await discoverComponents(appKey), { path: relative, content }); }
+    try { await compositionWorkspace(appKey, await discoverComponents(appKey, relative === 'app.settings.json' ? { presentationModel: JSON.parse(content).presentation?.model } : undefined), { path: relative, content }); }
     catch { throw new Error('The candidate conflicts with Application composition. Check related routes, Menus, Shells and styles before saving.'); }
     } catch (error) { throw Object.assign(error instanceof Error ? error : new Error(String(error)), { status: 422 }); }
     await admit();

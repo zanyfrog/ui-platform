@@ -10,7 +10,7 @@ import { editForm, formSource } from '../artifact-editor/form-editor.js';
 import type { WorkspaceLinkOrigin } from './coordinator.js';
 import { chooseFormCreation } from '../artifact-editor/form-creation.js';
 import { chooseVisualCreation } from '../visual-artifacts/creation.js';
-import { chooseNamedValue } from '../visual-artifacts/menu-controls.js';
+import { chooseMenuName, chooseNamedValue } from '../visual-artifacts/menu-controls.js';
 import { LatestProblems } from './problems.js';
 import { subscribeSourceSaved } from '../artifact-editor/saved-source.js';
 import type { ProblemsReport } from '../../shared/application-diagnostics.js';
@@ -83,7 +83,7 @@ for (const operation of ['Create Menu', 'Upload Application asset']) {
     const key = applicationKey, binding = createEditorSessionBinding();
     const owner = discovery[0]?.applicationId; if (!owner) throw new Error('Refresh and authorize the Application before continuing.');
     if (operation === 'Create Menu') {
-      const name = prompt('Menu name:'); if (!name?.trim()) return;
+      const name = await chooseMenuName(); if (!name?.trim() || parked || key !== applicationKey) return;
       const id = `menu-${crypto.randomUUID()}`, locator = `menus/${id}.json`;
       const response = await fetch(`/api/apps/${encodeURIComponent(key)}/composition-source?path=${encodeURIComponent(locator)}`, { method: 'PUT', headers: { ...await binding.headers(), 'x-editor-application-id': owner, 'content-type': 'application/json' }, body: JSON.stringify({ mode: 'normal', content: JSON.stringify({ schemaVersion: 1, menuId: id, name: name.trim(), items: [] }, null, 2) + '\n', expectedHash: null }) });
       const value = await response.json(); binding.assert(); if (!response.ok) throw new Error(value.error ?? 'Menu creation denied.');

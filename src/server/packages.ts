@@ -20,6 +20,8 @@ import { appManifestPathFor, ensureAppManifest, setAppPackageDeclaration } from 
 import { appendHistory } from './history.js';
 import { appPath } from './applications.js';
 import { platformRoot } from './paths.js';
+import { nativeUiBaseEntry, nativeUiBaseName } from './native-ui-base.js';
+import { withApplicationMutation } from './composition-lock.js';
 
 interface CandidatePackage {
   manifest: DiscoveredPackageManifest['manifest'];
@@ -48,7 +50,14 @@ export async function getGlobalPackageCatalog(): Promise<PackageCatalogPayload> 
 
 export async function getAppPackageCatalog(key: string): Promise<AppPackageCatalogPayload> {
   const appManifest = await ensureAppManifest(key);
-  return resolveAppPackageCatalog({ appManifest, appDir: appPath(key), platformRootDir: platformRoot });
+  const catalog = await resolveAppPackageCatalog({ appManifest, appDir: appPath(key), platformRootDir: platformRoot });
+  // Keep service-package resolution intact. Native UI Base has its own real
+  // manifest and is available for explicit activation of just Card and Panel.
+  if (!catalog.entries.some(entry => entry.name === nativeUiBaseName && entry.resolved)) {
+    const native = await nativeUiBaseEntry(platformRoot, appManifest.packages[nativeUiBaseName]);
+    if (native) catalog.entries = [...catalog.entries.filter(entry => entry.name !== nativeUiBaseName), native].sort(sortPackages);
+  }
+  return catalog;
 }
 
 export async function resolveAppPackageCatalog(options: ResolveAppPackageCatalogOptions): Promise<AppPackageCatalogPayload> {
@@ -101,7 +110,8 @@ function setPreferredCandidate(candidates: Map<string, CandidatePackage>, packag
     candidates.set(packageName, candidate);
   }
 }
-export async function enableAppPackage(key: string, packageName: string, version?: string): Promise<AppPackageCatalogPayload> {
+export async function enableAppPackage(key: string, packageName: string, version?: string, admit: () => Promise<void> = async () => {}): Promise<AppPackageCatalogPayload> {
+  return withApplicationMutation(appPath(key), async () => {
   const catalog = await getAppPackageCatalog(key);
   const current = catalog.entries.find((entry) => entry.name === packageName);
   const now = new Date().toISOString();
@@ -111,15 +121,19 @@ export async function enableAppPackage(key: string, packageName: string, version
     throw new Error(`Package "${packageName}" is not available to this application.`);
   }
 
+  const native = current?.name === nativeUiBaseName && current.manifestPath.endsWith('ui.component.json');
+  if (native && (!requestedVersion || !isVersionCompatible(current.version, requestedVersion))) throw new Error('Select a compatible installed native UI Base version.');
+  await admit();
   await setAppPackageDeclaration(key, packageName, {
     enabled: true,
     version: requestedVersion,
-    resolution: 'app-first',
+    resolution: native ? 'platform-only' : 'app-first',
     addedAt: catalog.appManifest.packages[packageName]?.addedAt ?? now,
     updatedAt: now,
   });
   await appendHistory(appPath(key), { action: 'package.enabled', appId: catalog.appManifest.appId, packageName, actor: 'local-user' });
   return getAppPackageCatalog(key);
+  });
 }
 
 export async function disableAppPackage(key: string, packageName: string): Promise<AppPackageCatalogPayload> {

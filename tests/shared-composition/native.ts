@@ -1,0 +1,42 @@
+import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';
+import {getAppPackageCatalog,enableAppPackage,disableAppPackage} from '../../src/server/packages.js';
+import {discoverComponents,getAppPackageAsset} from '../../src/server/component-registry.js';
+import {saveCompositionSource,compositionWorkspace,readCompositionSource} from '../../src/server/application-composition.js';
+import {VisualArtifactService} from '../../src/server/visual-artifacts.js';
+import {platformRoot,appPath} from './native-boundaries.js';
+export async function verify(){
+ const app=appPath('fixture'),native=path.join(platformRoot,'node_modules/@ui-base/ui');
+ for(const dir of [app,native,path.join(platformRoot,'components'),path.join(app,'src/pages/home'),path.join(app,'shells')])await fs.mkdir(dir,{recursive:true});
+ const manifest=JSON.parse(await fs.readFile('node_modules/@ui-base/ui/ui.component.json','utf8'));
+ await fs.writeFile(path.join(native,'ui.component.json'),JSON.stringify(manifest));
+ await fs.writeFile(path.join(native,'package.json'),'{"name":"@ui-base/ui","version":"0.5.1"}');
+ for(const name of ['uib-card','uib-panel']){const file=path.join(native,'src/layout',name+'.js');await fs.mkdir(path.dirname(file),{recursive:true});await fs.writeFile(file,'export {};');}
+ await fs.writeFile(path.join(platformRoot,'package.json'),'{"dependencies":{"@ui-base/ui":"0.5.1"}}');
+ await fs.writeFile(path.join(app,'package.json'),'{}');
+ const originalManifest=JSON.stringify({manifestVersion:'1.0.0',appId:'dev-native-fixture',template:'fixture',templateVersion:'1.0.0',packages:{},foundationImports:{}});
+ await fs.writeFile(path.join(app,'app.manifest.json'),originalManifest);
+ const original='{\n  "application":{"name":"Native Fixture","status":"active"}\n}\n';await fs.writeFile(path.join(app,'app.settings.json'),original);
+ const shells=new VisualArtifactService(path.join(app,'shells'),'shell'),shell=await shells.create('shared');
+ await fs.writeFile(path.join(app,'src/pages/home/page.visual.json'),JSON.stringify({schemaVersion:1,artifactId:'art_home',kind:'page',name:'home',displayName:'Home',route:'/home'}));
+ await fs.writeFile(path.join(app,'src/pages/home/page.html'),'<section data-uip-node="s"><uib-card data-uip-node="card" data-uip-component="cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1"></uib-card></section>');
+ const before=await readCompositionSource('fixture','app.settings.json');
+ const candidate=JSON.stringify({application:JSON.parse(original).application,presentation:{model:'composition-v1',branding:{applicationName:'Native Fixture'},theme:{},siteStyles:[],assetsRoot:'assets',defaultShellId:shell.metadata!.artifactId}});
+ assert.ok((await discoverComponents('fixture')).length>2,'legacy catalog remains unchanged');
+ assert.equal((await discoverComponents('fixture',{presentationModel:'composition-v1'})).length,0);
+ await assert.rejects(saveCompositionSource('fixture','app.settings.json',candidate,before.hash),/candidate conflicts/);
+ assert.equal(await fs.readFile(path.join(app,'app.settings.json'),'utf8'),original);
+ await assert.rejects(enableAppPackage('fixture','@ui-base/ui','99.0.0'),/compatible/);
+ await assert.rejects(enableAppPackage('fixture','@ui-base/ui','0.5.1',async()=>{throw Error('AUTHORITY_DENIED');}),/AUTHORITY_DENIED/);
+ assert.equal(await fs.readFile(path.join(app,'app.manifest.json'),'utf8'),originalManifest);
+ await enableAppPackage('fixture','@ui-base/ui','0.5.1');
+ const enabled=(await getAppPackageCatalog('fixture')).entries.find(e=>e.name==='@ui-base/ui')!;
+ assert.equal(enabled.resolution,'platform-only');assert.equal(enabled.components.length,2);assert.equal(enabled.status,'enabled');
+ const catalog=await discoverComponents('fixture',{presentationModel:'composition-v1'});assert.deepEqual(catalog.map(p=>p.tagName).sort(),['uib-card','uib-panel']);
+ await saveCompositionSource('fixture','app.settings.json',candidate,before.hash);
+ assert.equal((await compositionWorkspace('fixture',await discoverComponents('fixture'),undefined,{recovery:'refuse'}))!.pages.length,1);
+ await getAppPackageAsset('fixture','@ui-base/ui','./src/layout/uib-card.js');
+ await assert.rejects(getAppPackageAsset('fixture','@ui-base/ui','./src/content/uib-heading.js'),/explicitly admitted/);
+ await assert.rejects(getAppPackageAsset('fixture','@ui-base/ui','./../other.js'),/explicitly admitted|inside/);
+ await disableAppPackage('fixture','@ui-base/ui');assert.equal((await discoverComponents('fixture')).length,0);
+ return{passed:true,prospectiveCatalogRefusal:true,failedSettingsUnchanged:true,authorityRefusal:true,versionRefusal:true,explicitTwoContracts:true,actualEnabledGraph:true,disabledHonored:true,unadmittedModulesRefused:true,scope:'Actual registry, settings service, package declaration and Foundation mutation against detached fixture roots; no native module executed'};
+}

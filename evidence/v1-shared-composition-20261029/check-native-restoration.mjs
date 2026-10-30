@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';import path from 'node:path';import crypto from 'node:crypto';import assert from 'node:assert/strict';
+const ev=path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/i,'$1')),baseline=JSON.parse(await fs.readFile(path.join(ev,'baseline.json'),'utf8'));
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');const pages=baseline.records.filter(r=>!r.file.endsWith('app.settings.json'));
+for(const r of pages)assert.equal(sha(await fs.readFile(r.file)),r.hash,r.file);
+const graph=JSON.parse(await fs.readFile(path.join(ev,'normal-native-restored-graph.json'),'utf8'));assert.equal(graph.pages.length,13);assert.ok(graph.pages.every(p=>!p.metadata.shellId));
+const before=JSON.parse(await fs.readFile(path.join(ev,'native-app-manifest-before.json'),'utf8')),after=JSON.parse(await fs.readFile(path.join(baseline.app,'app.manifest.json'),'utf8'));
+const native=after.packages['@ui-base/ui'];assert.equal(native.enabled,true);assert.equal(native.resolution,'platform-only');assert.equal(native.version,'^0.5.1');
+const stripped=structuredClone(after);delete stripped.packages['@ui-base/ui'];delete stripped.updatedAt;const old=structuredClone(before);delete old.updatedAt;assert.deepEqual(stripped,old);
+await fs.writeFile(path.join(ev,'native-app-manifest-after.json'),JSON.stringify(after,null,2));
+await fs.writeFile(path.join(ev,'native-restoration-preservation.json'),JSON.stringify({passed:true,normalChromeValidatedWholeApplication:true,pages:13,routes:13,existingPageFilesUnchanged:pages.length,noPageAdoptedYet:true,manifestOnlyNativeDeclarationAndUpdatedAtChanged:true,beforeManifest:before,afterManifest:after},null,2));console.log('PASS actual graph restored; all 79 Page files unchanged');

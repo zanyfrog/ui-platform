@@ -1,0 +1,6 @@
+import fs from 'node:fs/promises';import path from 'node:path';import {pathToFileURL} from 'node:url';import {build} from 'esbuild';
+const root=path.resolve('.'),out=path.join(root,'evidence/v1-shared-composition-20261029','native-'+Date.now());await fs.mkdir(out,{recursive:true});process.env.NATIVE_COMPOSITION_TEST_ROOT=path.join(out,'fixture');
+const boundary=path.join(root,'tests/shared-composition/native-boundaries.ts');
+const result=await build({absWorkingDir:root,entryPoints:['tests/shared-composition/native.ts'],bundle:true,write:false,platform:'node',format:'esm',packages:'external',metafile:true,plugins:[{name:'physical-fixture-owners',setup(b){b.onResolve({filter:/.*/},a=>{if(a.importer.includes(path.join('src','server'))&&['applications','paths','trash'].includes(path.basename(a.path,'.js')))return{path:boundary};});}}]});
+await fs.writeFile(path.join(out,'inputs.json'),JSON.stringify(result.metafile,null,2));const entry=path.join(out,'verify.mjs');await fs.writeFile(entry,result.outputFiles[0].text);
+try{const m=await import(pathToFileURL(entry).href);await fs.writeFile(path.join(out,'result.json'),JSON.stringify(await m.verify(),null,2));console.log('PASS '+out);}catch(e){await fs.writeFile(path.join(out,'failure.txt'),e.stack);throw e;}

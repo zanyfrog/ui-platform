@@ -8,6 +8,9 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [visualArtifacts({ componentsRoot: path.join(projectRoot, 'components') })],
+  // These workspace outputs change during development. Load their current
+  // modules, as the reference host does, rather than retaining an old runtime.
+  optimizeDeps: { exclude: ['@ui-platform/visual-artifacts', '@ui-platform/visual-artifacts/runtime', '@ui-platform/visual-artifacts/revision-guard'] },
   build: { rollupOptions: { input: { main: path.join(projectRoot, 'index.html'), 'visual-preview': path.join(projectRoot, 'visual-preview.html') } } },
   resolve: {
     // Resolve linked UI Base packages through this project's node_modules.

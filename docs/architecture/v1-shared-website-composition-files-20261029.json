@@ -1,0 +1,1805 @@
+{
+  "status": "Shared Website Composition implementation inventory; review submission, not acceptance",
+  "date": "2026-10-29",
+  "modifiedPrimaryProductSources": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\src\\revision-composition-vite.ts",
+      "sha256": "b5b9c1945f78e354dbe4139c3e609cb6c3b35a36dedd3616cd7bbf05ed3abe8b",
+      "bytes": 12942,
+      "beforeGitObjectSha256": "820246fda32165168188321d1e28346363fccd13aa6f9f51c9c661d76e9ea8dc"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\src\\runtime.ts",
+      "sha256": "7839b92179e66a3b23a8c38cb00150ee52afd4ba8f322a229e5fdd74c1ede29b",
+      "bytes": 27527,
+      "beforeGitObjectSha256": "87e0cc74cc7827ec50277f4d3454521d0004f8d0daabf07a6c91a2bf6280249b"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\client\\builder-workspace\\shell.ts",
+      "sha256": "ae8061879dc757ce421ffc8210225d8b84268b9dfe53e046124414d0459dad31",
+      "bytes": 22765,
+      "beforeGitObjectSha256": "749ed970219045709351f3d274170704adca9bb3b3f0fa73f9aac6dd4141563b"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\client\\packages-ui.ts",
+      "sha256": "10c43e21d25785af4b35e3e159a7860298efcc38f18c07a4f2c4edc09ed72ab5",
+      "bytes": 33537,
+      "beforeGitObjectSha256": "10cb01e7d4eb738a48e529a96c357f08096c4f19c5ed91d71bb9e5f6ae755d71"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\client\\visual-artifacts\\editor.ts",
+      "sha256": "6680299b7c132eb39fc01f539b42899ef9049b223b4c59feaaf80e1c6748ba18",
+      "bytes": 64393,
+      "beforeGitObjectSha256": "8e8f295b66deaf4c2dd7095a5e9dc0673f85cf5f2b8889cc64ac760bd2ab46ab"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\client\\visual-artifacts\\menu-controls.ts",
+      "sha256": "3f5773b27de2b22466f2f0baccc1458c8d25784accd3618f5d6ed7a011f79590",
+      "bytes": 8927,
+      "beforeGitObjectSha256": "13ee910055fd56b384f094d5537d2bb4a434c331ea3d776e789bdcd543fa34da"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\client\\visual-artifacts\\preview.ts",
+      "sha256": "12f3769d6b15ef937fc636848ece0866da4a444109159e81772fb7615adc1a78",
+      "bytes": 8780,
+      "beforeGitObjectSha256": "51cbdabeffbb2fd0a7e283252047b5dd061bad85dc86b2ee0e6b8a87be94eb54"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\server\\application-composition.ts",
+      "sha256": "eb19c5c2d8322c7496af3d995d7b543826a4c06ced560a533de9064c218362e3",
+      "bytes": 20997,
+      "beforeGitObjectSha256": "f3de694c3aae359daa68f8cfd875daad0f553ccf5c30942b6b953e7b610ef6f1"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\server\\component-registry.ts",
+      "sha256": "f1b55c22efe3adb3e377953481dddc3428a35d055229823c09460ce8a8928ab4",
+      "bytes": 10552,
+      "beforeGitObjectSha256": "1b130d6204bd64fd4b79b4721f2d42f535e2ac02e852f5e2efca0668cf35fde2"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\server\\index.ts",
+      "sha256": "fe38dd797c9e1b099705ddf5ecd29d468df83f9d234d71b671076727f13dcea6",
+      "bytes": 51223,
+      "beforeGitObjectSha256": "a750829e1c99116a7a88c4e9d1e8178ea02facdabd5fddc06a2870a82e1baa86"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\server\\packages.ts",
+      "sha256": "4db55a0cecc6366fa83a808a8a756d5af3b540704f6938378e080b556a81746d",
+      "bytes": 13108,
+      "beforeGitObjectSha256": "949f93829d78db79e467c234e72bb3e9c7c96a2a96211b35496f02bbc780204e"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\server\\visual-candidate.ts",
+      "sha256": "2c956773ad8add381111e4b50e953814c1a8ebc10c3314d92fb9e7ad0a59dc58",
+      "bytes": 8495,
+      "beforeGitObjectSha256": "255fd4874f99b2af4b1ba8a0929a5ecb87a2bddcd61623a578944dc9b5668e49"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\vite.config.ts",
+      "sha256": "f44e5ba199f2b1b1dfcdade89053c295700f9e6ee08df965b91e6abad589194b",
+      "bytes": 2228,
+      "beforeGitObjectSha256": "0e0b666da363d8661673c10fc7d5ffdb30cda51f3ec4a3bbf5c29265b50edf59"
+    }
+  ],
+  "addedPrimaryFilesAndEvidence": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\v1-shared-website-composition-implementation-20261029.md",
+      "sha256": "4d5c76a7313f425fe55cf149696de7c3a2b6d30c704cce373ac3c0d29884b195",
+      "bytes": 12550
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\v1-shared-website-composition-review-gate-20261029.md",
+      "sha256": "48869b94767487914c4a698ab231c65cb5ad0dd022966cc53547f724013b8b7d",
+      "bytes": 8897
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\docs\\architecture\\v1-shared-website-composition-verification-handoff-20261029.md",
+      "sha256": "ff74735fac447977bc7166b99acf73a3654c1ef83333db5cb430dc73dec0b0d5",
+      "bytes": 2315
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\capture-1793301052020\\admission.json",
+      "sha256": "e8b04ee7da09048a1f72648959f108695b3bba73386fd2752826744a754a496e",
+      "bytes": 4775
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\capture-1793301052020\\capture-fixture-0eUqmO\\application\\app.settings.json",
+      "sha256": "cdb97f3d92149ea9cbae712a8f4fd7234db2c019c9fc70957205960397b1e6be",
+      "bytes": 170
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\capture-1793301052020\\capture-fixture-34TOMO\\application\\app.settings.json",
+      "sha256": "cdb97f3d92149ea9cbae712a8f4fd7234db2c019c9fc70957205960397b1e6be",
+      "bytes": 170
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\capture-1793301052020\\capture-fixture-V8fbSB\\application\\app.settings.json",
+      "sha256": "cdb97f3d92149ea9cbae712a8f4fd7234db2c019c9fc70957205960397b1e6be",
+      "bytes": 170
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\capture-1793301052020\\capture-results.json",
+      "sha256": "ed8227c348089250bdd55462fe1d4aaafabdcf00135c083067d14fc30793d5ac",
+      "bytes": 2082
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\capture-1793301052020\\capture.mjs",
+      "sha256": "d55ec07f9fe89b19e23bc8c62ad89e437b9d51341b39e040340f5ca10a684b4c",
+      "bytes": 83647
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\admission.json",
+      "sha256": "5a68ec136badf5be1b7b21423eb8b4c24bc9e8a9aee1023f8983e98153c088bd",
+      "bytes": 22440
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\browser.js",
+      "sha256": "c8444eebcc7a592e68d3e2542d53abcd7ae892670c3b38963c71a0d1ff1ce25b",
+      "bytes": 151798
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\002594311c1a2c2f29e7f93cf1be1461d02dc80cd3352db40366db65f40e5a7b.txt",
+      "sha256": "002594311c1a2c2f29e7f93cf1be1461d02dc80cd3352db40366db65f40e5a7b",
+      "bytes": 196
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\067175788c06bffd9de7e9863a564820bff9bb8f07c09f0d5cf7e16c430f0e84.txt",
+      "sha256": "067175788c06bffd9de7e9863a564820bff9bb8f07c09f0d5cf7e16c430f0e84",
+      "bytes": 5337
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\079f52bf913c716a91fc4d3c5a7277355d3460585b3963e2f76040a4c9603432.txt",
+      "sha256": "079f52bf913c716a91fc4d3c5a7277355d3460585b3963e2f76040a4c9603432",
+      "bytes": 25918
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca.txt",
+      "sha256": "0b1f41d5513f349f6a670e51046acb10e4b325965b13ebe30ebeecd75041abca",
+      "bytes": 647
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\0b88641f280f0eb5a8ca0ecf3b21844174ebe926a44b9f53be6c199136dd61fa.txt",
+      "sha256": "0b88641f280f0eb5a8ca0ecf3b21844174ebe926a44b9f53be6c199136dd61fa",
+      "bytes": 2390
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\0c1c6cbbd031b60e5ba85023d423828eed4bcf45cfc8cff4b8eb33e855fd7b74.txt",
+      "sha256": "0c1c6cbbd031b60e5ba85023d423828eed4bcf45cfc8cff4b8eb33e855fd7b74",
+      "bytes": 625
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\0f39215f446a1466b150875068bb2669aefa481bbdfafd0c6bd9d19d7827e79d.txt",
+      "sha256": "0f39215f446a1466b150875068bb2669aefa481bbdfafd0c6bd9d19d7827e79d",
+      "bytes": 14784
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\12f3769d6b15ef937fc636848ece0866da4a444109159e81772fb7615adc1a78.txt",
+      "sha256": "12f3769d6b15ef937fc636848ece0866da4a444109159e81772fb7615adc1a78",
+      "bytes": 8780
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\146ada250f37d262f035725e06898a60666bf46496ad157bd921368ea590a5b5.txt",
+      "sha256": "146ada250f37d262f035725e06898a60666bf46496ad157bd921368ea590a5b5",
+      "bytes": 408
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\152423d2f53bb58baffe6b73ee262f001b9480fed20e7b37681e4b89c1a06305.txt",
+      "sha256": "152423d2f53bb58baffe6b73ee262f001b9480fed20e7b37681e4b89c1a06305",
+      "bytes": 6801
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc.txt",
+      "sha256": "1956b4393509698c07431ebbcbe664138a90fd537cd91b9dbb277e9fdc7a8ebc",
+      "bytes": 4956
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4.txt",
+      "sha256": "1c3b3e584a4fcdc5632337c686b8875fbf0fbb19dbf0d08c46d4510fc732d0f4",
+      "bytes": 3321
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\1e0f39079dc070a21c63df68ea54401265dd5f7b5c942c442a27057f753e1339.txt",
+      "sha256": "1e0f39079dc070a21c63df68ea54401265dd5f7b5c942c442a27057f753e1339",
+      "bytes": 17679
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\230243045bcc725935dfb8c457e6713fca7e9193ebf393c388df0cc5ac2e338a.txt",
+      "sha256": "230243045bcc725935dfb8c457e6713fca7e9193ebf393c388df0cc5ac2e338a",
+      "bytes": 4187
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\24909116ef213b1cbdf6dfd8e171df9541840991df30c6a35cd7c01cbba288cd.txt",
+      "sha256": "24909116ef213b1cbdf6dfd8e171df9541840991df30c6a35cd7c01cbba288cd",
+      "bytes": 1469
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb.txt",
+      "sha256": "2d9cd332967ee2ca63bfeb6c4527189746aacb27cfee1ddd5e5847b3122392eb",
+      "bytes": 2197
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\308a510a0ffb8693bb9c93dee15e406ecf9cb4f445cd9954a74b2d08b2cb8edd.txt",
+      "sha256": "308a510a0ffb8693bb9c93dee15e406ecf9cb4f445cd9954a74b2d08b2cb8edd",
+      "bytes": 2511
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\3b4b1d7fe64529072ec50c5e6da763da73e0eef288b1f55f5a2d409cf001b971.txt",
+      "sha256": "3b4b1d7fe64529072ec50c5e6da763da73e0eef288b1f55f5a2d409cf001b971",
+      "bytes": 213
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\3c9611efdcb261bd66808eced2fec997707733714f1afc9e5fb886c6b84a1156.txt",
+      "sha256": "3c9611efdcb261bd66808eced2fec997707733714f1afc9e5fb886c6b84a1156",
+      "bytes": 116
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\3d8462036aa8ebf2ded5566ecd562764aaace5af30d446d2aa4aeea1d85cdb68.txt",
+      "sha256": "3d8462036aa8ebf2ded5566ecd562764aaace5af30d446d2aa4aeea1d85cdb68",
+      "bytes": 11602
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\3f5773b27de2b22466f2f0baccc1458c8d25784accd3618f5d6ed7a011f79590.txt",
+      "sha256": "3f5773b27de2b22466f2f0baccc1458c8d25784accd3618f5d6ed7a011f79590",
+      "bytes": 8927
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\4046925308648b5410e2251e736fbdbc59a0744f026d8743b1c3f030f5c812f2.txt",
+      "sha256": "4046925308648b5410e2251e736fbdbc59a0744f026d8743b1c3f030f5c812f2",
+      "bytes": 9159
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469.txt",
+      "sha256": "40aa778eb59a7fb06b3bb420d11798d351a201597b329ba8a6142b29f7052469",
+      "bytes": 28739
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\46b924af8f2e33199504aa64840437d27d9da84a3d7dcda377a3a25cce5bba23.txt",
+      "sha256": "46b924af8f2e33199504aa64840437d27d9da84a3d7dcda377a3a25cce5bba23",
+      "bytes": 485
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45.txt",
+      "sha256": "4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45",
+      "bytes": 39
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097.txt",
+      "sha256": "52beb5f85dbbdce865c2caab36ae061107a5c30b495a7956a4fae5c79074d097",
+      "bytes": 3277
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\5340c2d72a4cefe8b554965b82d90137a0561911dd7d19ccaf77757f07959cc7.txt",
+      "sha256": "5340c2d72a4cefe8b554965b82d90137a0561911dd7d19ccaf77757f07959cc7",
+      "bytes": 7263
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\53efc8d1dfbcbdecdebc489b43e0bfb7739f08dfbc1af01faa025067165a45f2.txt",
+      "sha256": "53efc8d1dfbcbdecdebc489b43e0bfb7739f08dfbc1af01faa025067165a45f2",
+      "bytes": 78
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4.txt",
+      "sha256": "5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4",
+      "bytes": 4189
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\5d8579b968a7c6bba299d98e359204e34266d6eba15e01c6f1b79adc7669c33b.txt",
+      "sha256": "5d8579b968a7c6bba299d98e359204e34266d6eba15e01c6f1b79adc7669c33b",
+      "bytes": 3541
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\5e8c474fdd848da9bd5a751c8f345c387d6e149e17f5b7d29b6887fb006d4caa.txt",
+      "sha256": "5e8c474fdd848da9bd5a751c8f345c387d6e149e17f5b7d29b6887fb006d4caa",
+      "bytes": 24587
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\602910ef1a56519b0e513b358423dd3c8b506eadf920f0f39677895f1f41dabe.txt",
+      "sha256": "602910ef1a56519b0e513b358423dd3c8b506eadf920f0f39677895f1f41dabe",
+      "bytes": 3476
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78.txt",
+      "sha256": "612e9cf157d313b897e8fd292795fdb590848f9491f916f997f084206bc86b78",
+      "bytes": 6800
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de.txt",
+      "sha256": "634399d4ca26b927b7ac53117bb8f490e0ae1cb62715a243f43bd587dbf642de",
+      "bytes": 9771
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\645e9414f8faba73df0a81ec0f26ea12d54de17d376c6b90e54a9953f28325b2.txt",
+      "sha256": "645e9414f8faba73df0a81ec0f26ea12d54de17d376c6b90e54a9953f28325b2",
+      "bytes": 1795
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\6680299b7c132eb39fc01f539b42899ef9049b223b4c59feaaf80e1c6748ba18.txt",
+      "sha256": "6680299b7c132eb39fc01f539b42899ef9049b223b4c59feaaf80e1c6748ba18",
+      "bytes": 64393
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\6b2708f50b881a143fa40a755ea951ca92f758382cfc3478b79f26dfabfb7b98.txt",
+      "sha256": "6b2708f50b881a143fa40a755ea951ca92f758382cfc3478b79f26dfabfb7b98",
+      "bytes": 2498
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a.txt",
+      "sha256": "70ec5f617b2621b342332d4eba03f0e36a2f05cff98e9b78ff8ae8d5bb7c155a",
+      "bytes": 167
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\72429cda84a47f092a3bf777bbc4ece9dda492fe0f02324aa7f197f3800089c6.txt",
+      "sha256": "72429cda84a47f092a3bf777bbc4ece9dda492fe0f02324aa7f197f3800089c6",
+      "bytes": 884
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\74b98be6ab7723114273526706070ff9885fdf990d5c4e722801addca4d264e1.txt",
+      "sha256": "74b98be6ab7723114273526706070ff9885fdf990d5c4e722801addca4d264e1",
+      "bytes": 5231
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\7839b92179e66a3b23a8c38cb00150ee52afd4ba8f322a229e5fdd74c1ede29b.txt",
+      "sha256": "7839b92179e66a3b23a8c38cb00150ee52afd4ba8f322a229e5fdd74c1ede29b",
+      "bytes": 27527
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f.txt",
+      "sha256": "79a1e83848156c2b2bf46a3873dc537e127e8c696f641e5857806b86d094df2f",
+      "bytes": 16247
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f.txt",
+      "sha256": "807d5f64a177486fd4dcd46fa9f1d4b8cbcd538f2c9e8997d21cec94c60ff08f",
+      "bytes": 2018
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891.txt",
+      "sha256": "80b55b7e0aa4c1040656d5972fa68a555fa87677c89b2415849b5ccf4b505891",
+      "bytes": 2144
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335.txt",
+      "sha256": "80de4f111f22135c8eb5693752871dadc4a4094e147e48533610d86189670335",
+      "bytes": 714
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\889c6d1ad12c9f35bb3fb57ae3f875662d54980ab7e3a7f659d496f9fc61d596.txt",
+      "sha256": "889c6d1ad12c9f35bb3fb57ae3f875662d54980ab7e3a7f659d496f9fc61d596",
+      "bytes": 4415
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\898f0c5ab040e7bf6d4aac3bfd564d05ab7d3ebb3d5668d800d0c35a9012b1d7.txt",
+      "sha256": "898f0c5ab040e7bf6d4aac3bfd564d05ab7d3ebb3d5668d800d0c35a9012b1d7",
+      "bytes": 9885
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2.txt",
+      "sha256": "89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2",
+      "bytes": 10865
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac.txt",
+      "sha256": "8dad48015d373e84109bc9e277ff304b20396974cca5e73278af1261f65103ac",
+      "bytes": 7951
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\8ef4ad2c8cc400ed72970f1ffe5207a757c89601f15e500faf2ac35994489526.txt",
+      "sha256": "8ef4ad2c8cc400ed72970f1ffe5207a757c89601f15e500faf2ac35994489526",
+      "bytes": 11441
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f.txt",
+      "sha256": "90c7fba15f6cafc0416b6af359e4b3872db572036dc0e7d8da97ef135cc0fe1f",
+      "bytes": 8230
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\940f02be4b7c993c60a473f3cec5a8adb630c956e20c49d1fba370ff1a3c86af.txt",
+      "sha256": "940f02be4b7c993c60a473f3cec5a8adb630c956e20c49d1fba370ff1a3c86af",
+      "bytes": 1842
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\97e01ac699f0b7a17b9f96f2230c53a73b5a5943c4d89f6a3fe379886d7c5dc1.txt",
+      "sha256": "97e01ac699f0b7a17b9f96f2230c53a73b5a5943c4d89f6a3fe379886d7c5dc1",
+      "bytes": 511
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\9ea3774ddd80eb52d0356190c74de3b218efd483c918fea4de294ddb38a68119.txt",
+      "sha256": "9ea3774ddd80eb52d0356190c74de3b218efd483c918fea4de294ddb38a68119",
+      "bytes": 5550
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d.txt",
+      "sha256": "9fd21106c8cdd71885d9f5b15824ce22ae514688f62490353bba3e5cffaf410d",
+      "bytes": 1933
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\a2c1f092714efa5011f547949d3db928b29b32e1a78d4c62e7a7c2e323bbe079.txt",
+      "sha256": "a2c1f092714efa5011f547949d3db928b29b32e1a78d4c62e7a7c2e323bbe079",
+      "bytes": 16230
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\a46b8c0098e9e72ffb916f11fad6ef9dc218e435ec0bd96f7b4e9afc292c3220.txt",
+      "sha256": "a46b8c0098e9e72ffb916f11fad6ef9dc218e435ec0bd96f7b4e9afc292c3220",
+      "bytes": 118
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\a5187cbd676cacdb1a6dfcdb8b32e9a0aa83f8bf980f450e9821c3a501d2c08c.txt",
+      "sha256": "a5187cbd676cacdb1a6dfcdb8b32e9a0aa83f8bf980f450e9821c3a501d2c08c",
+      "bytes": 325
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344.txt",
+      "sha256": "a6a4b875402877170bf297da8310af9a0c29df0bf0be602f314de7e961cad344",
+      "bytes": 5585
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\a6db0302261f806f3afe9a1becfe63c80d5abaa3c2717424b91c809eef068e98.txt",
+      "sha256": "a6db0302261f806f3afe9a1becfe63c80d5abaa3c2717424b91c809eef068e98",
+      "bytes": 629
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3.txt",
+      "sha256": "a8096cac3b75e52dde86be549165ab73b8d1f73d33b6c89f56cec4cf73b614f3",
+      "bytes": 2512
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\a9d44a9311f31c6c04c4361c49d58929cf2728329ca33285a92d9debc54e3e10.txt",
+      "sha256": "a9d44a9311f31c6c04c4361c49d58929cf2728329ca33285a92d9debc54e3e10",
+      "bytes": 3291
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\ac003d0cdfe6dd969e9c80192bd356190eb1d6469cf52d8362667c1f49813292.txt",
+      "sha256": "ac003d0cdfe6dd969e9c80192bd356190eb1d6469cf52d8362667c1f49813292",
+      "bytes": 199
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\b58f7cdac02e3cfbfd94804ea76ef185267ac71015da1179ad109b65114a3e13.txt",
+      "sha256": "b58f7cdac02e3cfbfd94804ea76ef185267ac71015da1179ad109b65114a3e13",
+      "bytes": 9173
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a.txt",
+      "sha256": "b9fe2fc85c364b44c1b15329d2482c4778a1d97427ee893c0b708fa3de839b5a",
+      "bytes": 7849
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\ba6d6d2513977cc66dd5294284990f74c30a3412d76ad804ca2aeb41d7061257.txt",
+      "sha256": "ba6d6d2513977cc66dd5294284990f74c30a3412d76ad804ca2aeb41d7061257",
+      "bytes": 533
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\bd32e850246a7a4363ff5054fa42fa22f79e6aae739488f8a563aa3b901915fb.txt",
+      "sha256": "bd32e850246a7a4363ff5054fa42fa22f79e6aae739488f8a563aa3b901915fb",
+      "bytes": 37995
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\c2ded68b4f1fe421b46eda368f2d490712dc087f2056934f3c2b7a781bd0cd3f.txt",
+      "sha256": "c2ded68b4f1fe421b46eda368f2d490712dc087f2056934f3c2b7a781bd0cd3f",
+      "bytes": 2390
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\c3913af570a27215d835e003db27a8555cd1eec1d5fd9911bd3a4847f7751ba0.txt",
+      "sha256": "c3913af570a27215d835e003db27a8555cd1eec1d5fd9911bd3a4847f7751ba0",
+      "bytes": 6666
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\c42eb88e40ff1c4aca057aed20e7c617b4d64c47f74dfc6c0bb35d003c2f169f.txt",
+      "sha256": "c42eb88e40ff1c4aca057aed20e7c617b4d64c47f74dfc6c0bb35d003c2f169f",
+      "bytes": 4219
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9.txt",
+      "sha256": "c6969f4f029341dc5ac7eb0c6657061866e35b7b4608373da45084c86ced2ad9",
+      "bytes": 732
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\d686ea2c10808ae880001e93c8e67b2bfe5ff3ceb9963515df006de046554855.txt",
+      "sha256": "d686ea2c10808ae880001e93c8e67b2bfe5ff3ceb9963515df006de046554855",
+      "bytes": 3364
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\db82b0f039f2103282ff93ee7d6c9636a1b29cc725a54a48d09a434bdd6a225b.txt",
+      "sha256": "db82b0f039f2103282ff93ee7d6c9636a1b29cc725a54a48d09a434bdd6a225b",
+      "bytes": 3483
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\dcae41c7a0bc652bb840f23207ec085ff12754e26b85b6894394e8a2804ef4c8.txt",
+      "sha256": "dcae41c7a0bc652bb840f23207ec085ff12754e26b85b6894394e8a2804ef4c8",
+      "bytes": 4041
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a.txt",
+      "sha256": "e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a",
+      "bytes": 33754
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30.txt",
+      "sha256": "e45128cc6dc41dea18dd0181746300004344cb38a1dc728e6db7043ff0222b30",
+      "bytes": 2388
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\e87944701145a8dc1092122a45b0bde7c10d333ce3b99719d13a1edeef2880b3.txt",
+      "sha256": "e87944701145a8dc1092122a45b0bde7c10d333ce3b99719d13a1edeef2880b3",
+      "bytes": 12356
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1.txt",
+      "sha256": "ec86d7b9553f35310e0f9b22fdcd1d86c7c33edea0aa81695f8142e120f8c9e1",
+      "bytes": 6535
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\f0c90c2ba05f7e7fb6235c32130158402f2e7b9ae10e31ffa73ecb23af18550a.txt",
+      "sha256": "f0c90c2ba05f7e7fb6235c32130158402f2e7b9ae10e31ffa73ecb23af18550a",
+      "bytes": 416
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\f375d41cbfa8fca0442d95405b2d95fd9628aed103dd4892d8b665c1ec5797d5.txt",
+      "sha256": "f375d41cbfa8fca0442d95405b2d95fd9628aed103dd4892d8b665c1ec5797d5",
+      "bytes": 531
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948.txt",
+      "sha256": "f4f12866bb089b1d4f75ce1aa69005c164c2e793ef0c9d750c7de01ed893f948",
+      "bytes": 7886
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc.txt",
+      "sha256": "f55d1999bf6297e5656e5f1dada5b5f2e94c69a14243ec63b45824dcadd84edc",
+      "bytes": 284
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\f5ce4fc5dbfa6aedb437f08a97678036a6756ba2ab6c2531d10af8240fd396eb.txt",
+      "sha256": "f5ce4fc5dbfa6aedb437f08a97678036a6756ba2ab6c2531d10af8240fd396eb",
+      "bytes": 13473
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\f5d3b07679d75e7719d79ac8a32ef04cb90ddfa53c569ef360dbf346892cc79b.txt",
+      "sha256": "f5d3b07679d75e7719d79ac8a32ef04cb90ddfa53c569ef360dbf346892cc79b",
+      "bytes": 3738
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\inputs\\fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85.txt",
+      "sha256": "fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85",
+      "bytes": 3890
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\mixed-runtime-rendering.json",
+      "sha256": "f5ebd1258cdd9bb9ff82c7c10983b30631e40ee2fde865b0193d3599918a0b71",
+      "bytes": 178
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\preview-client.mjs",
+      "sha256": "beb7f02227267f6c8573037ebb5e6adf7fd0ff30ea95287ca0598810587145ee",
+      "bytes": 170415
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\preview-lifecycle.json",
+      "sha256": "4dea5730859fdfed8067ba9173c0c2a2c3c69eac2f632e13ab50b9ca22ac2cbd",
+      "bytes": 1442
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\resolved-graphs.json",
+      "sha256": "133caa5bc20cf20c71caadadcb5e6379f421652262562bdfce4a3f863367d29a",
+      "bytes": 61081
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\result.json",
+      "sha256": "c7275efc509e0a898d19109b611638523383a4e44f0817ee890a749211e247c4",
+      "bytes": 225
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\runtime-dom.txt",
+      "sha256": "044703c354568864da152e996ba610cf40ac80d9a20441b8564e2f4a1285a238",
+      "bytes": 270
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\runtime-results.json",
+      "sha256": "2b628cb50d8da43906cb0ca300822eb16ffb64497615b022eb6096de27b5bfe7",
+      "bytes": 420
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\typecheck-admission.json",
+      "sha256": "6565bbbb5a293eacc5f0ab28d8eb38524f99deb129affdeea3c0f7b5e04f053d",
+      "bytes": 47964
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\typecheck.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\unit-results.txt",
+      "sha256": "a6b50ceb6fbf464f0d1eb04ecaf3835f84ef87ddd45789ecf993c519394f3ca9",
+      "bytes": 2850
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-mixed-page-admission-20261028\\run-1793301406044\\unit.mjs",
+      "sha256": "66b6d2dbd7fc0d61c6a42821b9cd4b50f50b916dba803c8f340b049cb91f7b62",
+      "bytes": 133938
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\before\\13ee910055fd56b384f094d5537d2bb4a434c331ea3d776e789bdcd543fa34da",
+      "sha256": "13ee910055fd56b384f094d5537d2bb4a434c331ea3d776e789bdcd543fa34da",
+      "bytes": 7823
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\before\\25030571ba694d6fce6ef8eff2c0e13720457e0649b314054efeafab8e9e7f5c",
+      "sha256": "25030571ba694d6fce6ef8eff2c0e13720457e0649b314054efeafab8e9e7f5c",
+      "bytes": 22711
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\before\\5229ac43e6002a8fa6e071f2b4489714a3b4a13f8a8ebcee3533838edb1bcbb2",
+      "sha256": "5229ac43e6002a8fa6e071f2b4489714a3b4a13f8a8ebcee3533838edb1bcbb2",
+      "bytes": 51206
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\before\\9d24f7d7154b715cc489ea2adf9df9455cd4c9d30868ecd615f4f45806e02635",
+      "sha256": "9d24f7d7154b715cc489ea2adf9df9455cd4c9d30868ecd615f4f45806e02635",
+      "bytes": 12007
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\before\\b6b2fd4fe0832a972a926184e8f0f0d4a2597f28e1d94943118d4f830696b6cf",
+      "sha256": "b6b2fd4fe0832a972a926184e8f0f0d4a2597f28e1d94943118d4f830696b6cf",
+      "bytes": 10169
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\before\\dccbaac9bac711a0f3b71557b32c8ae896d6caf12f969c308e1b818977970a9a",
+      "sha256": "dccbaac9bac711a0f3b71557b32c8ae896d6caf12f969c308e1b818977970a9a",
+      "bytes": 20886
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\before\\e79fd06bf6a862d14ac6eb63de0b31c4e32b492267d88dd7a25829f6cbc031a9",
+      "sha256": "e79fd06bf6a862d14ac6eb63de0b31c4e32b492267d88dd7a25829f6cbc031a9",
+      "bytes": 33383
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\builder-vite-before-native-preview.ts",
+      "sha256": "873dc347f4330e5b1bf4245259103214948b3dd496cbd6eb48429e4797ca56fa",
+      "bytes": 1917
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\check-final-preservation.mjs",
+      "sha256": "da06808b32bf2c397ae8b23c190841ae249e82bcc88013c138d252ff9161cf20",
+      "bytes": 3209
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\check-history-final.mjs",
+      "sha256": "92dee8a526a459b5e775c075eb55f6bb694000dda3c1439369955b00c2bd0967",
+      "bytes": 799
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\check-host-final.mjs",
+      "sha256": "07b3d67f95e3d199b4ac1cbe0153b32fd37dd3d5afbbe448e0841ac99eb88ec8",
+      "bytes": 2422
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\check-native-restoration.mjs",
+      "sha256": "de04d943c51befee115c15460af09fd8ae8c0677901432b845da95944ff206eb",
+      "bytes": 1758
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\check-preview-revisions.mjs",
+      "sha256": "d968c0850812edd53ec5eb3968885cb45473f7ee9a5a0e89b62de5320825b4b3",
+      "bytes": 1956
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\deploy-native.mjs",
+      "sha256": "0ade76008cf31b7a76f5c3c70e600b3d2ed7c068f69f72aea896ccfc3f856be4",
+      "bytes": 2086
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\final-preservation.json",
+      "sha256": "effaa596d69cf8a91ba98e45bc73c726780639e03df54db87de3ac2cd8afb387",
+      "bytes": 13695
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\fix-native-host-inputs.mjs",
+      "sha256": "de68acb176030be737c4ad9d23459f5cd02c99319b89ae6e86b8ef36cbba708a",
+      "bytes": 1810
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\history-preservation-final.json",
+      "sha256": "a5c4776008e91a721d64454743be1a87c072d1fe93c12d3b201717f7c719c749",
+      "bytes": 85446
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\host-final-admission.json",
+      "sha256": "44cd8c35763337619dd1c18dc46c04471219822f42911c9609eeebb16291c592",
+      "bytes": 1258
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\app.manifest.json",
+      "sha256": "b181965ac20da7d61ff2b32efb39659cb3b682b57256e0ac3fe549afd16ad2d2",
+      "bytes": 417
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\app.settings.json",
+      "sha256": "5e92111a3b0a72d99ac7e091c5a57e3f64f10a23a7e421831ecf2e8bd473bc2c",
+      "bytes": 258
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\history\\app-history.jsonl",
+      "sha256": "f1966f988cce3aa1e575847d019ac9357f67ecf948788172c179765789ad3b5a",
+      "bytes": 283
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\package.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\shells\\shared\\shell.css",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\shells\\shared\\shell.fixtures.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\shells\\shared\\shell.functions.ts",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "bytes": 11
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\shells\\shared\\shell.html",
+      "sha256": "34479d4b93ad6248946799f0966d26ad71b7dcb3732cc5b62dfec5267f248c26",
+      "bytes": 162
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\shells\\shared\\shell.visual.json",
+      "sha256": "1d86ac1b180435dd1120bfc7e52e09bba531def9a0bc82fecfe9dc0ceb636f42",
+      "bytes": 151
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\src\\pages\\home\\page.html",
+      "sha256": "afbbf081b8870c5c47f5f89c2220a198a49df483d55f8ed53a301549a4ed14f5",
+      "bytes": 149
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\apps\\fixture\\src\\pages\\home\\page.visual.json",
+      "sha256": "256d04457a86aeefd25ea9b4120ccc13ac1af2f604e43104fd95c02a374b5505",
+      "bytes": 108
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\fixture\\package.json",
+      "sha256": "3af3bb74ce51f0da50aab477bfed2a5453740dc824c5a03d4ffa87d141335ca2",
+      "bytes": 40
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\inputs.json",
+      "sha256": "c57ea00f5843f9a1eacecfd3a9a8f0457aad9ae16c5a14e505f7be3b86f2d7a7",
+      "bytes": 15733
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\result.json",
+      "sha256": "768949aa0764f19b68dfb95fa052db9dc8744f6e900d710aaf6d43b4f86b53bd",
+      "bytes": 422
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-1793300955567\\verify.mjs",
+      "sha256": "006afa82cd58898c6012e7ed79abe2f4e7b1695948eb4bee7ffeae794319434d",
+      "bytes": 59877
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-app-manifest-after.json",
+      "sha256": "4dd233dd7f6625a69027a4aa2b0cfa647b1045555ff3b696896e2e0940c10a16",
+      "bytes": 436
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-app-manifest-before.json",
+      "sha256": "3d7515dea119411ace5233cb36b362735c75e1daf7b6453288d0f60ea6088008",
+      "bytes": 185
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-client-build-final.txt",
+      "sha256": "b4cd6bfcdc5883aee4c53b0389d2b02581e0b3a21b0969bd5d46fc47e922b351",
+      "bytes": 803
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-client-typecheck-final.txt",
+      "sha256": "4f80f039357fdc490a61ead8a73c299b17009a02a2d6f2e5f37222e748c2e33c",
+      "bytes": 1849
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-composed-preview-lifecycle.json",
+      "sha256": "b8c68d89b026547a9447f7c38c7c973e5f682257dfdf58319188320a97401c3e",
+      "bytes": 1901
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-deployment.json",
+      "sha256": "9ab111f276b7ffc82937e6d59e630d2af502c2d0f50fc9b4169ab7304c0993b9",
+      "bytes": 20220
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-host-canonical-inputs.json",
+      "sha256": "c6e88576b1324e52836310b670e17527a52ce2a7e105282685a9ced1518a53f2",
+      "bytes": 14045
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-host-manifest-before-canonical-fix.json",
+      "sha256": "3b1a0078298d97b21308e0f6c3b7fe92b477d1695b84b59bc759a690aca3bbec",
+      "bytes": 26793
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-host-pins-before-canonical-fix.json",
+      "sha256": "d78540f34d0a3227791a0f6b96785d638b3028819185a745598d0482e6422b43",
+      "bytes": 57389
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-restoration-preservation.json",
+      "sha256": "37dcff87e475c92772296904033e6f6fbaddb05b82e11901c7967223e0fbfd4b",
+      "bytes": 934
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\native-server-typecheck-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\normal-composed-about.png",
+      "sha256": "bbed8e0241bde92f84effd8881c4575ff9f5f0edf2af1c3176b7254d720b0d68",
+      "bytes": 17937
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\normal-composed-preview-navigation.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\normal-composed-preview-transcript.json",
+      "sha256": "2743c231a1a874752d7fc9819ec2294192c740113b7d98cd235333667e0083d4",
+      "bytes": 2913
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\normal-narrow-viewport.json",
+      "sha256": "114843062163dcc66d1a91461a8b5d717adcb77b849e475f0ee9d14c0f4133e8",
+      "bytes": 62
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\normal-native-restored-graph.json",
+      "sha256": "5dd22a01bd9f114f12e7964c4de5d00ca3c316f4d14c63e575b18040f506a71b",
+      "bytes": 18680
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\normal-shared-propagation.json",
+      "sha256": "01eea8af23bc908ca0620b0dd9505aaf6e61ec20c0249fda83a708a222f85f5c",
+      "bytes": 1161
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\normal-website-navigation-final.json",
+      "sha256": "eb8ecc48e365ecf7169371989eefd5ed814b9bf2cbacf01560c37e8b8cda847a",
+      "bytes": 3952
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\normal-website-navigation.json",
+      "sha256": "a25a6d77e185aba8b977747a493890605819128749faf1e40840d11ccbefc36f",
+      "bytes": 2682
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\operator-frame-reload-final.json",
+      "sha256": "258a94520695270548f2f20e4f286c776b653b1f7a8f59cd568538e074924f38",
+      "bytes": 1019
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\record-observed-preview-transcript.mjs",
+      "sha256": "b8673ec2894fa13b6c9c53b9a8ff89091e414082e1370960d4a7c0957db1c3fa",
+      "bytes": 1658
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\app.manifest.json",
+      "sha256": "9d0bb94d6f2cdd9c4ab8b27cc8424f04c5ce434395df0b7c8023f98c0bc00631",
+      "bytes": 19
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\app.settings.json",
+      "sha256": "53483cc502278080f4ed68faf1c599752ce027e396a7de6e69a11f3e87aebf32",
+      "bytes": 334
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\package.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\shells\\shared\\shell.css",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\shells\\shared\\shell.fixtures.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\shells\\shared\\shell.functions.ts",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "bytes": 11
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\shells\\shared\\shell.html",
+      "sha256": "155b2df09ec9aa4361358b3dc67999bc3c4daf19e7a882eb6a374c371806e2da",
+      "bytes": 162
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\shells\\shared\\shell.visual.json",
+      "sha256": "b4cf0542ec665dba4f4dfd6a7e238e8c7ce6d8695e696d44c001c310d4ed2113",
+      "bytes": 151
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\about\\index.ts",
+      "sha256": "21609568b848bef1ebdcbfe4d660c506475ddf4701343e57cdf84208362432aa",
+      "bytes": 722
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\about\\page.css",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\about\\page.fixtures.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\about\\page.functions.ts",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "bytes": 11
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\about\\page.html",
+      "sha256": "2643721c0d1b4b6773e830cb10a0bdeb2b8830840da1089b9bfaaafc617164dd",
+      "bytes": 241
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\about\\page.visual.json",
+      "sha256": "90a2faa203cbb5872543750e558df0f7efa09a7d0a25a22b563c35a563eeb623",
+      "bytes": 285
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\contact\\index.ts",
+      "sha256": "21609568b848bef1ebdcbfe4d660c506475ddf4701343e57cdf84208362432aa",
+      "bytes": 722
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\contact\\page.css",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\contact\\page.fixtures.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\contact\\page.functions.ts",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "bytes": 11
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\contact\\page.html",
+      "sha256": "953c54bccacb80094e2d736cad19511412d2317c37e811529c66c90af881e7e5",
+      "bytes": 241
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\contact\\page.visual.json",
+      "sha256": "9062f37194985fcac2dbbc4a9039351704caf78265b3b6e94a652735d41c360c",
+      "bytes": 291
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\home\\index.ts",
+      "sha256": "21609568b848bef1ebdcbfe4d660c506475ddf4701343e57cdf84208362432aa",
+      "bytes": 722
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\home\\page.css",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\home\\page.fixtures.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\home\\page.functions.ts",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "bytes": 11
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\home\\page.html",
+      "sha256": "e775458aa991389ca0a854ecbc31ce18354886ac6a55cd7be8f487439b0968bb",
+      "bytes": 241
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\home\\page.visual.json",
+      "sha256": "046f65ed80ebeb354f6a4b9498c6d3b09ed55421df04cf63cdd64920f9f3c546",
+      "bytes": 282
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\unrelated\\index.ts",
+      "sha256": "21609568b848bef1ebdcbfe4d660c506475ddf4701343e57cdf84208362432aa",
+      "bytes": 722
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\unrelated\\page.css",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\unrelated\\page.fixtures.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\unrelated\\page.functions.ts",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "bytes": 11
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\unrelated\\page.html",
+      "sha256": "4268805191d37a2ba9c0e65464cfe1654d44710664166d74c3d85f7ff82edefd",
+      "bytes": 102
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\apps\\fixture\\src\\pages\\unrelated\\page.visual.json",
+      "sha256": "c7925383985547a34c5dbb07e3c5bddb137b44bbfbb89556ebb5712f42aaa960",
+      "bytes": 181
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\native-contracts\\package.json",
+      "sha256": "47d1139451c7777c2fff5cdac5c78736f10659578762a26060d55d8ad38044d6",
+      "bytes": 22
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\fixture\\native-contracts\\ui.component.json",
+      "sha256": "b86bf1be855791dc4f34346703dc3a3ebd20707916338a056b47760983f18e70",
+      "bytes": 13778
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\host-read-result.json",
+      "sha256": "9717d40c00a609c5558846e647b3254222563b1f85fd91f40b339a3069f103c8",
+      "bytes": 1228
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\inputs.json",
+      "sha256": "6ee444da0068e1b420d85132e537091d37c397f46b40d70abbc7df7e1c1309f7",
+      "bytes": 11179
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\result.json",
+      "sha256": "f2e9dcd0fef2a62e504bd05baa29edc5a41e15d6af65468aca060a0f13c37b84",
+      "bytes": 188
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\run-1793301048411\\service.mjs",
+      "sha256": "5dbe7d4583c7c6399a4bb3081c2bd343d2e99763a29ea7c6cc7e178c9c2b6a60",
+      "bytes": 45429
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\saved-preview-revisions-final.json",
+      "sha256": "1e53257f994c3d89e0cbbb72d3bddfa2ea7ac6c96a8935fc6103f302f3f63a88",
+      "bytes": 1700
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\write-review-inventory.mjs",
+      "sha256": "2f2aa9eea86cc47b475fb140eb6b95cd4cc778d7b49fa59434add9d1852425bc",
+      "bytes": 5287
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\scripts\\preserve-preview-verification-continuation.mjs",
+      "sha256": "153ec77b60abfa51d55ede8f4b458a07d1c647fc3880a147aad6814af6dfbc27",
+      "bytes": 580
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\scripts\\preserve-shared-continuation.mjs",
+      "sha256": "1328963bd8b7e35cdee4071b41f0c7d80ed3bde558cee8924fc2e8c29b405f43",
+      "bytes": 720
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\scripts\\verify-composed-preview-final.mjs",
+      "sha256": "c0887981b51e8735b2b2c0b243cbcebc9d4b4f848883481a86ff4b22115eae70",
+      "bytes": 5530
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\scripts\\verify-native-composition-admission.mjs",
+      "sha256": "62aab8ab6c155073853b6bf00d6d813938b3f5c0ee56c67aa1630d1e75906659",
+      "bytes": 1271
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\server\\native-ui-base.ts",
+      "sha256": "fcbeba5b50c698ae2085ae83116f6a9d9b2e15588f532cc4d765810746b46cb3",
+      "bytes": 3634
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\tests\\shared-composition\\native-boundaries.ts",
+      "sha256": "e74ec07625801a1e7055e6878da3d3af2f1473f1614405dd9d22ac39b18a91e5",
+      "bytes": 588
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\tests\\shared-composition\\native.ts",
+      "sha256": "d7f134a9a5f27caa2896bca260d2e905ba0a8b6379162aac256a4648ac30faf4",
+      "bytes": 4898
+    }
+  ],
+  "earlierAddedVerificationSources": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\scripts\\verify-composed-preview.mjs",
+      "sha256": "6a34002e18f9691994158a4c3cabf175b1520d573ff4dd15a768525a34ddb003",
+      "bytes": 5523
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\scripts\\verify-shared-composition.mjs",
+      "sha256": "6c99d0fbcf68ffe1b5511a664e4581d7bb7ea73e8c05281235b6828dfa7e2034",
+      "bytes": 1369
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\scripts\\verify-shared-full-graph.mjs",
+      "sha256": "c13e6b3807a0d83b4aa3fdd4410788633c87f6d8838896de5233176a8f71a3e7",
+      "bytes": 3644
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\scripts\\verify-shared-host-read.mjs",
+      "sha256": "0487d36cb78a633c71c7cc88430c2b248ea58b045f54343cefcea7a1646df9e6",
+      "bytes": 3521
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\tests\\shared-composition\\boundaries.ts",
+      "sha256": "2635c1c9129a2e36fadf69a9af0f9e1967abff2d1f0fac2f58e97ae9459b09fc",
+      "bytes": 440
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\tests\\shared-composition\\service.ts",
+      "sha256": "783976124d8e8592406811b698d346ad568906f9b151e3c752d6146c28c366ac",
+      "bytes": 4046
+    }
+  ],
+  "disposableDeployedSourcesAndPackageOutputs": [
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\src\\composition-validation.ts",
+      "sha256": "4046925308648b5410e2251e736fbdbc59a0744f026d8743b1c3f030f5c812f2",
+      "bytes": 9159,
+      "beforeSha256": "52b39491da89a95a3762b5cbeac263fc1af21049da96f3162b9580fa8da107fc"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\src\\composition.ts",
+      "sha256": "3d8462036aa8ebf2ded5566ecd562764aaace5af30d446d2aa4aeea1d85cdb68",
+      "bytes": 11602,
+      "beforeSha256": "73e7be32e6b1011d6be3d051b5af220b441184884f1a143c58c67bdc2feb74b2"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\src\\index.ts",
+      "sha256": "de6b6c38b0913925669f0d5066e37114943dd4c086f37f8a5fa09c89a68e93bd",
+      "bytes": 339,
+      "beforeSha256": "82955ad7dff57f463e2e3b0bbe16c448bb02d9d1e98fd38cd2ea13a9085fe10f"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\src\\page-links.ts",
+      "sha256": "a9d44a9311f31c6c04c4361c49d58929cf2728329ca33285a92d9debc54e3e10",
+      "bytes": 3291,
+      "beforeSha256": "81ff8799dc16e8c35d75cd6729b1d9f517ff53a6f179069ab4b3fffd3c5ffa2c"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\src\\revision-composition-vite.ts",
+      "sha256": "b5b9c1945f78e354dbe4139c3e609cb6c3b35a36dedd3616cd7bbf05ed3abe8b",
+      "bytes": 12942,
+      "beforeSha256": "68837a527640cc469cc281369412bee15832603005abebb18d3125abbbef4f5e"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\src\\runtime.ts",
+      "sha256": "7839b92179e66a3b23a8c38cb00150ee52afd4ba8f322a229e5fdd74c1ede29b",
+      "bytes": 27527,
+      "beforeSha256": "cd5341667e303a8e301eda3926998b963917ceb4c1f872ce9d69d0e648c52a6e"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\server\\application-composition.ts",
+      "sha256": "eb19c5c2d8322c7496af3d995d7b543826a4c06ced560a533de9064c218362e3",
+      "bytes": 20997,
+      "beforeSha256": "29964b3236a498c107010b05c4d27cfe2b45a0bc35c69c2e140c02a00024c90d"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\server\\index.ts",
+      "sha256": "fe38dd797c9e1b099705ddf5ecd29d468df83f9d234d71b671076727f13dcea6",
+      "bytes": 51223,
+      "beforeSha256": "ae90bae721a32d62448a05887d09aec54ab2c3a55765f1f597c5e31d854175ed"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\server\\visual-candidate.ts",
+      "sha256": "2c956773ad8add381111e4b50e953814c1a8ebc10c3314d92fb9e7ad0a59dc58",
+      "bytes": 8495,
+      "beforeSha256": "99921b65484699628facd512dcd31a32696f1d5f7c44f08a404687f8e5269685"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\server\\visual-preview.ts",
+      "sha256": "a87e9772f9dd2ba3707b8cc4cd3fc5476fe7fa1d3efa58191d3450a3cc01454c",
+      "bytes": 4468,
+      "beforeSha256": "7f2bddd67cbb05b5c504c9074c9dd3d9576ecbc25ad23a20b9167da8d5ef6d19"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\client\\visual-artifacts\\menu-controls.ts",
+      "sha256": "3f5773b27de2b22466f2f0baccc1458c8d25784accd3618f5d6ed7a011f79590",
+      "bytes": 8927,
+      "beforeSha256": "8a461c0ccc6974385ee5d8e875e25500e7d0829b6fec39fe227d2976d7244cdb"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\src\\page-admission.ts",
+      "sha256": "940f02be4b7c993c60a473f3cec5a8adb630c956e20c49d1fba370ff1a3c86af",
+      "bytes": 1842,
+      "beforeSha256": null
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\client\\visual-artifacts\\editor.ts",
+      "sha256": "6680299b7c132eb39fc01f539b42899ef9049b223b4c59feaaf80e1c6748ba18",
+      "bytes": 64393,
+      "beforeSha256": "a0c83538591d54d8876a0262e2a202162197ed2f8c4f3ac882e4dd629e25fc5d"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\client\\visual-artifacts\\preview.ts",
+      "sha256": "12f3769d6b15ef937fc636848ece0866da4a444109159e81772fb7615adc1a78",
+      "bytes": 8780,
+      "beforeSha256": "f82c2e94f751d779bb1ea23e8d7313584b7a38c049784292b5ca416a75dbc53c"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\composition-validation.js",
+      "sha256": "f01c288704bf6ff6940398380453d5eb8e126cd3067f598757510ef49c772932",
+      "bytes": 9436,
+      "beforeSha256": "436ed3390993f345cdb626abdad94af64a9ebc32cad0ee7e230674f1d9063212"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\composition-validation.js",
+      "sha256": "f01c288704bf6ff6940398380453d5eb8e126cd3067f598757510ef49c772932",
+      "bytes": 9436,
+      "beforeSha256": "436ed3390993f345cdb626abdad94af64a9ebc32cad0ee7e230674f1d9063212"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\composition.d.ts",
+      "sha256": "0dc16bcf12b4ade335b0334964d0165d5893b3d33f1174c37869acea8fbebb0e",
+      "bytes": 3363,
+      "beforeSha256": "bf0eda84e357cfe2733b6a6a7747059398a996830aa244e1d92d33184e73a545"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\composition.d.ts",
+      "sha256": "0dc16bcf12b4ade335b0334964d0165d5893b3d33f1174c37869acea8fbebb0e",
+      "bytes": 3363,
+      "beforeSha256": "bf0eda84e357cfe2733b6a6a7747059398a996830aa244e1d92d33184e73a545"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\index.d.ts",
+      "sha256": "de6b6c38b0913925669f0d5066e37114943dd4c086f37f8a5fa09c89a68e93bd",
+      "bytes": 339,
+      "beforeSha256": "82955ad7dff57f463e2e3b0bbe16c448bb02d9d1e98fd38cd2ea13a9085fe10f"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\index.d.ts",
+      "sha256": "de6b6c38b0913925669f0d5066e37114943dd4c086f37f8a5fa09c89a68e93bd",
+      "bytes": 339,
+      "beforeSha256": "82955ad7dff57f463e2e3b0bbe16c448bb02d9d1e98fd38cd2ea13a9085fe10f"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\index.js",
+      "sha256": "de6b6c38b0913925669f0d5066e37114943dd4c086f37f8a5fa09c89a68e93bd",
+      "bytes": 339,
+      "beforeSha256": "82955ad7dff57f463e2e3b0bbe16c448bb02d9d1e98fd38cd2ea13a9085fe10f"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\index.js",
+      "sha256": "de6b6c38b0913925669f0d5066e37114943dd4c086f37f8a5fa09c89a68e93bd",
+      "bytes": 339,
+      "beforeSha256": "82955ad7dff57f463e2e3b0bbe16c448bb02d9d1e98fd38cd2ea13a9085fe10f"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\page-admission.d.ts",
+      "sha256": "45d48a314ffd34ede88a9ca7f76440574df738cbc2bc7c56003fb13127f004ad",
+      "bytes": 542,
+      "beforeSha256": null
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\page-admission.d.ts",
+      "sha256": "45d48a314ffd34ede88a9ca7f76440574df738cbc2bc7c56003fb13127f004ad",
+      "bytes": 542,
+      "beforeSha256": null
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\page-admission.js",
+      "sha256": "e61b5d29de872bf8f5c35d9a31ef08d876281948bc1f9f9188d553a0a6dd7b3b",
+      "bytes": 1778,
+      "beforeSha256": null
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\page-admission.js",
+      "sha256": "e61b5d29de872bf8f5c35d9a31ef08d876281948bc1f9f9188d553a0a6dd7b3b",
+      "bytes": 1778,
+      "beforeSha256": null
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\page-links.d.ts",
+      "sha256": "7cee5c3a14627b270425aad9498285e9fac759aa4df56f2c679a72a24d463c86",
+      "bytes": 924,
+      "beforeSha256": "d209caf6e8cf818f939f0ac5093c4309defe9c6910cfbe7dfe7ee5a68eb58aed"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\page-links.d.ts",
+      "sha256": "7cee5c3a14627b270425aad9498285e9fac759aa4df56f2c679a72a24d463c86",
+      "bytes": 924,
+      "beforeSha256": "d209caf6e8cf818f939f0ac5093c4309defe9c6910cfbe7dfe7ee5a68eb58aed"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\page-links.js",
+      "sha256": "b3065b9a043f663cf85a88461bd4e2c5d614726a1ace76642854901397283fa0",
+      "bytes": 3081,
+      "beforeSha256": "35c0958cadfced8d331b9f61f8c1b8b4c949605c0b35c879f4741221679664a1"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\page-links.js",
+      "sha256": "b3065b9a043f663cf85a88461bd4e2c5d614726a1ace76642854901397283fa0",
+      "bytes": 3081,
+      "beforeSha256": "35c0958cadfced8d331b9f61f8c1b8b4c949605c0b35c879f4741221679664a1"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\revision-composition-vite.d.ts",
+      "sha256": "4c33d58e26d8f1c8c9b8bbab8d2b16b952f0fef0abe325af4bf7c81c0f6f89aa",
+      "bytes": 327,
+      "beforeSha256": "cd05c756e79f82491d47f04d1175d7d874d89f781f5b2d4ba9cf5a760d479f9f"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\revision-composition-vite.d.ts",
+      "sha256": "4c33d58e26d8f1c8c9b8bbab8d2b16b952f0fef0abe325af4bf7c81c0f6f89aa",
+      "bytes": 327,
+      "beforeSha256": "cd05c756e79f82491d47f04d1175d7d874d89f781f5b2d4ba9cf5a760d479f9f"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\revision-composition-vite.js",
+      "sha256": "75d1c683b538cfeb9ec6499b56f81a3dd3c822acd1d48c5a79376304e163f5fc",
+      "bytes": 14718,
+      "beforeSha256": "e4d61e978d2b0f322e77e837492f17d7e69c908710303ebec499903be94d56b7"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\revision-composition-vite.js",
+      "sha256": "75d1c683b538cfeb9ec6499b56f81a3dd3c822acd1d48c5a79376304e163f5fc",
+      "bytes": 14718,
+      "beforeSha256": "e4d61e978d2b0f322e77e837492f17d7e69c908710303ebec499903be94d56b7"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\packages\\visual-artifacts\\dist\\runtime.js",
+      "sha256": "1e14d2af83a7eee3e0a1a239b13e257d2a54b858d8dc2d60700445f366e8b5f4",
+      "bytes": 29800,
+      "beforeSha256": "e4889e4dd940ab62c373c372a32550337e7ac7ee306226e312240d1355ca371f"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\node_modules\\@ui-platform\\visual-artifacts\\dist\\runtime.js",
+      "sha256": "1e14d2af83a7eee3e0a1a239b13e257d2a54b858d8dc2d60700445f366e8b5f4",
+      "bytes": 29800,
+      "beforeSha256": "e4889e4dd940ab62c373c372a32550337e7ac7ee306226e312240d1355ca371f"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\client\\builder-workspace\\shell.ts",
+      "sha256": "ae8061879dc757ce421ffc8210225d8b84268b9dfe53e046124414d0459dad31",
+      "bytes": 22765,
+      "beforeSha256": "749ed970219045709351f3d274170704adca9bb3b3f0fa73f9aac6dd4141563b"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\server\\native-ui-base.ts",
+      "sha256": "fcbeba5b50c698ae2085ae83116f6a9d9b2e15588f532cc4d765810746b46cb3",
+      "bytes": 3634,
+      "beforeSha256": null
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\server\\component-registry.ts",
+      "sha256": "f1b55c22efe3adb3e377953481dddc3428a35d055229823c09460ce8a8928ab4",
+      "bytes": 10552,
+      "beforeSha256": "b6b2fd4fe0832a972a926184e8f0f0d4a2597f28e1d94943118d4f830696b6cf"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\server\\packages.ts",
+      "sha256": "4db55a0cecc6366fa83a808a8a756d5af3b540704f6938378e080b556a81746d",
+      "bytes": 13108,
+      "beforeSha256": "9d24f7d7154b715cc489ea2adf9df9455cd4c9d30868ecd615f4f45806e02635"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\src\\client\\packages-ui.ts",
+      "sha256": "10c43e21d25785af4b35e3e159a7860298efcc38f18c07a4f2c4edc09ed72ab5",
+      "bytes": 33537,
+      "beforeSha256": "e79fd06bf6a862d14ac6eb63de0b31c4e32b492267d88dd7a25829f6cbc031a9"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\vite.config.ts",
+      "sha256": "f44e5ba199f2b1b1dfcdade89053c295700f9e6ee08df965b91e6abad589194b",
+      "bytes": 2228,
+      "beforeFile": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-shared-composition-20261029\\builder-vite-before-native-preview.ts"
+    }
+  ],
+  "authorizedApplicationSourceFiles": [
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\app.settings.json",
+      "sha256": "7d4636034d0af0aa71edc1af30d3d96e8697762487f39eb4786b40071af5aa8d",
+      "bytes": 368
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\app.manifest.json",
+      "sha256": "5d0ee3980085f21a9ceb1c984048101a461b3d392fe70e3c946338f9fadc2094",
+      "bytes": 437
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\history\\app-history.jsonl",
+      "sha256": "aef69fbfd2f7b39b5a2ddc1c8e2018e776e523041b1511c109197f8243488c00",
+      "bytes": 146
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\src\\pages\\home\\page.html",
+      "sha256": "a6cfc64faa8a92a2a0b303bbfb916fa5d16c99603994afbb707e04544362d4f7",
+      "bytes": 594
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\src\\pages\\home\\page.visual.json",
+      "sha256": "538190051c79346fca1edfb34dfaffb67d06787fb6a39b8ee7a5195fdad0729a",
+      "bytes": 409
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\src\\pages\\about\\page.html",
+      "sha256": "fd95f075d4720c530680ee62cf2db43970a2ba11c1aab45dc21b4624e6d0b346",
+      "bytes": 599
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\src\\pages\\about\\page.visual.json",
+      "sha256": "9e22720cb18637b8a5ea2b66124093cc7e79e5998bd9c50c32dca1df54f9853c",
+      "bytes": 285
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\src\\pages\\contact\\page.html",
+      "sha256": "61329092191a561ade3fea6886200a494daad14d22db9b46c13fb0eff2adbc20",
+      "bytes": 595
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\src\\pages\\contact\\page.visual.json",
+      "sha256": "cc8d950afd3a20144bb6793884a7117578950f129f2828af6df8c233e2ddcff2",
+      "bytes": 291
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\shells\\shared-website\\shell.css",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\shells\\shared-website\\shell.fixtures.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\shells\\shared-website\\shell.functions.ts",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "bytes": 11
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\shells\\shared-website\\shell.html",
+      "sha256": "9833dd050c30eab82139848072d6cdd2d3e497eca96005c064a30edaa9fbf1b1",
+      "bytes": 1212
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\shells\\shared-website\\shell.visual.json",
+      "sha256": "9fff13c88e5daac1fcd4b0fa1a660a715ee47c31d5e9e9cb8f9473f534e7e925",
+      "bytes": 167
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\apps\\v1-identity-fixture\\menus\\menu-16f0dd65-ce5c-4d97-82e6-c4befcfe5fff.json",
+      "sha256": "af7da138f031eeebbb60021684036ed31d07cdb743b3ef3ce725632b8f310fa1",
+      "bytes": 849
+    }
+  ],
+  "disposableHostSourceAndPinnedSnapshotFiles": [
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\vite.config.ts",
+      "sha256": "a3210cbfb6d459cf9f10dc3cd759d4e1e29fceab819c8602ee33e9f53c58cc69",
+      "bytes": 3902
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\src\\main.ts",
+      "sha256": "829aa51d0d7535b550d8fa8362339cb13a6cb1ebdae71affe9e636895d183b65",
+      "bytes": 1918
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\vite.composition-staged.txt",
+      "sha256": "bcc39504a741f78e9d5cdd183191ff799b01f62b0e9782287fff011376562de6",
+      "bytes": 3799
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\main.composition-staged.txt",
+      "sha256": "829aa51d0d7535b550d8fa8362339cb13a6cb1ebdae71affe9e636895d183b65",
+      "bytes": 1918
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\composition-pins.json",
+      "sha256": "5cfa97686317dafe7f925c8d185d1bdb4a900b939d92f02aff6bedf2c619a535",
+      "bytes": 70227
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\package.json",
+      "sha256": "308a510a0ffb8693bb9c93dee15e406ecf9cb4f445cd9954a74b2d08b2cb8edd",
+      "bytes": 2511
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\actions\\uib-action-button.js",
+      "sha256": "3c66ed9eb235323c4d130f4c35c80fb42cb1f8405abd540a396cf1e63d1678f9",
+      "bytes": 5607
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\actions\\uib-action-group.js",
+      "sha256": "ebbddef84bb88062cfdd0fcd3e6cbb2cd289d4acef94a560f61594189f404a0f",
+      "bytes": 3261
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\content\\rich-text-html.js",
+      "sha256": "b52ac174f975e79291393adbdd610e7f64ce73b6c15593c6c3dc6cc96b116549",
+      "bytes": 2638
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\content\\uib-eyebrow.js",
+      "sha256": "d39c7150890c826b180ee34e9b7a68bdeed47c1bfea774e5387a6fd24fc100d7",
+      "bytes": 1152
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\content\\uib-heading-block.js",
+      "sha256": "2d587188773cb60d3fc4de5e94c2ef02474871cdb73ada230d2e477a11dccfa0",
+      "bytes": 2541
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\content\\uib-heading.js",
+      "sha256": "b0ad1d787afd53b9131b76a659cbf68157c1578eb82ba50f52ec9a171c2734c5",
+      "bytes": 2682
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\content\\uib-instruction.js",
+      "sha256": "6638fa03d2e57da4bbb81fd34d139598ced339f3be078fe9e1867703e7921fac",
+      "bytes": 13935
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\content\\uib-rich-text.js",
+      "sha256": "ebe103961e9fb82328f9024b4b6f4bf660b0b9959f9d90042347e7d01b9038f9",
+      "bytes": 2794
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\details\\uib-detail-item-edit.js",
+      "sha256": "5270acdb502314228e5c5a2e26ff36514260bd0e0d2e6a6c2e1a585c4319880d",
+      "bytes": 10615
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\details\\uib-detail-item.js",
+      "sha256": "14b2f57e98f90004decc5748dffb65102fb3662de4146f645086444fb4fb2ea6",
+      "bytes": 8283
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\details\\uib-detail-list-editor.js",
+      "sha256": "65333edbeba0a9bf494a17f076a43d84867fff025e0de6b27e4fc2b774535df7",
+      "bytes": 11827
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\details\\uib-detail-list.js",
+      "sha256": "ba107cd076531597230111858f63f6e3d28554883bd6828c1a21f3a951bd3c49",
+      "bytes": 3631
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\forms\\uib-checkbox.js",
+      "sha256": "35442bb3e1249d80a991f1c333ed5e6dc50679c398ed1eff8d5ac7cab2bc1afc",
+      "bytes": 7758
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\forms\\uib-toggle.js",
+      "sha256": "68ba4c168641bc467e7c37aab834235222c6c7802f88d5d295b7a8ed6816e979",
+      "bytes": 13068
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\help\\uib-help.js",
+      "sha256": "eafd3e3816d29a03911b33cbf47be5852d43cfbd3a62aad6125c0ff79f86c80e",
+      "bytes": 5259
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\hero\\uib-hero.js",
+      "sha256": "6e201a7e9b28c31c1d4aa1e6857a6830caa621fe04ca2f07e4619ddadc25aa7b",
+      "bytes": 340
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\index.js",
+      "sha256": "4a5ff9ac03d1cfd7df221ecb25ff960922e8ce223965e3ca9b18ead5c70e90a0",
+      "bytes": 1556
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\label\\uib-label.js",
+      "sha256": "70a8e8742773c919e8ba6892a248738139a0c17e51764865adaf4e3b36b95a87",
+      "bytes": 3529
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\index.js",
+      "sha256": "e228e97fa0bc807ce9114827e569c04b0cd0809e688a57d1ea36e919575a538a",
+      "bytes": 33754
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-accordion.js",
+      "sha256": "e2498d8320d89fe3c0c38033efdb895b1783778f0707ee69bbc794b7b65f5bf0",
+      "bytes": 44
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-card.js",
+      "sha256": "4f4317c5b07e3ac396f2283a9dd0a9b5063653ee9d9baf9a0778af0b7e82bf45",
+      "bytes": 39
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-column.js",
+      "sha256": "95ce9aeb22b2e32f8cfb4da9d15868f0ebc4e25b96da76cba1b588c36b655787",
+      "bytes": 41
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-dialog.js",
+      "sha256": "77f9a4719431669f7d028d4470346017c4e5511fb9aa7ac851ef985f2b814f23",
+      "bytes": 41
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-grid.js",
+      "sha256": "2176cac70081b5df5ae0e32e31b05f17526e6661866bc2d6b6e167327672a2a5",
+      "bytes": 39
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-panel.js",
+      "sha256": "7ee52b33b71ee2d8a6a993df88a375b3084208920ede26b3b5ebe2048ed5c3db",
+      "bytes": 40
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-row.js",
+      "sha256": "49c5277caceb53cc64c1f96ac5802376f9978979a3817f8c09d68103e0768e3a",
+      "bytes": 38
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-splitter.js",
+      "sha256": "792d06630a0b142a440679afd94fa8f23d14ca2439f0575620a45e079e955634",
+      "bytes": 43
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-stack.js",
+      "sha256": "18f62cf619dfd44306b45ff3f51e4f778e5dc10e50170c8e9f93b0107ba5be5b",
+      "bytes": 40
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-tab-panel.js",
+      "sha256": "b046c4b3c6ead423e7cabcef5d4feeac65ea5b3ac3e04b2e3011134df65317ef",
+      "bytes": 43
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-tab.js",
+      "sha256": "b191438dd6e9466c8919c23db3bed55d3fe64e1311d968c53eb9a77d690572ee",
+      "bytes": 38
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\layout\\uib-tabs.js",
+      "sha256": "3451dfef3ea574d8e01bee4c2d1e162ddad0d77febcacb3becf7fd55581e7367",
+      "bytes": 60
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\media\\uib-media.js",
+      "sha256": "ace7f1b4c42303760034731e675a2825cb89226d32e9ef43af19c8c1405c69dc",
+      "bytes": 2555
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\metadata\\index.js",
+      "sha256": "64c31335bfbb989f0e7b1fbd41911aa41730b500afa7edaefbe285c8d17394d9",
+      "bytes": 27283
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\navigation\\uib-menu.js",
+      "sha256": "f5e5f63e936c07a749289cb57330699cc49a33341166b1383023e14006fd8d24",
+      "bytes": 6427
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\navigation\\uib-menuitem.js",
+      "sha256": "1c1f41083e68bff9b48d1aec6e29905248a5cffcc97c6ab8a21dea15dd56c0a5",
+      "bytes": 6809
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\platform\\card-metadata.generated.js",
+      "sha256": "8d00a6863d65a0a8df1a9d69354a25da7538c94fa381211e71d7f99e8382303e",
+      "bytes": 13808
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\platform\\definition.js",
+      "sha256": "89b56d0ecbf9db988b2743b9182c2057e10d5c452f13b5c81d24690e4769f2a2",
+      "bytes": 10865
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\platform\\index.js",
+      "sha256": "603e8523579a1e47f25073dce64bb0528883373440fd19c5a2f3cbfc7cb52f06",
+      "bytes": 165
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\platform\\property-editor.js",
+      "sha256": "e061569b0cae7d752e9a1174d566025679cb64f14243daa26dbec72503ad3dde",
+      "bytes": 2894
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\platform\\registry.js",
+      "sha256": "fdbd0bfd5278b417feeaafe0604738265acd35ec641a7c7352ef4f1376dc8f85",
+      "bytes": 3890
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\platform\\renderer.js",
+      "sha256": "5c0201efc5f1ceccd8423a3873a4875c07b7550077dc811e8e10aa3ac22baae4",
+      "bytes": 4189
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\platform\\workspace.js",
+      "sha256": "623e0c82c23e789cca5d07b103be9b8529758a19fdb21fe7e7c8ad7e446cec04",
+      "bytes": 6611
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\reservations\\base-tour-reservation.js",
+      "sha256": "620089db73a933bbcc9d8748701c0787b4f0d73e560d99c524033f11bda4a3c0",
+      "bytes": 150
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\reservations\\index.js",
+      "sha256": "0fbf138f4ff85aa5b1eaa5cab08612590abe44d117b725fa2365a5c75be4e966",
+      "bytes": 236
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\reservations\\uib-book-group-reservation.js",
+      "sha256": "01659bf6ff69916feae595cab2ca3c2058acc845ac0eebe97ca39ecd3839c887",
+      "bytes": 225
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\reservations\\uib-cancel-reservation.js",
+      "sha256": "1f47802f259a92f07cc75bb3eb368ba0d7a5ce003e1891f6e93bc7eef276aba4",
+      "bytes": 214
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\reservations\\uib-find-reservation.js",
+      "sha256": "34821a3b58eb146099eca623fb18d2ed023207697e2a851eeb527c55fe66c3bd",
+      "bytes": 208
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\reservations\\uib-new-reservation.js",
+      "sha256": "d1870f9ee4a38b839883053232c2650c48db92acc7c470ee210767def68e0a98",
+      "bytes": 205
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\src\\styles.css",
+      "sha256": "0e7af1c3b6e706c9ef03a984d39e7d4d27237f233ef8712cb0bc7dd9d944d7dd",
+      "bytes": 18516
+    },
+    {
+      "path": "C:\\Projects\\Modular\\v1-normal-smoke-20261026-01\\ui-platform\\references\\visual-artifacts-host-20261028\\.inputs\\ui-base\\ui.component.json",
+      "sha256": "69904c9fb9a2079ac24b69f9bf6ef72660a12b5f98f4e0e40e356eb0baa21002",
+      "bytes": 26723
+    }
+  ],
+  "relevantPrimaryPackageEmissions": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\dist\\revision-composition-vite.js",
+      "sha256": "75d1c683b538cfeb9ec6499b56f81a3dd3c822acd1d48c5a79376304e163f5fc",
+      "bytes": 14718
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\dist\\revision-composition-vite.d.ts",
+      "sha256": "4c33d58e26d8f1c8c9b8bbab8d2b16b952f0fef0abe325af4bf7c81c0f6f89aa",
+      "bytes": 327
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\dist\\runtime.js",
+      "sha256": "1e14d2af83a7eee3e0a1a239b13e257d2a54b858d8dc2d60700445f366e8b5f4",
+      "bytes": 29800
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\packages\\visual-artifacts\\dist\\runtime.d.ts",
+      "sha256": "a785345dabb061911f535241f1a8cca204cf2c5a8dceed4fdd173a9a27a28cd7",
+      "bytes": 2463
+    }
+  ],
+  "historicalInventory": "v1-shared-website-composition-dependency-blocker-files-20261029.json",
+  "historyPreservation": "513 original report/evidence/verification files verified unchanged in history-preservation-final.json",
+  "inventorySelfHash": "omitted to avoid recursion",
+  "scopeNotes": [
+    "Includes the earlier bounded implementation and this authorized native-admission continuation.",
+    "Before Git object hashes identify the original tracked source, with Git newline normalization; disposable before bytes remain content-addressed in before/.",
+    "Application history is append-only; native Enable appended its standard package.enabled record.",
+    "The 73 unchanged original Page files are individually enumerated in final-preservation.json.",
+    "Historical reports and inventories are referenced and preserved, not relabeled as new changes.",
+    "Transient Vite caches, private runtime locks/transactions and unrelated pre-existing ignored outputs are excluded from source inventory. Relevant build emissions are listed; build logs identify other generated client bundle outputs.",
+    "No commits or pushes."
+  ]
+}

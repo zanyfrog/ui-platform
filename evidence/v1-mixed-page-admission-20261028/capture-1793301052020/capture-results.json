@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "scope": "Actual compositionWorkspace, visualPreviewRevision and prepareVisualCandidate with detached role bundles and recovery-refusing read/graph doubles; candidate syntax reuse is test-only; no operational source or plugin launch",
+  "results": [
+    {
+      "composed": 0,
+      "pages": 13,
+      "checked": [
+        {
+          "name": "home",
+          "kind": "plain",
+          "composition": false
+        },
+        {
+          "name": "about",
+          "kind": "plain",
+          "composition": false
+        },
+        {
+          "name": "contact",
+          "kind": "plain",
+          "composition": false
+        },
+        {
+          "name": "v1-anchor-navigation-20261028",
+          "kind": "plain",
+          "composition": false
+        }
+      ],
+      "recoveryRefusingCalls": 48
+    },
+    {
+      "composed": 3,
+      "pages": 13,
+      "checked": [
+        {
+          "name": "home",
+          "kind": "composed",
+          "composition": true
+        },
+        {
+          "name": "about",
+          "kind": "composed",
+          "composition": true
+        },
+        {
+          "name": "contact",
+          "kind": "composed",
+          "composition": true
+        },
+        {
+          "name": "v1-anchor-navigation-20261028",
+          "kind": "plain",
+          "composition": false
+        }
+      ],
+      "recoveryRefusingCalls": 48
+    },
+    {
+      "composed": 13,
+      "pages": 13,
+      "checked": [
+        {
+          "name": "home",
+          "kind": "composed",
+          "composition": true
+        },
+        {
+          "name": "about",
+          "kind": "composed",
+          "composition": true
+        },
+        {
+          "name": "contact",
+          "kind": "composed",
+          "composition": true
+        },
+        {
+          "name": "v1-anchor-navigation-20261028",
+          "kind": "composed",
+          "composition": true
+        }
+      ],
+      "recoveryRefusingCalls": 48
+    }
+  ],
+  "deniedAuthority": true,
+  "staleRevision": true,
+  "normalCandidateValidAndDanglingRefused": true
+}

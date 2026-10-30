@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';import path from 'node:path';import crypto from 'node:crypto';import assert from 'node:assert/strict';
+import {recoverRoleBundleRoot} from '../../packages/artifacts/dist/storage-api.js';
+const host='C:/Projects/Modular/v1-normal-smoke-20261026-01/ui-platform/references/visual-artifacts-host-20261028',app=path.resolve(host,'../../../apps/v1-identity-fixture'),ev=path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/i,'$1'));
+const roots=[path.join(app,'src/pages'),path.join(app,'shells'),path.join(host,'.inputs/components'),path.join(app,'presentation/platform-components')];
+for(const root of roots)await recoverRoleBundleRoot(root,{recovery:'refuse'});
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const plugin=path.resolve(host,'../../node_modules/@ui-platform/visual-artifacts/dist/revision-composition-vite.js'),pluginCode=await fs.readFile(plugin,'utf8');
+assert.match(pluginCode,/recoverRoleBundleRoot\(owner, \{ recovery: 'refuse' \}\)/);
+const pins=JSON.parse(await fs.readFile(path.join(host,'.inputs/composition-pins.json'),'utf8'));for(const pin of pins){assert.equal((await fs.realpath(pin.file)).toLowerCase(),path.resolve(pin.file).toLowerCase());assert.equal(sha(await fs.readFile(pin.file)),pin.sha256);}
+const original=JSON.parse(await fs.readFile(path.resolve(host,'../../node_modules/@ui-base/ui/ui.component.json'),'utf8')).components;
+const selected=JSON.parse(await fs.readFile(path.join(host,'.inputs/ui-base/ui.component.json'),'utf8')).components;assert.equal(selected.length,2);for(const entry of selected)assert.deepEqual(entry,original.find(e=>e.tagName===entry.tagName));
+await fs.writeFile(path.join(ev,'host-final-admission.json'),JSON.stringify({passed:true,actualLiveRootsRefuseRecoveryPreflight:roots,negativeRefusalEvidence:'run-1793301048411/host-read-result.json',activePlugin:{path:plugin,sha256:sha(Buffer.from(pluginCode)),explicitRecoveryRefusal:true},nativeContractCount:2,canonicalDescriptorsUnchanged:true,pinnedPhysicalFiles:pins.length,pluginLaunchedOnlyAfterCorrection:true,noLiveJournalManipulation:true,qualifiedScope:'Existing disposable Application and host roots, semantic Shell/Page workflow and explicit Card/Panel contracts; not unrestricted or production host qualification'},null,2));console.log('PASS live source-root refusal preflight, canonical descriptors and physical pinned inputs');

@@ -4,7 +4,7 @@ async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const headers = init?.body instanceof FormData ? init?.headers : { 'content-type': 'application/json', ...(init?.headers ?? {}) };
   const response = await fetch(url, { ...init, headers });
   const payload = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(payload.error ?? `Request failed: ${response.status}`);
+  if (!response.ok) throw Object.assign(new Error(payload.error ?? `Request failed: ${response.status}`), { status: response.status });
   return payload as T;
 }
 
@@ -244,7 +244,7 @@ export async function mountAppPackages(target: HTMLElement, appKey: string): Pro
   try {
     const [payload, foundationPayload] = await Promise.all([
       api<AppPackageCatalogPayload>(`/api/apps/${encodeURIComponent(appKey)}/packages`),
-      api<FoundationSourcePayload>('/api/foundation-sources'),
+      api<FoundationSourcePayload>('/api/foundation-sources').catch(error => { if (error.status === 403) return { sources: [] } as FoundationSourcePayload; throw error; }),
     ]);
     const selectedPayloads = await Promise.all(foundationPayload.sources.map((source) => api<AppFoundationDependencyPayload>(`/api/apps/${encodeURIComponent(appKey)}/foundation-dependencies/${encodeURIComponent(source.id)}`)));
     renderAppPackagePayload(target, appKey, payload, foundationPayload.sources, new Map(selectedPayloads.map((item) => [item.sourceId, item])));

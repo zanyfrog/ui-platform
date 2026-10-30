@@ -1,5 +1,20 @@
 import type { CompositionDefinition, MenuItem, MenuDestination } from '@ui-platform/visual-artifacts';
 
+export function chooseMenuName(): Promise<string | undefined> {
+  return new Promise(resolve => {
+    const dialog = document.createElement('dialog'); dialog.setAttribute('aria-label', 'Create Menu');
+    const form = document.createElement('form'); form.method = 'dialog';
+    const label = document.createElement('label'); label.textContent = 'Menu name';
+    const input = document.createElement('input'); input.required = true; input.setAttribute('aria-label', 'Menu name'); label.append(input);
+    const create = document.createElement('button'); create.textContent = 'Create Menu';
+    const cancel = document.createElement('button'); cancel.type = 'button'; cancel.textContent = 'Cancel'; cancel.onclick = () => dialog.close();
+    let result: string | undefined;
+    form.onsubmit = event => { event.preventDefault(); if (input.value.trim()) { result = input.value.trim(); dialog.close(); } };
+    dialog.onclose = () => { dialog.remove(); resolve(result); };
+    form.append(label, create, cancel); dialog.append(form); document.body.append(dialog); dialog.showModal(); input.focus();
+  });
+}
+
 /** Authoring adapter only. The native composition validator remains authoritative. */
 export function chooseMenuItem(definition: CompositionDefinition, existing?: MenuItem): Promise<MenuItem | undefined> {
   return new Promise(resolve => {

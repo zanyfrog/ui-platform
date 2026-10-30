@@ -4,6 +4,7 @@ import type { AppPackageListEntry, ComponentCatalogEntry, ComponentManifestEntry
 import { platformRoot, uiBasePackagesDir } from './paths.js';
 import { appPath } from './applications.js';
 import { getActiveAppPackages } from './packages.js';
+import { assertNativeUiBaseModule, nativeUiBaseName } from './native-ui-base.js';
 
 const ignoredExportNames = new Set(['.', './styles.css', './tokens.css', './default.css', './dark.css', './sample-tour.css', './metadata', './analyzer', './writer', './page-importer', './page-import-artifact', './uib-layout-manager', './uib-layout-editor', './platform-info']);
 
@@ -92,7 +93,7 @@ async function packageDirs(root: string): Promise<string[]> {
   return entries.filter((entry) => entry.isDirectory() && !entry.name.startsWith('.')).map((entry) => path.join(root, entry.name));
 }
 
-export async function discoverComponents(appKey?: string): Promise<ComponentCatalogEntry[]> {
+export async function discoverComponents(appKey?: string, prospective?: { presentationModel?: string }): Promise<ComponentCatalogEntry[]> {
   if (appKey) {
     const activePackages = await getActiveAppPackages(appKey);
     const entries = (await Promise.all(activePackages.map(async pkg => {
@@ -100,7 +101,7 @@ export async function discoverComponents(appKey?: string): Promise<ComponentCata
       return activatedPackageEntries({ ...pkg, components: pkg.components.map(entry => ({ ...entry, ...canonical.find(c => c.tagName === entry.tagName) })) }, appKey);
     }))).flat();
     // UI Base's installed web packages have ui.component.json rather than Platform service manifests.
-    for (const pkg of await installedUiBasePackages(appKey)) if (!activePackages.some(active => active.name === pkg.name)) {
+    for (const pkg of await installedUiBasePackages(appKey, prospective)) if (!activePackages.some(active => active.name === pkg.name)) {
       const manifest = manifestEntries(await json(path.join(pkg.root, 'ui.component.json')));
       for (const entry of manifest) entries.push(toComponentCatalogEntry(entry, pkg.name, pkg.version, `package:${pkg.name}`, appKey));
     }
@@ -124,19 +125,20 @@ export async function getAppPackageAsset(appKey: string, packageName: string, mo
   const activePackage = (await getActiveAppPackages(appKey)).find((entry) => entry.name === packageName);
   const installed = activePackage ? undefined : (await installedUiBasePackages(appKey)).find(pkg => pkg.name === packageName);
   if (!activePackage && !installed) throw new Error(`Active package "${packageName}" was not found.`);
+  if (activePackage?.name === nativeUiBaseName && activePackage.manifestPath.endsWith('ui.component.json')) assertNativeUiBaseModule(modulePath);
   const filePath = resolvePackageModulePath(activePackage?.packageRoot ?? installed!.root, modulePath);
   const info = await stat(filePath);
   if (!info.isFile()) throw new Error(`Package asset is not a file: ${modulePath}`);
   return { filePath, packageName };
 }
 
-async function installedUiBasePackages(appKey: string): Promise<Array<{ name: string; root: string; version: string }>> {
+async function installedUiBasePackages(appKey: string, prospective?: { presentationModel?: string }): Promise<Array<{ name: string; root: string; version: string }>> {
   const root = appPath(appKey);
   const appPackage = await json<{ dependencies?: Record<string, string> }>(path.join(root, 'package.json'));
   const platformPackage = await json<{ dependencies?: Record<string, string> }>(path.join(platformRoot, 'package.json'));
   const appManifest = await json<{ packages?: Record<string, { enabled: boolean }> }>(path.join(root, 'app.manifest.json'));
   const settings = await json<{ presentation?: { model?: string } }>(path.join(root, 'app.settings.json'));
-  const composed = settings?.presentation?.model === 'composition-v1';
+  const composed = (prospective ? prospective.presentationModel : settings?.presentation?.model) === 'composition-v1';
   const names = new Set([...Object.keys(composed ? {} : platformPackage?.dependencies ?? {}), ...Object.keys(appPackage?.dependencies ?? {})].filter(name => name.startsWith('@ui-base/')));
   const found: Array<{ name: string; root: string; version: string }> = [];
   for (const name of names) {

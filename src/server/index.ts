@@ -570,7 +570,7 @@ const server = http.createServer(async (req, res) => {
       }
       if (parts.length === 6 && parts[3] === 'packages' && parts[5] === 'enable' && method === 'POST') {
         const input = await body(req);
-        return json(res, 200, await enableAppPackage(key, decodeURIComponent(parts[4]), input.version ? String(input.version) : undefined));
+        return json(res, 200, await enableAppPackage(key, decodeURIComponent(parts[4]), input.version ? String(input.version) : undefined, admitManagement));
       }
       if (parts.length === 6 && parts[3] === 'packages' && parts[5] === 'disable' && method === 'POST') {
         return json(res, 200, await disableAppPackage(key, decodeURIComponent(parts[4])));
