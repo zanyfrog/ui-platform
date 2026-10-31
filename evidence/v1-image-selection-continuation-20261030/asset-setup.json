@@ -1,0 +1,66 @@
+{
+  "method": "Existing supported development identity/session and Application multipart composition-asset APIs; separate service setup session using same configured Application Admin identity, not browser upload evidence",
+  "origin": "http://localhost:5374",
+  "key": "v1-identity-fixture",
+  "owner": "dev-v1-identity-fixture",
+  "actor": {
+    "userId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+    "email": "admin@example.local",
+    "displayName": "Application Admin"
+  },
+  "expectedHash": null,
+  "path": "assets/images/image-selection-fixture.svg",
+  "contentHash": "480751d64323c545b8eea3da2e8b820a78940133a7cd91af4ad5bf8ce2cc7c61",
+  "bytes": 282,
+  "saved": {
+    "path": "assets/images/image-selection-fixture.svg",
+    "hash": "480751d64323c545b8eea3da2e8b820a78940133a7cd91af4ad5bf8ce2cc7c61"
+  },
+  "info": {
+    "path": "assets/images/image-selection-fixture.svg",
+    "hash": "480751d64323c545b8eea3da2e8b820a78940133a7cd91af4ad5bf8ce2cc7c61"
+  },
+  "choices": {
+    "assets": [
+      "assets/images/image-selection-fixture.svg"
+    ],
+    "styles": []
+  },
+  "requests": [
+    {
+      "route": "/api/development-identity/session",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/development-identity/session",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "route": "/api/apps",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/apps/v1-identity-fixture/composition-asset?info=1&path=assets%2Fimages%2Fimage-selection-fixture.svg",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/apps/v1-identity-fixture/composition-asset",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "route": "/api/apps/v1-identity-fixture/composition-asset?info=1&path=assets%2Fimages%2Fimage-selection-fixture.svg",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/apps/v1-identity-fixture/composition-asset?list=1",
+      "method": "GET",
+      "status": 200
+    }
+  ]
+}

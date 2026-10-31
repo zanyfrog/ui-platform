@@ -1,0 +1,25 @@
+{
+  "name": "image-selection-plain",
+  "metadata": {
+    "schemaVersion": 1,
+    "artifactId": "art_bd1abcb8-51d8-4ce8-8ca6-6d71315e5287",
+    "kind": "page",
+    "name": "image-selection-plain",
+    "displayName": "image selection plain",
+    "route": "/image-selection-plain",
+    "shellId": "art_a8ca1455-8234-424c-ac66-6480701267f1",
+    "routeId": "route_72ff45fc-17a6-4467-80f7-3e9a123b382c"
+  },
+  "actualKind": "composed",
+  "intendedKind": "plain",
+  "metadataNeverEdited": true,
+  "explanation": "The existing create endpoint falls back to composition.defaultShellId; normal and repair metadata writes refuse Shell changes; Change Page Shell requires an existing Shell. No supported detach or plain creation option is offered. No policy bypass attempted.",
+  "anchors": [
+    "src/server/index.ts:435",
+    "src/server/visual-candidate.ts:52",
+    "src/server/application-composition.ts:197",
+    "src/server/application-composition.ts:212",
+    "src/client/visual-artifacts/creation.ts:8",
+    "src/client/visual-artifacts/editor.ts:197"
+  ]
+}
