@@ -57,6 +57,26 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
       return value as T;
     };
   }
+  // Asset operations retain this tab's Application and session. The server
+  // independently requires presentation view/edit; Page edit grants neither.
+  function captureAssetRequest() {
+    assert();
+    if (!active) throw new Error('Focus and authorize this artifact before choosing an image.');
+    const original = artifact, session = binding;
+    return async <T>(url: string, init?: RequestInit): Promise<T> => {
+      const check = () => { session.assert(); assert(); if (!active || artifact.applicationKey !== original.applicationKey || artifact.applicationId !== original.applicationId) throw new Error('Application or editor context changed.'); };
+      check();
+      url = url.replace(`/api/apps/${encodeURIComponent(originalApp)}/`, `/api/apps/${encodeURIComponent(original.applicationKey)}/`);
+      const endpoint = new URL(url, location.origin), method = init?.method ?? 'GET';
+      if (endpoint.origin !== location.origin || endpoint.pathname !== `/api/apps/${encodeURIComponent(original.applicationKey)}/composition-asset` ||
+          !['GET', 'POST'].includes(method) || method === 'POST' && (!(init?.body instanceof FormData) || !original.editable)) throw new Error('Unsupported Application asset operation.');
+      const headers = await session.headers(); check();
+      const response = await fetch(url, { ...init, cache: 'no-store', headers: { ...headers, 'x-editor-application-id': original.applicationId } });
+      const value = await response.json(); check();
+      if (!response.ok) throw Object.assign(new Error(value.error ?? value.code ?? 'Application asset request denied.'), { status: response.status, code: value.code });
+      return value as T;
+    };
+  }
   async function request<T>(url: string, init?: RequestInit): Promise<T> {
     assert();
     const requestBinding = binding, applicationKey = artifact.applicationKey;
@@ -102,7 +122,7 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
       dispose = async () => { unsubscribe(); view.destroy(); await context.discard(); await context.dispose(); };
       focus = async (next, target) => { if (!context.hasCopy) await context.open(next.locator); if (!next.editable && context.snapshot?.artifact.capabilities.edit) context.suspend(); view.navigate(target.section, target.source); context.refreshPresentation(); };
     } else if (initial.visual) {
-      const editor = await mountVisualEditor(element, originalApp, { request, captureRequest, applicationId: initial.applicationId, workspace: initial.visual,
+      const editor = await mountVisualEditor(element, originalApp, { request, captureRequest, captureAssetRequest, applicationId: initial.applicationId, workspace: initial.visual,
         savedCardContext: { get: () => {
           binding.assert(); const session = editorSessionSnapshot();
           if (disposed || !session?.principal || session.principal.subjectId !== originalSubject || artifact.applicationId !== initial.applicationId ||

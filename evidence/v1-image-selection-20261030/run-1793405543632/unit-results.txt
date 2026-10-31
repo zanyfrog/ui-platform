@@ -1,0 +1,42 @@
+✔ literal anchor/link editing preserves content, managed IDs, containment and order (1.4667ms)
+✔ ordinary insertion outer wrapper supports a Page-root anchor without changing wrapper identity (1.0952ms)
+✔ invalid, duplicate, nested and unmanaged targets and unsupported references refuse (3.9081ms)
+✔ surviving links prevent rename, clear and subtree removal with referring identity (0.8828ms)
+✔ unchanged legacy fragments are preserved; new external URLs are not local references (0.3775ms)
+✔ normal authorized fixture Save retains hash on failed anchor admission and persists valid HTML (300.6307ms)
+✔ accepted duplication continues refusing anchored/reference-bearing Pages (0.901ms)
+✔ Page admission does not expand generic Component/Shell fragment policy (0.3357ms)
+✔ canonical plain routes and uniqueness (0.2688ms)
+✔ new managed links resolve exactly one saved plain Page (0.7397ms)
+✔ external and unchanged legacy links retain existing policy (0.2805ms)
+✔ incoming reference reports Page and managed link; self references do not prevent deleting self (0.2607ms)
+✔ unsupported and invalid saved targets refuse (0.1825ms)
+✔ route change protects a surviving self link while deletion excludes it (0.1517ms)
+✔ existing Foundation graph serializes competing route checks and creates (180.9874ms)
+✔ graph-scoped link refusal preserves the actual saved role bundle (97.3672ms)
+✔ all thirteen captured plain Pages remain admitted with all public routes and no Route identity allocation (5.0016ms)
+✔ hypothetical three composed Pages coexist with ten unchanged plain Pages (5.5654ms)
+✔ partial composed identities, missing Shell, absent Region membership and wrong Regions refuse (13.1361ms)
+✔ incidental Region markup never infers composition; orphan Route identity refuses (0.2037ms)
+✔ duplicate identities and routes across either Page kind refuse (5.548ms)
+✔ literal references to either Page type remain visible and missing targets refuse (9.0798ms)
+✔ normal mutation contract supports valid cross-kind changes and refuses dangling links and surviving removals (3.0576ms)
+✔ all-composed configuration retains strict valid behavior (6.4422ms)
+✔ menu Page destinations may reference plain Pages; Route destinations need real identities (6.846ms)
+✔ all-composed independent diagnostics remain available for malformed candidates (3.1494ms)
+✔ mixed admission does not relax Component dependency validation (3.201ms)
+✔ composed Route identities remain unique even at different public paths (2.1088ms)
+✔ existing composed parameter routes still resolve concrete literal Page paths (3.3626ms)
+✔ parameter route changes and removals protect concrete incoming references (0.8889ms)
+✔ guided main uses actual Region identity and readable display label (0.1578ms)
+✔ semantic main Region preserves custom identity (0.0636ms)
+✔ missing or ambiguous main refuses without label guessing (0.1258ms)
+✔ duplicate and malformed Regions refuse (0.2599ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 773.077

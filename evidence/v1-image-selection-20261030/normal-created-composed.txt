@@ -1,0 +1,221 @@
+- link "Skip to content":
+  - /url: "#app"
+- text: Development identity
+- combobox "Development identity":
+  - option "Sign out"
+  - option "Security Admin (security@example.local)"
+  - option "Page, Form and Workflow Editor (combined@example.local)"
+  - option "Page and Form Editor (page-form-editor@example.local)"
+  - option "Mixed Permissions (mixed@example.local)"
+  - option "Workflow Editor (workflow-editor@example.local)"
+  - option "Application Admin (admin@example.local)" [selected]
+- button "Manage Triggers and Workflows"
+- main:
+  - complementary:
+    - button "Modular UI Platform home":
+      - generic: M
+      - generic: MODULAR
+      - strong: UI Platform
+    - navigation "Platform navigation":
+      - button "Applications":
+        - generic: Applications
+      - button "Packages":
+        - generic: Packages
+      - button "Templates" [disabled]:
+        - generic: Templates
+      - button "Settings":
+        - generic: Settings
+    - generic: U
+    - strong: User
+    - generic: user@example.com
+  - button "Applications"
+  - generic: /
+  - strong: V1 Development Identity Fixture
+  - heading "V1 Development Identity Fixture" [level=1]
+  - generic: active
+  - button "Show details"
+  - generic "Application actions": ⋯
+  - tablist:
+    - tab "Overview":
+      - generic: Overview
+    - tab "Pages" [selected]:
+      - generic: Pages
+    - tab "Packages":
+      - generic: Packages
+    - tab "Presentation":
+      - generic: Presentation
+    - tab "Preview":
+      - generic: Preview
+    - tab "Settings":
+      - generic: Settings
+  - tabpanel "Pages":
+    - region "Application Builder workspace":
+      - button "Application navigation" [expanded]
+      - strong: V1 Development Identity Fixture
+      - button "Refresh artifacts"
+      - button "Create Dataset"
+      - button "Create Form"
+      - button "Validate Application"
+      - button "Set up shared website"
+      - button "Create Menu"
+      - button "Upload Application asset"
+      - button "Create Page" [active]
+      - button "Create Shell"
+      - button "Create Platform Component"
+      - status: Artifact authorized. Existing editor save behavior applies.
+      - paragraph: Navigation opens artifacts or component definitions. To add a component instance, open a Page and use its insertion controls.
+      - navigation "Application artifacts":
+        - generic "Pages"
+        - button "about"
+        - button "contact"
+        - button "home"
+        - button "image selection composed"
+        - button "services"
+        - button "v1 anchor navigation 20261028"
+        - button "v1 card panel smoke"
+        - button "v1 compact problems 20261028"
+        - button "v1 layout card 20261027"
+        - button "v1 practical website 20261027"
+        - button "v1 responsive card 20261027"
+        - button "v1 section duplication 20261028"
+        - button "v1 semantic headings 20261028"
+        - button "v1 two component 20261027"
+        - button "v1 website host 20261028"
+        - button "V1 Development Fixture (source inspection) (repair-only locator) (read-only)"
+        - generic "Shells"
+        - button "shared website"
+        - generic "Components and Forms"
+        - button "Card (read-only)"
+        - button "Panel (repair-only locator) (read-only)"
+        - generic "Workflows"
+        - button "V1 workflow"
+        - generic "Menus"
+        - button "Site navigation"
+        - generic "Application presentation/settings"
+        - button "Application presentation/settings"
+        - generic "Other artifacts"
+        - button "V1 form"
+      - tablist "Open artifacts":
+        - tab "image selection composed" [selected]
+        - button "Close image selection composed": ×
+      - article "page editor":
+        - strong: Visual Artifacts
+        - generic: Saved
+        - button "Undo" [disabled]
+        - button "Redo" [disabled]
+        - button "Save Now" [disabled]
+        - button "Advanced source repair save"
+        - button "Reload / discard editor changes"
+        - button "Download editor recovery"
+        - button "Delete artifact"
+        - button "Saved Design Preview"
+        - button "Change Page Shell"
+        - button "Add Region"
+        - button "Remove selected node"
+        - paragraph: Saved Design Preview displays saved content. Save changes before opening it. Fixture demonstration is a separate testing facility; restricted Saved Preview readiness does not control Design Preview.
+        - region "Page main content":
+          - paragraph: "Main Content: This Page inherits the shared Shell default main content. No Page override exists."
+          - button "Create Page-specific main content"
+          - button "Use shared Shell default main content"
+          - paragraph: Creating Page-specific content replaces the inherited default in this area. The shared Shell is preserved.
+          - button "Add Heading" [disabled]
+          - button "Add Paragraph" [disabled]
+          - button "Add Link" [disabled]
+        - group "Editor Problems":
+          - generic "Problems — 0 errors, 0 warnings"
+        - strong: Structure
+        - listbox "Visual node":
+          - option "🔒 div node_e5f34e0d-2e8b-4439-806d-127ae89fa722" [disabled]
+          - option "🔒 header node_2a6d84ff-693a-4c8c-b1bd-5aec41e763c5" [disabled]
+          - option "🔒 div node_9fa7857e-0553-45ae-bbe9-0ba94039be0f" [disabled]
+          - option "🔒 span node_61e74967-2370-4a62-bb99-e5e2ae77ff44" [disabled]
+          - option "🔒 div node_d2583330-c00a-46a2-8dbf-269c5aee4270" [disabled]
+          - option "🔒 nav node_301eb6d7-26d5-4d5a-ad46-cfb7541a3add" [disabled]
+          - option "🔒 div node_12c215f8-3d77-4646-aed5-1d9c1401f077" [disabled]
+          - option "🔒 span node_1d275b9b-d74e-4f81-91e6-aa8de9eac4f5" [disabled]
+          - option "🔒 div node_140e70c6-b354-40c0-be0a-7779a8e6aeb8" [disabled]
+          - option "🔒 footer node_86584626-60d4-4d39-adef-1a4311afe41c" [disabled]
+        - text: Insert into selected container, or artifact root
+        - combobox "Insert element":
+          - option "section" [selected]
+          - option "header"
+          - option "nav"
+          - option "footer"
+          - option "div"
+          - option "article"
+          - option "p"
+          - option "H1 — Page title"
+          - option "H2 — Section heading"
+          - option "H3 — Subsection heading"
+          - option "H4 — Heading level 4"
+          - option "H5 — Heading level 5"
+          - option "H6 — Heading level 6"
+          - option "a"
+          - option "button"
+          - option "img"
+          - option "ul"
+          - option "li"
+          - option "span"
+          - option "uip-slot"
+          - option "Card"
+          - option "Panel"
+        - paragraph: Choose an item here, then click Insert selected item. The navigation list inspects component definitions.
+        - button "Insert selected item"
+        - button "Select artifact root"
+        - button "Move layout item up"
+        - button "Move layout item down"
+        - button "Duplicate section"
+        - paragraph: Select a managed node to edit settings and bindings.
+        - text: Artifact display name
+        - textbox "Artifact display name": image selection composed
+        - text: Page route
+        - textbox "Page route": /image-selection-composed
+        - group "Local state":
+          - generic: Local state
+          - text: New local state
+          - textbox "New local state"
+          - text: New local state type
+          - combobox "New local state type":
+            - option "result" [selected]
+            - option "string"
+            - option "number"
+            - option "boolean"
+            - option "object"
+            - option "array"
+          - button "Declare local state"
+        - paragraph: "Shell: shared website. Fixed content is edited in the Shell editor."
+        - button "Set Page Menu Item visibility / availability"
+        - button "Add Page-local Menu Item"
+        - text: Source file
+        - combobox "Visual source file":
+          - option "source" [selected]
+          - option "css"
+          - option "metadata"
+          - option "fixtures"
+          - option "code"
+        - textbox "Visual source": <!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->
+        - paragraph: Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.
+      - region "Application Problems":
+        - heading "Application Problems" [level=3]
+        - status: Validate authoritative saved sources. Local unsaved validation remains in each editor.
+        - list
+      - region "Fixture Preview":
+        - heading "Preview · Fixture demonstration" [level=3]
+        - paragraph: Fixture mode · SAMPLE DATA · Saved-artifact Preview unavailable
+        - paragraph: Original selection · ["usr_f01e0c1c58424bed9ac4e8601ff9890a","9af14bac70d1116b2fed1e08238a573adabc9a18a64aefc133b443c76f39462a","dev-v1-identity-fixture","[\"application\",\"dev-v1-identity-fixture\",null,\"visual\",[\"permanent\",\"art_604e0cde-7fde-4855-a65f-b872f5afc967\"]]"]
+        - paragraph: No successful capture
+        - status: empty
+        - text: Sample type
+        - combobox "Sample type":
+          - option "Native Card" [selected]
+          - option "Native Panel layout fixture"
+          - option "Synthetic route-parameter inspector"
+        - text: Synthetic sample (JSON)
+        - textbox "Synthetic sample (JSON)": "{ \"fixture\": \"native-card-v1\", \"heading\": \"Synthetic Card\", \"header\": \"\", \"body\": \"Authored synthetic slot text\", \"footer\": \"Synthetic footer\", \"variant\": \"outlined\", \"density\": \"comfortable\", \"selectable\": true, \"disabled\": false, \"selected\": false }"
+        - button "Refresh fixture"
+        - button "Preview saved artifact"
+        - generic "Unsupported fixture contracts"
+      - region "Saved Preview readiness":
+        - heading "Restricted Saved Preview readiness · unavailable" [level=3]
+        - button "Check restricted Saved Preview readiness"
+        - status: Restricted Saved Preview is unavailable. For saved Page content, use Saved Design Preview in the Page editor. Fixture demonstration is a separate testing facility. Original selection changed; explicit check required.

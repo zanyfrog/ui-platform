@@ -1,6 +1,7 @@
 import { isPageRootSection, removeNodeAttribute, removeManagedNode, insertNode, isWrapper, moveNode, duplicateSection, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
 import { chooseNamedValue } from './menu-controls.js';
 import { mainContentRegion } from './main-content.js';
+import { chooseApplicationImage } from './image-selection.js';
 import { isPlainPageRoute, validatePageLinks } from '../../../packages/visual-artifacts/src/page-links.js';
 import { renderEditorProblems } from './editor-problems.js';
 import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
@@ -14,6 +15,7 @@ export interface Workspace { pages: ArtifactBundle[]; components: ArtifactBundle
 export interface VisualWorkspaceOptions {
   request?: typeof api; workspace?: Workspace; initial?: { kind: 'page' | 'component' | 'shell'; locator: string };
   captureRequest?: () => SourceRequest;
+  captureAssetRequest?: () => SourceRequest;
   applicationId?: string;
   onDefinition?: (componentId: string) => void; onStateChange?: () => void;
   applicationKey?: () => string;
@@ -325,6 +327,18 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       const setValue = (value: string) => { const next = setNodeAttribute(files.source, selectedNode, name, value, selectedKind); if (selectedKind === 'page' && name === 'href') validatePageLinks(files.source, next, workspace.pages, { allowComposed: !!workingMetadata().shellId }); files.source = next; input.value = value; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); };
       input.addEventListener('change', safe(() => setValue(input.value)));
       label.append(input); inspector.append(label);
+      if (name === 'src' && !node.attributes['data-uip-branding']) {
+        const choose = document.createElement('button'); choose.textContent = 'Choose Application image';
+        choose.addEventListener('click', safe(async () => {
+          const original = { copy, source: files.source, metadata: files.metadata, node: selectedNode, kind: selectedKind, application: options.applicationKey?.(), epoch: cardEpoch };
+          const current = () => !disposed && active && !target.hidden && target.isConnected && !copy?.lifecycle.suspended && !conflict && copy === original.copy && selectedKind === original.kind && selectedNode === original.node && files.source === original.source && files.metadata === original.metadata && cardEpoch === original.epoch && options.applicationKey?.() === original.application;
+          const assetRequest = options.captureAssetRequest?.() ?? transport.capture();
+          const path = await chooseApplicationImage(base, assetRequest, current);
+          if (!path) return;
+          if (!current()) throw new Error('Image selection changed. Reopen Choose Application image.');
+          setValue(path);
+        })); inspector.append(choose);
+      }
       if (name === 'href' && selectedKind === 'page') {
         const destination = document.createElement('select'); destination.setAttribute('aria-label', 'Saved Page destination'); destination.add(new Option('Choose a saved Page', ''));
         for (const page of workspace.pages) if (isPlainPageRoute(page.metadata?.route) && (!page.metadata?.shellId || !!workingMetadata().shellId && !!page.metadata.routeId && workspace.shells.filter(shell => shell.metadata?.artifactId === page.metadata!.shellId && !shell.diagnostics.some(d => d.severity === 'error')).length === 1) && !page.diagnostics.some(d => d.severity === 'error') && workspace.pages.filter(p => p.metadata?.route === page.metadata!.route).length === 1) destination.add(new Option(`${page.metadata.displayName} — ${page.metadata.route}`, page.metadata.route));

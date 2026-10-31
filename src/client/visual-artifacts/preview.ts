@@ -62,7 +62,8 @@ async function show(data: PreviewRequest, mode: 'initial' | 'push' | 'pop' = 'in
     if (current !== sequence) return;
     const page = artifact.metadata.kind === 'shell' ? { metadata: { schemaVersion: 1 as const, artifactId: 'art_shell_preview', kind: 'page' as const, name: 'shell-preview', displayName: 'Shell Preview', route: '/', shellId: artifact.metadata.artifactId }, source: '', css: '' } : artifact;
     instance?.destroy();
-    instance = composition && page.metadata.shellId ? mountComposedPage(composition, page, { ...options, editor: true, routeId: page.metadata.routeId, assetUrl: relative => `/api/apps/${encodeURIComponent(appKey)}/composition-asset?path=${encodeURIComponent(relative)}` }) : mountVisualArtifact(artifact, options);
+    const assetUrl = (relative: string) => `/api/apps/${encodeURIComponent(appKey)}/composition-asset?path=${encodeURIComponent(relative)}`;
+    instance = composition && page.metadata.shellId ? mountComposedPage(composition, page, { ...options, editor: true, routeId: page.metadata.routeId, assetUrl }) : mountVisualArtifact(artifact, kind === 'page' ? { ...options, assetUrl } : options);
     for (const name of Object.keys(artifact.metadata.public?.events ?? {})) instance.host.addEventListener(name, event => { events.textContent += `${name}: ${JSON.stringify((event as CustomEvent).detail)}\n`; });
     if (data.design && kind === 'page') {
       const next = previewUrl({ ...data, page: bundle.metadata!.route });

@@ -1,0 +1,136 @@
+diff --git a/packages/visual-artifacts/src/runtime.ts b/packages/visual-artifacts/src/runtime.ts
+index 6e19b8f..6433e5b 100644
+--- a/packages/visual-artifacts/src/runtime.ts
++++ b/packages/visual-artifacts/src/runtime.ts
+@@ -227,6 +227,9 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
+         const value = element.getAttribute(name)?.replace(/^(?:\.\.\/)+|^\.\//, '');
+         if (value?.startsWith('assets/')) element.setAttribute(name, options.assetUrl(value));
+       }
++      if (element.localName === 'img' && options.assetUrl) element.addEventListener('error', () => {
++        if (!disposed) report(new Error(`Image could not load or decode: ${element.getAttribute('src') ?? '(missing source)'}`));
++      }, { once: true });
+       const regionId = element.getAttribute('data-uip-region');
+       if (regionId && Object.hasOwn(options.regions ?? {}, regionId)) {
+         const key = `region/${regionId}`; used.add(key);
+diff --git a/src/client/builder-workspace/adapters.ts b/src/client/builder-workspace/adapters.ts
+index 24c78ac..1b68709 100644
+--- a/src/client/builder-workspace/adapters.ts
++++ b/src/client/builder-workspace/adapters.ts
+@@ -57,6 +57,26 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
+       return value as T;
+     };
+   }
++  // Asset operations retain this tab's Application and session. The server
++  // independently requires presentation view/edit; Page edit grants neither.
++  function captureAssetRequest() {
++    assert();
++    if (!active) throw new Error('Focus and authorize this artifact before choosing an image.');
++    const original = artifact, session = binding;
++    return async <T>(url: string, init?: RequestInit): Promise<T> => {
++      const check = () => { session.assert(); assert(); if (!active || artifact.applicationKey !== original.applicationKey || artifact.applicationId !== original.applicationId) throw new Error('Application or editor context changed.'); };
++      check();
++      url = url.replace(`/api/apps/${encodeURIComponent(originalApp)}/`, `/api/apps/${encodeURIComponent(original.applicationKey)}/`);
++      const endpoint = new URL(url, location.origin), method = init?.method ?? 'GET';
++      if (endpoint.origin !== location.origin || endpoint.pathname !== `/api/apps/${encodeURIComponent(original.applicationKey)}/composition-asset` ||
++          !['GET', 'POST'].includes(method) || method === 'POST' && (!(init?.body instanceof FormData) || !original.editable)) throw new Error('Unsupported Application asset operation.');
++      const headers = await session.headers(); check();
++      const response = await fetch(url, { ...init, cache: 'no-store', headers: { ...headers, 'x-editor-application-id': original.applicationId } });
++      const value = await response.json(); check();
++      if (!response.ok) throw Object.assign(new Error(value.error ?? value.code ?? 'Application asset request denied.'), { status: response.status, code: value.code });
++      return value as T;
++    };
++  }
+   async function request<T>(url: string, init?: RequestInit): Promise<T> {
+     assert();
+     const requestBinding = binding, applicationKey = artifact.applicationKey;
+@@ -102,7 +122,7 @@ export async function mountWorkspaceEditor(initial: AuthorizedWorkspaceArtifact,
+       dispose = async () => { unsubscribe(); view.destroy(); await context.discard(); await context.dispose(); };
+       focus = async (next, target) => { if (!context.hasCopy) await context.open(next.locator); if (!next.editable && context.snapshot?.artifact.capabilities.edit) context.suspend(); view.navigate(target.section, target.source); context.refreshPresentation(); };
+     } else if (initial.visual) {
+-      const editor = await mountVisualEditor(element, originalApp, { request, captureRequest, applicationId: initial.applicationId, workspace: initial.visual,
++      const editor = await mountVisualEditor(element, originalApp, { request, captureRequest, captureAssetRequest, applicationId: initial.applicationId, workspace: initial.visual,
+         savedCardContext: { get: () => {
+           binding.assert(); const session = editorSessionSnapshot();
+           if (disposed || !session?.principal || session.principal.subjectId !== originalSubject || artifact.applicationId !== initial.applicationId ||
+diff --git a/src/client/visual-artifacts/composition-manager.ts b/src/client/visual-artifacts/composition-manager.ts
+index 7d7568e..10e2004 100644
+--- a/src/client/visual-artifacts/composition-manager.ts
++++ b/src/client/visual-artifacts/composition-manager.ts
+@@ -3,6 +3,7 @@ import type { TemplateComparison } from '../../server/template-updates.js';
+ import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
+ import { specializedTransport, type SourceRequest, type SourceTransportOptions } from '../artifact-editor/specialized-transport.js';
+ import { chooseMenuItem } from './menu-controls.js';
++import { defaultAssetPath, uploadApplicationAsset } from './image-selection.js';
+ 
+ const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
+ async function api<T>(url: string, init?: RequestInit): Promise<T> { const response = await fetch(url, { ...init, headers: { 'content-type': 'application/json' } }); const data = await response.json(); if (!response.ok) throw new Error(data.error ?? 'Request failed.'); return data; }
+@@ -63,14 +64,11 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
+     find<HTMLSelectElement>('[data-files]').value = source.path;
+     try { renderFields(); } catch { /* Retain invalid source. */ } paintState();
+   }
+-  find('[data-asset]').addEventListener('change', () => { const file = find<HTMLInputElement>('[data-asset]').files?.[0]; if (file) find<HTMLInputElement>('[data-asset-path]').value = 'assets/images/' + file.name.toLowerCase().replace(/[^a-z0-9.\-]/g, '-'); });
++  find('[data-asset]').addEventListener('change', () => { const file = find<HTMLInputElement>('[data-asset]').files?.[0]; if (file) find<HTMLInputElement>('[data-asset-path]').value = defaultAssetPath(file.name); });
+   find('[data-upload-asset]').addEventListener('click', safe(async () => {
+     const asset = find<HTMLInputElement>('[data-asset]').files?.[0]; if (!asset) throw new Error('Choose an asset file.');
+     const path = find<HTMLInputElement>('[data-asset-path]').value;
+-    const info = await request<{ hash: string | null }>(`${base}/composition-asset?info=1&path=${encodeURIComponent(path)}`);
+-    if (info.hash && !confirm(`Replace the existing Application asset at ${path}?`)) return;
+-    const data = new FormData(); data.set('asset', asset); data.set('path', path); data.set('expectedHash', info.hash ?? '');
+-    await request(`${base}/composition-asset`, { method: 'POST', body: data });
++    if (!await uploadApplicationAsset(`${base}/composition-asset`, request, asset, path)) return;
+     find('[data-asset-status]').textContent = `Saved ${path}. Use this source path in branding or component settings.`; document.dispatchEvent(new Event('ui-platform-workspace-change'));
+   }));
+   function menu(): ApplicationMenu { return JSON.parse(text()); }
+diff --git a/src/client/visual-artifacts/editor.ts b/src/client/visual-artifacts/editor.ts
+index 6a97abe..23df3bd 100644
+--- a/src/client/visual-artifacts/editor.ts
++++ b/src/client/visual-artifacts/editor.ts
+@@ -1,6 +1,7 @@
+ import { isPageRootSection, removeNodeAttribute, removeManagedNode, insertNode, isWrapper, moveNode, duplicateSection, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+ import { chooseNamedValue } from './menu-controls.js';
+ import { mainContentRegion } from './main-content.js';
++import { chooseApplicationImage } from './image-selection.js';
+ import { isPlainPageRoute, validatePageLinks } from '../../../packages/visual-artifacts/src/page-links.js';
+ import { renderEditorProblems } from './editor-problems.js';
+ import type { ArtifactBundle, ArtifactFiles, ArtifactMetadata, PackageComponent } from '@ui-platform/visual-artifacts';
+@@ -14,6 +15,7 @@ export interface Workspace { pages: ArtifactBundle[]; components: ArtifactBundle
+ export interface VisualWorkspaceOptions {
+   request?: typeof api; workspace?: Workspace; initial?: { kind: 'page' | 'component' | 'shell'; locator: string };
+   captureRequest?: () => SourceRequest;
++  captureAssetRequest?: () => SourceRequest;
+   applicationId?: string;
+   onDefinition?: (componentId: string) => void; onStateChange?: () => void;
+   applicationKey?: () => string;
+@@ -325,6 +327,18 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+       const setValue = (value: string) => { const next = setNodeAttribute(files.source, selectedNode, name, value, selectedKind); if (selectedKind === 'page' && name === 'href') validatePageLinks(files.source, next, workspace.pages, { allowComposed: !!workingMetadata().shellId }); files.source = next; input.value = value; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); };
+       input.addEventListener('change', safe(() => setValue(input.value)));
+       label.append(input); inspector.append(label);
++      if (name === 'src' && !node.attributes['data-uip-branding']) {
++        const choose = document.createElement('button'); choose.textContent = 'Choose Application image';
++        choose.addEventListener('click', safe(async () => {
++          const original = { copy, source: files.source, metadata: files.metadata, node: selectedNode, kind: selectedKind, application: options.applicationKey?.(), epoch: cardEpoch };
++          const current = () => !disposed && active && !target.hidden && target.isConnected && !copy?.lifecycle.suspended && !conflict && copy === original.copy && selectedKind === original.kind && selectedNode === original.node && files.source === original.source && files.metadata === original.metadata && cardEpoch === original.epoch && options.applicationKey?.() === original.application;
++          const assetRequest = options.captureAssetRequest?.() ?? transport.capture();
++          const path = await chooseApplicationImage(base, assetRequest, current);
++          if (!path) return;
++          if (!current()) throw new Error('Image selection changed. Reopen Choose Application image.');
++          setValue(path);
++        })); inspector.append(choose);
++      }
+       if (name === 'href' && selectedKind === 'page') {
+         const destination = document.createElement('select'); destination.setAttribute('aria-label', 'Saved Page destination'); destination.add(new Option('Choose a saved Page', ''));
+         for (const page of workspace.pages) if (isPlainPageRoute(page.metadata?.route) && (!page.metadata?.shellId || !!workingMetadata().shellId && !!page.metadata.routeId && workspace.shells.filter(shell => shell.metadata?.artifactId === page.metadata!.shellId && !shell.diagnostics.some(d => d.severity === 'error')).length === 1) && !page.diagnostics.some(d => d.severity === 'error') && workspace.pages.filter(p => p.metadata?.route === page.metadata!.route).length === 1) destination.add(new Option(`${page.metadata.displayName} — ${page.metadata.route}`, page.metadata.route));
+diff --git a/src/client/visual-artifacts/preview.ts b/src/client/visual-artifacts/preview.ts
+index fd096d4..fab842c 100644
+--- a/src/client/visual-artifacts/preview.ts
++++ b/src/client/visual-artifacts/preview.ts
+@@ -62,7 +62,8 @@ async function show(data: PreviewRequest, mode: 'initial' | 'push' | 'pop' = 'in
+     if (current !== sequence) return;
+     const page = artifact.metadata.kind === 'shell' ? { metadata: { schemaVersion: 1 as const, artifactId: 'art_shell_preview', kind: 'page' as const, name: 'shell-preview', displayName: 'Shell Preview', route: '/', shellId: artifact.metadata.artifactId }, source: '', css: '' } : artifact;
+     instance?.destroy();
+-    instance = composition && page.metadata.shellId ? mountComposedPage(composition, page, { ...options, editor: true, routeId: page.metadata.routeId, assetUrl: relative => `/api/apps/${encodeURIComponent(appKey)}/composition-asset?path=${encodeURIComponent(relative)}` }) : mountVisualArtifact(artifact, options);
++    const assetUrl = (relative: string) => `/api/apps/${encodeURIComponent(appKey)}/composition-asset?path=${encodeURIComponent(relative)}`;
++    instance = composition && page.metadata.shellId ? mountComposedPage(composition, page, { ...options, editor: true, routeId: page.metadata.routeId, assetUrl }) : mountVisualArtifact(artifact, kind === 'page' ? { ...options, assetUrl } : options);
+     for (const name of Object.keys(artifact.metadata.public?.events ?? {})) instance.host.addEventListener(name, event => { events.textContent += `${name}: ${JSON.stringify((event as CustomEvent).detail)}\n`; });
+     if (data.design && kind === 'page') {
+       const next = previewUrl({ ...data, page: bundle.metadata!.route });

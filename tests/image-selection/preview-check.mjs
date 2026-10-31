@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+export async function verifyImagePreview(Window,code){
+ const metadata={schemaVersion:1,artifactId:'art_plain_image',kind:'page',name:'plain-image',displayName:'Plain image',route:'/plain-image'};
+ const files={source:'<section data-uip-node="section"><div class="uip-layout-item" data-uip-node="wrap"><img data-uip-node="image" src="assets/images/test.png" alt="Preview image"></div></section>',css:'',fixtures:'{}',code:'export {};'};
+ const plain={metadata,files,locator:'plain/page.visual.json',hash:'1'.repeat(64),diagnostics:[]};
+ const composed={...plain,locator:'composed/page.visual.json',metadata:{...metadata,artifactId:'art_composed_image',name:'composed-image',route:'/composed-image',shellId:'art_image_shell',routeId:'route_image'},files:{...files,source:files.source.replace('<section data-uip-node="section">','<section data-uip-node="section" data-uip-region="region-main">')}};
+ const shell={...plain,metadata:{schemaVersion:1,artifactId:'art_image_shell',kind:'shell',name:'image-shell',displayName:'Image Shell'},files:{...files,source:'<main data-uip-node="shell_main" data-uip-region="region-main"></main>'}};
+ const composition={settings:{model:'composition-v1',defaultShellId:'art_image_shell',branding:{applicationName:'Fixture'},theme:{},siteStyles:[],assetsRoot:'assets'},pages:[],shells:[],menus:[],routes:[{pageId:plain.metadata.artifactId,path:plain.metadata.route},{pageId:composed.metadata.artifactId,routeId:'route_image',path:composed.metadata.route}],siteCss:''};
+ const results=[];
+ for(const bundle of [plain,composed]){
+  const w=new Window({url:'http://fixture.invalid/visual-preview.html?'+new URLSearchParams({app:'fixture',kind:'page',locator:bundle.locator,revision:bundle.hash,design:'1',page:bundle.metadata.route})});w.structuredClone=structuredClone;
+  w.document.body.innerHTML='<div id="preview"></div><pre id="events"></pre>';const replace=w.Element.prototype.replaceWith;w.Element.prototype.replaceWith=function(...nodes){if(nodes.length===1&&nodes[0]===this)return;return replace.apply(this,nodes);};
+  w.fetch=async input=>{const u=new URL(String(input),'http://fixture.invalid');return{ok:true,json:async()=>u.searchParams.has('preview')?{bundle,components:[],packages:[],shells:bundle===composed?[shell]:[],composition:bundle===composed?structuredClone(composition):null,code:{}}:[plain,composed]};};w.eval(code);await w.happyDOM.whenAsyncComplete();await new Promise(r=>setTimeout(r,30));
+  const outer=w.document.querySelector('[data-uip-artifact]');assert.ok(outer,w.document.body.textContent);const root=bundle===plain?outer.shadowRoot:outer.shadowRoot.querySelector('[data-uip-artifact]').shadowRoot;const img=root.querySelector('img');assert.ok(img);assert.equal(img.getAttribute('src'),'/api/apps/fixture/composition-asset?path=assets%2Fimages%2Ftest.png');assert.equal(img.getAttribute('data-uip-node'),'image');img.dispatchEvent(new w.Event('error'));assert.match(w.document.querySelector('#events').textContent,/Image could not load or decode/);assert.equal(bundle.files.source.includes('src="assets/images/test.png"'),true);results.push({kind:bundle===plain?'plain':'composed',resolvedSrc:img.getAttribute('src'),literalSourcePreserved:true,loadFailureVisible:true});await w.happyDOM.close();
+ }
+ return{results,scope:'Actual saved Preview client and runtime with fake revision transport in isolated DOM; decode event simulated, normal browser evidence separate.'};
+}

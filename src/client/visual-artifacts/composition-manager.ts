@@ -3,6 +3,7 @@ import type { TemplateComparison } from '../../server/template-updates.js';
 import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
 import { specializedTransport, type SourceRequest, type SourceTransportOptions } from '../artifact-editor/specialized-transport.js';
 import { chooseMenuItem } from './menu-controls.js';
+import { defaultAssetPath, uploadApplicationAsset } from './image-selection.js';
 
 const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 async function api<T>(url: string, init?: RequestInit): Promise<T> { const response = await fetch(url, { ...init, headers: { 'content-type': 'application/json' } }); const data = await response.json(); if (!response.ok) throw new Error(data.error ?? 'Request failed.'); return data; }
@@ -63,14 +64,11 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
     find<HTMLSelectElement>('[data-files]').value = source.path;
     try { renderFields(); } catch { /* Retain invalid source. */ } paintState();
   }
-  find('[data-asset]').addEventListener('change', () => { const file = find<HTMLInputElement>('[data-asset]').files?.[0]; if (file) find<HTMLInputElement>('[data-asset-path]').value = 'assets/images/' + file.name.toLowerCase().replace(/[^a-z0-9.\-]/g, '-'); });
+  find('[data-asset]').addEventListener('change', () => { const file = find<HTMLInputElement>('[data-asset]').files?.[0]; if (file) find<HTMLInputElement>('[data-asset-path]').value = defaultAssetPath(file.name); });
   find('[data-upload-asset]').addEventListener('click', safe(async () => {
     const asset = find<HTMLInputElement>('[data-asset]').files?.[0]; if (!asset) throw new Error('Choose an asset file.');
     const path = find<HTMLInputElement>('[data-asset-path]').value;
-    const info = await request<{ hash: string | null }>(`${base}/composition-asset?info=1&path=${encodeURIComponent(path)}`);
-    if (info.hash && !confirm(`Replace the existing Application asset at ${path}?`)) return;
-    const data = new FormData(); data.set('asset', asset); data.set('path', path); data.set('expectedHash', info.hash ?? '');
-    await request(`${base}/composition-asset`, { method: 'POST', body: data });
+    if (!await uploadApplicationAsset(`${base}/composition-asset`, request, asset, path)) return;
     find('[data-asset-status]').textContent = `Saved ${path}. Use this source path in branding or component settings.`; document.dispatchEvent(new Event('ui-platform-workspace-change'));
   }));
   function menu(): ApplicationMenu { return JSON.parse(text()); }

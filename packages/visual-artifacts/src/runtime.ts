@@ -227,6 +227,9 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
         const value = element.getAttribute(name)?.replace(/^(?:\.\.\/)+|^\.\//, '');
         if (value?.startsWith('assets/')) element.setAttribute(name, options.assetUrl(value));
       }
+      if (element.localName === 'img' && options.assetUrl) element.addEventListener('error', () => {
+        if (!disposed) report(new Error(`Image could not load or decode: ${element.getAttribute('src') ?? '(missing source)'}`));
+      }, { once: true });
       const regionId = element.getAttribute('data-uip-region');
       if (regionId && Object.hasOwn(options.regions ?? {}, regionId)) {
         const key = `region/${regionId}`; used.add(key);
