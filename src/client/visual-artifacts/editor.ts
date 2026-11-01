@@ -39,6 +39,29 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   let workspace: Workspace, selected: ArtifactBundle | undefined, selectedKind: 'page' | 'component' | 'shell' = 'page';
   let files: ArtifactFiles, baseline: ArtifactFiles, hash = '', role: keyof ArtifactFiles = 'source', selectedNode = '', conflict = false, saving = false;
   let preview: HTMLIFrameElement | undefined, polling = false;
+  let previewSession = '', previewSequence = 0, previewPhase = 'unavailable', previewError = '';
+  let previewDocument = '';
+  const retiredPreviewDocuments = new Set<string>();
+  let mountedPreview: { locator: string; kind: string; hash: string; name: string; route: string; savedHash?: string } | undefined;
+  function paintPreview(): void {
+    const life = copy?.lifecycle, mounted = mountedPreview;
+    let state = 'Saved Preview unavailable. Save, then open saved Preview.';
+    if (life?.suspended || !active) state = 'Saved Preview unavailable while editing access is suspended.';
+    else if (life?.failure || life?.state === 'conflict') state = 'Blocked: ' + (life.failure ?? 'Resolve the save conflict.');
+    else if (previewPhase === 'blocked') state = 'Blocked: ' + previewError + ' Address the refusal, then refresh saved Preview.';
+    else if (life?.state === 'saving' || life?.inFlight) state = 'Saving. Wait for Save to complete.';
+    else if (life?.dirty) state = 'Newer editor changes not yet displayed. Edits are not yet saved; use Save Now.';
+    else if (previewPhase === 'loading') state = 'Loading saved Preview…';
+    else if (mounted) {
+      const same = mounted.locator === selected?.locator && mounted.kind === selectedKind;
+      const savedHash = same ? hash : mounted.savedHash;
+      state = !savedHash ? 'Saved revision freshness unconfirmed.' : savedHash === mounted.hash ? 'Displaying saved changes.' : 'Saved changes not yet shown. Refresh saved Preview.';
+      if (!same) state = 'Preview is displaying another Page. ' + state;
+    }
+    const text = 'Editing: ' + (selected?.metadata?.displayName ?? selected?.locator ?? 'none') + ' (' + (selected?.metadata?.route ?? selectedKind) + '). ' + (mounted ? 'Preview: ' + mounted.name + ' (' + (mounted.route || mounted.kind) + '). ' : 'Preview Page not yet confirmed. ') + state;
+    find('[data-preview-status]').textContent = text;
+    const feedback = target.querySelector('[data-preview-host] [role="status"]'); if (feedback) feedback.textContent = text;
+  }
   const actionDrafts = new Map<string, NonNullable<import('./authoring-controls.js').AuthoringOptions['draft']>>();
   const layoutViewports = new Map<string, 'base' | 'tablet' | 'mobile'>();
   const readCardContext = () => { try { return options.savedCardContext?.get(); } catch { return undefined; } };
@@ -112,7 +135,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   const url = () => `${base}/visual-${plural(selectedKind)}?locator=${encodeURIComponent(selected!.locator)}`;
   target.innerHTML = `<div class="stack"><div class="pane-heading"><strong>Visual Artifacts</strong><span data-status aria-live="polite"></span></div>
     <div class="editor-actions"><button data-create="page">Create Page</button><button data-create="component">Create Platform Component</button><button data-create="form-dataset">Create Form from Dataset</button><button data-create="form">Create blank Form</button><select aria-label="Visual Artifact" data-artifacts><option value="">Select an artifact</option></select></div>
-    <div data-work hidden><div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-repair>Advanced source repair save</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Saved Design Preview</button><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
+    <div data-work hidden><div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-repair>Advanced source repair save</button><button data-reload>Reload / discard editor changes</button><button data-recover>Download editor recovery</button><button data-delete>Delete artifact</button><button data-preview>Open/Refresh saved Preview</button><span data-preview-status role="status" aria-live="polite"></span><button data-change-shell>Change Page Shell</button><button data-add-region>Add Region</button><button data-remove-node>Remove selected node</button></div>
     <p class="note">Saved Design Preview displays saved content. Save changes before opening it. Fixture demonstration is a separate testing facility; restricted Saved Preview readiness does not control Design Preview.</p><section data-main-content aria-label="Page main content" hidden></section><div data-diagnostics></div><div class="builder-layout" style="grid-template-columns:minmax(180px,1fr) minmax(220px,2fr)"><div class="stack"><strong>Structure</strong><select data-nodes size="8" aria-label="Visual node"></select>
     <label>Insert into selected container, or artifact root<select data-insert aria-label="Insert element"></select></label><p class="note">Choose an item here, then click Insert selected item. The navigation list inspects component definitions.</p><button data-add>Insert selected item</button><button data-root>Select artifact root</button><button data-move="up">Move layout item up</button><button data-move="down">Move layout item down</button><button data-duplicate-section>Duplicate section</button><div data-inspector></div></div>
     <div class="stack"><label>Source file<select data-file aria-label="Visual source file">${['source', 'css', 'metadata', 'fixtures', 'code'].map(name => `<option>${name}</option>`).join('')}</select></label><textarea data-source aria-label="Visual source" class="source-editor" spellcheck="false"></textarea><p class="note">Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.</p></div></div><div data-preview-host></div></div></div>`;
@@ -222,6 +245,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   function workingMetadata(): ArtifactMetadata { const metadata = parseMetadata(files.metadata).metadata; if (!metadata) throw new Error('Repair metadata JSON first.'); return metadata; }
   function changeMetadata(change: (metadata: ArtifactMetadata) => void): void { const metadata = workingMetadata(); change(metadata); files.metadata = JSON.stringify(metadata, null, 2) + '\n'; changed(); }
   function paintState(): void {
+    paintPreview();
     const lifecycle = copy?.lifecycle;
     conflict = lifecycle?.state === 'conflict'; saving = lifecycle?.state === 'saving';
     status(lifecycle ? [editingStatus(lifecycle.state, lifecycle.dirty), lifecycle.failure, lifecycle.notice].filter(Boolean).join(' · ') : 'Select an artifact');
@@ -454,7 +478,17 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     }
     if (!node.attributes['data-uip-component'] && !isWrapper(node)) {
       const label = document.createElement('label'); label.textContent = 'Text content'; const input = document.createElement('input'); input.value = files.source.slice(node.openEnd, node.closeStart);
-      input.addEventListener('change', safe(() => { if (node.children.length) throw new Error('Edit nested content in source or select a leaf.'); files.source = files.source.slice(0, node.openEnd) + esc(input.value) + files.source.slice(node.closeStart); find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); })); label.append(input); inspector.append(label);
+      const textCopy = copy, textNodeId = selectedNode;
+      input.addEventListener('change', safe(() => {
+        if (copy !== textCopy || selectedNode !== textNodeId) throw new Error('Text selection changed. Reselect the element before editing text.');
+        // A destination/property change may have rebuilt the inspector before blur.
+        // Resolve offsets against the current source, never its rendered snapshot.
+        const currentNodes = parseSource(files.source).nodes.filter(item => item.id === textNodeId);
+        const currentNode = currentNodes.length === 1 ? currentNodes[0] : undefined;
+        if (!currentNode || currentNode.manual || currentNode.children.length || currentNode.attributes['data-uip-component'] || isWrapper(currentNode)) throw new Error('Reselect a managed leaf before editing text.');
+        files.source = files.source.slice(0, currentNode.openEnd) + esc(input.value) + files.source.slice(currentNode.closeStart);
+        find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
+      })); label.append(input); inspector.append(label);
     }
     let slotChild = node, ancestor = node.parent;
     while (ancestor && !ancestor.attributes['data-uip-component']) { slotChild = ancestor; ancestor = ancestor.parent; }
@@ -533,7 +567,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     find('[data-change-shell]').hidden = kind !== 'page';
     find('[data-add-region]').hidden = kind === 'component' || kind === 'page' && !bundle.metadata?.shellId;
     find('[data-place-menu]').hidden = kind !== 'shell';
-    if (kind === 'page' && bundle.metadata?.shellId) void showPreview();
+
   }
   let selectionGeneration = 0;
   find('[data-artifacts]').addEventListener('change', safe(async () => {
@@ -620,10 +654,11 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   }));
   async function showPreview(reveal = false): Promise<void> {
     if (!active || disposed) return;
-    if (dirty() || conflict) throw new Error('Save source before previewing.');
+    if (dirty() || conflict || copy?.lifecycle.failure || copy?.lifecycle.suspended) throw new Error(copy?.lifecycle.failure ?? 'Save source before previewing.');
     const host = find<HTMLElement>('[data-preview-host]');
     host.replaceChildren(); host.tabIndex = -1; host.setAttribute('aria-label', 'Saved Design Preview');
-    host.dataset.savedRevision = hash;
+    previewSession = crypto.randomUUID(); previewDocument = ''; retiredPreviewDocuments.clear(); previewSequence = 0; previewPhase = 'loading'; previewError = ''; mountedPreview = undefined;
+    host.dataset.savedRevision = '';
     const heading = document.createElement('h3'); heading.textContent = 'Saved Design Preview';
     const feedback = document.createElement('p'); feedback.setAttribute('role', 'status'); feedback.textContent = 'Loading saved design preview…';
     host.append(heading, feedback);
@@ -631,19 +666,50 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
     preview?.remove(); preview = document.createElement('iframe'); preview.title = 'Nonpersisting Visual Artifact design preview'; preview.src = '/visual-preview.html'; preview.style.cssText = 'width:100%;min-height:500px;border:1px solid #ccc';
     if (!active || disposed || !preview) return;
     const frame = preview, previewApplicationKey = options.applicationKey?.() ?? appKey;
-    const request = { type: 'uip-preview', design: true, locator: selected!.locator, kind: selectedKind, hash, appKey: previewApplicationKey };
-    frame.addEventListener('load', () => { if (active && !disposed && frame === preview) frame.contentWindow!.postMessage(request, location.origin); });
-    frame.addEventListener('error', () => { if (frame === preview) feedback.textContent = 'Design preview could not load. Check the development server, then retry Design preview.'; });
-    host.append(preview);
+    const request = { type: 'uip-preview', design: true, locator: selected!.locator, kind: selectedKind, hash, appKey: previewApplicationKey, session: previewSession };
+    frame.addEventListener('load', () => {
+      if (!active || disposed || target.hidden || copy?.lifecycle.suspended || frame !== preview) return;
+      // Every document load gets fresh admission; late replies from a retired
+      // document cannot introduce an unseen document ID into the new session.
+      previewSession = crypto.randomUUID(); previewDocument = ''; retiredPreviewDocuments.clear(); previewSequence = 0;
+      previewPhase = 'loading'; mountedPreview = undefined; paintPreview();
+      frame.contentWindow!.postMessage({ ...request, session: previewSession }, location.origin);
+    });
+    frame.addEventListener('error', () => { if (frame === preview) { previewPhase = 'blocked'; previewError = 'Design preview could not load. Refresh saved Preview.'; paintPreview(); } });
+    host.append(preview); paintPreview();
     if (reveal) { host.scrollIntoView({ block: 'start' }); host.focus({ preventScroll: true }); }
   }
   const previewFeedback = (event: MessageEvent) => {
-    if (disposed || !active || !preview || event.origin !== location.origin || event.source !== preview.contentWindow || event.data?.type !== 'uip-design-preview-state') return;
-    const feedback = find('[data-preview-host] [role="status"]');
-    feedback.textContent = event.data.error ? `Design preview blocked: ${String(event.data.error)} Reload saved source and retry; if access is denied, check your Application permissions.` : `Saved Design Preview ready. Opened saved revision: ${find<HTMLElement>('[data-preview-host]').dataset.savedRevision}. Save changes and reopen Preview to view a newer revision.`;
+    if (disposed || !active || target.hidden || copy?.lifecycle.suspended || !preview || event.origin !== location.origin || event.source !== preview.contentWindow || event.data?.type !== 'uip-design-preview-state') return;
+    const data = event.data;
+    if (data.session !== previewSession || data.appKey !== (options.applicationKey?.() ?? appKey) || !Number.isSafeInteger(data.sequence) || typeof data.documentId !== 'string') return;
+    if (data.documentId !== previewDocument) {
+      if (retiredPreviewDocuments.has(data.documentId) || data.state !== 'loading' || data.sequence !== 1) return;
+      if (previewDocument) retiredPreviewDocuments.add(previewDocument);
+      previewDocument = data.documentId; previewSequence = 0;
+    }
+    if (data.sequence < previewSequence) return;
+    if (data.sequence === previewSequence && previewPhase !== 'loading') return;
+    if (!['loading', 'mounted', 'blocked'].includes(data.state)) return;
+    if (data.state === 'mounted' && (typeof data.locator !== 'string' || typeof data.kind !== 'string' || !/^[a-f0-9]{64}$/.test(data.hash))) return;
+    previewSequence = data.sequence; previewPhase = data.state;
+    if (data.state === 'loading') mountedPreview = undefined;
+    if (data.state === 'blocked') previewError = String(data.error ?? 'Saved Preview unavailable.');
+    if (data.state === 'mounted') {
+      mountedPreview = { locator: data.locator, kind: data.kind, hash: data.hash, name: String(data.name ?? data.locator), route: String(data.route ?? ''), savedHash: typeof data.savedHash === 'string' ? data.savedHash : undefined };
+      const host = find<HTMLElement>('[data-preview-host]'); host.dataset.savedRevision = data.hash;
+      host.querySelector('details')?.remove();
+      const details = document.createElement('details'), summary = document.createElement('summary'); summary.textContent = 'Preview revision diagnostics'; details.append(summary, document.createTextNode(data.hash)); host.append(details);
+    }
+    paintPreview();
   };
   window.addEventListener('message', previewFeedback);
-  find('[data-preview]').addEventListener('click', safe(() => showPreview(true)));
+  find('[data-preview]').addEventListener('click', safe(async () => {
+    const original = copy;
+    if (original?.lifecycle.inFlight) await original.lifecycle.inFlight;
+    if (copy !== original || disposed || !active) return;
+    try { await showPreview(true); } catch (error) { previewPhase = 'blocked'; previewError = String(error); paintPreview(); throw error; }
+  }));
   async function refresh(event?: Event): Promise<void> {
     if (event) invalidateCard('SOURCE_CHANGED');
     if (disposed || options.initial && !active) return;
@@ -661,7 +727,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
           if (dirty()) { copy?.lifecycle.conflict(); changed(); }
           else if (disk) { const node = selectedNode; open(disk, selectedKind); selectedNode = node; renderStructure(); status('Reloaded external source changes'); }
           else { conflict = true; status('Artifact was removed externally. Download recovery before changing selection.'); }
-        } else if (!dirty() && !conflict && selected.metadata?.shellId && (dependenciesChanged || event)) { renderStructure(); await showPreview(); }
+        } else if (!dirty() && !conflict && selected.metadata?.shellId && (dependenciesChanged || event)) { renderStructure(); paintPreview(); }
       }
     } catch (error) { status(String(error)); } finally { polling = false; }
   }
@@ -679,7 +745,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   return {
     savedCardTarget,
     state: () => ({ dirty: [...copies.values()].some(item => item.lifecycle.dirty), pending: saving || operations > 0, conflict }),
-    deactivate() { invalidateCard('NOT_ACTIVE'); active = false; preview?.remove(); preview = undefined; },
+    deactivate() { invalidateCard('NOT_ACTIVE'); active = false; preview?.remove(); preview = undefined; previewSession = ''; mountedPreview = undefined; previewPhase = 'unavailable'; paintPreview(); },
     suspend() { invalidateCard('SUSPENDED'); actionDrafts.clear(); for (const item of copies.values()) item.lifecycle.suspend(); target.hidden = true; },
     focus(next: Workspace, navigation: { node?: string; section?: string } = {}) {
       if (disposed) return;
@@ -692,7 +758,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
         else { const node = selectedNode, section = role; open(disk, selectedKind); selectedNode = node; role = section; }
       }
       active = true;
-      target.hidden = false; copy?.lifecycle.resume();
+      target.hidden = false; copy?.lifecycle.resume(); paintPreview();
       if (navigation.node !== undefined) selectedNode = navigation.node;
       if (navigation.section && ['source', 'css', 'metadata', 'fixtures', 'code'].includes(navigation.section)) role = navigation.section as keyof ArtifactFiles;
       find<HTMLSelectElement>('[data-file]').value = role;
