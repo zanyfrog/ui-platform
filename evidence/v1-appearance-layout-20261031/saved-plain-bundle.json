@@ -1,0 +1,48 @@
+{
+  "files": {
+    "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_564ca7ed-7d9d-4bc2-939a-ff0519cce200\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_ab458fc2-5b85-4b74-991d-176b64e68445\">\n  <p data-uip-node=\"node_29cc1f5a-11c5-47d7-988f-acf5b1b60947\">Plain Page styling</p>\n</div>\n</section>\n",
+    "css": "/* Authored CSS: preserve exactly. */\n.note { border: 1px solid #526078; }\n\n\n/* uip-appearance:start */\n[data-uip-node=\"node_29cc1f5a-11c5-47d7-988f-acf5b1b60947\"] {\n  background-color: #e8f1ff;\n  font-size: 24px;\n  font-weight: 700;\n  text-align: center;\n}\n/* uip-appearance:end */\n",
+    "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_3fe9212c-631f-48ec-8d68-f56bb7df37f1\",\n  \"kind\": \"page\",\n  \"name\": \"appearance-plain\",\n  \"displayName\": \"appearance plain\",\n  \"route\": \"/appearance-plain\",\n  \"layout\": {\n    \"node_ab458fc2-5b85-4b74-991d-176b64e68445\": {\n      \"base\": {\n        \"padding\": \"1rem\",\n        \"display\": \"flex\",\n        \"flexDirection\": \"column\",\n        \"alignItems\": \"center\",\n        \"gap\": \"0.5rem\",\n        \"width\": \"100%\"\n      },\n      \"tablet\": {\n        \"padding\": \"2rem\",\n        \"display\": \"flex\",\n        \"flexDirection\": \"row\"\n      },\n      \"mobile\": {\n        \"padding\": \"0.5rem\",\n        \"display\": \"flex\",\n        \"flexDirection\": \"column\"\n      }\n    }\n  }\n}\n",
+    "fixtures": "{}\n",
+    "code": "export {};\n"
+  },
+  "metadata": {
+    "schemaVersion": 1,
+    "artifactId": "art_3fe9212c-631f-48ec-8d68-f56bb7df37f1",
+    "kind": "page",
+    "name": "appearance-plain",
+    "displayName": "appearance plain",
+    "route": "/appearance-plain",
+    "layout": {
+      "node_ab458fc2-5b85-4b74-991d-176b64e68445": {
+        "base": {
+          "padding": "1rem",
+          "display": "flex",
+          "flexDirection": "column",
+          "alignItems": "center",
+          "gap": "0.5rem",
+          "width": "100%"
+        },
+        "tablet": {
+          "padding": "2rem",
+          "display": "flex",
+          "flexDirection": "row"
+        },
+        "mobile": {
+          "padding": "0.5rem",
+          "display": "flex",
+          "flexDirection": "column"
+        }
+      }
+    }
+  },
+  "revision": "c5a72013f6313e2a5ea19329230be987e41729e8454d0f8c3b84829075eaa3ea",
+  "managedIds": [
+    "node_564ca7ed-7d9d-4bc2-939a-ff0519cce200",
+    "node_ab458fc2-5b85-4b74-991d-176b64e68445",
+    "node_29cc1f5a-11c5-47d7-988f-acf5b1b60947"
+  ],
+  "unrelatedCssBytesPreserved": true,
+  "cssOwnsAppearanceOnly": true,
+  "metadataOwnsWrapperLayoutOnly": true
+}

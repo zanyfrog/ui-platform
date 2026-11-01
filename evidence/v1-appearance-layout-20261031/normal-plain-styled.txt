@@ -1,0 +1,445 @@
+- link "Skip to content":
+  - /url: "#app"
+- text: Development identity
+- combobox "Development identity":
+  - option "Sign out"
+  - option "Security Admin (security@example.local)"
+  - option "Page, Form and Workflow Editor (combined@example.local)"
+  - option "Page and Form Editor (page-form-editor@example.local)"
+  - option "Mixed Permissions (mixed@example.local)"
+  - option "Workflow Editor (workflow-editor@example.local)"
+  - option "Application Admin (admin@example.local)" [selected]
+- button "Manage Triggers and Workflows"
+- main:
+  - complementary:
+    - button "Modular UI Platform home":
+      - generic: M
+      - generic: MODULAR
+      - strong: UI Platform
+    - navigation "Platform navigation":
+      - button "Applications":
+        - generic: Applications
+      - button "Packages":
+        - generic: Packages
+      - button "Templates" [disabled]:
+        - generic: Templates
+      - button "Settings":
+        - generic: Settings
+    - generic: U
+    - strong: User
+    - generic: user@example.com
+  - button "Applications"
+  - generic: /
+  - strong: V1 Development Identity Fixture
+  - heading "V1 Development Identity Fixture" [level=1]
+  - generic: active
+  - button "Show details"
+  - generic "Application actions": ⋯
+  - tablist:
+    - tab "Overview":
+      - generic: Overview
+    - tab "Pages" [selected]:
+      - generic: Pages
+    - tab "Packages":
+      - generic: Packages
+    - tab "Presentation":
+      - generic: Presentation
+    - tab "Preview":
+      - generic: Preview
+    - tab "Settings":
+      - generic: Settings
+  - tabpanel "Pages":
+    - region "Application Builder workspace":
+      - button "Application navigation" [expanded]
+      - strong: V1 Development Identity Fixture
+      - button "Refresh artifacts"
+      - button "Create Dataset"
+      - button "Create Form"
+      - button "Validate Application"
+      - button "Set up shared website"
+      - button "Create Menu"
+      - button "Upload Application asset"
+      - button "Create Page"
+      - button "Create Shell"
+      - button "Create Platform Component"
+      - status: Artifact authorized. Existing editor save behavior applies.
+      - paragraph: Navigation opens artifacts or component definitions. To add a component instance, open a Page and use its insertion controls.
+      - navigation "Application artifacts":
+        - generic "Pages"
+        - button "about"
+        - button "appearance plain"
+        - button "contact"
+        - button "home"
+        - button "image selection composed"
+        - button "image selection default check"
+        - button "image selection explicit plain"
+        - button "image selection plain"
+        - button "services"
+        - button "v1 anchor navigation 20261028"
+        - button "v1 card panel smoke"
+        - button "v1 compact problems 20261028"
+        - button "v1 layout card 20261027"
+        - button "v1 practical website 20261027"
+        - button "v1 responsive card 20261027"
+        - button "v1 section duplication 20261028"
+        - button "v1 semantic headings 20261028"
+        - button "v1 two component 20261027"
+        - button "v1 website host 20261028"
+        - button "V1 Development Fixture (source inspection) (repair-only locator) (read-only)"
+        - generic "Shells"
+        - button "shared website"
+        - generic "Components and Forms"
+        - button "Card (read-only)"
+        - button "Panel (repair-only locator) (read-only)"
+        - generic "Workflows"
+        - button "V1 workflow"
+        - generic "Menus"
+        - button "Site navigation"
+        - generic "Application presentation/settings"
+        - button "Application presentation/settings"
+        - generic "Other artifacts"
+        - button "V1 form"
+      - tablist "Open artifacts":
+        - tab "appearance plain •" [selected]
+        - button "Close appearance plain": ×
+      - article "page editor":
+        - strong: Visual Artifacts
+        - generic: Unsaved
+        - button "Undo"
+        - button "Redo" [disabled]
+        - button "Save Now"
+        - button "Advanced source repair save"
+        - button "Reload / discard editor changes"
+        - button "Download editor recovery"
+        - button "Delete artifact"
+        - button "Saved Design Preview"
+        - button "Change Page Shell"
+        - button "Remove selected node"
+        - paragraph: Saved Design Preview displays saved content. Save changes before opening it. Fixture demonstration is a separate testing facility; restricted Saved Preview readiness does not control Design Preview.
+        - group "Editor Problems":
+          - generic "Problems — 0 errors, 0 warnings"
+        - strong: Structure
+        - listbox "Visual node":
+          - option "section — Plain Page styling"
+          - option "div — Plain Page styling"
+          - option "p — Plain Page styling" [selected]
+        - text: Insert into selected container, or artifact root
+        - combobox "Insert element":
+          - option "section" [selected]
+          - option "header"
+          - option "nav"
+          - option "footer"
+          - option "div"
+          - option "article"
+          - option "p"
+          - option "H1 — Page title"
+          - option "H2 — Section heading"
+          - option "H3 — Subsection heading"
+          - option "H4 — Heading level 4"
+          - option "H5 — Heading level 5"
+          - option "H6 — Heading level 6"
+          - option "a"
+          - option "button"
+          - option "img"
+          - option "ul"
+          - option "li"
+          - option "span"
+          - option "uip-slot"
+          - option "Card"
+          - option "Panel"
+        - paragraph: Choose an item here, then click Insert selected item. The navigation list inspects component definitions.
+        - button "Insert selected item"
+        - button "Select artifact root"
+        - button "Move layout item up"
+        - button "Move layout item down"
+        - button "Duplicate section"
+        - group "Appearance":
+          - generic: Appearance
+          - paragraph: "Selected HTML element: node_29cc1f5a-11c5-47d7-988f-acf5b1b60947. Base viewport only. Empty means stylesheet inheritance; shared styles are unchanged."
+          - text: Background color
+          - textbox "Background color":
+            - /placeholder: Use stylesheet inheritance
+            - text: "#e8f1ff"
+          - combobox "Background color preset":
+            - option "Use stylesheet inheritance"
+            - option "White"
+            - option "Dark ink"
+            - option "Pale blue" [selected]
+            - option "Soft grey"
+            - option "Transparent"
+          - button "Reset Background color"
+          - text: Text color
+          - textbox "Text color":
+            - /placeholder: Use stylesheet inheritance
+            - text: "#2456a6"
+          - combobox "Text color preset":
+            - option "Use stylesheet inheritance"
+            - option "Dark ink"
+            - option "White"
+            - option "Blue" [selected]
+            - option "Slate"
+          - button "Reset Text color"
+          - text: Font size
+          - textbox "Font size":
+            - /placeholder: Use stylesheet inheritance
+            - text: 24px
+          - combobox "Font size preset":
+            - option "Use stylesheet inheritance"
+            - option "Body (16px)"
+            - option "Large body (20px)"
+            - option "Small heading (24px)" [selected]
+            - option "Heading (32px)"
+            - option "Large heading (48px)"
+          - button "Reset Font size"
+          - text: Font weight
+          - textbox "Font weight":
+            - /placeholder: Use stylesheet inheritance
+            - text: "700"
+          - combobox "Font weight preset":
+            - option "Use stylesheet inheritance"
+            - option "Regular"
+            - option "Medium"
+            - option "Semibold"
+            - option "Bold" [selected]
+            - option "Extra bold"
+          - button "Reset Font weight"
+          - text: Text alignment
+          - textbox "Text alignment":
+            - /placeholder: Use stylesheet inheritance
+            - text: center
+          - combobox "Text alignment preset":
+            - option "Use stylesheet inheritance"
+            - option "Start"
+            - option "Center" [selected]
+            - option "End"
+            - option "Justify"
+          - button "Reset Text alignment"
+        - text: CSS classes
+        - textbox "CSS classes"
+        - text: Text content
+        - textbox "Text content": Plain Page styling
+        - group "Instance binding":
+          - generic: Instance binding
+          - text: Binding target
+          - combobox "Binding target":
+            - option "text" [selected]
+            - option "attribute:href"
+            - option "attribute:aria-label"
+            - option "property:disabled"
+          - group "Binding":
+            - generic: Binding
+            - text: Binding source
+            - combobox "Binding source":
+              - option "Named source path" [selected]
+              - option "Literal text"
+              - option "Literal number"
+              - option "Literal boolean"
+            - text: Binding value
+            - textbox "Binding value": route.id
+          - button "Apply binding"
+        - group "Event action":
+          - generic: Event action
+          - text: Action event
+          - combobox "Action event":
+            - option "click" [selected]
+            - option "change"
+            - option "input"
+            - option "submit"
+          - text: Action kind
+          - combobox "Action kind":
+            - option "Navigate" [selected]
+            - option "Set local state"
+            - option "Emit public event"
+            - option "Existing Dataset service"
+            - option "Protected single-record delete"
+            - option "Run approved Workflow"
+          - group "Destination":
+            - generic: Destination
+            - text: Destination source
+            - combobox "Destination source":
+              - option "Named source path"
+              - option "Literal text" [selected]
+              - option "Literal number"
+              - option "Literal boolean"
+            - text: Destination value
+            - textbox "Destination value": /
+          - button "Add event action"
+        - group "Space and layout":
+          - generic: Space and layout
+          - paragraph: "Layout wrapper: node_ab458fc2-5b85-4b74-991d-176b64e68445 (immediate parent wrapper). Appearance targets the selected element separately."
+          - text: Viewport override
+          - combobox "Breakpoint":
+            - option "Desktop (base)" [selected]
+            - option "Tablet (up to 1023px)"
+            - option "Mobile (up to 639px)"
+          - text: Arrange content
+          - combobox "Layout arrangement":
+            - option "Inherit / reset arrangement"
+            - option "Block"
+            - option "Row"
+            - option "Column" [selected]
+            - option "Grid"
+          - text: Horizontal alignment
+          - combobox "Horizontal alignment":
+            - option "Inherit"
+            - option "Start"
+            - option "Center" [selected]
+            - option "End"
+            - option "Stretch"
+          - text: Vertical alignment
+          - combobox "Vertical alignment":
+            - option "Inherit" [selected]
+            - option "Start"
+            - option "Center"
+            - option "End"
+            - option "Space between"
+          - paragraph: Empty/reset removes this viewport override. Tablet also applies on Mobile unless overridden. px, rem and % presets are available; advanced fields retain existing CSS entry.
+          - text: Padding
+          - textbox "Layout base padding":
+            - /placeholder: Inherit
+            - text: 1rem
+          - combobox "Padding preset":
+            - option "Inherit"
+            - option "0px"
+            - option "0.5rem"
+            - option "1rem" [selected]
+            - option "2rem"
+            - option "32px"
+          - button "Reset Padding"
+          - text: Margin
+          - textbox "Layout base margin":
+            - /placeholder: Inherit
+          - combobox "Margin preset":
+            - option "Inherit" [selected]
+            - option "0px"
+            - option "0.5rem"
+            - option "1rem"
+            - option "2rem"
+            - option "auto"
+          - button "Reset Margin"
+          - text: Gap
+          - textbox "Layout base gap":
+            - /placeholder: Inherit
+            - text: 0.5rem
+          - combobox "Gap preset":
+            - option "Inherit"
+            - option "0px"
+            - option "0.5rem" [selected]
+            - option "1rem"
+            - option "2rem"
+          - button "Reset Gap"
+          - text: Width
+          - textbox "Layout base width":
+            - /placeholder: Inherit
+            - text: 100%
+          - combobox "Width preset":
+            - option "Inherit"
+            - option "100%" [selected]
+            - option "75%"
+            - option "50%"
+            - option "320px"
+            - option "auto"
+          - button "Reset Width"
+          - text: Height
+          - textbox "Layout base height":
+            - /placeholder: Inherit
+          - combobox "Height preset":
+            - option "Inherit" [selected]
+            - option "auto"
+            - option "100%"
+            - option "240px"
+            - option "20rem"
+          - button "Reset Height"
+          - text: Display (advanced)
+          - textbox "Layout base display":
+            - /placeholder: Inherit
+            - text: flex
+          - combobox "Display (advanced) preset":
+            - option "Inherit"
+            - option "block"
+            - option "flex" [selected]
+            - option "grid"
+            - option "none"
+          - button "Reset Display (advanced)"
+          - text: Grid columns
+          - textbox "Layout base gridTemplateColumns":
+            - /placeholder: Inherit
+          - combobox "Grid columns preset":
+            - option "Inherit" [selected]
+            - option "1fr"
+            - option "1fr 1fr"
+            - option "1fr 1fr 1fr"
+          - button "Reset Grid columns"
+          - text: Grid span
+          - textbox "Layout base gridColumn":
+            - /placeholder: Inherit
+          - combobox "Grid span preset":
+            - option "Inherit" [selected]
+            - option "auto"
+            - option "span 2"
+            - option "1 / -1"
+          - button "Reset Grid span"
+          - text: Flex direction
+          - textbox "Layout base flexDirection":
+            - /placeholder: Inherit
+            - text: column
+          - combobox "Flex direction preset":
+            - option "Inherit"
+            - option "row"
+            - option "column" [selected]
+          - button "Reset Flex direction"
+          - text: Item alignment (advanced)
+          - textbox "Layout base alignItems":
+            - /placeholder: Inherit
+            - text: center
+          - combobox "Item alignment (advanced) preset":
+            - option "Inherit"
+            - option "start"
+            - option "center" [selected]
+            - option "end"
+            - option "stretch"
+          - button "Reset Item alignment (advanced)"
+          - text: Content alignment (advanced)
+          - textbox "Layout base justifyContent":
+            - /placeholder: Inherit
+          - combobox "Content alignment (advanced) preset":
+            - option "Inherit" [selected]
+            - option "start"
+            - option "center"
+            - option "end"
+            - option "space-between"
+            - option "space-around"
+          - button "Reset Content alignment (advanced)"
+        - text: Source file
+        - combobox "Visual source file":
+          - option "source"
+          - option "css" [selected]
+          - option "metadata"
+          - option "fixtures"
+          - option "code"
+        - textbox "Visual source": "/* Authored CSS: preserve exactly. */ .note { border: 1px solid #526078; } /* uip-appearance:start */ [data-uip-node=\"node_29cc1f5a-11c5-47d7-988f-acf5b1b60947\"] { background-color: #e8f1ff; color: #2456a6; font-size: 24px; font-weight: 700; text-align: center; } /* uip-appearance:end */"
+        - paragraph: Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.
+      - region "Application Problems":
+        - heading "Application Problems" [level=3]
+        - status: Validate authoritative saved sources. Local unsaved validation remains in each editor.
+        - list
+      - region "Fixture Preview":
+        - heading "Preview · Fixture demonstration" [level=3]
+        - paragraph: Fixture mode · SAMPLE DATA · Saved-artifact Preview unavailable
+        - paragraph: Original selection · ["usr_f01e0c1c58424bed9ac4e8601ff9890a","0d568d020c9d62a0a495fbd93226c7b6a0abe8c65cd9c5dbb01ff2465a99d57b","dev-v1-identity-fixture","[\"application\",\"dev-v1-identity-fixture\",null,\"visual\",[\"permanent\",\"art_3fe9212c-631f-48ec-8d68-f56bb7df37f1\"]]"]
+        - paragraph: No successful capture
+        - status: "unavailable · WORKSPACE_CHANGED: explicit Refresh required · Unsaved changes excluded; editor autosave remains independently governed."
+        - text: Sample type
+        - combobox "Sample type":
+          - option "Native Card" [selected]
+          - option "Native Panel layout fixture"
+          - option "Synthetic route-parameter inspector"
+        - text: Synthetic sample (JSON)
+        - textbox "Synthetic sample (JSON)": "{ \"fixture\": \"native-card-v1\", \"heading\": \"Synthetic Card\", \"header\": \"\", \"body\": \"Authored synthetic slot text\", \"footer\": \"Synthetic footer\", \"variant\": \"outlined\", \"density\": \"comfortable\", \"selectable\": true, \"disabled\": false, \"selected\": false }"
+        - button "Refresh fixture"
+        - button "Preview saved artifact"
+        - generic "Unsupported fixture contracts"
+      - region "Saved Preview readiness":
+        - heading "Restricted Saved Preview readiness · unavailable" [level=3]
+        - button "Check restricted Saved Preview readiness"
+        - status: Restricted Saved Preview is unavailable. For saved Page content, use Saved Design Preview in the Page editor. Fixture demonstration is a separate testing facility. Original selection changed; explicit check required. Unsaved changes are excluded; editor autosave remains unchanged.

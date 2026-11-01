@@ -1,0 +1,22 @@
+{
+  "name": "@ui-base/core",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Shared UI Base Web Component base classes, accessibility helpers, validation, localization, and utilities.",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./styles.css": "./src/styles.css",
+    "./base": "./src/base-element.js",
+    "./utils": "./src/utils.js",
+    "./validation": "./src/validation.js",
+    "./localization": "./src/localization.js",
+    "./metadata": "./src/metadata.js"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "sideEffects": true,
+  "license": "UNLICENSED"
+}

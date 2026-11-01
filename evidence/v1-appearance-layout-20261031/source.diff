@@ -1,0 +1,84 @@
+diff --git a/src/client/visual-artifacts/editor.ts b/src/client/visual-artifacts/editor.ts
+index 23df3bd..40d5a33 100644
+--- a/src/client/visual-artifacts/editor.ts
++++ b/src/client/visual-artifacts/editor.ts
+@@ -1,6 +1,8 @@
+ import { isPageRootSection, removeNodeAttribute, removeManagedNode, insertNode, isWrapper, moveNode, duplicateSection, parseMetadata, parseSource, readNodeSettings, setNodeSetting, setNodeAttribute, setHeadingLevel, regions, recommendedRegionIds, legacyPackageSettingContracts } from '@ui-platform/visual-artifacts';
+ import { chooseNamedValue } from './menu-controls.js';
+ import { mainContentRegion } from './main-content.js';
++import { appearanceTarget, readAppearance, changeAppearance } from './appearance-css.js';
++import { appearanceControls, layoutControls } from './style-controls.js';
+ import { chooseApplicationImage } from './image-selection.js';
+ import { isPlainPageRoute, validatePageLinks } from '../../../packages/visual-artifacts/src/page-links.js';
+ import { renderEditorProblems } from './editor-problems.js';
+@@ -38,6 +40,7 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+   let files: ArtifactFiles, baseline: ArtifactFiles, hash = '', role: keyof ArtifactFiles = 'source', selectedNode = '', conflict = false, saving = false;
+   let preview: HTMLIFrameElement | undefined, polling = false;
+   const actionDrafts = new Map<string, NonNullable<import('./authoring-controls.js').AuthoringOptions['draft']>>();
++  const layoutViewports = new Map<string, 'base' | 'tablet' | 'mobile'>();
+   const readCardContext = () => { try { return options.savedCardContext?.get(); } catch { return undefined; } };
+   const originalCardContextKey = savedCardContextKey(readCardContext());
+   let cardEpoch = 0, cardSelectionGeneration = 0, cardSourceGeneration = 0, cardPending = false, cardTerminal = false;
+@@ -308,6 +311,31 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+       return;
+     }
+     if (node.manual) { inspector.textContent = 'Manual region: edit source directly.'; return; }
++    if (selectedKind === 'page') {
++      try {
++        appearanceTarget(files.source, selectedNode, !!workingMetadata().shellId);
++        const original = { copy, node: selectedNode, source: files.source, css: files.css, metadata: files.metadata, app: options.applicationKey?.(), selection: cardSelectionGeneration, editing: copy?.lifecycle.generation, context: savedCardContextKey(readCardContext()) };
++        const current = () => !disposed && active && !target.hidden && target.isConnected && !copy?.lifecycle.suspended && copy === original.copy && selectedNode === original.node && files.source === original.source && files.css === original.css && files.metadata === original.metadata && cardSelectionGeneration === original.selection && copy?.lifecycle.generation === original.editing && savedCardContextKey(readCardContext()) === original.context && options.applicationKey?.() === original.app;
++        appearanceControls(inspector, selectedNode, readAppearance(files.css, selectedNode), (property, value) => { void safe(async () => {
++          if (!current()) throw new Error('Selection or source changed. Reselect the HTML element before styling.');
++          let sharedCss = '';
++          if (workingMetadata().shellId) {
++            const definition = await request<import('@ui-platform/visual-artifacts').CompositionDefinition>(`${base}/composition`);
++            if (!current()) throw new Error('Selection, Application or editor session changed. Reselect before styling.');
++            const shells = definition?.shells.filter(shell => shell.metadata.artifactId === workingMetadata().shellId) ?? [];
++            if (shells.length !== 1) throw new Error('The shared Shell is missing or ambiguous.');
++            const allowed = new Set(regions(shells[0].source).map(region => region.regionId));
++            if (regions(files.source).some(region => !allowed.has(region.regionId))) throw new Error('Page Region membership needs repair before styling.');
++            sharedCss = definition.siteCss + '\n' + shells[0].css;
++          }
++          const next = changeAppearance(files.css, files.source, original.node, !!workingMetadata().shellId, property, value, sharedCss);
++          if (!current()) throw new Error('Selection or source changed. Reopen Appearance.');
++          if (next !== files.css) { files.css = next; find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed(); }
++        })(); });
++      } catch (error) {
++        const note = document.createElement('p'); note.textContent = `Appearance unavailable: ${error instanceof Error ? error.message : String(error)}`; inspector.append(note);
++      }
++    }
+     if (selectedKind === 'page' && !workingMetadata().shellId && isPageRootSection(node)) {
+       const label = document.createElement('label'); label.textContent = 'Anchor ID';
+       const input = document.createElement('input'); input.setAttribute('aria-label', 'Anchor ID'); input.value = node.attributes.id ?? ''; input.placeholder = 'features';
+@@ -449,18 +477,19 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
+     }
+     const wrapper = isWrapper(node) ? node : isWrapper(node.parent) ? node.parent : undefined;
+     if (!wrapper?.id) { inspector.insertAdjacentHTML('beforeend', '<p class="note">Layout is manual for this node.</p>'); return; }
+-    inspector.insertAdjacentHTML('beforeend', '<label>Breakpoint<select data-breakpoint><option>base</option><option>tablet</option><option>mobile</option></select></label><div data-layout></div>');
+-    const renderLayout = () => {
+-      const breakpoint = inspector.querySelector<HTMLSelectElement>('[data-breakpoint]')!.value as 'base' | 'tablet' | 'mobile';
+-      const layout = workingMetadata().layout?.[wrapper.id!]?.[breakpoint] ?? {};
+-      const container = inspector.querySelector('[data-layout]')!; container.replaceChildren();
+-      for (const key of ['width', 'height', 'margin', 'padding', 'display', 'gridTemplateColumns', 'gridColumn', 'gap', 'alignItems', 'justifyContent', 'flexDirection']) {
+-        const label = document.createElement('label'); label.textContent = key; const input = document.createElement('input'); input.value = String((layout as Record<string, string>)[key] ?? ''); input.setAttribute('aria-label', `Layout ${breakpoint} ${key}`);
+-        input.addEventListener('change', safe(() => changeMetadata(m => { m.layout ??= {}; m.layout[wrapper.id!] ??= {}; m.layout[wrapper.id!][breakpoint] ??= {}; const values = m.layout[wrapper.id!][breakpoint] as Record<string, string>; if (input.value) values[key] = input.value; else delete values[key]; })));
+-        label.append(input); container.append(label);
++    const layoutSelection = selectedNode, layoutSource = files.source, layoutWrapper = wrapper.id!;
++    layoutControls(inspector, layoutWrapper, selectedNode, workingMetadata, (breakpoint, updates) => { void safe(() => {
++      if (selectedNode !== layoutSelection || files.source !== layoutSource || !inspector.isConnected) throw new Error('Layout selection changed. Reselect its wrapper.');
++      const currentNodes = parseSource(files.source).nodes.filter(item => item.id === layoutSelection);
++      if (currentNodes.length !== 1 || currentNodes[0].manual) throw new Error('Select one managed layout target.');
++      if (selectedKind === 'page' && workingMetadata().shellId) {
++        let parent: typeof node | undefined = currentNodes[0]; while (parent && !parent.attributes['data-uip-region']) parent = parent.parent;
++        if (!parent) throw new Error('Select layout inside a Page-owned Region.');
+       }
+-    };
+-    inspector.querySelector('[data-breakpoint]')!.addEventListener('change', renderLayout); renderLayout();
++      changeMetadata(m => { m.layout ??= {}; m.layout[layoutWrapper] ??= {}; m.layout[layoutWrapper][breakpoint] ??= {}; const values = m.layout[layoutWrapper][breakpoint] as Record<string, string>;
++        for (const [key, value] of Object.entries(updates)) { if (value) values[key] = value; else delete values[key]; }
++      });
++    })(); }, layoutViewports.get(layoutWrapper), viewport => layoutViewports.set(layoutWrapper, viewport));
+   }
+   function open(bundle: ArtifactBundle, kind: 'page' | 'component' | 'shell', replace = false): void {
+     invalidateCard('SOURCE_CHANGED');

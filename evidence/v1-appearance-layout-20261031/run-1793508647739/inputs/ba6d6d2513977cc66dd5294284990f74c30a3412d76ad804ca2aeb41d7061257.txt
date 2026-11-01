@@ -1,0 +1,22 @@
+{
+  "name": "@ui-base/icons",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "UI Base SVG icon registry, URL icon support, and the uib-icon Web Component.",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./styles.css": "./src/styles.css",
+    "./icon": "./src/uib-icon.js",
+    "./registry": "./src/icon-registry.js"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "sideEffects": true,
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@ui-base/core": "^0.1.0"
+  }
+}

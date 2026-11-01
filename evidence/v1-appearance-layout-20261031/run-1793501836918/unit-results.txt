@@ -1,0 +1,78 @@
+✔ literal anchor/link editing preserves content, managed IDs, containment and order (1.6302ms)
+✔ ordinary insertion outer wrapper supports a Page-root anchor without changing wrapper identity (1.1812ms)
+✔ invalid, duplicate, nested and unmanaged targets and unsupported references refuse (4.1234ms)
+✔ surviving links prevent rename, clear and subtree removal with referring identity (1.5694ms)
+✔ unchanged legacy fragments are preserved; new external URLs are not local references (0.5738ms)
+✔ normal authorized fixture Save retains hash on failed anchor admission and persists valid HTML (306.7255ms)
+✔ accepted duplication continues refusing anchored/reference-bearing Pages (0.8493ms)
+✔ Page admission does not expand generic Component/Shell fragment policy (0.2668ms)
+✔ canonical plain routes and uniqueness (0.2043ms)
+✔ new managed links resolve exactly one saved plain Page (0.4736ms)
+✔ external and unchanged legacy links retain existing policy (0.2152ms)
+✔ incoming reference reports Page and managed link; self references do not prevent deleting self (0.2078ms)
+✔ unsupported and invalid saved targets refuse (0.1762ms)
+✔ route change protects a surviving self link while deletion excludes it (0.1735ms)
+✔ existing Foundation graph serializes competing route checks and creates (174.5645ms)
+✔ graph-scoped link refusal preserves the actual saved role bundle (79.9392ms)
+✔ all thirteen captured plain Pages remain admitted with all public routes and no Route identity allocation (4.4703ms)
+✔ hypothetical three composed Pages coexist with ten unchanged plain Pages (4.0203ms)
+✔ partial composed identities, missing Shell, absent Region membership and wrong Regions refuse (10.7181ms)
+✔ incidental Region markup never infers composition; orphan Route identity refuses (0.134ms)
+✔ duplicate identities and routes across either Page kind refuse (5.433ms)
+✔ literal references to either Page type remain visible and missing targets refuse (6.756ms)
+✔ normal mutation contract supports valid cross-kind changes and refuses dangling links and surviving removals (3.3635ms)
+✔ all-composed configuration retains strict valid behavior (6.7093ms)
+✔ menu Page destinations may reference plain Pages; Route destinations need real identities (4.6658ms)
+✔ all-composed independent diagnostics remain available for malformed candidates (2.1739ms)
+✔ mixed admission does not relax Component dependency validation (2.4156ms)
+✔ composed Route identities remain unique even at different public paths (2.2472ms)
+✔ existing composed parameter routes still resolve concrete literal Page paths (2.3408ms)
+✔ parameter route changes and removals protect concrete incoming references (0.7913ms)
+✔ guided main uses actual Region identity and readable display label (0.1301ms)
+✔ semantic main Region preserves custom identity (0.0593ms)
+✔ missing or ambiguous main refuses without label guessing (0.1143ms)
+✔ duplicate and malformed Regions refuse (0.1981ms)
+✔ omitted mode and ordinary default Shell selection retain the default (0.1029ms)
+✔ explicit plain choice survives JSON serialization and omits Shell selection (0.0597ms)
+✔ unsupported and ambiguous requests refuse instead of silently choosing a Shell (0.1379ms)
+✔ actual creation service creates plain identities and preserves normal image Save Reload (130.0444ms)
+✔ default and explicitly selected shared Shells still allocate real composed Route identities (89.8103ms)
+✖ appearance allows bounded literal values and rejects CSS injection (3.0832ms)
+✔ owned changes preserve manual stylesheet bytes and other owned nodes exactly (1.0969ms)
+✔ reset removes only one owned declaration and preserves remaining bytes (0.1796ms)
+✔ manual selected declarations, shorthand, important and shared rules refuse (0.2791ms)
+✔ unknown CSS shape, imports, media and ambiguous owned areas refuse without normalization (0.2644ms)
+✔ editor-owned area must be top-level and unique (0.175ms)
+✔ duplicate, manual, unsafe identity and inline-style targets refuse (0.1447ms)
+✔ Page Region and Component boundaries are explicit (0.1344ms)
+ℹ tests 47
+ℹ suites 0
+ℹ pass 46
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 979.9796
+
+✖ failing tests:
+
+test at evidence\v1-appearance-layout-20261031\run-1793501836918\unit.mjs:2471:1
+✖ appearance allows bounded literal values and rejects CSS injection (3.0832ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert6.ok(validAppearance(p, v))
+  
+      at TestContext.<anonymous> (file:///C:/Projects/Modular/ui-platform/evidence/v1-appearance-layout-20261031/run-1793501836918/unit.mjs:2472:282)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

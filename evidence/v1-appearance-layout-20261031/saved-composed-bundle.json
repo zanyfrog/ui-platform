@@ -1,0 +1,50 @@
+{
+  "files": {
+    "source": "<!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->\n\n<section class=\"uip-layout-item\" data-uip-node=\"node_2038b1e4-07d5-483a-9262-9238dace49ca\" data-uip-region=\"region-main\" data-uip-region-name=\"Main Content\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_ee68f8ac-8fb5-410d-9259-17d22a14908b\">\n  <p data-uip-node=\"node_85119859-8bcb-4c90-b72a-07baa7700f1a\">Composed Page styling</p>\n</div>\n</section>\n",
+    "css": "/* Authored CSS: preserve exactly. */\n.note { border: 1px solid #526078; }\n\n\n/* uip-appearance:start */\n[data-uip-node=\"node_85119859-8bcb-4c90-b72a-07baa7700f1a\"] {\n  background-color: #e8f1ff;\n  font-size: 24px;\n  font-weight: 700;\n  text-align: center;\n}\n/* uip-appearance:end */\n",
+    "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_2bfb1d0d-e310-4be8-a09f-90ef924170e5\",\n  \"kind\": \"page\",\n  \"name\": \"appearance-composed\",\n  \"displayName\": \"appearance composed\",\n  \"route\": \"/appearance-composed\",\n  \"shellId\": \"art_a8ca1455-8234-424c-ac66-6480701267f1\",\n  \"routeId\": \"route_c25db81d-701e-4d9e-b399-94ae34ad4db4\",\n  \"layout\": {\n    \"node_ee68f8ac-8fb5-410d-9259-17d22a14908b\": {\n      \"base\": {\n        \"padding\": \"1rem\",\n        \"display\": \"flex\",\n        \"flexDirection\": \"column\",\n        \"alignItems\": \"center\",\n        \"gap\": \"0.5rem\",\n        \"width\": \"100%\"\n      },\n      \"tablet\": {\n        \"padding\": \"2rem\",\n        \"display\": \"flex\",\n        \"flexDirection\": \"row\"\n      },\n      \"mobile\": {\n        \"padding\": \"0.5rem\",\n        \"display\": \"flex\",\n        \"flexDirection\": \"column\"\n      }\n    }\n  }\n}\n",
+    "fixtures": "{}\n",
+    "code": "export {};\n"
+  },
+  "metadata": {
+    "schemaVersion": 1,
+    "artifactId": "art_2bfb1d0d-e310-4be8-a09f-90ef924170e5",
+    "kind": "page",
+    "name": "appearance-composed",
+    "displayName": "appearance composed",
+    "route": "/appearance-composed",
+    "shellId": "art_a8ca1455-8234-424c-ac66-6480701267f1",
+    "routeId": "route_c25db81d-701e-4d9e-b399-94ae34ad4db4",
+    "layout": {
+      "node_ee68f8ac-8fb5-410d-9259-17d22a14908b": {
+        "base": {
+          "padding": "1rem",
+          "display": "flex",
+          "flexDirection": "column",
+          "alignItems": "center",
+          "gap": "0.5rem",
+          "width": "100%"
+        },
+        "tablet": {
+          "padding": "2rem",
+          "display": "flex",
+          "flexDirection": "row"
+        },
+        "mobile": {
+          "padding": "0.5rem",
+          "display": "flex",
+          "flexDirection": "column"
+        }
+      }
+    }
+  },
+  "revision": "f6f6ea3898f5819e8a1d4c0f81596725de65a5d6f41f806d25fd6180437c3464",
+  "managedIds": [
+    "node_2038b1e4-07d5-483a-9262-9238dace49ca",
+    "node_ee68f8ac-8fb5-410d-9259-17d22a14908b",
+    "node_85119859-8bcb-4c90-b72a-07baa7700f1a"
+  ],
+  "unrelatedCssBytesPreserved": true,
+  "cssOwnsAppearanceOnly": true,
+  "metadataOwnsWrapperLayoutOnly": true
+}

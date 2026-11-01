@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "kind": "plain",
+      "unrelatedCssPreserved": true,
+      "sourceUnchanged": true,
+      "cssAppearanceOnly": true,
+      "layoutWrapperOnly": true,
+      "undoRedo": true,
+      "reset": true,
+      "responsiveOverrides": true,
+      "saveReload": true,
+      "staleComposedRefusal": false,
+      "saved": {
+        "locator": "style/page.visual.json",
+        "hash": "2222222222222222222222222222222222222222222222222222222222222222",
+        "metadata": {
+          "schemaVersion": 1,
+          "artifactId": "art_style",
+          "kind": "page",
+          "name": "style",
+          "displayName": "Style",
+          "route": "/style"
+        },
+        "files": {
+          "source": "<section class=\"uip-layout-item\" data-uip-node=\"root\"><div class=\"uip-layout-item\" data-uip-node=\"wrap\"><p data-uip-node=\"text\">Hello</p></div></section>",
+          "css": "/* KEEP EXACT */\r\n.note{border:1px solid black;}\r\n\n/* uip-appearance:start */\n[data-uip-node=\"text\"] {\n  background-color: #e8f1ff;\n  font-size: 24px;\n  font-weight: 700;\n  text-align: center;\n}\n/* uip-appearance:end */\n",
+          "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_style\",\n  \"kind\": \"page\",\n  \"name\": \"style\",\n  \"displayName\": \"Style\",\n  \"route\": \"/style\",\n  \"layout\": {\n    \"wrap\": {\n      \"base\": {\n        \"padding\": \"1rem\",\n        \"display\": \"flex\",\n        \"flexDirection\": \"column\"\n      },\n      \"tablet\": {\n        \"padding\": \"2rem\"\n      },\n      \"mobile\": {}\n    }\n  }\n}\n",
+          "fixtures": "{}",
+          "code": "export {};"
+        },
+        "diagnostics": []
+      }
+    },
+    {
+      "kind": "composed",
+      "unrelatedCssPreserved": true,
+      "sourceUnchanged": true,
+      "cssAppearanceOnly": true,
+      "layoutWrapperOnly": true,
+      "undoRedo": true,
+      "reset": true,
+      "responsiveOverrides": true,
+      "saveReload": true,
+      "staleComposedRefusal": true,
+      "saved": {
+        "locator": "style/page.visual.json",
+        "hash": "2222222222222222222222222222222222222222222222222222222222222222",
+        "metadata": {
+          "schemaVersion": 1,
+          "artifactId": "art_style",
+          "kind": "page",
+          "name": "style",
+          "displayName": "Style",
+          "route": "/style",
+          "shellId": "art_shell",
+          "routeId": "route_style"
+        },
+        "files": {
+          "source": "<section class=\"uip-layout-item\" data-uip-node=\"root\" data-uip-region=\"region-main\"><div class=\"uip-layout-item\" data-uip-node=\"wrap\"><p data-uip-node=\"text\">Hello</p></div></section>",
+          "css": "/* KEEP EXACT */\r\n.note{border:1px solid black;}\r\n\n/* uip-appearance:start */\n[data-uip-node=\"text\"] {\n  background-color: #e8f1ff;\n  font-size: 24px;\n  font-weight: 700;\n  text-align: center;\n}\n/* uip-appearance:end */\n",
+          "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_style\",\n  \"kind\": \"page\",\n  \"name\": \"style\",\n  \"displayName\": \"Style\",\n  \"route\": \"/style\",\n  \"shellId\": \"art_shell\",\n  \"routeId\": \"route_style\",\n  \"layout\": {\n    \"wrap\": {\n      \"base\": {\n        \"padding\": \"1rem\",\n        \"display\": \"flex\",\n        \"flexDirection\": \"column\"\n      },\n      \"tablet\": {\n        \"padding\": \"2rem\"\n      },\n      \"mobile\": {}\n    }\n  }\n}\n",
+          "fixtures": "{}",
+          "code": "export {};"
+        },
+        "diagnostics": []
+      }
+    }
+  ],
+  "scope": "Actual editor in isolated DOM with in-memory original-authority transport; normal Chrome proof recorded separately."
+}
