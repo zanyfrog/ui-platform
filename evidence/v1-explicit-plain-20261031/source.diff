@@ -1,0 +1,57 @@
+diff --git a/src/client/visual-artifacts/creation.ts b/src/client/visual-artifacts/creation.ts
+index f0a0eb5..5e10c68 100644
+--- a/src/client/visual-artifacts/creation.ts
++++ b/src/client/visual-artifacts/creation.ts
+@@ -5,7 +5,8 @@ export function chooseVisualCreation(kind: 'page' | 'shell' | 'component', shell
+   const heading = document.createElement('h2'); heading.textContent = title;
+   const name = document.createElement('input'); name.setAttribute('aria-label', kind === 'page' ? 'Page name' : 'Artifact name'); name.pattern = '[a-z][a-z0-9-]*'; name.required = true;
+   const route = document.createElement('input'); route.setAttribute('aria-label', 'Page route'); route.value = '/'; route.hidden = kind !== 'page';
+-  const shell = document.createElement('select'); shell.setAttribute('aria-label', 'Page Shell'); shell.add(new Option('Application default Shell', '')); shells.forEach(item => shell.add(new Option(item.name, item.id))); shell.hidden = kind !== 'page';
++  const shell = document.createElement('select'); shell.setAttribute('aria-label', 'Page Shell'); shell.add(new Option('Application default Shell', '')); shell.add(new Option('Plain Page (no shared Shell)', 'plain')); shells.forEach(item => shell.add(new Option(item.name, item.id))); shell.hidden = kind !== 'page';
++  shell.value = '';
+   const create = document.createElement('button'); create.textContent = 'Create'; const cancel = document.createElement('button'); cancel.textContent = 'Cancel';
+   const field = (text: string, control: HTMLElement) => { const label = document.createElement('label'); label.append(text, control); return label; };
+   const nameLabel = field(kind === 'page' ? 'Page name' : 'Artifact name', name);
+@@ -13,9 +14,9 @@ export function chooseVisualCreation(kind: 'page' | 'shell' | 'component', shell
+   const routeLabel = field('Page route', route); routeLabel.hidden = kind !== 'page';
+   const shellLabel = field('Page Shell', shell); shellLabel.hidden = kind !== 'page';
+   dialog.append(heading, nameLabel, help, routeLabel, shellLabel, create, cancel); document.body.append(dialog); dialog.showModal(); name.focus();
+-  return new Promise<{ name: string; route?: string; shellId?: string } | undefined>(resolve => {
+-    const close = (value?: { name: string; route?: string; shellId?: string }) => { dialog.close(); dialog.remove(); resolve(value); };
++  return new Promise<{ name: string; route?: string; shellId?: string; pageMode?: 'plain' } | undefined>(resolve => {
++    const close = (value?: { name: string; route?: string; shellId?: string; pageMode?: 'plain' }) => { dialog.close(); dialog.remove(); resolve(value); };
+     cancel.onclick = () => close(); dialog.oncancel = event => { event.preventDefault(); close(); };
+-    create.onclick = () => { if (name.reportValidity()) close({ name: name.value, ...(kind === 'page' ? { route: route.value, shellId: shell.value } : {}) }); };
++    create.onclick = () => { if (name.reportValidity()) close({ name: name.value, ...(kind === 'page' ? { route: route.value, ...(shell.value === 'plain' ? { pageMode: 'plain' as const } : { shellId: shell.value }) } : {}) }); };
+   });
+ }
+diff --git a/src/server/index.ts b/src/server/index.ts
+index 48352c9..58b7431 100644
+--- a/src/server/index.ts
++++ b/src/server/index.ts
+@@ -1,5 +1,6 @@
+ import http from 'node:http';
+ import { isolatedPreviewCode, visualPreviewRevision } from './visual-preview.js';
++import { pageCreationShell } from '../shared/page-creation.js';
+ import { createReadStream } from 'node:fs';
+ import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+ import crypto from 'node:crypto';
+@@ -432,7 +433,8 @@ const server = http.createServer(async (req, res) => {
+         const input = await body(req);
+         if (method === 'POST') return await withApplicationMutation(appPath(key), async () => {
+           const composition = await compositionSettings(key);
+-          const shellId = kind === 'page' && composition ? input.shellId || composition.defaultShellId : undefined;
++          if (kind !== 'page' && input.pageMode !== undefined) throw Object.assign(new Error('Page creation mode is only supported for Pages.'), { status: 422 });
++          const shellId = kind === 'page' ? pageCreationShell(input, composition?.defaultShellId) : undefined;
+           const shell = shellId ? (await new VisualArtifactService(path.join(appPath(key), 'shells'), 'shell').list()).find(shell => shell.metadata?.artifactId === shellId) : undefined;
+           if (shellId && !shell) throw new Error('Selected Shell is missing.');
+           const initialRegionId = shell ? regions(shell.files.source).find(region => region.regionId === 'region-main')?.regionId ?? regions(shell.files.source)[0]?.regionId ?? null : 'region-main';
+@@ -440,7 +442,7 @@ const server = http.createServer(async (req, res) => {
+               const signature = primaryRouteSignature(input.route ?? `/${input.name}`);
+               if ((await service.list()).some(page => page.metadata?.route && primaryRouteSignature(page.metadata.route) === signature)) throw new Error('A Page already owns that primary Route.');
+             }
+-          if (kind === 'page' && !composition) assertPlainPageRoute(input.route ?? `/${input.name}`, await service.list({ recovery: 'refuse' }));
++          if (kind === 'page' && !shellId) assertPlainPageRoute(input.route ?? `/${input.name}`, await service.list({ recovery: 'refuse' }));
+           const created = await service.create(String(input.name ?? ''), input.route, input.form ? { ...input.form, authoring: true } : undefined, shellId, initialRegionId, admitManagement);
+           return json(res, 201, created);
+         });

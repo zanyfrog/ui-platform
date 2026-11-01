@@ -1,5 +1,6 @@
 import http from 'node:http';
 import { isolatedPreviewCode, visualPreviewRevision } from './visual-preview.js';
+import { pageCreationShell } from '../shared/page-creation.js';
 import { createReadStream } from 'node:fs';
 import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import crypto from 'node:crypto';
@@ -432,7 +433,8 @@ const server = http.createServer(async (req, res) => {
         const input = await body(req);
         if (method === 'POST') return await withApplicationMutation(appPath(key), async () => {
           const composition = await compositionSettings(key);
-          const shellId = kind === 'page' && composition ? input.shellId || composition.defaultShellId : undefined;
+          if (kind !== 'page' && input.pageMode !== undefined) throw Object.assign(new Error('Page creation mode is only supported for Pages.'), { status: 422 });
+          const shellId = kind === 'page' ? pageCreationShell(input, composition?.defaultShellId) : undefined;
           const shell = shellId ? (await new VisualArtifactService(path.join(appPath(key), 'shells'), 'shell').list()).find(shell => shell.metadata?.artifactId === shellId) : undefined;
           if (shellId && !shell) throw new Error('Selected Shell is missing.');
           const initialRegionId = shell ? regions(shell.files.source).find(region => region.regionId === 'region-main')?.regionId ?? regions(shell.files.source)[0]?.regionId ?? null : 'region-main';
@@ -440,7 +442,7 @@ const server = http.createServer(async (req, res) => {
               const signature = primaryRouteSignature(input.route ?? `/${input.name}`);
               if ((await service.list()).some(page => page.metadata?.route && primaryRouteSignature(page.metadata.route) === signature)) throw new Error('A Page already owns that primary Route.');
             }
-          if (kind === 'page' && !composition) assertPlainPageRoute(input.route ?? `/${input.name}`, await service.list({ recovery: 'refuse' }));
+          if (kind === 'page' && !shellId) assertPlainPageRoute(input.route ?? `/${input.name}`, await service.list({ recovery: 'refuse' }));
           const created = await service.create(String(input.name ?? ''), input.route, input.form ? { ...input.form, authoring: true } : undefined, shellId, initialRegionId, admitManagement);
           return json(res, 201, created);
         });

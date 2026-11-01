@@ -1,0 +1,105 @@
+- link "Skip to content":
+  - /url: "#app"
+- text: Development identity
+- combobox "Development identity":
+  - option "Sign out"
+  - option "Security Admin (security@example.local)"
+  - option "Page, Form and Workflow Editor (combined@example.local)"
+  - option "Page and Form Editor (page-form-editor@example.local)"
+  - option "Mixed Permissions (mixed@example.local)"
+  - option "Workflow Editor (workflow-editor@example.local)"
+  - option "Application Admin (admin@example.local)" [selected]
+- button "Manage Triggers and Workflows"
+- main:
+  - complementary:
+    - button "Modular UI Platform home":
+      - generic: M
+      - generic: MODULAR
+      - strong: UI Platform
+    - navigation "Platform navigation":
+      - button "Applications":
+        - generic: Applications
+      - button "Packages":
+        - generic: Packages
+      - button "Templates" [disabled]:
+        - generic: Templates
+      - button "Settings":
+        - generic: Settings
+    - generic: U
+    - strong: User
+    - generic: user@example.com
+  - button "Applications"
+  - generic: /
+  - strong: V1 Development Identity Fixture
+  - heading "V1 Development Identity Fixture" [level=1]
+  - generic: active
+  - button "Show details"
+  - generic "Application actions": ⋯
+  - tablist:
+    - tab "Overview":
+      - generic: Overview
+    - tab "Pages" [selected]:
+      - generic: Pages
+    - tab "Packages":
+      - generic: Packages
+    - tab "Presentation":
+      - generic: Presentation
+    - tab "Preview":
+      - generic: Preview
+    - tab "Settings":
+      - generic: Settings
+  - tabpanel "Pages":
+    - region "Application Builder workspace":
+      - button "Application navigation" [expanded]
+      - strong: V1 Development Identity Fixture
+      - button "Refresh artifacts"
+      - button "Create Dataset"
+      - button "Create Form"
+      - button "Validate Application"
+      - button "Set up shared website"
+      - button "Create Menu"
+      - button "Upload Application asset"
+      - button "Create Page"
+      - button "Create Shell"
+      - button "Create Platform Component"
+      - status
+      - paragraph: Navigation opens artifacts or component definitions. To add a component instance, open a Page and use its insertion controls.
+      - navigation "Application artifacts"
+      - tablist "Open artifacts"
+      - region "Application Problems":
+        - heading "Application Problems" [level=3]
+        - status: Validate authoritative saved sources. Local unsaved validation remains in each editor.
+        - list
+      - region "Fixture Preview":
+        - heading "Preview · Fixture demonstration" [level=3]
+        - paragraph: Fixture mode · SAMPLE DATA · Saved-artifact Preview unavailable
+        - paragraph: Select an authorized artifact to identify this fixture session.
+        - paragraph: No successful capture
+        - status: empty
+        - text: Sample type
+        - combobox "Sample type" [disabled]:
+          - option "Native Card" [selected]
+          - option "Native Panel layout fixture"
+          - option "Synthetic route-parameter inspector"
+        - text: Synthetic sample (JSON)
+        - textbox "Synthetic sample (JSON)" [disabled]
+        - button "Refresh fixture"
+        - button "Preview saved artifact"
+        - generic "Unsupported fixture contracts"
+      - region "Saved Preview readiness":
+        - heading "Restricted Saved Preview readiness · unavailable" [level=3]
+        - button "Check restricted Saved Preview readiness"
+        - status: Restricted Saved Preview is unavailable. For saved Page content, use Saved Design Preview in the Page editor. Fixture demonstration is a separate testing facility. Select an artifact to check local readiness.
+- dialog "Create Page":
+  - heading "Create Page" [level=2]
+  - text: Page name
+  - textbox "Page name" [active]
+  - paragraph: Use lowercase letters, numbers and hyphens, starting with a letter.
+  - text: Page route
+  - textbox "Page route": /
+  - text: Page Shell
+  - combobox "Page Shell":
+    - option "Application default Shell" [selected]
+    - option "Plain Page (no shared Shell)"
+  - button "Create"
+  - button "Cancel"

@@ -1,0 +1,52 @@
+{
+  "scope": "Actual authorized service requests, separate same-identity test session; not browser upload or UI serialization evidence",
+  "actor": {
+    "userId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+    "email": "admin@example.local",
+    "displayName": "Application Admin"
+  },
+  "results": [
+    {
+      "area": "visual-pages",
+      "input": {
+        "pageMode": "unsupported"
+      },
+      "status": 422,
+      "data": {
+        "error": "Unsupported Page creation mode."
+      }
+    },
+    {
+      "area": "visual-pages",
+      "input": {
+        "pageMode": "plain",
+        "shellId": ""
+      },
+      "status": 422,
+      "data": {
+        "error": "Plain Page creation cannot include a Shell selection."
+      }
+    },
+    {
+      "area": "visual-pages",
+      "input": {
+        "shellId": false
+      },
+      "status": 422,
+      "data": {
+        "error": "Shell selection must be a string."
+      }
+    },
+    {
+      "area": "visual-shells",
+      "input": {
+        "pageMode": "plain"
+      },
+      "status": 422,
+      "data": {
+        "error": "Page creation mode is only supported for Pages."
+      }
+    }
+  ],
+  "noArtifactCreated": true
+}
