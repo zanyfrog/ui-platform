@@ -58,6 +58,7 @@ const developmentApplications = builderWp0Enabled ? new DevelopmentApplicationRe
 const v1PolicyStorePath = path.resolve(process.env.UI_PLATFORM_V1_POLICY_STORE ?? path.join(runtimeDir, 'iam-v1-development.sqlite'));
 const v1Identity = v1Enabled ? new V1DevelopmentIdentity({ enabled: true, environment: process.env.NODE_ENV ?? '',
   developmentRuntime: import.meta.url.endsWith('.ts'), policyStorePath: v1PolicyStorePath, applicationRegistry: developmentApplications,
+  deploymentId: process.env.UI_PLATFORM_DEVELOPMENT_DEPLOYMENT_ID,
   origins: [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]) }) : null;
 const developmentRuntime = developmentApplications && v1Identity ? new DevelopmentApplicationRuntime(process.env.UI_PLATFORM_BUILDER_HOSTS_FILE,
   v1PolicyStorePath, developmentApplications, v1Identity, [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`])) : undefined;

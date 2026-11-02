@@ -1,0 +1,33 @@
+{
+  "command": "npm run demo",
+  "cwd": "C:/Projects/Modular/ui-platform",
+  "flags": [],
+  "executionSessionId": 38382,
+  "osProcessIdsCaptured": false,
+  "expectedOwnership": "Owned invocation -> dev-demo.ts -> scripts/dev.mjs -> npm dev:api -> tsx API; inferred from inspected launch code and captured log, not a verified live PID tree",
+  "controlStatusBefore": 1,
+  "controlStatusAfter": 1,
+  "setupInvoked": false,
+  "loginInvoked": false,
+  "provisioningInvoked": false,
+  "applicationOrReferencePreviewRequested": false,
+  "reader5189Started": false,
+  "startup": {
+    "apiLogReportedListening": true,
+    "launcher": "Timed out waiting for API on 127.0.0.1:5280; Demo server stopped during startup"
+  },
+  "browserHealth": {
+    "api": "127.0.0.1:5280/api/health: ERR_CONNECTION_TIMED_OUT",
+    "ui": "127.0.0.1:5274/: ERR_CONNECTION_REFUSED"
+  },
+  "stop": {
+    "action": "interrupt owned execution session 38382",
+    "executionReturnedExitCode": 1,
+    "controlRecordPresent": false,
+    "descendantProcessCleanupIndependentlyVerified": false
+  },
+  "sessions": {
+    "securityAdmin": "unresolved; no login or session extraction",
+    "applicationAdmin": "unresolved; no login or session extraction"
+  }
+}

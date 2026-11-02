@@ -284,6 +284,7 @@ try {
       ...process.env, NODE_ENV: 'development', UI_APPS_DIR: apps, UI_RUNTIME_DIR: runtime,
       UI_PLATFORM_V1_POLICY_STORE: policyPath, UI_PLATFORM_BUILDER_HOSTS_FILE: path.join(runtime, 'builder-hosts.json'),
       UI_PLATFORM_V1_DEVELOPMENT_IDENTITY: '1', UI_PLATFORM_BUILDER_WP0: '1', UI_PLATFORM_EDITOR: '0',
+      UI_PLATFORM_DEVELOPMENT_DEPLOYMENT_ID: 'builder-demo',
       UI_PLATFORM_API_PORT: String(apiPort), UI_PLATFORM_UI_PORT: String(uiPort),
       UI_PLATFORM_HMR_PORT: String(hmrPort),
       UI_PLATFORM_VITE_CACHE_DIR: path.join(runtime, 'manager-vite-cache'),

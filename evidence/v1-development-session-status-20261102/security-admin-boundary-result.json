@@ -1,0 +1,29 @@
+{
+  "principalId": "usr_06fefc50791f4f15ac0139de699701b9",
+  "evidenceKind": "read-only-current-policy-inspection-not-provisioning-admission",
+  "activeAssignedBeneficiaryRole": true,
+  "boundaryActive": true,
+  "authorityId": "ui-platform-development",
+  "resourceKind": "system",
+  "resourceId": "platform",
+  "descendants": true,
+  "operations": [
+    "activate",
+    "archive",
+    "assign",
+    "create",
+    "edit",
+    "revoke"
+  ],
+  "requiredPermissionCeilingCoverage": {
+    "ui.application.security.admin": true,
+    "ui.application.view": true,
+    "ui.application.edit": true,
+    "ui.page.view": true,
+    "ui.page.edit": true,
+    "ui.presentation.view": true,
+    "ui.presentation.edit": true,
+    "ui.presentation.admin": true,
+    "ui.page.admin": true
+  }
+}

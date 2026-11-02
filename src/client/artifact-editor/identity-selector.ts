@@ -15,7 +15,32 @@ export async function mountDevelopmentIdentity(container: HTMLElement) {
     for (const user of v1.identities) select.add(new Option(`${user.displayName} (${user.email})`, user.email));
     select.value = v1.user?.email ?? '';
     label.append(select); container.append(label);
+    const verify = document.createElement('button');
+    verify.type = 'button'; verify.textContent = 'Verify development session';
+    const verification = document.createElement('pre'); verification.setAttribute('role', 'status');
+    let verificationGeneration = 0;
+    container.append(verify, verification);
+    verify.addEventListener('click', async () => {
+      if (select.disabled) return;
+      const generation = verificationGeneration;
+      verify.disabled = true;
+      try {
+        const response = await fetch('/api/development-identity/status', { cache: 'no-store', credentials: 'same-origin' });
+        const result = await response.json();
+        if (generation !== verificationGeneration) return;
+        // Explicit whitelist: never display session/CSRF material, even if another endpoint changes.
+        verification.textContent = JSON.stringify({ status: result.status, authenticated: result.authenticated,
+          principalId: result.principalId, deploymentId: result.deploymentId, authorityId: result.authorityId,
+          registeredApplications: result.registeredApplications,
+          capabilities: result.capabilities && {
+            'ui.platform.security.admin': result.capabilities['ui.platform.security.admin'],
+            'ui.platform.application.create': result.capabilities['ui.platform.application.create'],
+          } }, null, 2);
+      } catch { if (generation === verificationGeneration) verification.textContent = 'Development session status unavailable.'; }
+      finally { verify.disabled = false; }
+    });
     select.addEventListener('change', async () => {
+      verificationGeneration++; verification.textContent = '';
       select.disabled = true;
       try {
         const email = select.value;

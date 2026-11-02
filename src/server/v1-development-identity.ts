@@ -26,6 +26,8 @@ export interface V1DevelopmentIdentityOptions {
   policyStorePath: string;
   origins: string[];
   sessionLifetimeMs?: number;
+  /** Non-secret development deployment label, configured by the launcher. */
+  deploymentId?: string;
   applicationRegistry?: DevelopmentApplicationRegistry;
 }
 
@@ -195,10 +197,10 @@ export class V1DevelopmentIdentity {
   private activeUser(userId: string) {
     return this.store.snapshot().documents.map(doc => doc.definition).find(record => record.kind === 'user' && record.id === userId && record.status === 'active');
   }
-  private session(req: IncomingMessage): Session | undefined {
+  private session(req: IncomingMessage, pruneExpired = true): Session | undefined {
     const cookie = req.headers.cookie?.split(';').map(value => value.trim()).find(value => value.startsWith(`${cookieName}=`));
     const session = cookie ? this.sessions.get(cookie.slice(cookieName.length + 1)) : undefined;
-    if (session && session.expires <= Date.now()) { this.sessions.delete(session.token); return undefined; }
+    if (session && session.expires <= Date.now()) { if (pruneExpired) this.sessions.delete(session.token); return undefined; }
     return session;
   }
   private boundary(req: IncomingMessage) {
@@ -210,16 +212,16 @@ export class V1DevelopmentIdentity {
         req.headers['x-v1-csrf'] !== session.csrf || !req.headers['content-type']?.startsWith('application/json'))
       throw new Error('V1_DEVELOPMENT_CSRF_DENIED');
   }
-  currentUser(req: IncomingMessage): string | null {
+  currentUser(req: IncomingMessage, pruneExpired = true): string | null {
     this.boundary(req);
-    const session = this.session(req);
+    const session = this.session(req, pruneExpired);
     return session?.userId && this.activeUser(session.userId) ? session.userId : null;
   }
   /** Trusted host-only evaluation; callers cannot pass an actor through HTTP input. */
   private authorizeUser: (userId: string, revision: string, permissionId: string, resource: SecurityResourceRef) => Promise<boolean>;
-  async authorize(req: IncomingMessage, permissionId: string, resource: SecurityResourceRef): Promise<boolean> {
-    const session = this.session(req);
-    const userId = this.currentUser(req);
+  async authorize(req: IncomingMessage, permissionId: string, resource: SecurityResourceRef, pruneExpired = true): Promise<boolean> {
+    const session = this.session(req, pruneExpired);
+    const userId = this.currentUser(req, pruneExpired);
     if (!session || !userId) return false;
     return this.authorizeUser(userId, session.revision, permissionId, resource);
   }
@@ -254,6 +256,30 @@ export class V1DevelopmentIdentity {
         id: scope.artifactId ?? `v1-${area}`, parentId: applicationId });
   }
   async handle(req: IncomingMessage, res: ServerResponse): Promise<boolean> {
+    if (new URL(req.url ?? '/', 'http://localhost').pathname === '/api/development-identity/status') {
+      res.setHeader('cache-control', 'no-store');
+      res.setHeader('content-type', 'application/json; charset=utf-8');
+      res.setHeader('x-content-type-options', 'nosniff');
+      try {
+        this.boundary(req);
+        if (req.method !== 'GET') { res.writeHead(405).end(JSON.stringify({ status: 'unavailable' })); return true; }
+        const session = this.session(req, false);
+        const revision = session?.revision;
+        const principalId = session?.userId && this.activeUser(session.userId) ? session.userId : null;
+        if (!principalId) { res.end(JSON.stringify({ status: 'unauthenticated', authenticated: false, principalId: null })); return true; }
+        const resource: SecurityResourceRef = { authorityId: V1_AUTHORITY_ID, applicationId: null, kind: 'system', id: 'platform' };
+        const capabilities = {
+          'ui.platform.security.admin': await this.authorize(req, 'ui.platform.security.admin', resource, false),
+          'ui.platform.application.create': await this.authorize(req, 'ui.platform.application.create', resource, false),
+        };
+        // Do not report an identity whose session changed while evaluation awaited.
+        if (this.session(req, false) !== session || session!.revision !== revision || session!.userId !== principalId || !this.activeUser(principalId)) throw new Error('SESSION_CHANGED');
+        res.end(JSON.stringify({ status: 'authenticated', authenticated: true, principalId,
+          deploymentId: this.options.deploymentId ?? 'development', authorityId: V1_AUTHORITY_ID,
+          registeredApplications: !!this.options.applicationRegistry, capabilities }));
+      } catch { res.writeHead(503).end(JSON.stringify({ status: 'unavailable', authenticated: false, principalId: null })); }
+      return true;
+    }
     if (new URL(req.url ?? '/', 'http://localhost').pathname !== '/api/development-identity/session') return false;
     if (!this.enabled) { res.writeHead(404).end(); return true; }
     try {

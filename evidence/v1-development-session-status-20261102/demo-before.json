@@ -1,0 +1,3502 @@
+[
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\AGENTS.md",
+    "sha256": "7A58796DA9E4E4033B87BA75EDE7BF6000B238806D915634F8489C6198792FB7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\demo.json",
+    "sha256": "33A6B7697D2CB792DC31CF55626ABDD8E6CC74011EFC1EFD3EDA1D639238F822"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\.gitignore",
+    "sha256": "EC6351ED3358A04E8FD142159B4CD6CF13F94577B835B5893860056C161554DC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\app-services.json",
+    "sha256": "1915F36B0DFD5D979B0EBDD3080D38DA6CE6E19BAE910157363236B489660442"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\app.manifest.json",
+    "sha256": "4C64B462A5A9207ED245F76E8D905769CE9ABE47392239248CDED008BBBCB1A3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\app.settings.json",
+    "sha256": "6EA5316F50507970A4DFC2639A755D88F5C65C818CAFE5A992E3F9EC690B3F63"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\index.html",
+    "sha256": "12AD7C74354F23CF0ACC418FD7177424CDCDCAB8B58D22F9F545DF5F790079D5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\package-lock.json",
+    "sha256": "46AE8518FC6F5BDC5A556346FA4F27D4AC90AEDBE8C2B2B377DA1C9B93E1FAED"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\package.json",
+    "sha256": "F1D2911BC2F4B2065A19708609FF4DA98E5F1CBE94E360C958061E515A6E2616"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\template.provenance.json",
+    "sha256": "9818F19A88CAB96CA0A5D896B46954ED948319DA632F317BAD35D1C3251D339A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\tsconfig.json",
+    "sha256": "F49A842F569F1DE1C589BC4FEB5DCC563AE630F90EF97192A82E09839DC382C9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\vite.config.js",
+    "sha256": "639C77800E0960C24019107B7CA7E294578A64AB0AB1D619B04A288C79631F2C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\assets\\branding\\logo.svg",
+    "sha256": "32BFD72EA8A416B4895DB187C9E5B83AF6C1FDE370BE56AA2FC0CB7AAA435711"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\assets\\documents\\.gitkeep",
+    "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\assets\\icons\\.gitkeep",
+    "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\assets\\images\\.gitkeep",
+    "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\history\\app-history.jsonl",
+    "sha256": "882DB533F460DAFAA695142EFB8B984E041E5CF83BCEB5B41D9805A5715887D7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\menus\\admin.json",
+    "sha256": "27280324034DBE6C087E41E47FBD09C421C048C3F13B8E50411BDB23AB414AC0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\menus\\main.json",
+    "sha256": "37AF65660EB39709455631B56B36D9F2767CBC5D82A8B8E119B67DE8E2E86429"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.package-lock.json",
+    "sha256": "604B856654946B08998F370D74E4B8195A500829B0A8B39849DE07BC6D074247"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\mt-layout",
+    "sha256": "A7107FC9B095D5779EAA8D9E5EDEC6DB5280C0C4EE8A8188B1C62369862C38F8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\mt-layout.cmd",
+    "sha256": "303611E0B010B1DF6F03C0EF290434E96B02CCC706CA448AC78D6C9E9D912B12"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\mt-layout.ps1",
+    "sha256": "0AECAEE5B90C682CE9B041F1B9D91FC85DD837BB3F521B7F35E5D238AE9A23D5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\nanoid",
+    "sha256": "49446FA7E9EA1B36B205BAB243F2928F1230D8DBEB09881EEF1D039149AD3238"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\nanoid.cmd",
+    "sha256": "65F7AFB9E8BF7FD4FF2087803C18E8818334768BFE92B9C1F28346050678C0CA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\nanoid.ps1",
+    "sha256": "C2B48C0422548661C689493B3249B16F93599CA15FC3AF5E821F9E6BCCBE2AAD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\rolldown",
+    "sha256": "A40054DD5FB614BA43D43A40F2E6FFFA274E17E94473E1DC57D4CC11DED403D4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\rolldown.cmd",
+    "sha256": "AC280039A8F8E697CB7D2E906A22577AE2BDA4C380EA7C239D03F34E016D4F7A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\rolldown.ps1",
+    "sha256": "928851037CD811B90043E04143CB52A6F9E1055D7667F82F29EA3CBE3C3F9F1F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\tsc",
+    "sha256": "CC893489BC80C0C8BD137C0AA62ECE3CF36253CBA79FDD4C038DBE735EDF9E7C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\tsc.cmd",
+    "sha256": "54C7C33889F405746BFABA0FDA5E725D4A88B77A708D41806408B4662F88D509"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\tsc.ps1",
+    "sha256": "9C5B1F7FBBF203EFC30622746EA3760B2B438AAF1315D483A9D41B702BBA3E7B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\vite",
+    "sha256": "FDF31CF5E7B6CBFA65C2111D4FEC53A7484C038AEAC028F3718AB565C171B7ED"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\vite.cmd",
+    "sha256": "E865893C8F57FF153C66CF80AAC687F436B457922D9585495BECEE81C927E910"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.bin\\vite.ps1",
+    "sha256": "FB22A675C5BF414D459A8B07172D5CC073C7D51520BED1D7D6F1652E3FD1F3EA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.vite\\deps\\_metadata.json",
+    "sha256": "28DF39956EED218E0363442DF7AC195C26D458AC9F01738CF2A681E4D1EBE9D8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\.vite\\deps\\package.json",
+    "sha256": "3CA9D4AFD21425087CF31893B8F9F63C81B0B8408DB5E343CA76E5F8AA26AB9A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@oxc-project\\types\\LICENSE",
+    "sha256": "95CED5ECF1133FBF41D409B5555C86C344F83F3B019926057DDBC07CFDCC27B3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@oxc-project\\types\\package.json",
+    "sha256": "C34D50B664964CA1086306220A78C1BCF4B2EC61ADE2DF149CC290E46DFF2395"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@oxc-project\\types\\README.md",
+    "sha256": "A6D02A8C1016C2305E8CD9EEAB91AD1B1D9C614B2B361EDEF0D0DA3816A0775A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@oxc-project\\types\\types.d.ts",
+    "sha256": "F76D2226B20EC0D3E884114CFBBB933CB4D25D26CC306E8315E21A0E3AFAFC39"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\binding-win32-x64-msvc\\package.json",
+    "sha256": "AF6E41C1EAD8C6806FB42D78D95F2AA338EA9B2EA2F082C37BA18AB3626C3251"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\binding-win32-x64-msvc\\README.md",
+    "sha256": "327B514303B86E589A6D6BB831928BB9720678FB72648F81C8C2CDCB2F7A856F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\binding-win32-x64-msvc\\rolldown-binding.win32-x64-msvc.node",
+    "sha256": "EC81AEBC71D9E87EE649CE2FF1DB258E09029E472D8187F233D6DD4974FC5009"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\pluginutils\\LICENSE",
+    "sha256": "E1919B3B98B8BF6C1B99FCC60A0ED46027C97AC947432E1278446C9606F50161"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\pluginutils\\package.json",
+    "sha256": "C3D2BFE0FF94DE71FD5B82E6F3A01B12EE4D99B8F1B34CC00B984B9ACDE61CFA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\pluginutils\\README.md",
+    "sha256": "4886D9DA5238F5D7E44FA2558A3C8D4939E5EB212CC1A3E587472EE2B65FD3FD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\pluginutils\\dist\\filter-B_mD-HGz.mjs",
+    "sha256": "A133FF74D88A2C230BD5581513467307C01F84A697998DDBB5680F065EBF76A2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\pluginutils\\dist\\index.d.mts",
+    "sha256": "9394183F4C37B8591156F32E41223C9E0DD211EEFE7499155D4CDF15268EAEA8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\pluginutils\\dist\\index.mjs",
+    "sha256": "804098994718A742136AF9EFEA50A097086A2730B3B0279271BE5D23FB2751EE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\pluginutils\\dist\\filter\\index.d.mts",
+    "sha256": "638A22F8E16B31C37297483FA38CFC760ED309B16D4C606A7B4532F4394C9C0C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@rolldown\\pluginutils\\dist\\filter\\index.mjs",
+    "sha256": "064650435C2293E3657AD0CF57A9AC374CAD68AD9F3F001D5F741813C58041B2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\LICENSE",
+    "sha256": "A7D00BFD54525BC694B6E32F64C7EBCF5E6B7AE3657BE5CC12767BCE74654A47"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\NOTICE.txt",
+    "sha256": "F5C708B59114507B8B27B48181B6883D106BBCA0C1634BBEE45B5E344237B66B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\package.json",
+    "sha256": "6D8EC7623880A902BB225C53571112E2BBF0273412B2C534070B1193D2BE0F6B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\README.md",
+    "sha256": "4A3E5FB83F7A7A3A17F3C8CAA803D55A522D9CCBF6EEA4CB03B98DA54B0C5DBC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.d.ts",
+    "sha256": "0E6477E5049E579CC5DE741A70AC91235252EDC0468B2E569F22DE9DB3357786"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.decorators.d.ts",
+    "sha256": "1CE14B81C5CC821994AA8EC1D42B220DD41B27FCC06373BCE3958AF7421B77D4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.decorators.legacy.d.ts",
+    "sha256": "B3A048B3E9302EF9A34EF4EBB9AECFB28B66ABB3BCE577206A79FEE559C230DA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.dom.asynciterable.d.ts",
+    "sha256": "7F57FC4404FF020BC45B9C620AFF2B40F700B95FE31164024C453A5E3C163C54"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.dom.d.ts",
+    "sha256": "D6B1EBA8496BDD0EED6FC8A685768FE01B2DA4A0388B5FE7DF558290BFFCF32F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.dom.iterable.d.ts",
+    "sha256": "7F57FC4404FF020BC45B9C620AFF2B40F700B95FE31164024C453A5E3C163C54"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.collection.d.ts",
+    "sha256": "F0B6B1D3624FB143656DD86A8DD3E1950B7E65F218319B47BDE52F65D47E2E4B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.core.d.ts",
+    "sha256": "770011BD32A52F929FC98FBF9976C1FA9D80B6445171C02B08627FDBA9778933"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.d.ts",
+    "sha256": "3F88BEDBEB09C6F5A6645CB24C7C55F1AA22D19AE96C8E6959CBD8B85A707BC6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.generator.d.ts",
+    "sha256": "00343CA5B2E3D48FA5DF1DB6E32EA2A59AFAB09590274A6CCCB1DBAE82E60C7C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.iterable.d.ts",
+    "sha256": "EBD9F816D4002697CB2864BEA1F0B70A103124E18A8CD9645EECCC09BDF80AB4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.promise.d.ts",
+    "sha256": "2C1AFAC30A01772CD2A9A298A7CE7706B5892E447BB46BDBEEF720F7B5DA77AD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.proxy.d.ts",
+    "sha256": "7B0225F483E4FA685625EBE43DD584BB7973BBD84E66A6BA7BBE175EE1048B4F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.reflect.d.ts",
+    "sha256": "C0A4B8AC6CE74679C1DA2B3795296F5896E31C38E888469A8E0F99DC3305DE60"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.symbol.d.ts",
+    "sha256": "83E3871CDA2ABD4421970FA923CCA51A9CE8CDBECE6F898285643AB030CB80F3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2015.symbol.wellknown.d.ts",
+    "sha256": "C5079C53F0F141A0698FAA903E76CB41CD664E3EFB01CC17A5C46EC2EB0BEF42"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2016.array.include.d.ts",
+    "sha256": "32CAFBC484DEA6B0AB62CF8473182BBCB23020D70845B406F80B7526F38AE862"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2016.d.ts",
+    "sha256": "7FE93B39B810EADD916BE8DB880DD7F0F7012A5CC6FFB62DE8F62A2117FA6F1F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2016.full.d.ts",
+    "sha256": "19ADADFF5144F8F89FEF0A10B299D7A96206F4913D4C17D4864171320E9EDBD6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2016.intl.d.ts",
+    "sha256": "FCA4CDCB6D6C5EF18A869003D02C9F0FD95DF8CFAF6EB431CD3376BC034CAD36"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2017.arraybuffer.d.ts",
+    "sha256": "B93EC88115DE9A9DC1B602291B85BAF825C85666BF25985CC5F698073892B467"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2017.d.ts",
+    "sha256": "BB0074CC08B84A2374AF33D8BF044B80851CCC9E719A5E202EACF40DB2C31600"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2017.date.d.ts",
+    "sha256": "F5C06DCC3FE849FCB297C247865A161F995CC29DE7AA823AFDD75AAADDC1419B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2017.full.d.ts",
+    "sha256": "83635F912D414D0C5A855FBA3E18418E9DB7E73C2E0E170009C48275CC8C1A36"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2017.intl.d.ts",
+    "sha256": "C7B3542146734342E440A84B213384BFA188835537DDBDA50D30766F0593AFF9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2017.object.d.ts",
+    "sha256": "B77E16112127A4B169EF0B8C3A4D730EDF459C5F25FE52D5E436A6919206C4D7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2017.sharedmemory.d.ts",
+    "sha256": "FBFFD9337146EFF822C7C00ACBB78B01EA7EA23987F6C961EBA689349E744F8C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2017.string.d.ts",
+    "sha256": "6AAEBA1E4F228FDA4E9175E34D96807E2C6DC984D0B37A772B3AF9365A456681"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2017.typedarrays.d.ts",
+    "sha256": "CE6180FA19B1CCCD07EE7F7DBB9A367AC19C0ED160573E4686425060B6DF7F57"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2018.asyncgenerator.d.ts",
+    "sha256": "3F02E2476BCCB9DBE21280D6090F0DF17D2F66B74711489415A8AA4DF73C9675"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2018.asynciterable.d.ts",
+    "sha256": "45E3AB34C1C013C8AB2DC1BA4C80C780744B13B5676800AE2E3BE27AE862C40C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2018.d.ts",
+    "sha256": "1A7DAEBE4F45FB03D9EC53D60008FBF9AC45A697FDC89E4CE218BC94B94F94D6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2018.full.d.ts",
+    "sha256": "63787DBE04141F5D3EBCE2E08B64BC9BBA589BEB0A4D22E7994D3005AF1E48A6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2018.intl.d.ts",
+    "sha256": "805C86F6CCA8D7702A62A844856DBAA2A3FD2ABEF0536E65D48732441DDE5B5B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2018.promise.d.ts",
+    "sha256": "E42E397F1A5A77994F0185FD1466520691456C772D06BF843E5084CEB879A0AD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2018.regexp.d.ts",
+    "sha256": "F4C2B41F90C95B1C532ECC874BD3C111865793B23AEBCC1C3CBBABCD5D76FFB0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2019.array.d.ts",
+    "sha256": "AB26191CFAD5B66AFA11B8BF935EF1CD88FABFCB28D30B2DFA6FAD877D050332"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2019.d.ts",
+    "sha256": "F94B133A3CB14A288803BE545AC2683E0D0FF6661BCD37E31AAAEC54FC382AED"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2019.full.d.ts",
+    "sha256": "E3DE8409485B0C198A5A075BD4A1D06D8F42DC52B377709D33B131B97DE56456"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2019.intl.d.ts",
+    "sha256": "689DA16F46E647CEF0D64B0DEF88910E818A5877CA5379EDE156CA3AFB780AC3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2019.object.d.ts",
+    "sha256": "2088BC26531E38FB05EEDAC2951480DB5309F6BE3FA4A08D2221ABB0F5B4200D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2019.string.d.ts",
+    "sha256": "CB9D366C425FEA79716A8FB3AF0D78E6B22EBBAB3BD64D25063B42DC9F531C1E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2019.symbol.d.ts",
+    "sha256": "500934A8089C26D57EBDB688FC9757389BB6207A3C8F0674D68EFA900D2ABB34"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.bigint.d.ts",
+    "sha256": "BC21CC8B6FEE4F4C2440D08035B7EA3C06B3511314C8BAB6BEF7A92DE58A2593"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.d.ts",
+    "sha256": "F59D0650799F8782FD74CF73C19223730C6D1B9198671B1C5B3A38E1188B5953"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.date.d.ts",
+    "sha256": "7CA53D13D2957003ABB47922A71866BA7CB2068F8D154877C596D63C359FED25"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.full.d.ts",
+    "sha256": "577CC49BE1979782A5A695B46049566D123E2A75382F10BB82F2E5C87E29059A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.intl.d.ts",
+    "sha256": "DB839FA0625981AE6E20A55E079C3613184310CA246879245B294573E7CC6926"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.number.d.ts",
+    "sha256": "B7BF9377723203B5A6A4B920164DF22D56A43F593269BA6AE1FDC97774B68855"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.promise.d.ts",
+    "sha256": "54725F8C4DF3D900CB4DAC84B64689CE29548DA0B4E9B7C2DE61D41C79293611"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.sharedmemory.d.ts",
+    "sha256": "E5594BC3076AC29E6C1EBDA77939BC4C8833DE72F654B6E376862C0473199323"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.string.d.ts",
+    "sha256": "2F3EB332C2D73E729F3364FCC0C2B375E72A121E8157D25A82D67A138C83A95C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2020.symbol.wellknown.d.ts",
+    "sha256": "6F4427F9642CE8D500970E4E69D1397F64072AB73B97E476B4002A646AC743B1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2021.d.ts",
+    "sha256": "8A15B4607D9A499E2DBEED9EC0D3C0D7372C850B2D5F1FB259E8F6D41D468A84"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2021.full.d.ts",
+    "sha256": "E4A70EAD7FEA07D9ABE520CC9E30C04AC035EBCEAAB28F9E67211610006C65DE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2021.intl.d.ts",
+    "sha256": "A917A49AC94CD26B754AB84E113369A75D1A47A710661D7CD25E961CC797065F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2021.promise.d.ts",
+    "sha256": "DB9709688F82C9E5F65A119C64D835F906EFE5F559D08B11642D56EB85B79357"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2021.string.d.ts",
+    "sha256": "4B25B8C874ACD1A4CF8444C3617E037D444D19080AC9F634B405583FD10CE1F7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2021.weakref.d.ts",
+    "sha256": "37BE57D7C90CF1F8112EE2636A068D8FD181289F82B744160EC56A7DC158A9F5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2022.array.d.ts",
+    "sha256": "6D3261BADEB7843D157EF3E6F5D1427D0EEB0AF0CF9DF84A62CFD29FD47AC86E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2022.d.ts",
+    "sha256": "26E0FE14BAEE4E127F4365D1AE0B276F400562E45E19E35FD2D4C296684715E6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2022.error.d.ts",
+    "sha256": "195DACA651DDE22F2167AC0D0A05E215308119A3100F5E6268E8317D05A92526"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2022.full.d.ts",
+    "sha256": "01A30F9E8582B369075C0808DF71121E6855CB06FD8D3D39511D9EBB66405205"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2022.intl.d.ts",
+    "sha256": "8B11E4285CD2BB164A4DC09248BDEC69E9842517DB4CA47C1BA913011E44FF2F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2022.object.d.ts",
+    "sha256": "0508571A52475E245B02BC50FA1394065A0A3D05277FBF5120C3784B85651799"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2022.regexp.d.ts",
+    "sha256": "FC611FEA8D30EA72C6BBFB599C9B4D393CE22E2F5BFEF2172534781E7D138104"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2022.string.d.ts",
+    "sha256": "8F9AF488F510C3015AF3CC8C267A9E9D96C4DD38A1FDFF0E11DC5A544711415B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2023.array.d.ts",
+    "sha256": "0BD714129FCA875F7D4C477A1A392200B0BCD13FB2E80928CD334B63830EA047"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2023.collection.d.ts",
+    "sha256": "E2C9037AE6CD2C52D80CEEF0B3C5FFDB488627D71529CF4F63776DAF11161C9A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2023.d.ts",
+    "sha256": "1E9332C23E9A907175E0FFC6A49E236F97B48838CC8AEC9CE7E4CEC21E544B65"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2023.full.d.ts",
+    "sha256": "821BD6049B8F96B9D24C9FBC49B542DCF7A80D76F9EFB330B5EF32C373AF83D4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2023.intl.d.ts",
+    "sha256": "135D5CF4D345F59F1A9CAADFAFCD858D3D9CC68290DB616CC85797224448CCCC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2024.arraybuffer.d.ts",
+    "sha256": "BC238C3F81C2984751932B6AAB223CD5B830E0AC6CAD76389E5E9D2FFC03287D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2024.collection.d.ts",
+    "sha256": "4A07F9B76D361F572620927E5735B77D6D2101C23CDD94383EB5B706E7B36357"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2024.d.ts",
+    "sha256": "3753FBC1113DC511214802A2342280A8B284AB9094F6420E7AA171E868679F91"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2024.full.d.ts",
+    "sha256": "B9F65879DE79A7647AD2E5B8089277C215911FA99D4B858D78014DF6BA2852F3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2024.object.d.ts",
+    "sha256": "7C4E8DC6AB834CC6BAA0227E030606D29E3E8449A9F67CDF5605EA5493C4DB29"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2024.promise.d.ts",
+    "sha256": "DE7BA0FD02E06CD9A5BD4AB441ED0E122735786E67DDE1E849CCED1CD8B46B78"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2024.regexp.d.ts",
+    "sha256": "6148E4E88D720A06855071C3DB02069434142A8332CF9C182CDA551ADEDF3156"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2024.sharedmemory.d.ts",
+    "sha256": "D63DBA625B108316A40C95A4425F8D4294E0DEECCFD6C7E59D819EFA19E23409"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2024.string.d.ts",
+    "sha256": "0568D6BEFEE03DD435BED4FC25C4E46865B24BDCB8C563FDC21F580A2C301904"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2025.collection.d.ts",
+    "sha256": "30D62269B05B584741F19A5369852D5D34895AA2AC4FD948956F886D15F9CC0D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2025.d.ts",
+    "sha256": "999CA32883495A866AA5737FE1BABC764A469E4CDE6EE6B136A4B9AE68853E4B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2025.float16.d.ts",
+    "sha256": "F128DAE7C44D8F35EE42E0A437000A57C9F06CC04F8B4FB42EEBF44954D53DC8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2025.full.d.ts",
+    "sha256": "E03DA518B01B46A4C99A1F88CD727EE98DDF14492C43DAE1AE7A63E992971BAB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2025.intl.d.ts",
+    "sha256": "FFBE6D7B295306B2BA88030F65B74C107D8D99BDCF596EA99C62A02F606108B0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2025.iterator.d.ts",
+    "sha256": "996FB27B15277369C68A4BA46ED138B4E9E839A02FB4EC756F7997629242FD9F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2025.promise.d.ts",
+    "sha256": "79B712591B270D4778C89706CA2CFC56DDB8C3F895840E477388F1710DC5EDA9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es2025.regexp.d.ts",
+    "sha256": "20884846CEF428B992B9BD032E70A4EF88E349263F63AEDDF04DDA837A7DBA26"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es5.d.ts",
+    "sha256": "6388847232654D7FCBED7FE89EA511A65AD1F5104B41E905C43F90910E1408B6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.es6.d.ts",
+    "sha256": "174A0FA01BB60BCB80E09B0B7BDCDDDF688891433D6030244DF5B44EB9EBD210"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.array.d.ts",
+    "sha256": "5FCAB789C73A97CD43828EE3CC94A61264CF24D4C44472CE64CED0E0F148BDB2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.collection.d.ts",
+    "sha256": "DB59A81F070C1880AD645B2C0275022BAA6A0C4F0ACDC58D29D349C6EFCF0903"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.d.ts",
+    "sha256": "17F13ECB98CBC39243F2EEE1F16D45CD8EC4706B03EE314F1915F1A8B42F6984"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.date.d.ts",
+    "sha256": "673294292640F5722B700E7D814E17AAF7D93F83A48A2C9B38F33CBC940AD8B0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.decorators.d.ts",
+    "sha256": "D786B48F934CBCA483B3C6D0A798CB43BBB4ADA283E76FB22C28E53AE05B9E69"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.disposable.d.ts",
+    "sha256": "1ECB8E347CB6B2A8927C09B86263663289418DF375F5E68E11A0AE683776978F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.error.d.ts",
+    "sha256": "142EFD4CE210576F777DC34DF121777BE89EDA476942D6D6663B03DCB53BE3FF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.full.d.ts",
+    "sha256": "EF4A897CD2A3F91000C10264E400B3667C7E51E1B7365F03B62E8081DC53BDE6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.intl.d.ts",
+    "sha256": "379BC41580C2D774F82E828C70308F24A005B490C25BA34D679D84BCF05C3D9D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.sharedmemory.d.ts",
+    "sha256": "ED484FB2AA8A1A23D0277056EC3336E0A0B52F9B8D6A961F338A642FAF43235D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.temporal.d.ts",
+    "sha256": "4FFEDAE1D1C2D53FDBCA1C96D3C7DDA544281F7D262F99B6880634F8FD8D9820"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.esnext.typedarrays.d.ts",
+    "sha256": "83A730B125D477DD264DF8BA479AFAB27A3DAE7152B005C214AB94DC7EE44FD3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.scripthost.d.ts",
+    "sha256": "F13F4B465C99041E912DB5C44129A94588E1AAFEE35A50EAB51044833F50B4EE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.webworker.asynciterable.d.ts",
+    "sha256": "7F57FC4404FF020BC45B9C620AFF2B40F700B95FE31164024C453A5E3C163C54"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.webworker.d.ts",
+    "sha256": "D52ED68E7EB5881768A55713C9B5C7C443E6B46DE15C04E348928B8EFD20B110"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.webworker.importscripts.d.ts",
+    "sha256": "2A2DE5B9459B3FC44DECD9CE6100B72F1B002EF523126C1D3D8B2A4A63D74D78"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\lib.webworker.iterable.d.ts",
+    "sha256": "7F57FC4404FF020BC45B9C620AFF2B40F700B95FE31164024C453A5E3C163C54"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\@typescript\\typescript-win32-x64\\lib\\tsc.exe",
+    "sha256": "F9ECFBDC93753D2C972D66A8D0D75F5BD737FD4A5F88B422D9091EA282BCB2C7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\detect-libc\\index.d.ts",
+    "sha256": "9500090533AAFE039C41D8D368A44959F04482BB75636D96BC843C06F3D6A348"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\detect-libc\\LICENSE",
+    "sha256": "B40930BBCF80744C86C46A12BC9DA056641D722716C378F5659B9E555EF833E1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\detect-libc\\package.json",
+    "sha256": "EE88E5B954FDF3A8480B1D01EF767D68D8CA2C6DA269F58C5CF1C5550E9AA2A7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\detect-libc\\README.md",
+    "sha256": "51A97449C443889155BC872522E6DE5A91A5FA73EDEFFA03D749E186BF0EEBCA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\detect-libc\\lib\\detect-libc.js",
+    "sha256": "5DE6A1C1ABEC8BBA5EA1261CF819D83A73C92EBE72B879AE48C59CA12320A462"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\detect-libc\\lib\\elf.js",
+    "sha256": "0E8820F00EE11D179D94894D4F97A6E87C34AB59E5DD4D3A571DFABCECF043AF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\detect-libc\\lib\\filesystem.js",
+    "sha256": "5C98FB66B559D0B4FA82C7A3E39D9AB6840F022C4C73E6B1A73AC6D16EC13FD7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\detect-libc\\lib\\process.js",
+    "sha256": "F37DD0EAD9F70B50C6F5529C600E1CDF076E3C3BC8E6B4A0A9820A8D65244628"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\fdir\\LICENSE",
+    "sha256": "9A39F2AADAB11A3697EDD668FF2D8AD885B649737B7AB4D3BF12B34E5ADA0C86"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\fdir\\package.json",
+    "sha256": "ACA49395D61EF383A09F74555C66ED45817CA2B5724E710A4DC9E0471B83D8F5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\fdir\\README.md",
+    "sha256": "99BA9A269BF78C24621C0EAAEE2978FD2DEEA1680C147EDE89EB2F900EA1D562"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\fdir\\dist\\index.cjs",
+    "sha256": "EC92C1FDD78905A7B6D1EA3391AECA2CF19D10E6BBD04DB0DE158FBFC8B6CFF4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\fdir\\dist\\index.d.cts",
+    "sha256": "84E9A7A30ADFBE64E51DE98C71CC5B8403F6C1AF16301C6F40FC2FEBC4BE6FD3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\fdir\\dist\\index.d.mts",
+    "sha256": "84E9A7A30ADFBE64E51DE98C71CC5B8403F6C1AF16301C6F40FC2FEBC4BE6FD3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\fdir\\dist\\index.mjs",
+    "sha256": "4A0266BF60373BC08BCAC35A813587EAD767864B3A80B5DCA10BFF999E05E32D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\LICENSE",
+    "sha256": "5EBA353FE5076AC3432177F8AB1CF75E3AFCD0584251E37C3BFEAD5F447D040E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\package.json",
+    "sha256": "B26FA1B188F90EC672206326E9A1DE793F0403A263BE9C3797C2E2D56AA48B3C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\README.md",
+    "sha256": "5C0C95D29D204230E9BDB1B998B6DC960F88524F4202E2375062B75BBA2B957B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\ast.d.ts",
+    "sha256": "F3FE8197217CB6FD6E07C0EAA0966E4ECE77CD779CBFC55767A93704CC692E04"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\ast.js.flow",
+    "sha256": "77BF7EEEEDB46AF8074AF0AF110EB950B07CFF543646DBFB2A311FFC58E743E4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\browserslistToTargets.js",
+    "sha256": "18B2C767C8623273E0C5EAD5BB8E09F3F843D8401AAA6518DBDD20337849F37B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\composeVisitors.js",
+    "sha256": "0D5AEAEAF42CCC6C64D10ADD07AA243102CDC8C6C25C3E2EBB1B01C46A1356F5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\flags.js",
+    "sha256": "646027F1C0977CF151916B221EDF51C2B4287FF5B5028C60243F6B014E9A388D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\index.d.ts",
+    "sha256": "617112682FCB55805F0A0E16450397EDC016881962EEE4298F4F4E3EF795AEE8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\index.js",
+    "sha256": "8B7F10FF14D65A382BD7041A747DF4A0D4B7C4E22B2842BCACA2588CD86BB045"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\index.js.flow",
+    "sha256": "C0A3C5B9C8ACDC12CBDD9BAF2D379D71154AE67ACADF8F4A62B7077D99FAFD8A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\index.mjs",
+    "sha256": "E1A8E4EA3242B6E95D13AEDDB3EF95FF9D3282852E23257618F784566484E452"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\targets.d.ts",
+    "sha256": "A18642DDF216F162052A16CBA0944892C4C4C977D3306A87CB673D46ABBB0CBF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss\\node\\targets.js.flow",
+    "sha256": "2A8A5CE45165DAF3CCC368E9C9BB48A6683FD15E4276B42998A625B26BD795E5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss-win32-x64-msvc\\LICENSE",
+    "sha256": "5EBA353FE5076AC3432177F8AB1CF75E3AFCD0584251E37C3BFEAD5F447D040E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss-win32-x64-msvc\\lightningcss.win32-x64-msvc.node",
+    "sha256": "D043DF0F0675E7FFFED4CF8B8C33E28639EC9F21D445C21E7FE4985E4A9B5A91"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss-win32-x64-msvc\\package.json",
+    "sha256": "B5EBDDF44BE90F0F82899482F512DE5C2937FEE0892DD001041CD17B35BC7699"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\lightningcss-win32-x64-msvc\\README.md",
+    "sha256": "7A8CE7A98DE104127A9414F2AD3D1C36E169609C8C85B0E9C232DC723178BD2C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\index.browser.cjs",
+    "sha256": "512A7626D7AE6B08BEADD901C3468133B547181BAF2EC58F05ADF5BCD5D95751"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\index.browser.js",
+    "sha256": "765C95CBCE86E6597D153FE41F315C5126C9A62D53A83264A742362D5F5AEE91"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\index.cjs",
+    "sha256": "C960EAADEBD1A0EFB76A525BC6EA206A76DD555BA0CF658D494BDEA908C40B6B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\index.d.cts",
+    "sha256": "A45EE7555D019A67FBE092898D1AEF0B1D02A9F6679AB84461FF515B4460D706"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\index.d.ts",
+    "sha256": "A45EE7555D019A67FBE092898D1AEF0B1D02A9F6679AB84461FF515B4460D706"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\index.js",
+    "sha256": "113BB62A626AF833B5D7E06A8D89413748F1DB18D303D31E092059F79FC5E530"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\LICENSE",
+    "sha256": "DA4DB1480D9BEEA3483A2EDA5C53B22238D0827D57DA162B48F122E04D2D9987"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\nanoid.js",
+    "sha256": "8D11A2A154F892B392C0C84DBE3CF9515413E1976103E1827E1A90685B78AE32"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\package.json",
+    "sha256": "E2A77185DED1C006171E4E2F8B316D0E3B4C51A135A190851CFC888EA428F6BF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\README.md",
+    "sha256": "54449254570E72B9EAC5E3FAFA9232ECCFFCC2F1DE403A4DAE02B2FFABEE720F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\async\\index.browser.cjs",
+    "sha256": "27B1E51270FFAA0DDD7640EA72603526763A627C2522A32520BB87CEE187A7B0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\async\\index.browser.js",
+    "sha256": "3C2F3A015FFF84DB08195101D5A20AFB194AF46B9A57CFF2D5244D7C2B57837E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\async\\index.cjs",
+    "sha256": "BD73029973939D5D958E132A181DA2A62FBB0676428D3F425AC615CBB8B1C7EF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\async\\index.d.cts",
+    "sha256": "6EED88CE45C41746DEE34D61027633A63A9EAD098BF4FE8005667E1CF655CB02"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\async\\index.d.ts",
+    "sha256": "6EED88CE45C41746DEE34D61027633A63A9EAD098BF4FE8005667E1CF655CB02"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\async\\index.js",
+    "sha256": "2194DF84A854623BD3DADFE67AA9AC045EE382C101427DCA654D67999D42F843"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\async\\index.native.js",
+    "sha256": "99400149E96A2A4D92ABF07F9B5E156FE047532B5201DC7D70C421C7982ECA4D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\async\\package.json",
+    "sha256": "0E02B9178F3638EBA65E96C8643F3BF08EA192DCEF7FAADAF3C38C50A829B301"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\bin\\nanoid.cjs",
+    "sha256": "E4EB9BE1A3E3FEB3F8979EF08C3BF3EF8430F4F22DF9C4E427353A1577ACCBE8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\non-secure\\index.cjs",
+    "sha256": "73B3DC5BF17D98FC9B9894748907E338C536F47412AE495A5F8052565381DDB2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\non-secure\\index.d.ts",
+    "sha256": "F001CC8FD6BD0CE527923F124A5D7309ABCAB5927852EBADC0EF71D2B1F3AE7C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\non-secure\\index.js",
+    "sha256": "C899E2811F0C0B89624F11370DA64D381EF3F96BE2937C1414130895F5622325"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\non-secure\\package.json",
+    "sha256": "2F9B8C4BEE9312538F388B49C13987F4565AC25D6756FABDBBB771D339945E3E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\url-alphabet\\index.cjs",
+    "sha256": "FDB8EFAFE73E611C45D1FFFB25360888E139D5BE3AB7982783DB22ABA2F21518"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\url-alphabet\\index.js",
+    "sha256": "6C605B83F3D32F76692741ED948E678B8092EA7D2E1B8B637C4982AFF35E6E9E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\nanoid\\url-alphabet\\package.json",
+    "sha256": "2F9B8C4BEE9312538F388B49C13987F4565AC25D6756FABDBBB771D339945E3E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picocolors\\LICENSE",
+    "sha256": "6582629E2979466878F6014313DCC2F3756C9616148682227CE3063DDE310750"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picocolors\\package.json",
+    "sha256": "EF2AC226C4811D312E12C64214C453878653E834482125AE475F27CEA60DE737"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picocolors\\picocolors.browser.js",
+    "sha256": "A2E045BA16013E35C7045797AE940E3EA1C0E0ADA13467BC73F7538690EA091A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picocolors\\picocolors.d.ts",
+    "sha256": "8C5F0739F00F89F89B03A1FE6658C6D78000D7EBD7F556F0F8D6908FA679DE35"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picocolors\\picocolors.js",
+    "sha256": "213BB870FCAAD4DEF0215FE34FBB0F529836CC4D2462E02F14F1A49D09781625"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picocolors\\README.md",
+    "sha256": "5027B2836551EA0F91FA27B97335DE905E24E1459D590EACFA45C0156962B70C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picocolors\\types.d.ts",
+    "sha256": "590595C1230EBB7C43EBAC51B2B2DA956A719B213355B4358E2A6B16A8B5936C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\index.js",
+    "sha256": "02AE26406508E28F9BA0865BE16CF77F0B33DE6C4D4D49C212C4176DF1D5625A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\LICENSE",
+    "sha256": "D0CD141B0C322FDED5DFAD1D4645BB2FEDFC05B7321FE1009469638190D59EF9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\package.json",
+    "sha256": "479B70B87AA7B44344D62C8A459AE7E53DD2BCA6C61F1396BD55E63E9DE73FC6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\posix.js",
+    "sha256": "5695FF5DFCD5A338A40630BD506056F2950BCB08FE1CC068519CBBFE60ADD480"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\README.md",
+    "sha256": "A69B87120FE2B9CB8F9057EAEF6B9F9887F803E02185CA2F431E8162F6312220"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\lib\\constants.js",
+    "sha256": "C28F952D2758261FE5428A121ADD485CC25B03E0193633F649DE903DC0E5E222"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\lib\\parse.js",
+    "sha256": "4E1E05447668AA1E94366C5516A2BCD8F5FFF800CC92B1D0CD7D77703B8618C4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\lib\\picomatch.js",
+    "sha256": "FDD249D7FFFF853F3BB1C77EAFC8BAA1A437BEA85A94C35877B83C6A40D9CA94"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\lib\\scan.js",
+    "sha256": "6457A1764E5C2E543CC3A0C00CE12EBB3764097628868198370B64D4E642AAAE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\picomatch\\lib\\utils.js",
+    "sha256": "F04604F70CD1A3F6ACE80B84766468674FF38B4BB83818D2EF1D81FC6355F935"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\LICENSE",
+    "sha256": "5BE1F3465BBA68A626777F984878814AAF35E7EF8E9FD314D469BCF887050FB8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\package.json",
+    "sha256": "D75EF939BAB5428FE03930321824C136D66B7B559908650FE8426A8871169CF3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\README.md",
+    "sha256": "92B501AFB100C2E7F186DC3E45D5064EE47EFEED91705C2CBF2F9FFD1FA7C6EB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\at-rule.d.ts",
+    "sha256": "17F2922D41DDD032830A91371C948CD9CE903B35C95ADCA72271A54584F19B0B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\at-rule.js",
+    "sha256": "33B932BDA8F304E9838A70232673326B6C0FD5FA030DF35071BF36C127042A0B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\comment.d.ts",
+    "sha256": "6332F565867CF4A740A70E30F31CEFBA37EF7CEBCF74F22EAB8D744FDE6D193E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\comment.js",
+    "sha256": "674385438F42526F2C05C19DFB66FCC521F5CF180CCC85B3215AD5C07AC21A40"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\container.d.ts",
+    "sha256": "9A195D8476F48523446ECE812E5450B5B1EC8C3B6ABF99EFB8EE2479524F6F56"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\container.js",
+    "sha256": "E2FC6A559238AC8186EF56D13D340B7C62C04BA9551E2EDC027E761EB393DDD0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\css-syntax-error.d.ts",
+    "sha256": "E16DC2A81595736024A206C7D5C8A39BFE2E6039208EF29981D0D95434BA8FCF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\css-syntax-error.js",
+    "sha256": "904B4BB371539A6303E4E211F0A8991FDE7BC94D8674253D627389FF291D0EC1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\declaration.d.ts",
+    "sha256": "38CB107048CD8BA54A70014EF9A30CF57BEE0D9F10A0CA4CEFA974056E1EE460"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\declaration.js",
+    "sha256": "2CCB78406C7A45AAB26FC463A0FE5E3E855CAF3AB1BA283616AE867046AA3B54"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\document.d.ts",
+    "sha256": "E392E8FB5B514EAFC585601C1D781485AA6DD6A320E75DAF1064A4C6918A1B45"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\document.js",
+    "sha256": "F66F02FDE48389FE1A361A8F71DA7EE0236A49C94CF22378E70BA6A2E9F4FAB1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\fromJSON.d.ts",
+    "sha256": "97BCCF79859464FCD23EE7F3F3D00C4287089E420B77FF395068EB2B209C3E22"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\fromJSON.js",
+    "sha256": "2D9EFB16F305C45F05D30E6727AD3D475C89E08EF893D913C3839F5CE899DB17"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\input.d.ts",
+    "sha256": "E5BAB5F871EF708D52D47B3E5D0AA72A08EE7A152F33931D9A60809711A2A9A3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\input.js",
+    "sha256": "52358502E6EA455D421D21A98FC0A3BE3B974CA624B96F43B318780F3E150BC2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\lazy-result.d.ts",
+    "sha256": "A039DC21F045919F3CBEE2EC13812CC6CC3EEBC99DAE4BE00973230F468D19A6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\lazy-result.js",
+    "sha256": "2D716DEA3A99836276C67E6D74DC587571A8B7498683044BA3DDC57E3DB87104"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\list.d.ts",
+    "sha256": "3EED76EDE2A1A14D7C9BB0A642041282DCC264811139D3DD275C9FE14EFC9840"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\list.js",
+    "sha256": "212ED2B68528DCFEB697EF6E762DF2FE37CDA84FA1330EB49FF471192E91864D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\map-generator.js",
+    "sha256": "800DC6F5F11158DB8C691FBA7D6D0D8E723566034846348E1005AB3F388E2A91"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\no-work-result.d.ts",
+    "sha256": "3FBE57AF01460E49DCD29DF55D6931E1672BC6F1BE0FB073D11410BC16F9037D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\no-work-result.js",
+    "sha256": "11E06A9B30AB844B877F489AD7870E2A319507AED4554A58A757B7DFD7699505"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\node.d.ts",
+    "sha256": "3CC8A3D123B6B232D48D34B51B785F9DA8D193F5B5817FA521FCD2F3B9315C55"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\node.js",
+    "sha256": "1CC8D56D0C77783FA7FECF702321129936EFA3DC504EB4528042A103FE54770D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\parse.d.ts",
+    "sha256": "526D4D924F94E938D5C81EC74EB0ADA1067A31321DCDD830AEE4D66D08BD8BFF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\parse.js",
+    "sha256": "7662C5AD1FD5F97A7C1615F0E5E7BC268E762916BCF6FB7BF9DDA45537493764"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\parser.js",
+    "sha256": "4AFA96A64053FE1DF4A41D44E7B481BB39FB4F7497AE3F7EAFBCCC7DAD541D9C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\postcss.d.mts",
+    "sha256": "8D369483F0C2B9EE388129CFDB6A43BC8112B377E86A41884BD06E19CE04F4C1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\postcss.d.ts",
+    "sha256": "354A7F8E1287D9D6B7561BC97FDD8CBC2F7C1DD79E4CB37B942E8A5CFAFF1085"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\postcss.js",
+    "sha256": "80304467231D94293A4C1CA5549D6D5A6FE9985171F3E64B98C3C1C22D08A4F9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\postcss.mjs",
+    "sha256": "986EBC2D661A3E93B6E026DD2E1925E18167EFDCC963F4043A65E1859974664F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\previous-map.d.ts",
+    "sha256": "52DCC257DF5119FB66D864625112CE5033AC51A4C2AFE376A0B299D2F7F76E4A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\previous-map.js",
+    "sha256": "87E1C0148D0BE6CFDB835C531347C43B52BD64F193275F167093DAE75ADC1394"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\processor.d.ts",
+    "sha256": "F760BE449E8562EC5C09BB5187E8E1EABF3C113C0C58CDDDA53EF8C69F3E2131"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\processor.js",
+    "sha256": "3E7EE4BA8339B612CBA1DEB67128D52C52726647EBE4D9B3C8FA68650E01B419"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\result.d.ts",
+    "sha256": "44325ED13294FCE6AB825B82947BBEED2611DB7DAD9D9135260192F375E5A189"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\result.js",
+    "sha256": "B4239438538D41187FC9A572C83BB89B09524301764EBD4F46C71FE31EDD04DD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\root.d.ts",
+    "sha256": "19EE8416E6473ED6C7ADB868FA796B5653CF0FA2A337658E677EAA0D134388C3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\root.js",
+    "sha256": "872A512FA232B23F5231070BD981D3EB390316D8776BA5CCB64F723E4B7088BB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\rule.d.ts",
+    "sha256": "46E4A36E8DDBDFB4E7330E11C81C970DC8B218611DF9183D39C41C5F8C653B55"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\rule.js",
+    "sha256": "216CA23A33B1A0145C7925DAA442A34E33A9EA41C6F3BB58FCA7C4FB355E0166"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\stringifier.d.ts",
+    "sha256": "0807E4031561395FAA159CA7FF21991D63F3F7DF894907EC447D4A62A8E66214"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\stringifier.js",
+    "sha256": "9652479C2F660511DB3E6229097A261B5D9CD150328462C6D5C6DD06DD2D0A96"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\stringify.d.ts",
+    "sha256": "5ED0AB0FC1719C68007CF670ABD22F78C7767A3B9F4465AD5A29A255ADC0C939"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\stringify.js",
+    "sha256": "6387F095C57EB6D49A8E5E6CB0FAADA0F46C2845DCDF48C8FCEDA109F434115D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\symbols.js",
+    "sha256": "EB8AB8B9648D400EC3E8E37E75DC159734B97BA21137F12DA11B4AFC2547A1B4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\terminal-highlight.js",
+    "sha256": "27F1EB6CC633F3947E053C96F16B1754BCFFCDA2742ECC9A1E11CC2A75D70D9B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\tokenize.js",
+    "sha256": "DDFCAAA01F5EAC9E4E8652044DF1401CE6CC70295FD3F9FBB214CA66FB2BEC72"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\warn-once.js",
+    "sha256": "5683FF69EEB8E77373A4BD0E0B9DA611C7575EE434BA3C458C0552AB4806464A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\warning.d.ts",
+    "sha256": "1328AB4E442614B28CDB3D4B414CF68325C0DA0DCA07287A338D0654B7A00261"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\postcss\\lib\\warning.js",
+    "sha256": "EB7656E1B8501C7B7C3B925B3875363E30B5D23477424BC444DC6289993C16B7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\LICENSE",
+    "sha256": "23ECFFF35A5A2E80D92142F75228912C3B1ABC4B5A8337A821FF4397E2F9F734"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\package.json",
+    "sha256": "F46FA23BCCBB2A1EE76A763B02A55853CDFEA4AAF8B0F3B82E8D16BAD8778020"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\README.md",
+    "sha256": "3D65150AADB440393668579BD47674F9C6D51F32D1F352510E0C1D6DDF549005"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\THIRD-PARTY-LICENSE",
+    "sha256": "A877291D800ED43692F3F9AE09D8E01CC6F7293AD39D43896059C188FFBB8B7C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\bin\\cli.mjs",
+    "sha256": "98D6DF62AA3C84284DB17944A2A8017F911640E9C4D3DE907A9F93B467EE47C8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\cli.d.mts",
+    "sha256": "F4C5CF9BB78E85F15DC27180260637CF24B2A24BC39E0788783A3ACCC4DDE614"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\cli.mjs",
+    "sha256": "8C558872A844839209BBA59B851B0F7044C7766A90564823C063F74D4D8C8507"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\config.d.mts",
+    "sha256": "21F99EB644F67A4FE7442A1275C5CAABA2A6A6ED741953EED42E27BBEE39A42D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\config.mjs",
+    "sha256": "42573B415E8A125C9EB617DF21A9A4955465271AFDF70267F5C5E6F6B3B55D90"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\experimental-index.d.mts",
+    "sha256": "C3D9D6C3EBEA07AD0BD71AD33FE93A875945BEDA5953306168A24B47F54799B4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\experimental-index.mjs",
+    "sha256": "A95DB59F7E181A89A77DF7EBB7534F0DD56480ABCD5718083EA3682722C715A0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\experimental-runtime-types.d.ts",
+    "sha256": "2924DE7B123D797F79F4134A2ECD219760A2D262C4CB0B4DDBEBFEEA415085F6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\experimental-runtime.d.ts",
+    "sha256": "2924DE7B123D797F79F4134A2ECD219760A2D262C4CB0B4DDBEBFEEA415085F6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\experimental-runtime.mjs",
+    "sha256": "D3098C6B2680735A84FF7D9248DEF2382F3701B91214C3E4ABCF670701AAC179"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\filter-index.d.mts",
+    "sha256": "C58F9217A532106196D1285CAEA043D39433D256447EAFCC764A021E03A9AF80"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\filter-index.mjs",
+    "sha256": "4333B350B4735690998AFB8A6CB15683793B8AF26E01082A9468AE4469E7FA08"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\get-log-filter.d.mts",
+    "sha256": "E119E5023581DEB35FE500CF979CE3E53E3E87A865F744A892535E1F856C46CB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\get-log-filter.mjs",
+    "sha256": "8D267B4293C32DA393C1B189264ECCE44A9F0CA767293DE300904B006AD221F0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\index.d.mts",
+    "sha256": "D96488C6351E848999BF757CFB669161F3A46537F662535D7AE9B6E138128CEB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\index.mjs",
+    "sha256": "F4A5B886F95B41DCD4085B203332926C6144636038ED41757A9FEAB260DA1028"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\parallel-plugin-worker.d.mts",
+    "sha256": "F4C5CF9BB78E85F15DC27180260637CF24B2A24BC39E0788783A3ACCC4DDE614"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\parallel-plugin-worker.mjs",
+    "sha256": "54AEA3882A98AC0F0F45D1C49FA5474220FC8413FAF0476C6A8B5C4E450DF66D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\parallel-plugin.d.mts",
+    "sha256": "E739A13992039A67B71186729560D0BF54248D5297C0B76E2AC88AD3930AD07B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\parallel-plugin.mjs",
+    "sha256": "0FFF1FCFB26076A52CAF31772881E55E8DBD7F039F268124E438638E8D84E0C2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\parse-ast-index.d.mts",
+    "sha256": "EE4A4735E7FA0DBFF56F81576C471E2C99AFD1EFBC4849E451D4B26BC9A57752"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\parse-ast-index.mjs",
+    "sha256": "9865A65966239C2AEB183C85B84A7155702808E749E0BD1BCF865B1A8209F789"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\plugins-index.d.mts",
+    "sha256": "21EB31C8D4421A2B703240901990A01463555E9DD49213A7F49FC605642B08F8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\plugins-index.mjs",
+    "sha256": "2B3D459B899561C184CF7CC10445DAEBCD072E10FC27590E4B9F7085ADC5218F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\utils-index.d.mts",
+    "sha256": "E2CEC44934E910CF2857360F8ECD47FAC8EC2A490CF032D4822FEABDA0EFF456"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\utils-index.mjs",
+    "sha256": "46B33EF522F43F8DEA22321961F3ADB23BAE0C6A10F468FFAB91BA146B8735B9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\binding-CUpfdq6A.mjs",
+    "sha256": "C0BCA197E7C7819C84F6B0F1AB5E3923895C5AA140E5243DF72AB375554F19A1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\binding-CwA4xu8x.d.mts",
+    "sha256": "61A7EFA5E4ED6EA473D63D7277C9CB4F38F202AF99741560AF2A2C2DBFAC1C4E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\bindingify-input-options-UCGox0BH.mjs",
+    "sha256": "607D4481B7D81C1025DD76E7C96433D9843EA40E3BEF42F5DDFAE5EC0326C325"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\constructors-BDv3zGhp.mjs",
+    "sha256": "754647CC9449927413BF1EF5E48420B9104BD0FD90363672541507548EB7D17E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\constructors-D9cRAoTT.d.mts",
+    "sha256": "D9AF08385B3D9F07E03C0B77E236092155998A3DC064E06DB7D4FDF81624E956"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\create-bundler-option-DH74Qvg7.mjs",
+    "sha256": "04DCD1D0AD45A6AACF61DE75AEA828506ED266AF1736F613F6A43E9D5458B912"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\define-config-BLptERXo.d.mts",
+    "sha256": "A12D9A918FC92F2DD1EB556AF36D40BF464040D238E4B169164EF082D91DCCC3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\define-config-Demdg3_4.mjs",
+    "sha256": "E887326CC80CAA4248166A9CE863134FC4F7E1314AD9A3D7E380BD1A43F746AB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\dist-DKbukT1H.mjs",
+    "sha256": "F7FDBC4F6653F54996D0044435488BBEC4ADB6420F796F76B3AF68A1264BDA18"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\error-CBG33oNV.mjs",
+    "sha256": "1CF3B632738E0ED2E7A5BBD5787CAE36CACF1E2DCC36F2C7D8B62BA08743DEB8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\get-log-filter-AjBknEEO.d.mts",
+    "sha256": "A57F53CAA3E1283F2234C38F3614EB66549F83D0B21BDDFCBB2DCA1A023C2383"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\load-config-BPjzQNro.mjs",
+    "sha256": "B4D71CC05B5372076CDFD267FA8D454261761CA9F7B48B1242DDE5AF3B400C7E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\logging-xuHO4mAy.d.mts",
+    "sha256": "FC5AD2EC8B130A59612C5CFCC2CDCA9BCDD80851ADB8ACDB004AAEFF00CC978D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\logs-D6uA606S.mjs",
+    "sha256": "7EDFDF44F30AF715DBAC404C6A6B9909510E82BC9CA6762C127E2EF474DAC3DA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\misc-DOSKtd97.mjs",
+    "sha256": "A6B94BAC1329695387FCAF0D0DBD583165E962A2DE13C719E819FC68E4BCB04A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\normalize-string-or-regex-COVDiCTB.mjs",
+    "sha256": "3C21F59D3EF2F7483F150FD2A9C5ED1EB2F9C10CAD50BAC95BCD4215CDFF2E92"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\parse-BFmj01mi.mjs",
+    "sha256": "68BBA770B70CFB7E9F08E23CD8A39B54DC90BB3E251ED7FF7D6CEB70A621DA12"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\prompt-CH6TK0bC.mjs",
+    "sha256": "F29111163870F5B1F7B184B65454AD6FC31869579B9C88C120FF0C01A7E1FA29"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\resolve-tsconfig-CQ3UD0Ax.mjs",
+    "sha256": "66AFA07A50A22B9E44A4F1D18B7E49CFE25BC675D421EF0286F259F3EFC7B70D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\rolldown-BYX6bV3R.mjs",
+    "sha256": "6B3B761C3D7B8B5D728050929F64BF566BA7EC1322D4D3836320E73B0B59176E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\transform-BH7GdGwN.d.mts",
+    "sha256": "1BAB19E9536D0D7576263D98DF68F6B0418D0B8CAA29801523EFE07293BE774F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\rolldown\\dist\\shared\\watch-CILbYpHY.mjs",
+    "sha256": "1543DFC766A4C7556BA3222FC5A1485D2D1C7CBEC32EB4EF39905993A3504732"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\LICENSE",
+    "sha256": "6CB0631F71C7749763FD3DD1D5BEE52DD1070EC17F2EDC1710079AD070BD2FBD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\package.json",
+    "sha256": "9F1EA63B1661D0F6E5FCD50B625D86CDDD77DE870A0019B23262360987B487F5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\README.md",
+    "sha256": "8E1A57DAF01CD2FC8969ECD0AFEAE51D1C05C7C79E9413EA82016A0F65E97646"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\source-map.d.ts",
+    "sha256": "402E5C534FB2B85FA771170595DB3AC0DD532112C8FA44FC23F233BC6967488B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\source-map.js",
+    "sha256": "DC098456C2D9AB90A4C0A17CCA9BE16665B9813DF20906553A98B0088A157BE7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\array-set.js",
+    "sha256": "163BB3055AAEA7140167740036A83161FD912C344B14F992754B80F21477D754"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\base64-vlq.js",
+    "sha256": "F3407E528F54EC0787BD0A71EEAC0C99FFFD98445916FCBE116DC69CA3BE928B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\base64.js",
+    "sha256": "651BF433CF05E9EC8CEE0B94639483236A605D48279E83D3D5C5DE81C21D6599"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\binary-search.js",
+    "sha256": "C7F4A47A125AF0BD860443DFD71D2F412D1A97DCB53AB7038189D63B91DC32BD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\mapping-list.js",
+    "sha256": "35DDB82861F11A70AB84CB47D620FCB28D7F884BB444644E06BDE815B836EF9E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\quick-sort.js",
+    "sha256": "1E2857CC4F6C9C36B764CE529F39B9243BED27AED809E895D7CEC04C8A869266"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\source-map-consumer.d.ts",
+    "sha256": "2CA1C32E3BD72C64662ADF034D97DF8606BA1E1399CAFC75567809ECFF4BCA95"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\source-map-consumer.js",
+    "sha256": "9AD10DB386DA13C1F95E6A680D6298DBB306C77F57A9A3539E4595B723A7654B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\source-map-generator.d.ts",
+    "sha256": "11F9B1E28747CA9CF5F4F7D41A7F261AC98ECDE6BE7DC146824FA275AC1F169D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\source-map-generator.js",
+    "sha256": "07894C9EA1E674263E2E7694D43D4FB935E98549B93946205B9536C1420696C0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\source-node.d.ts",
+    "sha256": "E4A2E40E293158FB2AB29AADB9EAA6400C8D9BE5851D45A95A76F9E2A4BB7C8B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\source-node.js",
+    "sha256": "D1A0EF136BF0E974BA956506C88E91FEF5D8681BBF10C486FF9566A7D6D76F3C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\source-map-js\\lib\\util.js",
+    "sha256": "0629F3AE2F3049CDA3A2E87EA651DCF0CC71108F4681795AB989A8AC1573FC03"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\tinyglobby\\LICENSE",
+    "sha256": "22C68811E174CBBFB3813D4135918DF4F540959C14D872E601D9ABE83D3CDE8F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\tinyglobby\\package.json",
+    "sha256": "BD2B2AF3C9BA0580F1ACFB22C55D0B6D29ABF683AF5CAC8A2EFE82FA7C943F23"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\tinyglobby\\README.md",
+    "sha256": "657D808498DDDF2EA2049DD44F008CD18C260893EF73920285D7B3E9AFCB7072"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\tinyglobby\\dist\\index.cjs",
+    "sha256": "EE408BBC9665CBA5800A6B2A0C89DD3DF9820BAA30D4FF3BA2F2435F16CE9F94"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\tinyglobby\\dist\\index.d.cts",
+    "sha256": "737DA79B3269B992ED4AA9A9F799EC85AE0EB5236A3F63125382E52E02E0C832"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\tinyglobby\\dist\\index.d.mts",
+    "sha256": "737DA79B3269B992ED4AA9A9F799EC85AE0EB5236A3F63125382E52E02E0C832"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\tinyglobby\\dist\\index.mjs",
+    "sha256": "FC1BED0D5DA56D4638002AF7DEAF6D179E183A85DE648C180839CA36B21B3B50"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\LICENSE",
+    "sha256": "A7D00BFD54525BC694B6E32F64C7EBCF5E6B7AE3657BE5CC12767BCE74654A47"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\NOTICE.txt",
+    "sha256": "F5C708B59114507B8B27B48181B6883D106BBCA0C1634BBEE45B5E344237B66B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\package.json",
+    "sha256": "3722B30210616A13A3213DED11575BA6B2DBAB10C32A5EF67AFCA8513E27017E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\README.md",
+    "sha256": "2B0C6B9A289D72CE11BCE498CC7B21C9DAD32E8F7D3A28211225D433F2686D89"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\bin\\tsc",
+    "sha256": "2219F428A7E55AAF1F7AD85B9B0F0CF5078AEB76CCC9A7C6036C92D48F492FFD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\compilerOptions.d.ts",
+    "sha256": "61D6FB326E16E5427609451D589A7A3A0615CFD0ED381D7B25D8DDF2B658C672"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\compilerOptions.d.ts.map",
+    "sha256": "7869C54EEEBB47E88C8EB546D58E697DCAA0E224BADBF5DD53CB0D4E9D79F624"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\compilerOptions.js",
+    "sha256": "38F13C4427E7C4A5272097AD43C39D770CF4A335653F727B2C34F286608F7269"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\compilerOptions.js.map",
+    "sha256": "A2735B8BCC905D114D063606BA93C0140B822A2CBA5FC6DB245EC75DF0E94A0F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\fs.d.ts",
+    "sha256": "4E187217A82B70834E3BDFC4CF835DFD874F63BD7DBE6372DBBFBC76D038E6F2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\fs.d.ts.map",
+    "sha256": "B10512AF00C55F9B1F4228CDABDA15E6B24B54C33741C7FB136A8296293A662F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\fs.js",
+    "sha256": "1C25CCEAF42B84C08A1CC4203C7380FCDAFD82E42D60537522B9874E058603C7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\fs.js.map",
+    "sha256": "A54082590FCB3B6FE1DE8DD866452602DFF4143C5256530E82F8C6DC2DA812A0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\options.d.ts",
+    "sha256": "8A70549485F4A82692FAE418C58F5B84B81303B750DEB2DE397F0A2DF85C4F14"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\options.d.ts.map",
+    "sha256": "305521E5814B56C0399E3344AF45DA16753D680C9C0812760A10354E37D61DEE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\options.js",
+    "sha256": "B47B35B4B92D2EDE9C72018859528EEF2A1B57C4539CB7B58EAF1B5BE193EA58"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\options.js.map",
+    "sha256": "56A3545589FC18A825FA5071D948E37EB2408E6E62903E5B6E3CE6C7182E8B53"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\path.d.ts",
+    "sha256": "57509C010BAE13B84907ECAFDFA826A57026039F4CDD30B1C8B43BC4AFD4ADBE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\path.d.ts.map",
+    "sha256": "64D9B66E38EE16EF909549B69FFDBD54D4A7C44FFF8ED8FFAAF0A16B81DBF069"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\path.js",
+    "sha256": "F507694B565D57916E5AD6B3D7F8DF62EBFFF8B66E95073401EB15747AFE2EB6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\path.js.map",
+    "sha256": "AE9A29B0E1B5F45CB9BD4920227AFDD96D2AD2A8718E5E3A8312D5E4657982AB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\proto.d.ts",
+    "sha256": "6497AF1102E27DC68405CEF9DEA0E87E1E1BDD461CC51432BBCD14CA486D71E9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\proto.d.ts.map",
+    "sha256": "D7B4288933864E787DA00257C327D0A2654671DB3B2D916E310C6A2490E504DE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\proto.js",
+    "sha256": "51D912228DA37019FD5192E17BDA9EBDD5B191757BB2FB420F11EA90901B7F79"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\proto.js.map",
+    "sha256": "DE680068AEB03330C2206A9DD42979067E2DD195334C302C05D92A5B11C57B51"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sourceFileCache.d.ts",
+    "sha256": "8A2E3A04E7886CAB3674AFABF3E2F68E7302FF3A8AF257F115CB71F9DA750003"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sourceFileCache.d.ts.map",
+    "sha256": "13E2DDDCB18365B360084E9E4A034A11F6470FEB105F8E4ABA66114486323EE9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sourceFileCache.js",
+    "sha256": "1628E460C0E191547222FBC6B3FC7A5DA8BADEF4F65E5749736D31477D35CAC5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sourceFileCache.js.map",
+    "sha256": "D2D25C64AA7B5F00A611A6F12EFBDAB621912603D6F1330F4BEEB4D34044CD07"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\syncChannel.d.ts",
+    "sha256": "BD96032905290256FFFAD568F641773024896FC09C3075B1FEC0A44F5ADFFD09"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\syncChannel.d.ts.map",
+    "sha256": "1284B9F81B9B971AF917797BF1A7D285A7A8075F2061D8BD8CE699E245DD1A93"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\syncChannel.js",
+    "sha256": "132714A6E2DD7FD079F7F67BF9ED41D4123AB2AB4D94043A34EA3B1A8F1FB001"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\syncChannel.js.map",
+    "sha256": "1BE5056B75785922A61A2E218C58BACEB199FAEA5D8E016F9A0CAD15AE90E8DE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\timing.d.ts",
+    "sha256": "A56B5A3D20D733870E1A77F14DAFFA10DF7E4965881746FD0C4437146A0E2038"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\timing.d.ts.map",
+    "sha256": "6B8FEC2A494B5DC254CAF95F1746C324B2EAEC6CA35126B5346A3E8395C0840A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\timing.js",
+    "sha256": "CDBC4ABACBE16ADE786E743EA3D875D7F5A3B5DD35706F79C1A506F45886F73D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\timing.js.map",
+    "sha256": "90C15328FB99369EABCFC91B6A737CE2E77D6450A3D64634B025BEFE2C60FEAC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\api.d.ts",
+    "sha256": "CACEF4A7C1C1C493176139A8F1450D8767267993916235DD45D38456B4710341"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\api.d.ts.map",
+    "sha256": "325F552DCC36F8C6A42CFA6E556F3C7390656B8B6C5C16CE33D3349F1EC45074"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\api.js",
+    "sha256": "987EA51266D8A476185662AAB6EF5E803AA69A40E6AA0F5F3E13BCBF5E1DC95D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\api.js.map",
+    "sha256": "D9727317A50A68317AB63E449B1FAB9E435EAA4237330DAA72716D6575EEDF74"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\client.d.ts",
+    "sha256": "8B674B6E480C5364D4FF904DA908E0005CBC378A7581DB01F276541A44C690EA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\client.d.ts.map",
+    "sha256": "E3CF18FCB37DDD338B43F0B762ED40A3A6E710C8863DE5D0E0F8A003217E43FB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\client.js",
+    "sha256": "13BF0DBFB818A623E72F119D8CD15FA6EF5B18BF040D216C84971830F7C37C1D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\client.js.map",
+    "sha256": "B2883CA3D86485F4C66394124AA083E328C5F261F43C690D16DA0C955030E19E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\types.d.ts",
+    "sha256": "15C2F0ED2C0B262EBA2BD798B7F9CE58525BEEF27EE8F27E841492EB175294A7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\types.d.ts.map",
+    "sha256": "28C1A945BB68BE19EFFC994F3C5AF1A434FE7AFB2ADEF16C711330175542E41E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\types.js",
+    "sha256": "01AE2A5B120382F9A648CED7EE8507493A134F216D100FC61600C6C9738235D2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\async\\types.js.map",
+    "sha256": "8573D6C7C7586D7C42ABC4A2BC40CDFCACE8D3A39312597A9659D329A7524CBD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\encoder.d.ts",
+    "sha256": "2B58AF776E598BA1523FDB8ACDBCC1BD773C86C155ED24669A36425F19B0B5A7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\encoder.d.ts.map",
+    "sha256": "3F8328CACA2394F97462E7F36A324001482F87DE59EC18428D52654399F0F25A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\encoder.generated.d.ts",
+    "sha256": "31825E6AEA2DC0D05964AB879D8197425E6A50C9C1F6291FA3D52C0E2F224D8A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\encoder.generated.d.ts.map",
+    "sha256": "0CA5F415C92EA1B399867291BF28B0F369006895413E30E75B478C8F3E9CE550"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\encoder.generated.js",
+    "sha256": "6B89B639862004BEA8368969775A08F45702D80002118E50BBC5B0CD750CED9E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\encoder.generated.js.map",
+    "sha256": "2A83FA011CFD7C35583D3506AD8F5ADC1C571122997C36D697A6D26FD00600C3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\encoder.js",
+    "sha256": "BB6AAA689A06AD705C62C538D869803EE3F5F70018637CD09E78037F2FF1D977"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\encoder.js.map",
+    "sha256": "DD8EC33D6E2C9092B95DB1E199BB34BF25937873C1EFFCC4310708420A410C1A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\msgpack.d.ts",
+    "sha256": "29AFA056AE8A8B6C5C747403368232DE4BD98E9E6D6E3F1BCC6F10AFDEC1C277"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\msgpack.d.ts.map",
+    "sha256": "CE783D07AA3911FD4C5D5659CC4197E7A2CEC7E6ECD4E8DD11E35FFC4BB7580F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\msgpack.js",
+    "sha256": "6E5EF1285CEDE6494050D1A4D2E4BDF467A729975C8A0CC5B38AAAB3F2976BEF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\msgpack.js.map",
+    "sha256": "A1991E8E8BD73C503112D43D452ED62C88811A7602F100936932E3ADBA5C066E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.d.ts",
+    "sha256": "5BE6CE3679D0F2981BC4A8F3F4A61040123EAC2ABE90D56FB931C5C7AB159338"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.d.ts.map",
+    "sha256": "72A670C21C90125BC2BA23D7DFE3D4F55AB817072CC9DFF6BA4B0E79A8308353"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.generated.d.ts",
+    "sha256": "7921505897EE04D88863ED917CC653F4AF885DAB205CE797860179E5425BFA86"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.generated.d.ts.map",
+    "sha256": "C1F956ED40D2A2D6B492D133A6C56B36C0D2E78F38E6A2AC4E4486758B63957A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.generated.js",
+    "sha256": "D0138B0429C1C9D5909A79E80ADDCA7B8A1BA00FDB63668BB44984508CA71B22"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.generated.js.map",
+    "sha256": "CA0F289A77B3D2A2DB30BC10BB91377459AD4EF7E37E2F5C8DB76ADF099DF8AE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.infrastructure.d.ts",
+    "sha256": "989980E4C20E2FEF37EDBB4327EE93720C00DF65EF89DA7CAD8816390ED1F6A8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.infrastructure.d.ts.map",
+    "sha256": "80E7E7F2C3772BAD8FC36807A47D00B5EA88AD1D0183B40AB6C0D167D9894F58"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.infrastructure.js",
+    "sha256": "112F619579BC652E72E347FE8B3D2C44C243B053766F06082D8C9D203DF5A88F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.infrastructure.js.map",
+    "sha256": "28ABB1F2CB83D6E7E8D1164E48E5ABA84D395A35218290DD0163E6D9DFC5A46C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.js",
+    "sha256": "92915F0A3486FDB40B6E71786C0D5A8EED82D80CF34B45A4BABD8B47B51939DC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\node.js.map",
+    "sha256": "DD1EE82B28E08AED1B796A54C58948488B5FF3D2AEEBD7E9BCCCBCB6B05D6278"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\protocol.d.ts",
+    "sha256": "4A2C693399EBE89E8860F6B18242096CF8EAE127B7E34AF407859E1DD88BE4FC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\protocol.d.ts.map",
+    "sha256": "E2DFDAC1FD6CB8A0C677A247E9D0FD3867CE2D94E558566B7AAF332304E14019"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\protocol.generated.d.ts",
+    "sha256": "6172FC87633C5CBF6D2DE5B30DAC551AEBC50B5827692DB64EBA644A3EDE2707"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\protocol.generated.d.ts.map",
+    "sha256": "035FB5696B10C712EA3C4FCFB9187C96601C1734B783CECA3E02F4D2A03679B4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\protocol.generated.js",
+    "sha256": "69DA9505258C607FC47885DE9C482DA6D85E7C5EB9410ADFD3BD51D4131748B8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\protocol.generated.js.map",
+    "sha256": "FB1548E86D7C157A62A79F822AC073906CF17365E10FEEBD254B5213FFD90104"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\protocol.js",
+    "sha256": "D82E05673478F3455ED78CF24A843E92C3ADAF5EB6377A45AED1D478BBA2D45A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\protocol.js.map",
+    "sha256": "9683D18AB820D477954CFB0C3064894D9331AEEA2B2F0ED14282DCA3CF8C63DF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\wtf8.d.ts",
+    "sha256": "CDEF6FE53E931AC3AE4E8ED6DE857210287CD683085A9829AD1FD392C01F43E4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\wtf8.d.ts.map",
+    "sha256": "664326B768DD7EE7FD200425368AC70FFB99FAD6E4DCECF67FF341111BE5F705"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\wtf8.js",
+    "sha256": "30FA9045F3A63B78366808198191FFB5403723CE4A8A68363B48BA7C83393CA7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\node\\wtf8.js.map",
+    "sha256": "3EC321056C0E1F424C5F5D6C802ECECBD99C97620863AC21F8303FE20AA4A451"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\api.d.ts",
+    "sha256": "A67066054FFEAF274A49F62E67E3C8B687761D270718AE38E8DC4E1D3530EF1F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\api.d.ts.map",
+    "sha256": "5589835DB965DB5C42E49C055F41EA7D24AC434AC950AAB52B4D0DE0C085ABC3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\api.js",
+    "sha256": "E27255574A3C1A3236C4083C769758DE3327BBA8D3CD19F015551B619AE783D2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\api.js.map",
+    "sha256": "E07DEBE056C1E019689C236FE016CB4A1283A9511788587AA7F82A5E6BDBEBF5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\client.d.ts",
+    "sha256": "27CE65143B7AC1EA95DB948953C2466E6C8B3ECFE7B7183DF21E7B833389EDAD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\client.d.ts.map",
+    "sha256": "759F7CE79F6C52E885585EB0EC2743BF7AA6662D7DE4596AAFF66761428B7957"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\client.js",
+    "sha256": "4CCA322E20FFF9460D1843A62B2CAC4EE963109B4D07E984BED9F54E7BAA10B8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\client.js.map",
+    "sha256": "0E07D43FFD7943B0F4A2DD73DC5AB424ADEB7C65FE65AB59AD689F8FF93B521F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\types.d.ts",
+    "sha256": "FCDB54710913D88B5EDBCF11BD0B0686B8792803C3B24A414B05CEE6FEEAA8C1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\types.d.ts.map",
+    "sha256": "7E75AD25537B25825C59F9D5A316E1AB7BFC733CE1AD7E397B9B5FA1C282667A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\types.js",
+    "sha256": "01AE2A5B120382F9A648CED7EE8507493A134F216D100FC61600C6C9738235D2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\api\\sync\\types.js.map",
+    "sha256": "1483B8F252D0F369F1B30F4E2837111FE43977D3268E22C0A7D05588F88F7262"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\ast.d.ts",
+    "sha256": "91A9B19CFE2E36376ECEAE2C8F5BB269DE4E541B28041B38F0DA0BDA34B0AAF5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\ast.d.ts.map",
+    "sha256": "D1F62B91573C533DC8FAA0F4A40DE331CAEDAC603D2B6F372A43F86D91C59DE0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\ast.generated.d.ts",
+    "sha256": "D380A6813BB07A1D05A07A08282FF1B63166C40C944DB15BC9B27EDB7B884E04"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\ast.generated.d.ts.map",
+    "sha256": "BF447E2502107EA84675FB1029EFC178DB2322B67DC9977302BA424051E4681C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\ast.generated.js",
+    "sha256": "60E15787FC96F48EAF8F4A5A1020FAD008BECF396B36E5AA83471E4EE71357DD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\ast.generated.js.map",
+    "sha256": "2D301EB93DE11F03E1D7DA4E5E31A7EB13E5D3FBE966C21E5B9530610A716D01"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\ast.js",
+    "sha256": "926B099F2B9BE9A7C887141BB0687AE75A0BBAF79D1D7E493C7A73FDA68469B9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\ast.js.map",
+    "sha256": "869CD4AF9264D860B7645ACE7096FFFECCAEFE5FD193624C8FAA6D3035BB4B95"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\astnav.d.ts",
+    "sha256": "94A1783980FF77220DB5096C66D12B6AFDA1EE5D6480C1FA8D76F011604AC8D8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\astnav.d.ts.map",
+    "sha256": "811D6F5E1569F08B1A0603729CC189AFEC8EEE80F26BAA741C15FE37C6DD2007"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\astnav.js",
+    "sha256": "7018001B9742A308CA94B62745EFC15BD3396FB0D1624E1957A1C0DC23DEDBAC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\astnav.js.map",
+    "sha256": "037669344A410D52DE9AF17473AC8AF2F736C8D4C28108905B38402BB300D2AE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\clone.d.ts",
+    "sha256": "B1EECD21B09B09F4A4A3F02BA243048720DD998D90D44DB9467374EAB7FF1DBD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\clone.d.ts.map",
+    "sha256": "84875A418FFB545F7521AB58B227D3C57092B23F8D77F0069587544C781A1BE2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\clone.js",
+    "sha256": "BD30383A0AC47612E533C46A2C73D94179FAFDE70640CCEF347D705E04BB5A93"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\clone.js.map",
+    "sha256": "EE815496F0D016455425F34A2889C541C43CB140C11840E9B704158FB5F7C6C6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\factory.generated.d.ts",
+    "sha256": "1403725F858BDF06D7123084A7DED27E82A28DB7FA18AC2E91F7A43E9A885B88"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\factory.generated.d.ts.map",
+    "sha256": "73765C3E27910AED5599C4DEF4DF4C9E7C6A78528F45B6786FAD47810868033B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\factory.generated.js",
+    "sha256": "330F890FB1A4A072D1ABF483F38196E399E40B8A797047157F51F8E7B2368199"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\factory.generated.js.map",
+    "sha256": "AD7F832C449B5F7CC19D93684FBD61601F9529E003E0027D2EA799C81691C93E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\index.d.ts",
+    "sha256": "2AC4664DE81AA853C53798496FAF5B39890EDBEA4B780C0EC7DD320DE414C308"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\index.d.ts.map",
+    "sha256": "76948F1190294DCF6BB080F81E2E53D76A90C3006DA0D608812D51CBF7D2F52F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\index.js",
+    "sha256": "AA95C0544BB2A42541421AB0EC2C1DC41B7B1F75F0694E28D8CAA33E120D8C22"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\index.js.map",
+    "sha256": "5F9DA372F6C2809453BDA351C749E5114EBEB621591F55B7BABD337865B1759A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\is.d.ts",
+    "sha256": "9C2EE9C5054E46FA1BFE58BEF8BEAB581C3BA3C4FF0252545F0BF88F63196EFF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\is.d.ts.map",
+    "sha256": "F644D1E34597472C49665ABF63A779805730ACF30674C8E6B592ABCACEA5D0AE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\is.generated.d.ts",
+    "sha256": "20D9458CE5D8ADDBF29BC8BAB676AB08569BE258ACB0A51177E22DF370B0F6EE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\is.generated.d.ts.map",
+    "sha256": "3738C13F42CBD70798750BB632B323824B511A231048AA6A16C0D4DB40D83EF9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\is.generated.js",
+    "sha256": "7DEAB60A24468EB1FA6DE4F7D3FEB7FE2BB2C16D3D833049B558AEC23C266F19"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\is.generated.js.map",
+    "sha256": "0794B3A6B43A72E049E2673BAC76E6B8D1E49BF76DFAB53A2506C47842AE5A60"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\is.js",
+    "sha256": "D7DEFDE440EC95C662E030219A020C5E9285721F38306B7BBAF06D2393CA83D4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\is.js.map",
+    "sha256": "C94984A32EB0EFFD13B410629AD11D584F61B5243C52CE4D47E46F5F80B72FA6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\jsdoc.d.ts",
+    "sha256": "3B6C623F8493831927C076774BAFF799C2B126B04FDDBFE5F228C54DF9ECB6D0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\jsdoc.d.ts.map",
+    "sha256": "CB7ADDBAC7FF2355FB5E35FF6263FE5006198D2D2402B1B1FA07BBDC6A41D794"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\jsdoc.js",
+    "sha256": "677B92DF5A9CCB64D03ED5906601F06231EA38CDF5EEDC6765D3F996B18663D6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\jsdoc.js.map",
+    "sha256": "28EDDD5B3B788F33F2B139B55AEC28F3E5C0CF8719B7C621622C7E9E1E5B7A59"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\scanner.d.ts",
+    "sha256": "48F61E0A9E00B97BC155790F0BDEA12A18BB3E14EB5CBAC81EC1BAFBC42253E8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\scanner.d.ts.map",
+    "sha256": "8F0531743F5057B7BADD589E34D0012F7521485408A96A46C858481915FA3E34"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\scanner.js",
+    "sha256": "A5E29430A9414ACC5E6F3EDE98C255394801DCBB3626010075860C03E676A057"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\scanner.js.map",
+    "sha256": "23EFB06F3CA1C11403AEDFC9739FE159E5F9A8B7CF3FD12DA1E42EAF51E24136"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\utils.d.ts",
+    "sha256": "064746AB89F6B91067683CB415EF0A8BFAEB0BE05A93620DD2A8E18ACA4FC229"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\utils.d.ts.map",
+    "sha256": "C47540893CA759A11C3E19BA11C1B04F617F18FF9D922F90D688C76568072AAB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\utils.js",
+    "sha256": "7A148DDEEB4CF43DF152B1B82620A937AC6CDAB11B0C27F155EB9394D40F9F3B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\utils.js.map",
+    "sha256": "727BC0D40C6697E7AFF268567D6D09FAF31E343B51F936ED98F59D3011E009A7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\visitor.d.ts",
+    "sha256": "A811A65B3FF2CF36CDA90A301E024109B0FED600BD0CDFD38F70C73F71B0C433"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\visitor.d.ts.map",
+    "sha256": "00489765BCB73755D2212D33D523E3FD7823DDE0F38EE4807AE0978FF82BDE30"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\visitor.generated.d.ts",
+    "sha256": "60148D011494E726656E54E38902CC55F55523BB6C31057365CBE4C32BBB4DFF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\visitor.generated.d.ts.map",
+    "sha256": "CBB54E5718A187DE97F517941F11E684B4453726BBEC333059C8211143A6EBB5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\visitor.generated.js",
+    "sha256": "7744E4663D57850C0384F5624864A24C228AEB0DD3AB9383057674E8376C2A53"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\visitor.generated.js.map",
+    "sha256": "798D72A2C0E5311DC867507C4E73166674AA3B72DA0AF20FFC715C3D6468DBF6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\visitor.js",
+    "sha256": "9A9C1E0068BFE8296719D2F8C1773A8B8332164F5CEF54535EA1F28116EEC785"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\ast\\visitor.js.map",
+    "sha256": "46D304F1E69EB19F24DB5EB9F3DB67760560A630E7CAC1828942144FC304AE41"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\characterCodes.d.ts",
+    "sha256": "65F0CFFD60255E30118289DEF27678CE10C56AD7A51E117B09A5A93CB33391AC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\characterCodes.d.ts.map",
+    "sha256": "1B37B3B84C225D22B068BF9E28454706EBCAAA68EEF96716A4EB56291663637B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\characterCodes.enum.d.ts",
+    "sha256": "8EC1620C0664307AE0D634A8C292B044F67DAB1F8A53468B11D20656DCC96ED4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\characterCodes.enum.d.ts.map",
+    "sha256": "FF1F8AEA4ECC47DB8E22A2DD7E61E71446F6C4E2ED5BF3DAA8BCF7D01CA3AB13"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\characterCodes.enum.js",
+    "sha256": "FB3372A295BD62D44760C476231C0DEDE7CC5C06A4D01B3F8398A7FD2B01B135"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\characterCodes.enum.js.map",
+    "sha256": "70F610B00EC58AB6F598BAB73C198EBCDA5A015E5911CC77443EB5ED8F614E8A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\characterCodes.js",
+    "sha256": "FFFB9BE3CAA46903C029B53F850AD27F4BF62F0D455512C559BE7E26BC09E2DB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\characterCodes.js.map",
+    "sha256": "CC690063F2F3034C084FF9C60F830C71D2368F7129ADB2E5FAD671FD4B723BDF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\commentDirectiveType.d.ts",
+    "sha256": "232686A5DBD867508933ABB7A881CAB50BC463E05BCCED75A184F35F041CCED1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\commentDirectiveType.d.ts.map",
+    "sha256": "6639C363697488C14647B2651B0263E393ED22481659141013DA3F0B2F1A3884"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\commentDirectiveType.enum.d.ts",
+    "sha256": "624B45C08E077D6D68E124EF11D331749E4293F2842281908CB8BD1213FB32F6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\commentDirectiveType.enum.d.ts.map",
+    "sha256": "D8219BCDB533A06D8C885027F4060B8A3991254753FA2415723CE0A30AC52256"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\commentDirectiveType.enum.js",
+    "sha256": "E1027B6BE0D41BF0BD4074D55393298AECE1744A94069DFA82F2BCC23F677A0E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\commentDirectiveType.enum.js.map",
+    "sha256": "CD1C44C72E19773342A27A8EFE647786394B21F39EE2950DA1F645C2F6618E41"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\commentDirectiveType.js",
+    "sha256": "650DD1D3FF59D2505A58862360CC868D1E7FE8FA97CDA3C4E3F98E94D0C2E948"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\commentDirectiveType.js.map",
+    "sha256": "D0955C3EADE29E13D3F645951B7EC3ABF0241D462AAA1AD9D9A1D5DCD8D45464"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\completionItemKind.d.ts",
+    "sha256": "F0A85367C719C45B16DC5736DA4A8D990B97FA0FD826D1595A748968B1EEFD6D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\completionItemKind.d.ts.map",
+    "sha256": "D039E573D74E63CF4A11CDBE0266ACED109A62C21AE8098C8D24A5E3F2A8C4AE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\completionItemKind.enum.d.ts",
+    "sha256": "AFEAF98DF3E20ACD7D13CA1F4AD33972BF1539EC567D4030FAA22EC7358B4704"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\completionItemKind.enum.d.ts.map",
+    "sha256": "2A4FF15D4C44098A105127F5280491880AA4B68489DC2F245F9CD914E0EAAAA7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\completionItemKind.enum.js",
+    "sha256": "F81CAA87DA8E49590482C84915F71415B504201F342449DD1D06856D06614BA7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\completionItemKind.enum.js.map",
+    "sha256": "4D78AC15D8E65CBA7154CBFC437A63D87E226B6FCDD6E3272E3E98E74C30034B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\completionItemKind.js",
+    "sha256": "59033DC51D356ED0168B9CC755D6201A97D365A14BF421E10D05B9F3A0571F41"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\completionItemKind.js.map",
+    "sha256": "D1C95A6C51ED55D84CA14F53ABC7C23A4B5195A3B171FAE387E4DB13C1FAE662"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\diagnosticCategory.d.ts",
+    "sha256": "1FC47A516BC8DE75769BAF74F1FF3F68D01CE94338F8A0001AC790FF96EA36B8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\diagnosticCategory.d.ts.map",
+    "sha256": "BABE942A090D6B34710F384EBE397E1CF45A7DBCED716DEF34F9ADCADF631A9E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\diagnosticCategory.enum.d.ts",
+    "sha256": "EF01025B362FBCCF731ABA517BBBE6F0C74A4C4AFD17C99C8E5D66546D9A44D4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\diagnosticCategory.enum.d.ts.map",
+    "sha256": "E4FF0F6868047D34DD3B39F2E38A467C0DF015A4E7FD0C3AB0F6DD2A86D710CD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\diagnosticCategory.enum.js",
+    "sha256": "4F9B45F51CC16F8CEE50793C41179B93EE769EE3D1E611EC244A7F0C617E5C6E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\diagnosticCategory.enum.js.map",
+    "sha256": "90923C801A5F4F8170538BDB06218FA36748975DE6F938833C892A4CFAA77DF1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\diagnosticCategory.js",
+    "sha256": "CF915E42F7D1CB80516DBEE95F60E07E1DE32A99F70D564A28A2F8341C4AE9B3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\diagnosticCategory.js.map",
+    "sha256": "5D0101E9127EB33CEF03548882D030A909D2DA2A0E9E6B78DE4C7CC0CF989444"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\elementFlags.d.ts",
+    "sha256": "8CDBD36B5BF76BA6479BE4C7A1ED4BD7CB660DFB573F4C087D2679254CA325E1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\elementFlags.d.ts.map",
+    "sha256": "4B4F3A11408AEB347744FCA5A12AC03F722DC81805B27C47C0B797C4CC081D15"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\elementFlags.enum.d.ts",
+    "sha256": "32993D6E7DC0D9CCD66F409BCC8943CED6CC3CA3510BF491B1AFCD8480928CA5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\elementFlags.enum.d.ts.map",
+    "sha256": "F0B4218AC8340318AEE8A1C814270033E9640471651FA4FB6312ACE43634229C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\elementFlags.enum.js",
+    "sha256": "D11FE277C615112D887017E5A8219D56EF16F5096E32212B79027A3ED9ACCFDB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\elementFlags.enum.js.map",
+    "sha256": "F4D5D38FCAB756CDF3900C1D43A945F86AF970EFF8D1C8AD74BB3F3D80DCF9D9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\elementFlags.js",
+    "sha256": "2FA1D0E56BD17504D4C993F8F35EA1E4E19DB913EE6D2DE659230B2C68A8A73B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\elementFlags.js.map",
+    "sha256": "BF4CA2C7220154A6707D0D1C1DA3B3D9F82F0268CAFC3F10A6C81E47A0AD5C2F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\internalSymbolName.d.ts",
+    "sha256": "F1DEDF3E65429CC27F283F3AFAC0E706C457973A345E7C858046FE51A2AFC40A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\internalSymbolName.d.ts.map",
+    "sha256": "CFAA45883CB4E4E00AAA4F5EA62F20080CF918867B43F77D2C582F440A07C02C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\internalSymbolName.enum.d.ts",
+    "sha256": "AA5F3093A2168E29FDD18107BA1D5F2EB344884052BD75A5088BD9FB59900DD6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\internalSymbolName.enum.d.ts.map",
+    "sha256": "6A9D3B90767B534F881B02671C4590987EEA1065437EC03A217B2716B4909EA4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\internalSymbolName.enum.js",
+    "sha256": "03071BC395B4EF318CA4BBDE7B200EA57E3DC24C81ECADB9C317341F393E244B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\internalSymbolName.enum.js.map",
+    "sha256": "80452C3DE0973D4961BF04CC82C70D0CCFCA13341883EAEB9D94B850F8829936"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\internalSymbolName.js",
+    "sha256": "07ECB2004C4889635771FC1C8A2D8CF3532268341950AE4990D0B557A0888671"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\internalSymbolName.js.map",
+    "sha256": "1CEFE4715880FE3D82FE85A50C468F7290D58313FD853A4087842E0F0D5718FB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\jsxEmit.d.ts",
+    "sha256": "3C646051F486CB10A67088713651BC19C13ECD22EB6C92A53D22B65B780C284A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\jsxEmit.d.ts.map",
+    "sha256": "AB62311B2209B6F5633051C85B40A379B637248C3DB3B1E3863F4682CF74D7BB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\jsxEmit.enum.d.ts",
+    "sha256": "B4259FCB425E40D92A05F26E0B3EA08750D387E849E7F3E8C4CBA9A48BCDA063"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\jsxEmit.enum.d.ts.map",
+    "sha256": "16C39FC0AF1403070F17B31046E38646F17E766F0D1EC32C2D70DBB19D46EFC7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\jsxEmit.enum.js",
+    "sha256": "37D08774176FFE4E90FE170E7116F5C6F36D0462862B672121B84D0EE4B17FF8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\jsxEmit.enum.js.map",
+    "sha256": "383F0930848AF71E4970DAF47565D7BC89685294E093D2E8B1EF22A56338142B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\jsxEmit.js",
+    "sha256": "C5B09D0759E42B62338A39725B436EFC7A0FE540E7879F244463D5C0E9EA2EAB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\jsxEmit.js.map",
+    "sha256": "B49DD1FBE697A3743138E04C6AB3DB08454CA1292DF6E403B4A0B6A70B9CF7D0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\languageVariant.d.ts",
+    "sha256": "6C5A8D5C9BBF651BA38BFCF146B026E47FFCC8B83C6CFA3727D5D7C1329B07A5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\languageVariant.d.ts.map",
+    "sha256": "9729268E3774BA631FD8E3989C1B0B223FD158C44D7E71CC92983F9389657F66"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\languageVariant.enum.d.ts",
+    "sha256": "3CD6E5E27C936DAC3693F95FBFE3CC4DBC474D53FE64378CA03E9887AA77A6CE"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\languageVariant.enum.d.ts.map",
+    "sha256": "E9C2CFF433C33C4D4BE0C7F60579FD3C93239AD4BE216BA083FA9879D620F43B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\languageVariant.enum.js",
+    "sha256": "02135AECAC35B2215F959C4EBFD3632C92A357C0FA0018850F33B5E35520D706"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\languageVariant.enum.js.map",
+    "sha256": "329B0C0CF8EE110CC1F38A95CEE879911F133E1DB2BB8C2E6BF6D914B6A05DAC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\languageVariant.js",
+    "sha256": "2BD1141343EF8BC71DE225575410B908F15E2BDCB29490D33FCEE32E0BA1556C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\languageVariant.js.map",
+    "sha256": "B6C8335255D90BAA63F16FC438AAF77127B366CE9758824DEA97C856769FD801"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\modifierFlags.d.ts",
+    "sha256": "C32BE50947669890E3283607B5E375ADB9CF321F50D69A38EAD566867B7CF072"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\modifierFlags.d.ts.map",
+    "sha256": "131CDDBDD3EF8C23200BE0D8C973127695013139377BE6C6164A034B4F5918F9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\modifierFlags.enum.d.ts",
+    "sha256": "F0D8CFEBF6D6B21E4FADA5F25D41CD860CBDA86253E6E5DD6A67D92D2A0CDCF2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\modifierFlags.enum.d.ts.map",
+    "sha256": "59680058B46EC855E81EF4B5B25D53485526DED6D6DBA2297F210855F83AEAD5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\modifierFlags.enum.js",
+    "sha256": "1356470EA6A49E3E641E23D09A6421AF6C6E9A94376043C9EF7107481BB6336A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\modifierFlags.enum.js.map",
+    "sha256": "52DC47880B431824EAC5A38537804E21679EF969DF373276DA8D4E6A597B7E86"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\modifierFlags.js",
+    "sha256": "3D461DC43C00B36BD8359D5B306EE07548C67BB2B5BDCB2B65DE366499A67342"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\modifierFlags.js.map",
+    "sha256": "491521C6C3D0A82A979887A68D4D9DBEAE431DA1F197ACCE432ACB5C1E6CC259"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleDetectionKind.d.ts",
+    "sha256": "83B3224FB4CF85D3522B664BAE4A27FAE3E5D69CC6EFD590F0ADC2CB23848119"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleDetectionKind.d.ts.map",
+    "sha256": "33CDE795EAD29EB17E526B4A6237F172840D3D10D545F7688D5A60AF0737EDAC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleDetectionKind.enum.d.ts",
+    "sha256": "2F40921C747EFE7C9C4DAA9264C5914FEC9B8813D7FF82F14E6EC961AEE695AD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleDetectionKind.enum.d.ts.map",
+    "sha256": "81837A7BEA2D2E44ED657B7EE6ABE60ACFB299C69B84790561AAD77ADF5BA28A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleDetectionKind.enum.js",
+    "sha256": "501F60993B5871ED5C7A821E2A43089E6749D5AA21490CA04AF127A30A4EFFA3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleDetectionKind.enum.js.map",
+    "sha256": "E55F49524C11652B4DA863144C4B250B20CE2800B1477501194EB52FEE6BB14A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleDetectionKind.js",
+    "sha256": "B7962B828D3B24AEE676D3E024B6411ED8322EA149DA82DD1B62849D73575B35"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleDetectionKind.js.map",
+    "sha256": "098103AC16C826611D426E4D4473A08A44C414DD5CB5FA7A5CB2D27856E98EFC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleKind.d.ts",
+    "sha256": "9ECDEC4FE95F9A561B70CF873656B7E327169969961D7D872BB1236FDF306770"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleKind.d.ts.map",
+    "sha256": "10BFC6306DCA3AEA134B78F24DF8B5B96E6C49AF04EED8380371280016B6B431"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleKind.enum.d.ts",
+    "sha256": "C4695F413280022B06C58020A36057A0BBD0158EA52E81F16F57412D9EFF0ED2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleKind.enum.d.ts.map",
+    "sha256": "34736BE0700C64A4357C841E483D0411A9CA126965B6432E33FA313B13A95983"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleKind.enum.js",
+    "sha256": "531B12256AC2344C682502A7CD950F3131B88ED47038BF0BF1DBB5B54CCBF726"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleKind.enum.js.map",
+    "sha256": "E1E5105F6305C749C6C86399BFE3561D3CCD4E370D7B8920C9E8E364D0CB0C39"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleKind.js",
+    "sha256": "4DFA15B46FED77BE5AB7CD912B5EE157B4D47348EFE579D6C0026E8075BD57F9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleKind.js.map",
+    "sha256": "3AB836E67CCFDB9FB32746B5E619134604B08F8DC18479A5BD6CCA490CEEF018"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleResolutionKind.d.ts",
+    "sha256": "FE5554A8B7FCB288093E793D78A45C1699EDB332CE725DDABD4AEEDD2805B028"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleResolutionKind.d.ts.map",
+    "sha256": "95BFA144253032C25DB5E1FC47AAE3401EEE070F1ADE3FB802E93FEF2ABD5052"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleResolutionKind.enum.d.ts",
+    "sha256": "BB966B76355C986E1CE833DA6B548E3934C8A89AED4276304B8D9600F08DD314"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleResolutionKind.enum.d.ts.map",
+    "sha256": "45C117550500AC41F7B75747F9B526E21DEE7423980F641A3AB089A563360726"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleResolutionKind.enum.js",
+    "sha256": "1E16560E252100063CDDB488FB1EEC86F846BE74343DD3C47457804D20BD27F4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleResolutionKind.enum.js.map",
+    "sha256": "65DC324ECB9F01B2FAC91EC930BB3A364C47E2151251F3DD3D69086C8989DA7A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleResolutionKind.js",
+    "sha256": "42729FC8802F15CC7564EFE0E324446175D1BC6D60778C23808897D0B1AD3296"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\moduleResolutionKind.js.map",
+    "sha256": "122C9E5F6C54A9C47D4963761FA9381EE477FD085C528121D169A72DC52113D3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\newLineKind.d.ts",
+    "sha256": "8C4CBCCDBF8B253ACC47F6C8C63FBA494BD137989EF25A4763E5F7D1920933DB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\newLineKind.d.ts.map",
+    "sha256": "1DA272B5C81A4F250A86EDD1E6287FAFBA7F095DEA594A67119DCAAA0917B236"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\newLineKind.enum.d.ts",
+    "sha256": "6B5156A269C6B36919B932E33FC2530CBBD6B0B9E91F639DFFA42895B8CD341B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\newLineKind.enum.d.ts.map",
+    "sha256": "20B31BEA039DDC84BCF623822A375F168AABA4CDF074EA56F527C95C3457D82B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\newLineKind.enum.js",
+    "sha256": "89142141C8956066AB63534C5D964819670EB57D013A986B4BFC2F69A8C0C5B9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\newLineKind.enum.js.map",
+    "sha256": "26E625AE5B431DD04CF6A31119371D29CB4AD6C9A3BA28C38DD31DABF6CEB9B3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\newLineKind.js",
+    "sha256": "9CC97D0E3C8E33FCC63607B687D28AAAD59C5F405C2A0A0349991B9C858EE814"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\newLineKind.js.map",
+    "sha256": "1C497805994FBF13F8EAD11E705CA5D61431F6C50708169E42692C822DE07D57"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeBuilderFlags.d.ts",
+    "sha256": "138D3CF7E1E0072E1A4150146812334A69C62EF4F21A25EEB8FCD22E6A9792F5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeBuilderFlags.d.ts.map",
+    "sha256": "5FACADF45E9C206C395BF7C19B70BF3AB85F0866FA474A81AE26EDBD5E55CFAD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeBuilderFlags.enum.d.ts",
+    "sha256": "FA236426B643B27C487CEA75BBC23E84EB27D79E8CEDF927A5547FF36C14FD1A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeBuilderFlags.enum.d.ts.map",
+    "sha256": "CA4177F7CD96284CDBA4CBFC5B402BCEFE2B35D4146398550060DDF97141973C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeBuilderFlags.enum.js",
+    "sha256": "26B8F90F2BD77D4D9320F7DB626E5D7515E873E0BBA983702960E614DD24E235"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeBuilderFlags.enum.js.map",
+    "sha256": "DB3795841DC7B3F5D4DAB28FCF311CA11D2BB96DB8447262481D8BE73B379BB1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeBuilderFlags.js",
+    "sha256": "4E78DB129E03C5FBE09565379E5652B7D67E435C2BE020FC387F8D194E1C3DC2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeBuilderFlags.js.map",
+    "sha256": "D1E8E06B52BBE546B9ECC71A1C057273F23F5E078C6CD364174F5D0659095EEC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeFlags.d.ts",
+    "sha256": "90497CCDDE80E6C4912E18E707CC76A956F4907772539FB9EAB8F6EC65E51611"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeFlags.d.ts.map",
+    "sha256": "EC8FEFB661B9773D6D982A342C650BC8CF7EFE2B2DF4B3D6B7FEB5DEC0FFF8A4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeFlags.enum.d.ts",
+    "sha256": "2E4E43873C6CD0C9DFD3251B602F9BC768825F8E890048F794727DC8474C4786"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeFlags.enum.d.ts.map",
+    "sha256": "62B7F8C9C95FD2AD1A7F86E3B87483E3AC6F42F12E0CB63A6AFC4A447655F286"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeFlags.enum.js",
+    "sha256": "2F27880CABDA0BDF91DEFF41FE789F30A17FB75C4ECB110A029C5932A10D5340"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeFlags.enum.js.map",
+    "sha256": "06F4BE21E55FE1A70E0D07ABA595058146F0AF9173468E52971DD269AB610D83"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeFlags.js",
+    "sha256": "6FF7171D15C07B9E82D1B3EFADBF88202BC5BDBCA390AD8F6927FB6D1B11B9BD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\nodeFlags.js.map",
+    "sha256": "1DF2A3AB8D9ED75C8AA59C3F5F1D24CEAC306E4E368922FD20ED30FC86BC6917"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\objectFlags.d.ts",
+    "sha256": "C8FF0A65438CA2E3DD40B2F9528CDADE5D1BDBD6EA60DD82478039BEA3ACFA71"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\objectFlags.d.ts.map",
+    "sha256": "8CD4D19F379ED076B6EC9A94CB44129E55A1FBEC3E2333F7DF916B3ECBEEA9C5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\objectFlags.enum.d.ts",
+    "sha256": "F9879FE71A494773689A1B190F3332B697E96388E8D98FCE9D5F5B84B87E7707"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\objectFlags.enum.d.ts.map",
+    "sha256": "3E19596F5EEB0AAFE758334638B46DE925D1FC97757690B0BCE8157A952DDA17"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\objectFlags.enum.js",
+    "sha256": "2C7B94095FAD9C71D2A3629CBF3B5AA390D4B538A9CDAAE22A0BDB44EBA093A0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\objectFlags.enum.js.map",
+    "sha256": "7551CE9EF2512F8EEBDA6C0B0F3FCEFCCC697DFBE21A6D0270A889D97B7F4DA8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\objectFlags.js",
+    "sha256": "73F1D3C4D6E11A6AD9570A5A1247EE6BB98DF374ECD9CA37C2C0F281B2D95A2F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\objectFlags.js.map",
+    "sha256": "9861CDDC9EB516B8B153D694BCCCD19DB38AF3DF973C287B050B505EA15D75F3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\outerExpressionKinds.d.ts",
+    "sha256": "DFC9C429B16CD6A5D021470AE7E7E7C257BE6526A635340BBB5EF558647B74C6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\outerExpressionKinds.d.ts.map",
+    "sha256": "8AC803699EA4DA51F9839D50FDCC96C801CA041B59817A9234EA8169C19E492A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\outerExpressionKinds.enum.d.ts",
+    "sha256": "2963940689D78D4C417723C0008E6C8F5EA34565DF5D1BC0ECB9EEACEB3F7F8B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\outerExpressionKinds.enum.d.ts.map",
+    "sha256": "D4FC0AC68877BE25BC9341758E5CBEE0B2884CC4B000149B7359D50E135D0485"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\outerExpressionKinds.enum.js",
+    "sha256": "E1433CCAACF408E99C9101157467BA4D43F7995C7BF0FCCFFA0F5A4A336CA9C9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\outerExpressionKinds.enum.js.map",
+    "sha256": "6AD1DDB4A5C7BBCAB3931C07472CC2CEC31C6C7EB4EA61FB62026929D9B2074F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\outerExpressionKinds.js",
+    "sha256": "824746B3EF02F47933FDD6F70FD0218DD140B20CBBEB23E35A8A84000B577457"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\outerExpressionKinds.js.map",
+    "sha256": "0F1D7B23F0116B1EC24ADFD0DF424359165D34AA20192E1DD4AAA4D4470DFEEF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\regularExpressionFlags.d.ts",
+    "sha256": "CC40611D1C8123E73E2DB08EFBF9D8AC0A45C4D091EB12F6D40DF805D13D75DC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\regularExpressionFlags.d.ts.map",
+    "sha256": "D4031E8F8AAD2DA946EB9D2AB07A2C2ED116249389FB86D093AF92043D4A0C2B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\regularExpressionFlags.enum.d.ts",
+    "sha256": "5D58CE4F25E22685A3CF4E39900C344E832092482BF836902A44030663232B8C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\regularExpressionFlags.enum.d.ts.map",
+    "sha256": "8BC4474640FC77621E4D2C052257FED4B5B2105B4E0C9D2EC4691715E7089D05"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\regularExpressionFlags.enum.js",
+    "sha256": "59B38C4083EF4AA686858E101685E5B04A981639C51C0EFE5CDB7E95E2207094"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\regularExpressionFlags.enum.js.map",
+    "sha256": "AAA905A85C81BBC7554CF83F3CAA456158808D75492FDE697905E09F468FDCDD"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\regularExpressionFlags.js",
+    "sha256": "1577CFCC7E966FE178751685A4AEC96FF2E1C3E2D104808FF1D194BA3D239A71"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\regularExpressionFlags.js.map",
+    "sha256": "F3653BEE63E73D852E90027068C76910B95CC12763A5A2BA8671470CD34FDD22"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptKind.d.ts",
+    "sha256": "A67FABB5A5EB0FF1BE79C3CEBBDBA2DAF80B7F73B2378C217393B54006CE0CE2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptKind.d.ts.map",
+    "sha256": "2D42593711E3804602823EB4BF47BF899CAD7A4DC060DAAD87E0E192D42AC1E9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptKind.enum.d.ts",
+    "sha256": "D2FFEE64F1736DC49400949F49FF949E584C8D3AFD4DC4971EE41A4B52FB8047"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptKind.enum.d.ts.map",
+    "sha256": "81D503807D0C55C3ED82E51E45D1EFCB1C4BF8D3C29562CAE7C8742AC80788D1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptKind.enum.js",
+    "sha256": "71D4902B0F5E35B7EAE1B75F69F4539C9EC13B18AD671C1C1901B20C83E3EE75"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptKind.enum.js.map",
+    "sha256": "B85CEEC0981F3502245150DD6D8C519452ABD8AC85B65BA6685A95AD535B5DF6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptKind.js",
+    "sha256": "A856F6B29174B42BCD460B1E02ED853B10F2C0165CDEB34D82EE7B4D8F91C48D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptKind.js.map",
+    "sha256": "C16D664FB81962E1FCEDB277C455C8FF6E72EDC3144062D1085A6EDC20C64FB3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptTarget.d.ts",
+    "sha256": "EAFC9B655E126943CCB77563A4E12E991E74BE22B82462027C7AFAA1D4BEAC04"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptTarget.d.ts.map",
+    "sha256": "E37B621244589181D1BDA203F5DD7A88F8E540016D172446E2526CFE8DACC934"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptTarget.enum.d.ts",
+    "sha256": "DE1AA668E7CBF8F1D92CB5899C2165973B6D7A1F272673D727594934C806F30D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptTarget.enum.d.ts.map",
+    "sha256": "39469BFB2610A4698078AA93573962552225D9361C93144695455C412B190D65"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptTarget.enum.js",
+    "sha256": "857F909600DAB4899500CC1FC266BF0FD92FDA871C885440B0CF9C6EBA539D16"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptTarget.enum.js.map",
+    "sha256": "A0863BB13B03924516586B882970A6ED40F8ECBAC1C089FF30585F6933328622"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptTarget.js",
+    "sha256": "213B7FAF86B6E8DBF7D4BECBE0FF8F54461219B58B99AB9A6832D503486F452E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\scriptTarget.js.map",
+    "sha256": "32643553F6C39E95DE6E11E5E355B85AD4A57AD09A7B202EAA9C291D9573C8A3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureFlags.d.ts",
+    "sha256": "FC57A11FB18A5142F61CCCEAE0C01ED6F215E06269D7AA359EFCBB5E2FB78C42"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureFlags.d.ts.map",
+    "sha256": "9401718F6EC6C1D264F7C3B554C2802C7C5EEFF15DFCF45AD9F2CDF65AB0E950"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureFlags.enum.d.ts",
+    "sha256": "6D1C02FFB2179B05D8F2643A022A349CC3DE661AD75C3048BA48CB5BA63D95E4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureFlags.enum.d.ts.map",
+    "sha256": "9BB260D9EE44F89274EA8A505DE20E2278EAA31A02273C6649E2DEFD667642BA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureFlags.enum.js",
+    "sha256": "E378A4DD1C6399ACFDE61AFD9DBA3B0372B19138ACE123BD2FFB455F8ED18428"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureFlags.enum.js.map",
+    "sha256": "26A039D5B3D4FB78ECD20E338E579B3EFE65E37A067EB999BFE12CF8816E1191"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureFlags.js",
+    "sha256": "218381FC21B41568FC0EE2A00BB80279322770986AA994F09AC3EBF4A250EF08"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureFlags.js.map",
+    "sha256": "8CC486C2B5D6334AFE5C0F20EBDCAD3F6EE71E1EBBF5A063F2335F42AA9B6277"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureKind.d.ts",
+    "sha256": "21580765F7E9521B0A478C8DBC2E3BAFF698BE58239DAE72C5722B540D6E4D9D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureKind.d.ts.map",
+    "sha256": "E51C06F057D8EDFC35022ACCB38921BB19CC29F020C374056345B2471B503BAF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureKind.enum.d.ts",
+    "sha256": "D5899753241F080F099A67481D6CF66F59DE42703CCAA9248726C30A6B34EBBA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureKind.enum.d.ts.map",
+    "sha256": "772713888E16CC5F6061A0724516BE0BD1E96AB8E46840A65669B92025186CC2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureKind.enum.js",
+    "sha256": "EB2431AE7431E8C1F34065A62570756A33CE9595DC057ADDBF1CA9F1B9626BA7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureKind.enum.js.map",
+    "sha256": "9507B988BFEB3E39254565C5351E114CB47E7DC5EAA967D678C63F158C26E6F3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureKind.js",
+    "sha256": "E67526799CE2D8693678FBCF3954E67498B7180F21FAAEC197D6AA235E74FBD9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\signatureKind.js.map",
+    "sha256": "4BFBD24CC1EECF6C4C9E00FB22B5656F2582BF7008DAC4036033387451FEEBE1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\symbolFlags.d.ts",
+    "sha256": "77466D974775AEC0BC2650A657B1B72261C7F1FDF03F5731D7822F7F7CD2CC1E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\symbolFlags.d.ts.map",
+    "sha256": "B11B947F57CBE85A10F3A3B9B7AEAF6A4B794A823D428902ECB3DEF1A8B14823"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\symbolFlags.enum.d.ts",
+    "sha256": "A6652000D44485172B511C4E7DBAAF47FCC9A12376AA6EF4567725204DAECD42"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\symbolFlags.enum.d.ts.map",
+    "sha256": "D1A5D355933063B5763FA8FDAF80FA1AC1F5DBCB4777AB6F7ED8212A504F46A7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\symbolFlags.enum.js",
+    "sha256": "3EDAE7F8FF53E55FC61227A3FD9983F57C4A13E0223591607E5930DDFD09CBB5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\symbolFlags.enum.js.map",
+    "sha256": "37E29D6FB1EF5268ED94A01649893765813AED52E89C2CE918C0B9718CC7B8B5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\symbolFlags.js",
+    "sha256": "1FCA9CF92B6BF3670FA8414FF368A442F91EC6C655E6A611C12FDDBFE65C4589"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\symbolFlags.js.map",
+    "sha256": "0D75CEEA9F81F7CC65C304C315E0B71B5005CEA046786773E8AC052E7486FB81"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\syntaxKind.d.ts",
+    "sha256": "867E137079EDAEB2033CDFC9DDB501271109C89A8FE6013A980855DECB58A485"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\syntaxKind.d.ts.map",
+    "sha256": "66A4C7D7A8411951C0F9529D9BB8583D3D507EBCCE139DC67F1B12D022F9D743"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\syntaxKind.enum.d.ts",
+    "sha256": "77F79822FE35CD29CD29107F4DFB7B42AAC4CE3C25768AB5BDA321AC014F36BC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\syntaxKind.enum.d.ts.map",
+    "sha256": "1A123D626DFA10ED48EFD009865BEB4F901D8CBA991CB68187B7FA5B9D784113"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\syntaxKind.enum.js",
+    "sha256": "A2A13332DBE56069786F56126DD1D4F19C602FBF1D616D4D881FF176AD13A44E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\syntaxKind.enum.js.map",
+    "sha256": "3431CEF83F9DCB02A538A8FD9B1FE8B6ECAA90606C9F843FFD39942762B7C18A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\syntaxKind.js",
+    "sha256": "F5CC780058A86F406358654944BDC0B060EAF0790C0FC81FA7EAA430C2BEAD07"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\syntaxKind.js.map",
+    "sha256": "1D21076508326BFA4C10F5C38D528673069FC0C3A90EB836729498B0DFDB3346"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\tokenFlags.d.ts",
+    "sha256": "50A21C5D06E8377BFD8C3D9E4B494D68B79785556D5BC503B64C1F962292E08E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\tokenFlags.d.ts.map",
+    "sha256": "4B1620F377C81C0EA7C0F3E40C37DA2B1FC82F7390D5ADCDE88720E8D242AD11"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\tokenFlags.enum.d.ts",
+    "sha256": "9ADBDB3D3E73A09B66FD75E078C32A5CA5AC135A71564AF3BDAFAEC2C2186FBB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\tokenFlags.enum.d.ts.map",
+    "sha256": "57AAB1F3240375D48964E8CD3F7F91679BD4C11611A27C6552B8AE12DA31A161"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\tokenFlags.enum.js",
+    "sha256": "226B78CCE46BBD9A81032A518105A3942DB873A955CEA04870DF0AF0A9D61602"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\tokenFlags.enum.js.map",
+    "sha256": "16910EB73D67BEDC2A1A00852EDE61CC70B33FFEED62E98F4E2F3D519280CE56"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\tokenFlags.js",
+    "sha256": "326CE49B7BBA8060568A1463DDCF915BCEBBE02D726D2451C6CE2DBB3D320016"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\tokenFlags.js.map",
+    "sha256": "A753ECD593BBE83E1E47C474C8E312AD4C8DF61134FD7750B9366498C169BAC0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typeFlags.d.ts",
+    "sha256": "733F8A535DA1FFF204BA8E59B01BC23902416C90D7E77E5BFE394FA9C04BFF1C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typeFlags.d.ts.map",
+    "sha256": "95272D45B9723C825249F438AED248C0DDF9BCF37B3502BC8C6095ED6CDD49E3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typeFlags.enum.d.ts",
+    "sha256": "9CAA82393BFF6331498380F7D34918068302CACF531F67BD0BA736E462C8F576"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typeFlags.enum.d.ts.map",
+    "sha256": "B2123A65F87A051BFF34252B1DB0F5F1A8C5AAF6E00A09E326B78BF921BC3995"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typeFlags.enum.js",
+    "sha256": "3E5600F24AAF2038109780495829C6509C86FB730A4C0545D92C8518B718B59D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typeFlags.enum.js.map",
+    "sha256": "1F8542C11EC015573E66732220DBA64FA7626C5ADFB3A254795C0AB4E4D2BF55"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typeFlags.js",
+    "sha256": "C3A87E18397BEB89101AD9B726C9A4A092539DBA4E005CC8EEC44AEC763600D0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typeFlags.js.map",
+    "sha256": "B89B20013EDA4B2304326F4637EC71D5E55E72AB1FC38C2BB163CC85C2CB5960"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typePredicateKind.d.ts",
+    "sha256": "77154BBA31EB469BE2F676F6DFDA8FF8AEAA339DAF89450729CF2303AB15A438"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typePredicateKind.d.ts.map",
+    "sha256": "B5E9F4D734EB25DDD03DD23C2ACE39C20320C488BE9DF8D32EB7C75CA0F3917D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typePredicateKind.enum.d.ts",
+    "sha256": "C2ACA0981A9DB5821E5ACAD4312605EAE654E1EA27FFA1D8768752E0E9E0A172"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typePredicateKind.enum.d.ts.map",
+    "sha256": "E5CEEC670C653B6BB59AA6287320727D58C368609B7F42EA9335A27CC2567DE7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typePredicateKind.enum.js",
+    "sha256": "DB417FFEEEA692D759B33774DAACD6385E3889950AD7473B8AF230FB2187927D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typePredicateKind.enum.js.map",
+    "sha256": "4E4C20A522EF90B289A887AED37BB074BDFCF7EC98B4F68686BA03F66D57747F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typePredicateKind.js",
+    "sha256": "A030B9EBC8A1D3B9B598B10A633F0E358AD9140DC18E3A3C543413523AB0B769"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\enums\\typePredicateKind.js.map",
+    "sha256": "AFBBB8F7A07F86BF4619FD6A61D6B40CC1504A1A4499BA75E10DF30D0AA94701"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\internal\\utils.d.ts",
+    "sha256": "65F1B91DEB945BD9747D0C24FCD9BCCB3905744A789504EC57955B9890B8551E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\internal\\utils.d.ts.map",
+    "sha256": "53BC877D0B1AF1B43C001EF352BCEC634F9D90B30B7FF5F465A8A6E90B983778"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\internal\\utils.js",
+    "sha256": "B95A71D8933C7FCD50C40ECF20D89849870EE7F743DD0B0A241ECF173D3A0AF0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\dist\\internal\\utils.js.map",
+    "sha256": "A8C534CF905603F70C2AAF8301A464156316B26D38C429D17828E15AD057A735"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\lib\\getExePath.d.ts",
+    "sha256": "E6110F9086CF143DD2DDE7530C89CDA637B2CE3EA4731C14B0A75434AB68573F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\lib\\getExePath.js",
+    "sha256": "96C10FD3A18E165D7323DE8E314AC8D755AD96811F9FBC304A5B3BA4E05285CC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\lib\\tsc.js",
+    "sha256": "CBDFBF11C26ED00DFC073155E316A42D6D6D8A387BE61006B82FA9AA93AC572E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\lib\\version.cjs",
+    "sha256": "B0A2B4A3976DAD0F31325BD18EEEE8E7D2A1ED674D3E486B1AD5C501207960A9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\lib\\version.d.cts",
+    "sha256": "A262058D27CE966D2A821F5E5C70129E3F3F3885001DE90225508E3283030024"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\License.txt",
+    "sha256": "EC9EE83580841E8EB687ACA9867F221503809BA6426C7F876EDE17D91B9FCFD0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\package.json",
+    "sha256": "85D5135A9AE9D7B7EF4B444711EAAA2C90D84C0C314722046E0126C55FE67479"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\README.md",
+    "sha256": "AA24DD83F5F65D1AD0E816438F62FC4EB30F0A8AF04B8D97933B1B09C59446AF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\browser\\main.d.ts",
+    "sha256": "FBBDB0BAAADE3505088D8EEAEE2E57468CCD5FB08189CB5DFC58EC9C571F3191"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\browser\\main.js",
+    "sha256": "3D8217C2DDE5D7602A722AD015EFF7A02CE3AE46D42E32B6C5E22A7175E46A8F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\browser\\ril.d.ts",
+    "sha256": "FBFCD7C063556ACA0F88A89414D5168D531FE4ECAC5B172A0B39D193CFEC0846"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\browser\\ril.js",
+    "sha256": "0005E065B0500C85E7CF3C4DC856B9A1282084D4405C7C17FAFA9EE3F2143AAB"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\api.d.ts",
+    "sha256": "3D6103A9369B34873198BAE0DB9745986046F20EAA8E805D81886E8982F49554"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\api.js",
+    "sha256": "0D8CCD38514F3994256D0C271B9B6E288174E13847ED2C8561ABD5F005BDEB76"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\cancellation.d.ts",
+    "sha256": "392DD7B1117B588CBA36C04909EFD24B0458980506E8E8C1966114F8989058E2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\cancellation.js",
+    "sha256": "B851C4246FA5A644BCEBE56B1FB74048948EAB0886D706E59E2090FA7E41550B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\connection.d.ts",
+    "sha256": "86BEB461BCEFD29F17E932D32AFFA1DD08AB05CEB80C00BEFEBE67BF5072F608"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\connection.js",
+    "sha256": "0A3A46FAD254B78FC2EE371D8438037C860B9BC73124FDDB038BF3BB5A3C94F4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\disposable.d.ts",
+    "sha256": "F0745AB78E18A2BEFAF1D9951481973318722C4E2F33E859239F55FA999FF2B1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\disposable.js",
+    "sha256": "AD43F37A324CF41AF376EA66004063AC5867A2E3DFCE81B47AB617B9105A0A7D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\encoding.d.ts",
+    "sha256": "E445DAEDEAC3005DA51D0A3E3258BE16096E1C0116701E8979272AAF7ABA5FB4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\encoding.js",
+    "sha256": "812DE3B9B71E07F4C042DE286E44A3ACC070D4639257E39A9DE20548B1F3262B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\events.d.ts",
+    "sha256": "886E183DD0199E7DE45D6308AC3E2185DAC6F83283D1B8200EA62CF5C43966A1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\events.js",
+    "sha256": "D521B1FC2887C04A2D3F4D4403B5BD9FA734EF83E6F53E99BCC781D791DB1508"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\is.d.ts",
+    "sha256": "CF445A02B226E862589A7A4D4296DC0EB7E2B3398D24E2A9109FAE165A179DB1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\is.js",
+    "sha256": "DB07129F8322E52C81034004A1A1EB9B1BE743C9EC55F5F6A5B33DA48CB8A2A8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\linkedMap.d.ts",
+    "sha256": "10884636F0702390DBAEE15BC8837D258174CE41DC4D4CE447DA3E4C2FE785C1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\linkedMap.js",
+    "sha256": "9C2041C8828BE66893BA5F97933CC7D3698A1BAD2F34B742761E6F2A3E615346"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\messageBuffer.d.ts",
+    "sha256": "4962729121C2CB97A4481CDB06DFC720A79A3BC2FC9330FF2BCF604CFC541177"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\messageBuffer.js",
+    "sha256": "27BEAE232413871D20551178D3342EE0BC927E8B05862883C75CE021291F11CC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\messageReader.d.ts",
+    "sha256": "3CA7B2E8012B9A6BE09FAFD62F8F3937388B9E1600A59C98887D2B11F6D01B43"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\messageReader.js",
+    "sha256": "5F912919F4B2584A38812535E7894C851A13B8F51A7AD6B769F2B5E35BEFFAEF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\messages.d.ts",
+    "sha256": "B716DAA9737308E83FC9D3826CAC21B3A6C12FF420B5E89415D1CA396616F1B6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\messages.js",
+    "sha256": "7A06CFD7456C2F2471DC6AAB3FB69683A62245D2A91859B337E03E0E66FA0B26"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\messageWriter.d.ts",
+    "sha256": "B138B3F30708386023A7DC9981BB867808E5FF3383429AC7F69B7BFD0DCC5BD5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\messageWriter.js",
+    "sha256": "CD9CD263BDD57B32EAC86A0DD83AC7241AA95FFB7A43AF1E680B65449799AFBC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\ral.d.ts",
+    "sha256": "2D79AE695899E28C4DBA32BA39268A1EAFC556F3F183175A355424FAE553585A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\ral.js",
+    "sha256": "9B4736FE0168ADF1DFF8A1F41CF76DC8E9F380684CBB39056403E81A05A51CB3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\semaphore.d.ts",
+    "sha256": "E861653B284114109A695DD061A427B7BB09CE01DBE1C2D3E753FC342919FAAF"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\semaphore.js",
+    "sha256": "9A7AFB92B0AE8D9C341373FDECFB0133B4BA7414455110408809C2F4A05AF1D1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\sharedArrayCancellation.d.ts",
+    "sha256": "13EC544AB0A3A7FF96AFAC1016F55B264C812428E37D595DC33B688296435469"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\common\\sharedArrayCancellation.js",
+    "sha256": "91A1128BC09E21D95BE67DD441E13A0373AF7C97D6CCF912B7B4168D11190EFA"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\node\\main.d.ts",
+    "sha256": "9FA6D0CBA5093EDFC07799A4FBE8F7609D106E992B84A6763613C17BA6BAD6D6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\node\\main.js",
+    "sha256": "BCBE8E0F8693A2E3EFFB4A890A70C331153B616A4A2F88406DCFFD842364A2E6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\node\\ril.d.ts",
+    "sha256": "8C4C4C0580961B284C2196E9ABBFD6F456249A4710AECF88A8C3B53F1ED98244"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\lib\\node\\ril.js",
+    "sha256": "B05099278CE67CE95C1B87FF3297C670D178969553B6B49E0E97083E0805AC94"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\typescript\\vendor\\vscode-jsonrpc\\typings\\thenable.d.ts",
+    "sha256": "65B9243C80068EC9696B1FBDD23C9ACF80D51DF02F97B2D7A0514312B0A9FE7D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\client.d.ts",
+    "sha256": "74B98BE6AB7723114273526706070FF9885FDF990D5C4E722801ADDCA4D264E1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\LICENSE.md",
+    "sha256": "387DD7BAA307083401A27C58C362C30832F5BA1DBA84F10CC22C33401523F45C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\package.json",
+    "sha256": "4E41DD20C7A12E7E70915B235C0BF5B5158EC6709C1390804128AF0867D6D6D9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\README.md",
+    "sha256": "01CEBF4365CD21396688C4DCB0DC8D360CCBAFB3A36735D3849C5D8EFD3CD060"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\bin\\openChrome.js",
+    "sha256": "D72BFCC4E6FC7B3DD81338704895402B2B54FE725662EB82F09669AA93F36B92"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\bin\\vite.js",
+    "sha256": "FA03478846D229651A3C6AA64833BA2C6CBF580A798B92BD8F47C7480BAFB5D8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\client\\bundledDevClient.mjs",
+    "sha256": "329D0276D28A23884B37893C05F26A231E7B1AA1A93B5E7CDE1616185370DDF3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\client\\client.mjs",
+    "sha256": "E6966602A62362A410659D82EAD11D8EA7ED5319518164031F046307389E73F6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\client\\env.mjs",
+    "sha256": "599A7191BE77F077087CDE291F7906FA751A794617F42D914F54991FE7BF434F"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\cli.js",
+    "sha256": "FD745B95A376305469B25F47F5E49A60829A90444D9A466B7FCAF3BCA806F4B4"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\index.d.ts",
+    "sha256": "B0D00966E18EB7D205F31E4766DBA87631E14BC121C5BEF41BC70DAD3C39A902"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\index.js",
+    "sha256": "C7EA52906F843318D7971209CE62BD24BAB60590275E8F415C5564FA35CB82DC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\internal.d.ts",
+    "sha256": "FE8E1632D4DA52D384026FCB1F3FCF4C04F8FDFE6BE4328712A09D470ED6C59D"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\internal.js",
+    "sha256": "3409AE5E59E273BC35CA96C78438717736C0F6D32EB4D8AC7AC78FDD12871530"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\module-runner.d.ts",
+    "sha256": "046271DE66AE07CA543F79EBA0DE19F342B78E759B597929159B2392E0A7AC87"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\module-runner.js",
+    "sha256": "C9515EB9C6C77D5212C581B7C9EC45CAA3A909E7DA3B57B3405546DF10A10B92"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\chunks\\build.js",
+    "sha256": "4E8EDC800E959E306451E2EDB7358610AC974260E07C8BC2734EC4E12E84AF05"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\chunks\\dist.js",
+    "sha256": "B9E97EF3E94225D562FCD8C6CA4935E69B687FC6291DC3A5BB4BBC700A3DE5D6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\chunks\\lib.js",
+    "sha256": "C854873F947DCB83074ADADC962A6F1BF975C86E66D46CC563016BE4EF8CAC2C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\chunks\\moduleRunnerTransport.d.ts",
+    "sha256": "C911B3BD083DADE8FDB7775261AA25FEAE695D562A3B11209650B47BE90043FC"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\chunks\\node.js",
+    "sha256": "F64038F08022030B77EFEE87B6BAA81933A7B77D820AAA64BC3262FDA44D80B0"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\dist\\node\\chunks\\postcss-import.js",
+    "sha256": "A4AADCBA200C670FBDC17AAA5E1BA9583FA42EAA01492288CCB6BF59BAFE8CC3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\misc\\false.js",
+    "sha256": "3F405F8C82812B5FD5A6CA325A1B9039479BF9DE3EE1EF51D76EA80FBA7D486C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\misc\\true.js",
+    "sha256": "1CA1FF5B531880DE960715F4622CB4BFE61620AD0AB56764A00F3AFE2BF2981A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\customEvent.d.ts",
+    "sha256": "98580D6ED68C9CEE7F956685ABBB6502D70BD92F48175AC807AE6C5E254FADC6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\hmrPayload.d.ts",
+    "sha256": "64CCFE7DCBCAD9B8A661A042ECB2309E41B9AB957F7B8CD070B05583A7821A13"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\hot.d.ts",
+    "sha256": "4E003C868B0D8F8AD200B96CBC653E18E513FA23E1C19C4FE3CC25D4394EFC47"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\import-meta.d.ts",
+    "sha256": "28A9D5C4741FDD62A94FAEA49EF7585D825E8379E5D23A2D773F723CE56D6B50"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\importGlob.d.ts",
+    "sha256": "E50D04D261120F8F9D07E85698735D5B88F3A66BC395C08CE26C3D817D141A73"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\importMeta.d.ts",
+    "sha256": "72429CDA84A47F092A3BF777BBC4ECE9DDA492FE0F02324AA7F197F3800089C6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\metadata.d.ts",
+    "sha256": "E67CBEA16F1994AF89EFD700542DBF3828A46A52B29E4D67E801BD7869DC103C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\internal\\cssPreprocessorOptions.d.ts",
+    "sha256": "960BD764C62AC43EDC24EAA2AF958A4B4F1FA5D27DF5237E176D0143B36A39C6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\internal\\esbuildOptions.d.ts",
+    "sha256": "E0864480EA083087D705F9405BD6BF59B795E8474C3447F0D6413B2BCE535A09"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\internal\\lightningcssOptions.d.ts",
+    "sha256": "4EC16D7A4E366C06A4573D299E15FE6207FC080F41BEAC5DA06F4AF33EA9761E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\internal\\rollupTypeCompat.d.ts",
+    "sha256": "7D3E062A778B8F5EA4F0CAC7E925E31F88E6739812EBC5F827474324A4048F14"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\node_modules\\vite\\types\\internal\\terserOptions.d.ts",
+    "sha256": "F582B0FCBF1EEA9B318AB92FB89EA9AB2EBB84F9B60AF89328A91155E1AFCE72"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\packages\\app-services\\build.mjs",
+    "sha256": "1C7D88C96BB9138682D0C30A661EE8CE643F693AA80ADDC3C981EB4E29CF2E21"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\packages\\app-services\\package.json",
+    "sha256": "9F6F182D4F8A6BF5AAACCF43314C9CF416BBBC739B6BB109B4591D17FA3873A6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\packages\\app-services\\dist\\index.js",
+    "sha256": "C98A41C397494C867D1894B935AAB49B1C8C2891D5D56EF344936E0B17242338"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\packages\\app-services\\src\\index.js",
+    "sha256": "C98A41C397494C867D1894B935AAB49B1C8C2891D5D56EF344936E0B17242338"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\scripts\\dev.mjs",
+    "sha256": "C26E600520647473E7B95FB5E63135735A8284B9F90342DCD9BDC8FC22D9FAD9"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\shells\\admin\\shell.css",
+    "sha256": "F2FFF27F6EB87AFDFDB717541328CCC491727C864B802A8B7187A631A51B0820"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\shells\\admin\\shell.html",
+    "sha256": "81EC65723216CE258434CF98EA7F383EE9DDE1EC11C4B0DEB1CF30C8A724DA2E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\shells\\admin\\shell.visual.json",
+    "sha256": "806876C1A7B6B5CE54FC4BF8E0EC1993D5E17CD050EC350560BD3ECD92C781B2"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\shells\\public\\shell.css",
+    "sha256": "534A024DF2F2008F276EBAA2ED72FE7F8EE453084861909A14B21B3C02F4ABC3"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\shells\\public\\shell.html",
+    "sha256": "A48111F1C8E8F1B204B005722E61C301ADC34534C41D4CAC03803D6CBEB41507"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\shells\\public\\shell.visual.json",
+    "sha256": "5123E645188C02425952C6F703455A5E879F5F27F9743BEBB9BADF9D66E32B10"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\main.ts",
+    "sha256": "9DE7802D8E5974E4D3F3877FC98743083F253B3AB4B2F2EF1AB71430AF010568"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\pages\\index.ts",
+    "sha256": "7D0B3ABCD65BED69FF76D276B9981DAF5D686E524F872A05072B598BB4A96B17"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\pages\\admin\\index.ts",
+    "sha256": "8BCAFCE3A3369151C52BF19F912D178196B12D2E1A6C695F8F5B94846348EF5C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\pages\\admin\\page.css",
+    "sha256": "563B3C9682E3A2028A51F3A62326487E794F0830AE15269790240D9DDC6CA0A8"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\pages\\admin\\page.html",
+    "sha256": "536653840DF7730AD276FC19B59B2E847D69FDA26C12DCA1A4078BBAEA7CB15E"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\pages\\admin\\page.visual.json",
+    "sha256": "4ECE97A1AC6FCD16CC976D50AC610C8EF997D718C9735DF76F0CA9A214A25F8B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\pages\\public\\index.ts",
+    "sha256": "8BCAFCE3A3369151C52BF19F912D178196B12D2E1A6C695F8F5B94846348EF5C"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\pages\\public\\page.css",
+    "sha256": "8E5AB620487FF916B0681C27EBDC377F8235B1E3FBC964DC832533D20A939AC1"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\pages\\public\\page.html",
+    "sha256": "B52B644AE7E20540A6BC9824FB616362237616E81E1CB21DDA2FEC819784B40B"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\src\\pages\\public\\page.visual.json",
+    "sha256": "3F1D9810CF4890A499EF1C658820EBB2693D6CEC17520EB9BB47C0C59DAB1926"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\demo\\styles\\site.css",
+    "sha256": "C3940648C56A51594F57F11A3019C45D3E658FB2A626C5D90D5B674E814DC201"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\.v1-development-fixture.json",
+    "sha256": "065CA0A415227E4903CBDA3B01954605B6AC2DD8B08D17E95E20596B5E1FCF24"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\app-services.json",
+    "sha256": "44136FA355B3678A1146AD16F7E8649E94FB4FC21FE77E8310C060F61CAAFF8A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\app.manifest.json",
+    "sha256": "3D7515DEA119411ACE5233CB36B362735C75E1DAF7B6453288D0F60EA6088008"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\app.settings.json",
+    "sha256": "4E18FC40680C03C56E30046165ACEBBE19B408C9E7A167CA87D1958DBAF62CF5"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\package.json",
+    "sha256": "002F9EDD48782D8D7029699AD8F236B1E4AEEF93F8C12C090ED1287BE1E28C98"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\tsconfig.json",
+    "sha256": "88A6794B4FDCE23DEED72BAA178E231FEE237A72653658563092D9F65E62D562"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\.uib\\bundles\\1bc90f9f7fa1c8eb98d21a25dded22cd4b8859686bf8f00669e338da3b511d9e.json",
+    "sha256": "8A043AC60CBE160A5D55D4F7459BC88D2930A77536493F7280314CCD12F6C866"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\.uib\\bundles\\a427611c274fa744d8b5396d7c9ef21d63f278284f98ce074dad6e282130e885.json",
+    "sha256": "A500E98E7511B47828C9C8DCCE682717065BE2724DA584471464E9B07D97D352"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\form\\artifact.json",
+    "sha256": "FFA25B9EE0835729BE31976DFF74C388566771946D5EDC09C592CCC330EEEF76"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\form\\form.json",
+    "sha256": "44136FA355B3678A1146AD16F7E8649E94FB4FC21FE77E8310C060F61CAAFF8A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\src\\main.ts",
+    "sha256": "8E609BB71C20B858C77F0E9F90BB1319DB8477B13F9F965F1A1E18524BF50881"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\src\\pages\\Home.ts",
+    "sha256": "B4AC65450DC67E219546457EAC072DFA793B4C0BFC1EC211B943CC19A1C1B956"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\workflow\\artifact.json",
+    "sha256": "50724DAA08D4CD539C2338341E78F66000ECED45BCA01FE727E03A3AB420D97A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\apps\\v1-identity-fixture\\workflow\\workflow.json",
+    "sha256": "44136FA355B3678A1146AD16F7E8649E94FB4FC21FE77E8310C060F61CAAFF8A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\evidence\\admin-availability-20261018.png",
+    "sha256": "C519AFB1CC4C4608DD314619C26CFF0E9918D9F25C6526575D7B50ACB3DF1C06"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\evidence\\admin.png",
+    "sha256": "C519AFB1CC4C4608DD314619C26CFF0E9918D9F25C6526575D7B50ACB3DF1C06"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\evidence\\before-restart.json",
+    "sha256": "E3EDE9877C48F7BAB5E07ACCB90AE466129E72F23A934A74A3C989A58727CE5A"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\evidence\\builder-cache-recovery-20261018.png",
+    "sha256": "380D352D778E095E102A7EBD5708835615B98142844DD1D049FE619C5320EC50"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\evidence\\builder-menu.png",
+    "sha256": "E04C118144F5A40017566ACB58C92908EEF993052C48E099F3A7A3E95E3E3DB6"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\evidence\\public.png",
+    "sha256": "5F94BB8F7B644A8EFC945B9D788FDFE0BBCCC9A99249AC57745BACEFD4D919F7"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\evidence\\restart-verification.json",
+    "sha256": "D65256563059A9977C6BEF0488B74C667F0AFFFC17B1EACDAD516E723F172474"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\evidence\\session-recovery-20261018.png",
+    "sha256": "821B15E2F58CD4D25708EA374104D0D15A4797B76CC5C3881AA7844F733FA526"
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\runtime\\development-applications.sqlite",
+    "sha256": null
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\runtime\\development-applications.sqlite-shm",
+    "sha256": null
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\runtime\\development-applications.sqlite-wal",
+    "sha256": null
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\runtime\\iam-v1-development.sqlite",
+    "sha256": null
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\runtime\\iam-v1-development.sqlite-shm",
+    "sha256": null
+  },
+  {
+    "path": "C:\\Projects\\Modular\\builder-demo\\runtime\\iam-v1-development.sqlite-wal",
+    "sha256": null
+  }
+]

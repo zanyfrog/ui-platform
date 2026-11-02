@@ -1,0 +1,2397 @@
+{
+  "capturedAt": "2026-11-01T22:19:14.818Z",
+  "assessment": "Assigned-policy inventory, not authenticated allow decisions; deployments/scopes must not be merged",
+  "stores": [
+    {
+      "file": "C:/Projects/Modular/v1-normal-smoke-20261026-01/runtime/iam-v1-development.sqlite",
+      "revision": 1,
+      "method": "SQLite readOnly:true; SELECT security_documents/security_state only; no store initializer, evaluator impersonation, session extraction or mutation",
+      "users": [
+        {
+          "id": "usr_06fefc50791f4f15ac0139de699701b9",
+          "name": "Security Admin",
+          "email": "security@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.1",
+              "roleId": "v1.role.security-admin",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.security.admin.ui.security.admin.allow",
+                  "permissionId": "ui.security.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_7485b37d5c274809ab503479212e8bd4",
+          "name": "Page, Form and Workflow Editor",
+          "email": "combined@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.5",
+              "roleId": "v1.role.page-form-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": "v1.assignment.6",
+              "roleId": "v1.role.workflow-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_80831c82612048e9bca61a5012dc7063",
+          "name": "Page and Form Editor",
+          "email": "page-form-editor@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.2",
+              "roleId": "v1.role.page-form-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_9298a60d175a4e7f9ff4dd63a906bf77",
+          "name": "Mixed Permissions",
+          "email": "mixed@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.4",
+              "roleId": "v1.role.mixed",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_b2137595f243461ebfe7cd5360467131",
+          "name": "Workflow Editor",
+          "email": "workflow-editor@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.3",
+              "roleId": "v1.role.workflow-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+          "name": "Application Admin",
+          "email": "admin@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.0",
+              "roleId": "v1.role.application-admin",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.admin.ui.application.admin.allow",
+                  "permissionId": "ui.application.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.application.editor.ui.application.edit.allow",
+                  "permissionId": "ui.application.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.admin.ui.page.admin.allow",
+                  "permissionId": "ui.page.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.presentation.admin.ui.presentation.admin.allow",
+                  "permissionId": "ui.presentation.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.presentation.editor.ui.presentation.edit.allow",
+                  "permissionId": "ui.presentation.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.presentation.viewer.ui.presentation.view.allow",
+                  "permissionId": "ui.presentation.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "groupCount": 0,
+      "grantBoundaries": [],
+      "readOnlyMainHashBefore": "b4e649dfe16ce9e9311289a39810eb0d9d3d4cb2a25f52c743f64ab5b4e0cd33",
+      "readOnlyMainHashAfter": "b4e649dfe16ce9e9311289a39810eb0d9d3d4cb2a25f52c743f64ab5b4e0cd33",
+      "mainBytesUnchanged": true
+    },
+    {
+      "file": "C:/Projects/Modular/.ui/iam-v1-development.sqlite",
+      "revision": 1,
+      "method": "SQLite readOnly:true; SELECT security_documents/security_state only; no store initializer, evaluator impersonation, session extraction or mutation",
+      "users": [
+        {
+          "id": "usr_06fefc50791f4f15ac0139de699701b9",
+          "name": "Security Admin",
+          "email": "security@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.1",
+              "roleId": "v1.role.security-admin",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.security.admin.ui.security.admin.allow",
+                  "permissionId": "ui.security.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_7485b37d5c274809ab503479212e8bd4",
+          "name": "Page, Form and Workflow Editor",
+          "email": "combined@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.5",
+              "roleId": "v1.role.page-form-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": "v1.assignment.6",
+              "roleId": "v1.role.workflow-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_80831c82612048e9bca61a5012dc7063",
+          "name": "Page and Form Editor",
+          "email": "page-form-editor@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.2",
+              "roleId": "v1.role.page-form-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_9298a60d175a4e7f9ff4dd63a906bf77",
+          "name": "Mixed Permissions",
+          "email": "mixed@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.4",
+              "roleId": "v1.role.mixed",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_b2137595f243461ebfe7cd5360467131",
+          "name": "Workflow Editor",
+          "email": "workflow-editor@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.3",
+              "roleId": "v1.role.workflow-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+          "name": "Application Admin",
+          "email": "admin@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.0",
+              "roleId": "v1.role.application-admin",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.admin.ui.application.admin.allow",
+                  "permissionId": "ui.application.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.application.editor.ui.application.edit.allow",
+                  "permissionId": "ui.application.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.admin.ui.page.admin.allow",
+                  "permissionId": "ui.page.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.presentation.admin.ui.presentation.admin.allow",
+                  "permissionId": "ui.presentation.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.presentation.editor.ui.presentation.edit.allow",
+                  "permissionId": "ui.presentation.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.presentation.viewer.ui.presentation.view.allow",
+                  "permissionId": "ui.presentation.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "groupCount": 0,
+      "grantBoundaries": [],
+      "readOnlyMainHashBefore": "52a371445ce0812ca930aea418e7d7e9d6459f1778a6e14cb56592f08f5a08af",
+      "readOnlyMainHashAfter": "52a371445ce0812ca930aea418e7d7e9d6459f1778a6e14cb56592f08f5a08af",
+      "mainBytesUnchanged": true
+    },
+    {
+      "file": "C:/Projects/Modular/builder-demo/runtime/iam-v1-development.sqlite",
+      "revision": 7,
+      "method": "SQLite readOnly:true; SELECT security_documents/security_state only; no store initializer, evaluator impersonation, session extraction or mutation",
+      "users": [
+        {
+          "id": "usr_06fefc50791f4f15ac0139de699701b9",
+          "name": "Security Admin",
+          "email": "security@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "development.platform-security.assignment",
+              "roleId": "development.platform-security.role",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2026-10-18T15:41:03.692Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "development.platform-security.rule",
+                  "permissionId": "ui.platform.security.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": null,
+                      "kind": "system",
+                      "id": "platform"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": "v1.assignment.1",
+              "roleId": "v1.role.security-admin",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.security.admin.ui.security.admin.allow",
+                  "permissionId": "ui.security.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_7485b37d5c274809ab503479212e8bd4",
+          "name": "Page, Form and Workflow Editor",
+          "email": "combined@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.5",
+              "roleId": "v1.role.page-form-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": "v1.assignment.6",
+              "roleId": "v1.role.workflow-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_80831c82612048e9bca61a5012dc7063",
+          "name": "Page and Form Editor",
+          "email": "page-form-editor@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.2",
+              "roleId": "v1.role.page-form-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_9298a60d175a4e7f9ff4dd63a906bf77",
+          "name": "Mixed Permissions",
+          "email": "mixed@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.4",
+              "roleId": "v1.role.mixed",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_b2137595f243461ebfe7cd5360467131",
+          "name": "Workflow Editor",
+          "email": "workflow-editor@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "v1.assignment.3",
+              "roleId": "v1.role.workflow-editor",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+          "name": "Application Admin",
+          "email": "admin@example.local",
+          "status": "active",
+          "assignments": [
+            {
+              "id": "demo.author.assignment",
+              "roleId": "demo.author.role",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                  "kind": "application",
+                  "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "demo.ui.application.view",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "demo.ui.application.edit",
+                  "permissionId": "ui.application.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "demo.ui.application.admin",
+                  "permissionId": "ui.application.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "demo.ui.page.view",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "demo.ui.page.edit",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "demo.ui.page.admin",
+                  "permissionId": "ui.page.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "demo.ui.presentation.view",
+                  "permissionId": "ui.presentation.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "demo.ui.presentation.edit",
+                  "permissionId": "ui.presentation.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "demo.ui.presentation.admin",
+                  "permissionId": "ui.presentation.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "demo.ui.security.admin",
+                  "permissionId": "ui.security.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": "demo.platform.assignment",
+              "roleId": "demo.platform.role",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "demo.ui.platform.application.create",
+                  "permissionId": "ui.platform.application.create",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": null,
+                      "kind": "system",
+                      "id": "platform"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": "development.anchor.dev-v1-identity-fixture.assignment",
+              "roleId": "development.anchor.dev-v1-identity-fixture.role",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2026-10-18T15:41:03.692Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": false
+              },
+              "rules": [
+                {
+                  "id": "development.anchor.dev-v1-identity-fixture.rule",
+                  "permissionId": "ui.application.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": false
+                  }
+                }
+              ]
+            },
+            {
+              "id": "initial.c6aa0b22-7aa2-4c9d-b659-76bf74802cc6.assignment",
+              "roleId": "initial.c6aa0b22-7aa2-4c9d-b659-76bf74802cc6.role",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2026-10-18T15:41:13.605Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                  "kind": "application",
+                  "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                },
+                "descendants": false
+              },
+              "rules": [
+                {
+                  "id": "initial.c6aa0b22-7aa2-4c9d-b659-76bf74802cc6.rule",
+                  "permissionId": "ui.application.security.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                      "kind": "application",
+                      "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                    },
+                    "descendants": false
+                  }
+                }
+              ]
+            },
+            {
+              "id": "local-demo-admin-platform-manager",
+              "roleId": "v1.role.platform-admin",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2026-10-27T02:37:00.051Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": false
+              },
+              "rules": [
+                {
+                  "id": "v1.platform.admin.ui.platform.application.create.allow",
+                  "permissionId": "ui.platform.application.create",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": null,
+                      "kind": "system",
+                      "id": "platform"
+                    },
+                    "descendants": false
+                  }
+                }
+              ]
+            },
+            {
+              "id": "v1.assignment.0",
+              "roleId": "v1.role.application-admin",
+              "roleActive": true,
+              "status": "active",
+              "startsAt": "2020-01-01T00:00:00.000Z",
+              "endsAt": null,
+              "currentlyActive": true,
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": true
+              },
+              "rules": [
+                {
+                  "id": "v1.application.admin.ui.application.admin.allow",
+                  "permissionId": "ui.application.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.application.editor.ui.application.edit.allow",
+                  "permissionId": "ui.application.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.application.viewer.ui.application.view.allow",
+                  "permissionId": "ui.application.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.admin.ui.page.admin.allow",
+                  "permissionId": "ui.page.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.editor.ui.page.edit.allow",
+                  "permissionId": "ui.page.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.page.viewer.ui.page.view.allow",
+                  "permissionId": "ui.page.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.presentation.admin.ui.presentation.admin.allow",
+                  "permissionId": "ui.presentation.admin",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.presentation.editor.ui.presentation.edit.allow",
+                  "permissionId": "ui.presentation.edit",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                },
+                {
+                  "id": "v1.presentation.viewer.ui.presentation.view.allow",
+                  "permissionId": "ui.presentation.view",
+                  "effect": "allow",
+                  "scope": {
+                    "resource": {
+                      "authorityId": "ui-platform-development",
+                      "applicationId": "dev-v1-identity-fixture",
+                      "kind": "application",
+                      "id": "dev-v1-identity-fixture"
+                    },
+                    "descendants": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "groupCount": 0,
+      "grantBoundaries": [
+        {
+          "id": "development.anchor.dev-v1-identity-fixture.boundary",
+          "status": "active",
+          "beneficiary": {
+            "kind": "role",
+            "id": "development.anchor.dev-v1-identity-fixture.role"
+          },
+          "scope": {
+            "resource": {
+              "authorityId": "ui-platform-development",
+              "applicationId": "dev-v1-identity-fixture",
+              "kind": "application",
+              "id": "dev-v1-identity-fixture"
+            },
+            "descendants": false
+          },
+          "operations": [
+            "activate",
+            "archive",
+            "assign",
+            "create",
+            "edit",
+            "revoke"
+          ],
+          "permissions": [
+            {
+              "permissionId": "ui.application.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "dev-v1-identity-fixture",
+                  "kind": "application",
+                  "id": "dev-v1-identity-fixture"
+                },
+                "descendants": false
+              },
+              "predicateTemplateIds": []
+            }
+          ]
+        },
+        {
+          "id": "development.platform-security.boundary",
+          "status": "active",
+          "beneficiary": {
+            "kind": "role",
+            "id": "development.platform-security.role"
+          },
+          "scope": {
+            "resource": {
+              "authorityId": "ui-platform-development",
+              "applicationId": null,
+              "kind": "system",
+              "id": "platform"
+            },
+            "descendants": true
+          },
+          "operations": [
+            "activate",
+            "archive",
+            "assign",
+            "create",
+            "edit",
+            "revoke"
+          ],
+          "permissions": [
+            {
+              "permissionId": "ui.platform.security.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.application.security.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.platform.application.create",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.platform.component.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.application.view",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.application.edit",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.application.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.page.view",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.page.edit",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.page.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.form.view",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.form.edit",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.form.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.workflow.view",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.workflow.edit",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.workflow.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.presentation.view",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.presentation.edit",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.presentation.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.artifact.view",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.artifact.edit",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.artifact.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.package.view",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.package.edit",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.package.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.security.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "dataset.read",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "dataset.create",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "dataset.update",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "dataset.delete",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "dataset.write",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.platform.package.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            },
+            {
+              "permissionId": "ui.platform.automation.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": null,
+                  "kind": "system",
+                  "id": "platform"
+                },
+                "descendants": true
+              },
+              "predicateTemplateIds": []
+            }
+          ]
+        },
+        {
+          "id": "initial.c6aa0b22-7aa2-4c9d-b659-76bf74802cc6.boundary",
+          "status": "active",
+          "beneficiary": {
+            "kind": "role",
+            "id": "initial.c6aa0b22-7aa2-4c9d-b659-76bf74802cc6.role"
+          },
+          "scope": {
+            "resource": {
+              "authorityId": "ui-platform-development",
+              "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+              "kind": "application",
+              "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+            },
+            "descendants": false
+          },
+          "operations": [
+            "activate",
+            "archive",
+            "assign",
+            "create",
+            "edit",
+            "revoke"
+          ],
+          "permissions": [
+            {
+              "permissionId": "ui.application.security.admin",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+                  "kind": "application",
+                  "id": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6"
+                },
+                "descendants": false
+              },
+              "predicateTemplateIds": []
+            }
+          ]
+        }
+      ],
+      "readOnlyMainHashBefore": "fa34c5b985d7c0838e117f253bd693ebdd1a125fd04dd1249067d0cfac6b4a46",
+      "readOnlyMainHashAfter": "fa34c5b985d7c0838e117f253bd693ebdd1a125fd04dd1249067d0cfac6b4a46",
+      "mainBytesUnchanged": true
+    }
+  ]
+}

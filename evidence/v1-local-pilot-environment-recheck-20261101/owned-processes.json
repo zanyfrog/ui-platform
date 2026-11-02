@@ -1,0 +1,93 @@
+[
+  {
+    "ProcessId": 50124,
+    "ParentProcessId": 3428,
+    "Name": "pwsh.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "\"C:\\Users\\zanyf\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe\" -Command \"try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}\nWrite-Output \\\"Owned startup shell PID: $PID\\\"; Write-Output \\\"Windows account: $([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)\\\"; npm run demo *> evidence/v1-local-pilot-environment-recheck-20261101/startup.log\""
+  },
+  {
+    "ProcessId": 17596,
+    "ParentProcessId": 50124,
+    "Name": "conhost.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  },
+  {
+    "ProcessId": 52208,
+    "ParentProcessId": 50124,
+    "Name": "node.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "\"C:\\Program Files\\nodejs\\node.exe\" \"C:\\Program Files\\nodejs/node_modules/npm/bin/npm-cli.js\" run demo"
+  },
+  {
+    "ProcessId": 29500,
+    "ParentProcessId": 52208,
+    "Name": "cmd.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /d /s /c tsx scripts/dev-demo.ts"
+  },
+  {
+    "ProcessId": 51916,
+    "ParentProcessId": 29500,
+    "Name": "node.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "\"node\"   \"C:\\Projects\\Modular\\ui-platform\\node_modules\\.bin\\\\..\\tsx\\dist\\cli.mjs\" scripts/dev-demo.ts"
+  },
+  {
+    "ProcessId": 4332,
+    "ParentProcessId": 51916,
+    "Name": "node.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "\"C:\\Program Files\\nodejs\\node.exe\" --require C:\\Projects\\Modular\\ui-platform\\node_modules\\tsx\\dist\\preflight.cjs --import file:///C:/Projects/Modular/ui-platform/node_modules/tsx/dist/loader.mjs scripts/dev-demo.ts"
+  },
+  {
+    "ProcessId": 51460,
+    "ParentProcessId": 4332,
+    "Name": "esbuild.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@esbuild\\win32-x64\\esbuild.exe --service=0.28.2 --ping"
+  },
+  {
+    "ProcessId": 50196,
+    "ParentProcessId": 4332,
+    "Name": "node.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "\"C:\\Program Files\\nodejs\\node.exe\" scripts/dev.mjs"
+  },
+  {
+    "ProcessId": 25520,
+    "ParentProcessId": 50196,
+    "Name": "node.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "\"C:\\Program Files\\nodejs\\node.exe\" \"C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js\" run dev:api"
+  },
+  {
+    "ProcessId": 19280,
+    "ParentProcessId": 25520,
+    "Name": "cmd.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /d /s /c tsx src/server/index.ts"
+  },
+  {
+    "ProcessId": 6476,
+    "ParentProcessId": 19280,
+    "Name": "node.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "\"node\"   \"C:\\Projects\\Modular\\ui-platform\\node_modules\\.bin\\\\..\\tsx\\dist\\cli.mjs\" src/server/index.ts"
+  },
+  {
+    "ProcessId": 4900,
+    "ParentProcessId": 6476,
+    "Name": "node.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "\"C:\\Program Files\\nodejs\\node.exe\" --require C:\\Projects\\Modular\\ui-platform\\node_modules\\tsx\\dist\\preflight.cjs --import file:///C:/Projects/Modular/ui-platform/node_modules/tsx/dist/loader.mjs src/server/index.ts"
+  },
+  {
+    "ProcessId": 48132,
+    "ParentProcessId": 4900,
+    "Name": "esbuild.exe",
+    "Owner": "NIMO-LAPTOP\\zanyf",
+    "CommandLine": "C:\\Projects\\Modular\\ui-platform\\node_modules\\@esbuild\\win32-x64\\esbuild.exe --service=0.28.2 --ping"
+  }
+]
