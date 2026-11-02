@@ -1,0 +1,76 @@
+{
+  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+  "revision": 8,
+  "addedRecordIds": [
+    "de8d1851-3e36-435f-b093-95ce94d940e7",
+    "initial.de8d1851-3e36-435f-b093-95ce94d940e7.assignment",
+    "initial.de8d1851-3e36-435f-b093-95ce94d940e7.boundary",
+    "initial.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+    "initial.de8d1851-3e36-435f-b093-95ce94d940e7.set"
+  ],
+  "administratorUserId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+  "assignmentScope": {
+    "resource": {
+      "authorityId": "ui-platform-development",
+      "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+      "kind": "application",
+      "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+    },
+    "descendants": false
+  },
+  "permissions": [
+    {
+      "permissionId": "ui.application.security.admin",
+      "scope": {
+        "resource": {
+          "authorityId": "ui-platform-development",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+          "kind": "application",
+          "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "descendants": false
+      }
+    }
+  ],
+  "boundaryScope": {
+    "resource": {
+      "authorityId": "ui-platform-development",
+      "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+      "kind": "application",
+      "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+    },
+    "descendants": false
+  },
+  "adminAudit": [
+    {
+      "id": "3b47e0e4-b9fa-4825-a5bf-5258ba676110",
+      "revision": 8,
+      "kind": "administration",
+      "operation": "provision-application",
+      "actor_id": "usr_06fefc50791f4f15ac0139de699701b9",
+      "application_id": "de8d1851-3e36-435f-b093-95ce94d940e7",
+      "reason": "V1 disposable local audience-delivery pilot — approved initial Application administrator provisioning.",
+      "occurred_at": "2026-11-02T22:13:07.088Z",
+      "candidate_id": "4070fefa-8312-4b81-88e1-f50ba6c3bb87"
+    }
+  ],
+  "policyAudit": [
+    {
+      "id": "3b47e0e4-b9fa-4825-a5bf-5258ba676110",
+      "revision": 8,
+      "actor_id": "usr_06fefc50791f4f15ac0139de699701b9",
+      "source": "api",
+      "reason": "V1 disposable local audience-delivery pilot — approved initial Application administrator provisioning.",
+      "occurred_at": "2026-11-02T22:13:07.088Z",
+      "candidate_id": "4070fefa-8312-4b81-88e1-f50ba6c3bb87"
+    }
+  ],
+  "preserved": {
+    "priorPolicyDocuments": true,
+    "priorAdminAudit": true,
+    "priorPolicyAudit": true,
+    "priorCandidates": true,
+    "registrations": true,
+    "changedApplicationFiles": []
+  }
+}
