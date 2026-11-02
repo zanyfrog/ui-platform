@@ -1,4 +1,6 @@
 import { editorSessionSnapshot, refreshEditorSession, selectEditorIdentity, subscribeEditorSession, invalidateDevelopmentIdentity, hasRetainedWorkspaceSession } from './session.js';
+import { mountPilotAdministration, type PilotRequest } from './pilot-administration.js';
+import { pilot } from '../../shared/pilot-administration.js';
 
 /** Dev-only chrome. Uses no independent artifact state, timer or save mechanism. */
 export async function mountDevelopmentIdentity(container: HTMLElement) {
@@ -20,6 +22,23 @@ export async function mountDevelopmentIdentity(container: HTMLElement) {
     const verification = document.createElement('pre'); verification.setAttribute('role', 'status');
     let verificationGeneration = 0;
     container.append(verify, verification);
+    let identityGeneration = 0;
+    const administrativeRequest: PilotRequest = async (action, body) => {
+      if (select.disabled || v1.user?.userId !== pilot.securityAdmin) throw new Error('Sign in as the approved Security Admin and verify the session.');
+      const started = identityGeneration;
+      const suffix = action === 'pilot-status' ? 'security/pilot-status' : action === 'onboarding' ? 'onboarding' : `security/${action}`;
+      const response = await fetch(`/api/apps/${pilot.key}/${suffix}`, { cache: 'no-store', credentials: 'same-origin',
+        ...(body === undefined ? {} : { method: 'POST', headers: { 'content-type': 'application/json', 'x-v1-csrf': v1.csrfToken }, body: JSON.stringify(body) }) });
+      const result = await response.json();
+      if (started !== identityGeneration) throw new Error('Development identity changed. Refresh administration state.');
+      if (!response.ok) {
+        const codes = [result.code, ...(Array.isArray(result.diagnostics) ? result.diagnostics.map((d: { code?: unknown }) => d.code) : [])]
+          .filter((code): code is string => typeof code === 'string' && /^[A-Za-z0-9_.-]{1,100}$/.test(code));
+        throw new Error(codes.join(', ') || 'Protected administrative request refused.');
+      }
+      return result;
+    };
+    const invalidateAdministration = mountPilotAdministration(container, administrativeRequest);
     verify.addEventListener('click', async () => {
       if (select.disabled) return;
       const generation = verificationGeneration;
@@ -40,6 +59,7 @@ export async function mountDevelopmentIdentity(container: HTMLElement) {
       finally { verify.disabled = false; }
     });
     select.addEventListener('change', async () => {
+      identityGeneration++; invalidateAdministration();
       verificationGeneration++; verification.textContent = '';
       select.disabled = true;
       try {

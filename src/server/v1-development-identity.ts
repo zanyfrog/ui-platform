@@ -11,6 +11,7 @@ import type { EditorScope } from './editor-security.js';
 import { SecurityAdministrationService, adminAnchor, type AdministrationIdentityBoundary } from '@ui-platform/i-am/administration';
 import type { SecurityDocument, SecurityRecord, SecurityScope } from '@ui-platform/i-am/definitions';
 import { developmentSecurityConfiguration, developmentSecurityScopes } from './v1-security-administration.js';
+import { pilot } from '../shared/pilot-administration.js';
 import type { DevelopmentApplicationRegistry } from './development-application-registry.js';
 
 type Session = { token: string; csrf: string; revision: string; userId: string | null; expires: number };
@@ -148,6 +149,17 @@ export class V1DevelopmentIdentity {
       const platform = await this.authorize(req, developmentSecurityConfiguration.platformAdministratorPermissionId, root);
       const appAdmin = await this.authorize(req, developmentSecurityConfiguration.applicationAdministratorPermissionId, resource);
       if (!platform && !appAdmin) throw new Error('ADMIN_AUTHORITY_DENIED');
+      if (parts[3] === 'security' && parts[4] === 'pilot-status' && parts.length === 5 && req.method === 'GET') {
+        if (this.options.deploymentId !== pilot.deploymentId || parts[2] !== pilot.key || applicationId !== pilot.applicationId ||
+          this.currentUser(req) !== pilot.securityAdmin || !platform) throw new Error('PILOT_ADMIN_AUTHORITY_DENIED');
+        const snapshot = this.store.snapshot();
+        const anchor = adminAnchor(snapshot.documents.map(d => d.definition), applicationId, V1_AUTHORITY_ID, new Date(), developmentSecurityScopes) ?? null;
+        res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify({
+          applicationKey: pilot.key, applicationId, deploymentId: pilot.deploymentId, authorityId: V1_AUTHORITY_ID,
+          principalId: pilot.securityAdmin, revision: snapshot.revision, anchor,
+        }));
+        return true;
+      }
       if (parts[3] === 'onboarding' && parts.length === 4 && req.method === 'GET') {
         const configured = !!adminAnchor(this.store.snapshot().documents.map(d => d.definition), applicationId, V1_AUTHORITY_ID, new Date(), developmentSecurityScopes);
         const readiness = configured ? await this.runtimeReady?.(applicationId, req) : undefined;
