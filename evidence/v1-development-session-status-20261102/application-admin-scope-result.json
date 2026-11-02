@@ -1,0 +1,61 @@
+{
+  "principalId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+  "evidenceKind": "stored-policy-scope-inventory-not-live-authorization",
+  "policyDocumentsUnchangedSinceImplementationCheck": true,
+  "assignments": [
+    {
+      "status": "active",
+      "roleId": "v1.role.application-admin",
+      "authorityId": "ui-platform-development",
+      "applicationId": "dev-v1-identity-fixture",
+      "kind": "application",
+      "resourceId": "dev-v1-identity-fixture",
+      "descendants": true
+    },
+    {
+      "status": "active",
+      "roleId": "development.anchor.dev-v1-identity-fixture.role",
+      "authorityId": "ui-platform-development",
+      "applicationId": "dev-v1-identity-fixture",
+      "kind": "application",
+      "resourceId": "dev-v1-identity-fixture",
+      "descendants": false
+    },
+    {
+      "status": "active",
+      "roleId": "demo.platform.role",
+      "authorityId": "ui-platform-development",
+      "applicationId": null,
+      "kind": "system",
+      "resourceId": "platform",
+      "descendants": true
+    },
+    {
+      "status": "active",
+      "roleId": "initial.c6aa0b22-7aa2-4c9d-b659-76bf74802cc6.role",
+      "authorityId": "ui-platform-development",
+      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+      "kind": "application",
+      "resourceId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+      "descendants": false
+    },
+    {
+      "status": "active",
+      "roleId": "demo.author.role",
+      "authorityId": "ui-platform-development",
+      "applicationId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+      "kind": "application",
+      "resourceId": "c6aa0b22-7aa2-4c9d-b659-76bf74802cc6",
+      "descendants": true
+    },
+    {
+      "status": "active",
+      "roleId": "v1.role.platform-admin",
+      "authorityId": "ui-platform-development",
+      "applicationId": null,
+      "kind": "system",
+      "resourceId": "platform",
+      "descendants": false
+    }
+  ]
+}
