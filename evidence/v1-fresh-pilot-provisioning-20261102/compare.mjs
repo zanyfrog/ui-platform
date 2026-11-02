@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+const read=name=>JSON.parse(fs.readFileSync(new URL(`./${name}.json`,import.meta.url),'utf8'));
+const before=read('before'),after=read('after');
+const previous=new Map(before.files.map(f=>[f.path,f]));
+const current=new Map(after.files.map(f=>[f.path,f]));
+const changed=before.files.filter(f=>current.get(f.path)?.sha256!==f.sha256).map(f=>({path:f.path,before:f.sha256,after:current.get(f.path)?.sha256??null}));
+const added=after.files.filter(f=>!previous.has(f.path));
+const result={existingFiles:before.files.length,changedExistingFiles:changed,addedFiles:added,securityTablesUnchanged:JSON.stringify(before.tables)===JSON.stringify(after.tables),registrationsAdded:after.registrations.filter(r=>!before.registrations.some(b=>b.application_id===r.application_id))};
+fs.writeFileSync(new URL('./changes.json',import.meta.url),JSON.stringify(result,null,2));
+console.log(JSON.stringify({...result,addedFiles:added.length}));
