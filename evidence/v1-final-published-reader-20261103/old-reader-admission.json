@@ -1,0 +1,50 @@
+{
+  "processes": [
+    {
+      "ProcessId": 25068,
+      "Name": "pwsh.exe",
+      "ParentProcessId": 16708,
+      "Match": true,
+      "CreationDate": "2026-11-03T16:19:13.892414-05:00"
+    },
+    {
+      "ProcessId": 23720,
+      "Name": "conhost.exe",
+      "ParentProcessId": 25068,
+      "Match": true,
+      "CreationDate": "2026-11-03T16:19:13.914686-05:00"
+    },
+    {
+      "ProcessId": 35460,
+      "Name": "cmd.exe",
+      "ParentProcessId": 25068,
+      "Match": true,
+      "CreationDate": "2026-11-03T16:19:14.357383-05:00"
+    },
+    {
+      "ProcessId": 36048,
+      "Name": "node.exe",
+      "ParentProcessId": 35460,
+      "Match": true,
+      "CreationDate": "2026-11-03T16:19:14.548687-05:00"
+    },
+    {
+      "ProcessId": 34384,
+      "Name": "cmd.exe",
+      "ParentProcessId": 36048,
+      "Match": true,
+      "CreationDate": "2026-11-03T16:19:14.838071-05:00"
+    },
+    {
+      "ProcessId": 7872,
+      "Name": "node.exe",
+      "ParentProcessId": 34384,
+      "Match": true,
+      "CreationDate": "2026-11-03T16:19:14.881945-05:00"
+    }
+  ],
+  "viteCommandMatches": true,
+  "launchCommandMatches": true,
+  "unexpectedDescendants": [],
+  "root": 25068
+}

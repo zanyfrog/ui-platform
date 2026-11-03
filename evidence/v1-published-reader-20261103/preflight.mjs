@@ -1,0 +1,8 @@
+import fs from'node:fs';import net from'node:net';import{resolveConfig}from'vite';
+const root='C:/Projects/Modular/builder-demo/apps/codex-test-v1-local-pilot-20261102',outDir='C:/Projects/Modular/ui-platform/evidence/v1-published-reader-20261103/candidate';
+process.env.UI_APP_BASE='/';delete process.env.UI_PLATFORM_API_PORT;
+const config=await resolveConfig({root,configFile:root+'/vite.config.js',build:{outDir},preview:{host:'127.0.0.1',port:5189,strictPort:true}},'serve','production','production',true);
+const value={root:config.root,base:config.base,outDir:config.build.outDir,preview:{host:config.preview.host,port:config.preview.port,strictPort:config.preview.strictPort,proxy:config.preview.proxy??null},serverProxy:config.server.proxy??null,previewHooks:config.plugins.filter(p=>p.configurePreviewServer).map(p=>p.name),environment:{UI_APP_BASE:'/',UI_PLATFORM_API_PORT:'removed in child only'}};
+if(value.base!=='/'||value.preview.host!=='127.0.0.1'||value.preview.port!==5189||!value.preview.strictPort||Object.keys(value.preview.proxy??{}).length||Object.keys(value.serverProxy??{}).length||value.previewHooks.length)throw Error('Reader config refused');
+value.portCheck=await new Promise(resolve=>{const s=net.createConnection({host:'127.0.0.1',port:5189});s.setTimeout(2000);s.once('connect',()=>{s.destroy();resolve('occupied');});s.once('error',e=>resolve(e.code==='ECONNREFUSED'?'connection-refused-no-listener':e.code));s.once('timeout',()=>{s.destroy();resolve('unresolved-timeout');});});
+fs.writeFileSync(new URL('preflight.json',import.meta.url),JSON.stringify(value,null,2));if(value.portCheck!=='connection-refused-no-listener')throw Error('Port not established available; stop');console.log(JSON.stringify(value));

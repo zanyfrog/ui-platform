@@ -1,0 +1,50 @@
+[
+  {
+    "ProcessId": 25068,
+    "Present": true,
+    "Name": "pwsh.exe",
+    "ParentProcessId": 16708,
+    "ExpectedNameAndParentMatch": true,
+    "IsFailedViteCommand": false
+  },
+  {
+    "ProcessId": 23720,
+    "Present": true,
+    "Name": "conhost.exe",
+    "ParentProcessId": 25068,
+    "ExpectedNameAndParentMatch": true,
+    "IsFailedViteCommand": false
+  },
+  {
+    "ProcessId": 35460,
+    "Present": true,
+    "Name": "cmd.exe",
+    "ParentProcessId": 25068,
+    "ExpectedNameAndParentMatch": true,
+    "IsFailedViteCommand": false
+  },
+  {
+    "ProcessId": 36048,
+    "Present": true,
+    "Name": "node.exe",
+    "ParentProcessId": 35460,
+    "ExpectedNameAndParentMatch": true,
+    "IsFailedViteCommand": false
+  },
+  {
+    "ProcessId": 34384,
+    "Present": true,
+    "Name": "cmd.exe",
+    "ParentProcessId": 36048,
+    "ExpectedNameAndParentMatch": true,
+    "IsFailedViteCommand": false
+  },
+  {
+    "ProcessId": 7872,
+    "Present": true,
+    "Name": "node.exe",
+    "ParentProcessId": 34384,
+    "ExpectedNameAndParentMatch": true,
+    "IsFailedViteCommand": true
+  }
+]
