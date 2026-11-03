@@ -1,0 +1,92 @@
+Browser tab: 1964522886, Title: "UI Platform", URL: "http://localhost:5274/".
+0 AXWebArea UI Platform, URL: localhost:5274/
+	1 link Description: Skip to content, Value: localhost:5274/#app
+	2 container
+		3 text Development identity 
+		4 pop up button (collapsed, settable) Description: Development identity, Value: Security Admin (security@example.local), Secondary Actions: Expand
+			5 menu
+				6 Sign out
+				7 (selected) Security Admin (security@example.local)
+				8 Page, Form and Workflow Editor (combined@example.local)
+				9 Page and Form Editor (page-form-editor@example.local)
+				10 Mixed Permissions (mixed@example.local)
+				11 Workflow Editor (workflow-editor@example.local)
+				12 Application Admin (admin@example.local)
+	13 button Verify development session
+	62 text {
+  "status": "authenticated",
+  "authenticated": true,
+  "principalId": "usr_06fefc50791f4f15ac0139de699701b9",
+  "deploymentId": "builder-demo",
+  "authorityId": "ui-platform-development",
+  "registeredApplications": true,
+  "capabilities": {
+    "ui.platform.security.admin": true,
+    "ui.platform.application.create": false
+  }
+}
+	15 button Inspect disposable pilot administration
+	16 container
+		17 heading Disposable pilot administration, Value: 2
+			18 text Disposable pilot administration
+		19 text codex-test-v1-local-pilot-20261102 · de8d1851-3e36-435f-b093-95ce94d940e7
+		20 pop up button (collapsed, settable) Description: Initial pilot administrator, Value: Application Admin · usr_f01e0c1c58424bed9ac4e8601ff9890a, Secondary Actions: Expand
+			21 menu
+				22 (selected) Application Admin · usr_f01e0c1c58424bed9ac4e8601ff9890a
+		23 text Reason 
+		24 text field (settable) Reason, Value: V1 disposable local audience pilot: temporary ui.page.admin solely for guarded Administration Page cleanup after Menu reference repair; preserve seven accepted functional rules and existing administrator anchor; separately reviewed audited revocation required after verified deletion. Checksum-aware corrected staging; not activation.
+		25 checkbox (settable, integer) Description: Include ui.page.admin only for necessary disposable placeholder cleanup, Value: 1
+		26 button Refresh provisioning state
+		63 text {
+  "applicationKey": "codex-test-v1-local-pilot-20261102",
+  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+  "deploymentId": "builder-demo",
+  "authorityId": "ui-platform-development",
+  "principalId": "usr_06fefc50791f4f15ac0139de699701b9",
+  "revision": 10,
+  "anchor": {
+    "userId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+    "assignmentId": "initial.de8d1851-3e36-435f-b093-95ce94d940e7.assignment",
+    "boundaryId": "initial.de8d1851-3e36-435f-b093-95ce94d940e7.boundary"
+  },
+  "recordChecksums": {
+    "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set": "sha256:2a0463a939c59971d2b16482b7df5c7bfa2d466bf4667fcbafc00074a5b67cc1",
+    "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role": "sha256:abfd45d6011697067e19d4c882451b960c004d4e566c793894d7f03551d001af",
+    "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment": "sha256:39aac8bc5022842098d0f0083f6e232cc3469718e430daf721b4706b9fdaff7f"
+  }
+}
+		28 button (disabled) Provision initial administrator
+		29 button Stage functional permissions
+		31 checkbox (settable, integer) Description: I reviewed this exact candidate, permissions, scopes and reason, Value: 0
+		32 button (disabled) Activate reviewed candidate
+	64 text State read successfully; no provisioning or activation performed by this read.
+	34 button Manage Triggers and Workflows
+	35 container
+		36 button Modular UI Platform home
+			37 text M
+			38 text MODULAR
+			39 text UI Platform
+		40 container Description: Platform navigation, ID: uib-menu-1-nav
+			41 button Applications
+			42 button Packages
+			43 button (disabled) Templates
+			44 button Settings
+		45 text U
+		46 text User
+		47 text user@example.com
+		48 container
+			49 text Search applications
+			50 text field (settable) Search applications, ID: uib-forms-textbox-15-control
+			51 button New Application
+		52 button Applications
+		53 container Applications
+			54 text Applications
+			55 container
+				56 text Select an application or create a new one. Valid folders copied manually into  Modular/apps/  are discovered automatically.
+			57 button V V1 Development Identity Fixture /v1-identity-fixture active - ready
+				58 text V
+				59 text V1 Development Identity Fixture
+				60 text /v1-identity-fixture
+				61 text active - ready
+
+The focused UI element is 0 AXWebArea UI Platform, URL: localhost:5274/

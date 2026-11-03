@@ -1,0 +1,176 @@
+{
+  "policyRevision": 9,
+  "candidate": {
+    "id": "99df834d-c6d7-4cb1-9b88-e07c33297b1a",
+    "checksum": "sha256:b9db82140af1181c1457a01dd3da5284347d074a4a3048ed87b3b4066d130d4c",
+    "baseRevision": 9,
+    "diagnostics": [],
+    "result": null,
+    "requestSha256": "18d76126d9d40579847f18fa60b0c1b6e80214ef2d18eeaf98db04b410d17c49"
+  },
+  "activeDocuments": [
+    {
+      "format": "ui-platform.security",
+      "formatVersion": 1,
+      "definition": {
+        "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+        "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+        "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+        "status": "active",
+        "kind": "permission-set",
+        "owner": {
+          "kind": "application",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "includes": [],
+        "rules": [
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.0",
+            "permissionId": "ui.application.view",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": false
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.1",
+            "permissionId": "ui.application.edit",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": false
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.2",
+            "permissionId": "ui.page.view",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.3",
+            "permissionId": "ui.page.edit",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.4",
+            "permissionId": "ui.presentation.view",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.5",
+            "permissionId": "ui.presentation.edit",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.6",
+            "permissionId": "ui.presentation.admin",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "format": "ui-platform.security",
+      "formatVersion": 1,
+      "definition": {
+        "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+        "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+        "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+        "status": "active",
+        "kind": "role",
+        "owner": {
+          "kind": "application",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "permissionSets": [
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set"
+          }
+        ]
+      }
+    },
+    {
+      "format": "ui-platform.security",
+      "formatVersion": 1,
+      "definition": {
+        "kind": "role-assignment",
+        "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment",
+        "status": "active",
+        "userId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+        "roleId": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+        "scope": {
+          "resource": {
+            "authorityId": "ui-platform-development",
+            "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+            "kind": "application",
+            "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+          },
+          "descendants": true
+        },
+        "startsAt": "2026-11-02T00:00:00Z",
+        "endsAt": null
+      }
+    }
+  ],
+  "unrelatedDocumentsAndAnchorDigest": "9249e30c8b9848d43cfb689f8353d59ed82acde620b11704951e4ab02982d166",
+  "oldInvalidCandidateDigest": "31b8c055c0e4afe4573b08c915b1d0dd16ac96c219f4df495f894b15028c2c8c",
+  "otherCandidateRowsDigest": "4fefed303e9099b2219940264ed87e4af32fd53737a253a3851285a2999cefac",
+  "adminAudit": [],
+  "policyAudit": []
+}

@@ -1,0 +1,34 @@
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+import {DatabaseSync} from 'node:sqlite';
+import {pilot,pilotGrantChanges} from '../../src/shared/pilot-administration.ts';
+const mode=process.argv[2],here=new URL('./',import.meta.url);
+const hash=v=>createHash('sha256').update(JSON.stringify(v)).digest('hex');
+const id='99df834d-c6d7-4cb1-9b88-e07c33297b1a',checksum='sha256:b9db82140af1181c1457a01dd3da5284347d074a4a3048ed87b3b4066d130d4c';
+const db=new DatabaseSync('C:/Projects/Modular/builder-demo/runtime/iam-v1-development.sqlite',{readOnly:true});
+const row=db.prepare('SELECT * FROM security_candidates WHERE id=?').get(id),request=JSON.parse(row.request_json),diagnostics=JSON.parse(row.diagnostics_json),result=row.result_json?JSON.parse(row.result_json):null;
+const reviewed=JSON.parse(fs.readFileSync('evidence/v1-checksum-aware-staging-20261103/chrome-continuation/stored-candidate.json','utf8'));
+if(row.checksum!==checksum||row.base_revision!==9||diagnostics.length||JSON.stringify(request.changes)!==JSON.stringify(reviewed.changes)||request.actorId!==pilot.securityAdmin)throw Error('Candidate mismatch; stop');
+const docs=db.prepare('SELECT id,json FROM security_documents ORDER BY id').all();
+const expected=pilotGrantChanges(mode==='after');
+const active=expected.map(({document})=>JSON.parse(docs.find(d=>d.id===document.definition.id).json));
+if(JSON.stringify(active)!==JSON.stringify(expected.map(c=>c.document)))throw Error('Active plan mismatch; stop');
+const revision=db.prepare('SELECT revision FROM security_state').get().revision;
+if(mode==='before'&&(revision!==9||result!==null))throw Error('Stale or already activated; stop');
+if(mode==='after'&&(revision!==10||result?.status!=='activated'||result.revision!==10))throw Error('Activation not confirmed; stop');
+const setId=expected[0].document.definition.id;
+const invalid=db.prepare('SELECT * FROM security_candidates WHERE id=?').get('969220cf-fa79-4640-979e-9b3248ddbf39');
+const otherCandidates=db.prepare('SELECT * FROM security_candidates WHERE id<>? ORDER BY id').all(id);
+const adminAudit=db.prepare('SELECT id,revision,kind,operation,actor_id,target_ids_json,application_id,authority_path_json,reason,before_digest,after_digest,occurred_at,candidate_id FROM security_admin_audit WHERE candidate_id=?').all(id);
+const policyAudit=db.prepare('SELECT id,revision,actor_id,source,reason,occurred_at,candidate_id FROM security_audit WHERE candidate_id=?').all(id);
+const value={policyRevision:revision,candidate:{id,checksum,baseRevision:row.base_revision,diagnostics,result,requestSha256:hash(request)},activeDocuments:active,unrelatedDocumentsAndAnchorDigest:hash(docs.filter(d=>d.id!==setId)),oldInvalidCandidateDigest:hash(invalid),otherCandidateRowsDigest:hash(otherCandidates),adminAudit,policyAudit};
+if(mode==='after'){
+ const before=JSON.parse(fs.readFileSync(new URL('before-verification.json',here),'utf8'));
+ for(const k of ['unrelatedDocumentsAndAnchorDigest','oldInvalidCandidateDigest','otherCandidateRowsDigest'])if(value[k]!==before[k])throw Error(`${k} changed; stop`);
+ if(adminAudit.length!==1||policyAudit.length!==1||adminAudit[0].actor_id!==pilot.securityAdmin||policyAudit[0].actor_id!==pilot.securityAdmin||adminAudit[0].revision!==10||policyAudit[0].revision!==10||adminAudit[0].application_id!==pilot.applicationId)throw Error('Mandatory audit mismatch; stop');
+ const a=before.activeDocuments[0].definition,b=active[0].definition;
+ if(JSON.stringify(a.rules)!==JSON.stringify(b.rules.slice(0,7))||b.rules.length!==8||b.rules[7].permissionId!=='ui.page.admin')throw Error('Unexpected permission delta; stop');
+ value.sevenRulesPreserved=true;value.unrelatedDocumentsAndAnchorPreserved=true;value.invalidCandidatePreserved=true;
+}
+db.close();fs.writeFileSync(new URL(`${mode}-verification.json`,here),JSON.stringify(value,null,2));
+console.log(JSON.stringify({mode,revision,candidate:id,result,ruleCount:active[0].definition.rules.length,administratorAudits:adminAudit.length,policyAudits:policyAudit.length}));
