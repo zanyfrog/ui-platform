@@ -1,0 +1,209 @@
+{
+  "policyRevision": 11,
+  "candidate": {
+    "id": "a0f32d75-045e-4b7f-919f-59a99fd9cfe8",
+    "checksum": "sha256:25ab79548f648465d31dca922bd7f3d9655dbee48c26c245f802f8591538d684",
+    "baseRevision": 10,
+    "diagnostics": [],
+    "result": {
+      "status": "activated",
+      "revision": 11,
+      "auditId": "31e74614-fe42-4f78-b1ee-c9ed3d46da7d"
+    },
+    "requestSha256": "a62e4336ae1112c16a71bb5e3b285e8ba6c8498b35714bfb90a1d0f1c8e0bdf4"
+  },
+  "activeDocuments": [
+    {
+      "format": "ui-platform.security",
+      "formatVersion": 1,
+      "definition": {
+        "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+        "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+        "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+        "status": "active",
+        "kind": "permission-set",
+        "owner": {
+          "kind": "application",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "includes": [],
+        "rules": [
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.0",
+            "permissionId": "ui.application.view",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": false
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.1",
+            "permissionId": "ui.application.edit",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": false
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.2",
+            "permissionId": "ui.page.view",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.3",
+            "permissionId": "ui.page.edit",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.4",
+            "permissionId": "ui.presentation.view",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.5",
+            "permissionId": "ui.presentation.edit",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          },
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.6",
+            "permissionId": "ui.presentation.admin",
+            "effect": "allow",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "format": "ui-platform.security",
+      "formatVersion": 1,
+      "definition": {
+        "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+        "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+        "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+        "status": "active",
+        "kind": "role",
+        "owner": {
+          "kind": "application",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "permissionSets": [
+          {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set"
+          }
+        ]
+      }
+    },
+    {
+      "format": "ui-platform.security",
+      "formatVersion": 1,
+      "definition": {
+        "kind": "role-assignment",
+        "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment",
+        "status": "active",
+        "userId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+        "roleId": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+        "scope": {
+          "resource": {
+            "authorityId": "ui-platform-development",
+            "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+            "kind": "application",
+            "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+          },
+          "descendants": true
+        },
+        "startsAt": "2026-11-02T00:00:00Z",
+        "endsAt": null
+      }
+    }
+  ],
+  "unrelatedDocumentsAndAnchorDigest": "9249e30c8b9848d43cfb689f8353d59ed82acde620b11704951e4ab02982d166",
+  "previousCandidatesDigest": "46e0b5c48790ed90a59bc86231656cdc8fd4bdf3c5141408e171d1e0b99e8261",
+  "adminAudit": [
+    {
+      "id": "31e74614-fe42-4f78-b1ee-c9ed3d46da7d",
+      "revision": 11,
+      "kind": "administration",
+      "operation": "assign+edit",
+      "actor_id": "usr_06fefc50791f4f15ac0139de699701b9",
+      "target_ids_json": "[\"local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set\",\"local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role\",\"local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment\"]",
+      "application_id": "de8d1851-3e36-435f-b093-95ce94d940e7",
+      "authority_path_json": "[\"development.platform-security.assignment\",\"development.platform-security.boundary\"]",
+      "reason": "V1 disposable local pilot: guarded Administration Page cleanup and exact three-route composition verified; revoke temporary ui.page.admin only, preserving seven accepted functional rules, record IDs and initial administrator anchor.",
+      "before_digest": "sha256:16cde8bcb61c25457ef4b16e58fe56326908f78dc899449379f5821d2904eb04",
+      "after_digest": "sha256:641455fb7566633d1a156aa1b18236367b0e9b81e993aeae3002bed08f24b501",
+      "occurred_at": "2026-11-03T20:14:52.661Z",
+      "candidate_id": "a0f32d75-045e-4b7f-919f-59a99fd9cfe8"
+    }
+  ],
+  "policyAudit": [
+    {
+      "id": "31e74614-fe42-4f78-b1ee-c9ed3d46da7d",
+      "revision": 11,
+      "actor_id": "usr_06fefc50791f4f15ac0139de699701b9",
+      "source": "api",
+      "reason": "V1 disposable local pilot: guarded Administration Page cleanup and exact three-route composition verified; revoke temporary ui.page.admin only, preserving seven accepted functional rules, record IDs and initial administrator anchor.",
+      "occurred_at": "2026-11-03T20:14:52.661Z",
+      "candidate_id": "a0f32d75-045e-4b7f-919f-59a99fd9cfe8"
+    }
+  ],
+  "sevenRulesRetained": true,
+  "pageAdminRemoved": true,
+  "unrelatedPolicyAndAnchorPreserved": true,
+  "priorCandidatesPreserved": true
+}

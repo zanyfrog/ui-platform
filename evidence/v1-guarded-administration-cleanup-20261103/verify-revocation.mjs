@@ -1,0 +1,12 @@
+import fs from'node:fs';import{DatabaseSync}from'node:sqlite';import{createHash}from'node:crypto';
+const here=new URL('./',import.meta.url),read=n=>JSON.parse(fs.readFileSync(new URL(n,here),'utf8'));
+const ui=read('revocation-browser-candidate.json'),proposal=read('revocation-proposal.json');
+const db=new DatabaseSync('C:/Projects/Modular/builder-demo/runtime/iam-v1-development.sqlite',{readOnly:true});
+const row=db.prepare('SELECT * FROM security_candidates WHERE id=?').get(ui.candidate.id),request=JSON.parse(row.request_json),diagnostics=JSON.parse(row.diagnostics_json);
+if(row.base_revision!==10||row.checksum!==ui.candidate.checksum||diagnostics.length||row.result_json!==null||JSON.stringify(request.changes)!==JSON.stringify(proposal.changes)||request.expectedRevision!==10||request.reason!==proposal.reason||request.actorId!=='usr_06fefc50791f4f15ac0139de699701b9')throw Error('Revocation candidate differs from reviewed request; stop');
+const baseline=read('before.json');
+const older=db.prepare('SELECT * FROM security_candidates WHERE id<>?').all(row.id);
+const olderPreserved=createHash('sha256').update(JSON.stringify(older)).digest('hex')===baseline.tables.find(t=>t.name==='security_candidates').sha256;
+if(!olderPreserved)throw Error('Prior candidate history changed; stop');
+const result={candidate:{id:row.id,checksum:row.checksum,baseRevision:row.base_revision,activatable:true,diagnostics,result:null},expectedRevision:request.expectedRevision,actorId:request.actorId,source:request.source,reason:request.reason,changes:request.changes,priorCandidatesPreserved:olderPreserved,matchingActivationAuditCounts:{administrator:db.prepare('SELECT count(*) AS count FROM security_admin_audit WHERE candidate_id=?').get(row.id).count,policy:db.prepare('SELECT count(*) AS count FROM security_audit WHERE candidate_id=?').get(row.id).count}};
+db.close();fs.writeFileSync(new URL('revocation-stored-candidate.json',here),JSON.stringify(result,null,2));console.log(JSON.stringify({candidate:result.candidate,priorCandidatesPreserved:olderPreserved,audits:result.matchingActivationAuditCounts}));

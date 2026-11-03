@@ -1,0 +1,273 @@
+Browser tab: 1964522886, Title: "UI Platform", URL: "http://localhost:5274/".
+0 AXWebArea UI Platform, URL: localhost:5274/
+	1 link Description: Skip to content, Value: localhost:5274/#app
+	2 container
+		3 text Development identity 
+		4 pop up button (collapsed, settable) Description: Development identity, Value: Security Admin (security@example.local), Secondary Actions: Expand
+			5 menu
+				6 Sign out
+				7 (selected) Security Admin (security@example.local)
+				8 Page, Form and Workflow Editor (combined@example.local)
+				9 Page and Form Editor (page-form-editor@example.local)
+				10 Mixed Permissions (mixed@example.local)
+				11 Workflow Editor (workflow-editor@example.local)
+				12 Application Admin (admin@example.local)
+	13 button Verify development session
+	44 text {
+  "status": "authenticated",
+  "authenticated": true,
+  "principalId": "usr_06fefc50791f4f15ac0139de699701b9",
+  "deploymentId": "builder-demo",
+  "authorityId": "ui-platform-development",
+  "registeredApplications": true,
+  "capabilities": {
+    "ui.platform.security.admin": true,
+    "ui.platform.application.create": false
+  }
+}
+	15 button Inspect disposable pilot administration
+	45 container
+		46 heading Disposable pilot administration, Value: 2
+			47 text Disposable pilot administration
+		48 text codex-test-v1-local-pilot-20261102 · de8d1851-3e36-435f-b093-95ce94d940e7
+		49 pop up button (collapsed, settable) Description: Initial pilot administrator, Value: Application Admin · usr_f01e0c1c58424bed9ac4e8601ff9890a, Secondary Actions: Expand
+			50 menu
+				51 (selected) Application Admin · usr_f01e0c1c58424bed9ac4e8601ff9890a
+		52 text Reason 
+		53 text field (settable) Reason, Value: V1 disposable local pilot: guarded Administration Page cleanup and exact three-route composition verified; revoke temporary ui.page.admin only, preserving seven accepted functional rules, record IDs and initial administrator anchor.
+		54 checkbox (settable, integer) Description: Include ui.page.admin only for necessary disposable placeholder cleanup, Value: 0
+		55 button Refresh provisioning state
+		61 text {
+  "applicationKey": "codex-test-v1-local-pilot-20261102",
+  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+  "deploymentId": "builder-demo",
+  "authorityId": "ui-platform-development",
+  "principalId": "usr_06fefc50791f4f15ac0139de699701b9",
+  "revision": 10,
+  "anchor": {
+    "userId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+    "assignmentId": "initial.de8d1851-3e36-435f-b093-95ce94d940e7.assignment",
+    "boundaryId": "initial.de8d1851-3e36-435f-b093-95ce94d940e7.boundary"
+  },
+  "recordChecksums": {
+    "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set": "sha256:2a0463a939c59971d2b16482b7df5c7bfa2d466bf4667fcbafc00074a5b67cc1",
+    "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role": "sha256:abfd45d6011697067e19d4c882451b960c004d4e566c793894d7f03551d001af",
+    "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment": "sha256:39aac8bc5022842098d0f0083f6e232cc3469718e430daf721b4706b9fdaff7f"
+  }
+}
+		57 button (disabled) Provision initial administrator
+		58 button Stage functional permissions
+		62 text {
+  "candidate": {
+    "id": "a0f32d75-045e-4b7f-919f-59a99fd9cfe8",
+    "checksum": "sha256:25ab79548f648465d31dca922bd7f3d9655dbee48c26c245f802f8591538d684",
+    "baseRevision": 10,
+    "activatable": true
+  },
+  "plan": {
+    "reason": "V1 disposable local pilot: guarded Administration Page cleanup and exact three-route composition verified; revoke temporary ui.page.admin only, preserving seven accepted functional rules, record IDs and initial administrator anchor.",
+    "cleanup": false,
+    "changes": [
+      {
+        "document": {
+          "format": "ui-platform.security",
+          "formatVersion": 1,
+          "definition": {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+            "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+            "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+            "status": "active",
+            "kind": "permission-set",
+            "owner": {
+              "kind": "application",
+              "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+            },
+            "includes": [],
+            "rules": [
+              {
+                "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.0",
+                "permissionId": "ui.application.view",
+                "effect": "allow",
+                "scope": {
+                  "resource": {
+                    "authorityId": "ui-platform-development",
+                    "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                    "kind": "application",
+                    "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                  },
+                  "descendants": false
+                }
+              },
+              {
+                "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.1",
+                "permissionId": "ui.application.edit",
+                "effect": "allow",
+                "scope": {
+                  "resource": {
+                    "authorityId": "ui-platform-development",
+                    "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                    "kind": "application",
+                    "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                  },
+                  "descendants": false
+                }
+              },
+              {
+                "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.2",
+                "permissionId": "ui.page.view",
+                "effect": "allow",
+                "scope": {
+                  "resource": {
+                    "authorityId": "ui-platform-development",
+                    "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                    "kind": "application",
+                    "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                  },
+                  "descendants": true
+                }
+              },
+              {
+                "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.3",
+                "permissionId": "ui.page.edit",
+                "effect": "allow",
+                "scope": {
+                  "resource": {
+                    "authorityId": "ui-platform-development",
+                    "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                    "kind": "application",
+                    "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                  },
+                  "descendants": true
+                }
+              },
+              {
+                "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.4",
+                "permissionId": "ui.presentation.view",
+                "effect": "allow",
+                "scope": {
+                  "resource": {
+                    "authorityId": "ui-platform-development",
+                    "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                    "kind": "application",
+                    "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                  },
+                  "descendants": true
+                }
+              },
+              {
+                "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.5",
+                "permissionId": "ui.presentation.edit",
+                "effect": "allow",
+                "scope": {
+                  "resource": {
+                    "authorityId": "ui-platform-development",
+                    "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                    "kind": "application",
+                    "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                  },
+                  "descendants": true
+                }
+              },
+              {
+                "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.6",
+                "permissionId": "ui.presentation.admin",
+                "effect": "allow",
+                "scope": {
+                  "resource": {
+                    "authorityId": "ui-platform-development",
+                    "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                    "kind": "application",
+                    "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                  },
+                  "descendants": true
+                }
+              }
+            ]
+          }
+        },
+        "expectedChecksum": "sha256:2a0463a939c59971d2b16482b7df5c7bfa2d466bf4667fcbafc00074a5b67cc1"
+      },
+      {
+        "document": {
+          "format": "ui-platform.security",
+          "formatVersion": 1,
+          "definition": {
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+            "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+            "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+            "status": "active",
+            "kind": "role",
+            "owner": {
+              "kind": "application",
+              "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+            },
+            "permissionSets": [
+              {
+                "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set"
+              }
+            ]
+          }
+        },
+        "expectedChecksum": "sha256:abfd45d6011697067e19d4c882451b960c004d4e566c793894d7f03551d001af"
+      },
+      {
+        "document": {
+          "format": "ui-platform.security",
+          "formatVersion": 1,
+          "definition": {
+            "kind": "role-assignment",
+            "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment",
+            "status": "active",
+            "userId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+            "roleId": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+            "scope": {
+              "resource": {
+                "authorityId": "ui-platform-development",
+                "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                "kind": "application",
+                "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+              },
+              "descendants": true
+            },
+            "startsAt": "2026-11-02T00:00:00Z",
+            "endsAt": null
+          }
+        },
+        "expectedChecksum": "sha256:39aac8bc5022842098d0f0083f6e232cc3469718e430daf721b4706b9fdaff7f"
+      }
+    ]
+  }
+}
+		59 checkbox (settable, integer) Description: I reviewed this exact candidate, permissions, scopes and reason, Value: 0
+		60 button (disabled) Activate reviewed candidate
+	63 text Candidate staged, not activated. Review its exact identity, permissions, scopes and reason below.
+	16 button Manage Triggers and Workflows
+	17 container
+		18 button Modular UI Platform home
+			19 text M
+			20 text MODULAR
+			21 text UI Platform
+		22 container Description: Platform navigation, ID: uib-menu-137-nav
+			23 button Applications
+			24 button Packages
+			25 button (disabled) Templates
+			26 button Settings
+		27 text U
+		28 text User
+		29 text user@example.com
+		30 container
+			31 text Search applications
+			32 text field (settable) Search applications, ID: uib-forms-textbox-151-control
+			33 button New Application
+		34 button Applications
+		35 container Applications
+			36 text Applications
+			37 container
+				38 text Select an application or create a new one. Valid folders copied manually into  Modular/apps/  are discovered automatically.
+			39 button V V1 Development Identity Fixture /v1-identity-fixture active - ready
+				40 text V
+				41 text V1 Development Identity Fixture
+				42 text /v1-identity-fixture
+				43 text active - ready
+
+The focused UI element is 0 AXWebArea UI Platform, URL: localhost:5274/

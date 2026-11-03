@@ -1,0 +1,734 @@
+{
+  "policyRevision": 10,
+  "activePermissionRules": [
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.0",
+      "permissionId": "ui.application.view",
+      "effect": "allow",
+      "scope": {
+        "resource": {
+          "authorityId": "ui-platform-development",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+          "kind": "application",
+          "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "descendants": false
+      }
+    },
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.1",
+      "permissionId": "ui.application.edit",
+      "effect": "allow",
+      "scope": {
+        "resource": {
+          "authorityId": "ui-platform-development",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+          "kind": "application",
+          "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "descendants": false
+      }
+    },
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.2",
+      "permissionId": "ui.page.view",
+      "effect": "allow",
+      "scope": {
+        "resource": {
+          "authorityId": "ui-platform-development",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+          "kind": "application",
+          "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "descendants": true
+      }
+    },
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.3",
+      "permissionId": "ui.page.edit",
+      "effect": "allow",
+      "scope": {
+        "resource": {
+          "authorityId": "ui-platform-development",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+          "kind": "application",
+          "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "descendants": true
+      }
+    },
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.4",
+      "permissionId": "ui.presentation.view",
+      "effect": "allow",
+      "scope": {
+        "resource": {
+          "authorityId": "ui-platform-development",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+          "kind": "application",
+          "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "descendants": true
+      }
+    },
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.5",
+      "permissionId": "ui.presentation.edit",
+      "effect": "allow",
+      "scope": {
+        "resource": {
+          "authorityId": "ui-platform-development",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+          "kind": "application",
+          "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "descendants": true
+      }
+    },
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.6",
+      "permissionId": "ui.presentation.admin",
+      "effect": "allow",
+      "scope": {
+        "resource": {
+          "authorityId": "ui-platform-development",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+          "kind": "application",
+          "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "descendants": true
+      }
+    },
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.7",
+      "permissionId": "ui.page.admin",
+      "effect": "allow",
+      "scope": {
+        "resource": {
+          "authorityId": "ui-platform-development",
+          "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+          "kind": "application",
+          "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+        },
+        "descendants": true
+      }
+    }
+  ],
+  "pages": [
+    {
+      "locator": "about/page.visual.json",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93",
+        "kind": "page",
+        "name": "about",
+        "displayName": "about",
+        "route": "/about",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+        "routeId": "route_801558d2-8d78-44ec-9722-28642a26215e"
+      },
+      "hash": "9d83a196f39d96fc8ffbf1c0b1b97edaa0ac1898c1092b20bd995f4345d6d03c",
+      "source": "<!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->\n\n<section class=\"uip-layout-item\" data-uip-node=\"node_965a0771-d02f-4419-b75e-608c338d0ae4\" data-uip-region=\"region-main\" data-uip-region-name=\"Main Content\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_fc3bf241-80e0-42f4-b616-022ca05221a7\">\n  <h1 data-uip-node=\"node_2d49a9bb-da60-4832-bc42-458c85bdeafc\">About our local pilot</h1>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_5daf5b91-9b79-4834-ba5f-0354ce3f576c\">\n  <p data-uip-node=\"node_8dd84189-c44a-48c8-96a7-0d17f78fbf18\">This disposable local website demonstrates three informational Pages with shared branding and navigation. It contains no private data or live services.</p>\n</div>\n</section>\n"
+    },
+    {
+      "locator": "admin/page.visual.json",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page",
+        "kind": "page",
+        "name": "admin",
+        "displayName": "Administration",
+        "route": "/admin",
+        "routeId": "route_de8d1851-3e36-435f-b093-95ce94d940e7_admin",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell",
+        "menuOverrides": {
+          "menu-admin": {
+            "items": {
+              "admin-home": {
+                "disabled": false
+              }
+            },
+            "additions": [
+              {
+                "item": {
+                  "itemId": "local-docs",
+                  "label": "Documentation",
+                  "destination": {
+                    "kind": "url",
+                    "url": "https://example.com"
+                  },
+                  "target": "_blank"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "hash": "d350cf230e6c23f57039756ae5ac1c998c64ee97649960aa6b537557904e9968",
+      "source": "<section class=\"uip-layout-item\" data-uip-node=\"admin_hero_empty\" data-uip-region=\"region-hero\"></section>\n<section class=\"uip-layout-item\" data-uip-node=\"admin_main\" data-uip-region=\"region-main\">\n  <h1 data-uip-node=\"admin_title\">Administration</h1>\n  <p data-uip-node=\"admin_intro\">Separate Pages and Shells reuse the same component. Shell appearance does not grant access permissions.</p>\n  <div class=\"uip-layout-item\" data-uip-node=\"admin_component_wrap\"><uip-component data-uip-node=\"admin_component\" data-uip-component=\"cmp_platform_composition-shared-help-reference\"></uip-component></div>\n</section>\n"
+    },
+    {
+      "locator": "contact/page.visual.json",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915",
+        "kind": "page",
+        "name": "contact",
+        "displayName": "contact",
+        "route": "/contact",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+        "routeId": "route_d627c61f-6eb4-409c-a196-a5147641e76e"
+      },
+      "hash": "0869dbfd44a937bca45f96b269132e3894634fe83c34b635e95ef616fc8b0035",
+      "source": "<!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->\n\n<section class=\"uip-layout-item\" data-uip-node=\"node_a9f1d76a-f468-483f-8954-420643860f62\" data-uip-region=\"region-main\" data-uip-region-name=\"Main Content\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_0391e01f-19c1-48fa-9d90-168abb6dfd64\">\n  <h1 data-uip-node=\"node_e5066621-53b0-4031-87c8-2cad49c75346\">Contact</h1>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_b9cb3897-cfbf-43e4-8637-8dec4697b8e9\">\n  <p data-uip-node=\"node_bc20a035-9e8a-49e3-8e7d-54dbacf973ec\">This is a disposable local demonstration. Contact details are intentionally omitted. No messages are collected or sent from this website.</p>\n</div>\n</section>\n"
+    },
+    {
+      "locator": "public/page.visual.json",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page",
+        "kind": "page",
+        "name": "public",
+        "displayName": "Home",
+        "route": "/",
+        "routeId": "route_de8d1851-3e36-435f-b093-95ce94d940e7_public",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+      },
+      "hash": "b93acbca960ec804ff72d7b13d525051ccc8da8dd0d4c22c012e4071f6755061",
+      "source": "<section class=\"uip-layout-item\" data-uip-node=\"public_main\" data-uip-region=\"region-main\">\n  <h1 data-uip-node=\"welcome\">Welcome to the local pilot</h1>\n  <p data-uip-node=\"intro\">Explore our simple local website. Learn about this disposable demonstration on About, or read the Contact information. This site is for local review only.</p>\n  <div class=\"uip-layout-item\" data-uip-node=\"public_component_wrap\"></div>\n</section>\n"
+    }
+  ],
+  "shells": [
+    {
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell",
+        "kind": "shell",
+        "name": "admin",
+        "displayName": "Admin Shell"
+      },
+      "hash": "9a7295ff3eae24d52f2ef897a613c26182d8ee268c433d198e74a0ecba733fa2"
+    },
+    {
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+        "kind": "shell",
+        "name": "public",
+        "displayName": "Public Shell",
+        "public": {
+          "properties": {
+            "showFooter": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "events": {},
+          "slots": []
+        },
+        "conditions": [
+          {
+            "node": "public_footer",
+            "when": "public.showFooter"
+          }
+        ]
+      },
+      "hash": "5357d0e300c0dee9e7c0ad2412c0ea293d4bb620e9d8593d05b76718e8cae510"
+    }
+  ],
+  "settings": {
+    "model": "composition-v1",
+    "defaultShellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+    "theme": {
+      "--app-color-primary": "#2456a6",
+      "--app-color-secondary": "#526078",
+      "--app-color-background": "#f5f7fb",
+      "--app-color-surface": "#ffffff",
+      "--app-color-text": "#172033",
+      "--app-font-family": "system-ui, sans-serif",
+      "--app-font-base-size": "16px",
+      "--app-heading-scale": "1.25",
+      "--app-space-small": "0.5rem",
+      "--app-space-medium": "1rem",
+      "--app-space-large": "2rem"
+    },
+    "siteStyles": [
+      "styles/site.css"
+    ],
+    "defaultMenus": {
+      "main": "menu-main",
+      "admin": "menu-admin"
+    },
+    "branding": {
+      "applicationName": "Local Pilot",
+      "shortName": "Codex Test V1 Disposable Local Audience Pilot 20261102",
+      "primaryLogo": "assets/branding/logo.svg",
+      "favicon": "assets/branding/logo.svg"
+    },
+    "assetsRoot": "assets"
+  },
+  "menus": [
+    {
+      "schemaVersion": 1,
+      "menuId": "menu-admin",
+      "name": "Admin Navigation",
+      "items": [
+        {
+          "itemId": "admin-home",
+          "label": "Overview",
+          "destination": {
+            "kind": "route",
+            "routeId": "route_de8d1851-3e36-435f-b093-95ce94d940e7_public"
+          },
+          "children": [
+            {
+              "itemId": "admin-public",
+              "label": "Public site",
+              "destination": {
+                "kind": "page",
+                "pageId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+              }
+            }
+          ],
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "menuId": "menu-main",
+      "name": "Main Navigation",
+      "items": [
+        {
+          "itemId": "main-home",
+          "label": "Home",
+          "destination": {
+            "kind": "page",
+            "pageId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+          }
+        },
+        {
+          "itemId": "main-admin",
+          "label": "About",
+          "destination": {
+            "kind": "page",
+            "pageId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+          },
+          "target": "_self"
+        },
+        {
+          "itemId": "item-95e5c10b-612e-4216-9156-bf721c3370f1",
+          "label": "Contact",
+          "destination": {
+            "kind": "page",
+            "pageId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+          },
+          "target": "_self"
+        }
+      ]
+    }
+  ],
+  "presentationManifest": {
+    "type": "ui-platform.presentation",
+    "schemaVersion": "1.0.0",
+    "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+    "activeVersion": null,
+    "draft": {
+      "exists": true,
+      "modifiedAt": "2026-11-03T13:13:51.504Z",
+      "checksum": "329fb00248abbceb655347d4889d5c4c79da8a8a49268bd221e516120dae3622"
+    },
+    "versions": []
+  },
+  "incomingHtmlGuard": "passes",
+  "currentDiagnostics": [
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_region_main",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_region_main",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    }
+  ],
+  "afterAdministrationRemovalDiagnostics": [
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_region_main",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    }
+  ],
+  "qualification": "Read-only existing native graph functions, without package catalog. Not a fabricated authenticated evaluator or substitute for protected live deletion/Publish admission."
+}
