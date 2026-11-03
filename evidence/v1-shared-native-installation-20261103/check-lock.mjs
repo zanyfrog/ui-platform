@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const here=new URL('./',import.meta.url),read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,''));
+const before=read(new URL('backup/package.json',here)),current=read('package.json');
+const dependency='file:vendor/native/ui-base-ui-0.5.1.tgz';assert.equal(current.dependencies['@ui-base/ui'],dependency);
+const normalized=structuredClone(current);normalized.dependencies['@ui-base/ui']=before.dependencies['@ui-base/ui'];assert.deepEqual(normalized,before);
+const oldLock=read(new URL('backup/package-lock.json',here)),lock=read('package-lock.json');
+const changed=[...new Set([...Object.keys(oldLock.packages),...Object.keys(lock.packages)])].filter(key=>JSON.stringify(oldLock.packages[key])!==JSON.stringify(lock.packages[key]));
+assert.deepEqual(changed.sort(),['','../ui-base/packages/ui-base-ui','node_modules/@ui-base/ui'].sort());
+assert.equal(lock.packages['node_modules/@ui-base/ui'].version,'0.5.1');assert.equal(lock.packages['node_modules/@ui-base/ui'].resolved,dependency);assert.ok(!lock.packages['node_modules/@ui-base/ui'].link);
+assert.equal(lock.packages['node_modules/@ui-base/ui'].integrity,read(new URL('archive-verification.json',here)).integrity);
+fs.writeFileSync(new URL('lock-review.json',here),JSON.stringify({bounded:true,changedRecords:changed,dependency,uiRecord:lock.packages['node_modules/@ui-base/ui']},null,2));console.log('Exact bounded manifest and three lock record changes verified.');

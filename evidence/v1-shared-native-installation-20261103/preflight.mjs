@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+const here=path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/,'$1'));
+const baseline=JSON.parse(fs.readFileSync('evidence/v1-native-physical-assessment-20261102/installation-inventory.json','utf8'));
+const hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const source='C:/Projects/Modular/ui-base/packages/ui-base-ui';
+for(const file of baseline.packDryRun.files)assert.equal(hash(path.join(source,file.path)),file.sha256,`source changed: ${file.path}`);
+for(const record of baseline.dependencyRecords)assert.equal(hash(record.path),record.sha256,`dependency record changed: ${record.path}`);
+const installed='C:/Projects/Modular/ui-platform/node_modules/@ui-base/ui';
+assert.ok(fs.lstatSync(installed).isSymbolicLink());assert.equal(fs.realpathSync(installed).toLowerCase(),path.resolve(source).toLowerCase());
+const root=JSON.parse(fs.readFileSync(path.join(source,'package.json'),'utf8'));assert.equal(root.name,'@ui-base/ui');assert.equal(root.version,'0.5.1');
+fs.mkdirSync(path.join(here,'backup'),{recursive:true});
+for(const name of ['package.json','package-lock.json'])fs.copyFileSync(name,path.join(here,'backup',name));
+if(fs.existsSync('node_modules/.package-lock.json'))fs.copyFileSync('node_modules/.package-lock.json',path.join(here,'backup','installed-package-lock.json'));
+fs.writeFileSync(path.join(here,'preflight.json'),JSON.stringify({sourcePayloadMatches:true,dependencyRecordsMatch:true,link:installed,target:fs.readlinkSync(installed),canonicalTarget:fs.realpathSync(installed),version:root.version,payloadFiles:baseline.packDryRun.files.length,closure:baseline.closure.map(p=>({name:p.name,version:p.version})),dependencyRecords:baseline.dependencyRecords},null,2));
+console.log('54 payload hashes, four dependency records, package version and existing link match the reviewed baseline.');

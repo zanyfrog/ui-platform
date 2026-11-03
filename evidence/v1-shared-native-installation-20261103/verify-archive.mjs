@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {gunzipSync} from 'node:zlib';
+import{createHash}from'node:crypto';
+import assert from 'node:assert/strict';
+const baseline=JSON.parse(fs.readFileSync('evidence/v1-native-physical-assessment-20261102/installation-inventory.json','utf8'));
+const here=path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/,'$1'));
+const pack=JSON.parse(fs.readFileSync(path.join(here,'pack.json'),'utf8').replace(/^\uFEFF/,''))[0];
+const archive=path.resolve('vendor/native/ui-base-ui-0.5.1.tgz'),bytes=fs.readFileSync(archive);
+assert.equal(fs.realpathSync(archive).toLowerCase(),archive.toLowerCase());assert.ok(!fs.lstatSync(archive).isSymbolicLink());
+const hash=(bytes,kind='sha256',encoding='hex')=>createHash(kind).update(bytes).digest(encoding);
+const integrity=`sha512-${hash(bytes,'sha512','base64')}`;
+assert.equal(integrity,pack.integrity);assert.equal(integrity,baseline.packDryRun.integrity);
+assert.equal(hash(bytes,'sha1'),baseline.packDryRun.shasum);assert.equal(pack.name,'@ui-base/ui');assert.equal(pack.version,'0.5.1');
+const expected=new Map(baseline.packDryRun.files.map(f=>[f.path,f])),files=[],tar=gunzipSync(bytes);
+const string=buffer=>buffer.toString('utf8').replace(/\0.*$/s,'');
+for(let offset=0;offset+512<=tar.length;){const header=tar.subarray(offset,offset+512);if(header.every(b=>b===0))break;
+ const name=string(header.subarray(0,100)),prefix=string(header.subarray(345,500)),type=header[156],size=parseInt(string(header.subarray(124,136)).trim()||'0',8);
+ assert.ok(type===0||type===48,'Unexpected non-file archive entry; stop for review.');const full=prefix?`${prefix}/${name}`:name;assert.ok(full.startsWith('package/'));
+ const relative=full.slice(8),record=expected.get(relative);assert.ok(record&&!relative.split('/').includes('..'));
+ const payload=tar.subarray(offset+512,offset+512+size);assert.equal(size,record.bytes);assert.equal(hash(payload),record.sha256);
+ files.push(record);offset+=512+Math.ceil(size/512)*512;
+}
+assert.equal(files.length,54);assert.equal(new Set(files.map(f=>f.path)).size,54);
+for(const file of expected.values())assert.equal(hash(fs.readFileSync(path.join('C:/Projects/Modular/ui-base/packages/ui-base-ui',file.path))),file.sha256);
+const result={name:pack.name,version:pack.version,archive,sha256:hash(bytes),integrity,payloadMatches:true,sourceUnchanged:true,files};
+fs.writeFileSync(path.join(here,'archive-verification.json'),JSON.stringify(result,null,2));console.log(JSON.stringify({...result,files:files.length}));
