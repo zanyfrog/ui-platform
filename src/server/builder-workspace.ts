@@ -16,6 +16,7 @@ import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID, V1_FIXTURE_APPLICATION_KEY 
 import { withApplicationMutation } from './composition-lock.js';
 import { captureProblemSources, ProblemsValidation } from './application-problems.js';
 import { compositionChecksum } from './composition-snapshots.js';
+import { NativeUiBasePathError } from './native-ui-base.js';
 
 /** Read-only orchestration over owner services. No second discovery registry. */
 export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, security: ArtifactEditorSecurity) {
@@ -170,6 +171,11 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
       send(200, { ...item.summary, ...payload }); return true;
       });
     } catch (error) {
+      if (error instanceof NativeUiBasePathError) {
+        send(503, { code: 'WORKSPACE_NATIVE_INSTALLATION_INVALID',
+          error: 'Workspace discovery is blocked: the installed native UI Base package must use physical installed paths. Installation review is required; additional permissions will not resolve this failure.' });
+        return true;
+      }
       if (error instanceof Error && error.message === 'Artifact is locked by another writer.') {
         send(503, { code: 'WORKSPACE_SOURCE_BUSY', error: 'Source is busy. Authorization has not completed; retry the read.' }); return true;
       }

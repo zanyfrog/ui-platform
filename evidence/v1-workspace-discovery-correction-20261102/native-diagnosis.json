@@ -1,0 +1,17 @@
+{
+  "nativePackageRoot": "C:/Projects/Modular/ui-platform/node_modules/@ui-base/ui",
+  "symbolicLink": true,
+  "realPath": "C:\\Projects\\Modular\\ui-base\\packages\\ui-base-ui",
+  "discovery": "failed",
+  "name": "NativeUiBasePathError",
+  "message": "Native UI Base inputs must use physical installed paths.",
+  "stack": [
+    "NativeUiBasePathError: Native UI Base inputs must use physical installed paths.",
+    "    at physical (C:\\Projects\\Modular\\ui-platform\\src\\server\\native-ui-base.ts:21:130)",
+    "    at async nativeUiBaseEntry (C:\\Projects\\Modular\\ui-platform\\src\\server\\native-ui-base.ts:23:9)",
+    "    at async getAppPackageCatalog (C:\\Projects\\Modular\\ui-platform\\src\\server\\packages.ts:57:20)",
+    "    at async getActiveAppPackages (C:\\Projects\\Modular\\ui-platform\\src\\server\\packages.ts:100:19)",
+    "    at async discoverComponents (C:\\Projects\\Modular\\ui-platform\\src\\server\\component-registry.ts:98:28)",
+    "    at async file:///C:/Projects/Modular/ui-platform/evidence/v1-workspace-discovery-correction-20261102/diagnose.mjs:5:5"
+  ]
+}

@@ -4,6 +4,10 @@ import { isVersionCompatible } from '@uib/platform-core';
 import type { AppPackageDeclaration, AppPackageListEntry, ComponentManifestEntry } from '../shared/types.js';
 
 export const nativeUiBaseName = '@ui-base/ui';
+/** Typed refusal lets discovery distinguish an installation failure from I-AM denial. */
+export class NativeUiBasePathError extends Error {
+  constructor() { super('Native UI Base inputs must use physical installed paths.'); this.name = 'NativeUiBasePathError'; }
+}
 const admitted = [
   { tag: 'uib-card', id: 'cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1', module: './src/layout/uib-card.js' },
   { tag: 'uib-panel', id: '@ui-base/ui:uib-panel', module: './src/layout/uib-panel.js' },
@@ -14,7 +18,7 @@ const admitted = [
 export async function nativeUiBaseEntry(platform: string, declaration?: AppPackageDeclaration): Promise<AppPackageListEntry | undefined> {
   const root = path.join(platform, 'node_modules', nativeUiBaseName);
   const physical = async (file: string) => {
-    if ((await lstat(file)).isSymbolicLink() || (await realpath(file)).toLowerCase() !== path.resolve(file).toLowerCase()) throw new Error('Native UI Base inputs must use physical installed paths.');
+    if ((await lstat(file)).isSymbolicLink() || (await realpath(file)).toLowerCase() !== path.resolve(file).toLowerCase()) throw new NativeUiBasePathError();
   };
   try { await physical(root); } catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') return; throw error; }
   const packageFile = path.join(root, 'package.json'), manifestPath = path.join(root, 'ui.component.json');
