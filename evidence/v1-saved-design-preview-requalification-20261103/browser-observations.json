@@ -1,0 +1,33 @@
+{
+  "evidenceKind": "sanitized summary of supported normal Chrome observations",
+  "principalId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+  "deploymentId": "builder-demo",
+  "authorityId": "ui-platform-development",
+  "registeredApplications": true,
+  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+  "applicationKey": "codex-test-v1-local-pilot-20261102",
+  "policyRevision": 9,
+  "savedParagraph": "Codex Test: physical native UI Base installation verified on 3 November 2026.",
+  "editorReloadPreservedParagraph": true,
+  "successfulPreviewObservations": [
+    { "attempt": "first warmed open", "editingPage": "Welcome (/)", "previewPage": "Welcome (/)", "status": "Displaying saved changes", "paragraphRendered": true },
+    { "attempt": "one explicit repeat", "editingPage": "Welcome (/)", "previewPage": "Welcome (/)", "status": "Displaying saved changes", "paragraphRendered": true },
+    { "attempt": "reopen after normal browser refresh", "editingPage": "Welcome (/)", "previewPage": "Welcome (/)", "status": "Displaying saved changes", "paragraphRendered": true, "paragraphVisibilityCheck": true }
+  ],
+  "observedSavedBundleRevision": "74bf6a1678978a0e491e91c14182e4f8383d03c6afed2fb4d6044b8c41930757",
+  "logo": { "complete": true, "naturalWidth": 150, "naturalHeight": 150, "assetPath": "/api/apps/codex-test-v1-local-pilot-20261102/composition-asset" },
+  "presentation": "uninitialized; initialization not invoked",
+  "publicShell": "authorized; editing controls available; zero errors and nine warnings; unchanged",
+  "mainNavigation": "authorized; Home and Administration controls available; unchanged",
+  "persistentDemoDiscovery": "populated; no editor opened or content changed",
+  "fixtureDiscovery": "populated; no editor opened or content changed",
+  "browserRefresh": "returned to Applications home; same authenticated principal verified; manual navigation reopened saved Page and matching Preview",
+  "qualifications": [
+    "No automatic editor restoration after full browser refresh is claimed.",
+    "Asset check covers the existing logo only, not all assets or upload.",
+    "Earlier cold optimizer reload remains recorded; no new optimizer reload observed in this warmed run.",
+    "Applications breadcrumb activation did not visibly navigate during checks; ordinary browser refresh was used instead; no navigation repair attempted.",
+    "Revision disclosure button role locator did not match; text locator opened it; saved revision is taken from observed child frame URL, not parent iframe src attribute.",
+    "Parent iframe src attribute did not contain the child document query; that null extraction was not treated as missing correspondence."
+  ]
+}
