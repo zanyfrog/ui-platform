@@ -1,0 +1,316 @@
+Browser tab: 1964522886, Title: "UI Platform", URL: "http://localhost:5274/".
+0 AXWebArea UI Platform, URL: localhost:5274/
+	1 link Description: Skip to content, Value: localhost:5274/#app
+	2 container
+		3 text Development identity 
+		4 pop up button (collapsed, settable) Description: Development identity, Value: Application Admin (admin@example.local), Secondary Actions: Expand
+			5 menu
+				6 Sign out
+				7 Security Admin (security@example.local)
+				8 Page, Form and Workflow Editor (combined@example.local)
+				9 Page and Form Editor (page-form-editor@example.local)
+				10 Mixed Permissions (mixed@example.local)
+				11 Workflow Editor (workflow-editor@example.local)
+				12 (selected) Application Admin (admin@example.local)
+	13 button Verify development session
+	55 text {
+  "status": "authenticated",
+  "authenticated": true,
+  "principalId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+  "deploymentId": "builder-demo",
+  "authorityId": "ui-platform-development",
+  "registeredApplications": true,
+  "capabilities": {
+    "ui.platform.security.admin": false,
+    "ui.platform.application.create": true
+  }
+}
+	15 button Inspect disposable pilot administration
+	16 button Manage Triggers and Workflows
+	56 container
+		57 button Modular UI Platform home
+			58 text M
+			59 text MODULAR
+			60 text UI Platform
+		61 container Description: Platform navigation, ID: uib-menu-240-nav
+			62 button Applications
+			63 button Packages
+			64 button (disabled) Templates
+			65 button Settings
+		66 text U
+		67 text User
+		68 text user@example.com
+		69 button Applications
+		70 text /
+		71 text Codex Test V1 Disposable Local Audience Pilot 20261102
+		72 container
+			73 heading Codex Test V1 Disposable Local Audience Pilot 20261102, Value: 1
+				74 text Codex Test V1 Disposable Local Audience Pilot 20261102
+			75 text active
+			76 button (collapsed) Show details, Secondary Actions: Expand
+			77 button (collapsed) Description: Application actions, Help: ⋯, Secondary Actions: Expand
+				78 text ⋯
+		79 container
+			80 tab group
+				81 tab (selectable, settable, boolean) Overview, Value: 0, ID: uib-tabs-255-tab-0
+				82 tab (selected, settable, boolean) Pages, Value: 1, ID: uib-tabs-255-tab-1
+				83 tab (selectable, settable, boolean) Packages, Value: 0, ID: uib-tabs-255-tab-2
+				84 tab (selectable, settable, boolean) Presentation, Value: 0, ID: uib-tabs-255-tab-3
+				85 tab (selectable, settable, boolean) Preview, Value: 0, ID: uib-tabs-255-tab-4
+				86 tab (selectable, settable, boolean) Settings, Value: 0, ID: uib-tabs-255-tab-5
+			87 container Description: Pages, ID: uib-tabs-255-panel-1
+				88 container Application Builder workspace
+					89 container
+						90 button (expanded) Application navigation, Secondary Actions: Collapse
+						91 text Codex Test V1 Disposable Local Audience Pilot 20261102
+						92 button Refresh artifacts
+						93 button Create Dataset
+						94 button Create Form
+						95 button Validate Application
+						96 button Set up shared website
+						97 button Create Menu
+						98 button Upload Application asset
+						99 button Create Page
+						100 button Create Shell
+						101 button Create Platform Component
+					175 text Artifact authorized. Existing editor save behavior applies.
+					103 text Navigation opens artifacts or component definitions. To add a component instance, open a Page and use its insertion controls.
+					104 container Application artifacts
+						105 container
+							106 button (expanded) Pages, Secondary Actions: Collapse
+								107 text Pages
+							108 button about
+							109 button contact
+							110 button Home
+							111 button Home (source inspection) (repair-only locator) (read-only)
+						112 container
+							113 button (expanded) Shells, Secondary Actions: Collapse
+								114 text Shells
+							115 button Admin Shell
+							116 button Public Shell
+						117 container
+							118 button (expanded) Components and Forms, Secondary Actions: Collapse
+								119 text Components and Forms
+							120 button Composition Shared Help
+							121 button Customer List Item
+							122 button Customer Summary Card
+							123 button PersonForm
+							124 button wp5b shared 9b12bff2
+						125 container
+							126 button (expanded) Menus, Secondary Actions: Collapse
+								127 text Menus
+							128 button Admin Navigation
+							129 button Main Navigation
+						130 container
+							131 button (expanded) Application presentation/settings, Secondary Actions: Collapse
+								132 text Application presentation/settings
+							133 button Application presentation/settings
+							134 button styles/site.css (repair-only locator)
+					176 container
+						177 tab group Open artifacts
+							316 tab (selectable, settable, boolean) Suspended artifact, Value: 0
+							317 button Close suspended artifact
+							318 tab (selectable, settable, boolean) Suspended artifact, Value: 0
+							319 button Close suspended artifact
+							320 tab (selected, settable, boolean) Home, Value: 1
+							321 button Close Home
+							322 tab (selectable, settable, boolean) Suspended artifact, Value: 0
+							323 button Close suspended artifact
+							324 tab (selectable, settable, boolean) Suspended artifact, Value: 0
+							325 button Close suspended artifact
+						188 container page editor
+							189 text Visual Artifacts
+							190 text Saved
+							191 button (disabled) Undo
+							192 button (disabled) Redo
+							193 button (disabled) Save Now
+							194 button Advanced source repair save
+							195 button Reload / discard editor changes
+							196 button Download editor recovery
+							197 button Delete artifact
+							198 button Open/Refresh saved Preview
+							336 text Editing: Home (/). Preview: contact (/contact). Preview is displaying another Page. Displaying saved changes.
+							200 button Change Page Shell
+							201 button Add Region
+							202 button Remove selected node
+							203 text Saved Design Preview displays saved content. Save changes before opening it. Fixture demonstration is a separate testing facility; restricted Saved Preview readiness does not control Design Preview.
+							204 container Page main content
+								205 text Main Content: This Page uses Page-specific main content.
+								206 button Edit Page-specific main content
+								207 text Add a Heading, Paragraph or Link here. Select an element in Structure to edit it.
+								208 button Add Heading
+								209 button Add Paragraph
+								210 button Add Link
+							211 container Saved Design Preview
+								327 heading Saved Design Preview, Value: 3
+									328 text Saved Design Preview
+								337 text Editing: Home (/). Preview: contact (/contact). Preview is displaying another Page. Displaying saved changes.
+								330 container Nonpersisting Visual Artifact design preview
+									331 AXWebArea Visual Artifact Preview, URL: localhost:5274/visual-preview.html?app=codex-test-v1-local-pilot-20261102&locator=contact%2Fpage.visual.json&revision=0869dbfd44a937bca45f96b269132e3894634fe83c34b635e95ef616fc8b0035&kind=page&design=1&page=%2Fcontact&session=[omitted]
+										338 container Shell content — edit in the Shell editor
+											339 image Description: Application logo, Help: Shell content — edit in the Shell editor
+											340 text Local Pilot
+											341 container Description: Main navigation, Help: Shell content — edit in the Shell editor
+												342 content list
+													343 link Description: Home, Value: localhost:5274/
+													344 link Description: About, Value: localhost:5274/about
+													345 link Description: Contact, Value: localhost:5274/contact
+											346 container Welcome
+												347 container
+													348 heading Welcome, Value: 1
+														349 text Welcome
+													350 text Make this Application your own.
+											351 container
+												352 heading Contact, Value: 1
+													353 text Contact
+												354 text This is a disposable local demonstration. Contact details are intentionally omitted. No messages are collected or sent from this website.
+											355 text Local Pilot · Disposable demonstration · Local review only
+								356 button (collapsed) Preview revision diagnostics, Secondary Actions: Expand
+									357 text Preview revision diagnostics
+							217 container Editor Problems
+								218 button (collapsed) Problems — 0 errors, 0 warnings, Help: Counts are unique within each source context; saved and draft findings are counted separately., Secondary Actions: Expand
+									219 text Problems — 0 errors, 0 warnings
+							220 text Structure
+							221 list Visual node
+								222 container Shell context — locked; edit the Shell
+									223 (disabled) 🔒 div public_shell
+									224 (disabled) 🔒 header public_header
+									225 (disabled) 🔒 img public_logo
+									226 (disabled) 🔒 strong public_name
+									227 (disabled) 🔒 nav public_nav
+									228 (disabled) 🔒 uib-hero public_default_hero
+									229 (disabled) 🔒 footer public_footer
+								230 Help: public_main, Value: section — Welcome to the local pilot
+								231 Help: welcome, Value:   h1 — Welcome to the local pilot
+								232 Help: intro, Value:   p — Explore our simple local website. Learn about this disposabl
+								233 Help: public_component_wrap, Value:   div
+							234 container
+								235 text Insert into selected container, or artifact root
+								236 pop up button (collapsed, settable) Description: Insert element, Value: section, Secondary Actions: Expand
+									237 menu
+										238 container HTML
+											239 (selected) section
+											240 header
+											241 nav
+											242 footer
+											243 div
+											244 article
+											245 p
+											246 H1 — Page title
+											247 H2 — Section heading
+											248 H3 — Subsection heading
+											249 H4 — Heading level 4
+											250 H5 — Heading level 5
+											251 H6 — Heading level 6
+											252 a
+											253 button
+											254 img
+											255 ul
+											256 li
+											257 span
+											258 uip-slot
+										259 container Package Components
+											260 Hero
+											261 Action Group
+											262 Card
+											263 Heading
+											264 Heading Block
+											265 Instruction
+											266 Panel
+										267 container Platform Components
+											268 Composition Shared Help
+											269 Customer List Item
+											270 Customer Summary Card
+											271 PersonForm
+											272 wp5b shared 9b12bff2
+							273 text Choose an item here, then click Insert selected item. The navigation list inspects component definitions.
+							274 button Insert selected item
+							275 button Select artifact root
+							276 button Move layout item up
+							277 button Move layout item down
+							278 button Duplicate section
+							279 text Select a managed node to edit settings and bindings.
+							280 container
+								281 text Artifact display name
+								282 text field (settable) Description: Artifact display name, Value: Home
+							283 container
+								284 text Page route
+								285 text field (settable) Description: Page route, Value: /
+							286 container Local state
+								287 text Local state
+								288 container
+									289 text New local state
+									290 text field (settable) New local state
+								291 container
+									292 text New local state type
+									293 pop up button (collapsed, settable) Description: New local state type, Value: result, Secondary Actions: Expand
+										294 menu
+											295 (selected) result
+											296 string
+											297 number
+											298 boolean
+											299 object
+											300 array
+								301 button Declare local state
+							302 text Shell: Public Shell. Fixed content is edited in the Shell editor.
+							303 button Set Page Menu Item visibility / availability
+							304 button Add Page-local Menu Item
+							305 container
+								306 text Source file
+								307 pop up button (collapsed, settable) Description: Visual source file, Value: source, Secondary Actions: Expand
+									308 menu
+										309 (selected) source
+										310 css
+										311 metadata
+										312 fixtures
+										313 code
+							314 text entry area (settable) Description: Visual source, Value: <section class="uip-layout-item" data-uip-node="public_main" data-uip-region="region-main">
+  <h1 data-uip-node="welcome">Welcome to the local pilot</h1>
+  <p data-uip-node="intro">Explore our simple local website. Learn about this disposable demonstration on About, or read the Contact information. This site is for local review only.</p>
+  <div class="uip-layout-item" data-uip-node="public_component_wrap"></div>
+</section>
+
+							315 text Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.
+					146 container Application Problems
+						147 heading Application Problems, Value: 3
+							148 text Application Problems
+						149 text Validate authoritative saved sources. Local unsaved validation remains in each editor.
+					150 container Fixture Preview
+						151 heading Preview · Fixture demonstration, Value: 3
+							152 text Preview · Fixture demonstration
+						153 text Fixture mode · SAMPLE DATA · Saved-artifact Preview unavailable
+[Selection omitted]
+						333 text No successful capture
+						334 text empty
+						157 container
+							158 text Sample type
+							159 pop up button (collapsed, settable) Sample type, Value: Native Card, Secondary Actions: Expand
+								160 menu
+									161 (disabled) Native Card
+									162 (disabled) Native Panel layout fixture
+									163 (disabled) Synthetic route-parameter inspector
+						164 container
+							165 text Synthetic sample (JSON)
+							166 text entry area (settable) Synthetic sample (JSON), Value: {
+  "fixture": "native-card-v1",
+  "heading": "Synthetic Card",
+  "header": "",
+  "body": "Authored synthetic slot text",
+  "footer": "Synthetic footer",
+  "variant": "outlined",
+  "density": "comfortable",
+  "selectable": true,
+  "disabled": false,
+  "selected": false
+}
+						167 button Refresh fixture
+						168 button Preview saved artifact
+						169 button (collapsed) Unsupported fixture contracts, Secondary Actions: Expand
+							170 text Unsupported fixture contracts
+					171 container Saved Preview readiness
+						172 heading Restricted Saved Preview readiness · unavailable, Value: 3
+							173 text Restricted Saved Preview readiness · unavailable
+						174 button Check restricted Saved Preview readiness
+[Selection omitted]
+
+The focused UI element is 352 heading Contact, Value: 1

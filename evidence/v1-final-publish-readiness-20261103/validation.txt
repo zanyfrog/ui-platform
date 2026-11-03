@@ -1,0 +1,448 @@
+Browser tab: 1964522886, Title: "UI Platform", URL: "http://localhost:5274/".
+0 AXWebArea UI Platform, URL: localhost:5274/
+	1 link Description: Skip to content, Value: localhost:5274/#app
+	2 container
+		3 text Development identity 
+		4 pop up button (collapsed, settable) Description: Development identity, Value: Application Admin (admin@example.local), Secondary Actions: Expand
+			5 menu
+				6 Sign out
+				7 Security Admin (security@example.local)
+				8 Page, Form and Workflow Editor (combined@example.local)
+				9 Page and Form Editor (page-form-editor@example.local)
+				10 Mixed Permissions (mixed@example.local)
+				11 Workflow Editor (workflow-editor@example.local)
+				12 (selected) Application Admin (admin@example.local)
+	13 button Verify development session
+	55 text {
+  "status": "authenticated",
+  "authenticated": true,
+  "principalId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+  "deploymentId": "builder-demo",
+  "authorityId": "ui-platform-development",
+  "registeredApplications": true,
+  "capabilities": {
+    "ui.platform.security.admin": false,
+    "ui.platform.application.create": true
+  }
+}
+	15 button Inspect disposable pilot administration
+	16 button Manage Triggers and Workflows
+	56 container
+		57 button Modular UI Platform home
+			58 text M
+			59 text MODULAR
+			60 text UI Platform
+		61 container Description: Platform navigation, ID: uib-menu-240-nav
+			62 button Applications
+			63 button Packages
+			64 button (disabled) Templates
+			65 button Settings
+		66 text U
+		67 text User
+		68 text user@example.com
+		69 button Applications
+		70 text /
+		71 text Codex Test V1 Disposable Local Audience Pilot 20261102
+		72 container
+			73 heading Codex Test V1 Disposable Local Audience Pilot 20261102, Value: 1
+				74 text Codex Test V1 Disposable Local Audience Pilot 20261102
+			75 text active
+			76 button (collapsed) Show details, Secondary Actions: Expand
+			77 button (collapsed) Description: Application actions, Help: ⋯, Secondary Actions: Expand
+				78 text ⋯
+		79 container
+			80 tab group
+				81 tab (selectable, settable, boolean) Overview, Value: 0, ID: uib-tabs-255-tab-0
+				82 tab (selected, settable, boolean) Pages, Value: 1, ID: uib-tabs-255-tab-1
+				83 tab (selectable, settable, boolean) Packages, Value: 0, ID: uib-tabs-255-tab-2
+				84 tab (selectable, settable, boolean) Presentation, Value: 0, ID: uib-tabs-255-tab-3
+				85 tab (selectable, settable, boolean) Preview, Value: 0, ID: uib-tabs-255-tab-4
+				86 tab (selectable, settable, boolean) Settings, Value: 0, ID: uib-tabs-255-tab-5
+			87 container Description: Pages, ID: uib-tabs-255-panel-1
+				88 container Application Builder workspace
+					89 container
+						90 button (expanded) Application navigation, Secondary Actions: Collapse
+						91 text Codex Test V1 Disposable Local Audience Pilot 20261102
+						92 button Refresh artifacts
+						93 button Create Dataset
+						94 button Create Form
+						95 button Validate Application
+						96 button Set up shared website
+						97 button Create Menu
+						98 button Upload Application asset
+						99 button Create Page
+						100 button Create Shell
+						101 button Create Platform Component
+					175 text Artifact authorized. Existing editor save behavior applies.
+					103 text Navigation opens artifacts or component definitions. To add a component instance, open a Page and use its insertion controls.
+					104 container Application artifacts
+						105 container
+							106 button (expanded) Pages, Secondary Actions: Collapse
+								107 text Pages
+							108 button about
+							109 button contact
+							110 button Home
+							111 button Home (source inspection) (repair-only locator) (read-only)
+						112 container
+							113 button (expanded) Shells, Secondary Actions: Collapse
+								114 text Shells
+							115 button Admin Shell
+							116 button Public Shell
+						117 container
+							118 button (expanded) Components and Forms, Secondary Actions: Collapse
+								119 text Components and Forms
+							120 button Composition Shared Help
+							121 button Customer List Item
+							122 button Customer Summary Card
+							123 button PersonForm
+							124 button wp5b shared 9b12bff2
+						125 container
+							126 button (expanded) Menus, Secondary Actions: Collapse
+								127 text Menus
+							128 button Admin Navigation
+							129 button Main Navigation
+						130 container
+							131 button (expanded) Application presentation/settings, Secondary Actions: Collapse
+								132 text Application presentation/settings
+							133 button Application presentation/settings
+							134 button styles/site.css (repair-only locator)
+					176 container
+						177 tab group Open artifacts
+							178 tab (selectable, settable, boolean) Suspended artifact, Value: 0
+							179 button Close suspended artifact
+							180 tab (selectable, settable, boolean) Suspended artifact, Value: 0
+							181 button Close suspended artifact
+							182 tab (selectable, settable, boolean) Home, Value: 0
+							183 button Close Home
+							184 tab (selectable, settable, boolean) about, Value: 0
+							185 button Close about
+							186 tab (selected, settable, boolean) contact, Value: 1
+							187 button Close contact
+						188 container page editor
+							189 text Visual Artifacts
+							190 text Saved
+							191 button (disabled) Undo
+							192 button (disabled) Redo
+							193 button (disabled) Save Now
+							194 button Advanced source repair save
+							195 button Reload / discard editor changes
+							196 button Download editor recovery
+							197 button Delete artifact
+							198 button Open/Refresh saved Preview
+							199 text Editing: contact (/contact). Preview Page not yet confirmed. Saved Preview unavailable. Save, then open saved Preview.
+							200 button Change Page Shell
+							201 button Add Region
+							202 button Remove selected node
+							203 text Saved Design Preview displays saved content. Save changes before opening it. Fixture demonstration is a separate testing facility; restricted Saved Preview readiness does not control Design Preview.
+							204 container Page main content
+								205 text Main Content: This Page uses Page-specific main content.
+								206 button Edit Page-specific main content
+								207 text Add a Heading, Paragraph or Link here. Select an element in Structure to edit it.
+								208 button Add Heading
+								209 button Add Paragraph
+								210 button Add Link
+							211 container Editor Problems
+								212 button (collapsed) Problems — 0 errors, 0 warnings, Help: Counts are unique within each source context; saved and draft findings are counted separately., Secondary Actions: Expand
+									213 text Problems — 0 errors, 0 warnings
+							214 text Structure
+							215 list Visual node
+								216 container Shell context — locked; edit the Shell
+									217 (disabled) 🔒 div public_shell
+									218 (disabled) 🔒 header public_header
+									219 (disabled) 🔒 img public_logo
+									220 (disabled) 🔒 strong public_name
+									221 (disabled) 🔒 nav public_nav
+									222 (disabled) 🔒 uib-hero public_default_hero
+									223 (disabled) 🔒 footer public_footer
+								224 Help: node_a9f1d76a-f468-483f-8954-420643860f62, Value: section — Main Content
+								225 Help: node_0391e01f-19c1-48fa-9d90-168abb6dfd64, Value:   div — Contact
+								226 Help: node_e5066621-53b0-4031-87c8-2cad49c75346, Value:     h1 — Contact
+								227 Help: node_b9cb3897-cfbf-43e4-8637-8dec4697b8e9, Value:   div — This is a disposable local demonstration. Contact details ar
+								228 Help: node_bc20a035-9e8a-49e3-8e7d-54dbacf973ec, Value:     p — This is a disposable local demonstration. Contact details ar
+							229 container
+								230 text Insert into selected container, or artifact root
+								231 pop up button (collapsed, settable) Description: Insert element, Value: section, Secondary Actions: Expand
+									232 menu
+										233 container HTML
+											234 (selected) section
+											235 header
+											236 nav
+											237 footer
+											238 div
+											239 article
+											240 p
+											241 H1 — Page title
+											242 H2 — Section heading
+											243 H3 — Subsection heading
+											244 H4 — Heading level 4
+											245 H5 — Heading level 5
+											246 H6 — Heading level 6
+											247 a
+											248 button
+											249 img
+											250 ul
+											251 li
+											252 span
+											253 uip-slot
+										254 container Package Components
+											255 Hero
+											256 Action Group
+											257 Card
+											258 Heading
+											259 Heading Block
+											260 Instruction
+											261 Panel
+										262 container Platform Components
+											263 Composition Shared Help
+											264 Customer List Item
+											265 Customer Summary Card
+											266 PersonForm
+											267 wp5b shared 9b12bff2
+							268 text Choose an item here, then click Insert selected item. The navigation list inspects component definitions.
+							269 button Insert selected item
+							270 button Select artifact root
+							271 button Move layout item up
+							272 button Move layout item down
+							273 button Duplicate section
+							274 text Select a managed node to edit settings and bindings.
+							275 container
+								276 text Artifact display name
+								277 text field (settable) Description: Artifact display name, Value: contact
+							278 container
+								279 text Page route
+								280 text field (settable) Description: Page route, Value: /contact
+							281 container Local state
+								282 text Local state
+								283 container
+									284 text New local state
+									285 text field (settable) New local state
+								286 container
+									287 text New local state type
+									288 pop up button (collapsed, settable) Description: New local state type, Value: result, Secondary Actions: Expand
+										289 menu
+											290 (selected) result
+											291 string
+											292 number
+											293 boolean
+											294 object
+											295 array
+								296 button Declare local state
+							297 text Shell: Public Shell. Fixed content is edited in the Shell editor.
+							298 button Set Page Menu Item visibility / availability
+							299 button Add Page-local Menu Item
+							300 container
+								301 text Source file
+								302 pop up button (collapsed, settable) Description: Visual source file, Value: source, Secondary Actions: Expand
+									303 menu
+										304 (selected) source
+										305 css
+										306 metadata
+										307 fixtures
+										308 code
+							309 text entry area (settable) Description: Visual source, Value: <!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->
+
+<section class="uip-layout-item" data-uip-node="node_a9f1d76a-f468-483f-8954-420643860f62" data-uip-region="region-main" data-uip-region-name="Main Content">
+<div class="uip-layout-item" data-uip-node="node_0391e01f-19c1-48fa-9d90-168abb6dfd64">
+  <h1 data-uip-node="node_e5066621-53b0-4031-87c8-2cad49c75346">Contact</h1>
+</div>
+
+<div class="uip-layout-item" data-uip-node="node_b9cb3897-cfbf-43e4-8637-8dec4697b8e9">
+  <p data-uip-node="node_bc20a035-9e8a-49e3-8e7d-54dbacf973ec">This is a disposable local demonstration. Contact details are intentionally omitted. No messages are collected or sent from this website.</p>
+</div>
+</section>
+
+							310 text Use the authoring controls for public settings, bindings, slots and events. Advanced source is preserved. Design preview does not persist data or run custom functions.
+					146 container Application Problems
+						147 heading Application Problems, Value: 3
+							148 text Application Problems
+						316 text Incomplete saved-source validation · full refresh · 15 source validators run. Local unsaved drafts are separate. This is not Publish approval.
+						317 content list
+							318 container
+								319 AXListMarker 1. 
+								320 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 9a7295ff3eae]
+							321 container
+								322 AXListMarker 2. 
+								323 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 9a7295ff3eae]
+							324 container
+								325 AXListMarker 3. 
+								326 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 9a7295ff3eae]
+							327 container
+								328 AXListMarker 4. 
+								329 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 9a7295ff3eae]
+							330 container
+								331 AXListMarker 5. 
+								332 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 9a7295ff3eae]
+							333 container
+								334 AXListMarker 6. 
+								335 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 5357d0e300c0]
+							336 container
+								337 AXListMarker 7. 
+								338 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 5357d0e300c0]
+							339 container
+								340 AXListMarker 8. 
+								341 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 5357d0e300c0]
+							342 container
+								343 AXListMarker 9. 
+								344 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 5357d0e300c0]
+							345 container
+								346 AXListMarker 10. 
+								347 button WARNING · visual.validation · Manual package element uib-hero has no permanent Component reference. [visual @ 5357d0e300c0]
+							348 container
+								349 AXListMarker 11. 
+								350 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [visual @ 5e156a0a9a35]
+							351 container
+								352 AXListMarker 12. 
+								353 button WARNING · visual.validation · Component children should use declared named slots. [visual @ 5e156a0a9a35]
+							354 container
+								355 AXListMarker 13. 
+								356 button ERROR · application.reference-unresolved · A required reference cannot be resolved to an authorized source or approved service contract. [visual @ 5e156a0a9a35]
+							357 container
+								358 AXListMarker 14. 
+								359 button ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [visual @ 5e156a0a9a35]
+							360 container
+								361 AXListMarker 15. 
+								362 button WARNING · visual.validation · Manual package element uib-forms-form has no permanent Component reference. [visual @ 227e5035272d]
+							363 container
+								364 AXListMarker 16. 
+								365 button WARNING · visual.validation · Manual package element uib-forms-textbox has no permanent Component reference. [visual @ 227e5035272d]
+							366 container
+								367 AXListMarker 17. 
+								368 button WARNING · visual.validation · Manual package element uib-forms-textbox has no permanent Component reference. [visual @ 227e5035272d]
+							369 container
+								370 AXListMarker 18. 
+								371 button WARNING · visual.validation · Manual package element uib-forms-email has no permanent Component reference. [visual @ 227e5035272d]
+							372 container
+								373 AXListMarker 19. 
+								374 button WARNING · visual.validation · Manual package element uib-forms-textbox has no permanent Component reference. [visual @ 227e5035272d]
+							375 container
+								376 AXListMarker 20. 
+								377 button WARNING · visual.validation · Manual package element uib-forms-textbox has no permanent Component reference. [visual @ 227e5035272d]
+							378 container
+								379 AXListMarker 21. 
+								380 button ERROR · application.reference-unresolved · A required reference cannot be resolved to an authorized source or approved service contract. [visual @ 227e5035272d]
+							381 container
+								382 AXListMarker 22. 
+								383 button ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [visual @ 227e5035272d]
+							384 container
+								385 AXListMarker 23. 
+								386 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 9a7295ff3eae]
+							387 container
+								388 AXListMarker 24. 
+								389 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 9a7295ff3eae]
+							390 container
+								391 AXListMarker 25. 
+								392 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 9a7295ff3eae]
+							393 container
+								394 AXListMarker 26. 
+								395 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 9a7295ff3eae]
+							396 container
+								397 AXListMarker 27. 
+								398 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 9a7295ff3eae]
+							399 container
+								400 AXListMarker 28. 
+								401 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 5357d0e300c0]
+							402 container
+								403 AXListMarker 29. 
+								404 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 5357d0e300c0]
+							405 container
+								406 AXListMarker 30. 
+								407 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 5357d0e300c0]
+							408 container
+								409 AXListMarker 31. 
+								410 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 5357d0e300c0]
+							411 container
+								412 AXListMarker 32. 
+								413 button WARNING · visual.validation · Manual package element uib-hero has no permanent Component reference. [composition @ 5357d0e300c0]
+							414 container
+								415 AXListMarker 33. 
+								416 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 9d83a196f39d]
+							417 container
+								418 AXListMarker 34. 
+								419 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 9d83a196f39d]
+							420 container
+								421 AXListMarker 35. 
+								422 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 9d83a196f39d]
+							423 container
+								424 AXListMarker 36. 
+								425 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 9d83a196f39d]
+							426 container
+								427 AXListMarker 37. 
+								428 button WARNING · visual.validation · Manual package element uib-hero has no permanent Component reference. [composition @ 9d83a196f39d]
+							429 container
+								430 AXListMarker 38. 
+								431 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 0869dbfd44a9]
+							432 container
+								433 AXListMarker 39. 
+								434 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 0869dbfd44a9]
+							435 container
+								436 AXListMarker 40. 
+								437 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 0869dbfd44a9]
+							438 container
+								439 AXListMarker 41. 
+								440 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ 0869dbfd44a9]
+							441 container
+								442 AXListMarker 42. 
+								443 button WARNING · visual.validation · Manual package element uib-hero has no permanent Component reference. [composition @ 0869dbfd44a9]
+							444 container
+								445 AXListMarker 43. 
+								446 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ b93acbca960e]
+							447 container
+								448 AXListMarker 44. 
+								449 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ b93acbca960e]
+							450 container
+								451 AXListMarker 45. 
+								452 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ b93acbca960e]
+							453 container
+								454 AXListMarker 46. 
+								455 button WARNING · visual.validation · Layout is manual because this node has no Builder wrapper. [composition @ b93acbca960e]
+							456 container
+								457 AXListMarker 47. 
+								458 button WARNING · visual.validation · Manual package element uib-hero has no permanent Component reference. [composition @ b93acbca960e]
+							459 container
+								460 AXListMarker 48. 
+								461 button INFO · legacy.validation-unavailable · Legacy TypeScript Page source is read-only inspection. Full authoring validation is unavailable; use a supported Visual Page. [legacy @ 7d0b3abcd65b]
+							462 container
+								463 AXListMarker 49. 
+								464 button ERROR · application.source-incomplete · This source has unresolved references or unavailable validation. Resolve them before publishing its consumers. [legacy @ 7d0b3abcd65b]
+							465 container
+								466 AXListMarker 50. 
+								467 text WARNING · application.validation-incomplete · Some validation scopes are unavailable to this session. Only authorized sources are shown. [application]
+					150 container Fixture Preview
+						151 heading Preview · Fixture demonstration, Value: 3
+							152 text Preview · Fixture demonstration
+						153 text Fixture mode · SAMPLE DATA · Saved-artifact Preview unavailable
+[Selection omitted]
+						312 text No successful capture
+						313 text empty
+						157 container
+							158 text Sample type
+							159 pop up button (collapsed, settable) Sample type, Value: Native Card, Secondary Actions: Expand
+								160 menu
+									161 (disabled) Native Card
+									162 (disabled) Native Panel layout fixture
+									163 (disabled) Synthetic route-parameter inspector
+						164 container
+							165 text Synthetic sample (JSON)
+							166 text entry area (settable) Synthetic sample (JSON), Value: {
+  "fixture": "native-card-v1",
+  "heading": "Synthetic Card",
+  "header": "",
+  "body": "Authored synthetic slot text",
+  "footer": "Synthetic footer",
+  "variant": "outlined",
+  "density": "comfortable",
+  "selectable": true,
+  "disabled": false,
+  "selected": false
+}
+						167 button Refresh fixture
+						168 button Preview saved artifact
+						169 button (collapsed) Unsupported fixture contracts, Secondary Actions: Expand
+							170 text Unsupported fixture contracts
+					171 container Saved Preview readiness
+						172 heading Restricted Saved Preview readiness · unavailable, Value: 3
+							173 text Restricted Saved Preview readiness · unavailable
+						174 button Check restricted Saved Preview readiness
+[Selection omitted]
+
+The focused UI element is 95 button Validate Application

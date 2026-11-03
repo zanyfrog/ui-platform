@@ -1,0 +1,162 @@
+Browser tab: 1964522886, Title: "UI Platform", URL: "http://localhost:5274/".
+0 AXWebArea UI Platform, URL: localhost:5274/
+	1 link Description: Skip to content, Value: localhost:5274/#app
+	2 container
+		3 text Development identity 
+		4 pop up button (collapsed, settable) Description: Development identity, Value: Application Admin (admin@example.local), Secondary Actions: Expand
+			5 menu
+				6 Sign out
+				7 Security Admin (security@example.local)
+				8 Page, Form and Workflow Editor (combined@example.local)
+				9 Page and Form Editor (page-form-editor@example.local)
+				10 Mixed Permissions (mixed@example.local)
+				11 Workflow Editor (workflow-editor@example.local)
+				12 (selected) Application Admin (admin@example.local)
+	13 button Verify development session
+	14 text {
+  "status": "authenticated",
+  "authenticated": true,
+  "principalId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+  "deploymentId": "builder-demo",
+  "authorityId": "ui-platform-development",
+  "registeredApplications": true,
+  "capabilities": {
+    "ui.platform.security.admin": false,
+    "ui.platform.application.create": true
+  }
+}
+	15 button Inspect disposable pilot administration
+	16 button Manage Triggers and Workflows
+	17 container
+		18 button Modular UI Platform home
+			19 text M
+			20 text MODULAR
+			21 text UI Platform
+		22 container Description: Platform navigation, ID: uib-menu-240-nav
+			23 button Applications
+			24 button Packages
+			25 button (disabled) Templates
+			26 button Settings
+		27 text U
+		28 text User
+		29 text user@example.com
+		30 button Applications
+		31 text /
+		32 text Codex Test V1 Disposable Local Audience Pilot 20261102
+		33 container
+			34 heading Codex Test V1 Disposable Local Audience Pilot 20261102, Value: 1
+				35 text Codex Test V1 Disposable Local Audience Pilot 20261102
+			36 text active
+			37 button (collapsed) Show details, Secondary Actions: Expand
+			38 button (collapsed) Description: Application actions, Help: ⋯, Secondary Actions: Expand
+				39 text ⋯
+		40 container
+			41 tab group
+				42 tab (selectable, settable, boolean) Overview, Value: 0, ID: uib-tabs-255-tab-0
+				43 tab (selectable, settable, boolean) Pages, Value: 0, ID: uib-tabs-255-tab-1
+				44 tab (selectable, settable, boolean) Packages, Value: 0, ID: uib-tabs-255-tab-2
+				45 tab (selected, settable, boolean) Presentation, Value: 1, ID: uib-tabs-255-tab-3
+				46 tab (selectable, settable, boolean) Preview, Value: 0, ID: uib-tabs-255-tab-4
+				47 tab (selectable, settable, boolean) Settings, Value: 0, ID: uib-tabs-255-tab-5
+			48 container Description: Presentation, ID: uib-tabs-255-panel-3
+				49 container
+					50 heading Presentation, Value: 2
+						51 text Presentation
+					52 text Shells, Menus, branding and styles belong to this Application. Saved source updates development preview.
+					53 text v1 active
+					54 button Publish Changes
+					55 text Published presentation matches saved source. Application Composition Saved Application source
+					56 pop up button (collapsed, settable) Application source, Value: Branding, theme and default Shell, Secondary Actions: Expand
+						57 menu
+							58 (selected) Branding, theme and default Shell
+							59 Admin Navigation
+							60 Main Navigation
+							61 styles/site.css
+					148 container
+						149 text Default Shell for new Pages
+						150 pop up button (collapsed, settable) Default Shell for new Pages, Value: Public Shell, Secondary Actions: Expand
+							151 menu
+								152 Admin Shell
+								153 (selected) Public Shell
+					154 container
+						155 text applicationName
+						156 text field (settable) Description: applicationName, Value: Local Pilot
+					157 container
+						158 text shortName
+						159 text field (settable) Description: shortName, Value: Codex Test V1 Disposable Local Audience Pilot 20261102
+					160 container
+						161 text primaryLogo
+						162 text field (settable) Description: primaryLogo, Value: assets/branding/logo.svg
+						163 pop up button (collapsed, settable) Description: Select primaryLogo asset, Value: assets/branding/logo.svg, Secondary Actions: Expand
+							164 menu
+								165 No asset
+								166 (selected) assets/branding/logo.svg
+					167 container
+						168 text secondaryLogo
+						169 text field (settable) secondaryLogo
+						170 pop up button (collapsed, settable) Description: Select secondaryLogo asset, Value: No asset, Secondary Actions: Expand
+							171 menu
+								172 (selected) No asset
+								173 assets/branding/logo.svg
+					174 container
+						175 text favicon
+						176 text field (settable) Description: favicon, Value: assets/branding/logo.svg
+						177 pop up button (collapsed, settable) Description: Select favicon asset, Value: assets/branding/logo.svg, Secondary Actions: Expand
+							178 menu
+								179 No asset
+								180 (selected) assets/branding/logo.svg
+					181 button Refresh asset and theme choices
+					182 container
+						183 text Theme stylesheets
+						184 list Theme stylesheets
+							185 (selected) styles/site.css
+					186 container
+						187 text --app-color-primary
+						188 text field (settable) Description: --app-color-primary, Value: #2456a6
+					189 container
+						190 text --app-color-secondary
+						191 text field (settable) Description: --app-color-secondary, Value: #526078
+					192 container
+						193 text --app-color-background
+						194 text field (settable) Description: --app-color-background, Value: #f5f7fb
+					195 container
+						196 text --app-color-surface
+						197 text field (settable) Description: --app-color-surface, Value: #ffffff
+					198 container
+						199 text --app-color-text
+						200 text field (settable) Description: --app-color-text, Value: #172033
+					201 container
+						202 text --app-font-family
+						203 text field (settable) Description: --app-font-family, Value: system-ui, sans-serif
+					204 container
+						205 text --app-font-base-size
+						206 text field (settable) Description: --app-font-base-size, Value: 16px
+					207 container
+						208 text --app-heading-scale
+						209 text field (settable) Description: --app-heading-scale, Value: 1.25
+					210 container
+						211 text --app-space-small
+						212 text field (settable) Description: --app-space-small, Value: 0.5rem
+					213 container
+						214 text --app-space-medium
+						215 text field (settable) Description: --app-space-medium, Value: 1rem
+					216 container
+						217 text --app-space-large
+						218 text field (settable) Description: --app-space-large, Value: 2rem
+					133 button (collapsed) Advanced native source, Secondary Actions: Expand
+						134 text Advanced native source
+					135 button (disabled) Undo
+					136 button (disabled) Redo
+					137 button Save Now
+					138 button Reload source
+					139 button Download recovery
+					140 button Create Menu
+					141 button Update from Application Template
+					142 text Application asset
+					143 button Application asset
+					144 text Asset source path
+					145 text field (settable) Asset source path, Value: assets/images/image.png
+					146 button Upload Application asset
+					147 text Saved source appears in development preview. Use the existing Presentation Publish action to update published presentation.
+
+The focused UI element is 0 AXWebArea UI Platform, URL: localhost:5274/
