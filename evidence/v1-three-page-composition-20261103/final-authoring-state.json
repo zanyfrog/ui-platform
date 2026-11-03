@@ -1,0 +1,164 @@
+{
+  "pages": [
+    {
+      "directory": "public",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page",
+        "kind": "page",
+        "name": "public",
+        "displayName": "Home",
+        "route": "/",
+        "routeId": "route_de8d1851-3e36-435f-b093-95ce94d940e7_public",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+      },
+      "html": "<section class=\"uip-layout-item\" data-uip-node=\"public_main\" data-uip-region=\"region-main\">\n  <h1 data-uip-node=\"welcome\">Welcome to the local pilot</h1>\n  <p data-uip-node=\"intro\">Explore our simple local website. Learn about this disposable demonstration on About, or read the Contact information. This site is for local review only.</p>\n  <div class=\"uip-layout-item\" data-uip-node=\"public_component_wrap\"></div>\n</section>\n"
+    },
+    {
+      "directory": "about",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93",
+        "kind": "page",
+        "name": "about",
+        "displayName": "about",
+        "route": "/about",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+        "routeId": "route_801558d2-8d78-44ec-9722-28642a26215e"
+      },
+      "html": "<!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->\n\n<section class=\"uip-layout-item\" data-uip-node=\"node_965a0771-d02f-4419-b75e-608c338d0ae4\" data-uip-region=\"region-main\" data-uip-region-name=\"Main Content\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_fc3bf241-80e0-42f4-b616-022ca05221a7\">\n  <h1 data-uip-node=\"node_2d49a9bb-da60-4832-bc42-458c85bdeafc\">About our local pilot</h1>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_5daf5b91-9b79-4834-ba5f-0354ce3f576c\">\n  <p data-uip-node=\"node_8dd84189-c44a-48c8-96a7-0d17f78fbf18\">This disposable local website demonstrates three informational Pages with shared branding and navigation. It contains no private data or live services.</p>\n</div>\n</section>\n"
+    },
+    {
+      "directory": "contact",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915",
+        "kind": "page",
+        "name": "contact",
+        "displayName": "contact",
+        "route": "/contact",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+        "routeId": "route_d627c61f-6eb4-409c-a196-a5147641e76e"
+      },
+      "html": "<!-- No Page Region overrides; add a Region to replace or explicitly empty its Shell default. -->\n\n<section class=\"uip-layout-item\" data-uip-node=\"node_a9f1d76a-f468-483f-8954-420643860f62\" data-uip-region=\"region-main\" data-uip-region-name=\"Main Content\">\n<div class=\"uip-layout-item\" data-uip-node=\"node_0391e01f-19c1-48fa-9d90-168abb6dfd64\">\n  <h1 data-uip-node=\"node_e5066621-53b0-4031-87c8-2cad49c75346\">Contact</h1>\n</div>\n\n<div class=\"uip-layout-item\" data-uip-node=\"node_b9cb3897-cfbf-43e4-8637-8dec4697b8e9\">\n  <p data-uip-node=\"node_bc20a035-9e8a-49e3-8e7d-54dbacf973ec\">This is a disposable local demonstration. Contact details are intentionally omitted. No messages are collected or sent from this website.</p>\n</div>\n</section>\n"
+    },
+    {
+      "directory": "admin",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page",
+        "kind": "page",
+        "name": "admin",
+        "displayName": "Administration",
+        "route": "/admin",
+        "routeId": "route_de8d1851-3e36-435f-b093-95ce94d940e7_admin",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell",
+        "menuOverrides": {
+          "menu-admin": {
+            "items": {
+              "admin-home": {
+                "disabled": false
+              }
+            },
+            "additions": [
+              {
+                "item": {
+                  "itemId": "local-docs",
+                  "label": "Documentation",
+                  "destination": {
+                    "kind": "url",
+                    "url": "https://example.com"
+                  },
+                  "target": "_blank"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "html": "<section class=\"uip-layout-item\" data-uip-node=\"admin_hero_empty\" data-uip-region=\"region-hero\"></section>\n<section class=\"uip-layout-item\" data-uip-node=\"admin_main\" data-uip-region=\"region-main\">\n  <h1 data-uip-node=\"admin_title\">Administration</h1>\n  <p data-uip-node=\"admin_intro\">Separate Pages and Shells reuse the same component. Shell appearance does not grant access permissions.</p>\n  <div class=\"uip-layout-item\" data-uip-node=\"admin_component_wrap\"><uip-component data-uip-node=\"admin_component\" data-uip-component=\"cmp_platform_composition-shared-help-reference\"></uip-component></div>\n</section>\n"
+    }
+  ],
+  "settings": {
+    "application": {
+      "name": "Codex Test V1 Disposable Local Audience Pilot 20261102",
+      "status": "active"
+    },
+    "presentation": {
+      "model": "composition-v1",
+      "defaultShellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+      "theme": {
+        "--app-color-primary": "#2456a6",
+        "--app-color-secondary": "#526078",
+        "--app-color-background": "#f5f7fb",
+        "--app-color-surface": "#ffffff",
+        "--app-color-text": "#172033",
+        "--app-font-family": "system-ui, sans-serif",
+        "--app-font-base-size": "16px",
+        "--app-heading-scale": "1.25",
+        "--app-space-small": "0.5rem",
+        "--app-space-medium": "1rem",
+        "--app-space-large": "2rem"
+      },
+      "siteStyles": [
+        "styles/site.css"
+      ],
+      "defaultMenus": {
+        "main": "menu-main",
+        "admin": "menu-admin"
+      },
+      "branding": {
+        "applicationName": "Local Pilot",
+        "shortName": "Codex Test V1 Disposable Local Audience Pilot 20261102",
+        "primaryLogo": "assets/branding/logo.svg",
+        "favicon": "assets/branding/logo.svg"
+      },
+      "assetsRoot": "assets"
+    }
+  },
+  "menu": {
+    "schemaVersion": 1,
+    "menuId": "menu-main",
+    "name": "Main Navigation",
+    "items": [
+      {
+        "itemId": "main-home",
+        "label": "Home",
+        "destination": {
+          "kind": "page",
+          "pageId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+        }
+      },
+      {
+        "itemId": "main-admin",
+        "label": "About",
+        "destination": {
+          "kind": "page",
+          "pageId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+        },
+        "target": "_self"
+      },
+      {
+        "itemId": "item-95e5c10b-612e-4216-9156-bf721c3370f1",
+        "label": "Contact",
+        "destination": {
+          "kind": "page",
+          "pageId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+        },
+        "target": "_self"
+      }
+    ]
+  },
+  "presentationManifest": {
+    "type": "ui-platform.presentation",
+    "schemaVersion": "1.0.0",
+    "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+    "activeVersion": null,
+    "draft": {
+      "exists": true,
+      "modifiedAt": "2026-11-03T13:13:51.504Z",
+      "checksum": "329fb00248abbceb655347d4889d5c4c79da8a8a49268bd221e516120dae3622"
+    },
+    "versions": []
+  }
+}
