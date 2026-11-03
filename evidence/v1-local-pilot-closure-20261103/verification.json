@@ -1,0 +1,59 @@
+{
+  "observedUtc": "2026-11-03T22:48:08.203Z",
+  "policyRevision": 11,
+  "securityTablesUnchanged": true,
+  "registrationsUnchanged": true,
+  "acceptedApplicationFileCount": 1760,
+  "allAcceptedApplicationFilesUnchanged": true,
+  "activeVersion": 1,
+  "versionChecksum": "329fb00248abbceb655347d4889d5c4c79da8a8a49268bd221e516120dae3622",
+  "manifestUnchanged": true,
+  "frozen35SourceFilesUnchanged": true,
+  "candidates": [
+    {
+      "directory": "v1-published-reader-20261103",
+      "files": 4,
+      "unchanged": true
+    },
+    {
+      "directory": "v1-corrected-published-reader-20261103",
+      "files": 6,
+      "unchanged": true
+    },
+    {
+      "directory": "v1-final-published-reader-20261103",
+      "files": 5,
+      "unchanged": true
+    }
+  ],
+  "nativePhysical": true,
+  "native54PayloadHashesUnchanged": true,
+  "dependencyRecordsAndArchiveUnchanged": true,
+  "logCopies": [
+    {
+      "copy": "final-build.txt",
+      "source": "evidence/v1-final-published-reader-20261103/build.log",
+      "sha256": "caa7ee4c6729a9897a6e32578589a95f82f147b23dd97ea941b5f8004c56b954",
+      "byteIdentical": true
+    },
+    {
+      "copy": "package-build.txt",
+      "source": "evidence/v1-final-published-reader-20261103/package-build.log",
+      "sha256": "d8b86b85ad8a40b0f2b865bbf512802eb896b95500ca7166a20149013ee7613a",
+      "byteIdentical": true
+    },
+    {
+      "copy": "focused-tests.txt",
+      "source": "evidence/v1-final-published-reader-20261103/focused-tests-second.log",
+      "sha256": "94308a710f649c59e4bf163a01bfe2692e85432c8f513b8ebac281fc6111e285",
+      "byteIdentical": true
+    },
+    {
+      "copy": "historical-lock-test.txt",
+      "source": "evidence/v1-corrected-published-reader-20261103/focused-tests-second.log",
+      "sha256": "0e7879bc51c155ca9a93e13552695df7f500382062de2023320a240799353075",
+      "byteIdentical": true
+    }
+  ],
+  "qualification": "Read-only inspection; no tests/builds repeated and no historical evidence file rewritten. Application checks cover every accepted file; no fresh exhaustive scan for out-of-band added files is claimed."
+}

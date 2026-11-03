@@ -1,0 +1,30 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ❯ tests/runtime-read-admission.test.ts (2 tests | 1 failed) 5117ms
+   × incomplete writer locks remain a recovery failure and never run the runtime capture 5027ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/runtime-read-admission.test.ts > incomplete writer locks remain a recovery failure and never run the runtime capture
+AssertionError: expected [Function] to throw error including 'Artifact lock is incomplete; operator…' but got 'Artifact lock ownership is unresolved…'
+
+Expected: "Artifact lock is incomplete; operator recovery is required."
+Received: "Artifact lock ownership is unresolved; exclusive admission was not obtained."
+
+ ❯ tests/runtime-read-admission.test.ts:24:77
+     22| it('incomplete writer locks remain a recovery failure and never run th…
+     23|   const { root, file } = await writerLock(''); let captured = false;
+     24|   await expect(withRuntimeGraphRead(root, async () => { captured = tru…
+       |                                                                             ^
+     25|   expect(captured).toBe(false); expect(await readFile(file, 'utf8')).t…
+     26| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 16 passed (17)
+   Start at  16:55:08
+   Duration  5.56s (transform 664ms, setup 0ms, import 2.05s, tests 6.81s, environment 0ms)
+

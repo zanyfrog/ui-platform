@@ -1,0 +1,19 @@
+{
+  "observedUtc": "2026-11-03T22:46:09.3513502Z",
+  "owner": "NIMO-LAPTOP\\zanyf",
+  "verifiedProcessIds": [5280, 14620, 28776, 25944, 10860, 28316],
+  "allPresent": true,
+  "allNamesAndParentsMatchAcceptedInventory": true,
+  "allProcessOwnersMatch": true,
+  "viteCommandMatchesFinalCandidate": true,
+  "launchPowerShellPid": 5280,
+  "vitePid": 28316,
+  "launchCreationDate": "2026-11-03T17:18:43.457073-05:00",
+  "viteCreationDate": "2026-11-03T17:18:44.131035-05:00",
+  "reader": "http://127.0.0.1:5189/",
+  "output": "C:/Projects/Modular/ui-platform/evidence/v1-final-published-reader-20261103/candidate",
+  "operation": "Read-only Win32_Process name, parent, creation date, GetOwner and command-match checks. Raw command lines and security tokens were not recorded.",
+  "processesStartedOrStoppedDuringClosure": [],
+  "lifecycle": "Reader left running for operator review. Reverify saved process identity, creation time, command and descendants before an operator-authorized stop using taskkill /PID 5280 /T /F. Do not select a process solely by port or reused PID.",
+  "listenerQualification": "No new independent LISTENING-row proof; the previously accepted OS listener-enumeration limitation remains."
+}
