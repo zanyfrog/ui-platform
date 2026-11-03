@@ -6,11 +6,11 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { V1DevelopmentIdentity } from '../src/server/v1-development-identity.js';
 import { DevelopmentApplicationRegistry } from '../src/server/development-application-registry.js';
-import { SecurityDefinitionService, SecurityDefinitionStore } from '@ui-platform/i-am/definitions';
+import { SecurityDefinitionService, SecurityDefinitionStore, securityChecksum } from '@ui-platform/i-am/definitions';
 import { initializeDevelopmentPlatformSecurity } from '@ui-platform/i-am/administration';
 import { developmentSecurityConfiguration, developmentSecurityScopes } from '../src/server/v1-security-administration.js';
 import { V1_FIXTURE_APPLICATION_ID } from '../src/server/v1-development-policy.js';
-import { pilot, pilotGrantChanges, pilotPermissions } from '../src/shared/pilot-administration.js';
+import { pilot, pilotGrantChanges, pilotPermissions, pilotRecordIds } from '../src/shared/pilot-administration.js';
 import { PilotAdministration, type PilotRequest } from '../src/client/artifact-editor/pilot-administration.js';
 
 const cleanup: Array<() => Promise<void>> = [];
@@ -85,6 +85,7 @@ it('separates provision, stage, review and activate through real protected contr
   await model.provision('Isolated pilot initial administrator');
   await model.refresh(); expect(model.status?.anchor?.userId).toBe(pilot.administrator);
   const state = model.status!;
+  expect(state.recordChecksums).toEqual(Object.fromEntries(pilotRecordIds.map(id => [id, null])));
   const stale = await fetch(f.route('security/stage'), { method: 'POST', headers, body: JSON.stringify({ changes: pilotGrantChanges(false), expectedRevision: state.revision - 1, reason: 'stale test' }) });
   const staleValue = await stale.json(); expect(stale.ok && staleValue.activatable).toBeFalsy();
   await model.stage('Isolated pilot functional plan', false);
@@ -100,6 +101,34 @@ it('separates provision, stage, review and activate through real protected contr
   expect(model.candidate).toBeUndefined(); expect(requests.at(-1)).toBe('activate');
   const records = f.store.snapshot().documents.map(d => d.definition);
   expect(records.some(r => r.id === `local-pilot.${pilot.applicationId}.assignment`)).toBe(true);
+  // Existing records must update through native checksums, never a duplicate role.
+  const active = f.store.snapshot();
+  await model.refresh();
+  expect(Object.keys(model.status!.recordChecksums)).toEqual(pilotRecordIds);
+  for (const id of pilotRecordIds) expect(model.status!.recordChecksums[id]).toBe(securityChecksum(active.documents.find(d => d.definition.id === id)!));
+  const stage = async (changes: unknown, expectedRevision = active.revision) => {
+    const response = await fetch(f.route('security/stage'), { method: 'POST', headers, body: JSON.stringify({ changes, expectedRevision, reason: 'isolated checksum regression' }) });
+    return response.json();
+  };
+  const missing = await stage(pilotGrantChanges(true));
+  expect(missing.activatable).toBe(false);
+  expect(missing.diagnostics.map((d: {code:string}) => d.code)).toEqual(['CHECKSUM_CONFLICT', 'CHECKSUM_CONFLICT', 'CHECKSUM_CONFLICT']);
+  const staleChecksums = Object.fromEntries(pilotRecordIds.map(id => [id, `sha256:${'0'.repeat(64)}`]));
+  expect((await stage(pilotGrantChanges(true, staleChecksums))).activatable).toBe(false);
+  const matching = pilotGrantChanges(true, model.status!.recordChecksums);
+  expect((await stage(matching, active.revision - 1)).diagnostics.some((d: {code:string}) => d.code === 'REVISION_CONFLICT')).toBe(true);
+  await model.stage('isolated temporary cleanup; staged, not activated', true);
+  expect(model.candidate?.activatable).toBe(true);
+  expect(model.review!.changes).toEqual(matching);
+  const priorSet = pilotGrantChanges(false)[0].document.definition;
+  const nextSet = matching[0].document.definition;
+  if (priorSet.kind !== 'permission-set' || nextSet.kind !== 'permission-set') throw new Error('set');
+  expect(nextSet.rules.slice(0, 7)).toEqual(priorSet.rules);
+  expect(nextSet.rules.slice(7).map(r => ({permissionId:r.permissionId,scope:r.scope}))).toEqual([
+    { permissionId: 'ui.page.admin', scope: { resource: { authorityId:pilot.authorityId,applicationId:pilot.applicationId,kind:'application',id:pilot.applicationId },descendants:true } },
+  ]);
+  expect(matching.slice(1).map(c => c.document)).toEqual(pilotGrantChanges(false).slice(1).map(c => c.document));
+  expect(f.store.snapshot()).toEqual(active); // Includes the initial anchor and unrelated policy.
   const audit = new DatabaseSync(path.join(f.root, 'policy.sqlite'), { readOnly: true });
   try {
     const evidence = JSON.stringify(audit.prepare('SELECT * FROM security_admin_audit').all());
@@ -107,6 +136,16 @@ it('separates provision, stage, review and activate through real protected contr
     expect(evidence).toContain('Isolated pilot functional plan');
     expect(evidence).toContain(pilot.securityAdmin);
   } finally { audit.close(); }
+});
+it('refuses incomplete protected checksum state before sending a stage request', async () => {
+  const f = await fixture(), headers = await f.login('security@example.local');
+  const response = await fetch(f.route('security/pilot-status'), { headers });
+  const state = await response.json();
+  const model = new PilotAdministration(async action => {
+    expect(action).toBe('pilot-status');
+    return { ...state, recordChecksums: {} };
+  });
+  await expect(model.stage('no blind update', true)).rejects.toThrow('checksums unavailable');
 });
 it('fixes the plan to the exact pilot and requires a verified state before staging', async () => {
   const changes = pilotGrantChanges(false);

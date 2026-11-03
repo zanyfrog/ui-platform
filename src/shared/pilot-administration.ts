@@ -7,11 +7,14 @@ export const pilot = {
 } as const;
 export const pilotPermissions = ['ui.application.view', 'ui.application.edit', 'ui.page.view', 'ui.page.edit',
   'ui.presentation.view', 'ui.presentation.edit', 'ui.presentation.admin'] as const;
+export const pilotRecordIds = ['set', 'role', 'assignment'].map(suffix => `local-pilot.${pilot.applicationId}.${suffix}`);
+export type PilotRecordChecksums = Record<string, string | null>;
 export type PilotStatus = { applicationId: string; applicationKey: string; deploymentId: string; authorityId: string;
-  principalId: string; revision: number; anchor: { userId: string; assignmentId: string; boundaryId: string } | null };
+  principalId: string; revision: number; recordChecksums: PilotRecordChecksums;
+  anchor: { userId: string; assignmentId: string; boundaryId: string } | null };
 
 /** Fixed plan only; the existing protected service remains the authorization boundary. */
-export function pilotGrantChanges(cleanup: boolean): Array<{ document: SecurityDocument }> {
+export function pilotGrantChanges(cleanup: boolean, checksums?: PilotRecordChecksums): Array<{ document: SecurityDocument; expectedChecksum?: string }> {
   const root = { authorityId: pilot.authorityId, applicationId: pilot.applicationId, kind: 'application' as const, id: pilot.applicationId };
   const scope = { resource: root, descendants: true };
   const owner = { kind: 'application' as const, applicationId: pilot.applicationId };
@@ -26,5 +29,6 @@ export function pilotGrantChanges(cleanup: boolean): Array<{ document: SecurityD
     { kind: 'role-assignment', id: `${prefix}.assignment`, status: 'active', userId: pilot.administrator,
       roleId: `${prefix}.role`, scope, startsAt: '2026-11-02T00:00:00Z', endsAt: null },
   ];
-  return records.map(definition => ({ document: { format: 'ui-platform.security', formatVersion: 1, definition } }));
+  return records.map(definition => ({ document: { format: 'ui-platform.security', formatVersion: 1, definition },
+    ...(checksums?.[definition.id] ? { expectedChecksum: checksums[definition.id]! } : {}) }));
 }

@@ -1,0 +1,53 @@
+{
+  "policyRevision": 9,
+  "recordChecksums": {
+    "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set": "sha256:30de5bd6ea27e5c5852b694478c6cf611dfdcb142ee7a5661c88d2246eddf9da",
+    "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role": "sha256:abfd45d6011697067e19d4c882451b960c004d4e566c793894d7f03551d001af",
+    "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment": "sha256:39aac8bc5022842098d0f0083f6e232cc3469718e430daf721b4706b9fdaff7f"
+  },
+  "sevenPermissionPlanMatches": true,
+  "invalidCandidate": {
+    "id": "969220cf-fa79-4640-979e-9b3248ddbf39",
+    "checksum": "sha256:bfce2552d2b4e8f4caed59437137632f22259795eb62c07127cf7f38b9374c97",
+    "baseRevision": 9,
+    "diagnostics": [
+      {
+        "code": "CHECKSUM_CONFLICT",
+        "path": "$.changes[0]",
+        "message": "Existing definition checksum changed."
+      },
+      {
+        "code": "CHECKSUM_CONFLICT",
+        "path": "$.changes[1]",
+        "message": "Existing definition checksum changed."
+      },
+      {
+        "code": "CHECKSUM_CONFLICT",
+        "path": "$.changes[2]",
+        "message": "Existing definition checksum changed."
+      }
+    ],
+    "rowSha256": "31b8c055c0e4afe4573b08c915b1d0dd16ac96c219f4df495f894b15028c2c8c"
+  },
+  "sourceFiles": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\shared\\pilot-administration.ts",
+      "sha256": "d5a38f04061bcf6bd9739fcee4b929897e73d3d33b93a7f4da750aec7bf73f49"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\server\\v1-development-identity.ts",
+      "sha256": "3297269c28db8400933292137990f9445b0917259c000f4afac6b0dd29ca887a"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\src\\client\\artifact-editor\\pilot-administration.ts",
+      "sha256": "cb8940ab4d712b303e41c4402c75bc2c4fb513a191db21ec8e86feefd88a22de"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform\\tests\\pilot-administration.test.ts",
+      "sha256": "3b4460a0235894b0387d7d2a9de5818a6b0509bb513e78e2748395def1ff73fc"
+    }
+  ],
+  "dependencyRecordsAndArchivePreserved": true,
+  "physicalNativeRoot": true,
+  "nativePayloadMatches": true
+}

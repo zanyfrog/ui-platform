@@ -1,4 +1,4 @@
-import { pilot, pilotGrantChanges, type PilotStatus } from '../../shared/pilot-administration.js';
+import { pilot, pilotGrantChanges, pilotRecordIds, type PilotStatus } from '../../shared/pilot-administration.js';
 
 export type PilotRequest = (action: 'pilot-status' | 'onboarding' | 'stage' | 'activate', body?: unknown) => Promise<any>;
 type Candidate = { id: string; checksum: string; baseRevision: number; activatable: boolean };
@@ -13,6 +13,9 @@ export class PilotAdministration {
     const value = await this.request('pilot-status') as PilotStatus;
     if (value.applicationId !== pilot.applicationId || value.applicationKey !== pilot.key || value.principalId !== pilot.securityAdmin ||
       value.deploymentId !== pilot.deploymentId || value.authorityId !== pilot.authorityId || !Number.isInteger(value.revision)) throw new Error('Pilot identity or authority mismatch.');
+    if (!value.recordChecksums || Object.keys(value.recordChecksums).length !== pilotRecordIds.length ||
+      !pilotRecordIds.every(id => Object.hasOwn(value.recordChecksums, id) && (value.recordChecksums[id] === null ||
+        typeof value.recordChecksums[id] === 'string' && /^sha256:[a-f0-9]{64}$/.test(value.recordChecksums[id]!)))) throw new Error('Pilot record checksums unavailable. Refresh protected state before staging.');
     this.status = value; return value;
   }
   private reason(value: string) { if (!value.trim()) throw new Error('A nonempty reason is required.'); return value.trim(); }
@@ -29,7 +32,7 @@ export class PilotAdministration {
     reason = this.reason(reason);
     const state = await this.refresh();
     if (state.anchor?.userId !== pilot.administrator) throw new Error('The approved administrator anchor must be verified before staging.');
-    const changes = pilotGrantChanges(cleanup);
+    const changes = pilotGrantChanges(cleanup, state.recordChecksums);
     const value = await this.request('stage', { changes, expectedRevision: state.revision, reason });
     if (!value.activatable || typeof value.id !== 'string' || typeof value.checksum !== 'string' || value.baseRevision !== state.revision) {
       const codes = Array.isArray(value.diagnostics) ? value.diagnostics.map((d: { code?: unknown }) => d.code)

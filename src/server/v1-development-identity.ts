@@ -2,7 +2,7 @@ import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { SecurityAuthorizationEvaluator, type AccessRequest, type ResourceAuthority } from '@ui-platform/i-am/evaluator';
 import type { SecurityResourceRef } from '@ui-platform/i-am/definitions';
-import { SecurityDefinitionStore } from '@ui-platform/i-am/definitions';
+import { SecurityDefinitionStore, securityChecksum } from '@ui-platform/i-am/definitions';
 import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID, V1_FIXTURE_APPLICATION_KEY, developmentUsers, seedV1DevelopmentPolicy } from './v1-development-policy.js';
 import { SecurityDefinitionService } from '@ui-platform/i-am/definitions';
 import type { EditorOperation } from '../shared/editor-security.js';
@@ -11,7 +11,7 @@ import type { EditorScope } from './editor-security.js';
 import { SecurityAdministrationService, adminAnchor, type AdministrationIdentityBoundary } from '@ui-platform/i-am/administration';
 import type { SecurityDocument, SecurityRecord, SecurityScope } from '@ui-platform/i-am/definitions';
 import { developmentSecurityConfiguration, developmentSecurityScopes } from './v1-security-administration.js';
-import { pilot } from '../shared/pilot-administration.js';
+import { pilot, pilotRecordIds } from '../shared/pilot-administration.js';
 import type { DevelopmentApplicationRegistry } from './development-application-registry.js';
 
 type Session = { token: string; csrf: string; revision: string; userId: string | null; expires: number };
@@ -157,6 +157,10 @@ export class V1DevelopmentIdentity {
         res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify({
           applicationKey: pilot.key, applicationId, deploymentId: pilot.deploymentId, authorityId: V1_AUTHORITY_ID,
           principalId: pilot.securityAdmin, revision: snapshot.revision, anchor,
+          recordChecksums: Object.fromEntries(pilotRecordIds.map(id => {
+            const document = snapshot.documents.find(document => document.definition.id === id);
+            return [id, document ? securityChecksum(document) : null];
+          })),
         }));
         return true;
       }

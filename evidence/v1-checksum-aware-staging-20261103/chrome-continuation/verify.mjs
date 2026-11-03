@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {DatabaseSync} from 'node:sqlite';
+const dir=path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/,'$1');
+const read=p=>JSON.parse(fs.readFileSync(path.join(dir,p),'utf8'));
+const ui=read('browser-candidate.json'),review=read('../reviewed-request.json');
+const db=new DatabaseSync('C:/Projects/Modular/builder-demo/runtime/iam-v1-development.sqlite',{readOnly:true});
+const row=db.prepare('SELECT * FROM security_candidates WHERE id=?').get(ui.candidate.id);
+const request=JSON.parse(row.request_json),diagnostics=JSON.parse(row.diagnostics_json);
+if(row.checksum!==ui.candidate.checksum||row.base_revision!==9||diagnostics.length||row.result_json!==null||JSON.stringify(request.changes)!==JSON.stringify(review.changes)||request.expectedRevision!==review.expectedRevision||request.reason!==ui.plan.reason)throw Error('Candidate differs from reviewed request; stop');
+const evidence={candidate:{id:row.id,checksum:row.checksum,baseRevision:row.base_revision,activatable:diagnostics.length===0,diagnostics,result:null},actorId:request.actorId,source:request.source,reason:request.reason,expectedRevision:request.expectedRevision,changes:request.changes,matchingAdministratorActivationAudits:db.prepare('SELECT count(*) AS count FROM security_admin_audit WHERE candidate_id=?').get(row.id).count,matchingPolicyActivationAudits:db.prepare('SELECT count(*) AS count FROM security_audit WHERE candidate_id=?').get(row.id).count};db.close();
+fs.writeFileSync(path.join(dir,'stored-candidate.json'),JSON.stringify(evidence,null,2));
+const before=read('../after.json'),after=read('after.json'),old=new Map(before.files.map(f=>[f.path,f]));
+const pre=read('../pre-stage.json'),post=read('post-stage.json');
+const result={changedApplicationFiles:after.files.filter(f=>old.get(f.path)?.sha256!==f.sha256),removedApplicationFiles:before.files.filter(f=>!after.files.some(a=>a.path===f.path)),securityTableChanges:after.tables.filter(t=>before.tables.find(b=>b.name===t.name)?.sha256!==t.sha256).map(t=>({before:before.tables.find(b=>b.name===t.name),after:t})),registrationsUnchanged:JSON.stringify(before.registrations)===JSON.stringify(after.registrations),invalidCandidateUnchanged:JSON.stringify(pre.invalidCandidate)===JSON.stringify(post.invalidCandidate),sevenActivePermissionsUnchanged:JSON.stringify(pre.recordChecksums)===JSON.stringify(post.recordChecksums)&&post.sevenPermissionPlanMatches,policyRevision:post.policyRevision,nativePhysicalAndPayloadPreserved:post.physicalNativeRoot&&post.nativePayloadMatches&&post.dependencyRecordsAndArchivePreserved,changedProductFilesSinceFocusedTests:post.sourceFiles.filter(f=>pre.sourceFiles.find(b=>b.path===f.path)?.sha256!==f.sha256)};
+fs.writeFileSync(path.join(dir,'preservation.json'),JSON.stringify(result,null,2));
+console.log(JSON.stringify({candidate:evidence.candidate,actorId:evidence.actorId,audits:[evidence.matchingAdministratorActivationAudits,evidence.matchingPolicyActivationAudits],preservation:result}));

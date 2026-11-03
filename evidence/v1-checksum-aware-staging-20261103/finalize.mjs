@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import{createHash}from'node:crypto';
+const dir=path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/,'$1');
+const read=n=>JSON.parse(fs.readFileSync(path.join(dir,n),'utf8')),hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const before=read('before.json'),after=read('after.json'),pre=read('pre-stage.json'),post=read('post-check.json');
+const old=new Map(before.files.map(f=>[f.path,f]));
+const result={changedApplicationFiles:after.files.filter(f=>old.get(f.path)?.sha256!==f.sha256),removedApplicationFiles:before.files.filter(f=>!after.files.some(a=>a.path===f.path)),securityTablesUnchanged:JSON.stringify(before.tables)===JSON.stringify(after.tables),registrationsUnchanged:JSON.stringify(before.registrations)===JSON.stringify(after.registrations),oldInvalidCandidateUnchanged:JSON.stringify(pre.invalidCandidate)===JSON.stringify(post.invalidCandidate),activeFunctionalChecksumsUnchanged:JSON.stringify(pre.recordChecksums)===JSON.stringify(post.recordChecksums),policyRevision:post.policyRevision};
+result.appendChecks=result.changedApplicationFiles.map(f=>{const b=old.get(f.path);return{path:f.path,appendedBytes:b?f.bytes-b.bytes:null,originalPrefixPreserved:!!b&&createHash('sha256').update(fs.readFileSync(f.path).subarray(0,b.bytes)).digest('hex')===b.sha256};});
+fs.writeFileSync(path.join(dir,'preservation.json'),JSON.stringify(result,null,2));
+const files=fs.readdirSync(dir).filter(n=>n!=='files.json').map(n=>path.join(dir,n));files.push(path.resolve('docs/architecture/v1-local-pilot-checksum-aware-cleanup-staging-review-gate-20261103.md'),...post.sourceFiles.map(f=>f.path));
+fs.writeFileSync(path.join(dir,'files.json'),JSON.stringify(files.map(p=>({path:p,bytes:fs.statSync(p).size,sha256:hash(p)})),null,2));
+console.log(JSON.stringify(result));
