@@ -1,0 +1,934 @@
+{
+  "policyRevision": 9,
+  "existingFunctionalRecordsMatch": [
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+      "unchanged": true
+    },
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+      "unchanged": true
+    },
+    {
+      "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment",
+      "unchanged": true
+    }
+  ],
+  "proposedCleanupDocuments": [
+    {
+      "document": {
+        "format": "ui-platform.security",
+        "formatVersion": 1,
+        "definition": {
+          "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+          "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+          "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+          "status": "active",
+          "kind": "permission-set",
+          "owner": {
+            "kind": "application",
+            "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+          },
+          "includes": [],
+          "rules": [
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.0",
+              "permissionId": "ui.application.view",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": false
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.1",
+              "permissionId": "ui.application.edit",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": false
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.2",
+              "permissionId": "ui.page.view",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.3",
+              "permissionId": "ui.page.edit",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.4",
+              "permissionId": "ui.presentation.view",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.5",
+              "permissionId": "ui.presentation.edit",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.6",
+              "permissionId": "ui.presentation.admin",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.7",
+              "permissionId": "ui.page.admin",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "document": {
+        "format": "ui-platform.security",
+        "formatVersion": 1,
+        "definition": {
+          "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+          "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+          "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+          "status": "active",
+          "kind": "role",
+          "owner": {
+            "kind": "application",
+            "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+          },
+          "permissionSets": [
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "document": {
+        "format": "ui-platform.security",
+        "formatVersion": 1,
+        "definition": {
+          "kind": "role-assignment",
+          "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment",
+          "status": "active",
+          "userId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+          "roleId": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+          "scope": {
+            "resource": {
+              "authorityId": "ui-platform-development",
+              "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+              "kind": "application",
+              "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+            },
+            "descendants": true
+          },
+          "startsAt": "2026-11-02T00:00:00Z",
+          "endsAt": null
+        }
+      }
+    }
+  ],
+  "admin": {
+    "schemaVersion": 1,
+    "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page",
+    "kind": "page",
+    "name": "admin",
+    "displayName": "Administration",
+    "route": "/admin",
+    "routeId": "route_de8d1851-3e36-435f-b093-95ce94d940e7_admin",
+    "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell",
+    "menuOverrides": {
+      "menu-admin": {
+        "items": {
+          "admin-home": {
+            "disabled": false
+          }
+        },
+        "additions": [
+          {
+            "item": {
+              "itemId": "local-docs",
+              "label": "Documentation",
+              "destination": {
+                "kind": "url",
+                "url": "https://example.com"
+              },
+              "target": "_blank"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rawLinksGuard": "No incoming HTML Page links found by existing guard",
+  "pages": [
+    {
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93",
+        "kind": "page",
+        "name": "about",
+        "displayName": "about",
+        "route": "/about",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+        "routeId": "route_801558d2-8d78-44ec-9722-28642a26215e"
+      },
+      "revision": "9d83a196f39d96fc8ffbf1c0b1b97edaa0ac1898c1092b20bd995f4345d6d03c"
+    },
+    {
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page",
+        "kind": "page",
+        "name": "admin",
+        "displayName": "Administration",
+        "route": "/admin",
+        "routeId": "route_de8d1851-3e36-435f-b093-95ce94d940e7_admin",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell",
+        "menuOverrides": {
+          "menu-admin": {
+            "items": {
+              "admin-home": {
+                "disabled": false
+              }
+            },
+            "additions": [
+              {
+                "item": {
+                  "itemId": "local-docs",
+                  "label": "Documentation",
+                  "destination": {
+                    "kind": "url",
+                    "url": "https://example.com"
+                  },
+                  "target": "_blank"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "revision": "d350cf230e6c23f57039756ae5ac1c998c64ee97649960aa6b537557904e9968"
+    },
+    {
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915",
+        "kind": "page",
+        "name": "contact",
+        "displayName": "contact",
+        "route": "/contact",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+        "routeId": "route_d627c61f-6eb4-409c-a196-a5147641e76e"
+      },
+      "revision": "0869dbfd44a937bca45f96b269132e3894634fe83c34b635e95ef616fc8b0035"
+    },
+    {
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page",
+        "kind": "page",
+        "name": "public",
+        "displayName": "Home",
+        "route": "/",
+        "routeId": "route_de8d1851-3e36-435f-b093-95ce94d940e7_public",
+        "shellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+      },
+      "revision": "b93acbca960ec804ff72d7b13d525051ccc8da8dd0d4c22c012e4071f6755061"
+    }
+  ],
+  "shells": [
+    {
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell",
+        "kind": "shell",
+        "name": "admin",
+        "displayName": "Admin Shell"
+      },
+      "revision": "9a7295ff3eae24d52f2ef897a613c26182d8ee268c433d198e74a0ecba733fa2"
+    },
+    {
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+        "kind": "shell",
+        "name": "public",
+        "displayName": "Public Shell",
+        "public": {
+          "properties": {
+            "showFooter": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "events": {},
+          "slots": []
+        },
+        "conditions": [
+          {
+            "node": "public_footer",
+            "when": "public.showFooter"
+          }
+        ]
+      },
+      "revision": "5357d0e300c0dee9e7c0ad2412c0ea293d4bb620e9d8593d05b76718e8cae510"
+    }
+  ],
+  "menus": [
+    {
+      "schemaVersion": 1,
+      "menuId": "menu-admin",
+      "name": "Admin Navigation",
+      "items": [
+        {
+          "itemId": "admin-home",
+          "label": "Overview",
+          "destination": {
+            "kind": "route",
+            "routeId": "route_de8d1851-3e36-435f-b093-95ce94d940e7_admin"
+          },
+          "children": [
+            {
+              "itemId": "admin-public",
+              "label": "Public site",
+              "destination": {
+                "kind": "page",
+                "pageId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "menuId": "menu-main",
+      "name": "Main Navigation",
+      "items": [
+        {
+          "itemId": "main-home",
+          "label": "Home",
+          "destination": {
+            "kind": "page",
+            "pageId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+          }
+        },
+        {
+          "itemId": "main-admin",
+          "label": "About",
+          "destination": {
+            "kind": "page",
+            "pageId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+          },
+          "target": "_self"
+        },
+        {
+          "itemId": "item-95e5c10b-612e-4216-9156-bf721c3370f1",
+          "label": "Contact",
+          "destination": {
+            "kind": "page",
+            "pageId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+          },
+          "target": "_self"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "model": "composition-v1",
+    "defaultShellId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell",
+    "theme": {
+      "--app-color-primary": "#2456a6",
+      "--app-color-secondary": "#526078",
+      "--app-color-background": "#f5f7fb",
+      "--app-color-surface": "#ffffff",
+      "--app-color-text": "#172033",
+      "--app-font-family": "system-ui, sans-serif",
+      "--app-font-base-size": "16px",
+      "--app-heading-scale": "1.25",
+      "--app-space-small": "0.5rem",
+      "--app-space-medium": "1rem",
+      "--app-space-large": "2rem"
+    },
+    "siteStyles": [
+      "styles/site.css"
+    ],
+    "defaultMenus": {
+      "main": "menu-main",
+      "admin": "menu-admin"
+    },
+    "branding": {
+      "applicationName": "Local Pilot",
+      "shortName": "Codex Test V1 Disposable Local Audience Pilot 20261102",
+      "primaryLogo": "assets/branding/logo.svg",
+      "favicon": "assets/branding/logo.svg"
+    },
+    "assetsRoot": "assets"
+  },
+  "componentRevisionMap": [
+    {
+      "name": "Composition Shared Help",
+      "id": "art_composition-shared-help-reference",
+      "componentId": "cmp_platform_composition-shared-help-reference",
+      "revision": "1055ec5605f22fa3ddf11e6e3e39f8ea7ea2d315728c5f4d148943d874d78d5e",
+      "references": null
+    },
+    {
+      "name": "Customer List Item",
+      "id": "art_customer-list-item-reference",
+      "componentId": "cmp_platform_customer-list-item-reference",
+      "revision": "0a942e68f33f63cafd4c9611265514cfb2f7d848ad5ce66077cbad0685fff9a6",
+      "references": null
+    },
+    {
+      "name": "Customer Summary Card",
+      "id": "art_customer-summary-reference",
+      "componentId": "cmp_platform_customer-summary-reference",
+      "revision": "5e156a0a9a35234e858df946072889cfc1ff13928cfa30062d3f2bda8f18423a",
+      "references": null
+    },
+    {
+      "name": "PersonForm",
+      "id": "art_person_form_reference",
+      "componentId": "cmp_platform_person_form_reference",
+      "revision": "227e5035272db0f281407b22afc4377ede1268271d9dae2e573cbd71f8b607b6",
+      "references": {
+        "node": "form",
+        "datasetId": "dataset-person-form-reference",
+        "primaryKey": "id",
+        "fields": [
+          {
+            "id": "field_person-firstName",
+            "node": "control_firstName",
+            "key": "firstName",
+            "datasetFieldId": "person-firstName",
+            "type": "string",
+            "datasetRequired": true,
+            "required": true,
+            "label": "firstName",
+            "visible": true,
+            "editable": true
+          },
+          {
+            "id": "field_person-lastName",
+            "node": "control_lastName",
+            "key": "lastName",
+            "datasetFieldId": "person-lastName",
+            "type": "string",
+            "datasetRequired": true,
+            "required": true,
+            "label": "lastName",
+            "visible": true,
+            "editable": true
+          },
+          {
+            "id": "field_person-email",
+            "node": "control_email",
+            "key": "email",
+            "datasetFieldId": "person-email",
+            "type": "string",
+            "datasetRequired": true,
+            "required": true,
+            "label": "email",
+            "visible": true,
+            "editable": true
+          },
+          {
+            "id": "field_person-status",
+            "node": "control_status",
+            "key": "status",
+            "datasetFieldId": "person-status",
+            "type": "string",
+            "label": "status",
+            "visible": true,
+            "editable": true
+          },
+          {
+            "id": "field_person-internalNotes",
+            "node": "control_internalNotes",
+            "key": "internalNotes",
+            "datasetFieldId": "person-internalNotes",
+            "type": "string",
+            "label": "internalNotes",
+            "visible": true,
+            "editable": true
+          }
+        ],
+        "submit": {
+          "service": "dataset.write",
+          "readService": "dataset.read"
+        }
+      }
+    },
+    {
+      "name": "wp5b shared 9b12bff2",
+      "id": "art_70754e07-2ae4-4dbc-a9db-00e1c0281030",
+      "componentId": "cmp_platform_22ee929c-1bd6-46cd-8d7d-13e278e29a62",
+      "revision": "f2caa538f3da9e866d8487318d1751f35b9726af15e3dd5bdc3f83717dac9852",
+      "references": null
+    }
+  ],
+  "staticCurrentGraphDiagnostics": [
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_region_main",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_region_main",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    }
+  ],
+  "staticRemovalGraphDiagnostics": [
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "admin_region_main",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_admin_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_shell"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_3aed563f-5602-44f8-8aea-287edc4dad93"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_89e4ba70-07fd-482f-ade7-e89a4911d915"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_logo",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_name",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_nav",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Layout is manual because this node has no Builder wrapper.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "warning",
+      "message": "Manual package element uib-hero has no permanent Component reference.",
+      "node": "public_default_hero",
+      "code": "visual.validation",
+      "artifactId": "art_de8d1851-3e36-435f-b093-95ce94d940e7_public_page"
+    },
+    {
+      "severity": "error",
+      "code": "composition.menu-target",
+      "message": "Menu menu-admin item admin-home has a missing or ambiguous destination.",
+      "menuId": "menu-admin"
+    }
+  ],
+  "limitations": "Read-only source graph using existing compositionDiagnostics/assertPageUnused and no package catalog. Not live permission, deletion, full native admission or Publish verification; no disk source or security changes."
+}

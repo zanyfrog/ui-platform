@@ -1,0 +1,59 @@
+Browser tab: 1964522886, Title: "UI Platform", URL: "http://localhost:5274/".
+0 AXWebArea UI Platform, URL: localhost:5274/
+	1 link Description: Skip to content, Value: localhost:5274/#app
+	2 container
+		3 text Development identity 
+		4 pop up button (collapsed, settable) Description: Development identity, Value: Security Admin (security@example.local), Secondary Actions: Expand
+			5 menu
+				6 Sign out
+				7 (selected) Security Admin (security@example.local)
+				8 Page, Form and Workflow Editor (combined@example.local)
+				9 Page and Form Editor (page-form-editor@example.local)
+				10 Mixed Permissions (mixed@example.local)
+				11 Workflow Editor (workflow-editor@example.local)
+				12 Application Admin (admin@example.local)
+	13 button Verify development session
+	44 text {
+  "status": "authenticated",
+  "authenticated": true,
+  "principalId": "usr_06fefc50791f4f15ac0139de699701b9",
+  "deploymentId": "builder-demo",
+  "authorityId": "ui-platform-development",
+  "registeredApplications": true,
+  "capabilities": {
+    "ui.platform.security.admin": true,
+    "ui.platform.application.create": false
+  }
+}
+	14 button Inspect disposable pilot administration
+	45 text Refused/unavailable: Candidate refused or stale (CHECKSUM_CONFLICT, CHECKSUM_CONFLICT, CHECKSUM_CONFLICT). No activation is available. No success is inferred.
+	15 button Manage Triggers and Workflows
+	17 container
+		18 button Modular UI Platform home
+			19 text M
+			20 text MODULAR
+			21 text UI Platform
+		22 container Description: Platform navigation, ID: uib-menu-137-nav
+			23 button Applications
+			24 button Packages
+			25 button (disabled) Templates
+			26 button Settings
+		27 text U
+		28 text User
+		29 text user@example.com
+		30 container
+			31 text Search applications
+			32 text field (settable) Search applications, ID: uib-forms-textbox-151-control
+			33 button New Application
+		34 button Applications
+		35 container Applications
+			36 text Applications
+			37 container
+				38 text Select an application or create a new one. Valid folders copied manually into  Modular/apps/  are discovered automatically.
+			39 button V V1 Development Identity Fixture /v1-identity-fixture active - ready
+				40 text V
+				41 text V1 Development Identity Fixture
+				42 text /v1-identity-fixture
+				43 text active - ready
+
+The focused UI element is 0 AXWebArea UI Platform, URL: localhost:5274/

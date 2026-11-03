@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import{createHash}from'node:crypto';
+const dir=path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/,'$1');
+const read=n=>JSON.parse(fs.readFileSync(path.join(dir,n),'utf8')),hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const before=read('before.json'),after=read('after.json'),old=new Map(before.files.map(f=>[f.path,f]));
+const changed=after.files.filter(f=>old.get(f.path)?.sha256!==f.sha256).map(f=>({before:old.get(f.path)??null,after:f}));
+const result={changed,removed:before.files.filter(f=>!after.files.some(a=>a.path===f.path)),securityTablesUnchanged:JSON.stringify(before.tables)===JSON.stringify(after.tables),registrationsUnchanged:JSON.stringify(before.registrations)===JSON.stringify(after.registrations)};
+result.securityTableChanges=after.tables.filter(t=>before.tables.find(b=>b.name===t.name)?.sha256!==t.sha256).map(t=>({before:before.tables.find(b=>b.name===t.name),after:t}));
+result.changedFileAppendChecks=changed.map(({before:b,after:a})=>({path:a.path,addedBytes:b?a.bytes-b.bytes:null,originalPrefixPreserved:!!b&&createHash('sha256').update(fs.readFileSync(a.path).subarray(0,b.bytes)).digest('hex')===b.sha256}));
+fs.writeFileSync(path.join(dir,'preservation.json'),JSON.stringify(result,null,2));
+const files=fs.readdirSync(dir).filter(n=>n!=='files.json').map(n=>path.join(dir,n));files.push(path.resolve('docs/architecture/v1-local-pilot-three-page-release-readiness-review-gate-20261103.md'));
+fs.writeFileSync(path.join(dir,'files.json'),JSON.stringify(files.map(p=>({path:p,bytes:fs.statSync(p).size,sha256:hash(p)})),null,2));
+console.log(JSON.stringify({changed:changed.map(f=>f.after.path),removed:result.removed.length,securityTableChanges:result.securityTableChanges.map(t=>({table:t.after.name,before:t.before.rows,after:t.after.rows})),appendChecks:result.changedFileAppendChecks,registrationsUnchanged:result.registrationsUnchanged}));

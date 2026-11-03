@@ -1,0 +1,189 @@
+{
+  "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+  "source": "api",
+  "expectedRevision": 9,
+  "reason": "V1 disposable local audience pilot: temporary ui.page.admin solely for guarded Administration Page cleanup after Menu reference repair; retain the seven accepted functional rules unchanged and perform separately reviewed audited revocation after verified deletion.",
+  "changes": [
+    {
+      "document": {
+        "format": "ui-platform.security",
+        "formatVersion": 1,
+        "definition": {
+          "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+          "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+          "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set",
+          "status": "active",
+          "kind": "permission-set",
+          "owner": {
+            "kind": "application",
+            "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+          },
+          "includes": [],
+          "rules": [
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.0",
+              "permissionId": "ui.application.view",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": false
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.1",
+              "permissionId": "ui.application.edit",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": false
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.2",
+              "permissionId": "ui.page.view",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.3",
+              "permissionId": "ui.page.edit",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.4",
+              "permissionId": "ui.presentation.view",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.5",
+              "permissionId": "ui.presentation.edit",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.6",
+              "permissionId": "ui.presentation.admin",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            },
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.rule.7",
+              "permissionId": "ui.page.admin",
+              "effect": "allow",
+              "scope": {
+                "resource": {
+                  "authorityId": "ui-platform-development",
+                  "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+                  "kind": "application",
+                  "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+                },
+                "descendants": true
+              }
+            }
+          ]
+        }
+      },
+      "expectedChecksumPresent": false
+    },
+    {
+      "document": {
+        "format": "ui-platform.security",
+        "formatVersion": 1,
+        "definition": {
+          "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+          "key": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+          "name": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+          "status": "active",
+          "kind": "role",
+          "owner": {
+            "kind": "application",
+            "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7"
+          },
+          "permissionSets": [
+            {
+              "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.set"
+            }
+          ]
+        }
+      },
+      "expectedChecksumPresent": false
+    },
+    {
+      "document": {
+        "format": "ui-platform.security",
+        "formatVersion": 1,
+        "definition": {
+          "kind": "role-assignment",
+          "id": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.assignment",
+          "status": "active",
+          "userId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+          "roleId": "local-pilot.de8d1851-3e36-435f-b093-95ce94d940e7.role",
+          "scope": {
+            "resource": {
+              "authorityId": "ui-platform-development",
+              "applicationId": "de8d1851-3e36-435f-b093-95ce94d940e7",
+              "kind": "application",
+              "id": "de8d1851-3e36-435f-b093-95ce94d940e7"
+            },
+            "descendants": true
+          },
+          "startsAt": "2026-11-02T00:00:00Z",
+          "endsAt": null
+        }
+      },
+      "expectedChecksumPresent": false
+    }
+  ]
+}
