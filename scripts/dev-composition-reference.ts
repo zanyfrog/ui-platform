@@ -3,7 +3,8 @@ import { tmpdir } from 'node:os';
 import { createServer } from 'vite';
 import { spawn } from 'node:child_process';
 import { mkdir, stat } from 'node:fs/promises';
-import { ensureReferenceDependencies } from './reference-dependencies.js';
+import { ensureReferenceDependencies, prepareReferenceApplication } from './reference-dependencies.js';
+import { recoverDemoSource } from './recover-demo-source.js';
 
 // Keep installed Application files outside the repository's live source watchers.
 const referenceRoot = path.join(tmpdir(), 'ui-platform-composition-reference-v1');
@@ -13,8 +14,10 @@ process.env.UI_RUNTIME_DIR = path.join(referenceRoot, 'runtime');
 const { createApp, appPath } = await import('../src/server/applications.js');
 await mkdir(apps, { recursive: true });
 const key = 'composition-reference';
-if (!await stat(appPath(key)).catch(() => null)) await createApp({ key, name: 'Composition Reference', templateId: 'standard' });
+await prepareReferenceApplication(appPath(key), () => createApp({ key, name: 'Composition Reference', templateId: 'standard' }));
 await ensureReferenceDependencies(appPath(key));
+await recoverDemoSource(path.resolve('components'));
+for (const collection of ['src/pages', 'shells', 'presentation/platform-components']) await recoverDemoSource(path.join(appPath(key), collection));
 const apiPort = 4092, managerPort = 5192, appPort = 5193;
 const api = spawn(process.execPath, ['--import', 'tsx', 'src/server/index.ts'], { stdio: 'inherit', windowsHide: true,
   env: { ...process.env, UI_PLATFORM_API_PORT: String(apiPort), UI_PLATFORM_UI_PORT: String(managerPort), UI_PLATFORM_EDITOR: '0', UI_PLATFORM_V1_DEVELOPMENT_IDENTITY: '0', UI_PLATFORM_BUILDER_WP0: '0', NODE_ENV: 'development' } });

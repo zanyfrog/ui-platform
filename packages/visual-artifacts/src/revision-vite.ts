@@ -43,6 +43,7 @@ export function revisionVisualArtifacts(options: { revisionPinned?: true; compon
         if (resolved && !importer?.startsWith('\0virtual:uip-')) await assertNotVisualRole(resolved.id, managedRoots());
       }
     },
+    config() { return { server: { watch: { ignored: ['**/.uib/**'] } } }; },
     async load(id) {
       if (id === '\0' + watchId) return runtimeRefreshClient;
       const pageFile = id.startsWith(`\0${pageId}:`) ? decodeURIComponent(id.slice(`\0${pageId}:`.length, -3)) : undefined;

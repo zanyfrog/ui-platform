@@ -23,6 +23,9 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
   return {
     name: 'ui-platform-application-composition',
     enforce: 'pre',
+    // Admission creates and removes private lock files while compiling. They
+    // must not trigger Vite's ordinary add/unlink reload handling.
+    config() { return { server: { watch: { ignored: ['**/.uib/**'] } } }; },
     configResolved(config) { production = config.command === 'build'; },
     resolveId(request, importer) { boundary?.guard(request, importer); if (request === id || request === watchId) return '\0' + request; },
     async load(request) {

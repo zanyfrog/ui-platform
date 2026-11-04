@@ -1,8 +1,22 @@
 import path from 'node:path';
-import { copyFile, mkdir, readFile, stat } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, stat, rename } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { spawnNpm } from '../src/server/npm-process.js';
+
+export async function prepareReferenceApplication(root: string, create: () => Promise<unknown>): Promise<void> {
+  // A directory alone does not establish a usable Application. Keep incomplete
+  // caches for recovery, then let normal creation install a complete template.
+  const required = ['package.json', 'vite.config.js', 'src/main.ts', 'app.settings.json', 'app-services.json', 'app.manifest.json'];
+  if (await stat(root).catch(() => null)) {
+    const present = await Promise.all(required.map(file => stat(path.join(root, file)).then(value => value.isFile()).catch(() => false)));
+    if (present.every(Boolean)) return;
+    const backup = `${root}.incomplete-${Date.now()}`;
+    await rename(root, backup);
+    console.log(`Preserved incomplete reference Application at: ${backup}`);
+  }
+  await create();
+}
 
 export async function missingReferenceDependencies(root: string): Promise<string[]> {
   const manifest = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
@@ -16,10 +30,20 @@ export async function missingReferenceDependencies(root: string): Promise<string
 
 export async function repairReferenceServiceBuild(root: string): Promise<boolean> {
   const services = path.join(root, 'packages/app-services');
-  const manifest = JSON.parse(await readFile(path.join(services, 'package.json'), 'utf8'));
-  if (manifest.scripts?.build !== 'node build.mjs') return false;
   const template = fileURLToPath(new URL('../templates/standard/files/packages/app-services/', import.meta.url));
   let repaired = false;
+  // Older cached Applications may predate the service package entirely.
+  // Restore only absent files so application-owned code remains intact.
+  try {
+    await readFile(path.join(services, 'package.json'), 'utf8');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+    await mkdir(services, { recursive: true });
+    await copyFile(path.join(template, 'package.json'), path.join(services, 'package.json'), constants.COPYFILE_EXCL);
+    repaired = true;
+  }
+  const manifest = JSON.parse(await readFile(path.join(services, 'package.json'), 'utf8'));
+  if (manifest.scripts?.build !== 'node build.mjs') return false;
   for (const relative of ['build.mjs', 'src/index.js']) {
     const destination = path.join(services, relative);
     if (await stat(destination).catch(() => null)) continue;

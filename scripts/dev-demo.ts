@@ -13,6 +13,7 @@ import { SecurityDefinitionService, SecurityDefinitionStore, type SecurityRecord
 import { initializeDevelopmentPlatformSecurity } from '@ui-platform/i-am/administration';
 import { DevelopmentApplicationRegistry } from '../src/server/development-application-registry.js';
 import { checkDemoHealth, checkReferenceHealth } from './demo-health.mjs';
+import { recoverDemoSource } from './recover-demo-source.js';
 
 // Running this opt-in command selects the development deployment explicitly.
 process.env.NODE_ENV = 'development';
@@ -280,6 +281,10 @@ try {
     if (state) await verifyOwner(state);
     else state = await initialize();
     await startControl();
+    await recoverDemoSource(path.join(platform, 'components'));
+    for (const collection of ['src/pages', 'shells', 'presentation/platform-components']) {
+      await recoverDemoSource(path.join(apps, state.key, collection));
+    }
     child = spawn(process.execPath, ['scripts/dev.mjs'], { cwd: platform, windowsHide: true, stdio: 'inherit', env: {
       ...process.env, NODE_ENV: 'development', UI_APPS_DIR: apps, UI_RUNTIME_DIR: runtime,
       UI_PLATFORM_V1_POLICY_STORE: policyPath, UI_PLATFORM_BUILDER_HOSTS_FILE: path.join(runtime, 'builder-hosts.json'),

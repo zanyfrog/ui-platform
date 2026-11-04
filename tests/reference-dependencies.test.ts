@@ -4,6 +4,17 @@ import path from 'node:path';
 import { expect, it } from 'vitest';
 import { missingReferenceDependencies, repairReferenceServiceBuild } from '../scripts/reference-dependencies.js';
 
+it('restores a service package absent from an older cached Application', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'reference-legacy-'));
+  try {
+    expect(await repairReferenceServiceBuild(root)).toBe(true);
+    const services = path.join(root, 'packages/app-services');
+    expect(JSON.parse(await readFile(path.join(services, 'package.json'), 'utf8')).scripts.build).toBe('node build.mjs');
+    expect(await readFile(path.join(services, 'src/index.js'), 'utf8')).toContain('export {}');
+    expect(await repairReferenceServiceBuild(root)).toBe(false);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
 it('recovers missing service build files, preserves registrations, and leaves existing source intact', async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'reference-build-'));
   const services = path.join(root, 'packages/app-services');
