@@ -1,0 +1,1 @@
+{ "schemaVersion": 1, "artifactId": "art_{{APP_ID}}_public_shell", "kind": "shell", "name": "public", "displayName": "Public Shell", "public": { "properties": { "showFooter": { "type": "boolean", "default": true } }, "events": {}, "slots": [] }, "conditions": [{ "node": "public_footer", "when": "public.showFooter" }] }

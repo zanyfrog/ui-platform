@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "artifactId": "art_customer-summary-reference",
+  "componentId": "cmp_platform_customer-summary-reference",
+  "kind": "component",
+  "name": "customer-summary-card",
+  "displayName": "Customer Summary Card",
+  "description": "Reference composition of HTML and real UI Base components.",
+  "public": {
+    "properties": { "person": { "type": "object", "required": true }, "disabled": { "type": "boolean", "default": false } },
+    "events": { "openRequested": { "payload": { "customerId": { "type": "string", "required": true } } } },
+    "slots": ["footer"]
+  },
+  "state": { "isExpanded": false },
+  "bindings": [
+    { "node": "summary-card", "target": "setting:heading", "value": "public.person.name" },
+    { "node": "summary-card", "target": "setting:disabled", "value": "public.disabled" },
+    { "node": "summary-heading", "target": "attribute:text", "value": "public.person.status" },
+    { "node": "summary-balance", "target": "text", "value": "public.person.balance" },
+    { "node": "summary-button", "target": "attribute:disabled", "value": "public.disabled" }
+  ],
+  "conditions": [{ "node": "summary-details", "when": "local.isExpanded" }],
+  "events": [{ "node": "summary-button", "event": "click", "actions": [
+    { "kind": "set", "state": "isExpanded", "value": { "op": "not", "args": ["local.isExpanded"] } },
+    { "kind": "emit", "event": "openRequested", "payload": { "customerId": "public.person.id" } }
+  ] }],
+  "layout": { "summary-wrapper": { "base": { "width": "100%", "padding": "8px" } } }
+}

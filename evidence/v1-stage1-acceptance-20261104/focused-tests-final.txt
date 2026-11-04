@@ -1,0 +1,1704 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform
+
+ ❯ tests/stage1-component-admission.test.ts (3 tests | 2 failed) 220ms
+   × admits exact physical UI and Forms packages and rejects missing, duplicated, or substituted modules 203ms
+   × preserves accepted Card identity and old literal instances while enforcing new interactive contracts 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/stage1-component-admission.test.ts > admits exact physical UI and Forms packages and rejects missing, duplicated, or substituted modules
+AssertionError: promise resolved "{ name: '@ui-base/ui', …(18) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "appEnabled": false,
++   "appLocalAvailable": false,
++   "capabilities": [],
++   "components": [
++     {
++       "accessibility": {
++         "disabled": "aria-disabled; remove-from-tab-order; block-activation",
++         "keyboard": {
++           "link": "native",
++           "nonLink": [
++             "Enter",
++             "Space",
++           ],
++         },
++         "modes": [
++           "section",
++           "link",
++           "button",
++           "toggle-button",
++         ],
++         "namePrecedence": [
++           "aria-label",
++           "heading",
++           "label",
++           "header",
++         ],
++       },
++       "builder": {
++         "definitionSettings": {
++           "description": {
++             "binding": {
++               "kind": "definition",
++               "path": "identity.description",
++             },
++             "editor": "textarea",
++             "label": "Description",
++             "type": "string",
++           },
++           "displayName": {
++             "binding": {
++               "kind": "definition",
++               "path": "identity.displayName",
++             },
++             "label": "Display name",
++             "required": true,
++             "type": "string",
++           },
++         },
++         "eventBindings": {
++           "cancellation": "synchronous-false-only",
++           "handlerReference": "registered-handler-id",
++           "selectionEvent": "uib-card-select",
++         },
++         "groups": [
++           {
++             "id": "content",
++             "label": "Content",
++           },
++           {
++             "id": "appearance",
++             "label": "Appearance",
++           },
++           {
++             "id": "interaction",
++             "label": "Interaction",
++           },
++           {
++             "id": "state",
++             "label": "State",
++           },
++           {
++             "id": "accessibility",
++             "label": "Accessibility",
++           },
++           {
++             "id": "events",
++             "label": "Event bindings",
++           },
++         ],
++         "interactionModes": {
++           "action": {
++             "attributes": {
++               "interactive": true,
++               "selectable": false,
++             },
++           },
++           "link": {
++             "attributes": {
++               "interactive": false,
++               "selectable": false,
++             },
++           },
++           "none": {
++             "attributes": {
++               "interactive": false,
++               "selectable": false,
++             },
++           },
++           "selectable": {
++             "attributes": {
++               "interactive": false,
++               "selectable": true,
++             },
++           },
++         },
++         "preview": {
++           "eventHandlers": "observe-only",
++           "navigation": "prevent",
++           "renderer": "runtimeBinding",
++         },
++         "responsive": {
++           "supported": false,
++         },
++         "settings": {
++           "action": {
++             "binding": {
++               "kind": "attribute",
++               "name": "action",
++             },
++             "default": "",
++             "group": "interaction",
++             "label": "Action",
++             "type": "string",
++             "visibleWhen": {
++               "equals": "action",
++               "setting": "interactionMode",
++             },
++           },
++           "actionHandler": {
++             "binding": {
++               "kind": "event",
++               "name": "uib-card-action",
++             },
++             "default": "",
++             "group": "events",
++             "label": "Action handler ID",
++             "type": "string",
++             "visibleWhen": {
++               "equals": "action",
++               "setting": "interactionMode",
++             },
++           },
++           "actionToken": {
++             "binding": {
++               "kind": "attribute",
++               "name": "action-token",
++             },
++             "default": "",
++             "group": "interaction",
++             "label": "Action token",
++             "type": "string",
++             "visibleWhen": {
++               "equals": "action",
++               "setting": "interactionMode",
++             },
++           },
++           "ariaDescribedBy": {
++             "binding": {
++               "kind": "attribute",
++               "name": "aria-describedby",
++             },
++             "default": "",
++             "group": "accessibility",
++             "label": "Description IDs",
++             "type": "string",
++           },
++           "ariaLabel": {
++             "binding": {
++               "kind": "attribute",
++               "name": "aria-label",
++             },
++             "default": "",
++             "group": "accessibility",
++             "label": "Accessible name",
++             "type": "string",
++           },
++           "body": {
++             "binding": {
++               "content": "text",
++               "kind": "slot",
++               "name": "default",
++             },
++             "default": "Card body",
++             "editor": "textarea",
++             "group": "content",
++             "label": "Body",
++             "type": "string",
++           },
++           "cssClass": {
++             "binding": {
++               "kind": "attribute",
++               "name": "css-class",
++             },
++             "default": "",
++             "group": "appearance",
++             "label": "CSS classes",
++             "type": "string",
++           },
++           "density": {
++             "binding": {
++               "kind": "attribute",
++               "name": "density",
++             },
++             "default": "comfortable",
++             "editor": "select",
++             "enum": [
++               "comfortable",
++               "compact",
++             ],
++             "group": "appearance",
++             "label": "Density",
++             "type": "string",
++           },
++           "disabled": {
++             "binding": {
++               "kind": "attribute",
++               "name": "disabled",
++             },
++             "default": false,
++             "group": "state",
++             "label": "Disabled",
++             "type": "boolean",
++           },
++           "footer": {
++             "binding": {
++               "content": "text",
++               "kind": "slot",
++               "name": "footer",
++             },
++             "default": "",
++             "group": "content",
++             "label": "Footer",
++             "type": "string",
++           },
++           "header": {
++             "binding": {
++               "content": "text",
++               "kind": "slot",
++               "name": "header",
++             },
++             "default": "",
++             "group": "content",
++             "label": "Header content",
++             "type": "string",
++           },
++           "heading": {
++             "binding": {
++               "kind": "attribute",
++               "name": "heading",
++             },
++             "default": "",
++             "group": "content",
++             "label": "Heading",
++             "type": "string",
++           },
++           "href": {
++             "binding": {
++               "kind": "attribute",
++               "name": "href",
++             },
++             "default": "",
++             "format": "url",
++             "group": "interaction",
++             "label": "Link URL",
++             "type": "string",
++             "visibleWhen": {
++               "equals": "link",
++               "setting": "interactionMode",
++             },
++           },
++           "interactionMode": {
++             "binding": {
++               "kind": "mode",
++             },
++             "default": "none",
++             "editor": "select",
++             "enum": [
++               "none",
++               "link",
++               "action",
++               "selectable",
++             ],
++             "group": "interaction",
++             "label": "Interaction mode",
++             "type": "string",
++           },
++           "label": {
++             "binding": {
++               "kind": "attribute",
++               "name": "label",
++             },
++             "default": "",
++             "group": "content",
++             "label": "Fallback label",
++             "type": "string",
++           },
++           "mediaAlt": {
++             "binding": {
++               "kind": "slotMetadata",
++               "name": "alt",
++               "slot": "media",
++             },
++             "default": "",
++             "group": "content",
++             "label": "Image description",
++             "type": "string",
++           },
++           "mediaSrc": {
++             "binding": {
++               "altSetting": "mediaAlt",
++               "content": "image",
++               "kind": "slot",
++               "name": "media",
++             },
++             "default": "",
++             "format": "image-url",
++             "group": "content",
++             "label": "Image URL",
++             "type": "string",
++           },
++           "name": {
++             "binding": {
++               "kind": "attribute",
++               "name": "name",
++             },
++             "default": "",
++             "group": "interaction",
++             "label": "Event name",
++             "type": "string",
++           },
++           "rel": {
++             "binding": {
++               "kind": "attribute",
++               "name": "rel",
++             },
++             "default": "",
++             "group": "interaction",
++             "label": "Link relationship",
++             "type": "string",
++             "visibleWhen": {
++               "equals": "link",
++               "setting": "interactionMode",
++             },
++           },
++           "selected": {
++             "binding": {
++               "kind": "attribute",
++               "name": "selected",
++             },
++             "default": false,
++             "group": "state",
++             "label": "Initially selected",
++             "type": "boolean",
++             "visibleWhen": {
++               "equals": "selectable",
++               "setting": "interactionMode",
++             },
++           },
++           "selectionHandler": {
++             "binding": {
++               "kind": "event",
++               "name": "uib-card-select",
++             },
++             "default": "",
++             "group": "events",
++             "label": "Selection handler ID",
++             "type": "string",
++             "visibleWhen": {
++               "equals": "selectable",
++               "setting": "interactionMode",
++             },
++           },
++           "target": {
++             "binding": {
++               "kind": "attribute",
++               "name": "target",
++             },
++             "default": "",
++             "editor": "select",
++             "enum": [
++               "",
++               "_self",
++               "_blank",
++               "_parent",
++               "_top",
++             ],
++             "group": "interaction",
++             "label": "Link target",
++             "type": "string",
++             "visibleWhen": {
++               "equals": "link",
++               "setting": "interactionMode",
++             },
++           },
++           "variant": {
++             "binding": {
++               "kind": "attribute",
++               "name": "variant",
++             },
++             "default": "elevated",
++             "editor": "select",
++             "enum": [
++               "elevated",
++               "outlined",
++               "flat",
++             ],
++             "group": "appearance",
++             "label": "Variant",
++             "type": "string",
++           },
++         },
++         "validation": [
++           {
++             "kind": "requiredWhen",
++             "setting": "href",
++             "when": {
++               "equals": "link",
++               "setting": "interactionMode",
++             },
++           },
++           {
++             "kind": "oneOfRequiredWhen",
++             "settings": [
++               "action",
++               "actionToken",
++             ],
++             "when": {
++               "equals": "action",
++               "setting": "interactionMode",
++             },
++           },
++           {
++             "kind": "accessibleNameWhenInteractive",
++             "settings": [
++               "heading",
++               "label",
++               "header",
++               "ariaLabel",
++             ],
++           },
++         ],
++       },
++       "capabilities": [
++         "surface",
++         "container",
++         "interactive",
++         "selectable",
++         "linkable",
++       ],
++       "category": "content-surfaces",
++       "children": {
++         "builder": {
++           "content": [
++             "text",
++             "image",
++           ],
++           "nestedInteractiveInLink": false,
++         },
++         "runtime": "unrestricted-for-compatibility",
++       },
++       "clone": {
++         "component": "new-component-identity;retain-provenance",
++         "workspace": "new-workspace-and-instance-ids;same-component-identity",
++       },
++       "dependencies": {
++         "packages": [
++           {
++             "packageId": "@ui-base/core",
++             "range": "^0.1.0",
++           },
++           {
++             "packageId": "@ui-base/icons",
++             "range": "^0.1.0",
++           },
++         ],
++         "services": [],
++       },
++       "deprecation": {
++         "replacementComponentId": null,
++         "status": "none",
++       },
++       "extensions": {},
++       "identity": {
++         "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
++         "description": "Repeatable content surface with optional link, action and selection behavior.",
++         "displayName": "Card",
++         "name": "card",
++       },
++       "implementation": {
++         "aliases": [
++           {
++             "exportName": "UibCard",
++             "importPath": "@ui-base/ui",
++           },
++           {
++             "exportName": "UibCard",
++             "importPath": "@ui-base/ui/layout",
++           },
++         ],
++         "exportName": "UibCard",
++         "importPath": "@ui-base/ui/card",
++         "module": "./src/layout/uib-card.js",
++         "registrationSideEffects": [
++           "uib-stack",
++           "uib-grid",
++           "uib-row",
++           "uib-column",
++           "uib-panel",
++           "uib-card",
++           "uib-dialog",
++           "uib-accordion",
++           "uib-tab",
++           "uib-tab-panel",
++           "uib-tabs",
++           "uib-splitter",
++           "uib-icon",
++         ],
++         "runtimeBinding": {
++           "kind": "custom-element",
++           "tagName": "uib-card",
++         },
++         "tagName": "uib-card",
++         "type": "code",
++       },
++       "importPath": "./card",
++       "lifecycle": {
++         "promotion": "new-identity-with-provenance",
++         "publication": "unimplemented-stage-gate",
++         "publishedRevisionsImmutable": true,
++         "rollback": "new-revision",
++         "save": "workspace-only",
++         "state": "installed",
++       },
++       "maturity": "experimental",
++       "module": "./src/layout/uib-card.js",
++       "ownership": {
++         "package": {
++           "packageId": "@ui-base/ui",
++           "scope": "platform",
++           "version": "0.5.2",
++         },
++         "provenance": {
++           "origin": "installed-package",
++           "promotedFromComponentId": null,
++           "promotedFromRevisionId": null,
++         },
++         "scope": "platform",
++       },
++       "presentation": {
++         "cssVariables": [
++           "--uib-color-ink",
++           "--uib-font-family-sans",
++           "--uib-color-border",
++           "--uib-radius-lg",
++           "--uib-color-surface",
++           "--uib-color-surface-soft",
++           "--uib-shadow-sm",
++           "--uib-space-3",
++           "--uib-space-4",
++           "--uib-focus-ring",
++           "--uib-color-primary",
++         ],
++         "parts": [
++           "base",
++           "media",
++           "header",
++           "body",
++           "footer",
++         ],
++         "settings": {
++           "density": {
++             "inheritable": true,
++             "options": [
++               "comfortable",
++               "compact",
++             ],
++             "type": "select",
++           },
++           "variant": {
++             "inheritable": true,
++             "options": [
++               "elevated",
++               "outlined",
++               "flat",
++             ],
++             "type": "select",
++           },
++         },
++       },
++       "runtime": {
++         "attributes": {
++           "action": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "action-token": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "aria-describedby": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "aria-label": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "css-class": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "density": {
++             "default": "comfortable",
++             "enum": [
++               "comfortable",
++               "compact",
++             ],
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "disabled": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "error": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "heading": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "help": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "help-mode": {
++             "default": "tooltip",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "hidden": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "href": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "interactive": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "invalid": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "label": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "name": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "readonly": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "rel": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "required": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "selectable": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "selected": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "target": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "title": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "variant": {
++             "default": "elevated",
++             "enum": [
++               "elevated",
++               "outlined",
++               "flat",
++             ],
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++         },
++         "events": {
++           "change": {
++             "bubbles": true,
++             "cancelable": false,
++             "composed": true,
++             "detail": {
++               "name": "string",
++               "newValue": "boolean",
++               "oldValue": "boolean",
++               "selected": "boolean",
++             },
++             "order": 1,
++             "selectionAliasOf": "uib-card-select",
++           },
++           "uib-card-action": {
++             "bubbles": true,
++             "cancelable": true,
++             "cancellation": "prevent-original-event-default-after-selection",
++             "composed": true,
++             "detail": {
++               "action": "string",
++               "actionToken": "string",
++               "name": "string",
++               "selected": "boolean",
++             },
++             "order": 3,
++           },
++           "uib-card-select": {
++             "bubbles": true,
++             "cancelable": false,
++             "composed": true,
++             "detail": {
++               "name": "string",
++               "newValue": "boolean",
++               "oldValue": "boolean",
++               "selected": "boolean",
++             },
++             "order": 2,
++           },
++         },
++         "properties": {
++           "action": {
++             "attribute": "action",
++             "default": "",
++             "type": "string",
++             "writable": false,
++           },
++           "actionToken": {
++             "attribute": "action-token",
++             "default": "",
++             "type": "string",
++             "writable": false,
++           },
++           "ariaDescribedBy": {
++             "attribute": "aria-describedby",
++             "default": "",
++             "type": "string",
++             "writable": false,
++           },
++           "ariaLabel": {
++             "attribute": "aria-label",
++             "default": "",
++             "type": "string",
++             "writable": false,
++           },
++           "componentId": {
++             "role": "runtime-instance-id",
++             "type": "string",
++             "writable": false,
++           },
++           "cssClass": {
++             "attribute": "css-class",
++             "default": "",
++             "type": "string",
++             "writable": true,
++           },
++           "density": {
++             "attribute": "density",
++             "default": "comfortable",
++             "normalization": "exact-compact-or-default",
++             "type": "string",
++             "writable": false,
++           },
++           "disabled": {
++             "attribute": "disabled",
++             "default": false,
++             "type": "boolean",
++             "writable": true,
++           },
++           "error": {
++             "attribute": "error",
++             "default": "",
++             "type": "string",
++             "writable": true,
++           },
++           "heading": {
++             "attribute": "heading",
++             "default": "",
++             "fallback": "label",
++             "type": "string",
++             "writable": false,
++           },
++           "help": {
++             "attribute": "help",
++             "default": "",
++             "type": "string",
++             "writable": true,
++           },
++           "helpMode": {
++             "attribute": "help-mode",
++             "default": "tooltip",
++             "type": "string",
++             "writable": true,
++           },
++           "hidden": {
++             "attribute": "hidden",
++             "default": false,
++             "type": "boolean",
++             "writable": true,
++           },
++           "href": {
++             "attribute": "href",
++             "default": "",
++             "type": "string",
++             "writable": false,
++           },
++           "interactive": {
++             "attribute": "interactive",
++             "computedFrom": [
++               "interactive",
++               "href",
++               "action",
++               "action-token",
++               "selectable",
++             ],
++             "default": false,
++             "type": "boolean",
++             "writable": false,
++           },
++           "invalid": {
++             "attribute": "invalid",
++             "default": false,
++             "type": "boolean",
++             "writable": true,
++           },
++           "label": {
++             "attribute": "label",
++             "default": "",
++             "type": "string",
++             "writable": true,
++           },
++           "name": {
++             "attribute": "name",
++             "default": "",
++             "type": "string",
++             "writable": true,
++           },
++           "readonly": {
++             "attribute": "readonly",
++             "default": false,
++             "type": "boolean",
++             "writable": true,
++           },
++           "rel": {
++             "attribute": "rel",
++             "default": "",
++             "type": "string",
++             "writable": false,
++           },
++           "required": {
++             "attribute": "required",
++             "default": false,
++             "type": "boolean",
++             "writable": true,
++           },
++           "selectable": {
++             "attribute": "selectable",
++             "default": false,
++             "type": "boolean",
++             "writable": false,
++           },
++           "selected": {
++             "attribute": "selected",
++             "default": false,
++             "programmaticSetEmits": false,
++             "type": "boolean",
++             "writable": true,
++           },
++           "target": {
++             "attribute": "target",
++             "default": "",
++             "type": "string",
++             "writable": false,
++           },
++           "titleText": {
++             "attribute": "title",
++             "default": "",
++             "type": "string",
++             "writable": true,
++           },
++           "variant": {
++             "attribute": "variant",
++             "default": "elevated",
++             "normalization": "lowercase-or-default",
++             "type": "string",
++             "writable": false,
++           },
++         },
++         "slots": [
++           {
++             "content": "text-or-elements",
++             "name": "default",
++           },
++           {
++             "content": "text-or-elements",
++             "name": "media",
++           },
++           {
++             "content": "text-or-elements",
++             "name": "header",
++           },
++           {
++             "content": "text-or-elements",
++             "name": "footer",
++           },
++         ],
++       },
++       "schemaVersion": "1.0.0",
++       "tagName": "uib-card",
++       "version": {
++         "packageVersion": "0.5.2",
++         "revisionId": null,
++         "runtimeCompatibility": "^0.5.2",
++       },
++     },
++     {
++       "accessibility": {
++         "disabled": "aria-disabled; remove-from-tab-order; block-activation",
++         "keyboard": {
++           "link": "native",
++           "nonLink": [
++             "Enter",
++             "Space",
++           ],
++         },
++         "modes": [
++           "section",
++           "link",
++           "button",
++           "toggle-button",
++         ],
++         "namePrecedence": [
++           "aria-label",
++           "heading",
++           "label",
++           "header",
++         ],
++       },
++       "builder": {
++         "definitionSettings": {
++           "description": {
++             "binding": {
++               "kind": "definition",
++               "path": "identity.description",
++             },
++             "editor": "textarea",
++             "label": "Description",
++             "type": "string",
++           },
++           "displayName": {
++             "binding": {
++               "kind": "definition",
++               "path": "identity.displayName",
++             },
++             "label": "Display name",
++             "required": true,
++             "type": "string",
++           },
++         },
++         "eventBindings": {
++           "cancellation": "synchronous-false-only",
++           "handlerReference": "registered-handler-id",
++           "selectionEvent": "uib-card-select",
++         },
++         "groups": [
++           {
++             "id": "content",
++             "label": "Content",
++           },
++           {
++             "id": "appearance",
++             "label": "Appearance",
++           },
++           {
++             "id": "interaction",
++             "label": "Interaction",
++           },
++           {
++             "id": "state",
++             "label": "State",
++           },
++           {
++             "id": "accessibility",
++             "label": "Accessibility",
++           },
++           {
++             "id": "events",
++             "label": "Event bindings",
++           },
++         ],
++         "interactionModes": {},
++         "preview": {
++           "eventHandlers": "observe-only",
++           "navigation": "prevent",
++           "renderer": "runtimeBinding",
++         },
++         "responsive": {
++           "supported": false,
++         },
++         "settings": {
++           "collapsible": {
++             "binding": {
++               "kind": "attribute",
++               "name": "collapsible",
++             },
++             "default": false,
++             "group": "content",
++             "label": "collapsible",
++             "type": "boolean",
++           },
++           "density": {
++             "binding": {
++               "kind": "attribute",
++               "name": "density",
++             },
++             "default": "comfortable",
++             "enum": [
++               "comfortable",
++               "compact",
++             ],
++             "group": "content",
++             "label": "density",
++             "type": "string",
++           },
++           "disabled": {
++             "binding": {
++               "kind": "attribute",
++               "name": "disabled",
++             },
++             "default": false,
++             "group": "content",
++             "label": "disabled",
++             "type": "boolean",
++           },
++           "heading": {
++             "binding": {
++               "kind": "attribute",
++               "name": "heading",
++             },
++             "default": "",
++             "group": "content",
++             "label": "heading",
++             "type": "string",
++           },
++           "open": {
++             "binding": {
++               "kind": "attribute",
++               "name": "open",
++             },
++             "default": false,
++             "group": "content",
++             "label": "open",
++             "type": "boolean",
++           },
++           "variant": {
++             "binding": {
++               "kind": "attribute",
++               "name": "variant",
++             },
++             "default": "outlined",
++             "enum": [
++               "elevated",
++               "outlined",
++               "flat",
++             ],
++             "group": "content",
++             "label": "variant",
++             "type": "string",
++           },
++         },
++         "validation": [],
++       },
++       "capabilities": [
++         "surface",
++         "container",
++         "interactive",
++         "selectable",
++         "linkable",
++       ],
++       "category": "content-surfaces",
++       "children": {
++         "builder": {
++           "content": [
++             "text",
++             "image",
++           ],
++           "nestedInteractiveInLink": false,
++         },
++         "runtime": "unrestricted-for-compatibility",
++       },
++       "clone": {
++         "component": "new-component-identity;retain-provenance",
++         "workspace": "new-workspace-and-instance-ids;same-component-identity",
++       },
++       "dependencies": {
++         "packages": [],
++         "services": [],
++       },
++       "deprecation": {
++         "replacementComponentId": null,
++         "status": "none",
++       },
++       "extensions": {},
++       "identity": {
++         "componentId": "@ui-base/ui:uib-panel",
++         "description": "Metadata-admitted uib-panel",
++         "displayName": "uib-panel",
++         "name": "uib-panel",
++       },
++       "implementation": {
++         "aliases": [],
++         "exportName": "UibPanel",
++         "importPath": "@ui-base/ui/panel",
++         "module": "./src/layout/uib-panel.js",
++         "registrationSideEffects": [
++           "uib-panel",
++         ],
++         "runtimeBinding": {
++           "kind": "custom-element",
++           "tagName": "uib-panel",
++         },
++         "tagName": "uib-panel",
++         "type": "code",
++       },
++       "importPath": "./panel",
++       "lifecycle": {
++         "promotion": "new-identity-with-provenance",
++         "publication": "unimplemented-stage-gate",
++         "publishedRevisionsImmutable": true,
++         "rollback": "new-revision",
++         "save": "workspace-only",
++         "state": "installed",
++       },
++       "maturity": "experimental",
++       "module": "./src/layout/uib-panel.js",
++       "ownership": {
++         "package": {
++           "packageId": "@ui-base/ui",
++           "scope": "platform",
++           "version": "0.5.2",
++         },
++         "provenance": {
++           "origin": "installed-package",
++           "promotedFromComponentId": null,
++           "promotedFromRevisionId": null,
++         },
++         "scope": "platform",
++       },
++       "presentation": {
++         "cssVariables": [],
++         "settings": {},
++       },
++       "runtime": {
++         "attributes": {
++           "collapsible": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "density": {
++             "default": "comfortable",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "disabled": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "heading": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "open": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "variant": {
++             "default": "outlined",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++         },
++         "events": {
++           "uib-panel-toggle": {
++             "bubbles": true,
++             "cancelable": false,
++             "composed": true,
++             "detail": {
++               "name": "string",
++               "newValue": "boolean",
++               "oldValue": "boolean",
++             },
++           },
++         },
++         "properties": {},
++         "slots": [
++           {
++             "name": "default",
++           },
++           {
++             "name": "header",
++           },
++           {
++             "name": "actions",
++           },
++           {
++             "name": "footer",
++           },
++         ],
++       },
++       "schemaVersion": "1.0.0",
++       "tagName": "uib-panel",
++       "version": {
++         "packageVersion": "0.5.2",
++         "revisionId": null,
++         "runtimeCompatibility": "^0.5.2",
++       },
++     },
++     {
++       "accessibility": {
++         "disabled": "aria-disabled; remove-from-tab-order; block-activation",
++         "keyboard": {
++           "link": "native",
++           "nonLink": [
++             "Enter",
++             "Space",
++           ],
++         },
++         "modes": [
++           "section",
++           "link",
++           "button",
++           "toggle-button",
++         ],
++         "namePrecedence": [
++           "aria-label",
++           "heading",
++           "label",
++           "header",
++         ],
++       },
++       "builder": {
++         "definitionSettings": {
++           "description": {
++             "binding": {
++               "kind": "definition",
++               "path": "identity.description",
++             },
++             "editor": "textarea",
++             "label": "Description",
++             "type": "string",
++           },
++           "displayName": {
++             "binding": {
++               "kind": "definition",
++               "path": "identity.displayName",
++             },
++             "label": "Display name",
++             "required": true,
++             "type": "string",
++           },
++         },
++         "eventBindings": {
++           "cancellation": "synchronous-false-only",
++           "handlerReference": "registered-handler-id",
++           "selectionEvent": "uib-card-select",
++         },
++         "groups": [
++           {
++             "id": "content",
++             "label": "Content",
++           },
++           {
++             "id": "appearance",
++             "label": "Appearance",
++           },
++           {
++             "id": "interaction",
++             "label": "Interaction",
++           },
++           {
++             "id": "state",
++             "label": "State",
++           },
++           {
++             "id": "accessibility",
++             "label": "Accessibility",
++           },
++           {
++             "id": "events",
++             "label": "Event bindings",
++           },
++         ],
++         "interactionModes": {},
++         "preview": {
++           "eventHandlers": "observe-only",
++           "navigation": "prevent",
++           "renderer": "runtimeBinding",
++         },
++         "responsive": {
++           "supported": false,
++         },
++         "settings": {
++           "action": {
++             "binding": {
++               "kind": "attribute",
++               "name": "action",
++             },
++             "default": "",
++             "group": "content",
++             "label": "action",
++             "type": "string",
++           },
++           "action-token": {
++             "binding": {
++               "kind": "attribute",
++               "name": "action-token",
++             },
++             "default": "",
++             "group": "content",
++             "label": "action-token",
++             "type": "string",
++           },
++           "disabled": {
++             "binding": {
++               "kind": "attribute",
++               "name": "disabled",
++             },
++             "default": false,
++             "group": "content",
++             "label": "disabled",
++             "type": "boolean",
++           },
++           "href": {
++             "binding": {
++               "kind": "attribute",
++               "name": "href",
++             },
++             "default": "",
++             "group": "content",
++             "label": "href",
++             "type": "string",
++           },
++           "label": {
++             "binding": {
++               "kind": "attribute",
++               "name": "label",
++             },
++             "default": "",
++             "group": "content",
++             "label": "label",
++             "type": "string",
++           },
++           "rel": {
++             "binding": {
++               "kind": "attribute",
++               "name": "rel",
++             },
++             "default": "",
++             "group": "content",
++             "label": "rel",
++             "type": "string",
++           },
++           "target": {
++             "binding": {
++               "kind": "attribute",
++               "name": "target",
++             },
++             "default": "",
++             "enum": [
++               "",
++               "_self",
++               "_blank",
++             ],
++             "group": "content",
++             "label": "target",
++             "type": "string",
++           },
++           "variant": {
++             "binding": {
++               "kind": "attribute",
++               "name": "variant",
++             },
++             "default": "secondary",
++             "enum": [
++               "primary",
++               "secondary",
++               "tertiary",
++               "destructive",
++             ],
++             "group": "content",
++             "label": "variant",
++             "type": "string",
++           },
++         },
++         "validation": [],
++       },
++       "capabilities": [
++         "surface",
++         "container",
++         "interactive",
++         "selectable",
++         "linkable",
++       ],
++       "category": "content-surfaces",
++       "children": {
++         "builder": {
++           "content": [
++             "text",
++             "image",
++           ],
++           "nestedInteractiveInLink": false,
++         },
++         "runtime": "unrestricted-for-compatibility",
++       },
++       "clone": {
++         "component": "new-component-identity;retain-provenance",
++         "workspace": "new-workspace-and-instance-ids;same-component-identity",
++       },
++       "dependencies": {
++         "packages": [],
++         "services": [],
++       },
++       "deprecation": {
++         "replacementComponentId": null,
++         "status": "none",
++       },
++       "extensions": {},
++       "identity": {
++         "componentId": "@ui-base/ui:uib-action-button",
++         "description": "Metadata-admitted uib-action-button",
++         "displayName": "uib-action-button",
++         "name": "uib-action-button",
++       },
++       "implementation": {
++         "aliases": [],
++         "exportName": "UibActionButton",
++         "importPath": "@ui-base/ui/action-button",
++         "module": "./src/actions/uib-action-button.js",
++         "registrationSideEffects": [
++           "uib-action-button",
++         ],
++         "runtimeBinding": {
++           "kind": "custom-element",
++           "tagName": "uib-action-button",
++         },
++         "tagName": "uib-action-button",
++         "type": "code",
++       },
++       "importPath": "./action-button",
++       "lifecycle": {
++         "promotion": "new-identity-with-provenance",
++         "publication": "unimplemented-stage-gate",
++         "publishedRevisionsImmutable": true,
++         "rollback": "new-revision",
++         "save": "workspace-only",
++         "state": "installed",
++       },
++       "maturity": "experimental",
++       "module": "./src/actions/uib-action-button.js",
++       "ownership": {
++         "package": {
++           "packageId": "@ui-base/ui",
++           "scope": "platform",
++           "version": "0.5.2",
++         },
++         "provenance": {
++           "origin": "installed-package",
++           "promotedFromComponentId": null,
++           "promotedFromRevisionId": null,
++         },
++         "scope": "platform",
++       },
++       "presentation": {
++         "cssVariables": [],
++         "settings": {},
++       },
++       "runtime": {
++         "attributes": {
++           "action": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "action-token": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "disabled": {
++             "default": false,
++             "observed": true,
++             "serialization": "presence",
++             "type": "boolean",
++           },
++           "href": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "label": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "rel": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "target": {
++             "default": "",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++           "variant": {
++             "default": "secondary",
++             "observed": true,
++             "serialization": "string",
++             "type": "string",
++           },
++         },
++         "events": {
++           "uib-action-button-click": {
++             "bubbles": true,
++             "cancelable": false,
++             "composed": true,
++             "detail": {
++               "action": "string",
++               "actionToken": "string",
++               "disabled": "boolean",
++               "href": "string",
++             },
++           },
++         },
++         "properties": {},
++         "slots": [
++           {
++             "name": "default",
++           },
++         ],
++       },
++       "schemaVersion": "1.0.0",
++       "tagName": "uib-action-button",
++       "version": {
++         "packageVersion": "0.5.2",
++         "revisionId": null,
++         "runtimeCompatibility": "^0.5.2",
++       },
++     },
++   ],
++   "declared": false,
++   "displayName": "UI Base admitted components",
++   "globalAvailable": true,
++   "issues": [],
++   "manifestPath": "C:\\Users\\zanyf\\AppData\\Local\\Packages\\sandbox.{e0ef5e44-2191-4eb9-926f-0fe0dd96a546}\\AC\\Temp\\stage1-native-bBGEcm\\node_modules\\@ui-base\\ui\\ui.component.json",
++   "name": "@ui-base/ui",
++   "packageRoot": "C:\\Users\\zanyf\\AppData\\Local\\Packages\\sandbox.{e0ef5e44-2191-4eb9-926f-0fe0dd96a546}\\AC\\Temp\\stage1-native-bBGEcm\\node_modules\\@ui-base\\ui",
++   "requestedVersion": undefined,
++   "requiresServices": {},
++   "resolution": "platform-only",
++   "resolved": true,
++   "sourceLabel": "Installed native UI Base components",
++   "sourceType": "platform-node-modules",
++   "status": "available",
++   "version": "0.5.2",
+  }
+
+ ❯ tests/stage1-component-admission.test.ts:22:55
+     20|   const contract = manifest.components[0], originalModule = contract.m…
+     21|   contract.module = './src/index.js'; await writeFile(file, JSON.strin…
+     22|   await expect(nativeUiBaseEntry(root,undefined,name)).rejects.toThrow…
+       |                                                       ^
+     23|   contract.module = originalModule; await writeFile(file, JSON.stringi…
+     24|   const moduleFile = path.resolve(installed, originalModule), bytes = …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/stage1-component-admission.test.ts > preserves accepted Card identity and old literal instances while enforcing new interactive contracts
+AssertionError: expected '<uib-card data-uip-node="old" data-ui…' to be '<uib-card data-uip-node="old" data-ui…' // Object.is equality
+
+Expected: "<uib-card data-uip-node="old" data-uip-component="cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1" heading="Updated heading" variant="outlined"><p>Accepted content</p></uib-card>"
+Received: "<uib-card data-uip-node="old" data-uip-component="cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1" variant="outlined" heading="Updated heading"><p>Accepted content</p></uib-card>"
+
+ ❯ tests/stage1-component-admission.test.ts:38:75
+     36|  const source=`<uib-card data-uip-node="old" data-uip-component="${old…
+     37|  expect(packageSettingErrors(current,readNodeSettings(source,'old',cur…
+     38|  expect(setNodeSetting(source,'old','heading','Updated heading',curren…
+       |                                                                           ^
+     39|  expect(packageSettingErrors(current,readPackageSettings(current,{sele…
+     40|  expect(packageSettingErrors(current,{interactionMode:'bogus'}).length…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  2 failed | 38 passed (40)
+   Start at  06:20:16
+   Duration  2.58s (transform 2.06s, setup 0ms, import 3.77s, tests 2.50s, environment 0ms)
+

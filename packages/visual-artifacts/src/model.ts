@@ -2,6 +2,7 @@ export type ValueType = 'string' | 'number' | 'boolean' | 'object' | 'array';
 export interface PropertyContract {
   type: ValueType; required?: boolean; default?: unknown; enum?: unknown[];
   minimum?: number; maximum?: number; minLength?: number; maxLength?: number;
+  format?: string;
 }
 export interface PublicInterface {
   properties: Record<string, PropertyContract>;
@@ -88,6 +89,11 @@ export function valueErrors(value: unknown, contract: PropertyContract, label: s
   if (contract.enum && !contract.enum.some(item => JSON.stringify(item) === JSON.stringify(value))) errors.push(`${label} is outside its allowed values.`);
   if (typeof value === 'number' && ((contract.minimum !== undefined && value < contract.minimum) || (contract.maximum !== undefined && value > contract.maximum))) errors.push(`${label} is outside its numeric bounds.`);
   if (typeof value === 'string' && ((contract.minLength !== undefined && value.length < contract.minLength) || (contract.maxLength !== undefined && value.length > contract.maxLength))) errors.push(`${label} is outside its length bounds.`);
+  if (typeof value === 'string' && value && (contract.format === 'url' || contract.format === 'image-url')) {
+    const url = value.trim();
+    if (/[\u0000-\u0020\u007f\\]/.test(url) || url.startsWith('//') || /^[a-z][a-z\d+.-]*:/i.test(url) && !(contract.format === 'image-url' ? /^https?:/i : /^(https?|mailto|tel):/i).test(url)) errors.push(`${label} uses an unsupported URL.`);
+  }
+  if (contract.format === 'comma-options' && typeof value === 'string' && value && (value.split(',').some(item => !item.trim()) || new Set(value.split(',').map(item => item.trim())).size !== value.split(',').length)) errors.push(`${label} requires distinct nonempty comma-separated values.`);
   return errors;
 }
 
@@ -114,6 +120,14 @@ export function readPackageSettings(definition: PackageDefinition, attributes: R
   const values: Record<string, unknown> = {};
   for (const [key, contract] of Object.entries(definition.builder.settings)) {
     const binding = contract.binding;
+    if (binding?.kind === 'mode' && !Object.hasOwn(stored, key)) {
+      const active = Object.entries(definition.builder.interactionModes ?? {}).filter(([, mode]) => Object.entries(mode.attributes).some(([name, value]) => value === true && Object.hasOwn(attributes, name) && attributes[name] !== 'false'));
+      if (active.length === 1) values[key] = active[0][0];
+      if (!active.length) for (const rule of definition.builder.validation ?? []) if (rule.kind === 'requiredWhen' && rule.when?.setting === key) {
+        const attribute = definition.builder.settings[rule.setting!]?.binding;
+        if (attribute?.kind === 'attribute' && attributes[attribute.name!]) values[key] = rule.when.equals;
+      }
+    }
     if (binding?.kind === 'attribute' && binding.name && Object.hasOwn(attributes, binding.name)) {
       const value = attributes[binding.name];
       values[key] = contract.type === 'boolean' ? value !== 'false' : contract.type === 'number' ? Number(value) : value;

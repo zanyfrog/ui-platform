@@ -58,7 +58,17 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
   const data: Record<string, unknown> = options.sharedScope?.data ?? {};
   const nested = new Map<string, ArtifactInstance>();
   const boundEvents = new Map<HTMLElement, Array<{ name: string; listener: EventListener }>>();
-  const report = options.onError ?? (error => console.error(error));
+  let actionError: string | undefined;
+  const paintActionError = () => {
+    root.querySelector('[data-uip-action-error]')?.remove();
+    if (!actionError) return;
+    const feedback = document.createElement('p'); feedback.dataset.uipActionError = ''; feedback.setAttribute('role', 'alert');
+    feedback.textContent = actionError; root.append(feedback);
+  };
+  const report = (error: unknown) => {
+    actionError = `Action could not complete: ${error instanceof Error ? error.message : String(error)}`;
+    paintActionError(); (options.onError ?? console.error)(error);
+  };
   const view = document.defaultView!;
   let fragmentFrame = 0;
   let releaseFragmentFocus: (() => void) | undefined;
@@ -136,6 +146,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
   const repaint = () => { if (options.sharedScope) for (const render of options.sharedScope.subscribers) render(); else render(); };
   const setState = (name: string, value: unknown) => { if (!Object.hasOwn(state, name)) throw new Error(`Unknown local state: ${name}.`); state[name] = value; repaint(); };
   const actions = async (items: Action[], current: Record<string, unknown>, event?: Event) => {
+    actionError = undefined; paintActionError();
     try {
       for (const item of items) {
         if (disposed) return;
@@ -185,6 +196,9 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
   for (const name of listeners) root.addEventListener(name, event => event.stopPropagation());
   function render(): void {
     if (disposed) return;
+    const focused = root.activeElement as HTMLElement | null;
+    const focusedNode = focused?.getAttribute('data-uip-node');
+    const focusedPart = focused?.shadowRoot?.activeElement?.getAttribute('part');
     releaseFragmentFocus?.();
     formRuntime?.prepare();
     // Nested hosts survive parent renders; their parent-owned listeners must not accumulate.
@@ -265,6 +279,7 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
             }
             output = renderComponentInstance(pkg.definition, { componentId, settings }, { registry, document, preview: false });
             const ownedAttributes = new Set(Object.values(pkg.definition.builder.settings).filter(s => s.binding?.kind === 'attribute').map(s => s.binding!.name));
+            for (const mode of Object.values(pkg.definition.builder.interactionModes ?? {})) for (const name of Object.keys(mode.attributes)) ownedAttributes.add(name);
             for (const attr of element.attributes) if (!ownedAttributes.has(attr.name) && !['data-uip-settings', 'data-uip-component'].includes(attr.name)) output.setAttribute(attr.name, attr.value);
             output.append(...element.childNodes);
           } else {
@@ -277,8 +292,12 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
       }
       for (const binding of m.events?.filter(e => e.node === id) ?? []) {
         const listener: EventListener = event => {
+            if (event.defaultPrevented) return;
           if (event.target !== output && componentId) return;
-          void actions(binding.actions, { ...current, event: { detail: (event as CustomEvent).detail } }, event);
+            const execute = () => { if (!event.defaultPrevented) void actions(binding.actions, { ...current, event: { detail: (event as CustomEvent).detail } }, event); };
+            // Cancelable component events finish dispatch (including legacy
+            // cancellation forwarding) before declarative actions may execute.
+            if (event.cancelable && event instanceof CustomEvent) queueMicrotask(execute); else execute();
         };
         output.addEventListener(binding.event, listener);
         boundEvents.set(output, [...(boundEvents.get(output) ?? []), { name: binding.event, listener }]);
@@ -291,6 +310,12 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     const css = `:host{display:block}.uip-layout-item{box-sizing:border-box;min-width:0}img{max-width:100%;height:auto}\n${options.presentationCss ?? ''}\n${artifact.css}\n${layoutCss(m.layout)}`;
     style.textContent = options.assetUrl ? css.replace(/url\(\s*(['"]?)((?:\.\.\/|\.\/)*assets\/[^)'"\s]+)\1\s*\)/g, (_, _quote, relative: string) => `url("${options.assetUrl!(relative.replace(/^(?:\.\.\/)+|^\.\//, ''))}")`) : css;
     root.replaceChildren(style, fragment);
+    paintActionError();
+    if (focusedNode && focusedPart) {
+      const replacement = [...root.querySelectorAll<HTMLElement>('[data-uip-node]')].find(node => node.dataset.uipNode === focusedNode);
+      const control = [...replacement?.shadowRoot?.querySelectorAll<HTMLElement>('[part]') ?? []].find(node => node.getAttribute('part') === focusedPart);
+      control?.focus({ preventScroll: true });
+    }
     if (fragmentsEnabled) scheduleFragment();
     formRuntime?.paint();
     for (const [key, instance] of nested) if (!used.has(key)) { instance.destroy(); nested.delete(key); }

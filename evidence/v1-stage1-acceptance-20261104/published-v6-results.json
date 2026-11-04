@@ -1,0 +1,90 @@
+{
+  "tags": [
+    {
+      "tag": "uib-card",
+      "rendered": true
+    },
+    {
+      "tag": "uib-panel",
+      "rendered": true
+    },
+    {
+      "tag": "uib-action-button",
+      "rendered": true
+    },
+    {
+      "tag": "uib-forms-form",
+      "rendered": true
+    },
+    {
+      "tag": "uib-forms-textbox",
+      "rendered": true
+    },
+    {
+      "tag": "uib-forms-number",
+      "rendered": true
+    },
+    {
+      "tag": "uib-forms-checkbox",
+      "rendered": true
+    },
+    {
+      "tag": "uib-forms-display-field",
+      "rendered": true
+    },
+    {
+      "tag": "uib-forms-select",
+      "rendered": true
+    },
+    {
+      "tag": "uib-hero",
+      "rendered": true
+    }
+  ],
+  "hero": true,
+  "errors": [],
+  "calls": [
+    "approved"
+  ],
+  "expectedActionErrors": [
+    "Error: Action token refused"
+  ],
+  "builderStopped": true,
+  "behavior": [
+    "Hero Enter invokes once",
+    "Canceled unified Hero action refused",
+    "Canceled legacy Hero action refused without duplicate execution",
+    "Hero disabled control",
+    "Disabled Hero action never executes",
+    "Hero unsafe href refused \"javascript:alert(1)\"",
+    "Hero unsafe href refused \"data:text/html,bad\"",
+    "Hero unsafe href refused \"//evil.example/x\"",
+    "Hero unsafe href refused \"java\\nscript:alert(1)\"",
+    "Hero safe link resolves",
+    "Card Enter selected binding true",
+    "Card Space selected binding false",
+    "Nested native button does not invoke Card action",
+    "Nested Card selection does not invoke parent action",
+    "Nested Card binding selected true",
+    "Card keyboard action exactly once",
+    "Disabled Card selection refused",
+    "Bound Panel keyboard collapse",
+    "Bound Panel focus retained",
+    "Independent Panel unchanged",
+    "Bound Panel keyboard expand",
+    "Published Select event and scalar binding round trip",
+    "Card mouse action exactly once",
+    "Disabled Card action refused",
+    "Unallowlisted Hero token refused",
+    "Hero action refusal visibly reported",
+    "Bound Card mouse selection",
+    "Independent selected record instance preserved",
+    "Checkbox true to false",
+    "Checkbox canonical Boolean payload",
+    "Checkbox false to true",
+    "Number preserves zero",
+    "Number preserves empty separately from zero"
+  ],
+  "pageErrors": [],
+  "linkNavigations": 1
+}

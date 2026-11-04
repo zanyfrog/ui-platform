@@ -1,0 +1,4547 @@
+{
+  "pages": [
+    {
+      "locator": "admission/page.visual.json",
+      "files": {
+        "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_b52e72bf-c779-4df1-af2f-150865aa4fda\"></section>\n",
+        "css": "",
+        "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_1dac005d-41f3-4bf8-8738-c73427ad2851\",\n  \"kind\": \"page\",\n  \"name\": \"admission\",\n  \"displayName\": \"admission\",\n  \"route\": \"/admission\"\n}\n",
+        "fixtures": "{}\n",
+        "code": "export {};\n"
+      },
+      "hash": "2bff314c7c8d5f82ea8f2a47e7cfca4f3c29f06b16db83d072f54cead6e62387",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_1dac005d-41f3-4bf8-8738-c73427ad2851",
+        "kind": "page",
+        "name": "admission",
+        "displayName": "admission",
+        "route": "/admission"
+      },
+      "diagnostics": []
+    }
+  ],
+  "components": [
+    {
+      "locator": "composition-shared-help/component.visual.json",
+      "files": {
+        "source": "<aside class=\"uip-layout-item help\" data-uip-node=\"shared_help\"><h2 data-uip-node=\"shared_help_title\">Shared Platform Component</h2><p data-uip-node=\"shared_help_text\">Edit this Platform Component once to update both Pages. Its CSS remains isolated from Shell and Page CSS.</p></aside>\n",
+        "css": ".help { border:1px solid var(--app-color-secondary); border-radius:.5rem; padding:var(--app-space-medium); background:var(--app-color-surface); }\n",
+        "metadata": "{ \"schemaVersion\": 1, \"artifactId\": \"art_composition-shared-help-reference\", \"kind\": \"component\", \"componentId\": \"cmp_platform_composition-shared-help-reference\", \"name\": \"composition-shared-help\", \"displayName\": \"Composition Shared Help\", \"public\": { \"properties\": {}, \"events\": {}, \"slots\": [] } }\n",
+        "fixtures": "",
+        "code": ""
+      },
+      "hash": "1055ec5605f22fa3ddf11e6e3e39f8ea7ea2d315728c5f4d148943d874d78d5e",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_composition-shared-help-reference",
+        "kind": "component",
+        "componentId": "cmp_platform_composition-shared-help-reference",
+        "name": "composition-shared-help",
+        "displayName": "Composition Shared Help",
+        "public": {
+          "properties": {},
+          "events": {},
+          "slots": []
+        }
+      },
+      "diagnostics": []
+    },
+    {
+      "locator": "customer-list-item/component.visual.json",
+      "files": {
+        "source": "<div class=\"uip-layout-item\" data-uip-node=\"nested-wrapper\">\n  <uip-component data-uip-node=\"nested-summary\" data-uip-component=\"cmp_platform_customer-summary-reference\">\n    <span slot=\"footer\"><uip-slot name=\"footer\">Nested customer reference</uip-slot></span>\n  </uip-component>\n</div>\n",
+        "css": ":host { display: block; }\n",
+        "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_customer-list-item-reference\",\n  \"componentId\": \"cmp_platform_customer-list-item-reference\",\n  \"kind\": \"component\",\n  \"name\": \"customer-list-item\",\n  \"displayName\": \"Customer List Item\",\n  \"description\": \"Small reference proving nested Component boundaries and event forwarding.\",\n  \"public\": {\n    \"properties\": { \"person\": { \"type\": \"object\", \"required\": true } },\n    \"events\": { \"openRequested\": { \"payload\": { \"customerId\": { \"type\": \"string\", \"required\": true } } } },\n    \"slots\": [\"footer\"]\n  },\n  \"bindings\": [{ \"node\": \"nested-summary\", \"target\": \"property:person\", \"value\": \"public.person\" }],\n  \"events\": [{ \"node\": \"nested-summary\", \"event\": \"openRequested\", \"actions\": [{ \"kind\": \"emit\", \"event\": \"openRequested\", \"payload\": { \"customerId\": \"event.detail.customerId\" } }] }]\n}\n",
+        "fixtures": "{ \"public\": { \"person\": { \"id\": \"north\", \"name\": \"Northwind\", \"status\": \"Active\", \"balance\": 42 } } }\n",
+        "code": "export {};\n"
+      },
+      "hash": "0a942e68f33f63cafd4c9611265514cfb2f7d848ad5ce66077cbad0685fff9a6",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_customer-list-item-reference",
+        "componentId": "cmp_platform_customer-list-item-reference",
+        "kind": "component",
+        "name": "customer-list-item",
+        "displayName": "Customer List Item",
+        "description": "Small reference proving nested Component boundaries and event forwarding.",
+        "public": {
+          "properties": {
+            "person": {
+              "type": "object",
+              "required": true
+            }
+          },
+          "events": {
+            "openRequested": {
+              "payload": {
+                "customerId": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            }
+          },
+          "slots": [
+            "footer"
+          ]
+        },
+        "bindings": [
+          {
+            "node": "nested-summary",
+            "target": "property:person",
+            "value": "public.person"
+          }
+        ],
+        "events": [
+          {
+            "node": "nested-summary",
+            "event": "openRequested",
+            "actions": [
+              {
+                "kind": "emit",
+                "event": "openRequested",
+                "payload": {
+                  "customerId": "event.detail.customerId"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "diagnostics": []
+    },
+    {
+      "locator": "customer-summary-card/component.visual.json",
+      "files": {
+        "source": "<!-- Public inputs bind explicitly to internal nodes; all other details remain private. -->\n<article class=\"uip-layout-item\" data-uip-node=\"summary-wrapper\">\n  <uib-card data-uip-node=\"summary-card\" data-uip-component=\"cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1\" data-uip-settings='{\"variant\":\"outlined\",\"density\":\"comfortable\"}'>\n    <div class=\"uip-layout-item\" data-uip-node=\"summary-heading-wrapper\">\n      <uib-heading data-uip-node=\"summary-heading\" data-uip-component=\"@ui-base/ui:uib-heading\" level=\"3\" size=\"compact\"></uib-heading>\n    </div>\n    <div class=\"uip-layout-item\" data-uip-node=\"summary-details\">\n      <p>Balance: <span data-uip-node=\"summary-balance\"></span></p>\n    </div>\n    <div class=\"uip-layout-item\" data-uip-node=\"summary-button-wrapper\">\n      <button data-uip-node=\"summary-button\" type=\"button\">Show customer details</button>\n    </div>\n    <uip-slot name=\"footer\" slot=\"footer\"><span class=\"reference-footer\">Customer reference</span></uip-slot>\n  </uib-card>\n</article>\n",
+        "css": ":host { --uib-color-primary: #2459a6; }\narticle { color: #16324f; }\np { margin: 12px 0; }\n.reference-footer { font-size: .85rem; }\n",
+        "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_customer-summary-reference\",\n  \"componentId\": \"cmp_platform_customer-summary-reference\",\n  \"kind\": \"component\",\n  \"name\": \"customer-summary-card\",\n  \"displayName\": \"Customer Summary Card\",\n  \"description\": \"Reference composition of HTML and real UI Base components.\",\n  \"public\": {\n    \"properties\": { \"person\": { \"type\": \"object\", \"required\": true }, \"disabled\": { \"type\": \"boolean\", \"default\": false } },\n    \"events\": { \"openRequested\": { \"payload\": { \"customerId\": { \"type\": \"string\", \"required\": true } } } },\n    \"slots\": [\"footer\"]\n  },\n  \"state\": { \"isExpanded\": false },\n  \"bindings\": [\n    { \"node\": \"summary-card\", \"target\": \"setting:heading\", \"value\": \"public.person.name\" },\n    { \"node\": \"summary-card\", \"target\": \"setting:disabled\", \"value\": \"public.disabled\" },\n    { \"node\": \"summary-heading\", \"target\": \"attribute:text\", \"value\": \"public.person.status\" },\n    { \"node\": \"summary-balance\", \"target\": \"text\", \"value\": \"public.person.balance\" },\n    { \"node\": \"summary-button\", \"target\": \"attribute:disabled\", \"value\": \"public.disabled\" }\n  ],\n  \"conditions\": [{ \"node\": \"summary-details\", \"when\": \"local.isExpanded\" }],\n  \"events\": [{ \"node\": \"summary-button\", \"event\": \"click\", \"actions\": [\n    { \"kind\": \"set\", \"state\": \"isExpanded\", \"value\": { \"op\": \"not\", \"args\": [\"local.isExpanded\"] } },\n    { \"kind\": \"emit\", \"event\": \"openRequested\", \"payload\": { \"customerId\": \"public.person.id\" } }\n  ] }],\n  \"layout\": { \"summary-wrapper\": { \"base\": { \"width\": \"100%\", \"padding\": \"8px\" } } }\n}\n",
+        "fixtures": "{ \"public\": { \"person\": { \"id\": \"acme\", \"name\": \"Acme\", \"status\": \"Active\", \"balance\": 125.50 }, \"disabled\": false } }\n",
+        "code": "// No custom code is needed for this declarative reference.\nexport {};\n"
+      },
+      "hash": "5e156a0a9a35234e858df946072889cfc1ff13928cfa30062d3f2bda8f18423a",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_customer-summary-reference",
+        "componentId": "cmp_platform_customer-summary-reference",
+        "kind": "component",
+        "name": "customer-summary-card",
+        "displayName": "Customer Summary Card",
+        "description": "Reference composition of HTML and real UI Base components.",
+        "public": {
+          "properties": {
+            "person": {
+              "type": "object",
+              "required": true
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          "events": {
+            "openRequested": {
+              "payload": {
+                "customerId": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            }
+          },
+          "slots": [
+            "footer"
+          ]
+        },
+        "state": {
+          "isExpanded": false
+        },
+        "bindings": [
+          {
+            "node": "summary-card",
+            "target": "setting:heading",
+            "value": "public.person.name"
+          },
+          {
+            "node": "summary-card",
+            "target": "setting:disabled",
+            "value": "public.disabled"
+          },
+          {
+            "node": "summary-heading",
+            "target": "attribute:text",
+            "value": "public.person.status"
+          },
+          {
+            "node": "summary-balance",
+            "target": "text",
+            "value": "public.person.balance"
+          },
+          {
+            "node": "summary-button",
+            "target": "attribute:disabled",
+            "value": "public.disabled"
+          }
+        ],
+        "conditions": [
+          {
+            "node": "summary-details",
+            "when": "local.isExpanded"
+          }
+        ],
+        "events": [
+          {
+            "node": "summary-button",
+            "event": "click",
+            "actions": [
+              {
+                "kind": "set",
+                "state": "isExpanded",
+                "value": {
+                  "op": "not",
+                  "args": [
+                    "local.isExpanded"
+                  ]
+                }
+              },
+              {
+                "kind": "emit",
+                "event": "openRequested",
+                "payload": {
+                  "customerId": "public.person.id"
+                }
+              }
+            ]
+          }
+        ],
+        "layout": {
+          "summary-wrapper": {
+            "base": {
+              "width": "100%",
+              "padding": "8px"
+            }
+          }
+        }
+      },
+      "diagnostics": [
+        {
+          "severity": "warning",
+          "message": "Layout is manual because this node has no Builder wrapper.",
+          "node": "summary-balance"
+        },
+        {
+          "severity": "warning",
+          "message": "Component children should use declared named slots.",
+          "node": "summary-card"
+        },
+        {
+          "severity": "error",
+          "message": "Unknown or ambiguous Component dependency: @ui-base/ui:uib-heading.",
+          "node": "summary-heading"
+        }
+      ]
+    },
+    {
+      "locator": "person-form/component.visual.json",
+      "files": {
+        "source": "<section class=\"uip-layout-item\" data-uip-node=\"content\"><h2 data-uip-node=\"heading\">Person form</h2><p data-uip-node=\"instructions\">Complete the fields and submit to save.</p><uib-forms-form data-uip-node=\"form\" label=\"Person form\">\n<div class=\"uip-layout-item\" data-uip-node=\"row_firstName\"><uib-forms-textbox data-uip-node=\"control_firstName\" name=\"firstName\" label=\"firstName\"></uib-forms-textbox><span data-uip-field-error=\"field_person-firstName\" role=\"alert\"></span></div>\n<div class=\"uip-layout-item\" data-uip-node=\"row_lastName\"><uib-forms-textbox data-uip-node=\"control_lastName\" name=\"lastName\" label=\"lastName\"></uib-forms-textbox><span data-uip-field-error=\"field_person-lastName\" role=\"alert\"></span></div>\n<div class=\"uip-layout-item\" data-uip-node=\"row_email\"><uib-forms-email data-uip-node=\"control_email\" name=\"email\" label=\"email\"></uib-forms-email><span data-uip-field-error=\"field_person-email\" role=\"alert\"></span></div>\n<div class=\"uip-layout-item\" data-uip-node=\"row_status\"><uib-forms-textbox data-uip-node=\"control_status\" name=\"status\" label=\"status\"></uib-forms-textbox><span data-uip-field-error=\"field_person-status\" role=\"alert\"></span></div>\n<div class=\"uip-layout-item\" data-uip-node=\"row_internalNotes\"><uib-forms-textbox data-uip-node=\"control_internalNotes\" name=\"internalNotes\" label=\"internalNotes\"></uib-forms-textbox><span data-uip-field-error=\"field_person-internalNotes\" role=\"alert\"></span></div>\n</uib-forms-form><p data-uip-node=\"submit-error\" role=\"alert\"></p><pre data-uip-node=\"saved-result\"></pre></section>\n",
+        "css": ":host{max-width:42rem} [hidden]{display:none!important} .uip-layout-item{margin-block:.75rem} [role=alert]{color:#a01818}\n",
+        "metadata": "{\r\n  \"schemaVersion\": 1,\r\n  \"artifactId\": \"art_person_form_reference\",\r\n  \"componentId\": \"cmp_platform_person_form_reference\",\r\n  \"kind\": \"component\",\r\n  \"name\": \"person-form\",\r\n  \"displayName\": \"PersonForm\",\r\n  \"capabilities\": [\r\n    \"visual\",\r\n    \"form\"\r\n  ],\r\n  \"modes\": {\r\n    \"default\": \"public\",\r\n    \"overrides\": {\r\n      \"public\": {\r\n        \"control_status\": {\r\n          \"visible\": false\r\n        },\r\n        \"control_internalNotes\": {\r\n          \"visible\": false\r\n        }\r\n      },\r\n      \"admin\": {\r\n        \"control_status\": {\r\n          \"visible\": true,\r\n          \"editable\": true\r\n        },\r\n        \"control_internalNotes\": {\r\n          \"visible\": true,\r\n          \"editable\": true\r\n        }\r\n      }\r\n    }\r\n  },\r\n  \"form\": {\r\n    \"node\": \"form\",\r\n    \"datasetId\": \"dataset-person-form-reference\",\r\n    \"primaryKey\": \"id\",\r\n    \"fields\": [\r\n      {\r\n        \"id\": \"field_person-firstName\",\r\n        \"node\": \"control_firstName\",\r\n        \"key\": \"firstName\",\r\n        \"datasetFieldId\": \"person-firstName\",\r\n        \"type\": \"string\",\r\n        \"datasetRequired\": true,\r\n        \"required\": true,\r\n        \"label\": \"firstName\",\r\n        \"visible\": true,\r\n        \"editable\": true\r\n      },\r\n      {\r\n        \"id\": \"field_person-lastName\",\r\n        \"node\": \"control_lastName\",\r\n        \"key\": \"lastName\",\r\n        \"datasetFieldId\": \"person-lastName\",\r\n        \"type\": \"string\",\r\n        \"datasetRequired\": true,\r\n        \"required\": true,\r\n        \"label\": \"lastName\",\r\n        \"visible\": true,\r\n        \"editable\": true\r\n      },\r\n      {\r\n        \"id\": \"field_person-email\",\r\n        \"node\": \"control_email\",\r\n        \"key\": \"email\",\r\n        \"datasetFieldId\": \"person-email\",\r\n        \"type\": \"string\",\r\n        \"datasetRequired\": true,\r\n        \"required\": true,\r\n        \"label\": \"email\",\r\n        \"visible\": true,\r\n        \"editable\": true\r\n      },\r\n      {\r\n        \"id\": \"field_person-status\",\r\n        \"node\": \"control_status\",\r\n        \"key\": \"status\",\r\n        \"datasetFieldId\": \"person-status\",\r\n        \"type\": \"string\",\r\n        \"label\": \"status\",\r\n        \"visible\": true,\r\n        \"editable\": true\r\n      },\r\n      {\r\n        \"id\": \"field_person-internalNotes\",\r\n        \"node\": \"control_internalNotes\",\r\n        \"key\": \"internalNotes\",\r\n        \"datasetFieldId\": \"person-internalNotes\",\r\n        \"type\": \"string\",\r\n        \"label\": \"internalNotes\",\r\n        \"visible\": true,\r\n        \"editable\": true\r\n      }\r\n    ],\r\n    \"submit\": {\r\n      \"service\": \"dataset.write\",\r\n      \"readService\": \"dataset.read\"\r\n    }\r\n  },\r\n  \"public\": {\r\n    \"properties\": {\r\n      \"mode\": {\r\n        \"type\": \"string\",\r\n        \"default\": \"public\"\r\n      },\r\n      \"operation\": {\r\n        \"type\": \"string\",\r\n        \"enum\": [\r\n          \"create\",\r\n          \"edit\"\r\n        ],\r\n        \"default\": \"create\"\r\n      },\r\n      \"recordId\": {\r\n        \"type\": \"string\"\r\n      },\r\n      \"initialRecord\": {\r\n        \"type\": \"object\"\r\n      },\r\n      \"readOnly\": {\r\n        \"type\": \"boolean\",\r\n        \"default\": false\r\n      },\r\n      \"disabled\": {\r\n        \"type\": \"boolean\",\r\n        \"default\": false\r\n      },\r\n      \"showSavedRecord\": {\r\n        \"default\": true,\r\n        \"type\": \"boolean\"\r\n      }\r\n    },\r\n    \"events\": {\r\n      \"submitStarted\": {\r\n        \"payload\": {\r\n          \"result\": {\r\n            \"type\": \"object\"\r\n          }\r\n        }\r\n      },\r\n      \"submitSucceeded\": {\r\n        \"payload\": {\r\n          \"result\": {\r\n            \"type\": \"object\"\r\n          }\r\n        }\r\n      },\r\n      \"submitFailed\": {\r\n        \"payload\": {\r\n          \"result\": {\r\n            \"type\": \"object\"\r\n          }\r\n        }\r\n      },\r\n      \"recordCreated\": {\r\n        \"payload\": {\r\n          \"result\": {\r\n            \"type\": \"object\"\r\n          }\r\n        }\r\n      },\r\n      \"recordUpdated\": {\r\n        \"payload\": {\r\n          \"result\": {\r\n            \"type\": \"object\"\r\n          }\r\n        }\r\n      },\r\n      \"cancelRequested\": {\r\n        \"payload\": {\r\n          \"result\": {\r\n            \"type\": \"object\"\r\n          }\r\n        }\r\n      }\r\n    },\r\n    \"slots\": []\r\n  },\r\n  \"state\": {\r\n    \"values\": {},\r\n    \"dirty\": false,\r\n    \"submitting\": false,\r\n    \"submitted\": false,\r\n    \"submitError\": null,\r\n    \"validation\": {},\r\n    \"savedRecord\": null\r\n  },\r\n  \"bindings\": [\r\n    {\r\n      \"node\": \"saved-result\",\r\n      \"value\": {\r\n        \"op\": \"not\",\r\n        \"args\": [\r\n          \"public.showSavedRecord\"\r\n        ]\r\n      },\r\n      \"target\": \"attribute:hidden\"\r\n    }\r\n  ]\r\n}\r\n",
+        "fixtures": "{}\n",
+        "code": "export {};\n"
+      },
+      "hash": "227e5035272db0f281407b22afc4377ede1268271d9dae2e573cbd71f8b607b6",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_person_form_reference",
+        "componentId": "cmp_platform_person_form_reference",
+        "kind": "component",
+        "name": "person-form",
+        "displayName": "PersonForm",
+        "capabilities": [
+          "visual",
+          "form"
+        ],
+        "modes": {
+          "default": "public",
+          "overrides": {
+            "public": {
+              "control_status": {
+                "visible": false
+              },
+              "control_internalNotes": {
+                "visible": false
+              }
+            },
+            "admin": {
+              "control_status": {
+                "visible": true,
+                "editable": true
+              },
+              "control_internalNotes": {
+                "visible": true,
+                "editable": true
+              }
+            }
+          }
+        },
+        "form": {
+          "node": "form",
+          "datasetId": "dataset-person-form-reference",
+          "primaryKey": "id",
+          "fields": [
+            {
+              "id": "field_person-firstName",
+              "node": "control_firstName",
+              "key": "firstName",
+              "datasetFieldId": "person-firstName",
+              "type": "string",
+              "datasetRequired": true,
+              "required": true,
+              "label": "firstName",
+              "visible": true,
+              "editable": true
+            },
+            {
+              "id": "field_person-lastName",
+              "node": "control_lastName",
+              "key": "lastName",
+              "datasetFieldId": "person-lastName",
+              "type": "string",
+              "datasetRequired": true,
+              "required": true,
+              "label": "lastName",
+              "visible": true,
+              "editable": true
+            },
+            {
+              "id": "field_person-email",
+              "node": "control_email",
+              "key": "email",
+              "datasetFieldId": "person-email",
+              "type": "string",
+              "datasetRequired": true,
+              "required": true,
+              "label": "email",
+              "visible": true,
+              "editable": true
+            },
+            {
+              "id": "field_person-status",
+              "node": "control_status",
+              "key": "status",
+              "datasetFieldId": "person-status",
+              "type": "string",
+              "label": "status",
+              "visible": true,
+              "editable": true
+            },
+            {
+              "id": "field_person-internalNotes",
+              "node": "control_internalNotes",
+              "key": "internalNotes",
+              "datasetFieldId": "person-internalNotes",
+              "type": "string",
+              "label": "internalNotes",
+              "visible": true,
+              "editable": true
+            }
+          ],
+          "submit": {
+            "service": "dataset.write",
+            "readService": "dataset.read"
+          }
+        },
+        "public": {
+          "properties": {
+            "mode": {
+              "type": "string",
+              "default": "public"
+            },
+            "operation": {
+              "type": "string",
+              "enum": [
+                "create",
+                "edit"
+              ],
+              "default": "create"
+            },
+            "recordId": {
+              "type": "string"
+            },
+            "initialRecord": {
+              "type": "object"
+            },
+            "readOnly": {
+              "type": "boolean",
+              "default": false
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false
+            },
+            "showSavedRecord": {
+              "default": true,
+              "type": "boolean"
+            }
+          },
+          "events": {
+            "submitStarted": {
+              "payload": {
+                "result": {
+                  "type": "object"
+                }
+              }
+            },
+            "submitSucceeded": {
+              "payload": {
+                "result": {
+                  "type": "object"
+                }
+              }
+            },
+            "submitFailed": {
+              "payload": {
+                "result": {
+                  "type": "object"
+                }
+              }
+            },
+            "recordCreated": {
+              "payload": {
+                "result": {
+                  "type": "object"
+                }
+              }
+            },
+            "recordUpdated": {
+              "payload": {
+                "result": {
+                  "type": "object"
+                }
+              }
+            },
+            "cancelRequested": {
+              "payload": {
+                "result": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "slots": []
+        },
+        "state": {
+          "values": {},
+          "dirty": false,
+          "submitting": false,
+          "submitted": false,
+          "submitError": null,
+          "validation": {},
+          "savedRecord": null
+        },
+        "bindings": [
+          {
+            "node": "saved-result",
+            "value": {
+              "op": "not",
+              "args": [
+                "public.showSavedRecord"
+              ]
+            },
+            "target": "attribute:hidden"
+          }
+        ]
+      },
+      "diagnostics": [
+        {
+          "severity": "warning",
+          "message": "Manual package element uib-forms-form has no permanent Component reference.",
+          "node": "form"
+        },
+        {
+          "severity": "warning",
+          "message": "Manual package element uib-forms-textbox has no permanent Component reference.",
+          "node": "control_firstName"
+        },
+        {
+          "severity": "warning",
+          "message": "Manual package element uib-forms-textbox has no permanent Component reference.",
+          "node": "control_lastName"
+        },
+        {
+          "severity": "warning",
+          "message": "Manual package element uib-forms-email has no permanent Component reference.",
+          "node": "control_email"
+        },
+        {
+          "severity": "warning",
+          "message": "Manual package element uib-forms-textbox has no permanent Component reference.",
+          "node": "control_status"
+        },
+        {
+          "severity": "warning",
+          "message": "Manual package element uib-forms-textbox has no permanent Component reference.",
+          "node": "control_internalNotes"
+        }
+      ]
+    },
+    {
+      "locator": "wp5b-shared-9b12bff2/component.visual.json",
+      "files": {
+        "source": "<section class=\"uip-layout-item\" data-uip-node=\"node_19fcb34c-79cd-42e7-acde-26f7e6c77986\"></section>\n",
+        "css": "",
+        "metadata": "{\n  \"schemaVersion\": 1,\n  \"artifactId\": \"art_70754e07-2ae4-4dbc-a9db-00e1c0281030\",\n  \"kind\": \"component\",\n  \"name\": \"wp5b-shared-9b12bff2\",\n  \"displayName\": \"wp5b shared 9b12bff2\",\n  \"componentId\": \"cmp_platform_22ee929c-1bd6-46cd-8d7d-13e278e29a62\",\n  \"public\": {\n    \"properties\": {},\n    \"events\": {},\n    \"slots\": []\n  }\n}\n",
+        "fixtures": "{}\n",
+        "code": "export {};\n"
+      },
+      "hash": "f2caa538f3da9e866d8487318d1751f35b9726af15e3dd5bdc3f83717dac9852",
+      "metadata": {
+        "schemaVersion": 1,
+        "artifactId": "art_70754e07-2ae4-4dbc-a9db-00e1c0281030",
+        "kind": "component",
+        "name": "wp5b-shared-9b12bff2",
+        "displayName": "wp5b shared 9b12bff2",
+        "componentId": "cmp_platform_22ee929c-1bd6-46cd-8d7d-13e278e29a62",
+        "public": {
+          "properties": {},
+          "events": {},
+          "slots": []
+        }
+      },
+      "diagnostics": []
+    }
+  ],
+  "shells": [],
+  "packages": [
+    {
+      "id": "@ui-base/forms:uib-forms-checkbox",
+      "definition": {
+        "tagName": "uib-forms-checkbox",
+        "module": "./src/controls/uib-forms-checkbox.js",
+        "importPath": "./checkbox",
+        "presentation": {
+          "settings": {},
+          "cssVariables": []
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "@ui-base/forms:uib-forms-checkbox",
+          "name": "uib-forms-checkbox",
+          "displayName": "uib-forms-checkbox",
+          "description": "Metadata-admitted uib-forms-checkbox"
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/forms",
+            "scope": "platform",
+            "version": "0.1.1"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-forms-checkbox",
+          "module": "./src/controls/uib-forms-checkbox.js",
+          "importPath": "@ui-base/forms/checkbox",
+          "exportName": "UibFormsCheckbox",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-forms-checkbox"
+          },
+          "aliases": [],
+          "registrationSideEffects": [
+            "uib-forms-checkbox"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.1.1",
+          "runtimeCompatibility": "^0.1.1",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "forms",
+        "runtime": {
+          "attributes": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "required": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "checked": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            }
+          },
+          "properties": {},
+          "events": {
+            "uib-forms-checkbox-change": {
+              "detail": {
+                "name": "string",
+                "checked": "boolean",
+                "value": "string",
+                "oldValue": "boolean",
+                "newValue": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false
+            }
+          },
+          "slots": []
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "label": "name",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "name"
+              }
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "label": "label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "label"
+              }
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "label": "help",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "help"
+              }
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "label": "value",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "value"
+              }
+            },
+            "required": {
+              "type": "boolean",
+              "default": false,
+              "label": "required",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "required"
+              }
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "label": "disabled",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "disabled"
+              }
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "label": "readonly",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "readonly"
+              }
+            },
+            "checked": {
+              "type": "boolean",
+              "default": false,
+              "label": "checked",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "checked"
+              }
+            }
+          },
+          "interactionModes": {},
+          "validation": [],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          }
+        },
+        "capabilities": [
+          "form-control",
+          "field"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/core",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/ui",
+              "range": "^0.5.1"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "keyboard": {
+            "controls": "native"
+          },
+          "namePrecedence": [
+            "label"
+          ],
+          "disabled": "native-control-semantics"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "platform-release-snapshot",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-forms-checkbox",
+      "name": "uib-forms-checkbox",
+      "category": "forms",
+      "module": "./src/controls/uib-forms-checkbox.js",
+      "importPath": "./checkbox",
+      "presentation": {
+        "settings": {},
+        "cssVariables": []
+      },
+      "packageName": "@ui-base/forms",
+      "packageVersion": "0.1.1",
+      "source": "./checkbox",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fforms/src/controls/uib-forms-checkbox.js?bundle=1"
+    },
+    {
+      "id": "@ui-base/forms:uib-forms-display-field",
+      "definition": {
+        "tagName": "uib-forms-display-field",
+        "module": "./src/display/uib-forms-display-field.js",
+        "importPath": "./display-field",
+        "presentation": {
+          "settings": {},
+          "cssVariables": []
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "@ui-base/forms:uib-forms-display-field",
+          "name": "uib-forms-display-field",
+          "displayName": "uib-forms-display-field",
+          "description": "Metadata-admitted uib-forms-display-field"
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/forms",
+            "scope": "platform",
+            "version": "0.1.1"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-forms-display-field",
+          "module": "./src/display/uib-forms-display-field.js",
+          "importPath": "@ui-base/forms/display-field",
+          "exportName": "UibFormsDisplayField",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-forms-display-field"
+          },
+          "aliases": [],
+          "registrationSideEffects": [
+            "uib-forms-display-field"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.1.1",
+          "runtimeCompatibility": "^0.1.1",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "forms",
+        "runtime": {
+          "attributes": {
+            "label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "display-value": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "empty-value": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "orientation": {
+              "type": "string",
+              "default": "vertical",
+              "observed": true,
+              "serialization": "string"
+            }
+          },
+          "properties": {},
+          "events": {},
+          "slots": [
+            {
+              "name": "label"
+            }
+          ]
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "label": {
+              "type": "string",
+              "default": "",
+              "label": "label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "label"
+              }
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "label": "help",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "help"
+              }
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "label": "value",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "value"
+              }
+            },
+            "display-value": {
+              "type": "string",
+              "default": "",
+              "label": "display-value",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "display-value"
+              }
+            },
+            "empty-value": {
+              "type": "string",
+              "default": "",
+              "label": "empty-value",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "empty-value"
+              }
+            },
+            "orientation": {
+              "type": "string",
+              "default": "vertical",
+              "label": "orientation",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "orientation"
+              },
+              "enum": [
+                "vertical",
+                "horizontal",
+                "auto"
+              ]
+            }
+          },
+          "interactionModes": {},
+          "validation": [],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          }
+        },
+        "capabilities": [
+          "display",
+          "read-only"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/core",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/ui",
+              "range": "^0.5.1"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "keyboard": {
+            "controls": "native"
+          },
+          "namePrecedence": [
+            "label"
+          ],
+          "disabled": "native-control-semantics"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "platform-release-snapshot",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-forms-display-field",
+      "name": "uib-forms-display-field",
+      "category": "forms",
+      "module": "./src/display/uib-forms-display-field.js",
+      "importPath": "./display-field",
+      "presentation": {
+        "settings": {},
+        "cssVariables": []
+      },
+      "packageName": "@ui-base/forms",
+      "packageVersion": "0.1.1",
+      "source": "./display-field",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fforms/src/display/uib-forms-display-field.js?bundle=1"
+    },
+    {
+      "id": "@ui-base/forms:uib-forms-form",
+      "definition": {
+        "tagName": "uib-forms-form",
+        "module": "./src/uib-forms-form.js",
+        "importPath": "./form",
+        "presentation": {
+          "settings": {},
+          "cssVariables": []
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "@ui-base/forms:uib-forms-form",
+          "name": "uib-forms-form",
+          "displayName": "uib-forms-form",
+          "description": "Metadata-admitted uib-forms-form"
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/forms",
+            "scope": "platform",
+            "version": "0.1.1"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-forms-form",
+          "module": "./src/uib-forms-form.js",
+          "importPath": "@ui-base/forms/form",
+          "exportName": "UibFormsForm",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-forms-form"
+          },
+          "aliases": [],
+          "registrationSideEffects": [
+            "uib-forms-form"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.1.1",
+          "runtimeCompatibility": "^0.1.1",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "forms",
+        "runtime": {
+          "attributes": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "submit-label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            }
+          },
+          "properties": {},
+          "events": {
+            "uib-forms-form-submit": {
+              "detail": {
+                "name": "string",
+                "valid": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false
+            }
+          },
+          "slots": [
+            {
+              "name": "default"
+            },
+            {
+              "name": "actions"
+            }
+          ]
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "label": "name",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "name"
+              }
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "label": "label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "label"
+              }
+            },
+            "submit-label": {
+              "type": "string",
+              "default": "",
+              "label": "submit-label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "submit-label"
+              }
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "label": "disabled",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "disabled"
+              }
+            }
+          },
+          "interactionModes": {},
+          "validation": [],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          }
+        },
+        "capabilities": [
+          "form",
+          "container"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/core",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/ui",
+              "range": "^0.5.1"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "keyboard": {
+            "controls": "native"
+          },
+          "namePrecedence": [
+            "label"
+          ],
+          "disabled": "native-control-semantics"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "platform-release-snapshot",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-forms-form",
+      "name": "uib-forms-form",
+      "category": "forms",
+      "module": "./src/uib-forms-form.js",
+      "importPath": "./form",
+      "presentation": {
+        "settings": {},
+        "cssVariables": []
+      },
+      "packageName": "@ui-base/forms",
+      "packageVersion": "0.1.1",
+      "source": "./form",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fforms/src/uib-forms-form.js?bundle=1"
+    },
+    {
+      "id": "@ui-base/forms:uib-forms-number",
+      "definition": {
+        "tagName": "uib-forms-number",
+        "module": "./src/controls/uib-forms-number.js",
+        "importPath": "./number",
+        "presentation": {
+          "settings": {},
+          "cssVariables": []
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "@ui-base/forms:uib-forms-number",
+          "name": "uib-forms-number",
+          "displayName": "uib-forms-number",
+          "description": "Metadata-admitted uib-forms-number"
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/forms",
+            "scope": "platform",
+            "version": "0.1.1"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-forms-number",
+          "module": "./src/controls/uib-forms-number.js",
+          "importPath": "@ui-base/forms/number",
+          "exportName": "UibFormsNumber",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-forms-number"
+          },
+          "aliases": [],
+          "registrationSideEffects": [
+            "uib-forms-number"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.1.1",
+          "runtimeCompatibility": "^0.1.1",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "forms",
+        "runtime": {
+          "attributes": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "required": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "min": {
+              "type": "number",
+              "default": 0,
+              "observed": true,
+              "serialization": "string"
+            },
+            "max": {
+              "type": "number",
+              "default": 100,
+              "observed": true,
+              "serialization": "string"
+            },
+            "step": {
+              "type": "number",
+              "default": 1,
+              "observed": true,
+              "serialization": "string"
+            }
+          },
+          "properties": {},
+          "events": {
+            "uib-forms-number-change": {
+              "detail": {
+                "name": "string",
+                "oldValue": "string",
+                "newValue": "string"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false
+            }
+          },
+          "slots": [
+            {
+              "name": "default"
+            },
+            {
+              "name": "label"
+            }
+          ]
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "label": "name",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "name"
+              }
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "label": "label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "label"
+              }
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "label": "help",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "help"
+              }
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "label": "value",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "value"
+              }
+            },
+            "required": {
+              "type": "boolean",
+              "default": false,
+              "label": "required",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "required"
+              }
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "label": "disabled",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "disabled"
+              }
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "label": "readonly",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "readonly"
+              }
+            },
+            "min": {
+              "type": "number",
+              "default": 0,
+              "label": "min",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "min"
+              },
+              "omitWhenUnset": true
+            },
+            "max": {
+              "type": "number",
+              "default": 100,
+              "label": "max",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "max"
+              },
+              "omitWhenUnset": true
+            },
+            "step": {
+              "type": "number",
+              "default": 1,
+              "label": "step",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "step"
+              },
+              "omitWhenUnset": true
+            }
+          },
+          "interactionModes": {},
+          "validation": [],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          }
+        },
+        "capabilities": [
+          "form-control",
+          "field"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/core",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/ui",
+              "range": "^0.5.1"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "keyboard": {
+            "controls": "native"
+          },
+          "namePrecedence": [
+            "label"
+          ],
+          "disabled": "native-control-semantics"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "platform-release-snapshot",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-forms-number",
+      "name": "uib-forms-number",
+      "category": "forms",
+      "module": "./src/controls/uib-forms-number.js",
+      "importPath": "./number",
+      "presentation": {
+        "settings": {},
+        "cssVariables": []
+      },
+      "packageName": "@ui-base/forms",
+      "packageVersion": "0.1.1",
+      "source": "./number",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fforms/src/controls/uib-forms-number.js?bundle=1"
+    },
+    {
+      "id": "@ui-base/forms:uib-forms-select",
+      "definition": {
+        "tagName": "uib-forms-select",
+        "module": "./src/controls/uib-forms-select.js",
+        "importPath": "./select",
+        "presentation": {
+          "settings": {},
+          "cssVariables": []
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "@ui-base/forms:uib-forms-select",
+          "name": "uib-forms-select",
+          "displayName": "uib-forms-select",
+          "description": "Metadata-admitted uib-forms-select"
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/forms",
+            "scope": "platform",
+            "version": "0.1.1"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-forms-select",
+          "module": "./src/controls/uib-forms-select.js",
+          "importPath": "@ui-base/forms/select",
+          "exportName": "UibFormsSelect",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-forms-select"
+          },
+          "aliases": [],
+          "registrationSideEffects": [
+            "uib-forms-select"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.1.1",
+          "runtimeCompatibility": "^0.1.1",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "forms",
+        "runtime": {
+          "attributes": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "required": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "options": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            }
+          },
+          "properties": {},
+          "events": {
+            "uib-forms-select-change": {
+              "detail": {
+                "name": "string",
+                "oldValue": "string",
+                "newValue": "string"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false
+            }
+          },
+          "slots": [
+            {
+              "name": "default"
+            },
+            {
+              "name": "label"
+            }
+          ]
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "label": "name",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "name"
+              }
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "label": "label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "label"
+              }
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "label": "help",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "help"
+              }
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "label": "value",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "value"
+              }
+            },
+            "required": {
+              "type": "boolean",
+              "default": false,
+              "label": "required",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "required"
+              }
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "label": "disabled",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "disabled"
+              }
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "label": "readonly",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "readonly"
+              }
+            },
+            "options": {
+              "type": "string",
+              "default": "",
+              "label": "options",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "options"
+              },
+              "format": "comma-options"
+            }
+          },
+          "interactionModes": {},
+          "validation": [],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          }
+        },
+        "capabilities": [
+          "form-control",
+          "field"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/core",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/ui",
+              "range": "^0.5.1"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "keyboard": {
+            "controls": "native"
+          },
+          "namePrecedence": [
+            "label"
+          ],
+          "disabled": "native-control-semantics"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "platform-release-snapshot",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-forms-select",
+      "name": "uib-forms-select",
+      "category": "forms",
+      "module": "./src/controls/uib-forms-select.js",
+      "importPath": "./select",
+      "presentation": {
+        "settings": {},
+        "cssVariables": []
+      },
+      "packageName": "@ui-base/forms",
+      "packageVersion": "0.1.1",
+      "source": "./select",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fforms/src/controls/uib-forms-select.js?bundle=1"
+    },
+    {
+      "id": "@ui-base/forms:uib-forms-textbox",
+      "definition": {
+        "tagName": "uib-forms-textbox",
+        "module": "./src/controls/uib-forms-textbox.js",
+        "importPath": "./textbox",
+        "presentation": {
+          "settings": {},
+          "cssVariables": []
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "@ui-base/forms:uib-forms-textbox",
+          "name": "uib-forms-textbox",
+          "displayName": "uib-forms-textbox",
+          "description": "Metadata-admitted uib-forms-textbox"
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/forms",
+            "scope": "platform",
+            "version": "0.1.1"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-forms-textbox",
+          "module": "./src/controls/uib-forms-textbox.js",
+          "importPath": "@ui-base/forms/textbox",
+          "exportName": "UibFormsTextbox",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-forms-textbox"
+          },
+          "aliases": [],
+          "registrationSideEffects": [
+            "uib-forms-textbox"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.1.1",
+          "runtimeCompatibility": "^0.1.1",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "forms",
+        "runtime": {
+          "attributes": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "required": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "placeholder": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "pattern": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "minlength": {
+              "type": "number",
+              "default": 0,
+              "observed": true,
+              "serialization": "string"
+            },
+            "maxlength": {
+              "type": "number",
+              "default": 0,
+              "observed": true,
+              "serialization": "string"
+            }
+          },
+          "properties": {},
+          "events": {
+            "uib-forms-textbox-change": {
+              "detail": {
+                "name": "string",
+                "oldValue": "string",
+                "newValue": "string"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false
+            }
+          },
+          "slots": [
+            {
+              "name": "default"
+            },
+            {
+              "name": "label"
+            }
+          ]
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "label": "name",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "name"
+              }
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "label": "label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "label"
+              }
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "label": "help",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "help"
+              }
+            },
+            "value": {
+              "type": "string",
+              "default": "",
+              "label": "value",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "value"
+              }
+            },
+            "required": {
+              "type": "boolean",
+              "default": false,
+              "label": "required",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "required"
+              }
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "label": "disabled",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "disabled"
+              }
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "label": "readonly",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "readonly"
+              }
+            },
+            "placeholder": {
+              "type": "string",
+              "default": "",
+              "label": "placeholder",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "placeholder"
+              }
+            },
+            "pattern": {
+              "type": "string",
+              "default": "",
+              "label": "pattern",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "pattern"
+              }
+            },
+            "minlength": {
+              "type": "number",
+              "default": 0,
+              "label": "minlength",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "minlength"
+              },
+              "omitWhenUnset": true
+            },
+            "maxlength": {
+              "type": "number",
+              "default": 0,
+              "label": "maxlength",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "maxlength"
+              },
+              "omitWhenUnset": true
+            }
+          },
+          "interactionModes": {},
+          "validation": [],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          }
+        },
+        "capabilities": [
+          "form-control",
+          "field"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/core",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/ui",
+              "range": "^0.5.1"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "keyboard": {
+            "controls": "native"
+          },
+          "namePrecedence": [
+            "label"
+          ],
+          "disabled": "native-control-semantics"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "platform-release-snapshot",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-forms-textbox",
+      "name": "uib-forms-textbox",
+      "category": "forms",
+      "module": "./src/controls/uib-forms-textbox.js",
+      "importPath": "./textbox",
+      "presentation": {
+        "settings": {},
+        "cssVariables": []
+      },
+      "packageName": "@ui-base/forms",
+      "packageVersion": "0.1.1",
+      "source": "./textbox",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fforms/src/controls/uib-forms-textbox.js?bundle=1"
+    },
+    {
+      "id": "@ui-base/hero:uib-hero",
+      "definition": {
+        "tagName": "uib-hero",
+        "module": "./src/uib-hero.js",
+        "importPath": "./uib-hero",
+        "presentation": {
+          "settings": {},
+          "cssVariables": []
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "@ui-base/hero:uib-hero",
+          "name": "uib-hero",
+          "displayName": "Hero",
+          "description": "Metadata-admitted uib-panel"
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/hero",
+            "scope": "platform",
+            "version": "0.2.4"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-hero",
+          "module": "./src/uib-hero.js",
+          "importPath": "@ui-base/hero/uib-hero",
+          "exportName": "UibHero",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-hero"
+          },
+          "aliases": [],
+          "registrationSideEffects": [
+            "uib-hero"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.2.4",
+          "runtimeCompatibility": "^0.2.4",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "presentation",
+        "runtime": {
+          "attributes": {
+            "eyebrow": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "headline": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "subheadline": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "primary-cta-label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "primary-cta-href": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "primary-cta-action-token": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "primary-cta-type": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "secondary-cta-label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "secondary-cta-href": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "secondary-cta-action-token": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "secondary-cta-type": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "primary-cta-disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "secondary-cta-disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            }
+          },
+          "properties": {},
+          "events": {
+            "uib-hero-cta": {
+              "detail": {
+                "actionToken": "string",
+                "ctaType": "string",
+                "href": "string",
+                "disabled": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": true
+            }
+          },
+          "slots": [
+            {
+              "name": "navigation"
+            },
+            {
+              "name": "visual"
+            },
+            {
+              "name": "trust"
+            },
+            {
+              "name": "after-content"
+            }
+          ]
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "eyebrow": {
+              "type": "string",
+              "default": "",
+              "label": "eyebrow",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "eyebrow"
+              }
+            },
+            "headline": {
+              "type": "string",
+              "default": "",
+              "label": "headline",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "headline"
+              }
+            },
+            "subheadline": {
+              "type": "string",
+              "default": "",
+              "label": "subheadline",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "subheadline"
+              }
+            },
+            "primary-cta-label": {
+              "type": "string",
+              "default": "",
+              "label": "primary-cta-label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "primary-cta-label"
+              }
+            },
+            "primary-cta-href": {
+              "type": "string",
+              "default": "",
+              "label": "primary-cta-href",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "primary-cta-href"
+              },
+              "format": "url"
+            },
+            "primary-cta-action-token": {
+              "type": "string",
+              "default": "",
+              "label": "primary-cta-action-token",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "primary-cta-action-token"
+              }
+            },
+            "primary-cta-type": {
+              "type": "string",
+              "default": "",
+              "label": "primary-cta-type",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "primary-cta-type"
+              }
+            },
+            "secondary-cta-label": {
+              "type": "string",
+              "default": "",
+              "label": "secondary-cta-label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "secondary-cta-label"
+              }
+            },
+            "secondary-cta-href": {
+              "type": "string",
+              "default": "",
+              "label": "secondary-cta-href",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "secondary-cta-href"
+              },
+              "format": "url"
+            },
+            "secondary-cta-action-token": {
+              "type": "string",
+              "default": "",
+              "label": "secondary-cta-action-token",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "secondary-cta-action-token"
+              }
+            },
+            "secondary-cta-type": {
+              "type": "string",
+              "default": "",
+              "label": "secondary-cta-type",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "secondary-cta-type"
+              }
+            },
+            "primary-cta-disabled": {
+              "type": "boolean",
+              "default": false,
+              "label": "primary-cta-disabled",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "primary-cta-disabled"
+              }
+            },
+            "secondary-cta-disabled": {
+              "type": "boolean",
+              "default": false,
+              "label": "secondary-cta-disabled",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "secondary-cta-disabled"
+              }
+            }
+          },
+          "interactionModes": {},
+          "validation": [],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          }
+        },
+        "capabilities": [
+          "presentation",
+          "interactive",
+          "linkable"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/ui",
+              "range": "^0.5.2"
+            },
+            {
+              "packageId": "@ui-base/assets",
+              "range": "^0.1.17"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "keyboard": {
+            "controls": "native"
+          },
+          "namePrecedence": [
+            "label"
+          ],
+          "disabled": "native-control-semantics"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "platform-release-snapshot",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-hero",
+      "name": "Hero",
+      "category": "presentation",
+      "module": "./src/uib-hero.js",
+      "importPath": "./uib-hero",
+      "presentation": {
+        "settings": {},
+        "cssVariables": []
+      },
+      "packageName": "@ui-base/hero",
+      "packageVersion": "0.2.4",
+      "source": "package:@ui-base/hero",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fhero/src/uib-hero.js?bundle=1"
+    },
+    {
+      "id": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+      "definition": {
+        "tagName": "uib-card",
+        "module": "./src/layout/uib-card.js",
+        "importPath": "./card",
+        "presentation": {
+          "settings": {
+            "variant": {
+              "type": "select",
+              "options": [
+                "elevated",
+                "outlined",
+                "flat"
+              ],
+              "inheritable": true
+            },
+            "density": {
+              "type": "select",
+              "options": [
+                "comfortable",
+                "compact"
+              ],
+              "inheritable": true
+            }
+          },
+          "parts": [
+            "base",
+            "media",
+            "header",
+            "body",
+            "footer"
+          ],
+          "cssVariables": [
+            "--uib-color-ink",
+            "--uib-font-family-sans",
+            "--uib-color-border",
+            "--uib-radius-lg",
+            "--uib-color-surface",
+            "--uib-color-surface-soft",
+            "--uib-shadow-sm",
+            "--uib-space-3",
+            "--uib-space-4",
+            "--uib-focus-ring",
+            "--uib-color-primary"
+          ]
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "cmp_platform_5d42b928-83bf-4b18-a4c0-48b06c2efa1",
+          "name": "card",
+          "displayName": "Card",
+          "description": "Repeatable content surface with optional link, action and selection behavior."
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/ui",
+            "scope": "platform",
+            "version": "0.5.2"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-card",
+          "module": "./src/layout/uib-card.js",
+          "importPath": "@ui-base/ui/card",
+          "exportName": "UibCard",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-card"
+          },
+          "aliases": [
+            {
+              "importPath": "@ui-base/ui",
+              "exportName": "UibCard"
+            },
+            {
+              "importPath": "@ui-base/ui/layout",
+              "exportName": "UibCard"
+            }
+          ],
+          "registrationSideEffects": [
+            "uib-stack",
+            "uib-grid",
+            "uib-row",
+            "uib-column",
+            "uib-panel",
+            "uib-card",
+            "uib-dialog",
+            "uib-accordion",
+            "uib-tab",
+            "uib-tab-panel",
+            "uib-tabs",
+            "uib-splitter",
+            "uib-icon"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.5.2",
+          "runtimeCompatibility": "^0.5.2",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "content-surfaces",
+        "runtime": {
+          "attributes": {
+            "name": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "help": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "help-mode": {
+              "type": "string",
+              "default": "tooltip",
+              "observed": true,
+              "serialization": "string"
+            },
+            "title": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "readonly": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "required": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "hidden": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "invalid": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "error": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "css-class": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "aria-label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "aria-describedby": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "heading": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "variant": {
+              "type": "string",
+              "default": "elevated",
+              "observed": true,
+              "serialization": "string",
+              "enum": [
+                "elevated",
+                "outlined",
+                "flat"
+              ]
+            },
+            "density": {
+              "type": "string",
+              "default": "comfortable",
+              "observed": true,
+              "serialization": "string",
+              "enum": [
+                "comfortable",
+                "compact"
+              ]
+            },
+            "href": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "target": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "rel": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "action": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "action-token": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "interactive": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "selectable": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "selected": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            }
+          },
+          "properties": {
+            "name": {
+              "type": "string",
+              "attribute": "name",
+              "writable": true,
+              "default": ""
+            },
+            "label": {
+              "type": "string",
+              "attribute": "label",
+              "writable": true,
+              "default": ""
+            },
+            "help": {
+              "type": "string",
+              "attribute": "help",
+              "writable": true,
+              "default": ""
+            },
+            "helpMode": {
+              "type": "string",
+              "attribute": "help-mode",
+              "writable": true,
+              "default": "tooltip"
+            },
+            "titleText": {
+              "type": "string",
+              "attribute": "title",
+              "writable": true,
+              "default": ""
+            },
+            "disabled": {
+              "type": "boolean",
+              "attribute": "disabled",
+              "writable": true,
+              "default": false
+            },
+            "readonly": {
+              "type": "boolean",
+              "attribute": "readonly",
+              "writable": true,
+              "default": false
+            },
+            "required": {
+              "type": "boolean",
+              "attribute": "required",
+              "writable": true,
+              "default": false
+            },
+            "hidden": {
+              "type": "boolean",
+              "attribute": "hidden",
+              "writable": true,
+              "default": false
+            },
+            "invalid": {
+              "type": "boolean",
+              "attribute": "invalid",
+              "writable": true,
+              "default": false
+            },
+            "error": {
+              "type": "string",
+              "attribute": "error",
+              "writable": true,
+              "default": ""
+            },
+            "cssClass": {
+              "type": "string",
+              "attribute": "css-class",
+              "writable": true,
+              "default": ""
+            },
+            "ariaLabel": {
+              "type": "string",
+              "attribute": "aria-label",
+              "writable": false,
+              "default": ""
+            },
+            "ariaDescribedBy": {
+              "type": "string",
+              "attribute": "aria-describedby",
+              "writable": false,
+              "default": ""
+            },
+            "heading": {
+              "type": "string",
+              "attribute": "heading",
+              "writable": false,
+              "default": "",
+              "fallback": "label"
+            },
+            "variant": {
+              "type": "string",
+              "attribute": "variant",
+              "writable": false,
+              "default": "elevated",
+              "normalization": "lowercase-or-default"
+            },
+            "density": {
+              "type": "string",
+              "attribute": "density",
+              "writable": false,
+              "default": "comfortable",
+              "normalization": "exact-compact-or-default"
+            },
+            "href": {
+              "type": "string",
+              "attribute": "href",
+              "writable": false,
+              "default": ""
+            },
+            "target": {
+              "type": "string",
+              "attribute": "target",
+              "writable": false,
+              "default": ""
+            },
+            "rel": {
+              "type": "string",
+              "attribute": "rel",
+              "writable": false,
+              "default": ""
+            },
+            "action": {
+              "type": "string",
+              "attribute": "action",
+              "writable": false,
+              "default": ""
+            },
+            "actionToken": {
+              "type": "string",
+              "attribute": "action-token",
+              "writable": false,
+              "default": ""
+            },
+            "interactive": {
+              "type": "boolean",
+              "attribute": "interactive",
+              "writable": false,
+              "default": false,
+              "computedFrom": [
+                "interactive",
+                "href",
+                "action",
+                "action-token",
+                "selectable"
+              ]
+            },
+            "selectable": {
+              "type": "boolean",
+              "attribute": "selectable",
+              "writable": false,
+              "default": false
+            },
+            "selected": {
+              "type": "boolean",
+              "attribute": "selected",
+              "writable": true,
+              "default": false,
+              "programmaticSetEmits": false
+            },
+            "componentId": {
+              "type": "string",
+              "writable": false,
+              "role": "runtime-instance-id"
+            }
+          },
+          "events": {
+            "change": {
+              "detail": {
+                "name": "string",
+                "oldValue": "boolean",
+                "newValue": "boolean",
+                "selected": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false,
+              "selectionAliasOf": "uib-card-select",
+              "order": 1
+            },
+            "uib-card-select": {
+              "detail": {
+                "name": "string",
+                "oldValue": "boolean",
+                "newValue": "boolean",
+                "selected": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false,
+              "order": 2
+            },
+            "uib-card-action": {
+              "detail": {
+                "name": "string",
+                "action": "string",
+                "actionToken": "string",
+                "selected": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": true,
+              "order": 3,
+              "cancellation": "prevent-original-event-default-after-selection"
+            }
+          },
+          "slots": [
+            {
+              "name": "default",
+              "content": "text-or-elements"
+            },
+            {
+              "name": "media",
+              "content": "text-or-elements"
+            },
+            {
+              "name": "header",
+              "content": "text-or-elements"
+            },
+            {
+              "name": "footer",
+              "content": "text-or-elements"
+            }
+          ]
+        },
+        "children": {
+          "runtime": "unrestricted-for-compatibility",
+          "builder": {
+            "content": [
+              "text",
+              "image"
+            ],
+            "nestedInteractiveInLink": false
+          }
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "heading": {
+              "label": "Heading",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "heading"
+              }
+            },
+            "label": {
+              "label": "Fallback label",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "label"
+              }
+            },
+            "body": {
+              "label": "Body",
+              "type": "string",
+              "group": "content",
+              "default": "Card body",
+              "binding": {
+                "kind": "slot",
+                "name": "default",
+                "content": "text"
+              },
+              "editor": "textarea"
+            },
+            "header": {
+              "label": "Header content",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "slot",
+                "name": "header",
+                "content": "text"
+              }
+            },
+            "footer": {
+              "label": "Footer",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "slot",
+                "name": "footer",
+                "content": "text"
+              }
+            },
+            "mediaSrc": {
+              "label": "Image URL",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "slot",
+                "name": "media",
+                "content": "image",
+                "altSetting": "mediaAlt"
+              },
+              "format": "image-url"
+            },
+            "mediaAlt": {
+              "label": "Image description",
+              "type": "string",
+              "group": "content",
+              "default": "",
+              "binding": {
+                "kind": "slotMetadata",
+                "slot": "media",
+                "name": "alt"
+              }
+            },
+            "variant": {
+              "label": "Variant",
+              "type": "string",
+              "group": "appearance",
+              "default": "elevated",
+              "binding": {
+                "kind": "attribute",
+                "name": "variant"
+              },
+              "editor": "select",
+              "enum": [
+                "elevated",
+                "outlined",
+                "flat"
+              ]
+            },
+            "density": {
+              "label": "Density",
+              "type": "string",
+              "group": "appearance",
+              "default": "comfortable",
+              "binding": {
+                "kind": "attribute",
+                "name": "density"
+              },
+              "editor": "select",
+              "enum": [
+                "comfortable",
+                "compact"
+              ]
+            },
+            "cssClass": {
+              "label": "CSS classes",
+              "type": "string",
+              "group": "appearance",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "css-class"
+              }
+            },
+            "interactionMode": {
+              "label": "Interaction mode",
+              "type": "string",
+              "group": "interaction",
+              "default": "none",
+              "binding": {
+                "kind": "mode"
+              },
+              "editor": "select",
+              "enum": [
+                "none",
+                "link",
+                "action",
+                "selectable"
+              ]
+            },
+            "href": {
+              "label": "Link URL",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "href"
+              },
+              "format": "url",
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "link"
+              }
+            },
+            "target": {
+              "label": "Link target",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "target"
+              },
+              "editor": "select",
+              "enum": [
+                "",
+                "_self",
+                "_blank",
+                "_parent",
+                "_top"
+              ],
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "link"
+              }
+            },
+            "rel": {
+              "label": "Link relationship",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "rel"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "link"
+              }
+            },
+            "action": {
+              "label": "Action",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "action"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "action"
+              }
+            },
+            "actionToken": {
+              "label": "Action token",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "action-token"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "action"
+              }
+            },
+            "selected": {
+              "label": "Initially selected",
+              "type": "boolean",
+              "group": "state",
+              "default": false,
+              "binding": {
+                "kind": "attribute",
+                "name": "selected"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "selectable"
+              }
+            },
+            "disabled": {
+              "label": "Disabled",
+              "type": "boolean",
+              "group": "state",
+              "default": false,
+              "binding": {
+                "kind": "attribute",
+                "name": "disabled"
+              }
+            },
+            "name": {
+              "label": "Event name",
+              "type": "string",
+              "group": "interaction",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "name"
+              }
+            },
+            "ariaLabel": {
+              "label": "Accessible name",
+              "type": "string",
+              "group": "accessibility",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "aria-label"
+              }
+            },
+            "ariaDescribedBy": {
+              "label": "Description IDs",
+              "type": "string",
+              "group": "accessibility",
+              "default": "",
+              "binding": {
+                "kind": "attribute",
+                "name": "aria-describedby"
+              }
+            },
+            "actionHandler": {
+              "label": "Action handler ID",
+              "type": "string",
+              "group": "events",
+              "default": "",
+              "binding": {
+                "kind": "event",
+                "name": "uib-card-action"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "action"
+              }
+            },
+            "selectionHandler": {
+              "label": "Selection handler ID",
+              "type": "string",
+              "group": "events",
+              "default": "",
+              "binding": {
+                "kind": "event",
+                "name": "uib-card-select"
+              },
+              "visibleWhen": {
+                "setting": "interactionMode",
+                "equals": "selectable"
+              }
+            }
+          },
+          "interactionModes": {
+            "none": {
+              "attributes": {
+                "interactive": false,
+                "selectable": false
+              }
+            },
+            "link": {
+              "attributes": {
+                "interactive": false,
+                "selectable": false
+              }
+            },
+            "action": {
+              "attributes": {
+                "interactive": true,
+                "selectable": false
+              }
+            },
+            "selectable": {
+              "attributes": {
+                "interactive": false,
+                "selectable": true
+              }
+            }
+          },
+          "validation": [
+            {
+              "kind": "requiredWhen",
+              "setting": "href",
+              "when": {
+                "setting": "interactionMode",
+                "equals": "link"
+              }
+            },
+            {
+              "kind": "oneOfRequiredWhen",
+              "settings": [
+                "action",
+                "actionToken"
+              ],
+              "when": {
+                "setting": "interactionMode",
+                "equals": "action"
+              }
+            },
+            {
+              "kind": "accessibleNameWhenInteractive",
+              "settings": [
+                "heading",
+                "label",
+                "header",
+                "ariaLabel"
+              ]
+            }
+          ],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          },
+          "eventBindings": {
+            "handlerReference": "registered-handler-id",
+            "cancellation": "synchronous-false-only",
+            "selectionEvent": "uib-card-select"
+          }
+        },
+        "capabilities": [
+          "surface",
+          "container",
+          "interactive",
+          "selectable",
+          "linkable"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/core",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/icons",
+              "range": "^0.1.0"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "modes": [
+            "section",
+            "link",
+            "button",
+            "toggle-button"
+          ],
+          "keyboard": {
+            "nonLink": [
+              "Enter",
+              "Space"
+            ],
+            "link": "native"
+          },
+          "namePrecedence": [
+            "aria-label",
+            "heading",
+            "label",
+            "header"
+          ],
+          "disabled": "aria-disabled; remove-from-tab-order; block-activation"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "unimplemented-stage-gate",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-card",
+      "name": "Card",
+      "category": "content-surfaces",
+      "module": "./src/layout/uib-card.js",
+      "importPath": "./card",
+      "presentation": {
+        "settings": {
+          "variant": {
+            "type": "select",
+            "options": [
+              "elevated",
+              "outlined",
+              "flat"
+            ],
+            "inheritable": true
+          },
+          "density": {
+            "type": "select",
+            "options": [
+              "comfortable",
+              "compact"
+            ],
+            "inheritable": true
+          }
+        },
+        "parts": [
+          "base",
+          "media",
+          "header",
+          "body",
+          "footer"
+        ],
+        "cssVariables": [
+          "--uib-color-ink",
+          "--uib-font-family-sans",
+          "--uib-color-border",
+          "--uib-radius-lg",
+          "--uib-color-surface",
+          "--uib-color-surface-soft",
+          "--uib-shadow-sm",
+          "--uib-space-3",
+          "--uib-space-4",
+          "--uib-focus-ring",
+          "--uib-color-primary"
+        ]
+      },
+      "packageName": "@ui-base/ui",
+      "packageVersion": "0.5.2",
+      "source": "./card",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fui/src/layout/uib-card.js?bundle=1"
+    },
+    {
+      "id": "@ui-base/ui:uib-action-button",
+      "definition": {
+        "tagName": "uib-action-button",
+        "module": "./src/actions/uib-action-button.js",
+        "importPath": "./action-button",
+        "presentation": {
+          "settings": {},
+          "cssVariables": []
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "@ui-base/ui:uib-action-button",
+          "name": "uib-action-button",
+          "displayName": "uib-action-button",
+          "description": "Metadata-admitted uib-action-button"
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/ui",
+            "scope": "platform",
+            "version": "0.5.2"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-action-button",
+          "module": "./src/actions/uib-action-button.js",
+          "importPath": "@ui-base/ui/action-button",
+          "exportName": "UibActionButton",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-action-button"
+          },
+          "aliases": [],
+          "registrationSideEffects": [
+            "uib-action-button"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.5.2",
+          "runtimeCompatibility": "^0.5.2",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "content-surfaces",
+        "runtime": {
+          "attributes": {
+            "label": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "href": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "action": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "action-token": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "target": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "rel": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "variant": {
+              "type": "string",
+              "default": "secondary",
+              "observed": true,
+              "serialization": "string"
+            }
+          },
+          "properties": {},
+          "events": {
+            "uib-action-button-click": {
+              "detail": {
+                "action": "string",
+                "actionToken": "string",
+                "href": "string",
+                "disabled": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false
+            }
+          },
+          "slots": [
+            {
+              "name": "default"
+            }
+          ]
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "label": {
+              "type": "string",
+              "default": "",
+              "label": "label",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "label"
+              }
+            },
+            "href": {
+              "type": "string",
+              "default": "",
+              "label": "href",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "href"
+              },
+              "format": "url"
+            },
+            "action": {
+              "type": "string",
+              "default": "",
+              "label": "action",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "action"
+              }
+            },
+            "action-token": {
+              "type": "string",
+              "default": "",
+              "label": "action-token",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "action-token"
+              }
+            },
+            "target": {
+              "type": "string",
+              "default": "",
+              "label": "target",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "target"
+              },
+              "enum": [
+                "",
+                "_self",
+                "_blank"
+              ]
+            },
+            "rel": {
+              "type": "string",
+              "default": "",
+              "label": "rel",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "rel"
+              }
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "label": "disabled",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "disabled"
+              }
+            },
+            "variant": {
+              "type": "string",
+              "default": "secondary",
+              "label": "variant",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "variant"
+              },
+              "enum": [
+                "primary",
+                "secondary",
+                "tertiary",
+                "destructive"
+              ]
+            }
+          },
+          "interactionModes": {},
+          "validation": [],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          }
+        },
+        "capabilities": [
+          "interactive",
+          "linkable"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/core",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/icons",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/hero",
+              "range": "^0.2.1"
+            },
+            {
+              "packageId": "@ui-base/tour-ui",
+              "range": "^0.1.1"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "keyboard": {
+            "controls": "native"
+          },
+          "namePrecedence": [
+            "label"
+          ],
+          "disabled": "native-control-semantics"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "platform-release-snapshot",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-action-button",
+      "name": "uib-action-button",
+      "category": "content-surfaces",
+      "module": "./src/actions/uib-action-button.js",
+      "importPath": "./action-button",
+      "presentation": {
+        "settings": {},
+        "cssVariables": []
+      },
+      "packageName": "@ui-base/ui",
+      "packageVersion": "0.5.2",
+      "source": "./action-button",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fui/src/actions/uib-action-button.js?bundle=1"
+    },
+    {
+      "id": "@ui-base/ui:uib-panel",
+      "definition": {
+        "tagName": "uib-panel",
+        "module": "./src/layout/uib-panel.js",
+        "importPath": "./panel",
+        "presentation": {
+          "settings": {},
+          "cssVariables": []
+        },
+        "schemaVersion": "1.0.0",
+        "identity": {
+          "componentId": "@ui-base/ui:uib-panel",
+          "name": "uib-panel",
+          "displayName": "uib-panel",
+          "description": "Metadata-admitted uib-panel"
+        },
+        "ownership": {
+          "scope": "platform",
+          "package": {
+            "packageId": "@ui-base/ui",
+            "scope": "platform",
+            "version": "0.5.2"
+          },
+          "provenance": {
+            "origin": "installed-package",
+            "promotedFromComponentId": null,
+            "promotedFromRevisionId": null
+          }
+        },
+        "implementation": {
+          "type": "code",
+          "tagName": "uib-panel",
+          "module": "./src/layout/uib-panel.js",
+          "importPath": "@ui-base/ui/panel",
+          "exportName": "UibPanel",
+          "runtimeBinding": {
+            "kind": "custom-element",
+            "tagName": "uib-panel"
+          },
+          "aliases": [],
+          "registrationSideEffects": [
+            "uib-panel"
+          ]
+        },
+        "version": {
+          "packageVersion": "0.5.2",
+          "runtimeCompatibility": "^0.5.2",
+          "revisionId": null
+        },
+        "maturity": "experimental",
+        "category": "content-surfaces",
+        "runtime": {
+          "attributes": {
+            "heading": {
+              "type": "string",
+              "default": "",
+              "observed": true,
+              "serialization": "string"
+            },
+            "variant": {
+              "type": "string",
+              "default": "outlined",
+              "observed": true,
+              "serialization": "string"
+            },
+            "density": {
+              "type": "string",
+              "default": "comfortable",
+              "observed": true,
+              "serialization": "string"
+            },
+            "collapsible": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "open": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "observed": true,
+              "serialization": "presence"
+            }
+          },
+          "properties": {},
+          "events": {
+            "uib-panel-toggle": {
+              "detail": {
+                "name": "string",
+                "oldValue": "boolean",
+                "newValue": "boolean"
+              },
+              "bubbles": true,
+              "composed": true,
+              "cancelable": false
+            }
+          },
+          "slots": [
+            {
+              "name": "default"
+            },
+            {
+              "name": "header"
+            },
+            {
+              "name": "actions"
+            },
+            {
+              "name": "footer"
+            }
+          ]
+        },
+        "builder": {
+          "groups": [
+            {
+              "id": "content",
+              "label": "Content"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance"
+            },
+            {
+              "id": "interaction",
+              "label": "Interaction"
+            },
+            {
+              "id": "state",
+              "label": "State"
+            },
+            {
+              "id": "accessibility",
+              "label": "Accessibility"
+            },
+            {
+              "id": "events",
+              "label": "Event bindings"
+            }
+          ],
+          "definitionSettings": {
+            "displayName": {
+              "label": "Display name",
+              "type": "string",
+              "required": true,
+              "binding": {
+                "kind": "definition",
+                "path": "identity.displayName"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "type": "string",
+              "editor": "textarea",
+              "binding": {
+                "kind": "definition",
+                "path": "identity.description"
+              }
+            }
+          },
+          "settings": {
+            "heading": {
+              "type": "string",
+              "default": "",
+              "label": "heading",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "heading"
+              }
+            },
+            "variant": {
+              "type": "string",
+              "default": "outlined",
+              "label": "variant",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "variant"
+              },
+              "enum": [
+                "elevated",
+                "outlined",
+                "flat"
+              ]
+            },
+            "density": {
+              "type": "string",
+              "default": "comfortable",
+              "label": "density",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "density"
+              },
+              "enum": [
+                "comfortable",
+                "compact"
+              ]
+            },
+            "collapsible": {
+              "type": "boolean",
+              "default": false,
+              "label": "collapsible",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "collapsible"
+              }
+            },
+            "open": {
+              "type": "boolean",
+              "default": false,
+              "label": "open",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "open"
+              }
+            },
+            "disabled": {
+              "type": "boolean",
+              "default": false,
+              "label": "disabled",
+              "group": "content",
+              "binding": {
+                "kind": "attribute",
+                "name": "disabled"
+              }
+            }
+          },
+          "interactionModes": {},
+          "validation": [],
+          "responsive": {
+            "supported": false
+          },
+          "preview": {
+            "renderer": "runtimeBinding",
+            "navigation": "prevent",
+            "eventHandlers": "observe-only"
+          }
+        },
+        "capabilities": [
+          "surface",
+          "container",
+          "collapsible"
+        ],
+        "dependencies": {
+          "packages": [
+            {
+              "packageId": "@ui-base/core",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/icons",
+              "range": "^0.1.0"
+            },
+            {
+              "packageId": "@ui-base/hero",
+              "range": "^0.2.1"
+            },
+            {
+              "packageId": "@ui-base/tour-ui",
+              "range": "^0.1.1"
+            }
+          ],
+          "services": []
+        },
+        "accessibility": {
+          "keyboard": {
+            "controls": "native"
+          },
+          "namePrecedence": [
+            "heading",
+            "label"
+          ],
+          "disabled": "native-control-semantics"
+        },
+        "lifecycle": {
+          "state": "installed",
+          "save": "workspace-only",
+          "publication": "platform-release-snapshot",
+          "publishedRevisionsImmutable": true,
+          "rollback": "new-revision",
+          "promotion": "new-identity-with-provenance"
+        },
+        "clone": {
+          "workspace": "new-workspace-and-instance-ids;same-component-identity",
+          "component": "new-component-identity;retain-provenance"
+        },
+        "deprecation": {
+          "status": "none",
+          "replacementComponentId": null
+        },
+        "extensions": {}
+      },
+      "tagName": "uib-panel",
+      "name": "uib-panel",
+      "category": "content-surfaces",
+      "module": "./src/layout/uib-panel.js",
+      "importPath": "./panel",
+      "presentation": {
+        "settings": {},
+        "cssVariables": []
+      },
+      "packageName": "@ui-base/ui",
+      "packageVersion": "0.5.2",
+      "source": "./panel",
+      "metadataStatus": "manifest",
+      "moduleUrl": "/api/apps/stage1-admission-review/package-assets/%40ui-base%2Fui/src/layout/uib-panel.js?bundle=1"
+    }
+  ]
+}

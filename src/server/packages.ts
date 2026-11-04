@@ -20,7 +20,7 @@ import { appManifestPathFor, ensureAppManifest, setAppPackageDeclaration } from 
 import { appendHistory } from './history.js';
 import { appPath } from './applications.js';
 import { platformRoot } from './paths.js';
-import { nativeUiBaseEntry, nativeUiBaseName } from './native-ui-base.js';
+import { nativeUiBaseEntry, nativeUiBaseName, nativeFormsName } from './native-ui-base.js';
 import { withApplicationMutation } from './composition-lock.js';
 
 interface CandidatePackage {
@@ -56,6 +56,10 @@ export async function getAppPackageCatalog(key: string): Promise<AppPackageCatal
   if (!catalog.entries.some(entry => entry.name === nativeUiBaseName && entry.resolved)) {
     const native = await nativeUiBaseEntry(platformRoot, appManifest.packages[nativeUiBaseName]);
     if (native) catalog.entries = [...catalog.entries.filter(entry => entry.name !== nativeUiBaseName), native].sort(sortPackages);
+  }
+  if (appManifest.packages[nativeFormsName]) {
+    const native = await nativeUiBaseEntry(platformRoot, appManifest.packages[nativeFormsName], nativeFormsName);
+    if (native) catalog.entries = [...catalog.entries.filter(entry => entry.name !== nativeFormsName), native].sort(sortPackages);
   }
   return catalog;
 }
@@ -121,8 +125,8 @@ export async function enableAppPackage(key: string, packageName: string, version
     throw new Error(`Package "${packageName}" is not available to this application.`);
   }
 
-  const native = current?.name === nativeUiBaseName && current.manifestPath.endsWith('ui.component.json');
-  if (native && (!requestedVersion || !isVersionCompatible(current.version, requestedVersion))) throw new Error('Select a compatible installed native UI Base version.');
+  const native = [nativeUiBaseName, nativeFormsName].includes(current?.name ?? '') && current?.manifestPath.endsWith('ui.component.json');
+  if (native && (!requestedVersion || !isVersionCompatible(current!.version, requestedVersion))) throw new Error('Select a compatible installed native UI Base version.');
   await admit();
   await setAppPackageDeclaration(key, packageName, {
     enabled: true,

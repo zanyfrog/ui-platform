@@ -1,0 +1,73 @@
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 104 modules transformed.
+✗ Build failed in 135ms
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 107 modules transformed.
+rendering chunks...
+computing gzip size...
+evidence/v1-stage1-acceptance-20261104/platform/apps/stage1-admission-r2/published-v4/index.html                           0.14 kB │ gzip:   0.13 kB
+evidence/v1-stage1-acceptance-20261104/platform/apps/stage1-admission-r2/published-v4/assets/ui.component-CC-BQoKz.json   44.98 kB │ gzip:   4.12 kB
+evidence/v1-stage1-acceptance-20261104/platform/apps/stage1-admission-r2/published-v4/assets/index-DcXQyOdU.js           583.32 kB │ gzip: 124.55 kB
+
+✓ built in 329ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+{
+  tags: [
+    { tag: 'uib-card', rendered: true },
+    { tag: 'uib-panel', rendered: true },
+    { tag: 'uib-action-button', rendered: true },
+    { tag: 'uib-forms-form', rendered: true },
+    { tag: 'uib-forms-textbox', rendered: true },
+    { tag: 'uib-forms-number', rendered: true },
+    { tag: 'uib-forms-checkbox', rendered: true },
+    { tag: 'uib-forms-display-field', rendered: true },
+    { tag: 'uib-forms-select', rendered: true },
+    { tag: 'uib-hero', rendered: true }
+  ],
+  hero: true,
+  errors: [],
+  calls: [ 'approved' ],
+  expectedActionErrors: [ 'Error: Action token refused' ],
+  builderStopped: true,
+  behavior: [
+    'Hero Enter invokes once',
+    'Canceled unified Hero action refused',
+    'Canceled legacy Hero action refused without duplicate execution',
+    'Hero disabled control',
+    'Disabled Hero action never executes',
+    'Hero unsafe href refused "javascript:alert(1)"',
+    'Hero unsafe href refused "data:text/html,bad"',
+    'Hero unsafe href refused "//evil.example/x"',
+    'Hero unsafe href refused "java\\nscript:alert(1)"',
+    'Hero safe link resolves',
+    'Card Enter selected binding true',
+    'Card Space selected binding false',
+    'Nested native button does not invoke Card action',
+    'Nested Card selection does not invoke parent action',
+    'Nested Card binding selected true',
+    'Card keyboard action exactly once',
+    'Disabled Card selection refused',
+    'Bound Panel keyboard collapse',
+    'Bound Panel focus retained',
+    'Independent Panel unchanged',
+    'Bound Panel keyboard expand',
+    'Published Select event and scalar binding round trip',
+    'Card mouse action exactly once',
+    'Disabled Card action refused',
+    'Unallowlisted Hero token refused',
+    'Hero action refusal visibly reported',
+    'Bound Card mouse selection',
+    'Independent selected record instance preserved'
+  ],
+  pageErrors: [],
+  linkNavigations: 1
+}

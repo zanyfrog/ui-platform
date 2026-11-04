@@ -1,0 +1,48 @@
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 104 modules transformed.
+✗ Build failed in 60ms
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 104 modules transformed.
+✗ Build failed in 52ms
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 104 modules transformed.
+✗ Build failed in 60ms
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 107 modules transformed.
+rendering chunks...
+computing gzip size...
+evidence/v1-stage1-acceptance-20261104/platform/apps/stage1-admission-r2/published-v7/index.html                           0.14 kB │ gzip:   0.13 kB
+evidence/v1-stage1-acceptance-20261104/platform/apps/stage1-admission-r2/published-v7/assets/ui.component-Cu9AN9qY.json   22.22 kB │ gzip:   3.52 kB
+evidence/v1-stage1-acceptance-20261104/platform/apps/stage1-admission-r2/published-v7/assets/index-DXhRGQkT.js           577.04 kB │ gzip: 124.26 kB
+
+✓ built in 233ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('uib-forms-form').locator('button[type="submit"]')
+
+    at C:\Projects\Modular\ui-platform\scripts\verify-stage1-release.mjs:25:2778 {
+  log: [
+    `  - waiting for locator('uib-forms-form').locator('button[type="submit"]')`
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

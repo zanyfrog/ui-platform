@@ -1,0 +1,51 @@
+Stage 1 fixture API verified on 127.0.0.1
+UI Platform API listening on http://localhost:61970
+VisualCandidateError: variant is outside its allowed values. variant is outside its allowed values.
+    at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/visual-candidate.js:112:23)
+    at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/index.js:546:153)
+    at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/visual-artifacts.js:197:35)
+    at file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/role-bundle.js:182:21
+    at withArtifactLock.timeoutMs (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/role-bundle.js:64:16)
+    at async file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/storage.js:151:32
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/storage.js:292:22)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/storage.js:143:24)
+    at async VisualArtifactService.saveCandidate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/visual-artifacts.js:176:9)
+    at async file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/index.js:546:47 {
+  status: 422,
+  code: 'source.validation'
+}
+VisualCandidateError: href uses an unsupported URL. href uses an unsupported URL.
+    at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/visual-candidate.js:112:23)
+    at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/index.js:546:153)
+    at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/visual-artifacts.js:197:35)
+    at file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/role-bundle.js:182:21
+    at withArtifactLock.timeoutMs (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/role-bundle.js:64:16)
+    at async file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/storage.js:151:32
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/storage.js:292:22)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/storage.js:143:24)
+    at async VisualArtifactService.saveCandidate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/visual-artifacts.js:176:9)
+    at async file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/index.js:546:47 {
+  status: 422,
+  code: 'source.validation'
+}
+VisualCandidateError: options requires distinct nonempty comma-separated values. options requires distinct nonempty comma-separated values.
+    at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/visual-candidate.js:112:23)
+    at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/index.js:546:153)
+    at Object.validate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/visual-artifacts.js:197:35)
+    at file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/role-bundle.js:182:21
+    at withArtifactLock.timeoutMs (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/role-bundle.js:64:16)
+    at async file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/storage.js:151:32
+    at async acquireArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/storage.js:292:22)
+    at async withArtifactLock (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/packages/artifacts/dist/storage.js:143:24)
+    at async VisualArtifactService.saveCandidate (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/visual-artifacts.js:176:9)
+    at async file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/index.js:546:47 {
+  status: 422,
+  code: 'source.validation'
+}
+Error: Active package "@ui-base/forms" was not found.
+    at getAppPackageAsset (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/component-registry.js:128:15)
+    at async file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/index.js:659:35
+Error: Only explicitly admitted native entry modules are available.
+    at assertNativeUiBaseModule (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/native-ui-base.js:71:15)
+    at getAppPackageAsset (file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/component-registry.js:132:9)
+    at async file:///C:/Projects/Modular/ui-platform/evidence/v1-stage1-acceptance-20261104/platform/dist-server/server/index.js:659:35

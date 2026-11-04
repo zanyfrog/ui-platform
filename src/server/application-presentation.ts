@@ -1,4 +1,7 @@
 import crypto from 'node:crypto';
+import { captureComponentPackages } from '@ui-platform/visual-artifacts/component-packages';
+import { platformRoot } from './paths.js';
+import { getActiveAppPackages } from './packages.js';
 import { defaultPresentation, validatePresentation, renderPresentationCss } from './presentation-format.js';
 export { defaultPresentation, validatePresentation, renderPresentationCss };
 export { createPresentationPublicationOwner, PresentationPublicationError } from './presentation-publications.js';
@@ -141,8 +144,23 @@ async function publishPresentationSource(key: string, admit: () => Promise<void>
   const now = new Date().toISOString();
   const hash = checksum(draft);
   const css = renderPresentationCss(draft);
+  let componentPackageIntegrity: string | undefined;
   if (await compositionSettings(key)) {
-    await compositionWorkspace(key, await discoverComponents(key));
+    const catalog = await discoverComponents(key);
+    await compositionWorkspace(key, catalog);
+    const packageRoots = new Map<string, string>();
+    const activePackages = await getActiveAppPackages(key);
+    const required = new Set(catalog.map(entry => entry.packageName).filter(name => name.startsWith('@ui-base/')));
+    for (const name of required) {
+      const candidates = [path.join(appPath(key), 'node_modules', name), path.join(platformRoot, 'node_modules', name)];
+      const source = activePackages.find(entry => entry.name === name)?.packageRoot ?? (await Promise.all(candidates.map(async root => await stat(path.join(root, 'package.json')).then(() => root, () => undefined)))).find(Boolean);
+      if (!source) throw new Error(`Installed component package is missing: ${name}`);
+      packageRoots.set(name, source);
+      const metadata = JSON.parse(await readFile(path.join(source, 'package.json'), 'utf8'));
+      for (const dependency of Object.keys(metadata.dependencies ?? {})) if (dependency.startsWith('@ui-base/')) required.add(dependency);
+    }
+    const admission = Object.fromEntries([...required].map(name => [name, catalog.filter(entry => entry.packageName === name).map(entry => entry.tagName)]));
+    componentPackageIntegrity = await captureComponentPackages(path.join(root(key), 'versions', `v${version}`, 'composition'), [...required], async name => packageRoots.get(name)!, admission);
     await copyCompositionSnapshot(appPath(key), path.join(root(key), 'versions', `v${version}`, 'composition'));
     await copyReferencedSharedComponents(appPath(key), path.join(root(key), 'versions', `v${version}`, 'composition'), platformComponentsRoot);
     await atomicWriteText(path.join(root(key), 'versions', `v${version}`, 'composition.source-checksum'), await compositionSourceFingerprint(appPath(key), platformComponentsRoot));
@@ -155,7 +173,7 @@ async function publishPresentationSource(key: string, admit: () => Promise<void>
   await ensurePresentationRuntimeImport(key);
   await writePresentationRuntime(key, draft);
   manifest.activeVersion = version;
-  manifest.versions.push({ version, checksum: hash, publishedAt: now, actor: 'local-user' });
+  manifest.versions.push({ version, checksum: hash, publishedAt: now, actor: 'local-user', ...(componentPackageIntegrity ? { componentPackageIntegrity } : {}) });
   manifest.draft = { exists: true, modifiedAt: now, checksum: hash };
   const baseline = await readRoleBundle(presentationLocation(key));
   if (baseline.checksum !== status.sourceRevision) throw Object.assign(new Error('Presentation changed while preparing Publish. The active pointer was not advanced.'), { status: 409 });

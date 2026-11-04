@@ -4,7 +4,7 @@ import type { AppPackageListEntry, ComponentCatalogEntry, ComponentManifestEntry
 import { platformRoot, uiBasePackagesDir } from './paths.js';
 import { appPath } from './applications.js';
 import { getActiveAppPackages } from './packages.js';
-import { assertNativeUiBaseModule, nativeUiBaseName } from './native-ui-base.js';
+import { assertNativeUiBaseModule, nativeUiBaseName, nativeFormsName } from './native-ui-base.js';
 
 const ignoredExportNames = new Set(['.', './styles.css', './tokens.css', './default.css', './dark.css', './sample-tour.css', './metadata', './analyzer', './writer', './page-importer', './page-import-artifact', './uib-layout-manager', './uib-layout-editor', './platform-info']);
 
@@ -103,7 +103,10 @@ export async function discoverComponents(appKey?: string, prospective?: { presen
     // UI Base's installed web packages have ui.component.json rather than Platform service manifests.
     for (const pkg of await installedUiBasePackages(appKey, prospective)) if (!activePackages.some(active => active.name === pkg.name)) {
       const manifest = manifestEntries(await json(path.join(pkg.root, 'ui.component.json')));
-      for (const entry of manifest) entries.push(toComponentCatalogEntry(entry, pkg.name, pkg.version, `package:${pkg.name}`, appKey));
+      for (const entry of manifest) {
+        if (pkg.name === nativeUiBaseName && entry.tagName === 'uib-action-button') continue;
+        entries.push(toComponentCatalogEntry(entry, pkg.name, pkg.version, `package:${pkg.name}`, appKey));
+      }
     }
     const tags = new Map<string, ComponentCatalogEntry[]>();
     for (const entry of entries) tags.set(entry.tagName, [...(tags.get(entry.tagName) ?? []), entry]);
@@ -125,7 +128,8 @@ export async function getAppPackageAsset(appKey: string, packageName: string, mo
   const activePackage = (await getActiveAppPackages(appKey)).find((entry) => entry.name === packageName);
   const installed = activePackage ? undefined : (await installedUiBasePackages(appKey)).find(pkg => pkg.name === packageName);
   if (!activePackage && !installed) throw new Error(`Active package "${packageName}" was not found.`);
-  if (activePackage?.name === nativeUiBaseName && activePackage.manifestPath.endsWith('ui.component.json')) assertNativeUiBaseModule(modulePath);
+  if (!activePackage && packageName === nativeUiBaseName && modulePath === './src/actions/uib-action-button.js') throw new Error('Action Button requires explicit versioned native admission.');
+  if (activePackage && [nativeUiBaseName, nativeFormsName].includes(activePackage.name) && activePackage.manifestPath.endsWith('ui.component.json')) assertNativeUiBaseModule(modulePath, activePackage.name);
   const filePath = resolvePackageModulePath(activePackage?.packageRoot ?? installed!.root, modulePath);
   const info = await stat(filePath);
   if (!info.isFile()) throw new Error(`Package asset is not a file: ${modulePath}`);
@@ -142,6 +146,9 @@ async function installedUiBasePackages(appKey: string, prospective?: { presentat
   const names = new Set([...Object.keys(composed ? {} : platformPackage?.dependencies ?? {}), ...Object.keys(appPackage?.dependencies ?? {})].filter(name => name.startsWith('@ui-base/')));
   const found: Array<{ name: string; root: string; version: string }> = [];
   for (const name of names) {
+    // Forms admission is explicit and versioned; its new owning manifest must
+    // not silently activate through the legacy presentation-package fallback.
+    if (name === nativeFormsName) continue;
     if (appManifest?.packages?.[name]?.enabled === false) continue;
     for (const owner of composed ? [root] : [root, platformRoot]) {
       const packageRoot = path.join(owner, 'node_modules', name);

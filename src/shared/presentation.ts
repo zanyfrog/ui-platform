@@ -61,6 +61,7 @@ export interface ApplicationPresentation {
 }
 
 export interface PresentationVersionInfo {
+  componentPackageIntegrity?: string;
   version: number;
   checksum: string;
   publishedAt: string;

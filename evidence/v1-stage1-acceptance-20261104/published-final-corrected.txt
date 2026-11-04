@@ -1,0 +1,31 @@
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 104 modules transformed.
+✗ Build failed in 128ms
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 107 modules transformed.
+rendering chunks...
+computing gzip size...
+evidence/v1-stage1-acceptance-20261104/platform/apps/stage1-admission-r2/published-v4/index.html                           0.14 kB │ gzip:   0.13 kB
+evidence/v1-stage1-acceptance-20261104/platform/apps/stage1-admission-r2/published-v4/assets/ui.component-CC-BQoKz.json   44.98 kB │ gzip:   4.12 kB
+evidence/v1-stage1-acceptance-20261104/platform/apps/stage1-admission-r2/published-v4/assets/index-DcXQyOdU.js           583.32 kB │ gzip: 124.55 kB
+
+✓ built in 300ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+`resolve.alias` contains an alias with `customResolver` option. This is deprecated and will be removed in Vite 9. Please use a custom plugin with a resolveId hook and `enforce: 'pre'` instead.
+file:///C:/Projects/Modular/ui-platform/scripts/verify-stage1-release.mjs:12
+const installedFile=path.join(app,'node_modules/@ui-base/hero/src/uib-hero.js'),installedBytes=await fs.readFile(installedFile);try{await fs.writeFile(installedFile,'throw new Error("Unpublished installed code");');await build(config);}finally{await fs.writeFile(installedFile,installedBytes);}const draftPage=await request('visual-pages?locator=admission/page.visual.json');draftPage.files.source=draftPage.files.source.replace('Accepted uib-card','Changed unpublished Card');const draftAfter=await put('visual-pages?locator='+encodeURIComponent(draftPage.locator),{mode:'normal',expectedHash:draftPage.hash,files:draftPage.files});await fs.writeFile(path.join(out,'release-isolation.json'),JSON.stringify({activeVersion:published.manifest.activeVersion,refusedIntegrity,installedMutationBuild:true,draftHash:draftAfter.hash,oldDraftHash:draftPage.hash,frozenVersions:JSON.parse(await fs.readFile(path.join(frozen,'integrity.json'))).versions},null,2));reader=await preview({...config,preview:{host:'127.0.0.1',port:0}});api.kill();browser=await chromium.launch({headless:true,channel:'msedge'});const tab=await browser.newPage();const errors=[];tab.on('pageerror',e=>errors.push(e.message));await tab.goto(reader.resolvedUrls.local[0]);await tab.waitForFunction(()=>window.instance);const checks=await tab.evaluate(()=>{const root=window.instance.root;const all=(selector)=>[...root.querySelectorAll(selector),...[...root.querySelectorAll('[data-uip-artifact]')].flatMap(n=>[...n.shadowRoot.querySelectorAll(selector)])];return {tags:['uib-card','uib-panel','uib-action-button','uib-forms-form','uib-forms-textbox','uib-forms-number','uib-forms-checkbox','uib-forms-display-field','uib-forms-select','uib-hero'].map(tag=>({tag,rendered:!!all(tag)[0]?.shadowRoot})),hero:!!root.querySelector('uib-hero')?.shadowRoot,errors:window.errors};});await tab.getByRole('button',{name:'Approved action',exact:true}).click();await tab.waitForTimeout(30);checks.calls=await tab.evaluate(()=>window.calls);const behavior=[];const assert=(ok,label)=>{if(!ok)throw Error(label);behavior.push(label)};
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
+Error: Independent selected record instance preserved
+    at assert (file:///C:/Projects/Modular/ui-platform/scripts/verify-stage1-release.mjs:12:2053)
+    at file:///C:/Projects/Modular/ui-platform/scripts/verify-stage1-release.mjs:25:738
+
+Node.js v24.19.0

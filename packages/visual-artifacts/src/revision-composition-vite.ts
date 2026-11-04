@@ -10,6 +10,7 @@ import type { CompositionDefinition } from './composition.js';
 import { recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
 import { withRuntimeGraphRead } from './runtime-read-admission.js';
 import { capturePageRoutes } from './page-admission.js';
+import { componentPackageDirectory, verifyComponentPackages } from './component-packages.js';
 
 /** Development reads source; builds read the composition snapshot selected by existing Publish. */
 export function revisionApplicationComposition(options: { revisionPinned?: true; root: string; sharedComponentsRoot?: string; packageManifests?: string[] }): Plugin {
@@ -33,9 +34,11 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
         const resolved = await this.resolve(request, importer, { skipSelf: true }); if (!resolved) throw new Error(`Non-Visual helper could not be resolved: ${request}`); await assertNotVisualRole(resolved.id, managedRoots); return resolved.id;
       }, id => { const node = viteServer?.moduleGraph.getModuleById(id); return node ? { code: node.transformResult?.code, imports: [...node.importedModules].map(child => child.id).filter((id): id is string => !!id) } : undefined; });
       let root = options.root;
+      let expectedPackageHash: string | undefined;
       if (production) {
         const manifest = JSON.parse(await readFile(path.join(root, 'presentation/presentation.manifest.json'), 'utf8').catch(() => '{}'));
         if (!manifest.activeVersion) throw new Error('Publish this Application presentation before building its production composition.');
+        expectedPackageHash = manifest.versions?.find((version: { version: number }) => version.version === manifest.activeVersion)?.componentPackageIntegrity;
         root = path.join(root, 'presentation/versions', `v${manifest.activeVersion}`, 'composition');
       }
       // Runtime admission never repairs source. A pending transaction blocks the
@@ -91,10 +94,13 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
       const runtimePages = captured.filter(item => item.metadata.kind === 'page');
       const runtimeShells = captured.filter(item => item.metadata.kind === 'shell');
       const definition: CompositionDefinition = { settings, pages: runtimePages, shells: runtimeShells, menus: menuValues, siteCss: styles.join('\n'), routes: capturePageRoutes(runtimePages) };
-      const packages = await runtimePackageDefinitions(revision, options.root, file => imports.push(`import ${JSON.stringify(file.replaceAll('\\', '/'))};`));
+      const frozenPackages = path.join(root, componentPackageDirectory);
+      const hasFrozenPackages = production && (!!expectedPackageHash || await readFile(path.join(frozenPackages, 'integrity.json')).then(() => true, error => { if (error.code === 'ENOENT') return false; throw error; }));
+      if (hasFrozenPackages) await verifyComponentPackages(frozenPackages, expectedPackageHash);
+      const packages = await runtimePackageDefinitions(revision, hasFrozenPackages ? frozenPackages : options.root, file => imports.push(`import ${JSON.stringify(file.replaceAll('\\', '/'))};`));
       // Same explicit installed-package manifest contract as visualArtifacts.
       // Hosts must admit these physical package inputs; no catalog discovery.
-      for (const file of options.packageManifests ?? []) {
+      for (const file of hasFrozenPackages ? [] : options.packageManifests ?? []) {
         const manifest = JSON.parse(await revision.text(file));
         const packageInfo = JSON.parse(await revision.text(path.join(path.dirname(file), 'package.json')));
         if (typeof packageInfo.name !== 'string' || !packageInfo.name) throw new Error('Explicit composition package name is missing.');

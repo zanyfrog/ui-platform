@@ -1,0 +1,1 @@
+import {defineConfig} from 'vitest/config';import path from 'node:path';const output=import.meta.dirname;export default defineConfig({root:path.resolve(output,'../../../ui-base'),cacheDir:path.join(output,'base-test-cache'),test:{environment:'happy-dom',include:['packages/ui-base-ui/test/uib-card.test.js'],server:{deps:{inline:[/@ui-base/]}}}});

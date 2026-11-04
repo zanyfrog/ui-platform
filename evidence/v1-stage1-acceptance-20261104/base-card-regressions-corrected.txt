@@ -1,0 +1,39 @@
+
+ MISSING DEPENDENCY  Cannot find dependency 'happy-dom'
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-base
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯⎯ Unhandled Error ⎯⎯⎯⎯⎯⎯⎯
+Error: [vitest-pool]: Failed to start forks worker for test files C:/Projects/Modular/ui-base/packages/ui-base-ui/test/uib-card.test.js.
+ ❯ ../ui-platform/node_modules/vitest/dist/chunks/cli-api.CnMVyzaz.js:3532:94
+ ❯ processTicksAndRejections ../ui-platform/node:internal/process/task_queues:104:5
+ ❯ Pool.schedule ../ui-platform/node_modules/vitest/dist/chunks/cli-api.CnMVyzaz.js:3532:5
+
+Caused by: Error: Cannot find package 'happy-dom' imported from C:\Projects\Modular\ui-platform\node_modules\vitest\dist\chunks\index.DC7d2Pf8.js
+ ❯ Object.getPackageJSONURL ../ui-platform/node:internal/modules/package_json_reader:301:9
+ ❯ packageResolve ../ui-platform/node:internal/modules/esm/resolve:768:81
+ ❯ moduleResolve ../ui-platform/node:internal/modules/esm/resolve:859:18
+ ❯ defaultResolve ../ui-platform/node:internal/modules/esm/resolve:992:11
+ ❯ #cachedDefaultResolve ../ui-platform/node:internal/modules/esm/loader:701:20
+ ❯ #resolveAndMaybeBlockOnLoaderThread ../ui-platform/node:internal/modules/esm/loader:721:38
+ ❯ ModuleLoader.resolveSync ../ui-platform/node:internal/modules/esm/loader:759:56
+ ❯ #resolve ../ui-platform/node:internal/modules/esm/loader:683:17
+ ❯ ModuleLoader.getOrCreateModuleJob ../ui-platform/node:internal/modules/esm/loader:603:35
+ ❯ ../ui-platform/node:internal/modules/esm/loader:632:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  no tests
+      Tests  no tests
+     Errors  1 error
+   Start at  06:43:06
+   Duration  169ms (transform 0ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
