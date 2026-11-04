@@ -1,0 +1,221 @@
+{
+  "checks": [
+    "Initial protected query authored through controls",
+    "Configuration saved and reloaded through role-bundle storage; empty state visible"
+  ],
+  "errors": [],
+  "browser": "156.0.4314.58",
+  "configuration": {
+    "schemaVersion": 1,
+    "artifactId": "art_67c6c0c6-7c23-4f37-9969-cd0ba6553574",
+    "kind": "page",
+    "name": "inventory",
+    "displayName": "inventory",
+    "state": {
+      "inventory": {
+        "rows": []
+      },
+      "selectedId": null,
+      "operation": "create",
+      "deletion": null
+    },
+    "events": [
+      {
+        "node": "card",
+        "event": "uib-card-select",
+        "actions": [
+          {
+            "kind": "set",
+            "state": "selectedId",
+            "value": "record.id"
+          }
+        ]
+      },
+      {
+        "node": "refresh",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "service",
+            "reference": "dataset.read",
+            "resultState": "inventory",
+            "input": {
+              "literal": {
+                "datasetId": "dataset-stage2-inventory",
+                "limit": 100,
+                "offset": 0
+              }
+            },
+            "selection": {
+              "state": "selectedId",
+              "primaryKey": "id"
+            }
+          }
+        ]
+      },
+      {
+        "node": "create",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "set",
+            "state": "operation",
+            "value": {
+              "literal": "create"
+            }
+          },
+          {
+            "kind": "set",
+            "state": "selectedId",
+            "value": {
+              "literal": ""
+            }
+          }
+        ]
+      },
+      {
+        "node": "edit",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "set",
+            "state": "operation",
+            "value": {
+              "literal": "edit"
+            }
+          }
+        ]
+      },
+      {
+        "node": "editor",
+        "event": "submitSucceeded",
+        "actions": [
+          {
+            "kind": "service",
+            "reference": "dataset.read",
+            "resultState": "inventory",
+            "input": {
+              "literal": {
+                "datasetId": "dataset-stage2-inventory",
+                "limit": 100,
+                "offset": 0
+              }
+            },
+            "selection": {
+              "state": "selectedId",
+              "primaryKey": "id"
+            }
+          }
+        ]
+      },
+      {
+        "node": "delete",
+        "event": "",
+        "actions": [
+          {
+            "kind": "record-delete",
+            "version": 1,
+            "datasetId": "dataset-stage2-inventory",
+            "primaryFieldId": "inventory-id",
+            "recordId": "local.selectedId",
+            "resultState": "deletion"
+          },
+          {
+            "kind": "set",
+            "state": "operation",
+            "value": {
+              "literal": "create"
+            }
+          },
+          {
+            "kind": "service",
+            "reference": "dataset.read",
+            "resultState": "inventory",
+            "input": {
+              "literal": {
+                "datasetId": "dataset-stage2-inventory",
+                "limit": 100,
+                "offset": 0
+              }
+            },
+            "selection": {
+              "state": "selectedId",
+              "primaryKey": "id"
+            }
+          }
+        ]
+      }
+    ],
+    "bindings": [
+      {
+        "node": "card",
+        "target": "property:heading",
+        "value": "record.name"
+      },
+      {
+        "node": "editor",
+        "target": "property:operation",
+        "value": "local.operation"
+      },
+      {
+        "node": "editor",
+        "target": "property:recordId",
+        "value": "local.selectedId"
+      },
+      {
+        "node": "selected",
+        "target": "text",
+        "value": "local.selectedId"
+      },
+      {
+        "node": "delete-result",
+        "target": "text",
+        "value": "local.deletion.commitOutcome"
+      }
+    ],
+    "conditions": [
+      {
+        "node": "loading",
+        "when": "local.inventory.loading"
+      },
+      {
+        "node": "empty",
+        "when": "local.inventory.empty"
+      },
+      {
+        "node": "error",
+        "when": "local.inventory.error"
+      },
+      {
+        "node": "denied",
+        "when": "local.inventory.denied"
+      }
+    ],
+    "repeaters": [
+      {
+        "node": "card",
+        "collection": "local.inventory.rows",
+        "item": "record"
+      }
+    ],
+    "route": "/inventory",
+    "onLoad": [
+      {
+        "kind": "service",
+        "reference": "dataset.read",
+        "resultState": "inventory",
+        "input": {
+          "literal": {
+            "datasetId": "dataset-stage2-inventory",
+            "limit": 100,
+            "offset": 0
+          }
+        },
+        "selection": {
+          "state": "selectedId",
+          "primaryKey": "id"
+        }
+      }
+    ]
+  }
+}

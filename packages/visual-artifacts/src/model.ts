@@ -15,7 +15,7 @@ export type Action =
   | { kind: 'set'; state: string; value: Expression }
   | { kind: 'emit'; event: string; payload?: Record<string, Expression> }
   | { kind: 'navigate'; to: Expression }
-  | { kind: 'service'; reference: string; input?: Expression }
+  | { kind: 'service'; reference: string; input?: Expression; resultState?: string; filter?: { field: string; value: Expression }; selection?: { state: string; primaryKey: string } }
   | { kind: 'workflow'; workflowId: string; primaryRecordId: Expression; resultState?: string }
   | { kind: 'record-delete'; version: 1; datasetId: string; primaryFieldId: string; recordId: Expression; resultState: string }
   | { kind: 'function'; name: string };

@@ -1,0 +1,12 @@
+{
+  "definitionType": "dataset-schema", "definitionFormatVersion": 1,
+  "dataset": { "id": "dataset-stage2-inventory", "key": "inventory", "name": "Inventory", "pluralName": "Inventory" },
+  "fields": [
+    { "id": "inventory-id", "key": "id", "type": "id", "required": true },
+    { "id": "inventory-name", "key": "name", "type": "string", "required": true },
+    { "id": "inventory-quantity", "key": "quantity", "type": "number", "required": true },
+    { "id": "inventory-active", "key": "active", "type": "boolean", "required": true },
+    { "id": "inventory-notes", "key": "notes", "type": "string" },
+    { "id": "inventory-secret", "key": "secret", "type": "string" }
+  ]
+}

@@ -1,0 +1,331 @@
+{
+  "checks": [
+    "Initial protected query authored through controls",
+    "Configuration saved and reloaded through role-bundle storage; empty state visible",
+    "Form create with zero and false automatically refreshes Cards",
+    "Direct denied-field write leaves protected storage unchanged",
+    "Preview remount reads persisted zero, false and empty string",
+    "Permanent record selection loads edit Form; update refreshes list",
+    "Committed write with interrupted read-back is reported as committed and reconciled by explicit read",
+    "Lost mutation response is unknown and never automatically retried",
+    "Protected single-record delete refreshes list and clears selection",
+    "Delayed older protected read cannot resurrect deleted record; unrelated record remains"
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/operations",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"operation\":\"insert\",\"records\":[{\"name\":\"Zero stock\",\"quantity\":0,\"active\":false,\"notes\":\"\",\"id\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\"}]}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"where\":{\"field\":\"id\",\"op\":\"eq\",\"value\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\"},\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/operations",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"operation\":\"update\",\"records\":[{\"id\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\",\"secret\":\"forbidden\"}]}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/operations",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"operation\":\"insert\",\"records\":[{\"name\":\"Unrelated stock\",\"quantity\":7,\"active\":false,\"id\":\"9879f31c-f553-4654-b654-16fc60605db2\"}]}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"where\":{\"field\":\"id\",\"op\":\"eq\",\"value\":\"9879f31c-f553-4654-b654-16fc60605db2\"},\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"where\":{\"field\":\"id\",\"op\":\"eq\",\"value\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\"},\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/operations",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"operation\":\"update\",\"records\":[{\"id\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\",\"name\":\"Updated stock\"}]}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"where\":{\"field\":\"id\",\"op\":\"eq\",\"value\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\"},\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/operations",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"operation\":\"update\",\"records\":[{\"id\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\",\"quantity\":3}]}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"where\":{\"field\":\"id\",\"op\":\"eq\",\"value\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\"},\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/operations",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"operation\":\"update\",\"records\":[{\"id\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\",\"quantity\":4}]}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/operations",
+      "body": "{\"kind\":\"record-delete\",\"version\":1,\"datasetId\":\"dataset-stage2-inventory\",\"primaryFieldId\":\"inventory-id\",\"recordId\":\"b7e9bd9e-2a6a-4b8d-92f8-3cf1a8ddbf3f\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/operations",
+      "body": "{\"kind\":\"record-delete\",\"version\":1,\"datasetId\":\"dataset-stage2-inventory\",\"primaryFieldId\":\"inventory-id\",\"recordId\":\"missing-record\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"foreign-inventory\",\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    }
+  ],
+  "browser": "156.0.4314.58",
+  "configuration": {
+    "schemaVersion": 1,
+    "artifactId": "art_4c83b5a0-92a2-4900-9e63-87c3130919fe",
+    "kind": "page",
+    "name": "inventory",
+    "displayName": "inventory",
+    "state": {
+      "inventory": {
+        "rows": []
+      },
+      "selectedId": null,
+      "operation": "create",
+      "deletion": null
+    },
+    "events": [
+      {
+        "node": "card",
+        "event": "uib-card-select",
+        "actions": [
+          {
+            "kind": "set",
+            "state": "selectedId",
+            "value": "record.id"
+          }
+        ]
+      },
+      {
+        "node": "refresh",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "service",
+            "reference": "dataset.read",
+            "resultState": "inventory",
+            "input": {
+              "literal": {
+                "datasetId": "dataset-stage2-inventory",
+                "limit": 100,
+                "offset": 0
+              }
+            },
+            "selection": {
+              "state": "selectedId",
+              "primaryKey": "id"
+            }
+          }
+        ]
+      },
+      {
+        "node": "create",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "set",
+            "state": "operation",
+            "value": {
+              "literal": "create"
+            }
+          },
+          {
+            "kind": "set",
+            "state": "selectedId",
+            "value": {
+              "literal": ""
+            }
+          }
+        ]
+      },
+      {
+        "node": "edit",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "set",
+            "state": "operation",
+            "value": {
+              "literal": "edit"
+            }
+          }
+        ]
+      },
+      {
+        "node": "editor",
+        "event": "submitSucceeded",
+        "actions": [
+          {
+            "kind": "service",
+            "reference": "dataset.read",
+            "resultState": "inventory",
+            "input": {
+              "literal": {
+                "datasetId": "dataset-stage2-inventory",
+                "limit": 100,
+                "offset": 0
+              }
+            },
+            "selection": {
+              "state": "selectedId",
+              "primaryKey": "id"
+            }
+          }
+        ]
+      },
+      {
+        "node": "delete",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "record-delete",
+            "version": 1,
+            "datasetId": "dataset-stage2-inventory",
+            "primaryFieldId": "inventory-id",
+            "recordId": "local.selectedId",
+            "resultState": "deletion"
+          },
+          {
+            "kind": "set",
+            "state": "operation",
+            "value": {
+              "literal": "create"
+            }
+          },
+          {
+            "kind": "service",
+            "reference": "dataset.read",
+            "resultState": "inventory",
+            "input": {
+              "literal": {
+                "datasetId": "dataset-stage2-inventory",
+                "limit": 100,
+                "offset": 0
+              }
+            },
+            "selection": {
+              "state": "selectedId",
+              "primaryKey": "id"
+            }
+          }
+        ]
+      }
+    ],
+    "bindings": [
+      {
+        "node": "card",
+        "target": "setting:heading",
+        "value": "record.name"
+      },
+      {
+        "node": "editor",
+        "target": "property:operation",
+        "value": "local.operation"
+      },
+      {
+        "node": "editor",
+        "target": "property:recordId",
+        "value": "local.selectedId"
+      },
+      {
+        "node": "selected",
+        "target": "text",
+        "value": "local.selectedId"
+      },
+      {
+        "node": "delete-result",
+        "target": "text",
+        "value": "local.deletion.commitOutcome"
+      }
+    ],
+    "conditions": [
+      {
+        "node": "loading",
+        "when": "local.inventory.loading"
+      },
+      {
+        "node": "empty",
+        "when": "local.inventory.empty"
+      },
+      {
+        "node": "error",
+        "when": "local.inventory.error"
+      },
+      {
+        "node": "denied",
+        "when": "local.inventory.denied"
+      }
+    ],
+    "repeaters": [
+      {
+        "node": "card",
+        "collection": "local.inventory.rows",
+        "item": "record"
+      }
+    ],
+    "route": "/inventory",
+    "onLoad": [
+      {
+        "kind": "service",
+        "reference": "dataset.read",
+        "resultState": "inventory",
+        "input": {
+          "literal": {
+            "datasetId": "dataset-stage2-inventory",
+            "limit": 100,
+            "offset": 0
+          }
+        },
+        "selection": {
+          "state": "selectedId",
+          "primaryKey": "id"
+        }
+      }
+    ]
+  }
+}

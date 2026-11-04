@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "artifactId": "art_stage2_form",
+  "componentId": "cmp_platform_stage2_form",
+  "kind": "component",
+  "name": "inventory-form",
+  "displayName": "Inventory Form",
+  "capabilities": [
+    "visual",
+    "form"
+  ],
+  "modes": {
+    "default": "public",
+    "overrides": {
+      "public": {}
+    }
+  },
+  "form": {
+    "node": "form",
+    "datasetId": "dataset-stage2-inventory",
+    "primaryKey": "id",
+    "fields": [
+      {
+        "id": "field_inventory-name",
+        "node": "control_name",
+        "key": "name",
+        "datasetFieldId": "inventory-name",
+        "type": "string",
+        "datasetRequired": true,
+        "required": true,
+        "label": "name",
+        "visible": true,
+        "editable": true
+      },
+      {
+        "id": "field_inventory-quantity",
+        "node": "control_quantity",
+        "key": "quantity",
+        "datasetFieldId": "inventory-quantity",
+        "type": "number",
+        "datasetRequired": true,
+        "required": true,
+        "label": "quantity",
+        "visible": true,
+        "editable": true
+      },
+      {
+        "id": "field_inventory-active",
+        "node": "control_active",
+        "key": "active",
+        "datasetFieldId": "inventory-active",
+        "type": "boolean",
+        "datasetRequired": true,
+        "required": true,
+        "label": "active",
+        "visible": true,
+        "editable": true
+      },
+      {
+        "id": "field_inventory-notes",
+        "node": "control_notes",
+        "key": "notes",
+        "datasetFieldId": "inventory-notes",
+        "type": "string",
+        "label": "notes",
+        "visible": true,
+        "editable": true
+      },
+      {
+        "id": "field_inventory-secret",
+        "node": "control_secret",
+        "key": "secret",
+        "datasetFieldId": "inventory-secret",
+        "type": "string",
+        "label": "secret",
+        "visible": true,
+        "editable": true
+      }
+    ],
+    "submit": {
+      "service": "dataset.write",
+      "readService": "dataset.read"
+    }
+  },
+  "public": {
+    "properties": {
+      "mode": {
+        "type": "string",
+        "default": "public"
+      },
+      "operation": {
+        "type": "string",
+        "enum": [
+          "create",
+          "edit"
+        ],
+        "default": "create"
+      },
+      "recordId": {
+        "type": "string"
+      },
+      "initialRecord": {
+        "type": "object"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "events": {
+      "submitStarted": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "submitSucceeded": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "submitFailed": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "recordCreated": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "recordUpdated": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "cancelRequested": {
+        "payload": {
+          "result": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "slots": []
+  },
+  "state": {
+    "values": {},
+    "dirty": false,
+    "submitting": false,
+    "submitted": false,
+    "submitError": null,
+    "validation": {},
+    "savedRecord": null
+  }
+}

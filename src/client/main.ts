@@ -585,7 +585,7 @@ async function renderApp(key: string, startPreview = false): Promise<void> {
     detailsToggle.setAttribute('aria-expanded', String(expanded));
     detailsToggle.textContent = expanded ? 'Hide details' : 'Show details';
   };
-  detailsToggle.addEventListener('click', () => showHeaderDetails(details.hidden));
+  detailsToggle.addEventListener('click', () => showHeaderDetails(details.hidden !== false));
   root!.querySelectorAll<HTMLButtonElement>('[data-app-action]').forEach(button => button.addEventListener('click', () => {
     const menu = button.closest('details')!; menu.open = false;
     menu.querySelector<HTMLElement>('summary')!.focus();

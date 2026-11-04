@@ -11,6 +11,7 @@ import type { ComponentCatalogEntry } from '../../shared/types.js';
 import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
 import { specializedTransport, type SourceRequest } from '../artifact-editor/specialized-transport.js';
 import { compositionAuthoring, valueControls } from './authoring-controls.js';
+import { chooseFormCreation } from '../artifact-editor/form-creation.js';
 import { identifyRetainedSavedCard, immutableSavedCard, savedCardContextKey, type SavedCardContext, type SavedCardTargetSnapshot, type SavedCardTargetReader, type SavedCardRefusal } from './saved-card-target.js';
 
 export interface Workspace { pages: ArtifactBundle[]; components: ArtifactBundle[]; shells: ArtifactBundle[]; packages: ComponentCatalogEntry[] }
@@ -297,7 +298,9 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
       const manual = manualIndex ? parsed.nodes[Number(manualIndex[1])] : undefined;
       if (manual && !manual.id) inspector.firstElementChild!.textContent = `This ${manual.tag} is an unmanaged/manual node: its HTML has no usable data-uip-node identity. A component reference alone does not make it managed. Existing source is preserved; insert a new instance using the insertion controls.`;
       const metadata = workingMetadata();
-      compositionAuthoring(inspector, { metadata, change: changeMetadata, workflows: async () => (await request<import('../../shared/automation-service-contract.js').AutomationAuthoringCatalog>(`${base}/automation-catalog`)).workflows, datasets: () => request(`${base}/datasets/discovery`), error: cause => status(String(cause)) });
+      compositionAuthoring(inspector, { metadata, change: changeMetadata,
+        draft: actionDrafts.get('') ?? (() => { const draft = {}; actionDrafts.set('', draft); return draft; })(), refresh: () => { if (active && !disposed) renderInspector(); },
+        workflows: async () => (await request<import('../../shared/automation-service-contract.js').AutomationAuthoringCatalog>(`${base}/automation-catalog`)).workflows, datasets: () => request(`${base}/datasets/discovery`), error: cause => status(String(cause)) });
       if (selectedKind === 'page' && metadata.shellId) {
         const note = document.createElement('p'); note.textContent = `Shell: ${workspace.shells.find(shell => shell.metadata?.artifactId === metadata.shellId)?.metadata?.displayName ?? metadata.shellId}. Fixed content is edited in the Shell editor.`; inspector.append(note);
         const override = document.createElement('button'); override.textContent = 'Set Page Menu Item visibility / availability';
@@ -579,16 +582,16 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
   }));
   target.querySelectorAll<HTMLButtonElement>('[data-create]').forEach(button => button.addEventListener('click', safe(async () => {
     if (dirty()) throw new Error('Save or recover editor changes before creating another artifact.');
+    if (button.dataset.create!.startsWith('form')) {
+      const creation = await chooseFormCreation(options.applicationKey?.() ?? appKey); if (!creation) return;
+      const bundle = await request<ArtifactBundle>(`${base}/visual-components`, { method: 'POST', body: JSON.stringify(creation) });
+      workspace = await request<Workspace>(`${base}/visual-artifacts`); open(bundle, 'component'); return;
+    }
     const name = prompt('Artifact name (lowercase-with-hyphens):'); if (!name) return;
-    const isForm = button.dataset.create!.startsWith('form');
     const kind = button.dataset.create === 'page' ? 'page' : button.dataset.create === 'shell' ? 'shell' : 'component'; const route = kind === 'page' ? prompt('Page route:', `/${name}`) : undefined; if (route === null) return;
     const shellId = kind === 'page' && workspace.shells?.length ? prompt('Shell ID (leave empty for Application default):\n' + workspace.shells.map(shell => `${shell.metadata?.displayName}: ${shell.metadata?.artifactId}`).join('\n'), '') : undefined;
     if (shellId === null) return;
-    let dataset;
-    if (button.dataset.create === 'form-dataset') {
-      const schema = prompt('Paste the published Dataset schema JSON (dataset and fields with stable IDs):'); if (!schema) return; dataset = JSON.parse(schema);
-    }
-    const bundle = await request<ArtifactBundle>(`${base}/visual-${plural(kind)}`, { method: 'POST', body: JSON.stringify({ name, route, shellId, ...(isForm ? { form: { dataset } } : {}) }) });
+    const bundle = await request<ArtifactBundle>(`${base}/visual-${plural(kind)}`, { method: 'POST', body: JSON.stringify({ name, route, shellId }) });
     workspace = await request<Workspace>(`${base}/visual-artifacts`); open(bundle, kind);
   })));
   find('[data-file]').addEventListener('change', () => { role = find<HTMLSelectElement>('[data-file]').value as keyof ArtifactFiles; find<HTMLTextAreaElement>('[data-source]').value = files[role]; });

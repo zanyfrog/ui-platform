@@ -147,7 +147,13 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
         Object.values(item.payload ?? {}).forEach(expression);
       }
       else if (item.kind === 'navigate') expression(item.to);
-      else if (item.kind === 'service') { if (!services.includes(item.reference)) warning(`Service reference is supported but has no executable adapter: ${item.reference}.`); if (item.input) expression(item.input); }
+      else if (item.kind === 'service') {
+        if (!services.includes(item.reference)) warning(`Service reference is supported but has no executable adapter: ${item.reference}.`);
+        if (item.input) expression(item.input);
+        if (item.resultState && (!Object.hasOwn(m.state ?? {}, item.resultState) || item.reference !== 'dataset.read')) error('Query result capture requires declared local state and the protected Dataset read adapter.');
+        if (item.filter) { if (item.reference !== 'dataset.read' || !item.filter.field) error('Query filters require a protected read and a field.'); expression(item.filter.value); }
+        if (item.selection && (item.reference !== 'dataset.read' || !item.resultState || !Object.hasOwn(m.state ?? {}, item.selection.state) || !item.selection.primaryKey)) error('Selection reconciliation requires a query result, declared selection state and primary key.');
+      }
       else if (item.kind === 'workflow') { if (!item.workflowId || typeof item.workflowId !== 'string') error('Permanent Workflow identity is required.'); expression(item.primaryRecordId); if (item.resultState && !Object.hasOwn(m.state ?? {}, item.resultState)) error('Workflow result state must be declared.'); }
       else if (item.kind === 'record-delete') {
         if (item.version !== 1 || !item.datasetId || typeof item.datasetId !== 'string' || !item.primaryFieldId || typeof item.primaryFieldId !== 'string' ||
@@ -158,6 +164,7 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
       else if (item.kind !== 'function') error('Unknown action kind.');
     };
     for (const event of m.events ?? []) {
+      if (typeof event.event !== 'string' || !/^[A-Za-z][\w:-]*$/.test(event.event)) error('A valid event name is required.', event.node);
       const node = requireNode(event.node);
       const nested = components.find(c => c.metadata.componentId === node?.attributes['data-uip-component']);
       if (nested && !nested.metadata.public?.events[event.event]) error(`Undeclared nested public event: ${event.event}.`, event.node);

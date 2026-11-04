@@ -1,0 +1,64 @@
+{
+  "created": [
+    {
+      "active": false,
+      "id": "53226693-55b0-4092-bc57-2c965c3a4220",
+      "name": "Zero stock",
+      "notes": "",
+      "quantity": 0
+    }
+  ],
+  "afterDelete": [
+    {
+      "id": "hidden-inventory",
+      "name": "Hidden stock",
+      "quantity": 9,
+      "active": false,
+      "secret": "protected-test-value"
+    },
+    {
+      "name": "Unrelated stock",
+      "quantity": 7,
+      "active": false,
+      "id": "076a4263-8089-424d-a4a5-4d2c7a409ff7"
+    }
+  ],
+  "stale": {
+    "operationId": "f1e6e912-0bf2-46af-abb3-106572e57035",
+    "correlationId": "f1e6e912-0bf2-46af-abb3-106572e57035",
+    "success": false,
+    "committed": false,
+    "commitOutcome": "not-committed",
+    "counts": {
+      "requested": 1,
+      "succeeded": 0,
+      "failed": 1,
+      "unknown": 0
+    },
+    "errors": [
+      {
+        "code": "RECORD_TARGET_MISSING_OR_DENIED",
+        "message": "RECORD TARGET MISSING OR DENIED",
+        "operationId": "f1e6e912-0bf2-46af-abb3-106572e57035"
+      }
+    ]
+  },
+  "denied": {
+    "status": 403,
+    "body": "{\"code\":\"AUTHORIZATION_DENIED\"}"
+  },
+  "rowDenied": {
+    "read": {
+      "status": 200,
+      "body": "[]"
+    },
+    "update": {
+      "status": 200,
+      "body": "{\"operationId\":\"c1ccd659-e46f-4204-9f2f-c49f96354aa5\",\"correlationId\":\"c1ccd659-e46f-4204-9f2f-c49f96354aa5\",\"success\":false,\"committed\":false,\"commitOutcome\":\"not-committed\",\"counts\":{\"requested\":1,\"succeeded\":0,\"failed\":1,\"unknown\":0},\"errors\":[{\"code\":\"WRITE_FIELD_UNAUTHORIZED\",\"message\":\"WRITE FIELD UNAUTHORIZED\",\"operationId\":\"c1ccd659-e46f-4204-9f2f-c49f96354aa5\"}]}"
+    },
+    "delete": {
+      "status": 200,
+      "body": "{\"operationId\":\"9289212c-85cf-4cc4-a063-e8a0ff79680c\",\"correlationId\":\"9289212c-85cf-4cc4-a063-e8a0ff79680c\",\"success\":false,\"committed\":false,\"commitOutcome\":\"not-committed\",\"counts\":{\"requested\":1,\"succeeded\":0,\"failed\":1,\"unknown\":0},\"errors\":[{\"code\":\"OPERATION_UNAUTHORIZED\",\"message\":\"OPERATION UNAUTHORIZED\",\"operationId\":\"9289212c-85cf-4cc4-a063-e8a0ff79680c\"}]}"
+    }
+  }
+}

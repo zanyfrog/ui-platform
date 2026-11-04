@@ -1,0 +1,239 @@
+{
+  "checks": [
+    "Initial protected query authored through controls",
+    "Configuration saved and reloaded through role-bundle storage; empty state visible"
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/operations",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"operation\":\"insert\",\"records\":[{\"name\":\"Zero stock\",\"quantity\":0,\"active\":false,\"notes\":\"\",\"id\":\"c1b00767-7096-4799-a969-24740d998592\"}]}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"where\":{\"field\":\"id\",\"op\":\"eq\",\"value\":\"c1b00767-7096-4799-a969-24740d998592\"},\"mode\":\"read\"}"
+    },
+    {
+      "path": "/api/application-data/queries",
+      "body": "{\"datasetId\":\"dataset-stage2-inventory\",\"limit\":100,\"offset\":0,\"mode\":\"read\"}"
+    }
+  ],
+  "browser": "156.0.4314.58",
+  "configuration": {
+    "schemaVersion": 1,
+    "artifactId": "art_1b1878ba-24d6-40c1-a4bf-6aa52e6101ad",
+    "kind": "page",
+    "name": "inventory",
+    "displayName": "inventory",
+    "state": {
+      "inventory": {
+        "rows": []
+      },
+      "selectedId": null,
+      "operation": "create",
+      "deletion": null
+    },
+    "events": [
+      {
+        "node": "card",
+        "event": "uib-card-select",
+        "actions": [
+          {
+            "kind": "set",
+            "state": "selectedId",
+            "value": "record.id"
+          }
+        ]
+      },
+      {
+        "node": "refresh",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "service",
+            "reference": "dataset.read",
+            "resultState": "inventory",
+            "input": {
+              "literal": {
+                "datasetId": "dataset-stage2-inventory",
+                "limit": 100,
+                "offset": 0
+              }
+            },
+            "selection": {
+              "state": "selectedId",
+              "primaryKey": "id"
+            }
+          }
+        ]
+      },
+      {
+        "node": "create",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "set",
+            "state": "operation",
+            "value": {
+              "literal": "create"
+            }
+          },
+          {
+            "kind": "set",
+            "state": "selectedId",
+            "value": {
+              "literal": ""
+            }
+          }
+        ]
+      },
+      {
+        "node": "edit",
+        "event": "click",
+        "actions": [
+          {
+            "kind": "set",
+            "state": "operation",
+            "value": {
+              "literal": "edit"
+            }
+          }
+        ]
+      },
+      {
+        "node": "editor",
+        "event": "submitSucceeded",
+        "actions": [
+          {
+            "kind": "service",
+            "reference": "dataset.read",
+            "resultState": "inventory",
+            "input": {
+              "literal": {
+                "datasetId": "dataset-stage2-inventory",
+                "limit": 100,
+                "offset": 0
+              }
+            },
+            "selection": {
+              "state": "selectedId",
+              "primaryKey": "id"
+            }
+          }
+        ]
+      },
+      {
+        "node": "delete",
+        "event": "",
+        "actions": [
+          {
+            "kind": "record-delete",
+            "version": 1,
+            "datasetId": "dataset-stage2-inventory",
+            "primaryFieldId": "inventory-id",
+            "recordId": "local.selectedId",
+            "resultState": "deletion"
+          },
+          {
+            "kind": "set",
+            "state": "operation",
+            "value": {
+              "literal": "create"
+            }
+          },
+          {
+            "kind": "service",
+            "reference": "dataset.read",
+            "resultState": "inventory",
+            "input": {
+              "literal": {
+                "datasetId": "dataset-stage2-inventory",
+                "limit": 100,
+                "offset": 0
+              }
+            },
+            "selection": {
+              "state": "selectedId",
+              "primaryKey": "id"
+            }
+          }
+        ]
+      }
+    ],
+    "bindings": [
+      {
+        "node": "card",
+        "target": "property:heading",
+        "value": "record.name"
+      },
+      {
+        "node": "editor",
+        "target": "property:operation",
+        "value": "local.operation"
+      },
+      {
+        "node": "editor",
+        "target": "property:recordId",
+        "value": "local.selectedId"
+      },
+      {
+        "node": "selected",
+        "target": "text",
+        "value": "local.selectedId"
+      },
+      {
+        "node": "delete-result",
+        "target": "text",
+        "value": "local.deletion.commitOutcome"
+      }
+    ],
+    "conditions": [
+      {
+        "node": "loading",
+        "when": "local.inventory.loading"
+      },
+      {
+        "node": "empty",
+        "when": "local.inventory.empty"
+      },
+      {
+        "node": "error",
+        "when": "local.inventory.error"
+      },
+      {
+        "node": "denied",
+        "when": "local.inventory.denied"
+      }
+    ],
+    "repeaters": [
+      {
+        "node": "card",
+        "collection": "local.inventory.rows",
+        "item": "record"
+      }
+    ],
+    "route": "/inventory",
+    "onLoad": [
+      {
+        "kind": "service",
+        "reference": "dataset.read",
+        "resultState": "inventory",
+        "input": {
+          "literal": {
+            "datasetId": "dataset-stage2-inventory",
+            "limit": 100,
+            "offset": 0
+          }
+        },
+        "selection": {
+          "state": "selectedId",
+          "primaryKey": "id"
+        }
+      }
+    ]
+  }
+}

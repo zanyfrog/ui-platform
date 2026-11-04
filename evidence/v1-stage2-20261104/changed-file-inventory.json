@@ -1,0 +1,435 @@
+{
+  "recordedAt": "2026-11-04T18:39:55.746Z",
+  "scope": "Git changes plus Stage 2 evidence directories; ignored build/cache outputs listed by directory.",
+  "self": "evidence/v1-stage2-20261104/changed-file-inventory.json",
+  "selfDigestExcluded": true,
+  "preservedInputs": [
+    "package.json",
+    "package-lock.json",
+    "vendor/native/ui-base-forms-0.1.1.tgz"
+  ],
+  "installedForms": {
+    "version": "0.1.1"
+  },
+  "ignoredGeneratedOutputDirectories": [
+    "packages/platform-core/dist",
+    "packages/visual-artifacts/dist",
+    "node_modules/.vite",
+    "references/form-data/node_modules/.vite"
+  ],
+  "repositories": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-platform",
+      "head": "935c7bc20ca21f1d8d050eaf6cc5e64b1d2cae93",
+      "status": "M package-lock.json\n M package.json\n M packages/platform-core/src/application-data.ts\n M packages/visual-artifacts/src/form-runtime.ts\n M packages/visual-artifacts/src/model.ts\n M packages/visual-artifacts/src/runtime.ts\n M packages/visual-artifacts/src/validation.ts\n M scripts/form-reference-host.ts\n M src/client/main.ts\n M src/client/visual-artifacts/authoring-controls.ts\n M src/client/visual-artifacts/editor.ts\n M tests/form-data-integration.test.ts\n?? docs/architecture/v1-stage2-investigation-20261104.md\n?? docs/architecture/v1-stage2-visual-crud-review-gate-20261104.md\n?? evidence/v1-stage2-20261104/\n?? references/stage2/\n?? scripts/test-loopback-only.mjs\n?? tests/stage2-builder-authoring.test.ts\n?? tests/stage2-inventory-browser.test.ts\n?? vendor/native/ui-base-forms-0.1.1.tgz"
+    },
+    {
+      "path": "C:\\Projects\\Modular\\ui-base",
+      "head": "732eec58ca3d4bd2521197b9d3b6c0457dbc6608",
+      "status": ""
+    },
+    {
+      "path": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "head": "81b769eef3763d02343f5347888c26edab6ef7bc",
+      "status": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/architecture/evidence/v1-stage2-builder/browser-attempt-1793816035000.png",
+      "category": "generated review evidence",
+      "bytes": 413539,
+      "sha256": "4bd33fcd7b45e30a7cf68edff9df0dfc6d983152250eeb87d6e905bad6a55939"
+    },
+    {
+      "path": "docs/architecture/evidence/v1-stage2-builder/browser-attempt-1793816035000.txt",
+      "category": "generated review evidence",
+      "bytes": 4432,
+      "sha256": "f013218cdc4890f6c0de2d193adaf204899e718692a54d1fbe50c7a289c785f8"
+    },
+    {
+      "path": "docs/architecture/evidence/v1-stage2-builder/browser-attempt-1793817509076.png",
+      "category": "generated review evidence",
+      "bytes": 414151,
+      "sha256": "be3c3a225187f48464ed2631d3fb2fdcdedcacd200c4aa16b21bcc2c29d4b0bc"
+    },
+    {
+      "path": "docs/architecture/evidence/v1-stage2-builder/browser-attempt-1793817509076.txt",
+      "category": "generated review evidence",
+      "bytes": 4361,
+      "sha256": "0382d18616951073e65a5d3f7c0398005f59869ec299cb508e4d731a2b4ade0f"
+    },
+    {
+      "path": "docs/architecture/v1-stage2-investigation-20261104.md",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 1885,
+      "sha256": "68b13115bb95eb487492eee1d6ccb02173f2b377e6de431f25605aa126ebe2b4"
+    },
+    {
+      "path": "docs/architecture/v1-stage2-visual-crud-review-gate-20261104.md",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 12378,
+      "sha256": "132a3110a4e858f113e9b0143abb22b5daa58f8754eb4de062e569fd031016f0"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-before-boolean-fix.json",
+      "category": "generated review evidence",
+      "bytes": 4889,
+      "sha256": "afbb2b90cc4f9350c2909a1c6645f65e2899a39be9008f72ead32e74176c6659"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-before-boolean-fix.txt",
+      "category": "generated review evidence",
+      "bytes": 1329,
+      "sha256": "d68e7bd966589bd56e77e7f20809509d2a4901dc4c6b02d61da2bd3b2de1c253"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-core-workflow-pass.json",
+      "category": "generated review evidence",
+      "bytes": 11294,
+      "sha256": "8877b9e2bb11b359ab57a6991d9945e10bc6c6cd117e32c8e8202523efb31bb8"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-csrf-route.json",
+      "category": "generated review evidence",
+      "bytes": 10772,
+      "sha256": "ea1896a47d30847c3adeeba9a0626b7c61dfdff4272f7d056b3a0dba5f9357af"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-csrf-route.txt",
+      "category": "generated review evidence",
+      "bytes": 1277,
+      "sha256": "4ce7cf012a0a00cdc9a8d6b41ebcc051574cd15a98846ad53f5013a9154b259f"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-empty-event.json",
+      "category": "generated review evidence",
+      "bytes": 9647,
+      "sha256": "a4d4c27505fe9b5b4ebcd4424e1cdbacddb9a7dcbc6f48ee7da430149bb3aca1"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-empty-event.txt",
+      "category": "generated review evidence",
+      "bytes": 1716,
+      "sha256": "86e567c2965989afa4ae61fffc2191feded3dbb410dccaa4c132cc05cb46a453"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-fixture-resource.json",
+      "category": "generated review evidence",
+      "bytes": 5046,
+      "sha256": "45371ea72a6db58b59cc327e78d0a82f55cdd09415715e7073bde397e6114735"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-fixture-resource.txt",
+      "category": "generated review evidence",
+      "bytes": 1697,
+      "sha256": "787e181b2db7560bb6c5c27dd7dd395730b98e04f74cc361b5061d6af2f9c008"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-getter-binding.json",
+      "category": "generated review evidence",
+      "bytes": 5915,
+      "sha256": "3a9d9af833230b3c464a19775206893a1bdcf47895c0ddf92b11a868ad49ab88"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-getter-binding.txt",
+      "category": "generated review evidence",
+      "bytes": 1711,
+      "sha256": "48dd8e236dd8b03d8bfffd038c856011cb8f233a8109ac2627cea7499ff4aceb"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-live-source-reload.json",
+      "category": "generated review evidence",
+      "bytes": 20291,
+      "sha256": "d2aae1114be98502106f659fb7730f82ff76e47ea6a1d50310adfcfecd92a582"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-live-source-reload.txt",
+      "category": "generated review evidence",
+      "bytes": 1655,
+      "sha256": "9f37b0571a843b85595143e2fcdcf09f05560c25fa02366842d8f459761d0114"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-restart-row-destroy-pass.json",
+      "category": "generated review evidence",
+      "bytes": 13123,
+      "sha256": "623c502d29f858c08ac0c7ae4c192faf5941413f0c3c603820ec032e7072a683"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-row-seed-denied.json",
+      "category": "generated review evidence",
+      "bytes": 11937,
+      "sha256": "06e2d08822ba203f1400acfb090a33a0032ce75ebb9f6459e23330f6a72f45af"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-selection-race.json",
+      "category": "generated review evidence",
+      "bytes": 6936,
+      "sha256": "9366dfa02d84fd05011e60c5e9080af97414b18dec78d34408e1cfd7e2674332"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-selection-race.txt",
+      "category": "generated review evidence",
+      "bytes": 1716,
+      "sha256": "86e567c2965989afa4ae61fffc2191feded3dbb410dccaa4c132cc05cb46a453"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-unknown-outcome.json",
+      "category": "generated review evidence",
+      "bytes": 9242,
+      "sha256": "276f704d52a68140bdf08be755d95404352cbfd208ed7b86509fbb515c89ee43"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/attempt-unknown-outcome.txt",
+      "category": "generated review evidence",
+      "bytes": 1741,
+      "sha256": "bb282cf7dd348141a5b16f548f9738327064705ef6717b74b95ee53be9a16f0c"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/browser-results.json",
+      "category": "generated review evidence",
+      "bytes": 30005,
+      "sha256": "8bf8fcb534d1c1e41fc547e9c4473e163d5bc3dcbda6d9ae2cdc17dbde38df8f"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/builder-schema-form.json",
+      "category": "generated review evidence",
+      "bytes": 4657,
+      "sha256": "99e74790c5c9bcc33ee02ee2fd41757c8b09c0dd668fa195528d49167afed0f8"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/builder-schema-form.png",
+      "category": "generated review evidence",
+      "bytes": 411200,
+      "sha256": "b5752a652fd049bd66ce9457b2507689779739d346b80a613e8c6f11fb61342a"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/client-typecheck.txt",
+      "category": "generated review evidence",
+      "bytes": 1666,
+      "sha256": "e5a593bb11d0c55afd55a16b6a8d463393192c07dd68db033975efc0cd64ec33"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/failure.png",
+      "category": "generated review evidence",
+      "bytes": 60441,
+      "sha256": "1f2d457636888fafec60b3cb9119082ac3940027ceed526d7bc02279b90638e6"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/failure.txt",
+      "category": "generated review evidence",
+      "bytes": 1655,
+      "sha256": "9f37b0571a843b85595143e2fcdcf09f05560c25fa02366842d8f459761d0114"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/final-browser-tests.json",
+      "category": "generated review evidence",
+      "bytes": 2635,
+      "sha256": "f897cd577264dbbe363a9f9534ac1d1264a8b68065f7188511ddb1a248e89a81"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/inventory-created.png",
+      "category": "generated review evidence",
+      "bytes": 76992,
+      "sha256": "78b4ee59e81b46467b9d064f3272c6801a21cc4f3a39d7e098bec851379b6fc3"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/inventory-deleted.png",
+      "category": "generated review evidence",
+      "bytes": 73217,
+      "sha256": "ec24c22362e24982b325826fdd6c103f79e3cd8cf1d2af73e66f6f288afc51a7"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/inventory-denied.png",
+      "category": "generated review evidence",
+      "bytes": 70107,
+      "sha256": "6999f1b71e36625a0a0c7b50b9cfb1b4b335439b7b1aceff8b4163706525dfc3"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/inventory-loading.png",
+      "category": "generated review evidence",
+      "bytes": 88005,
+      "sha256": "b44356ed1148fd05dd1e14510f8a7b5894ff657ffd93fa6aae596af10d1bfb6f"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/protected-records.json",
+      "category": "generated review evidence",
+      "bytes": 2146,
+      "sha256": "990ed6b2bc8cb4932ff3a9e66054956007af2f89ad6955e6af42f4066dbdbf0c"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/runtime-fixture-form/component.css",
+      "category": "generated review evidence",
+      "bytes": 122,
+      "sha256": "cfa951fd3d414f8576d85941c2e0f3b519063c57d6f47d6c354414bcce2c0ffc"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/runtime-fixture-form/component.fixtures.json",
+      "category": "generated review evidence",
+      "bytes": 3,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/runtime-fixture-form/component.functions.ts",
+      "category": "generated review evidence",
+      "bytes": 11,
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/runtime-fixture-form/component.html",
+      "category": "generated review evidence",
+      "bytes": 1522,
+      "sha256": "5a2239e094537146382c1a59729118dec078dd8904a2233f7acdf265ddca0369"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/runtime-fixture-form/component.visual.json",
+      "category": "generated review evidence",
+      "bytes": 3580,
+      "sha256": "a3d20545ffaf9ccc591c78ae5b1c76a4659c398c94474bb6759cf65b2796187a"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/saved-page/page.css",
+      "category": "generated review evidence",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/saved-page/page.fixtures.json",
+      "category": "generated review evidence",
+      "bytes": 3,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/saved-page/page.functions.ts",
+      "category": "generated review evidence",
+      "bytes": 11,
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/saved-page/page.html",
+      "category": "generated review evidence",
+      "bytes": 994,
+      "sha256": "a87278e57711e60cd8127e2cb02adb697f50cee54758bdc9303ec36bb85d35f7"
+    },
+    {
+      "path": "evidence/v1-stage2-20261104/saved-page/page.visual.json",
+      "category": "generated review evidence",
+      "bytes": 3344,
+      "sha256": "6bf857e46b89cc2d1b472ead6e96f9a8e914012471a969ea0f6e4bcf69eac6ed"
+    },
+    {
+      "path": "package-lock.json",
+      "category": "preserved preexisting input",
+      "bytes": 91740,
+      "sha256": "60987d70d179578958ce226f81544d205b2c7ed7f620ba66a6705457c82acda6"
+    },
+    {
+      "path": "package.json",
+      "category": "preserved preexisting input",
+      "bytes": 4069,
+      "sha256": "5d672f62672a6c067e4e98e6f71bcdb7190256cd4eddb64b66d43801470d5d45"
+    },
+    {
+      "path": "packages/platform-core/src/application-data.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 5316,
+      "sha256": "12f926c07f8d4200a4d1ca6e35bf294ab8ef7d924f10babfab5b60665a45cf02"
+    },
+    {
+      "path": "packages/visual-artifacts/src/form-runtime.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 12085,
+      "sha256": "8844e368df2f973e60d0ef7547ddefc2336ec0cdccbccc1c4e9a99e11777d591"
+    },
+    {
+      "path": "packages/visual-artifacts/src/model.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 11420,
+      "sha256": "592ed372938a5615d897790e5b927d3be1dd686fb21c2f37e6b83fab57cff7da"
+    },
+    {
+      "path": "packages/visual-artifacts/src/runtime.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 32078,
+      "sha256": "1e5ede37ad35a1add9a3737f409358c69543c7038c6916a6ee3c003d70c7234b"
+    },
+    {
+      "path": "packages/visual-artifacts/src/validation.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 18519,
+      "sha256": "a89f259cd6a53ac5604bfa94033af74dc5feb52c79f90aaca40a9d925b705533"
+    },
+    {
+      "path": "references/stage2/index.html",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 566,
+      "sha256": "153063c9dd9afcb18d43ca9495a6e3349fc3db3522596c018c692d56c6c5af93"
+    },
+    {
+      "path": "references/stage2/inventory.dataset.json",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 681,
+      "sha256": "59bd18d56e1d8aa304dc285bbe0e529136f9cdd0c313a20057feb106238fea7e"
+    },
+    {
+      "path": "references/stage2/main.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 6112,
+      "sha256": "ded95d2a7685a853fe6f424521c3af396d8cd089d518fdbd3ee174dacf4be52f"
+    },
+    {
+      "path": "scripts/form-reference-host.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 12393,
+      "sha256": "553fc8717276cc5b05c2d781e6946b0ebd0c720bc195c06e801fc9f2c15c0b02"
+    },
+    {
+      "path": "scripts/test-loopback-only.mjs",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 631,
+      "sha256": "3d2036885ae7f3ea6cc9b6d03f46c13049a90d28c96e42bf7fc219ebec33fc89"
+    },
+    {
+      "path": "src/client/main.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 56869,
+      "sha256": "7aba1a983c1542b82c8230b9fc8be956a16ac471d76354bcf437b57285f8fcb0"
+    },
+    {
+      "path": "src/client/visual-artifacts/authoring-controls.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 23184,
+      "sha256": "19eec786759d0770c459e09e8df52684d59bb6bca92e7fef8cda806ca17cb851"
+    },
+    {
+      "path": "src/client/visual-artifacts/editor.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 78480,
+      "sha256": "b2980df26a2bca8b40a9b4657a76226cca380b034f63e71324c602acb292ef7d"
+    },
+    {
+      "path": "tests/form-data-integration.test.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 9725,
+      "sha256": "8cea3737419090134237c4cc87f0a503c49510032a0810776d73087d28b274dd"
+    },
+    {
+      "path": "tests/stage2-builder-authoring.test.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 19208,
+      "sha256": "c3d9b15c0986477dfccc63399ecc8e3221e08741449b16ca7ef2023d2a2314ce"
+    },
+    {
+      "path": "tests/stage2-inventory-browser.test.ts",
+      "category": "Stage 2 implementation/test/report",
+      "bytes": 27650,
+      "sha256": "942b5bb25db55a2f8108f908d27b751375c04a8b05bce9a87327cff2781d1209"
+    },
+    {
+      "path": "vendor/native/ui-base-forms-0.1.1.tgz",
+      "category": "preserved preexisting input",
+      "bytes": 23097,
+      "sha256": "777a2b984f801f29d260da39248db6195194ff352a6dafaa11beb99790d5a63c"
+    }
+  ]
+}

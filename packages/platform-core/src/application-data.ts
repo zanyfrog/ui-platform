@@ -17,9 +17,14 @@ export function createHttpApplicationDataTransport(options: ApplicationDataHttpO
   return {
     async send(path, intent) {
       const credential = await options.credential();
-      const response = await request(`${endpoint}/${path}`, { method: 'POST',
-        headers: { 'content-type': 'application/json', ...(credential ? { authorization: `Bearer ${credential}` } : {}) },
-        body: JSON.stringify(intent) });
+      let response: Response;
+      try {
+        response = await request(`${endpoint}/${path}`, { method: 'POST',
+          headers: { 'content-type': 'application/json', ...(credential ? { authorization: `Bearer ${credential}` } : {}) },
+          body: JSON.stringify(intent) });
+      } catch {
+        throw Object.assign(new Error('The data service connection was interrupted. The save outcome is unknown; check the saved records before submitting again.'), { code: 'APPLICATION_DATA_TRANSPORT_UNKNOWN', commitOutcome: 'unknown' });
+      }
       if (response.status === 401) throw Object.assign(new Error('Sign in before submitting. Your session may have expired.'), { code: 'APPLICATION_DATA_UNAUTHENTICATED', commitOutcome: 'not-committed' });
       if (response.status >= 500) throw new Error('The data service is unavailable or took too long to respond. The save outcome is unknown; check the saved records before submitting again.');
       if (!response.ok) throw Object.assign(new Error('APPLICATION_DATA_REQUEST_DENIED'), { code: 'APPLICATION_DATA_REQUEST_DENIED', commitOutcome: 'not-committed' });

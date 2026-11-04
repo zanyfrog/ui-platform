@@ -44,7 +44,10 @@ export function attachFormRuntime(metadata: ArtifactMetadata, root: ShadowRoot, 
       if (!control) continue;
       control.hidden = field.visible === false;
       control.toggleAttribute('readonly', !field.editable); control.toggleAttribute('disabled', !field.editable);
-      control.toggleAttribute('required', Boolean(field.required));
+      // A Dataset Boolean is required to be present, and false is a valid value.
+      // Checkbox required means "must be checked". Form validation below owns
+      // presence/type checks; retain native required for the other field types.
+      control.toggleAttribute('required', Boolean(field.required) && field.type !== 'boolean');
       if (field.label !== undefined) control.setAttribute('label', field.label);
       if (field.help !== undefined) control.setAttribute('help', field.help);
       const value = values()[field.key];
@@ -106,7 +109,8 @@ export function attachFormRuntime(metadata: ArtifactMetadata, root: ShadowRoot, 
       notify('submitSucceeded', result);
       notify(operation() === 'edit' ? 'recordUpdated' : 'recordCreated', original);
     } catch (error) {
-      if (!disposed && current === generation) { state.submitError = `${state.commitOutcome === 'committed' ? 'Write committed. Read-back or post-commit processing failed. ' : ''}${String(error)}`; notify('submitFailed', { message: String(error), commitOutcome: state.commitOutcome }); }
+      if (!disposed && current === generation && state.submitting && state.commitOutcome === undefined) state.commitOutcome = error && typeof error === 'object' && 'commitOutcome' in error && error.commitOutcome === 'not-committed' ? 'not-committed' : 'unknown';
+      if (!disposed && current === generation) { state.submitError = `${state.commitOutcome === 'committed' ? 'Write committed. Read-back or post-commit processing failed. ' : state.commitOutcome === 'unknown' ? 'Save outcome is unknown. Check saved records before submitting again. ' : ''}${String(error)}`; notify('submitFailed', { message: String(error), commitOutcome: state.commitOutcome }); }
     } finally { if (!disposed && current === generation) { state.submitting = false; render(); } }
   };
   root.addEventListener('input', capture); root.addEventListener('change', capture);

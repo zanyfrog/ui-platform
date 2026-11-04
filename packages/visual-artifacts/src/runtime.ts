@@ -20,7 +20,7 @@ export interface RuntimeOptions extends FormRuntimeOptions {
   presentationCss?: string;
   regions?: Record<string, RuntimeArtifact>;
   /** Internal composition scope: all Regions of one Page share state and sources. */
-  sharedScope?: { state: Record<string, unknown>; data: Record<string, unknown>; subscribers: Set<() => void>; initialized: boolean };
+  sharedScope?: { state: Record<string, unknown>; data: Record<string, unknown>; subscribers: Set<() => void>; initialized: boolean; requestGenerations?: Map<string, number> };
   regionScope?: RuntimeOptions['sharedScope'];
   regionInputs?: Record<string, unknown>;
   assetUrl?: (relative: string) => string;
@@ -144,16 +144,44 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
     host.dispatchEvent(new CustomEvent(name, { detail: structuredClone(payload), bubbles: true, composed: true }));
   };
   const repaint = () => { if (options.sharedScope) for (const render of options.sharedScope.subscribers) render(); else render(); };
-  const setState = (name: string, value: unknown) => { if (!Object.hasOwn(state, name)) throw new Error(`Unknown local state: ${name}.`); state[name] = value; repaint(); };
+  const requestGenerations = options.sharedScope ? options.sharedScope.requestGenerations ??= new Map<string, number>() : new Map<string, number>();
+  const setState = (name: string, value: unknown) => { if (!Object.hasOwn(state, name)) throw new Error(`Unknown local state: ${name}.`); requestGenerations.set(name, (requestGenerations.get(name) ?? 0) + 1); state[name] = value; repaint(); };
   const actions = async (items: Action[], current: Record<string, unknown>, event?: Event) => {
     actionError = undefined; paintActionError();
     try {
       for (const item of items) {
         if (disposed) return;
-        if (item.kind === 'set') { if (!Object.hasOwn(state, item.state)) throw new Error(`Unknown local state: ${item.state}.`); state[item.state] = evaluate(item.value, current); }
+        if (item.kind === 'set') { if (!Object.hasOwn(state, item.state)) throw new Error(`Unknown local state: ${item.state}.`); requestGenerations.set(item.state, (requestGenerations.get(item.state) ?? 0) + 1); state[item.state] = evaluate(item.value, current); }
         else if (item.kind === 'emit') emit(item.event, Object.fromEntries(Object.entries(item.payload ?? {}).map(([key, value]) => [key, evaluate(value, current)])));
         else if (item.kind === 'navigate') { if (!options.navigate) throw new Error('No navigation adapter.'); options.navigate(String(evaluate(item.to, current))); }
-        else if (item.kind === 'service') { const service = options.services?.[item.reference]; if (!service) throw new Error(`Service reference has no executable adapter: ${item.reference}.`); await service(item.input ? evaluate(item.input, current) : undefined); }
+        else if (item.kind === 'service') {
+          const service = options.services?.[item.reference];
+          if (!service) throw new Error(`Service reference has no executable adapter: ${item.reference}.`);
+          const target = item.resultState;
+          if (target && !Object.hasOwn(state, target)) throw new Error('Unknown service result state.');
+          let input = item.input ? evaluate(item.input, current) : undefined;
+          if (item.filter) input = { ...(input as Record<string, unknown>), where: { field: item.filter.field, op: 'eq', value: evaluate(item.filter.value, current) } };
+          const generation = target ? (requestGenerations.get(target) ?? 0) + 1 : 0;
+          const selectedAtRequest = item.selection ? state[item.selection.state] : undefined;
+          if (target) { requestGenerations.set(target, generation); state[target] = { loading: true, empty: false, error: false, denied: false, rows: [] }; repaint(); }
+          const active = () => !disposed && (!target || requestGenerations.get(target) === generation);
+          try {
+            const result = await service(input);
+            if (!active()) return;
+            if (target) {
+              if (!Array.isArray(result)) throw new Error('The protected query returned an invalid result.');
+              state[target] = { loading: false, empty: result.length === 0, error: false, denied: false, rows: result, result };
+              if (item.selection && selectedAtRequest !== null && selectedAtRequest !== undefined && selectedAtRequest !== '' && state[item.selection.state] === selectedAtRequest && !result.some(row => row && row[item.selection!.primaryKey] === selectedAtRequest)) state[item.selection.state] = null;
+            }
+          } catch (cause) {
+            if (!active()) return;
+            if (!target) throw cause;
+            const code = cause && typeof cause === 'object' && 'code' in cause ? String(cause.code) : '';
+            const denied = ['APPLICATION_DATA_REQUEST_DENIED', 'APPLICATION_DATA_UNAUTHENTICATED'].includes(code);
+            state[target] = { loading: false, empty: false, error: !denied, denied, rows: [], message: cause instanceof Error ? cause.message : String(cause) };
+            repaint(); return;
+          }
+        }
         else if (item.kind === 'record-delete') {
           const service = options.services?.['dataset.deleteRecord'];
           if (!service) { state[item.resultState] = { success: false, committed: false, commitOutcome: 'not-committed', code: 'RECORD_DELETE_UNAVAILABLE' }; repaint(); return; }
@@ -162,11 +190,13 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
           catch { state[item.resultState] = { success: false, committed: false, commitOutcome: 'not-committed', code: 'RECORD_TARGET_EVALUATION_FAILED' }; repaint(); return; }
           try {
             const result = await service({ kind: item.kind, version: item.version, datasetId: item.datasetId, primaryFieldId: item.primaryFieldId, recordId });
-            if (!disposed) state[item.resultState] = result;
+            if (disposed) return;
+            state[item.resultState] = result;
+            if (!(result && typeof result === 'object' && 'success' in result && result.success === true && 'committed' in result && result.committed === true)) { repaint(); return; }
           } catch (cause) {
             // Transport failure cannot establish whether a write committed.
             const rejected = cause && typeof cause === 'object' && 'commitOutcome' in cause && cause.commitOutcome === 'not-committed';
-            if (!disposed) state[item.resultState] = { success: false, committed: false, commitOutcome: rejected ? 'not-committed' : 'unknown', message: cause instanceof Error ? cause.message : String(cause) };
+            if (!disposed) { state[item.resultState] = { success: false, committed: false, commitOutcome: rejected ? 'not-committed' : 'unknown', message: cause instanceof Error ? cause.message : String(cause) }; repaint(); } return;
           }
         }
         else if (item.kind === 'workflow') {

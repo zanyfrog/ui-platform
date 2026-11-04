@@ -5,7 +5,7 @@ export function textControl(parent: HTMLElement, label: string, value = '') {
   const row = el('label', label), input = el('input'); input.value = value; input.setAttribute('aria-label', label); row.append(input); parent.append(row); return input;
 }
 function choice(parent: HTMLElement, label: string, values: Array<[string, string]>, value?: string) {
-  const row = el('label', label), input = el('select'); input.setAttribute('aria-label', label); values.forEach(([key, name]) => input.add(new Option(name, key))); if (value !== undefined) input.value = value; row.append(input); parent.append(row); return input;
+  const row = el('label', label), input = el('select'); input.setAttribute('aria-label', label); values.forEach(([key, name]) => input.add(new Option(name, key))); if (value !== undefined && values.some(([key]) => key === value)) input.value = value; row.append(input); parent.append(row); return input;
 }
 function button(parent: HTMLElement, label: string, run: () => void | Promise<void>, error: (cause: unknown) => void) {
   const node = el('button', label); node.type = 'button'; node.onclick = () => { void Promise.resolve().then(run).catch(error); }; parent.append(node); return node;
@@ -33,9 +33,12 @@ export function valueControls(parent: HTMLElement, label: string, value: unknown
 /** Existing path/literal expression forms only; no new evaluator or source syntax. */
 function expressionControl(parent: HTMLElement, label: string, initial?: Expression) {
   const group = el('fieldset'); group.append(el('legend', label)); parent.append(group);
-  const mode = choice(group, `${label} source`, [['path', 'Named source path'], ['string', 'Literal text'], ['number', 'Literal number'], ['boolean', 'Literal boolean']], typeof initial === 'string' || !initial ? 'path' : 'literal' in initial ? typeof initial.literal : 'path');
-  const input = textControl(group, `${label} value`, typeof initial === 'string' ? initial : initial && 'literal' in initial ? String(initial.literal) : 'route.id');
-  return (): Expression => mode.value === 'path' ? input.value : { literal: mode.value === 'number' ? Number(input.value) : mode.value === 'boolean' ? input.value === 'true' : input.value };
+  const comparison = initial && typeof initial !== 'string' && 'op' in initial && initial.op === 'eq' && initial.args.every(arg => typeof arg === 'string') ? initial.args as string[] : undefined;
+  const mode = choice(group, `${label} source`, [['path', 'Named source path'], ['equals', 'Named paths are equal'], ['string', 'Literal text'], ['number', 'Literal number'], ['boolean', 'Literal boolean'], ['null', 'Empty value']], comparison ? 'equals' : typeof initial === 'string' || !initial ? 'path' : 'literal' in initial ? initial.literal === null ? 'null' : typeof initial.literal : 'path');
+  const input = textControl(group, `${label} value`, comparison?.[0] ?? (typeof initial === 'string' ? initial : initial && 'literal' in initial ? String(initial.literal) : 'route.id'));
+  const compared = textControl(group, `${label} compare with path`, comparison?.[1] ?? 'local.selectedId');
+  const showComparison = () => { compared.parentElement!.hidden = mode.value !== 'equals'; }; mode.onchange = showComparison; showComparison();
+  return (): Expression => mode.value === 'equals' ? { op: 'eq', args: [input.value, compared.value] } : mode.value === 'path' ? input.value : { literal: mode.value === 'null' ? null : mode.value === 'number' ? Number(input.value) : mode.value === 'boolean' ? input.value === 'true' : input.value };
 }
 export interface AuthoringOptions {
   metadata: ArtifactMetadata; node?: string; bindingTargets?: string[]; events?: string[]; slots?: string[];
@@ -57,6 +60,9 @@ export function compositionAuthoring(parent: HTMLElement, options: AuthoringOpti
     const state = textControl(group, 'New local state');
     const stateType = choice(group, 'New local state type', ['result', 'string', 'number', 'boolean', 'object', 'array'].map(value => [value, value]));
     button(group, 'Declare local state', () => { if (!/^[A-Za-z][\w]*$/.test(state.value) || ['constructor', 'prototype', '__proto__'].includes(state.value) || Object.hasOwn(metadata.state ?? {}, state.value)) throw new Error('Choose a new local state name.'); change(m => { (m.state ??= {})[state.value] = stateType.value === 'object' ? {} : stateType.value === 'array' ? [] : stateType.value === 'number' ? 0 : stateType.value === 'boolean' ? false : stateType.value === 'string' ? '' : null; }); }, error);
+    const queries = el('fieldset'); queries.append(el('legend', 'Dataset queries on load')); parent.append(queries);
+    queryControls(queries, options, action => change(m => { m.onLoad = [...(m.onLoad ?? []).filter(item => !(item.kind === 'service' && item.resultState === action.resultState)), action]; }));
+    for (const action of metadata.onLoad ?? []) if (action.kind === 'service' && action.resultState) button(queries, `Remove initial query ${action.resultState}`, () => change(m => { m.onLoad = m.onLoad?.filter(item => !(item.kind === 'service' && item.resultState === action.resultState)); }), error);
     if (metadata.kind !== 'page') publicControls(parent, metadata.public, change, error);
     return;
   }
@@ -74,11 +80,25 @@ export function compositionAuthoring(parent: HTMLElement, options: AuthoringOpti
     const row = el('p', `${existing.target}: ${typeof existing.value === 'string' ? existing.value : 'declarative expression'}`); binding.append(row);
     button(row, `Remove binding ${existing.target}`, () => change(m => { m.bindings = m.bindings?.filter(item => item !== m.bindings?.find(candidate => candidate.node === node && candidate.target === existing.target)); }), error);
   }
+  const visibility = el('fieldset'); visibility.append(el('legend', 'Visibility')); parent.append(visibility);
+  const when = expressionControl(visibility, 'Visible when', metadata.conditions?.find(item => item.node === node)?.when);
+  button(visibility, 'Apply visibility', () => change(m => { m.conditions = [...(m.conditions ?? []).filter(item => item.node !== node), { node, when: when() }]; }), error);
+  if (metadata.conditions?.some(item => item.node === node)) button(visibility, 'Remove visibility', () => change(m => { m.conditions = m.conditions?.filter(item => item.node !== node); }), error);
+  const collection = el('fieldset'); collection.append(el('legend', 'Repeated records')); parent.append(collection);
+  const existingRepeater = metadata.repeaters?.find(item => item.node === node);
+  const rows = expressionControl(collection, 'Record collection', existingRepeater?.collection);
+  const itemName = textControl(collection, 'Record item name', existingRepeater?.item ?? 'record');
+  button(collection, 'Apply repeated records', () => {
+    if (!/^[A-Za-z][\w]*$/.test(itemName.value) || ['constructor', 'prototype', '__proto__'].includes(itemName.value)) throw new Error('Choose an ordinary record item name.');
+    const declaration = { node, collection: rows(), item: itemName.value };
+    change(m => { m.repeaters = [...(m.repeaters ?? []).filter(item => item.node !== node), declaration]; });
+  }, error);
+  if (existingRepeater) button(collection, 'Remove repeated records', () => change(m => { m.repeaters = m.repeaters?.filter(item => item.node !== node); }), error);
   const events = el('fieldset'); events.append(el('legend', 'Event action')); parent.append(events);
   if (!options.events?.length) { events.append(el('p', 'No public event metadata is declared for this Component.')); return; }
   const draft = options.draft ?? {};
   const event = choice(events, 'Action event', options.events.map(v => [v, v]), draft.event); event.onchange = () => { draft.event = event.value; };
-  const kind = choice(events, 'Action kind', [['navigate', 'Navigate'], ['set', 'Set local state'], ['emit', 'Emit public event'], ['service', 'Existing Dataset service'], ['record-delete', 'Protected single-record delete'], ['workflow', 'Run approved Workflow']], draft.kind);
+  const kind = choice(events, 'Action kind', [['navigate', 'Navigate'], ['set', 'Set local state'], ['emit', 'Emit public event'], ['query', 'Protected Dataset query'], ['service', 'Existing Dataset service'], ['record-delete', 'Protected single-record delete'], ['workflow', 'Run approved Workflow']], draft.kind);
   const details = el('div'); events.append(details);
   const render = () => {
     details.replaceChildren();
@@ -109,6 +129,14 @@ export function compositionAuthoring(parent: HTMLElement, options: AuthoringOpti
     }
     if (kind.value === 'navigate') { const to = expressionControl(details, 'Destination', { literal: '/' }); add(() => ({ kind: 'navigate', to: to() })); }
     else if (kind.value === 'set') { const state = choice(details, 'Action local state', Object.keys(metadata.state ?? {}).map(v => [v, v])); const value = expressionControl(details, 'Action value'); add(() => { if (!state.value) throw new Error('Declare local state first.'); return { kind: 'set', state: state.value, value: value() }; }); }
+    else if (kind.value === 'query') {
+      const saved = (metadata.onLoad ?? []).filter((item): item is Extract<Action, { kind: 'service' }> => item.kind === 'service' && item.reference === 'dataset.read' && Boolean(item.resultState));
+      if (saved.length) {
+        const selected = choice(details, 'Saved query to refresh', saved.map(item => [item.resultState!, item.resultState!]));
+        add(() => structuredClone(saved.find(item => item.resultState === selected.value)!));
+      }
+      queryControls(details, options, action => change(m => { const declaration = m.events?.find(item => item.node === node && item.event === event.value); if (declaration) declaration.actions.push(action); else (m.events ??= []).push({ node, event: event.value, actions: [action] }); }));
+    }
     else if (kind.value === 'service') { const reference = choice(details, 'Existing service', [['dataset.read', 'Protected Dataset read'], ['dataset.write', 'Protected Dataset write']]); const input = expressionControl(details, 'Service input'); add(() => ({ kind: 'service', reference: reference.value, input: input() })); }
     else {
       const emitted = choice(details, 'Public event', Object.keys(metadata.public?.events ?? {}).map(v => [v, v]));
@@ -121,6 +149,36 @@ export function compositionAuthoring(parent: HTMLElement, options: AuthoringOpti
     const row = el('p', `${declaration.event}: ${action.kind}`); events.append(row);
     button(row, `Remove ${declaration.event} action ${index + 1}`, () => change(m => { const item = m.events!.find(item => item.node === node && item.event === declaration.event)!; item.actions.splice(index, 1); if (!item.actions.length) m.events = m.events!.filter(other => other !== item); }), error);
   });
+}
+function queryControls(parent: HTMLElement, options: AuthoringOptions, save: (action: Extract<Action, { kind: 'service' }>) => void) {
+  const draft = options.draft ??= {};
+  const datasets = (draft.datasets ?? []).filter(item => item.appliedSchema);
+  const dataset = choice(parent, 'Query Dataset', datasets.map(item => [item.appliedSchema!.dataset.id, item.name ?? item.appliedSchema!.dataset.name]));
+  button(parent, 'Load applied query Datasets', async () => { draft.datasets = (await options.datasets()).filter(item => item.appliedSchema); options.refresh?.(); }, options.error);
+  const result = choice(parent, 'Query result state', Object.keys(options.metadata.state ?? {}).map(value => [value, value]));
+  const limit = textControl(parent, 'Query maximum records', '100'); limit.type = 'number'; limit.min = '1'; limit.max = '1000';
+  const offset = textControl(parent, 'Query offset', '0'); offset.type = 'number'; offset.min = '0';
+  const parameters = el('div'); parent.append(parameters);
+  let filter: HTMLSelectElement, order: HTMLSelectElement, selected: HTMLSelectElement, filterValue: () => Expression;
+  const render = () => {
+    parameters.replaceChildren();
+    const fields = datasets.find(item => item.appliedSchema!.dataset.id === dataset.value)?.appliedSchema?.fields ?? [];
+    filter = choice(parameters, 'Equality filter field', [['', 'No filter'], ...fields.map(field => [field.key, field.key] as [string, string])]);
+    filterValue = expressionControl(parameters, 'Filter value', 'local.selectedId');
+    order = choice(parameters, 'Order by field', [['', 'Default order'], ...fields.map(field => [field.key, field.key] as [string, string])]);
+    selected = choice(parameters, 'Reconcile selected record state', [['', 'No selection reconciliation'], ...Object.keys(options.metadata.state ?? {}).map(value => [value, value] as [string, string])]);
+  }; dataset.onchange = render; render();
+  button(parent, 'Save protected query', () => {
+    const count = Number(limit.value), start = Number(offset.value);
+    const schema = datasets.find(item => item.appliedSchema!.dataset.id === dataset.value)?.appliedSchema;
+    if (!schema || !result.value || !Number.isInteger(count) || count < 1 || count > 1000 || !Number.isInteger(start) || start < 0) throw new Error('Choose an applied Dataset, declared result state, limit 1–1000 and nonnegative offset.');
+    const primary = schema.fields.filter(field => field.type === 'id');
+    if (selected.value && (primary.length !== 1 || selected.value === result.value || filter.value)) throw new Error('Selection reconciliation requires an unfiltered list, a distinct selection state and one primary identity.');
+    save({ kind: 'service', reference: 'dataset.read', resultState: result.value,
+      input: { literal: { datasetId: schema.dataset.id, limit: count, offset: start, ...(order.value ? { orderBy: [{ field: order.value, direction: 'asc' }] } : {}) } },
+      ...(filter.value ? { filter: { field: filter.value, value: filterValue() } } : {}),
+      ...(selected.value ? { selection: { state: selected.value, primaryKey: primary[0].key } } : {}) });
+  }, options.error);
 }
 function publicControls(parent: HTMLElement, api: PublicInterface | undefined, change: AuthoringOptions['change'], error: AuthoringOptions['error']) {
   const group = el('fieldset'); group.append(el('legend', 'Shared public contract')); parent.append(group);

@@ -2,13 +2,14 @@ import { afterEach, expect, it } from 'vitest';
 import { createServer } from 'vite';
 import { createServer as httpServer } from 'node:http';
 import { createRequire } from 'node:module';
-import { readFile, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { cp, readFile, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
 import { startFormReference, closeFormReference } from '../scripts/form-reference-host.js';
 import { VisualArtifactService } from '../src/server/visual-artifacts.js';
 import { effectiveField, formPayload, formValueErrors, generateForm, resolveMode, validateArtifact, moveNode } from '@ui-platform/visual-artifacts';
 import type { ArtifactMetadata, DatasetDefinition } from '@ui-platform/visual-artifacts';
+import { visualArtifacts } from '@ui-platform/visual-artifacts/vite';
 const schema = JSON.parse(await readFile('references/form-data/person.dataset.json', 'utf8')) as DatasetDefinition;
 const metadata = JSON.parse(await readFile('components/person-form/component.visual.json', 'utf8')) as ArtifactMetadata;
 const close: Array<() => Promise<unknown>> = [];
@@ -49,7 +50,11 @@ it('renders routed public/admin reuse, persists create/read/update through V1 id
   const probe = httpServer(); await new Promise<void>(resolve => probe.listen(0, '127.0.0.1', resolve));
   const port = (probe.address() as { port: number }).port; await new Promise<void>(resolve => probe.close(() => resolve()));
   const host = await startFormReference(port);
-  const vite = await createServer({ configFile: 'references/form-data/vite.config.ts', server: { port, strictPort: true, proxy: { '/api': { target: host.origin } } } });
+  // Keep the existing fixture bytes and admission checks, with an isolated graph
+  // owner so unrelated shared-component locks cannot interfere with this test.
+  const componentsRoot = path.join(host.root, 'components');
+  await cp(path.resolve('components/person-form'), path.join(componentsRoot, 'person-form'), { recursive: true, filter: file => path.basename(file) !== '.uib' });
+  const vite = await createServer({ configFile: false, root: path.resolve('references/form-data'), cacheDir: path.join(host.root, 'vite-cache'), plugins: [visualArtifacts({ componentsRoot, packageManifests: [path.resolve('node_modules/@ui-base/ui/ui.component.json')] })], server: { host: '127.0.0.1', port, strictPort: true, proxy: { '/api': { target: host.origin } } } });
   await vite.listen(); close.push(() => vite.close());
   const uiOrigin = vite.resolvedUrls!.local[0].replace(/\/$/, '');
   let playwright; try { playwright = createRequire(import.meta.url)('playwright'); } catch { playwright = createRequire(path.resolve('../ui-base/package.json'))('playwright'); }
