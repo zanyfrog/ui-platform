@@ -1,0 +1,157 @@
+{
+  "decision": "Default UI Dependency Alignment accepted within documented local qualification",
+  "date": "2026-11-04",
+  "repository": "zanyfrog/ui-platform",
+  "branch": "main",
+  "parent": "4f5cf49ff89777c5004c4cb7218f7f76584a363f",
+  "inventory": [
+    {
+      "file": ".gitignore",
+      "acceptedWorkingSha256": "3a6ba1d484495ffac2e1ed94a3b8d9da012225c84d3396d59057bf4f0498773c",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "package-lock.json",
+      "acceptedWorkingSha256": "32d75e0687ec7b5f125b7af71a66c0e19c174ce3fc9a658afd36b46f6d0028ca",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "package.json",
+      "acceptedWorkingSha256": "3b9514a5a06821e6276655dcf3c22fcbcfbccb1f1bde1b3bafa45bb9578a8ef6",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "tests/stage1-component-admission.test.ts",
+      "acceptedWorkingSha256": "6878ca49eff426e0893d8930302bcf5b95c411a7d0a5a037a386eb59589b0ec7",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "docs/architecture/v1-default-ui-dependency-alignment-review-gate-20261104.md",
+      "acceptedWorkingSha256": "df22d307280445fae6cf79f52897d7bb16c0b7c47361bc94fefcb971a3c29bf8",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "scripts/verify-default-ui-alignment.mjs",
+      "acceptedWorkingSha256": "71eeb150a53de48bc77951014587b552cfa470c8296ea36e3bd9a8f395a5b636",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "scripts/verify-default-ui-browser.mjs",
+      "acceptedWorkingSha256": "f5460c1d839b06f5ede1ac5db60d3a1580945477e7f7072198251724bfb857f3",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "scripts/verify-default-ui-frozen.mjs",
+      "acceptedWorkingSha256": "771d8c0e6c0d52403a272127f6f88bf9b31bdfd4a860c7271471ae777c7887ce",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "tests/default-ui-package.test.ts",
+      "acceptedWorkingSha256": "cc51c2ce37a0a17d5b8d3ca290dc611361fcfa8a056021166b76e1038ae7ec41",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "vendor/native/ui-base-ui-0.5.2.tgz",
+      "acceptedWorkingSha256": "7177d84c560f03e916067242556bea5a2a938e880c0fc1554d3169416d7ac3bf",
+      "kind": "accepted source/package/test/documentation"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/baseline.json",
+      "acceptedWorkingSha256": "60cb1320ee66dba99aa7164e464a0f14c1d3ccbd338cf64bfa54500a8075bd9a",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/browser-results.json",
+      "acceptedWorkingSha256": "ed48f341d96e71251ba0265aa312d6bbf3d8d6c1a3abcc3fd755cf55294bfec8",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/browser-run.txt",
+      "acceptedWorkingSha256": "894f05ab669b4bd0a7b5e8daead10a2c404e83ce4ce9520a72e5e90b3ae5943f",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/browser.png",
+      "acceptedWorkingSha256": "a2b4fe9dd098623487e41d8c04761aa1ff31c88a22a946923fc6d449ff4109ac",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/build.txt",
+      "acceptedWorkingSha256": "83c788d2073abe930eefd7478ce7db051b65b503655a1da60b253786cb65308e",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/changed-files.json",
+      "acceptedWorkingSha256": "2786998e64e20dc6787fa49aac4bdadc73aa07113c468590a8dbe53c335042f5",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/default-install.txt",
+      "acceptedWorkingSha256": "cfb49cadd73f029c7c3c750858344fb9ef776a399eefdba4f9016c07687ef2a6",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/frozen-reader-results.json",
+      "acceptedWorkingSha256": "82bc1d14a76e1c95f7205f9a5942a61f15a2eed6cb63b8f77b9811d20e64454e",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/frozen-reader-run.txt",
+      "acceptedWorkingSha256": "5062c404b05651a08eb1c1c788a5c155bdeb971a43d9dd27ad063cb17e8cc5a7",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/frozen-reader.png",
+      "acceptedWorkingSha256": "fec45810d52c7c0d0eee2b4d317813c860d2bf2f2ff4a99cdc7931a951cca6e2",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/installed-package-files.json",
+      "acceptedWorkingSha256": "73490d0baf971cf6537042946dcf3fb86c0433bc21d0248d05d9b9623cfe1f89",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/preservation.json",
+      "acceptedWorkingSha256": "009311e105243b87a144ea6dd74529e3a2638829ec2d263424f31dfe6e10160a",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/tests.txt",
+      "acceptedWorkingSha256": "bbeac88e3e1dab5c0be9a28a5b6ba25b72a72ccb0ffc7eee246d648a2071e2a9",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/vitest.config.mjs",
+      "acceptedWorkingSha256": "165a6fe42833c7201f32e28bfd88914043306be7943bf7d5b6ffca47dad34aa7",
+      "kind": "sanitized acceptance evidence"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/verification-files.json",
+      "acceptedWorkingSha256": "3591858f39fc0b2b6e129f146bc0197da1f7f2bfb8c8f5ca027edef3fe64acde",
+      "kind": "evidence hash inventory"
+    },
+    {
+      "file": "evidence/v1-default-ui-alignment-20261104/closure.json",
+      "kind": "closure acceptance record; canonical hash supplied by Git commit"
+    }
+  ],
+  "exclusions": [
+    "disposable platform/application copies",
+    "npm and test caches",
+    "browser profiles and generated browser bundles",
+    "generated builds/dependencies",
+    "unrelated repository changes"
+  ],
+  "preservation": {
+    "startupWatcherFilesUnchanged": 7,
+    "publishedFilesUnchanged": 1744,
+    "uiBaseUnchanged": true,
+    "dataServicesUnchanged": true
+  },
+  "qualifications": [
+    "Default Forms remains a workspace junction refused by unchanged native physical admission.",
+    "Original Windows junction-creation EPERM regression is not reclassified as passed.",
+    "Acceptance remains local; Stage 2 and production identity are outside this closure."
+  ],
+  "note": "The accepted 10-file hash inventory and original review report are unchanged. Additional files are sanitized verification evidence and this closure record. Text blobs retain normal Git line-ending normalization. No recovery or historical cleanup was performed."
+}

@@ -2,6 +2,8 @@ import { afterEach, expect, it } from 'vitest';
 import { cp, mkdtemp, mkdir, readFile, rm, writeFile, lstat } from 'node:fs/promises';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { nativeUiBaseEntry, nativeFormsName, assertNativeUiBaseModule, NativeUiBasePathError } from '../src/server/native-ui-base.js';
 import { readNodeSettings, setNodeSetting } from '../packages/visual-artifacts/src/source.js';
 import { packageSettingErrors, readPackageSettings } from '../packages/visual-artifacts/src/model.js';
@@ -9,7 +11,10 @@ const roots: string[] = [];
 afterEach(async () => { for(const root of roots.splice(0)) await rm(root,{recursive:true,force:true}); });
 const owner = path.resolve('../ui-base/packages');
 it('retains physical 0.5.1 Card/Panel compatibility and refuses the preexisting Forms junction without creating a junction', async context=>{
- const legacy=await nativeUiBaseEntry(path.resolve('.'),{enabled:true,version:'^0.5.1',resolution:'platform-only'});
+ const fixture=await mkdtemp(path.join(tmpdir(),'stage1-legacy-'));roots.push(fixture);
+ const installed=path.join(fixture,'node_modules/@ui-base/ui');await mkdir(installed,{recursive:true});
+ await promisify(execFile)('tar',['-xzf',path.resolve('vendor/native/ui-base-ui-0.5.1.tgz'),'-C',installed,'--strip-components','1']);
+ const legacy=await nativeUiBaseEntry(fixture,{enabled:true,version:'^0.5.1',resolution:'platform-only'});
  expect(legacy?.version).toBe('0.5.1'); expect(legacy?.components).toHaveLength(2);
  if (!(await lstat('node_modules/@ui-base/forms')).isSymbolicLink()) { context.skip(); return; }
  await expect(nativeUiBaseEntry(path.resolve('.'),{enabled:true,version:'^0.1.1',resolution:'platform-only'},nativeFormsName)).rejects.toBeInstanceOf(NativeUiBasePathError);
