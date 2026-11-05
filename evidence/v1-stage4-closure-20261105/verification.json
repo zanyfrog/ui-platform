@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-05T16:49:53.913Z",
+  "acceptedReviewHead": "7be7c1484a1e4c2aee8a79dfcb38bfe37b8f06fa",
+  "liveOriginMainBefore": "7be7c1484a1e4c2aee8a79dfcb38bfe37b8f06fa",
+  "liveQuery": "Independent git ls-remote --heads origin refs/heads/main returned the exact accepted HEAD before closure edits; rechecked before commit/push",
+  "reviewedInventories": [
+    {
+      "path": "evidence/v1-stage4-isolation-20261105/changed-file-hashes.json",
+      "sha256": "7b83f376697872500caa0a4818cb8c3a585e251a38f5c74bf3a1d9d15f88ee4d",
+      "entries": 54,
+      "allMatched": true
+    },
+    {
+      "path": "evidence/v1-stage4-isolation-20261105/stage4-consolidated-file-hashes.json",
+      "sha256": "d0b3918f027b3b2a70a2c86701e17b67d09b464e02dcc547343b58bde49e2b4a",
+      "entries": 101,
+      "allMatched": true
+    }
+  ],
+  "installedPackageFilesVerified": 234,
+  "componentFilesVerified": 23,
+  "componentComparison": "Stage 3 Git blobs with CRLF normalization",
+  "externalRepositories": [
+    {
+      "path": "C:\\Projects\\Modular\\ui-base",
+      "head": "732eec58ca3d4bd2521197b9d3b6c0457dbc6608",
+      "status": ""
+    },
+    {
+      "path": "C:\\Projects\\Modular\\UI Platform Data Services",
+      "head": "81b769eef3763d02343f5347888c26edab6ef7bc",
+      "status": ""
+    }
+  ],
+  "normalDependencyInstallation": "No installation or replacement; accepted package hashes match",
+  "historicalLock": {
+    "present": false,
+    "attribution": "Unknown and unresolved",
+    "scope": "Owner exception for review/Git synchronization only; no lock operation"
+  },
+  "retiredRawDiagnostics": [
+    {
+      "path": "evidence/v1-stage4-20261105/asset-regression/browser/builder-page.txt",
+      "sha256": "508039137bca81d08d7704a8d2c5f91198f7ae41e7a4d41d447101d65913d2b8"
+    },
+    {
+      "path": "evidence/v1-stage4-20261105/asset-regression/browser/builder-start.txt",
+      "sha256": "d1c2af4e292fc113f7454eb10501e7f965764b8fa664d0c89efe0c1262569c98"
+    },
+    {
+      "path": "evidence/v1-stage4-20261105/asset-regression/browser/page-controls.txt",
+      "sha256": "ce1e7999d79c33894370bb9ef8ecf324a1b5b603792abf1b9d798e613a8c1056"
+    },
+    {
+      "path": "evidence/v1-stage4-20261105/asset-regression/browser/presentation-start.txt",
+      "sha256": "2e1d701398b93629d37a6c8cb9092676842d057fe560f77f5aa88674d3e330c7"
+    },
+    {
+      "path": "evidence/v1-stage4-20261105/asset-regression/browser/preview-controls.txt",
+      "sha256": "5dc93b7fcfff576b13e8226983e64dd00a564cb6f5897b2a30db62fd150455ee"
+    }
+  ],
+  "acceptedTests": {
+    "focusedPassed": 30,
+    "existingSkipped": 1,
+    "assetPassed": 2,
+    "expectedStartupRefusals": 2,
+    "newTestsRunForClosure": false
+  },
+  "boundaries": "No executable source changes, shared Component mutations, dependency changes or Stage 5 work"
+}
