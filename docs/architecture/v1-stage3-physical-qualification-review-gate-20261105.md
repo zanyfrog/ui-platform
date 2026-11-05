@@ -1,3 +1,5 @@
+Accepted and closed for the documented local scope by the November 5 user decision. See [Stage 3 closure](v1-stage3-acceptance-closure-20261105.md). The pre-acceptance review below is retained as evidence. Superseded historical diagnostics are excluded from the closure package.
+
 # Stage 3 Implementation Review Gate — isolated physical-package qualification
 
 November 5, 2026. Baseline `bccd9291f524b33b87ccbc32eb6bfb68503f22ec`. **Ready for explicit review; Stage 3 is not accepted or closed.** This report supersedes the November 4 blocked qualification report.
