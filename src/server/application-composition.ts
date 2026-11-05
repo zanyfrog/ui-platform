@@ -125,7 +125,7 @@ export async function compositionSourceChoices(appKey: string): Promise<{ assets
 export async function saveCompositionAsset(appKey: string, relative: string, content: Buffer, expectedHash: string | null, admit: () => Promise<void> = async () => {}) {
   return locked(appKey, async () => {
     const current = await compositionAssetInfo(appKey, relative);
-    if (current.hash !== expectedHash) throw new Error('Application asset changed. Reload before replacing it.');
+    if (current.hash !== expectedHash) throw Object.assign(new Error('Application asset changed. Reload before replacing it.'), { status: 409 });
     await admit();
     if ((await compositionAssetInfo(appKey, relative)).hash !== expectedHash) throw Object.assign(new Error('Application asset changed during admission.'), { status: 409 });
     const file = await compositionSourcePath(appKey, relative); await mkdir(path.dirname(file), { recursive: true });

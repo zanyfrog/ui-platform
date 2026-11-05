@@ -143,9 +143,11 @@ async function body(req: http.IncomingMessage): Promise<any> {
   for await (const chunk of req) {
     const buffer = Buffer.from(chunk);
     size += buffer.length;
-    if (size > 100 * 1024 * 1024) throw new Error('Package upload exceeds the 100 MB limit.');
-    chunks.push(buffer);
+    // Drain oversized requests without retaining their excess bytes so the
+    // connection can receive a truthful validation response.
+    if (size <= 100 * 1024 * 1024) chunks.push(buffer);
   }
+  if (size > 100 * 1024 * 1024) throw Object.assign(new Error('Upload exceeds the 100 MB request limit.'), { status: 413 });
   if (!chunks.length) return {};
   const value = Buffer.concat(chunks);
   const contentType = req.headers['content-type'] ?? '';

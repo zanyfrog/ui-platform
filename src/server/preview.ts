@@ -23,7 +23,7 @@ function freePort(): Promise<number> {
 async function waitFor(url: string, timeoutMs = 15000): Promise<void> {
   const end = Date.now() + timeoutMs;
   while (Date.now() < end) {
-    try { const response = await fetch(url); if (response.ok) return; } catch {}
+    try { const response = await fetch(url, { signal: AbortSignal.timeout(Math.max(1, Math.min(1000, end - Date.now()))) }); if (response.ok) return; } catch {}
     await new Promise((resolve) => setTimeout(resolve, 250));
   }
   throw new Error(`Preview did not become ready: ${url}`);

@@ -307,7 +307,12 @@ export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeO
               const authored = [...element.childNodes].some(child => child.nodeType === Node.TEXT_NODE ? slot === 'default' && Boolean(child.textContent?.trim()) : child instanceof Element && (child.getAttribute('slot') || 'default') === slot);
               if (authored) settings[key] = '';
             }
-            output = renderComponentInstance(pkg.definition, { componentId, settings }, { registry, document, preview: false });
+            const presentedSettings = { ...settings };
+            if (options.assetUrl) for (const [key, contract] of Object.entries(pkg.definition.builder.settings)) {
+              const value = presentedSettings[key];
+              if (contract.format === 'image-url' && typeof value === 'string' && value.startsWith('assets/')) presentedSettings[key] = options.assetUrl(value);
+            }
+            output = renderComponentInstance(pkg.definition, { componentId, settings: presentedSettings }, { registry, document, preview: false });
             const ownedAttributes = new Set(Object.values(pkg.definition.builder.settings).filter(s => s.binding?.kind === 'attribute').map(s => s.binding!.name));
             for (const mode of Object.values(pkg.definition.builder.interactionModes ?? {})) for (const name of Object.keys(mode.attributes)) ownedAttributes.add(name);
             for (const attr of element.attributes) if (!ownedAttributes.has(attr.name) && !['data-uip-settings', 'data-uip-component'].includes(attr.name)) output.setAttribute(attr.name, attr.value);

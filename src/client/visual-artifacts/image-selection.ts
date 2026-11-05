@@ -19,6 +19,7 @@ export async function uploadApplicationAsset(endpoint: string, request: SourceRe
 
 export function chooseApplicationImage(base: string, request: SourceRequest, current: () => boolean): Promise<string | undefined> {
   return new Promise(resolve => {
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : undefined;
     const dialog = document.createElement('dialog'); dialog.setAttribute('aria-label', 'Choose Application image');
     dialog.innerHTML = '<h3>Choose Application image</h3><p role="status" aria-live="polite"></p><label>Application images<select aria-label="Application images" size="6"></select></label><button data-use>Use selected image</button><button data-refresh>Refresh images</button><details><summary>Upload Application image</summary><p>Requires Application presentation edit permission.</p><label>Application image file<input type="file" accept=".svg,.png,.jpg,.jpeg,.webp,.ico"></label><label>Asset source path<input data-path value="assets/images/image.png"></label><button data-upload>Upload Application asset</button></details><button data-cancel>Cancel</button>';
     const status = dialog.querySelector<HTMLElement>('[role=status]')!, choices = dialog.querySelector('select')!;
@@ -60,11 +61,12 @@ export function chooseApplicationImage(base: string, request: SourceRequest, cur
     upload.onclick = run(async () => {
       if (!file.files?.[0] || !isApplicationImage(path.value)) throw new Error('Choose a supported image file and valid Application image path.');
       if (await uploadApplicationAsset(endpoint, request, file.files[0], path.value, valid)) {
-        assert(); await list();
-      }
+        const uploaded = path.value; assert(); await list(); choices.value = uploaded;
+        status.textContent = `Saved ${uploaded}. Use selected image to assign it.`;
+      } else status.textContent = 'Replacement canceled. No asset changed.';
     });
     dialog.querySelector<HTMLButtonElement>('[data-cancel]')!.onclick = () => dialog.close();
-    dialog.onclose = () => { closed = true; dialog.remove(); resolve(result); };
+    dialog.onclose = () => { closed = true; dialog.remove(); if (opener?.isConnected) opener.focus(); resolve(result); };
     document.body.append(dialog); dialog.showModal(); void run(list)();
   });
 }

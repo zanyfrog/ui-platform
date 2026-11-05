@@ -1,0 +1,81 @@
+{
+  "status": 200,
+  "value": {
+    "initialized": true,
+    "manifest": {
+      "type": "ui-platform.presentation",
+      "schemaVersion": "1.0.0",
+      "applicationId": "64c0fda3-9749-440c-bac8-14ee482583e5",
+      "activeVersion": 2,
+      "draft": {
+        "exists": true,
+        "modifiedAt": "2026-11-05T11:29:49.718Z",
+        "checksum": "329fb00248abbceb655347d4889d5c4c79da8a8a49268bd221e516120dae3622"
+      },
+      "versions": [
+        {
+          "version": 1,
+          "checksum": "329fb00248abbceb655347d4889d5c4c79da8a8a49268bd221e516120dae3622",
+          "publishedAt": "2026-11-05T11:29:44.076Z",
+          "actor": "local-user",
+          "componentPackageIntegrity": "a42a14527dbe02f9342c3cfc4b314834ecd1a1d9a6d53159a5e4601088e226ff"
+        },
+        {
+          "version": 2,
+          "checksum": "329fb00248abbceb655347d4889d5c4c79da8a8a49268bd221e516120dae3622",
+          "publishedAt": "2026-11-05T11:29:49.718Z",
+          "actor": "local-user",
+          "componentPackageIntegrity": "a42a14527dbe02f9342c3cfc4b314834ecd1a1d9a6d53159a5e4601088e226ff"
+        }
+      ]
+    },
+    "draft": {
+      "schemaVersion": "1.0.0",
+      "name": "Default",
+      "tokens": {
+        "--app-color-primary": "#1f4f8f",
+        "--app-color-surface": "#ffffff",
+        "--app-color-text": "#172033",
+        "--app-spacing-sm": "0.5rem",
+        "--app-spacing-md": "1rem",
+        "--app-spacing-lg": "1.5rem",
+        "--app-radius-card": "0.5rem",
+        "--app-content-max-width": "75rem",
+        "--app-font-body": "system-ui, sans-serif"
+      },
+      "typography": {},
+      "componentDefaults": {},
+      "layout": {
+        "defaultShell": "authenticated",
+        "defaultTemplate": "standard",
+        "routes": {},
+        "shells": {
+          "public": {
+            "showNavigation": true,
+            "navigationPlacement": "top",
+            "showFooter": true,
+            "footerText": "© Application"
+          },
+          "authenticated": {
+            "showNavigation": true,
+            "navigationPlacement": "top",
+            "showFooter": true,
+            "footerText": "© Application"
+          },
+          "minimal": {
+            "showNavigation": false,
+            "navigationPlacement": "top",
+            "showFooter": false,
+            "footerText": ""
+          }
+        },
+        "navigation": []
+      },
+      "heroes": {},
+      "css": "",
+      "assets": []
+    },
+    "sourceRevision": "1b02f65a4e1cccf75ac6a0a49dab35e7e90426a4cc3b533dddd22ebbb11c38eb",
+    "draftDiffersFromActive": true
+  }
+}

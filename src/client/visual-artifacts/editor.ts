@@ -478,6 +478,19 @@ export async function mountVisualEditor(target: HTMLElement, appKey: string, opt
         find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
       }));
       label.append(input); inspector.append(label);
+      if (contract.type === 'string' && contract.format === 'image-url' && !values) {
+        const choose = document.createElement('button'); choose.textContent = `Choose Application image for ${key}`;
+        choose.addEventListener('click', safe(async () => {
+          const original = { copy, source: files.source, metadata: files.metadata, node: selectedNode, kind: selectedKind, application: options.applicationKey?.(), selection: cardSelectionGeneration };
+          const current = () => !disposed && active && !target.hidden && target.isConnected && !copy?.lifecycle.suspended && !conflict && copy === original.copy && selectedKind === original.kind && selectedNode === original.node && files.source === original.source && files.metadata === original.metadata && cardSelectionGeneration === original.selection && options.applicationKey?.() === original.application;
+          const path = await chooseApplicationImage(base, options.captureAssetRequest?.() ?? transport.capture(), current);
+          if (!path) return;
+          if (!current()) throw new Error('Selection changed. Reopen the image chooser.');
+          writeSetting(key, path); input.value = path;
+          find<HTMLTextAreaElement>('[data-source]').value = files[role]; changed();
+        }));
+        inspector.append(choose);
+      }
     }
     if (!node.attributes['data-uip-component'] && !isWrapper(node)) {
       const label = document.createElement('label'); label.textContent = 'Text content'; const input = document.createElement('input'); input.value = files.source.slice(node.openEnd, node.closeStart);

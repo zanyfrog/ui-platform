@@ -4,6 +4,7 @@ import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifac
 import { specializedTransport, type SourceRequest, type SourceTransportOptions } from '../artifact-editor/specialized-transport.js';
 import { chooseMenuItem } from './menu-controls.js';
 import { defaultAssetPath, uploadApplicationAsset } from './image-selection.js';
+import { mountCompositionUploader } from './asset-upload-adapter.js';
 
 const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 async function api<T>(url: string, init?: RequestInit): Promise<T> { const response = await fetch(url, { ...init, headers: { 'content-type': 'application/json' } }); const data = await response.json(); if (!response.ok) throw new Error(data.error ?? 'Request failed.'); return data; }
@@ -34,6 +35,10 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
     try { await run(); } catch (error) { status(String(error)); } finally { busy = false; target.inert = false; for (const { field, disabled } of fields) field.disabled = disabled; options.onStateChange?.(); } };
   const text = () => find<HTMLTextAreaElement>('[data-source]').value;
   const dirty = () => !!copy?.lifecycle.dirty;
+  if (!options.source) {
+    const shared = document.createElement('details'); shared.innerHTML = '<summary>Shared Application asset uploader</summary>'; target.append(shared);
+    mountCompositionUploader(shared, `${base}/composition-asset`, transport.capture, () => active && !disposed && !target.hidden && target.isConnected, () => { document.dispatchEvent(new Event('ui-platform-workspace-change')); });
+  }
   function paintState() {
     const lifecycle = copy?.lifecycle;
     status(lifecycle ? [editingStatus(lifecycle.state, lifecycle.dirty), lifecycle.failure, lifecycle.notice].filter(Boolean).join(' · ') : 'Select source');

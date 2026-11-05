@@ -1,0 +1,24 @@
+{
+  "qualification": "Real Edge browser File and shared component; test-double transport only. Does not qualify protected backend ownership or A1 end-to-end.",
+  "calls": [
+    {
+      "url": "/api/apps/disposable/composition-asset?info=1&path=assets%2Fimages%2Fstage3.svg"
+    },
+    {
+      "url": "/api/apps/disposable/composition-asset",
+      "method": "POST"
+    },
+    {
+      "url": "/api/apps/disposable/composition-asset?list=1"
+    },
+    {
+      "url": "/api/apps/disposable/composition-asset?info=1&path=assets%2Fimages%2Fstage3.svg"
+    },
+    {
+      "url": "/api/apps/disposable/composition-asset?info=1&path=assets%2Fimages%2Fstage3.svg"
+    },
+    {
+      "url": "/api/apps/disposable/composition-asset?info=1&path=assets%2Fimages%2Fstage3.svg"
+    }
+  ]
+}
