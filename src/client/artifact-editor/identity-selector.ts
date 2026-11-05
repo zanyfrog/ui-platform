@@ -1,6 +1,7 @@
 import { editorSessionSnapshot, refreshEditorSession, selectEditorIdentity, subscribeEditorSession, invalidateDevelopmentIdentity, hasRetainedWorkspaceSession } from './session.js';
 import { mountPilotAdministration, type PilotRequest } from './pilot-administration.js';
 import { pilot } from '../../shared/pilot-administration.js';
+import { mountRoleAdministration } from './role-administration.js';
 
 /** Dev-only chrome. Uses no independent artifact state, timer or save mechanism. */
 export async function mountDevelopmentIdentity(container: HTMLElement) {
@@ -39,6 +40,16 @@ export async function mountDevelopmentIdentity(container: HTMLElement) {
       return result;
     };
     const invalidateAdministration = mountPilotAdministration(container, administrativeRequest);
+    const invalidateRoles = mountRoleAdministration(container, async (url, body) => {
+      if (select.disabled) throw new Error('Identity change in progress');
+      const generation = identityGeneration;
+      const response = await fetch(url, { cache: 'no-store', credentials: 'same-origin', ...(body === undefined ? {} : {
+        method: 'POST', headers: { 'content-type': 'application/json', 'x-v1-csrf': v1.csrfToken }, body: JSON.stringify(body),
+      }) });
+      const result = await response.json(); if (generation !== identityGeneration) throw new Error('Identity changed. Refresh administration state');
+      if (!response.ok) throw new Error([result.code, ...(result.diagnostics ?? []).map((d: any) => d.code)].filter(Boolean).join(', ') || 'Administration denied');
+      return result;
+    });
     verify.addEventListener('click', async () => {
       if (select.disabled) return;
       const generation = verificationGeneration;
@@ -59,7 +70,7 @@ export async function mountDevelopmentIdentity(container: HTMLElement) {
       finally { verify.disabled = false; }
     });
     select.addEventListener('change', async () => {
-      identityGeneration++; invalidateAdministration();
+      identityGeneration++; invalidateAdministration(); invalidateRoles();
       verificationGeneration++; verification.textContent = '';
       select.disabled = true;
       try {

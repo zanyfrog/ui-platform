@@ -44,7 +44,9 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
       const catalog = pages || presentation || components || packages ? await discoverComponents(key) : [];
       const visual = pages || presentation || components ? await visualWorkspace(key, catalog) : { pages: [], shells: [], components: [], packages: [] };
       // Filter source before it crosses the API. Dependencies remain subject to their own read permission.
-      const visualContext = { pages: pages ? visual.pages : [], shells: presentation ? visual.shells : [], components: components ? visual.components : [], packages: catalog };
+      const visiblePages = [];
+      for (const bundle of visual.pages) if (pages || bundle.metadata?.artifactId && await permitted('ui.page.view', 'page', bundle.metadata.artifactId)) visiblePages.push(bundle);
+      const visualContext = { pages: visiblePages, shells: presentation ? visual.shells : [], components: components ? visual.components : [], packages: catalog };
       const records: Array<{ summary: WorkspaceArtifact; load: () => Promise<Partial<AuthorizedWorkspaceArtifact>> }> = [];
       let incompleteAccess = !pages || !presentation || !components || !automation || !packages || validating && presentation && !graphRevision;
       let capturedComposition: Awaited<ReturnType<typeof compositionWorkspace>> = null;
@@ -56,7 +58,7 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
       for (const [kind, bundles, group, permission] of [
         ['page', visualContext.pages, 'Pages', 'ui.page.edit'], ['shell', visualContext.shells, 'Shells', 'ui.presentation.edit'], ['component', visualContext.components, 'Components and Forms', 'ui.platform.component.admin'],
       ] as const) for (const bundle of bundles) {
-        const editable = await permitted(permission, kind === 'component' ? 'system' : kind === 'page' ? 'page' : 'artifact', kind === 'page' ? 'pages' : 'presentation');
+        const editable = await permitted(permission, kind === 'component' ? 'system' : kind === 'page' ? 'page' : 'artifact', kind === 'page' ? 'pages' : 'presentation') || kind === 'page' && !!bundle.metadata?.artifactId && await permitted(permission, 'page', bundle.metadata.artifactId);
         add(kind === 'component' ? { kind: 'platform', id: V1_AUTHORITY_ID } : { kind: 'application', id: app.appId }, 'visual', bundle.metadata?.artifactId,
           bundle.locator, group, kind, bundle.metadata?.displayName ?? 'Visual source needing repair', editable, async () => ({ visual: visualContext }), bundle.metadata?.componentId);
       }

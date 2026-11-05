@@ -12,6 +12,7 @@ import { SecurityAdministrationService, adminAnchor, type AdministrationIdentity
 import type { SecurityDocument, SecurityRecord, SecurityScope } from '@ui-platform/i-am/definitions';
 import { developmentSecurityConfiguration, developmentSecurityScopes } from './v1-security-administration.js';
 import { pilot, pilotRecordIds } from '../shared/pilot-administration.js';
+import { roleAdministrationState } from './role-administration.js';
 import type { DevelopmentApplicationRegistry } from './development-application-registry.js';
 
 type Session = { token: string; csrf: string; revision: string; userId: string | null; expires: number };
@@ -146,9 +147,18 @@ export class V1DevelopmentIdentity {
       if (!applicationId) throw new Error('ADMIN_APPLICATION_UNKNOWN');
       const root: SecurityResourceRef = { authorityId: V1_AUTHORITY_ID, applicationId: null, kind: 'system', id: 'platform' };
       const resource: SecurityResourceRef = { authorityId: V1_AUTHORITY_ID, applicationId, kind: 'application', id: applicationId };
+      const session = this.session(req), userId = this.currentUser(req), sessionRevision = session?.revision, policyRevision = this.store.revision();
       const platform = await this.authorize(req, developmentSecurityConfiguration.platformAdministratorPermissionId, root);
       const appAdmin = await this.authorize(req, developmentSecurityConfiguration.applicationAdministratorPermissionId, resource);
+      if (this.session(req) !== session || session?.revision !== sessionRevision || this.currentUser(req) !== userId || this.store.revision() !== policyRevision) throw new Error('ADMIN_AUTHORITY_CHANGED');
       if (!platform && !appAdmin) throw new Error('ADMIN_AUTHORITY_DENIED');
+      if (parts[3] === 'security' && parts[4] === 'roles' && parts.length === 5 && req.method === 'GET') {
+        const snapshot = this.store.snapshot();
+        if (snapshot.revision !== policyRevision) throw new Error('ADMIN_AUTHORITY_CHANGED');
+        res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify(
+          roleAdministrationState(snapshot.documents, applicationId, this.currentUser(req)!, snapshot.revision)));
+        return true;
+      }
       if (parts[3] === 'security' && parts[4] === 'pilot-status' && parts.length === 5 && req.method === 'GET') {
         if (this.options.deploymentId !== pilot.deploymentId || parts[2] !== pilot.key || applicationId !== pilot.applicationId ||
           this.currentUser(req) !== pilot.securityAdmin || !platform) throw new Error('PILOT_ADMIN_AUTHORITY_DENIED');
@@ -177,7 +187,31 @@ export class V1DevelopmentIdentity {
       let size = 0; const chunks: Buffer[] = [];
       for await (const chunk of req) { const bytes = Buffer.from(chunk); size += bytes.length; if (size > 100_000) throw new Error('ADMIN_REQUEST_INVALID'); chunks.push(bytes); }
       const input = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+      if (input.expectedApplicationId !== undefined && input.expectedApplicationId !== applicationId) throw new Error('ADMIN_APPLICATION_CHANGED');
+      if (this.session(req) !== session || session?.revision !== sessionRevision || this.currentUser(req) !== userId || this.store.revision() !== policyRevision) throw new Error('ADMIN_AUTHORITY_CHANGED');
       const result = await this.withAdministration!(req, async (service, context) => {
+        if (parts[3] === 'security' && parts.length === 5 && ['assign', 'revoke'].includes(parts[4])) {
+          const snapshot = this.store.snapshot();
+          if (input.expectedRevision !== snapshot.revision || typeof input.reason !== 'string' || !input.reason.trim()) throw new Error('ADMIN_REQUEST_STALE_OR_INVALID');
+          let document: SecurityDocument, expectedChecksum: string | undefined;
+          if (parts[4] === 'assign') {
+            const role = snapshot.documents.find(d => d.definition.kind === 'role' && d.definition.id === input.roleId)?.definition;
+            const user = snapshot.documents.find(d => d.definition.kind === 'user' && d.definition.id === input.userId)?.definition;
+            const scope = input.scope as SecurityScope;
+            if (role?.kind !== 'role' || role.status !== 'active' || role.owner.kind !== 'application' || role.owner.applicationId !== applicationId || user?.kind !== 'user' || user.status !== 'active' ||
+              !scope || typeof scope.descendants !== 'boolean' || scope.resource?.authorityId !== V1_AUTHORITY_ID || scope.resource.applicationId !== applicationId ||
+              !['application', 'page', 'form', 'artifact'].includes(scope.resource.kind) || typeof scope.resource.id !== 'string' || !scope.resource.id ||
+              (scope.resource.kind === 'application' ? scope.resource.id !== applicationId : scope.resource.parentId !== applicationId)) throw new Error('ADMIN_ASSIGNMENT_INVALID');
+            document = { format: 'ui-platform.security', formatVersion: 1, definition: { kind: 'role-assignment', id: randomUUID(), userId: user.id, roleId: role.id, status: 'active', scope, startsAt: new Date().toISOString(), endsAt: null } };
+          } else {
+            const previous = snapshot.documents.find(d => d.definition.kind === 'role-assignment' && d.definition.id === input.assignmentId);
+            if (previous?.definition.kind !== 'role-assignment' || previous.definition.scope.resource.applicationId !== applicationId || previous.definition.status !== 'active') throw new Error('ADMIN_ASSIGNMENT_INVALID');
+            expectedChecksum = securityChecksum(previous);
+            document = { ...previous, definition: { ...previous.definition, status: 'inactive' } };
+          }
+          return service.stage({ changes: [{ document, ...(expectedChecksum ? { expectedChecksum } : {}) }], expectedRevision: snapshot.revision,
+            actorId: this.currentUser(req)!, source: 'ui', idempotencyKey: randomUUID(), reason: input.reason.trim() });
+        }
         if (parts[3] === 'onboarding' && parts.length === 4) {
           if (!platform || typeof input.administratorUserId !== 'string' || !input.reason?.trim()) throw new Error('ADMIN_REQUEST_INVALID');
           const owner = { kind: 'application' as const, applicationId };
@@ -252,6 +286,10 @@ export class V1DevelopmentIdentity {
     const applicationId = scope.applicationKey === V1_FIXTURE_APPLICATION_KEY ? V1_FIXTURE_APPLICATION_ID : this.options.applicationRegistry?.byKey(scope.applicationKey)?.applicationId;
     if (!applicationId || !this.activeUser(userId)) return false;
     if (operation === 'discover') {
+      // Application navigation permits discovery, while visible() still checks
+      // each artifact's permanent ID before returning any source or metadata.
+      if (await this.authorizeUser(userId, String(this.store.revision()), 'ui.application.view',
+        { authorityId: V1_AUTHORITY_ID, applicationId, kind: 'application', id: applicationId })) return true;
       if (await this.authorizeEditor(userId, 'security', scope)) return true;
       for (const area of ['page', 'form', 'workflow', 'artifact'] as const) {
         if (await this.authorizeUser(userId, String(this.store.revision()), `ui.${area}.view`,

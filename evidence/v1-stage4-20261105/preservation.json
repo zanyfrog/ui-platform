@@ -1,0 +1,18 @@
+{
+  "baseline": "86380f6430fcc4eea1a4d31c55a1951749707f9f",
+  "status": "BLOCKED: original shared-runtime-graph lock absent",
+  "observedAt": "2026-11-05T09:54:27.4368572-05:00",
+  "originalLock": "components/.uib/locks/236dfbe257a229da85d588f4f851f4ea1e72efefbe5565e69e305f0d6f69602d.lock",
+  "exists": false,
+  "quarantineEntries": [
+    "eeea95554098a2bf3112bf6532920d01f1393311b2047ed54a37bdb02126e5c5.lock.owner-unresolved-20261020"
+  ],
+  "historicalAcceptedDigest": "9C1EA1A0CF2D1F07973EC0F060882227072E23A4306074525790EE917CCC3D72",
+  "attribution": "Unknown. No Stage 4 startup lock snapshot was captured; disappearance time and writer are not established. Existing regression/library paths and external processes have not been attributed.",
+  "actions": "No explicit recovery/removal/replacement command was issued. Stopped further implementation and tests upon observing absence. No restoration, reacquisition or repair attempted.",
+  "uiBaseSourceEdited": false,
+  "dataServicesSourceEdited": false,
+  "workspaceDependencyReplacement": false,
+  "commit": false,
+  "push": false
+}

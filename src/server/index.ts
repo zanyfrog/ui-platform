@@ -286,7 +286,12 @@ const server = http.createServer(async (req, res) => {
             if (!(key === V1_FIXTURE_APPLICATION_KEY && appId === V1_FIXTURE_APPLICATION_ID) && v1Identity.registeredApplication(key) !== appId) return json(res, 403, { code: 'V1_APPLICATION_DENIED' });
             applicationId = appId;
           }
-          const check = managementCheck(method, url.pathname, applicationId);
+          let check = managementCheck(method, url.pathname, applicationId);
+          if (applicationId && parts[3] === 'visual-artifacts' && method === 'GET') check = { permissionId: 'ui.application.view', resource: { authorityId: V1_AUTHORITY_ID, applicationId, kind: 'application', id: applicationId } };
+          if (applicationId && parts[3] === 'visual-pages' && url.searchParams.get('locator') && ['GET', 'PUT', 'DELETE'].includes(method) && check && !await v1Identity.authorize(req, check.permissionId, check.resource)) {
+            const page = await new VisualArtifactService(path.join(appPath(decodeURIComponent(parts[2])), 'src/pages'), 'page').read(url.searchParams.get('locator')!, { recovery: 'refuse' });
+            if (page.metadata?.artifactId) check = { ...check, resource: { ...check.resource, id: page.metadata.artifactId } };
+          }
           if (!check || !await v1Identity.authorize(req, check.permissionId, check.resource))
             return json(res, 403, { code: 'V1_PERMISSION_DENIED' });
           const authority = v1Identity.captureAdmission(req, check.permissionId, check.resource), originalApplicationId = applicationId;
@@ -411,7 +416,15 @@ const server = http.createServer(async (req, res) => {
         await getApp(key);
         if (parts[3] === 'visual-artifacts' && method === 'GET') {
           const readOptions = { recovery: 'refuse' as const, signal: acquisition.signal };
-          return json(res, 200, await withApplicationMutation(appPath(key), async () => visualWorkspace(key, await discoverComponents(key), readOptions), readOptions));
+          return json(res, 200, await withApplicationMutation(appPath(key), async () => {
+            const workspace = await visualWorkspace(key, await discoverComponents(key), readOptions);
+            if (!v1Identity) return workspace;
+            const applicationId = await readApplicationOwnerId(key);
+            const allowed = (permissionId: string, kind: 'page' | 'artifact' | 'application', id: string) => v1Identity!.authorize(req, permissionId, { authorityId: V1_AUTHORITY_ID, applicationId, kind, id, ...(kind === 'application' ? {} : { parentId: applicationId }) });
+            const broadPages = await allowed('ui.page.view', 'page', 'pages');
+            const pages = []; for (const page of workspace.pages) if (broadPages || page.metadata?.artifactId && await allowed('ui.page.view', 'page', page.metadata.artifactId)) pages.push(page);
+            return { ...workspace, pages, shells: await allowed('ui.presentation.view', 'artifact', 'presentation') ? workspace.shells : [], components: await allowed('ui.application.view', 'application', applicationId) ? workspace.components : [] };
+          }, readOptions));
         }
         const kind = parts[3] === 'visual-components' ? 'component' : parts[3] === 'visual-shells' ? 'shell' : 'page';
         const service = new VisualArtifactService(kind === 'component' ? platformComponentsRoot : path.join(appPath(key), kind === 'shell' ? 'shells' : 'src/pages'), kind);
