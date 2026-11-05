@@ -1,0 +1,78 @@
+{
+  "platformHead": "56d835972a7a5cb32ea40e711e5a0fc9344b6794",
+  "uiBaseHead": "732eec58ca3d4bd2521197b9d3b6c0457dbc6608",
+  "dataHead": "81b769eef3763d02343f5347888c26edab6ef7bc",
+  "uiBaseStatus": "",
+  "dataStatus": "",
+  "trackedPlatformChanges": "",
+  "rootManifestChanges": "",
+  "componentFilesMatchAcceptedStage4": true,
+  "componentFileCount": 23,
+  "packageClosureMatchesAcceptedStage4": true,
+  "admittedPackageFileCount": 234,
+  "finalSourceMatchesTestTarget": true,
+  "sourceFiles": [
+    "src/server/production/boundary.ts",
+    "src/server/production/current-iam.ts",
+    "src/server/production/data-handler.ts",
+    "src/server/production/enrollment.ts",
+    "src/server/production/internal-trust.ts",
+    "src/server/production/management.ts",
+    "src/server/production/mtls-transport.ts",
+    "src/server/production/oidc.ts",
+    "src/server/production/package-lock.json",
+    "src/server/production/package.json",
+    "src/server/production/private-assets.ts",
+    "src/server/production/releases.ts",
+    "src/server/production/runtime.ts",
+    "src/server/production/sessions.ts",
+    "src/shared/released-runtime-services.ts",
+    "tests/stage5-security.test.ts",
+    "tests/fixtures/stage5-process.ts"
+  ],
+  "sharedHistoricalLock": "Unresolved accepted absence; no lock-file read, acquire, recover, replace or recreate",
+  "newPackages": {
+    "": {
+      "name": "@ui-platform/production-security",
+      "version": "0.1.0",
+      "dependencies": {
+        "jose": "6.2.15",
+        "openid-client": "6.8.9"
+      },
+      "engines": {
+        "node": ">=24 <25"
+      }
+    },
+    "node_modules/jose": {
+      "version": "6.2.15",
+      "resolved": "https://registry.npmjs.org/jose/-/jose-6.2.15.tgz",
+      "integrity": "sha512-qdF6ewcZARtef63fJ9AKKZPgxw+t7USH6HLXYcD4CrdmSvDp79rpJSPFEKc90QBeGS63u1KQtN2MZQHC0yDIzA==",
+      "license": "MIT",
+      "funding": {
+        "url": "https://github.com/sponsors/panva"
+      }
+    },
+    "node_modules/oauth4webapi": {
+      "version": "3.8.8",
+      "resolved": "https://registry.npmjs.org/oauth4webapi/-/oauth4webapi-3.8.8.tgz",
+      "integrity": "sha512-8N28E+a/oxfXWBgOMt+ZP/JUf/XR+IFbvkAEPP3gznXOMv9BpAAwiIj0TFNz3tGTPc0ZQ8zmWBNgN1nAys0gng==",
+      "license": "MIT",
+      "funding": {
+        "url": "https://github.com/sponsors/panva"
+      }
+    },
+    "node_modules/openid-client": {
+      "version": "6.8.9",
+      "resolved": "https://registry.npmjs.org/openid-client/-/openid-client-6.8.9.tgz",
+      "integrity": "sha512-6mXMRNJxDOf6BflEWLXul1UwzLFz++9Ofz1PYwPwwsJsyXBsbfkO+Jo255SW1qnFNLYz4EJWHz42X4OJJrya/g==",
+      "license": "MIT",
+      "dependencies": {
+        "jose": "^6.2.15",
+        "oauth4webapi": "^3.8.8"
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/panva"
+      }
+    }
+  }
+}

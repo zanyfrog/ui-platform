@@ -1,0 +1,17 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { build } from 'esbuild';
+const target = process.env.UI_PLATFORM_STAGE3_PHYSICAL_ROOT, original = process.env.UI_PLATFORM_TEST_ORIGINAL_ROOT;
+if (!target || !original || await fs.realpath('.') !== await fs.realpath(target) || await fs.realpath(target) === await fs.realpath(original)) throw new Error('PHYSICAL_ISOLATION_REQUIRED');
+for (const relative of ['src/server', 'components', 'packages/artifacts', 'node_modules/@ui-platform/artifacts']) if (!(await fs.realpath(relative)).startsWith(await fs.realpath(target) + path.sep)) throw new Error('UNISOLATED_DEPENDENCY');
+const diagnostics = path.resolve('diagnostics/stage5'); await fs.mkdir(diagnostics, { recursive: true });
+const runtime = await build({ entryPoints: ['src/server/production/runtime.ts'], bundle: true, platform: 'node', format: 'esm', write: false, metafile: true, logLevel: 'silent' });
+const inputs = Object.keys(runtime.metafile.inputs);
+if (inputs.some(file => /builder|development|management|application-data-proxy|visual-artifacts|src\/server\/index\./i.test(file))) throw new Error('PRIVILEGED_RUNTIME_IMPORT');
+const files = (await fs.readdir('src/server/production')).filter(file => file.endsWith('.ts')).map(file => 'src/server/production/' + file);
+const compiler = spawnSync(process.execPath, ['node_modules/typescript/bin/tsc', '--ignoreConfig', '--noEmit', '--target', 'ES2022', '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--strict', '--skipLibCheck', '--types', 'node', ...files, 'src/shared/released-runtime-services.ts'], { encoding: 'utf8', windowsHide: true });
+await fs.writeFile(path.join(diagnostics, 'typecheck.txt'), compiler.stdout + compiler.stderr);
+const result = { node: process.version, platform: process.platform, runtimeInputs: inputs, runtimeManagementImportCheck: 'PASS', typecheckExitCode: compiler.status, checkedFiles: files, rootDependencyManifestChanged: false };
+await fs.writeFile(path.join(diagnostics, 'checks.json'), JSON.stringify(result, null, 2) + '\n');
+console.log(JSON.stringify(result)); if (compiler.status !== 0) process.exitCode = 1;

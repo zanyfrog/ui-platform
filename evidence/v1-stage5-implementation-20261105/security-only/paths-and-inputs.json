@@ -1,0 +1,30 @@
+{
+  "original": "C:\\Projects\\Modular\\ui-platform",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\security-only\\disposable\\b6d13c21-e48b-4d4e-88d6-925415ef1aa7\\platform",
+  "roots": {
+    "src/server": {
+      "before": "C:\\Projects\\Modular\\ui-platform\\src\\server",
+      "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\security-only\\disposable\\b6d13c21-e48b-4d4e-88d6-925415ef1aa7\\platform\\src\\server"
+    },
+    "components": {
+      "before": "C:\\Projects\\Modular\\ui-platform\\components",
+      "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\security-only\\disposable\\b6d13c21-e48b-4d4e-88d6-925415ef1aa7\\platform\\components"
+    },
+    "packages/artifacts": {
+      "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+      "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\security-only\\disposable\\b6d13c21-e48b-4d4e-88d6-925415ef1aa7\\platform\\packages\\artifacts"
+    },
+    "node_modules/@ui-platform/artifacts": {
+      "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+      "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\security-only\\disposable\\b6d13c21-e48b-4d4e-88d6-925415ef1aa7\\platform\\packages\\artifacts"
+    }
+  },
+  "inputs": [
+    {
+      "file": "tests/stage5-security.test.ts",
+      "sha256": "4cee40b9094ef29227bc42dd9bf4d19f310723e92977c7e58c64337a7125c30b"
+    }
+  ],
+  "preparationSha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+  "changes": "Existing preparation; redirected disposable/evidence paths; excluded original Component .uib metadata. Tests copied byte-for-byte."
+}

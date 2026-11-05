@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-05",
+  "acceptedBaseline": "56d835972a7a5cb32ea40e711e5a0fc9344b6794",
+  "branch": "main",
+  "localHead": "56d835972a7a5cb32ea40e711e5a0fc9344b6794",
+  "liveOriginMain": "56d835972a7a5cb32ea40e711e5a0fc9344b6794",
+  "acceptedInventory": {
+    "path": "evidence/v1-stage5-implementation-20261105/changed-file-hashes.json",
+    "sha256": "c60f43d97f74be0663fc9cf570e5848390282f684abc3cb054b75f755e34d4f9",
+    "entries": 85,
+    "allEntriesMatched": true,
+    "unexpectedPreexistingFiles": []
+  },
+  "trackedDiff": "",
+  "uiBase": {
+    "head": "732eec58ca3d4bd2521197b9d3b6c0457dbc6608",
+    "status": ""
+  },
+  "dataServices": {
+    "head": "81b769eef3763d02343f5347888c26edab6ef7bc",
+    "status": ""
+  },
+  "preservation": {
+    "componentFilesMatched": 23,
+    "admittedPackageFilesMatched": 234,
+    "rootDependencyFilesUnchanged": true,
+    "nativeAdmissionAndGlobalRecoveryPolicyUnchanged": true,
+    "historicalLock": "Not read, recreated, recovered or otherwise operated on"
+  },
+  "packageAudit": {
+    "packages": [
+      {
+        "name": "jose",
+        "version": "6.2.15",
+        "integrity": "sha512-qdF6ewcZARtef63fJ9AKKZPgxw+t7USH6HLXYcD4CrdmSvDp79rpJSPFEKc90QBeGS63u1KQtN2MZQHC0yDIzA==",
+        "manifestSha256": "a1a833459530d36e7cacbe045a461b14b2bd38fb38e595ac3ba1dcd9de37831e",
+        "installLifecycleHooks": [],
+        "lockHasInstallScript": false
+      },
+      {
+        "name": "oauth4webapi",
+        "version": "3.8.8",
+        "integrity": "sha512-8N28E+a/oxfXWBgOMt+ZP/JUf/XR+IFbvkAEPP3gznXOMv9BpAAwiIj0TFNz3tGTPc0ZQ8zmWBNgN1nAys0gng==",
+        "manifestSha256": "0a587bac2f82a768669cdb7f9e47809eaf13a80dbd52fa35f5f48ed097e6164a",
+        "installLifecycleHooks": [],
+        "lockHasInstallScript": false
+      },
+      {
+        "name": "openid-client",
+        "version": "6.8.9",
+        "integrity": "sha512-6mXMRNJxDOf6BflEWLXul1UwzLFz++9Ofz1PYwPwwsJsyXBsbfkO+Jo255SW1qnFNLYz4EJWHz42X4OJJrya/g==",
+        "manifestSha256": "17ce7652bd40848ad5201a99a97f8a283b24723034d8df64121e6c7bfe09a5cb",
+        "installLifecycleHooks": [],
+        "lockHasInstallScript": false
+      }
+    ],
+    "installationDuringCheckpoint": false,
+    "priorInstallMode": "--ignore-scripts; nested module only"
+  },
+  "contentReview": {
+    "all85InputsReadAndHashed": true,
+    "credentialOrPemMaterialFound": false,
+    "screenshotCount": 12,
+    "screenshotsVisuallyReviewed": true,
+    "fixtureMarkers": "Intentional synthetic tests only; no private byte files or live credentials staged",
+    "disposableOrNodeModulesInProposedPaths": false,
+    "retiredRawTextReports": [
+      "evidence/v1-stage5-implementation-20261105/security-only/checks/missing-isolation.txt",
+      "evidence/v1-stage5-implementation-20261105/security-only/checks/original-root.txt"
+    ]
+  }
+}

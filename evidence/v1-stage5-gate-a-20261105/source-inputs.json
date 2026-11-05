@@ -1,0 +1,222 @@
+{
+  "date": "2026-11-05",
+  "baseline": {
+    "platform": "56d835972a7a5cb32ea40e711e5a0fc9344b6794",
+    "uiBase": "732eec58ca3d4bd2521197b9d3b6c0457dbc6608",
+    "dataServices": "81b769eef3763d02343f5347888c26edab6ef7bc"
+  },
+  "requestSha256": "44b574a7e32b4b89397f95e728593289ed090ceae17f75b8a6f9c64b5113bee9",
+  "environment": "Windows source review; no application/runtime execution",
+  "testsExecuted": false,
+  "buildsExecuted": false,
+  "providerSelected": false,
+  "productionHostAccessed": false,
+  "sharedLockOperations": false,
+  "providerIndependentImplementation": "authorized and outstanding; not completed at this Gate A stop",
+  "productionStatus": "BLOCKED pending approved provider/environment and actual target evidence",
+  "inputs": [
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/v1-final-technical-planning-20261103/V1-IMPLEMENTATION-SEQUENCE.md",
+      "bytes": 9858,
+      "sha256": "b87ae301d4a0f839f9bf3b7ab7b4d80435b553334653ee0d62c4403008f8c9cb",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/v1-final-technical-planning-20261103/V1-FINAL-ACCEPTANCE-MATRIX.md",
+      "bytes": 16102,
+      "sha256": "8452d2bbe421166bb2484784818a2ea80cd26d153518ad61d98129e100026c4c",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/v1-final-technical-planning-20261103/V1-TECHNICAL-DECISIONS.md",
+      "bytes": 13442,
+      "sha256": "8d308b0745cffd7966a327181746e16e9273ea577ce91dad786bb6d46059172e",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/v1-stage4-acceptance-closure-20261105.md",
+      "bytes": 6582,
+      "sha256": "3bd99957ed68c2ff1f35b7c99c5837fa8c4fbbf2b87414c91f62bd4af56b612d",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "docs/architecture/v1-stage4-final-implementation-review-gate-20261105.md",
+      "bytes": 11852,
+      "sha256": "a152e91d89a1bde8ab04c0c2654216e2727a052883283ee0ad59a5f338cc0604",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "scripts/verify-stage4-isolation.mjs",
+      "bytes": 7350,
+      "sha256": "ac4c2f72924af1106887a1df3e5a96a36852134d5b6318ed4a91d1e82f3ce697",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "scripts/prepare-stage3-physical.mjs",
+      "bytes": 3221,
+      "sha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "package.json",
+      "bytes": 4069,
+      "sha256": "5d672f62672a6c067e4e98e6f71bcdb7190256cd4eddb64b66d43801470d5d45",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/v1-development-identity.ts",
+      "bytes": 31838,
+      "sha256": "2937fcd3ab5f54d7a8cca12cc3890a5f46e9e0e00c0c1e5a54271f48a98eae39",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/application-data-proxy.ts",
+      "bytes": 5992,
+      "sha256": "9eda5dc88bdfa563a29373150b343962eb05762f83495ce4aa20d4affc9b61e9",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/development-application-runtime.ts",
+      "bytes": 7566,
+      "sha256": "75b16679d3cf6d013d9e61de8b2263ca7104d264f8a33017ff5057ae4bcd8b1e",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/form-contract.ts",
+      "bytes": 1816,
+      "sha256": "02f3cee44e47382e28b83099a45188efcba2303bef86c9027136d28b787f2cc8",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/builder-development-host.ts",
+      "bytes": 8043,
+      "sha256": "6af0117774497e26a3cb673f560f143587ce551744daf239d78a2fd98bf85694",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/form-submission-testing.ts",
+      "bytes": 8316,
+      "sha256": "c43664d2b20cfd03e97cc5438106240192b48d87d6dac4750adb53ec39035803",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/composition-snapshots.ts",
+      "bytes": 5579,
+      "sha256": "cf240e6d1013ed887abb6e2493c21333096fbc31be4a0f6f3ba4619e27c1460e",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/presentation-publications.ts",
+      "bytes": 13464,
+      "sha256": "f3506f24e824a14783cf6cbf80cb3b4aaaf8c377598206c86b8829e741d994b2",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/presentation-publication-contract.ts",
+      "bytes": 9867,
+      "sha256": "32a355a99d163d6be8db0d3acd85986cdecdb6e5e2db7a467bf4bd6175aa0568",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/application-composition.ts",
+      "bytes": 21029,
+      "sha256": "6a22b56b12c2cfdf3f4139d5d1ff93cc3eb2c80ccac8eb5765ce5e37be49bf78",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/index.ts",
+      "bytes": 53459,
+      "sha256": "26e432ccc2b717a506371f6e2d6a0ca58b873115ac11af5b60a1652503d83963",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/exporter.ts",
+      "bytes": 8181,
+      "sha256": "44e19d59633ec4956e2294422a3093ac5145b3bc5d2e3368be474c96649acf22",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "ui-platform",
+      "path": "src/server/paths.ts",
+      "bytes": 705,
+      "sha256": "b5e98f76f821051861d117f43be25c934b753efde99bbab71c299e33d2ca461d",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/dataset-operations/src/development-actor-provider.ts",
+      "bytes": 10802,
+      "sha256": "a814d4c6c398bc75597d6216d0358a50d2e0fe8984e11c073ca8600b6d94e676",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/dataset-operations/src/secured-request-handler.ts",
+      "bytes": 2969,
+      "sha256": "c3278b46d5c1cc3c973fbb6b1a2e945a12b429447bbf3dd606f54969eda89d8c",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/dataset-operations/src/secured-development-host.ts",
+      "bytes": 17272,
+      "sha256": "6a8a556cad73f4ba1f5d001b05f0641ef351ddc5a8ca275b280c43b97852cf14",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/dataset-operations/src/secured-engine.ts",
+      "bytes": 40604,
+      "sha256": "85044b023a65949b5f92c20657e78017782a5419e48f3fc1504e60ff3cbf4d93",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/i-am/src/token-verifier.ts",
+      "bytes": 490,
+      "sha256": "26894f1d5da129d121fba1d07d76c5ebd91fff834bb25c4e82249bb488d8f917",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/i-am/src/wp1/store.ts",
+      "bytes": 14820,
+      "sha256": "662f846fa246ae1b3a2262503a83c23affea93913bf0aeefc5a51608ad7d996f",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "packages/i-am/src/wp6/delegation.ts",
+      "bytes": 9161,
+      "sha256": "8458cebe07fb36ab011769dac963062e3520209de21d2e84074ebc70319c6f0a",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    },
+    {
+      "repository": "UI Platform Data Services",
+      "path": "package.json",
+      "bytes": 1267,
+      "sha256": "e505f40299f729a0d7e13346ef9049707ffc22d4330fc928526f14e73038aff0",
+      "evidence": "source inspection only; some files inspected by targeted sections"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "original": "C:\\Projects\\Modular\\ui-platform",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\disposable\\3689f7de-0e95-42a6-b592-a8991e5fd605\\platform",
+  "roots": {
+    "src/server": {
+      "before": "C:\\Projects\\Modular\\ui-platform\\src\\server",
+      "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\disposable\\3689f7de-0e95-42a6-b592-a8991e5fd605\\platform\\src\\server"
+    },
+    "components": {
+      "before": "C:\\Projects\\Modular\\ui-platform\\components",
+      "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\disposable\\3689f7de-0e95-42a6-b592-a8991e5fd605\\platform\\components"
+    },
+    "packages/artifacts": {
+      "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+      "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\disposable\\3689f7de-0e95-42a6-b592-a8991e5fd605\\platform\\packages\\artifacts"
+    },
+    "node_modules/@ui-platform/artifacts": {
+      "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+      "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-implementation-20261105\\disposable\\3689f7de-0e95-42a6-b592-a8991e5fd605\\platform\\packages\\artifacts"
+    }
+  },
+  "inputs": [
+    {
+      "file": "tests/stage5-security.test.ts",
+      "sha256": "daa7fde84f2a9b2264f4c450b67edf157fa35240c53d372264e8dc2375e40232"
+    },
+    {
+      "file": "tests/stage4-role-administration.test.ts",
+      "sha256": "db1fe416facbbb9dec0599f42a6b8edc82b8825e66da760967a6a7c4e471ebd3"
+    },
+    {
+      "file": "tests/pilot-administration.test.ts",
+      "sha256": "3b4460a0235894b0387d7d2a9de5818a6b0509bb513e78e2748395def1ff73fc"
+    },
+    {
+      "file": "tests/v1-management-server.test.ts",
+      "sha256": "a1e2012360214f6f759a04c5230abb5f0987bd1c467b0eb3715ae6947519f903"
+    },
+    {
+      "file": "tests/v1-management-routes.test.ts",
+      "sha256": "0a32fb2bd211a9e8b50c49a5fe6f6943e89543baedddcc53e709bd8703bd9e3f"
+    },
+    {
+      "file": "tests/stage1-component-admission.test.ts",
+      "sha256": "6878ca49eff426e0893d8930302bcf5b95c411a7d0a5a037a386eb59589b0ec7"
+    },
+    {
+      "file": "tests/stage1-component-release.test.ts",
+      "sha256": "e84267920bf01e532727aa0409df7ad98c665253fe9a8cdaf0ecdfadc17fcc77"
+    },
+    {
+      "file": "tests/stage1-component-pin.test.ts",
+      "sha256": "d06c7cc9ed5e7c7df77b64a988e71d5c7a857ddb667cf4d3291a4c398405a361"
+    },
+    {
+      "file": "tests/stage2-builder-authoring.test.ts",
+      "sha256": "c3d9b15c0986477dfccc63399ecc8e3221e08741449b16ca7ef2023d2a2314ce"
+    },
+    {
+      "file": "tests/stage3-protected-upload.test.ts",
+      "sha256": "636d3e4066fef3b3b2c2f1b465036c42d179459da216cef8e9cc3cbf0f531714"
+    },
+    {
+      "file": "tests/stage3-retained-presentation.test.ts",
+      "sha256": "8295c15e37c9817b665a8f58b767970ac26103ba83ffb0e3643f8df3ef88fd1e"
+    }
+  ],
+  "preparationSha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+  "changes": "Existing preparation; redirected disposable/evidence paths; excluded original Component .uib metadata. Tests copied byte-for-byte."
+}
