@@ -1,0 +1,54 @@
+
+ RUN  v4.1.11 C:/Projects/Modular/ui-platform/evidence/v1-stage4-isolation-20261105/asset-regression/disposable/bc91f4c8-4b5c-4e34-94d3-8e05a6dbef68/platform
+
+stdout | tests/stage3-protected-upload.test.ts > Stage 3: browser File reaches protected application transport
+10:54:31 AM [vite] (client) [optimizer] scanning dependencies...
+
+stderr | tests/stage3-protected-upload.test.ts > Stage 3: browser File reaches protected application transport
+Sourcemap for "C:/Projects/Modular/ui-platform/evidence/v1-stage4-isolation-20261105/asset-regression/disposable/bc91f4c8-4b5c-4e34-94d3-8e05a6dbef68/platform/node_modules/@ui-platform/dataset-operations/dist/declarative-expression.js" points to a source file outside its package: "C:/Projects/Modular/UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts"
+
+ ✓ tests/stage3-protected-upload.test.ts (1 test) 51590ms
+   ✓ Stage 3: browser File reaches protected application transport  51589ms
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+10:55:23 AM [vite] (client) [optimizer] scanning dependencies...
+
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+retained fixture ready
+
+stderr | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+Sourcemap for "C:/Projects/Modular/ui-platform/evidence/v1-stage4-isolation-20261105/asset-regression/disposable/bc91f4c8-4b5c-4e34-94d3-8e05a6dbef68/platform/node_modules/@ui-platform/dataset-operations/dist/declarative-expression.js" points to a source file outside its package: "C:/Projects/Modular/UI Platform Data Services/packages/dataset-operations/src/declarative-expression.ts"
+
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+retained initialized
+retained opening Assets
+
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+retained upload response 201
+
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+retained publish 1
+
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+retained opening Assets
+
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+retained upload response 201
+
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+retained publish 2
+
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+retained rollback
+
+stdout | tests/stage3-retained-presentation.test.ts > Stage 3: retained Presentation asset form preserves identity and version-owned bytes
+retained publish 3
+
+ ✓ tests/stage3-retained-presentation.test.ts (1 test) 22890ms
+   ✓ Stage 3: retained Presentation asset form preserves identity and version-owned bytes  22889ms
+
+ Test Files  2 passed (2)
+      Tests  2 passed (2)
+   Start at  10:54:17
+   Duration  75.47s (transform 187ms, setup 0ms, import 571ms, tests 74.48s, environment 0ms)
+
+JSON report written to C:/Projects/Modular/ui-platform/evidence/v1-stage4-isolation-20261105/asset-regression/results.json

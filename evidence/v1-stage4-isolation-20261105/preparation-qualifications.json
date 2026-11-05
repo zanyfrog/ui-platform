@@ -1,0 +1,28 @@
+{
+  "initialFocusedRun": {
+    "passed": 26,
+    "failed": 2,
+    "skipped": 1,
+    "collectionFailures": 1,
+    "causes": [
+      "Existing Playwright tooling not resolvable from copied UI-Base sibling",
+      "Existing relative Data Services imports not resolvable"
+    ],
+    "correction": "Disposable sibling links to existing tooling and Data Services; no installation or source edits",
+    "sharedSnapshotEqual": true,
+    "originalLockDirectoryEvents": []
+  },
+  "initialAssetRun": {
+    "passed": 1,
+    "failed": 1,
+    "cause": "Fresh target missing expected evidence/v1-stage3-20261104 output directory",
+    "correction": "Create empty output directory before tests; assertions unchanged",
+    "sharedSnapshotEqual": true,
+    "originalLockDirectoryEvents": []
+  },
+  "retention": "Raw duplicate preparation failures and disposable trees ignored; final JSON, logs, screenshots and package manifests retained",
+  "existingWarnings": [
+    "Data Services source-map location warning",
+    "One native legacy-junction test skips when Forms package is already physical"
+  ]
+}

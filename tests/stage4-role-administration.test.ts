@@ -1,5 +1,5 @@
 import { afterEach, expect, it } from 'vitest';
-import { mkdtemp, mkdir, readFile, rm, writeFile, cp, lstat } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, rm, writeFile, cp, lstat, realpath } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawn, execFileSync, type ChildProcess } from 'node:child_process';
@@ -19,6 +19,7 @@ import { generateForm, type ArtifactMetadata } from '@ui-platform/visual-artifac
 import { createBuilderDevelopmentHost } from '../src/server/builder-development-host.js';
 import { notificationPermission } from '../src/shared/automation-service-contract.js';
 import { AutomationStore } from '../src/server/automation-store.js';
+import { platformRoot } from '../src/server/paths.js';
 
 const cleanup: Array<() => Promise<void>> = [];
 afterEach(async () => { for (const close of cleanup.splice(0).reverse()) await close(); }, 60_000);
@@ -28,6 +29,19 @@ const dataPermissions = ['dataset.read', 'dataset.create', 'dataset.update', 'da
 const editorPermissions = ['ui.form.view', 'ui.form.edit', 'ui.package.admin', 'ui.package.view', 'ui.presentation.admin', 'ui.presentation.view', 'ui.presentation.edit', 'ui.artifact.view', 'ui.artifact.edit', 'ui.artifact.admin', 'ui.application.view', 'ui.application.edit', 'ui.page.view', 'ui.page.edit'];
 
 it('Stage 4: normal role administration and protected WP3 refusals', async () => {
+  // Disposable application stores do not isolate the source-derived graph.
+  // Require the physical-target runner before any setup or server launch.
+  const isolatedRoot = process.env.UI_PLATFORM_STAGE3_PHYSICAL_ROOT;
+  const originalRoot = process.env.UI_PLATFORM_TEST_ORIGINAL_ROOT;
+  if (!isolatedRoot || !originalRoot) throw new Error('Run node scripts/verify-stage4-isolation.mjs; an isolated platform is required.');
+  const actualRoot = await realpath(platformRoot);
+  expect(actualRoot).toBe(await realpath(isolatedRoot));
+  expect(actualRoot).toBe(await realpath(process.cwd()));
+  expect(actualRoot).not.toBe(await realpath(originalRoot));
+  for (const relative of ['components', 'src/server', 'packages/artifacts', 'node_modules/@ui-platform/artifacts']) {
+    const resolved = await realpath(path.join(actualRoot, relative));
+    expect(resolved.startsWith(actualRoot + path.sep)).toBe(true);
+  }
   const previousEnv = process.env.NODE_ENV; process.env.NODE_ENV = 'development';
   cleanup.push(async () => { if (previousEnv === undefined) delete process.env.NODE_ENV; else process.env.NODE_ENV = previousEnv; });
   const root = await mkdtemp(path.join(tmpdir(), 'builder-wp0-'));

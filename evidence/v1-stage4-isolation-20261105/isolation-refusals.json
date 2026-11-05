@@ -1,0 +1,18 @@
+[
+  {
+    "case": "missing-isolation",
+    "exitCode": 1,
+    "expectedRefusal": true,
+    "failure": [
+      "Error: Run node scripts/verify-stage4-isolation.mjs; an isolated platform is required.\n    at C:/Projects/Modular/ui-platform/evidence/v1-stage4-isolation-20261105/disposable/ec9a4d69-1414-4685-bc02-3b5f0cf7bddc/platform/tests/stage4-role-administration.test.ts:36:45\n    at file:///C:/Projects/Modular/ui-platform/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at file:///C:/Projects/Modular/ui-platform/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at file:///C:/Projects/Modular/ui-platform/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (file:///C:/Projects/Modular/ui-platform/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\n    at file:///C:/Projects/Modular/ui-platform/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20\n    at new Promise (<anonymous>)\n    at runWithTimeout (file:///C:/Projects/Modular/ui-platform/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)\n    at file:///C:/Projects/Modular/ui-platform/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64"
+    ]
+  },
+  {
+    "case": "original-root-request",
+    "exitCode": 1,
+    "expectedRefusal": true,
+    "failure": [
+      "AssertionError: expected 'C:\\Projects\\Modular\\ui-platform\\evide…' to be 'C:\\Projects\\Modular\\ui-platform' // Object.is equality\n    at C:/Projects/Modular/ui-platform/evidence/v1-stage4-isolation-20261105/disposable/ec9a4d69-1414-4685-bc02-3b5f0cf7bddc/platform/tests/stage4-role-administration.test.ts:38:22\n    at file:///C:/Projects/Modular/ui-platform/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20"
+    ]
+  }
+]
