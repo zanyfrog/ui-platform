@@ -1,0 +1,73 @@
+{
+  "id": "readback-diagnostic",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-timing-reliability-20261106\\readback-diagnostic\\security-only\\disposable\\e7164179-aa61-46e2-9f23-5b046b901c3e\\platform",
+  "instrumentation": "temporary tracing enabled",
+  "tests": {
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0
+  },
+  "iam": {
+    "passed": 63,
+    "failed": 0
+  },
+  "failures": [
+    {
+      "title": "Stage 5: actual Builder publication, protected three-process application and current I-AM workflow",
+      "messages": [
+        "Error: expected '' to contain 'Visible A'\n    at Proxy.__VITEST_POLL_CHAIN__ (file:///C:/Projects/Modular/ui-platform/node_modules/vitest/dist/chunks/test.DNmyFkvJ.js:3748:47)\n    at continueStage5Integration (C:/Projects/Modular/ui-platform/evidence/v1-stage5-timing-reliability-20261106/readback-diagnostic/security-only/disposable/e7164179-aa61-46e2-9f23-5b046b901c3e/platform/tests/fixtures/stage5-integration-journey.ts:159:115)\n    at C:/Projects/Modular/ui-platform/evidence/v1-stage5-timing-reliability-20261106/readback-diagnostic/security-only/disposable/e7164179-aa61-46e2-9f23-5b046b901c3e/platform/tests/stage5-integration.test.ts:187:3\n    at file:///C:/Projects/Modular/ui-platform/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20"
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "UI Platform/src/server/production/applied-integration.ts": "b310c69e6baa5add4dc5d4194174632fa94bf16dd39017719f039131a5a91f3d",
+    "UI Platform/src/server/production/boundary.ts": "28cefd7aecad408d8a9b0d27368cca5e2776dad0ce439906bc40e7bb36844f46",
+    "UI Platform/src/server/production/current-iam.ts": "3bb9f5708a5c8ece4cc065e1d792f3143f71b693fe285e3cc3703391f226c840",
+    "UI Platform/src/server/production/data-handler.ts": "79c74e81aa4f666697c3d72ce35a0f0165f6a995692d01a62df1c0c8804f540c",
+    "UI Platform/src/server/production/enrollment.ts": "450ecd5a1daa75537b2d4b3ecb6dd5eda4cb4b14ae20b7bf5d6017893a938ce5",
+    "UI Platform/src/server/production/identity-integration.ts": "0f0dc0afd94d643a1257f42ac9f947b36dbefe67ff854f369944d5d659f50b23",
+    "UI Platform/src/server/production/internal-trust.ts": "74d2938eeebe7e4717eaf21ac4e69f977a7d03f3a1f798729ba791b1faeb1b46",
+    "UI Platform/src/server/production/management-frontend.ts": "a6bb89054f5163d22e56eb016bd1a418062d9c81c4771b28885e4c057249cb5b",
+    "UI Platform/src/server/production/management.ts": "48e2f66cba82ee6f2bdb731d8dec2baf1b22cb13e3ee24ec8ea5a79dc1d211cd",
+    "UI Platform/src/server/production/mtls-management-transport.ts": "f8663881e366aaa60f4a0f1ebc6378cb5e063692b8f92a15cc62b1bc9608c3ad",
+    "UI Platform/src/server/production/mtls-transport.ts": "8c252d65f34c8bdf122f6095bedb5532e2923a36600533e7d14d4e3fa1589d5f",
+    "UI Platform/src/server/production/oidc.ts": "c2758c6ba63c619a0fb3cb1d2c82ab02d36125af2eea237c6b4572e385b2c25d",
+    "UI Platform/src/server/production/predicate-templates.ts": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+    "UI Platform/src/server/production/private-asset-owner.ts": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+    "UI Platform/src/server/production/private-assets.ts": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+    "UI Platform/src/server/production/publication-integration.ts": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+    "UI Platform/src/server/production/refusal-trace.ts": "2ce6b160f91adec4b692032d650ceb4ccee41cc867bb0d9dcca4e599170f570e",
+    "UI Platform/src/server/production/release-browser-build.ts": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+    "UI Platform/src/server/production/releases.ts": "dc3676727e5b281a800169e5e1c8ae93132df55225a39f9cb992ca8c210ceb57",
+    "UI Platform/src/server/production/runtime.ts": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+    "UI Platform/src/server/production/service-rpc.ts": "18a5e08c7cd08bed414d4b0387a4ee6068cc6b187c13b81cc1ea57345af55e51",
+    "UI Platform/src/server/production/sessions.ts": "74b5865ae98171b18c9e0a9ee013ea66c32bbf96f0edafc24230c216e32aef55",
+    "UI Platform/src/shared/released-runtime-services.ts": "263cf09d80c39652d81c1655e7c33cd5d4be9e4e6265df411bd60c7c60018e7e",
+    "UI Platform/src/server/role-administration.ts": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+    "UI Platform/tests/stage5-integration.test.ts": "a51d8dd4c2bb0cde8655a3332044eaecffeee9f41ab2a9fcb9a4d1c94e91bd26",
+    "UI Platform/tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": "4717a71c6c9cea86ed7547ee0d2529b2c40d1ea83a5bca2e198e517abebfe55f",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c465838bb1ee5a263c4a60205ff367d5a3ed1b4d85b30a267d4463eec963b9e1",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e"
+  },
+  "testInputs": [
+    {
+      "file": "tests/stage5-integration.test.ts",
+      "sha256": "a51d8dd4c2bb0cde8655a3332044eaecffeee9f41ab2a9fcb9a4d1c94e91bd26"
+    }
+  ],
+  "rawReportSha256": "69e7e2c758ea87331a989c0585d26b3653f0b20b87262dc716e7a3968d9bec0f",
+  "preservation": {
+    "exitCode": 1,
+    "graphDirectory": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-timing-reliability-20261106\\readback-diagnostic\\security-only\\disposable\\e7164179-aa61-46e2-9f23-5b046b901c3e\\platform\\components",
+    "originalGraphMetadataCopied": false,
+    "originalLockDirectoryEvents": [],
+    "sharedSnapshotEqual": true,
+    "finishedAt": "2026-11-06T14:35:39.457Z"
+  },
+  "formOutcomeText": "Write committed. Read-back or post-commit processing failed. Error: APPLICATION_DATA_REQUEST_DENIED"
+}

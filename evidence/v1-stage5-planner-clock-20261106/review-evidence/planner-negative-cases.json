@@ -1,0 +1,1069 @@
+{
+  "cases": [
+    {
+      "kind": "unchanged",
+      "rejected": false,
+      "firstPredicate": null,
+      "observed": [
+        {
+          "phase": "allow",
+          "decisionId": "a94d7ae6-924f-4629-acd9-8db5397393f9",
+          "checked": 14
+        }
+      ]
+    },
+    {
+      "kind": "wrong-capability",
+      "rejected": true,
+      "firstPredicate": "capability.same",
+      "observed": [
+        {
+          "phase": "initial-reject",
+          "decisionId": "d53ec964-52c5-484b-863d-d1ca0dec649e",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": false,
+              "expected": true,
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "unissued-copy",
+      "rejected": true,
+      "firstPredicate": "issued.checksum",
+      "observed": [
+        {
+          "phase": "initial-reject",
+          "decisionId": "1c2c9da3-489e-4ab2-bf79-592c55dfcc8d",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "expected": "sha256:f550e6d6c9e8358d76c9b658cb20acd9881842ba049889d9784fab441c5d51a3",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "mutated-evidence",
+      "rejected": true,
+      "firstPredicate": "issued.checksum",
+      "observed": [
+        {
+          "phase": "initial-reject",
+          "decisionId": "3a14f56a-88e4-478d-8f7b-6a360bfdbf6b",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:e07c6cbeda1f9d542b6ce1c5963e103b8bf0b5190e8a144c583d2dec278b9680",
+              "expected": "sha256:069f86c39af625cdbdc41efa97409b6cc087665918b042478a2fd9ef0e317e4c",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "exact-expiry",
+      "rejected": true,
+      "firstPredicate": "issued.expiry",
+      "observed": [
+        {
+          "phase": "initial-reject",
+          "decisionId": "7b59d379-e113-4829-9f6c-4f3b4eca531f",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:bc7f98b0755e97b52ec62cc867364bfad177b7ce4ce1be6e8e5120f7f7da1130",
+              "expected": "sha256:bc7f98b0755e97b52ec62cc867364bfad177b7ce4ce1be6e8e5120f7f7da1130",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272001000,
+              "expiresMs": 1780272001000,
+              "ageMs": 1000,
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "policy",
+      "rejected": true,
+      "firstPredicate": "current.policyRevision",
+      "observed": [
+        {
+          "phase": "current-reject",
+          "decisionId": "93b803b4-f3ea-4018-a538-9d6aec6ec9e5",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:ba0c4f3ddfb3099ef125d1628dc29911b821e30afb230b81dd810240026159fe",
+              "expected": "sha256:ba0c4f3ddfb3099ef125d1628dc29911b821e30afb230b81dd810240026159fe",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272000000,
+              "expiresMs": 1780272001000,
+              "ageMs": 0,
+              "failed": false
+            },
+            {
+              "name": "current.requestDigest",
+              "actual": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "expected": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "failed": false
+            },
+            {
+              "name": "current.effect",
+              "actual": "allow",
+              "expected": "allow",
+              "failed": false
+            },
+            {
+              "name": "current.conditional",
+              "actual": false,
+              "expected": false,
+              "failed": false
+            },
+            {
+              "name": "current.policyRevision",
+              "actual": "2",
+              "expected": "1",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "currentStamp": {
+            "authorityId": "resources",
+            "policyRevision": "2",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "issuedEffect": "allow",
+          "currentEffect": "allow",
+          "issuedReason": "ALLOW",
+          "currentReason": "ALLOW",
+          "issuedConditional": false,
+          "currentConditional": false
+        }
+      ]
+    },
+    {
+      "kind": "principal",
+      "rejected": true,
+      "firstPredicate": "current.principalRevision",
+      "observed": [
+        {
+          "phase": "current-reject",
+          "decisionId": "04ad73c8-5338-4dd3-be55-68f53f7e3d7a",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:4bcf24e1d84e9b5c4d7907309d6a95bb3a7259f2df52139547338df7eb0c4c5d",
+              "expected": "sha256:4bcf24e1d84e9b5c4d7907309d6a95bb3a7259f2df52139547338df7eb0c4c5d",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272000000,
+              "expiresMs": 1780272001000,
+              "ageMs": 0,
+              "failed": false
+            },
+            {
+              "name": "current.requestDigest",
+              "actual": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "expected": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "failed": false
+            },
+            {
+              "name": "current.effect",
+              "actual": "allow",
+              "expected": "allow",
+              "failed": false
+            },
+            {
+              "name": "current.conditional",
+              "actual": false,
+              "expected": false,
+              "failed": false
+            },
+            {
+              "name": "current.policyRevision",
+              "actual": "1",
+              "expected": "1",
+              "failed": false
+            },
+            {
+              "name": "current.principalRevision",
+              "actual": "p2",
+              "expected": "p1",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "currentStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p2",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "issuedEffect": "allow",
+          "currentEffect": "allow",
+          "issuedReason": "ALLOW",
+          "currentReason": "ALLOW",
+          "issuedConditional": false,
+          "currentConditional": false
+        }
+      ]
+    },
+    {
+      "kind": "session",
+      "rejected": true,
+      "firstPredicate": "current.sessionRevision",
+      "observed": [
+        {
+          "phase": "current-reject",
+          "decisionId": "d911f003-fc89-469b-87b0-6574e73e1870",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:d8386fb9d8a7925a451852a944a2eb1092c760a5fb09fa5b604c5e26a0b78fc7",
+              "expected": "sha256:d8386fb9d8a7925a451852a944a2eb1092c760a5fb09fa5b604c5e26a0b78fc7",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272000000,
+              "expiresMs": 1780272001000,
+              "ageMs": 0,
+              "failed": false
+            },
+            {
+              "name": "current.requestDigest",
+              "actual": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "expected": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "failed": false
+            },
+            {
+              "name": "current.effect",
+              "actual": "allow",
+              "expected": "allow",
+              "failed": false
+            },
+            {
+              "name": "current.conditional",
+              "actual": false,
+              "expected": false,
+              "failed": false
+            },
+            {
+              "name": "current.policyRevision",
+              "actual": "1",
+              "expected": "1",
+              "failed": false
+            },
+            {
+              "name": "current.principalRevision",
+              "actual": "p1",
+              "expected": "p1",
+              "failed": false
+            },
+            {
+              "name": "current.sessionRevision",
+              "actual": "sha256:39c6f8839ca547fa7b7a32c4bb5d59e1f86b4c07528c17ed39b2a666143fff35",
+              "expected": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "currentStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:39c6f8839ca547fa7b7a32c4bb5d59e1f86b4c07528c17ed39b2a666143fff35",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "issuedEffect": "allow",
+          "currentEffect": "allow",
+          "issuedReason": "ALLOW",
+          "currentReason": "ALLOW",
+          "issuedConditional": false,
+          "currentConditional": false
+        }
+      ]
+    },
+    {
+      "kind": "resource",
+      "rejected": true,
+      "firstPredicate": "current.resourceRevision",
+      "observed": [
+        {
+          "phase": "current-reject",
+          "decisionId": "b623ad54-2b8a-440f-9bfc-f302a5ecc9a2",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:09fc7efa186b50525260c453db81fc6bf6b9c7c9541b85ee04894e8511cc323c",
+              "expected": "sha256:09fc7efa186b50525260c453db81fc6bf6b9c7c9541b85ee04894e8511cc323c",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272000000,
+              "expiresMs": 1780272001000,
+              "ageMs": 0,
+              "failed": false
+            },
+            {
+              "name": "current.requestDigest",
+              "actual": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "expected": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "failed": false
+            },
+            {
+              "name": "current.effect",
+              "actual": "allow",
+              "expected": "allow",
+              "failed": false
+            },
+            {
+              "name": "current.conditional",
+              "actual": false,
+              "expected": false,
+              "failed": false
+            },
+            {
+              "name": "current.policyRevision",
+              "actual": "1",
+              "expected": "1",
+              "failed": false
+            },
+            {
+              "name": "current.principalRevision",
+              "actual": "p1",
+              "expected": "p1",
+              "failed": false
+            },
+            {
+              "name": "current.sessionRevision",
+              "actual": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+              "expected": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+              "failed": false
+            },
+            {
+              "name": "current.resourceRevision",
+              "actual": "r2",
+              "expected": "r1",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "currentStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r2",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "issuedEffect": "allow",
+          "currentEffect": "allow",
+          "issuedReason": "ALLOW",
+          "currentReason": "ALLOW",
+          "issuedConditional": false,
+          "currentConditional": false
+        }
+      ]
+    },
+    {
+      "kind": "fact",
+      "rejected": true,
+      "firstPredicate": "current.factRevision",
+      "observed": [
+        {
+          "phase": "current-reject",
+          "decisionId": "9c619f00-2e96-40e9-af89-9d0d1b9b51b8",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:f1e35106765f282139c987e49e1de10363853acd62222d2f153770cadcf99b53",
+              "expected": "sha256:f1e35106765f282139c987e49e1de10363853acd62222d2f153770cadcf99b53",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272000000,
+              "expiresMs": 1780272001000,
+              "ageMs": 0,
+              "failed": false
+            },
+            {
+              "name": "current.requestDigest",
+              "actual": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "expected": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "failed": false
+            },
+            {
+              "name": "current.effect",
+              "actual": "allow",
+              "expected": "allow",
+              "failed": false
+            },
+            {
+              "name": "current.conditional",
+              "actual": false,
+              "expected": false,
+              "failed": false
+            },
+            {
+              "name": "current.policyRevision",
+              "actual": "1",
+              "expected": "1",
+              "failed": false
+            },
+            {
+              "name": "current.principalRevision",
+              "actual": "p1",
+              "expected": "p1",
+              "failed": false
+            },
+            {
+              "name": "current.sessionRevision",
+              "actual": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+              "expected": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+              "failed": false
+            },
+            {
+              "name": "current.resourceRevision",
+              "actual": "r1",
+              "expected": "r1",
+              "failed": false
+            },
+            {
+              "name": "current.factRevision",
+              "actual": "f2",
+              "expected": "f1",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "currentStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f2",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "issuedEffect": "allow",
+          "currentEffect": "allow",
+          "issuedReason": "ALLOW",
+          "currentReason": "ALLOW",
+          "issuedConditional": false,
+          "currentConditional": false
+        }
+      ]
+    },
+    {
+      "kind": "request",
+      "rejected": true,
+      "firstPredicate": "current.requestDigest",
+      "observed": [
+        {
+          "phase": "current-reject",
+          "decisionId": "bac6a962-02f1-40c4-b3d6-315f4be8124a",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:ce852032a9aebda42c6645326032002c3f3cb6808f5995c6b7cc666d68264dc8",
+              "expected": "sha256:ce852032a9aebda42c6645326032002c3f3cb6808f5995c6b7cc666d68264dc8",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272000000,
+              "expiresMs": 1780272001000,
+              "ageMs": 0,
+              "failed": false
+            },
+            {
+              "name": "current.requestDigest",
+              "actual": "sha256:f22d4dcf15120f3ddac79598cd6c6dd4f6461d28506f1de1f849d6a201b6c7ad",
+              "expected": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "currentStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "issuedEffect": "allow",
+          "currentEffect": "allow",
+          "issuedReason": "ALLOW",
+          "currentReason": "ALLOW",
+          "issuedConditional": false,
+          "currentConditional": false
+        }
+      ]
+    },
+    {
+      "kind": "revoked-role",
+      "rejected": true,
+      "firstPredicate": "current.effect",
+      "observed": [
+        {
+          "phase": "current-reject",
+          "decisionId": "62be8cdd-ddb9-4870-ac48-7929c67d511c",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:467fc55f7c8e6dfc0f131d33beda338b7d64a3e1112d733e7405140a567d5707",
+              "expected": "sha256:467fc55f7c8e6dfc0f131d33beda338b7d64a3e1112d733e7405140a567d5707",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272000000,
+              "expiresMs": 1780272001000,
+              "ageMs": 0,
+              "failed": false
+            },
+            {
+              "name": "current.requestDigest",
+              "actual": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "expected": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "failed": false
+            },
+            {
+              "name": "current.effect",
+              "actual": "deny",
+              "expected": "allow",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "currentStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "issuedEffect": "allow",
+          "currentEffect": "deny",
+          "issuedReason": "ALLOW",
+          "currentReason": "NO_APPLICABLE_ALLOW",
+          "issuedConditional": false,
+          "currentConditional": false
+        }
+      ]
+    },
+    {
+      "kind": "cells",
+      "rejected": true,
+      "firstPredicate": "current.evaluatedCells",
+      "observed": [
+        {
+          "phase": "current-reject",
+          "decisionId": "a9ec410a-954c-44b2-8cff-59f4f563475f",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:21e678ca4ab605e7b977a3bfd27cea85cc179031ed74a5aef0dbe23420906d45",
+              "expected": "sha256:21e678ca4ab605e7b977a3bfd27cea85cc179031ed74a5aef0dbe23420906d45",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272000000,
+              "expiresMs": 1780272001000,
+              "ageMs": 0,
+              "failed": false
+            },
+            {
+              "name": "current.requestDigest",
+              "actual": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "expected": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "failed": false
+            },
+            {
+              "name": "current.effect",
+              "actual": "allow",
+              "expected": "allow",
+              "failed": false
+            },
+            {
+              "name": "current.conditional",
+              "actual": false,
+              "expected": false,
+              "failed": false
+            },
+            {
+              "name": "current.policyRevision",
+              "actual": "1",
+              "expected": "1",
+              "failed": false
+            },
+            {
+              "name": "current.principalRevision",
+              "actual": "p1",
+              "expected": "p1",
+              "failed": false
+            },
+            {
+              "name": "current.sessionRevision",
+              "actual": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+              "expected": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+              "failed": false
+            },
+            {
+              "name": "current.resourceRevision",
+              "actual": "r1",
+              "expected": "r1",
+              "failed": false
+            },
+            {
+              "name": "current.factRevision",
+              "actual": "f1",
+              "expected": "f1",
+              "failed": false
+            },
+            {
+              "name": "current.evaluatedCells",
+              "actual": "sha256:01a26b0ba534aa8675a3a7227562a90e9077522642592d72c5630b14eaa0b4ce",
+              "expected": "sha256:3d5ca7c6661f4c5a70c675af673aa989fb30d639d4005bb3fdd86626967ec8f3",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "currentStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "issuedEffect": "allow",
+          "currentEffect": "allow",
+          "issuedReason": "ALLOW",
+          "currentReason": "ALLOW",
+          "issuedConditional": false,
+          "currentConditional": false
+        }
+      ]
+    },
+    {
+      "kind": "provenance",
+      "rejected": true,
+      "firstPredicate": "current.provenance",
+      "observed": [
+        {
+          "phase": "current-reject",
+          "decisionId": "49f41956-cc43-4dca-abda-f5efe64ac334",
+          "checks": [
+            {
+              "name": "capability.configured",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "capability.same",
+              "actual": true,
+              "expected": true,
+              "failed": false
+            },
+            {
+              "name": "issued.checksum",
+              "actual": "sha256:8196e9d3167ec799634647376837d02e8520197f041b2a7afd3637052e3a10e8",
+              "expected": "sha256:8196e9d3167ec799634647376837d02e8520197f041b2a7afd3637052e3a10e8",
+              "failed": false
+            },
+            {
+              "name": "issued.expiry",
+              "nowMs": 1780272000000,
+              "expiresMs": 1780272001000,
+              "ageMs": 0,
+              "failed": false
+            },
+            {
+              "name": "current.requestDigest",
+              "actual": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "expected": "sha256:6487ce0fac2813a12470ba7a51912d265b86be467a4948a96080322c9d669eb1",
+              "failed": false
+            },
+            {
+              "name": "current.effect",
+              "actual": "allow",
+              "expected": "allow",
+              "failed": false
+            },
+            {
+              "name": "current.conditional",
+              "actual": false,
+              "expected": false,
+              "failed": false
+            },
+            {
+              "name": "current.policyRevision",
+              "actual": "1",
+              "expected": "1",
+              "failed": false
+            },
+            {
+              "name": "current.principalRevision",
+              "actual": "p1",
+              "expected": "p1",
+              "failed": false
+            },
+            {
+              "name": "current.sessionRevision",
+              "actual": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+              "expected": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+              "failed": false
+            },
+            {
+              "name": "current.resourceRevision",
+              "actual": "r1",
+              "expected": "r1",
+              "failed": false
+            },
+            {
+              "name": "current.factRevision",
+              "actual": "f1",
+              "expected": "f1",
+              "failed": false
+            },
+            {
+              "name": "current.evaluatedCells",
+              "actual": "sha256:3d5ca7c6661f4c5a70c675af673aa989fb30d639d4005bb3fdd86626967ec8f3",
+              "expected": "sha256:3d5ca7c6661f4c5a70c675af673aa989fb30d639d4005bb3fdd86626967ec8f3",
+              "failed": false
+            },
+            {
+              "name": "current.provenance",
+              "actual": "sha256:0fb7f265a6ac5b9e7d2ab070946c266ea8f94315bd844a1f26ac4b57e00d695f",
+              "expected": "sha256:7d305187b914224d2ff534864743408be8d648091102099f769b46a49ccaf7a9",
+              "failed": true
+            }
+          ],
+          "issuedStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "currentStamp": {
+            "authorityId": "resources",
+            "policyRevision": "1",
+            "principalRevision": "p1",
+            "sessionRevision": "sha256:0fc34686741291b4dd06511bc37285bdcb15788aaef075efce68417ceb6b6d2a",
+            "resourceRevision": "r1",
+            "factRevision": "f1",
+            "evaluatedAt": "2026-06-01T00:00:00.000Z",
+            "expiresAt": "2026-06-01T00:00:01.000Z"
+          },
+          "issuedEffect": "allow",
+          "currentEffect": "allow",
+          "issuedReason": "ALLOW",
+          "currentReason": "ALLOW",
+          "issuedConditional": false,
+          "currentConditional": false
+        }
+      ]
+    }
+  ],
+  "scope": "Controlled in-memory harness mutations, not real policy writes; no original source or budgets changed"
+}

@@ -1,0 +1,46 @@
+{
+  "status": "STOPPED: exact WP3 contract extension requires separate approval",
+  "physicalTarget": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-integration-20261105\\security-only\\disposable\\6688ed21-e918-4d89-bdae-6ee2c518840d\\platform",
+  "probeInputSha256": "1cada01e98c874ee1a0d1a161834ae53c4801f713c89663fa90fd576e1d19fd7",
+  "probe": {
+    "purpose": "Structural probe of actual WP3 graph contract; not approval or an integration pass",
+    "syntheticLocatorsOnly": true,
+    "exactPredicateCallbackArguments": [
+      "templateIds",
+      "predicate"
+    ],
+    "denyRuleAcceptedByProbe": true,
+    "allowRuleWithSamePredicateAlsoAcceptedByProbe": true,
+    "boundaryIdentityNotPassed": true,
+    "unknownTemplateRefusedByProbe": true,
+    "wrongFieldRefusedByProbe": true,
+    "acceptedDevelopmentAdapterStillRefuses": true,
+    "productionAdapterImplemented": false,
+    "workflowResumed": false,
+    "requiredReview": "Full-rule and boundary context plus transaction-bound template delegation validation"
+  },
+  "sourceInspection": {
+    "../UI Platform Data Services/packages/i-am/src/wp3/types.ts": "5c6e948a8e788d21529c84aee899bd70fb60d1c0642323c1648b7a4170bf2e31",
+    "../UI Platform Data Services/packages/i-am/src/wp3/graph.ts": "606fe0689a04d69af206fb92e916ec92180ed19e8b2e20e080a1a5bb6433b6be",
+    "../UI Platform Data Services/packages/i-am/src/wp3/service.ts": "c17062eed1550b6f41368dc9af074c6d3a53536176c7b3dd0311200d71253227"
+  },
+  "delegationObservation": "Source inspection only: checkChange constructs synthetic allow rules for grant-boundary permissions without predicateTemplateIds; no new live delegation exploit test claimed",
+  "preservation": {
+    "componentFiles": 23,
+    "packageFiles": 234,
+    "unchangedRepositories": {
+      "../UI Platform Data Services": "81b769eef3763d02343f5347888c26edab6ef7bc",
+      "../ui-base": "732eec58ca3d4bd2521197b9d3b6c0457dbc6608"
+    },
+    "historicalLockAccess": "No historical lock read/acquire/recovery/recreation/mutation in this continuation"
+  },
+  "productionAdapterImplemented": false,
+  "workflowResumed": false,
+  "priorRegressionResultsUnchanged": {
+    "passed": 42,
+    "failed": 1,
+    "skipped": 1
+  },
+  "committed": false,
+  "pushed": false
+}

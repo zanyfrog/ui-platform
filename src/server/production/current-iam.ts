@@ -5,7 +5,9 @@ import type { IdentityDirectory } from './enrollment.js';
 import { deny } from './boundary.js';
 
 /** Existing I-AM owns all permission decisions. The host supplies only opaque authenticated contexts. */
-export function currentIam(policy: PolicyAuthority, resources: ResourceAuthority, directory: IdentityDirectory, activeSession: (actor: InternalActor) => Promise<boolean>) {
+export function currentIam(policy: PolicyAuthority, resources: ResourceAuthority, directory: IdentityDirectory, activeSession: (actor: InternalActor) => Promise<boolean>, options:{freshnessMs?:number}={}) {
+  const freshnessMs=options.freshnessMs??1000;
+  if(!Number.isSafeInteger(freshnessMs)||freshnessMs<1000||freshnessMs>15_000)deny();
   const handles = new WeakMap<object, InternalActor>(), requests = new WeakSet<AccessRequest>();
   const verify = async (context: unknown) => {
     const actor = context && typeof context === 'object' ? handles.get(context) : undefined;
@@ -17,7 +19,9 @@ export function currentIam(policy: PolicyAuthority, resources: ResourceAuthority
     async assertRequest(request: AccessRequest) { if (!requests.has(request)) deny(); await verify(request.context); } };
   const plannerCapability = {};
   const evaluator = new SecurityAuthorizationEvaluator({ policy, resources, identity, plannerCapability,
-    facts: { async revision() { return 'no-runtime-facts'; }, async resolve() { return { present: false as const }; } }, freshnessMs: 1000 });
+    // Host time budget between checks, not an authority cache: assertCurrent and
+    // assertPlannerCurrent still re-evaluate current policy, identity and session.
+    facts: { async revision() { return 'no-runtime-facts'; }, async resolve() { return { present: false as const }; } }, freshnessMs });
   const administrationIdentity = {
     async verify(context: unknown) { const verified = await verify(context); return { actorId: verified.principal.id, principalRevision: verified.principalRevision, sessionRevision: verified.sessionRevision }; },
     attestDecisionRequest(context: unknown, resource: SecurityResourceRef, permissionId: string, operationId: string): AccessRequest {

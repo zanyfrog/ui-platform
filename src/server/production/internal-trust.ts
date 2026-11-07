@@ -4,7 +4,7 @@ import { SignJWT, jwtVerify, type CryptoKey } from 'jose';
 import type { Enrollment, IdentityDirectory } from './enrollment.js';
 import { deny, digest, random } from './boundary.js';
 
-export interface InternalActor { enrollment: Enrollment; sessionId: string; releaseId: string }
+export interface InternalActor { enrollment: Enrollment; sessionId: string; releaseId: string; sessionEpoch?: number }
 export interface InternalService { issuer: string; keyId: string; publicKey: CryptoKey; certificateFingerprint: string; applications: string[] }
 export class InternalSigner {
   constructor(private readonly issuer: string, private readonly keyId: string, private readonly key: CryptoKey, private readonly audience: string) {}

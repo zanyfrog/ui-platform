@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-11-06T17:07:32.523Z",
+  "query": "System / Microsoft-Windows-Kernel-General / event 1 / last four hours; only clock values and numeric reason retained",
+  "initialRestrictedRead": "OS authorization error; no configuration change",
+  "readOnlyExpandedContext": "Succeeded",
+  "events": [
+    {
+      "recordedAt": "2026-11-06T15:05:44.8505996Z",
+      "oldTime": "2026-11-06T15:05:46.5239994Z",
+      "newTime": "2026-11-06T15:05:44.8501193Z",
+      "deltaMs": -1673.8801,
+      "reason": "1"
+    },
+    {
+      "recordedAt": "2026-11-06T15:05:44.8514762Z",
+      "oldTime": "2026-11-06T15:05:44.8501193Z",
+      "newTime": "2026-11-06T15:05:44.8512573Z",
+      "deltaMs": 1.138,
+      "reason": "1"
+    },
+    {
+      "recordedAt": "2026-11-06T15:05:44.8519699Z",
+      "oldTime": "2026-11-06T15:05:44.8512573Z",
+      "newTime": "2026-11-06T15:05:44.8517770Z",
+      "deltaMs": 0.5197,
+      "reason": "1"
+    }
+  ],
+  "qualification": "Earlier host wall-clock adjustments are recorded. They do not establish the cause of later 1–7ms per-process ordering differences; no NTP/provider cause inferred."
+}

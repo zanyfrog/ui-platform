@@ -1,0 +1,52 @@
+{
+  "components": 23,
+  "packages": 234,
+  "priorEntriesVerified": 297,
+  "allowedChanges": [
+    "src/server/production/applied-integration.ts",
+    "tests/fixtures/stage5-integration-process.ts"
+  ],
+  "acceptedRpcCorrectionUnchanged": true,
+  "dataServicesIncrementUnchanged": true,
+  "uiBaseClean": true,
+  "temporaryInstrumentationRemoved": true,
+  "manifests": {
+    "UI Platform/package.json": "5d672f62672a6c067e4e98e6f71bcdb7190256cd4eddb64b66d43801470d5d45",
+    "UI Platform/package-lock.json": "60987d70d179578958ce226f81544d205b2c7ed7f620ba66a6705457c82acda6",
+    "UI Platform/src/server/production/package.json": "5d1ea0cc865ad948ffedfa90ce044d702cdd32f4de776c2c72c58464520d06b0",
+    "UI Platform/src/server/production/package-lock.json": "75a66f1dd34f5d7eca22ee93a90f0f6d6a63de04e8aeecc5f3527db866690911",
+    "Data Services/package.json": "e505f40299f729a0d7e13346ef9049707ffc22d4330fc928526f14e73038aff0",
+    "Data Services/package-lock.json": "e1e47a4081b6386392223ae4a1543b72c9e3eee53ff1033ac310a887ffb516ad",
+    "Data Services/packages/i-am/package.json": "ca3e0a9f59d4eec55662971a54d1bf856abb91c78ba7ffedb80b78ec907e21bb"
+  },
+  "securityPackages": [
+    {
+      "name": "jose",
+      "version": "6.2.15",
+      "integrity": "sha512-qdF6ewcZARtef63fJ9AKKZPgxw+t7USH6HLXYcD4CrdmSvDp79rpJSPFEKc90QBeGS63u1KQtN2MZQHC0yDIzA==",
+      "installLifecycleScripts": false
+    },
+    {
+      "name": "oauth4webapi",
+      "version": "3.8.8",
+      "integrity": "sha512-8N28E+a/oxfXWBgOMt+ZP/JUf/XR+IFbvkAEPP3gznXOMv9BpAAwiIj0TFNz3tGTPc0ZQ8zmWBNgN1nAys0gng==",
+      "installLifecycleScripts": false
+    },
+    {
+      "name": "openid-client",
+      "version": "6.8.9",
+      "integrity": "sha512-6mXMRNJxDOf6BflEWLXul1UwzLFz++9Ofz1PYwPwwsJsyXBsbfkO+Jo255SW1qnFNLYz4EJWHz42X4OJJrya/g==",
+      "installLifecycleScripts": false
+    }
+  ],
+  "ownerSdk": {
+    "src/resource-registry.ts": "c967fb0ceada5ae11f4f61c6ad17a0e01dfb8a8f42b7bf593ed97523ad4eef6a",
+    "src/resolver.ts": "dc1f94248ccb998951635579ffb3e4cbc5a2c37c2d5e13ba7b76e7211cb05a37",
+    "dist/resource-registry.js": "4a5ce487b315d2bc80d3e86e4c6aefb5b272b9fd20279e9ce9460e3c760906a5",
+    "dist/resolver.js": "bfa4acd3a0cd567e190b57da6ccf6b012524897241a8523933dc6c550e73ca06"
+  },
+  "noStaging": true,
+  "noCommit": true,
+  "noPush": true,
+  "originalGraph": "Existing directory-only preservation guard retained; no historical lock-body access or operation"
+}

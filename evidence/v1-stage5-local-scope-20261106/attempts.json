@@ -1,0 +1,186 @@
+{
+  "status": "Local Windows review; integration BLOCKED by actual local failures; production qualifications are future-only",
+  "attempts": [
+    {
+      "id": "wp3-review-before",
+      "iam": {
+        "passed": 151,
+        "failed": 1,
+        "success": false
+      },
+      "tests": null,
+      "browserStarted": false,
+      "codeInputs": {
+        "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+        "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+        "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+        "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "de8d4c33fd3f4c30676fdbc8c12780f600a9bdddd4ce8f117a70241440048391",
+        "UI Platform/scripts/verify-stage5-local-scope.mjs": "4645a1fe2ea1a393b2d2c8f996f24cb8e1cf297e8896fe9a60fdb0be26d55d52",
+        "UI Platform/scripts/stage5-wp3-review-regressions.ts": "33a97074ad870f942b7d9ce3cba2655e7cdd1425c7f3a49ffd85b13640fb7546",
+        "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e"
+      }
+    },
+    {
+      "id": "planner-write-probes",
+      "iam": {
+        "passed": 151,
+        "failed": 0,
+        "success": true
+      },
+      "tests": {
+        "passed": 0,
+        "failed": 1,
+        "success": false
+      },
+      "browserStarted": true,
+      "codeInputs": {
+        "tests/stage5-integration.test.ts": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d",
+        "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+        "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+        "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+        "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e",
+        "UI Platform/scripts/verify-stage5-local-scope.mjs": "4645a1fe2ea1a393b2d2c8f996f24cb8e1cf297e8896fe9a60fdb0be26d55d52",
+        "UI Platform/scripts/stage5-wp3-review-regressions.ts": "33a97074ad870f942b7d9ce3cba2655e7cdd1425c7f3a49ffd85b13640fb7546",
+        "UI Platform/tests/fixtures/stage5-integration-journey.ts": "efc46eeb1bf35df6f269aae549e7a3c72cc47ba276e5a028f10d8219a9dabdc5"
+      },
+      "refusals": [
+        {
+          "id": "3a03d842-207c-4d22-9125-926d964024d5",
+          "pid": 38640,
+          "wall": 1794005091992,
+          "mono": 1840.281,
+          "stage": "jwt:reject",
+          "iat": 1794005092,
+          "exp": 1794005107,
+          "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+          "claim": "iat",
+          "reason": "check_failed"
+        },
+        {
+          "id": "f2fac420-6a2c-41ce-8c09-9a5b07068880",
+          "pid": 38640,
+          "wall": 1794005092993,
+          "mono": 2841.1984,
+          "stage": "jwt:reject",
+          "iat": 1794005093,
+          "exp": 1794005108,
+          "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+          "claim": "iat",
+          "reason": "check_failed"
+        },
+        {
+          "id": "dd5c84bc-6b08-4272-be3e-ec7467e51fd1",
+          "pid": 38640,
+          "wall": 1794005097998,
+          "mono": 7845.9394,
+          "stage": "jwt:reject",
+          "iat": 1794005098,
+          "exp": 1794005113,
+          "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+          "claim": "iat",
+          "reason": "check_failed"
+        }
+      ]
+    },
+    {
+      "id": "wp3-review-after",
+      "iam": {
+        "passed": 154,
+        "failed": 0,
+        "success": true
+      },
+      "tests": {
+        "passed": 13,
+        "failed": 0,
+        "success": true
+      },
+      "browserStarted": true,
+      "codeInputs": {
+        "tests/stage5-security.test.ts": "4cee40b9094ef29227bc42dd9bf4d19f310723e92977c7e58c64337a7125c30b",
+        "tests/stage5-rpc-boundary.test.ts": "e6e09cd916dd683bf5e543033cd80e6406ddea2fc88c335525c085c6bb4cca48",
+        "tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+        "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+        "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+        "Data Services/packages/i-am/src/wp3/service.ts": "7099dd392621767e9af321cda8da892bda7020c6ed0a7aa92cf16dbbabe074a9",
+        "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "7bc9330233b0de611f20747ba3d3925c5e62f54a3a1a64a19e444a1634dbdd0e",
+        "UI Platform/scripts/verify-stage5-local-scope.mjs": "4645a1fe2ea1a393b2d2c8f996f24cb8e1cf297e8896fe9a60fdb0be26d55d52",
+        "UI Platform/scripts/stage5-wp3-review-regressions.ts": "33a97074ad870f942b7d9ce3cba2655e7cdd1425c7f3a49ffd85b13640fb7546",
+        "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e"
+      }
+    },
+    {
+      "id": "wp3-review-final",
+      "iam": {
+        "passed": 157,
+        "failed": 0,
+        "success": true
+      },
+      "tests": {
+        "passed": 13,
+        "failed": 0,
+        "success": true
+      },
+      "browserStarted": true,
+      "codeInputs": {
+        "tests/stage5-security.test.ts": "4cee40b9094ef29227bc42dd9bf4d19f310723e92977c7e58c64337a7125c30b",
+        "tests/stage5-rpc-boundary.test.ts": "e6e09cd916dd683bf5e543033cd80e6406ddea2fc88c335525c085c6bb4cca48",
+        "tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+        "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+        "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+        "Data Services/packages/i-am/src/wp3/service.ts": "7099dd392621767e9af321cda8da892bda7020c6ed0a7aa92cf16dbbabe074a9",
+        "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "6ce930b83e24d4587118acbde558d84537e50c61bbd359818ea1e8accfef2ef5",
+        "UI Platform/scripts/verify-stage5-local-scope.mjs": "4645a1fe2ea1a393b2d2c8f996f24cb8e1cf297e8896fe9a60fdb0be26d55d52",
+        "UI Platform/scripts/stage5-wp3-review-regressions.ts": "33a97074ad870f942b7d9ce3cba2655e7cdd1425c7f3a49ffd85b13640fb7546",
+        "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e"
+      }
+    },
+    {
+      "id": "local-clock-source",
+      "iam": {
+        "passed": 156,
+        "failed": 0,
+        "success": true
+      },
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "success": true
+      },
+      "browserStarted": true,
+      "codeInputs": {
+        "tests/stage5-local-clock-source.test.ts": "31d16a4af1137eca68f14271ad8ae20bc51f4e7a2d5cf5ef3fb694104dbb83d9",
+        "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+        "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+        "Data Services/packages/i-am/src/wp3/service.ts": "7099dd392621767e9af321cda8da892bda7020c6ed0a7aa92cf16dbbabe074a9",
+        "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "af20b640ef0cb7160bbbea03fdf7271654bd463c21a9a6ff08f146fa2588cc83",
+        "UI Platform/scripts/verify-stage5-local-scope.mjs": "9966ca4b81661cb5d3d60af3c71bea5ecd18d51c3b182b29f455b62e7085f98c",
+        "UI Platform/scripts/stage5-wp3-review-regressions.ts": "33a97074ad870f942b7d9ce3cba2655e7cdd1425c7f3a49ffd85b13640fb7546",
+        "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e"
+      }
+    },
+    {
+      "id": "local-clock-source-bidirectional",
+      "iam": {
+        "passed": 156,
+        "failed": 0,
+        "success": true
+      },
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "success": true
+      },
+      "browserStarted": true,
+      "codeInputs": {
+        "tests/stage5-local-clock-source.test.ts": "02623ea88ebd04083a519edfdb35ee68f70c75d8db536b850b7688e1d8bb0a12",
+        "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+        "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+        "Data Services/packages/i-am/src/wp3/service.ts": "7099dd392621767e9af321cda8da892bda7020c6ed0a7aa92cf16dbbabe074a9",
+        "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "af20b640ef0cb7160bbbea03fdf7271654bd463c21a9a6ff08f146fa2588cc83",
+        "UI Platform/scripts/verify-stage5-local-scope.mjs": "9966ca4b81661cb5d3d60af3c71bea5ecd18d51c3b182b29f455b62e7085f98c",
+        "UI Platform/scripts/stage5-wp3-review-regressions.ts": "33a97074ad870f942b7d9ce3cba2655e7cdd1425c7f3a49ffd85b13640fb7546",
+        "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e"
+      }
+    }
+  ]
+}

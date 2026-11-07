@@ -1,0 +1,52 @@
+{
+  "applicationId": "70d0c278-cc24-4da8-88fb-6b4908a750bf",
+  "assignmentId": "8c36cfe8-0660-47fa-8c5f-8ba83070778c",
+  "checks": {
+    "publish": 403,
+    "shared": 403,
+    "admin": 403
+  },
+  "ceiling": {
+    "status": 403,
+    "value": {
+      "status": "rejected",
+      "diagnostics": [
+        {
+          "code": "ADMIN_GRANT_CEILING",
+          "path": "$",
+          "message": "Security administration request denied."
+        }
+      ]
+    }
+  },
+  "lastAdmin": {
+    "status": 403,
+    "value": {
+      "status": "rejected",
+      "diagnostics": [
+        {
+          "code": "LAST_ADMIN_REQUIRED",
+          "path": "$",
+          "message": "Security administration request denied."
+        }
+      ]
+    }
+  },
+  "stale": {
+    "status": 403,
+    "value": {
+      "status": "conflict",
+      "diagnostics": [
+        {
+          "code": "REVISION_CONFLICT",
+          "path": "$",
+          "message": "Security administration request denied."
+        }
+      ]
+    }
+  },
+  "publicAssetStatus": 200,
+  "viewerPublicAssetStatus": 200,
+  "forms": "assigned Form edited; unassigned Form excluded",
+  "qualification": "Development-session management boundary; production runtime Viewer/public reader enforcement is Stage 5."
+}

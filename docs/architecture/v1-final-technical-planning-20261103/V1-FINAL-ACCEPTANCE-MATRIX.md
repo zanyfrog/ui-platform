@@ -1,5 +1,7 @@
 # V1 Final Acceptance Matrix
 
+**Current acceptance scope — November 6, 2026:** Evaluate V1 in existing local Windows tooling and verified isolated targets. References below to Ubuntu hosts, Caddy/cloud deployment, real production-provider configuration and production backup/recovery qualification belong to a future production register, not the current local acceptance gate. Retain all applicable local security, authorization, session/revocation, publication isolation, data integrity and truthful-failure criteria. Unexpected local refusals and failed required integrations are not passes. The [current local/future qualification matrix](../v1-stage5-local-development-scope-review-gate-20261106.md) controls this distinction; historical results are not rewritten. No stage advancement or Git write is implied.
+
 November 3, 2026. **Planning only. No new test pass or V1 completion is claimed.** Source status and authoritative historical references are in [Technical Decisions](V1-TECHNICAL-DECISIONS.md); stage mapping is in [Implementation Sequence](V1-IMPLEMENTATION-SEQUENCE.md). All scenarios below are future authorized acceptance work on disposable targets, then the approved production environment. Existing accepted results remain accepted within their boundaries.
 
 ## Evidence protocol

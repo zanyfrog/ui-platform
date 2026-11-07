@@ -1,0 +1,422 @@
+{
+  "chains": {
+    "data": [
+      {
+        "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+        "tail": [
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32203.6467,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 0.7414000000026135
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32203.9315,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/sessions/status",
+            "status": 200
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32204.0244,
+            "component": "remote-session",
+            "stage": "result",
+            "active": true
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32204.0503,
+            "component": "iam",
+            "stage": "session-current:end",
+            "elapsed": 2.6507999999994354,
+            "accepted": true
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32204.5905,
+            "component": "iam",
+            "stage": "directory-current:start"
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32205.3083,
+            "component": "iam",
+            "stage": "directory-current:end",
+            "elapsed": 0.7182000000029802,
+            "accepted": true
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32205.3273,
+            "component": "iam",
+            "stage": "session-current:start"
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32206.8436,
+            "component": "rpc-server",
+            "stage": "request-start",
+            "operation": "current",
+            "method": "POST"
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32207.2477,
+            "component": "rpc-verifier",
+            "stage": "jwt-verified",
+            "iat": 1793968215,
+            "exp": 1793968230,
+            "now": 1793968215.779
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32207.2955,
+            "component": "rpc-verifier",
+            "stage": "nonce",
+            "size": 276,
+            "replay": false
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32207.8733,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 1.035600000002887
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32208.3185,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/sessions/status",
+            "status": 200
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32208.4519,
+            "component": "remote-session",
+            "stage": "result",
+            "active": true
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32208.4764,
+            "component": "iam",
+            "stage": "session-current:end",
+            "elapsed": 3.147500000002765,
+            "accepted": true
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32428.3322,
+            "component": "iam",
+            "stage": "directory-current:start"
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32428.7747,
+            "component": "iam",
+            "stage": "directory-current:end",
+            "elapsed": 0.4467000000004191,
+            "accepted": true
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32428.7927,
+            "component": "iam",
+            "stage": "session-current:start"
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32430.3486,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/sessions/status",
+            "status": 403
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32430.54,
+            "component": "identity-rpc",
+            "stage": "catch",
+            "code": "SERVICE_RPC_UNAVAILABLE"
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32430.5622,
+            "component": "iam",
+            "stage": "session-current:end",
+            "elapsed": 1.768899999999121,
+            "accepted": false
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32430.7944,
+            "component": "runtime-data",
+            "stage": "catch",
+            "code": "PLAN_AUTHORIZATION_AUTHORITY_UNAVAILABLE"
+          },
+          {
+            "pid": 20996,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32430.9636,
+            "component": "runtime-data",
+            "stage": "response",
+            "status": 403,
+            "elapsed": 1630.1287000000011
+          }
+        ]
+      }
+    ],
+    "runtime": [
+      {
+        "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+        "tail": [
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31926.6458,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 3.06420000000071
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31928.0775,
+            "component": "rpc-server",
+            "stage": "request-start",
+            "operation": "status",
+            "method": "POST"
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31928.5364,
+            "component": "rpc-verifier",
+            "stage": "jwt-verified",
+            "iat": 1793968215,
+            "exp": 1793968230,
+            "now": 1793968215.771
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31928.6109,
+            "component": "rpc-verifier",
+            "stage": "nonce",
+            "size": 263,
+            "replay": false
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31928.6506,
+            "component": "sessions",
+            "stage": "active-local",
+            "present": true,
+            "epochMatch": true,
+            "enrollmentMatch": true,
+            "idleExpired": false,
+            "absoluteExpired": false
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31928.6689,
+            "component": "sessions",
+            "stage": "active-directory-current:start"
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31929.8841,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/identity/current",
+            "status": 200
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31929.9292,
+            "component": "remote-directory",
+            "stage": "result",
+            "current": true
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31929.9347,
+            "component": "sessions",
+            "stage": "active-directory-current:end",
+            "elapsed": 1.2672999999995227,
+            "accepted": true
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31930.0614,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 1.9851000000016938
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31931.9555,
+            "component": "rpc-server",
+            "stage": "request-start",
+            "operation": "status",
+            "method": "POST"
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31932.4705,
+            "component": "rpc-verifier",
+            "stage": "jwt-verified",
+            "iat": 1793968215,
+            "exp": 1793968230,
+            "now": 1793968215.775
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31932.5307,
+            "component": "rpc-verifier",
+            "stage": "nonce",
+            "size": 264,
+            "replay": false
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31932.5625,
+            "component": "sessions",
+            "stage": "active-local",
+            "present": true,
+            "epochMatch": true,
+            "enrollmentMatch": true,
+            "idleExpired": false,
+            "absoluteExpired": false
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31932.5742,
+            "component": "sessions",
+            "stage": "active-directory-current:start"
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31934.1672,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/identity/current",
+            "status": 200
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31934.268,
+            "component": "remote-directory",
+            "stage": "result",
+            "current": true
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31934.2852,
+            "component": "sessions",
+            "stage": "active-directory-current:end",
+            "elapsed": 1.7096000000019558,
+            "accepted": true
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 31934.3964,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 2.443600000002334
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32155.5499,
+            "component": "rpc-server",
+            "stage": "request-start",
+            "operation": "status",
+            "method": "POST"
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32156.2894,
+            "component": "rpc-server",
+            "stage": "catch",
+            "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+            "now": 1793968215.999,
+            "claim": "iat",
+            "reason": "check_failed",
+            "iat": 1793968216,
+            "exp": 1793968231
+          },
+          {
+            "pid": 44260,
+            "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+            "at": 32156.4134,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 403,
+            "elapsed": 0.8732999999992899
+          }
+        ]
+      }
+    ],
+    "management": [
+      {
+        "id": "2a268131-6969-4f79-a2c6-2326d408442c",
+        "tail": []
+      }
+    ]
+  },
+  "pending": [],
+  "firstRejectionClassification": "RPC JWT iat claim: issued-at second observed 1ms ahead of receiving clock; subsequent current-session failure propagated to HTTP 403",
+  "nonceCacheMaximum": {
+    "data": 326,
+    "runtime": 278,
+    "management": 152
+  }
+}

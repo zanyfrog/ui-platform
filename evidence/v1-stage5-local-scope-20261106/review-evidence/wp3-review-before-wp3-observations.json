@@ -1,0 +1,442 @@
+{
+  "scope": "Actual WP3/SQLite outcomes with isolated Data test identities and synchronous host binding fixture; not live operator qualification",
+  "observations": [
+    {
+      "candidateId": "23ab106b-f6a1-4144-9f62-9fea8d240f84",
+      "staged": true,
+      "actor": "pat",
+      "applicationId": null,
+      "status": "activated",
+      "audit": [
+        {
+          "actor": "pat",
+          "operation": "edit",
+          "authorityPath": [
+            "gb-platform",
+            "ra-pat"
+          ],
+          "targetIds": [
+            "gb-app"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "110250bd-2db6-490e-aa86-538f23445337",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "activated",
+      "audit": [
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "viewer-restriction"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "638023ae-6a65-4493-a1b6-584707d92bb7",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "activated",
+      "audit": [
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "viewer-restriction"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "54ef0aa7-15b6-490b-aa8c-b3c4dd8118a9",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "activated",
+      "audit": [
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "viewer-restriction"
+          ]
+        },
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "template-role"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "effa3a06-8889-459d-91ab-cd1400c1ae64",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "activated",
+      "audit": [
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "viewer-restriction"
+          ]
+        },
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "template-role"
+          ]
+        },
+        {
+          "actor": "alice",
+          "operation": "assign",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "template-assignment"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "3cc948d6-4f32-4d69-a9ce-1db80bd122cb",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_AUTHORITY_UNAVAILABLE"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "ab584c8d-8256-4dde-83e8-f652128c877f",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "activated",
+      "audit": [
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "viewer-restriction"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "01f888ae-fc61-4622-a41f-8cbc1bdc3faa",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "conflict",
+      "codes": [
+        "REVISION_CONFLICT"
+      ],
+      "audit": [
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "viewer-restriction"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "c48109b0-c8bb-4ed6-936d-4d90d97809aa",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_GRANT_CEILING"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "67b9bfa7-b4f8-4a0a-8d9c-9da750243d0e",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_GRANT_CEILING"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "c25b5ad2-9161-45d8-a765-757bd78c7fc3",
+      "staged": false,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "SCOPE_OWNER_MISMATCH"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "f3d46dd1-ea0e-4579-9ee6-610632751065",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_GRANT_CEILING"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "8e837768-9941-4e43-bc2c-21d80b35013d",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_GRANT_CEILING"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "a12a63f7-d43c-4b06-b07f-cc0d3b5474ee",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_GRANT_CEILING"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "ed08d04a-0189-4717-a99e-331edbd458ab",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_GRANT_CEILING"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "eeec6c69-a4e0-4bbf-8d2a-5779fd27f447",
+      "staged": true,
+      "actor": "pat",
+      "applicationId": null,
+      "status": "rejected",
+      "codes": [
+        "ADMIN_TEMPLATE_DELEGATION_DENIED"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "d822743b-f1bc-400f-82f5-c88fa31053fd",
+      "staged": true,
+      "actor": "pat",
+      "applicationId": null,
+      "status": "rejected",
+      "codes": [
+        "ADMIN_TEMPLATE_DELEGATION_DENIED"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "29010f7e-396b-4f32-9fa6-2df91226019c",
+      "staged": true,
+      "actor": "pat",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_GRANT_CEILING"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "cf0f1922-961c-43f0-a21c-cbb10636c5a1",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": null,
+      "status": "rejected",
+      "codes": [
+        "ADMIN_AUTHORITY_DENIED"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "0d422cb4-3456-47ca-ad13-0d83a585732c",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_TEMPLATE_BINDING_STALE"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "696566c0-33a5-4af0-ac22-92545c7e080d",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_TEMPLATE_BINDING_STALE"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "ddcf614c-f635-48cd-b63e-8109a27aa83a",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_TEMPLATE_BINDING_STALE"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "0bdf712b-7122-4fe4-ba91-2adc6a11dc9b",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_TEMPLATE_BINDING_STALE"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "3ac008aa-ba8b-4c04-a70b-990bc8cb9996",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_TEMPLATE_BINDING_STALE"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "f4c91293-defe-4e89-9222-30ea4639ee8d",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_GRANT_CEILING"
+      ],
+      "audit": []
+    },
+    {
+      "candidateId": "4b7225e7-6ca0-44b8-9461-c709e7d3fa16",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "activated",
+      "audit": [
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "plain"
+          ]
+        }
+      ]
+    },
+    {
+      "candidateId": "5a259879-94bf-4111-a529-13d6ef57c432",
+      "staged": true,
+      "actor": "alice",
+      "applicationId": "app-a",
+      "status": "rejected",
+      "codes": [
+        "ADMIN_AUTHORITY_UNAVAILABLE"
+      ],
+      "audit": [
+        {
+          "actor": "alice",
+          "operation": "create",
+          "authorityPath": [
+            "gb-app",
+            "ra-alice"
+          ],
+          "targetIds": [
+            "viewer-restriction"
+          ]
+        }
+      ]
+    },
+    {
+      "review": "cleanup-after-commit",
+      "result": {
+        "status": "rejected",
+        "diagnostics": [
+          {
+            "code": "ADMIN_AUTHORITY_UNAVAILABLE",
+            "path": "$",
+            "message": "Security administration request denied."
+          }
+        ]
+      },
+      "revision": 2,
+      "auditCount": 1,
+      "candidate": {
+        "status": "activated",
+        "revision": 2,
+        "auditId": "73f9b2f8-2773-43cc-b993-1f9adcdafd97"
+      }
+    }
+  ]
+}

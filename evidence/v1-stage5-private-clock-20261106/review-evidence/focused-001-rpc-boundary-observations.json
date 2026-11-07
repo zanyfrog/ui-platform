@@ -1,0 +1,167 @@
+{
+  "observations": [
+    {
+      "label": "boundary",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 200,
+      "code": "ALLOW"
+    },
+    {
+      "label": "before-expiry",
+      "receiverMs": 1793989569999,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 200,
+      "code": "ALLOW"
+    },
+    {
+      "label": "at-expiry",
+      "receiverMs": 1793989570000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "ERR_JWT_EXPIRED"
+    },
+    {
+      "label": "genuine-future-1ms",
+      "receiverMs": 1793989555999,
+      "iat": 1793989556,
+      "exp": 1793989571,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "ERR_JWT_CLAIM_VALIDATION_FAILED"
+    },
+    {
+      "label": "genuine-future-second",
+      "receiverMs": 1793989555000,
+      "iat": 1793989556,
+      "exp": 1793989571,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "ERR_JWT_CLAIM_VALIDATION_FAILED"
+    },
+    {
+      "label": "not-before-future",
+      "receiverMs": 1793989555000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": 1793989556,
+      "span": 15,
+      "status": 403,
+      "code": "ERR_JWT_CLAIM_VALIDATION_FAILED"
+    },
+    {
+      "label": "max-age",
+      "receiverMs": 1793989571000,
+      "iat": 1793989555,
+      "exp": 1793989585,
+      "nbf": null,
+      "span": 30,
+      "status": 403,
+      "code": "ERR_JWT_EXPIRED"
+    },
+    {
+      "label": "replay-first",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 200,
+      "code": "ALLOW"
+    },
+    {
+      "label": "replay-second",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "PROTECTED_REQUEST_DENIED"
+    },
+    {
+      "label": "audience",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "ERR_JWT_CLAIM_VALIDATION_FAILED"
+    },
+    {
+      "label": "service",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "PROTECTED_REQUEST_DENIED"
+    },
+    {
+      "label": "body",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "PROTECTED_REQUEST_DENIED"
+    },
+    {
+      "label": "path",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "PROTECTED_REQUEST_DENIED"
+    },
+    {
+      "label": "method",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "PROTECTED_REQUEST_DENIED"
+    },
+    {
+      "label": "lifetime",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989571,
+      "nbf": null,
+      "span": 16,
+      "status": 403,
+      "code": "PROTECTED_REQUEST_DENIED"
+    },
+    {
+      "label": "signature",
+      "receiverMs": 1793989556000,
+      "iat": 1793989555,
+      "exp": 1793989570,
+      "nbf": null,
+      "span": 15,
+      "status": 403,
+      "code": "ERR_JWS_SIGNATURE_VERIFICATION_FAILED"
+    }
+  ],
+  "assertionLifetimeSeconds": 15,
+  "generalClockToleranceAdded": false,
+  "genuineFutureOneMillisecondStillDenied": true
+}

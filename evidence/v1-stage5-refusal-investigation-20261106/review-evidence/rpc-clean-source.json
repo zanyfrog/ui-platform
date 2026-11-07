@@ -1,0 +1,26 @@
+{
+  "id": "rpc-clean-source",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-refusal-investigation-20261106\\baseline-uninstrumented-001\\disposable\\5ca3a252-a1ff-42fa-bcb8-e2bb39a52526\\platform",
+  "instrumentation": "none; restored production sources",
+  "tests": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "probe": {
+    "result": {
+      "calls": 942,
+      "failures": 0,
+      "elapsed": 15005.548499999999
+    },
+    "refusals": [],
+    "contract": {
+      "assertionLifetimeSeconds": 15,
+      "rpcTimeoutMs": 3000,
+      "clockToleranceSeconds": 0
+    },
+    "credentialsRetained": false
+  },
+  "testSha256": "dd84722a46bf2a8984c388b11d5424bb5b81b55cc78462e87b82e3de0d4ea445",
+  "rawReportSha256": "3e0c1ffc73ea4154fd956337b4f573e229d755af99e10000f33019b793927c2e"
+}

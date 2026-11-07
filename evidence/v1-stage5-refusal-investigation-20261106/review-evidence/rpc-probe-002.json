@@ -1,0 +1,80 @@
+{
+  "id": "rpc-probe-002",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-refusal-investigation-20261106\\rpc-probe-002\\security-only\\disposable\\d3ba71ec-e28b-41f1-bb94-58838f9dc63b\\platform",
+  "instrumentation": "diagnostic source, tracing disabled",
+  "tests": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "iam": {
+    "passed": 63,
+    "failed": 0
+  },
+  "failures": [],
+  "sourceHashes": {
+    "UI Platform/src/server/production/applied-integration.ts": "bbd724399fb8b3ed12bbcbf7b3549b9ddbe4cf6e5984643f73e46f93d5e84f26",
+    "UI Platform/src/server/production/boundary.ts": "28cefd7aecad408d8a9b0d27368cca5e2776dad0ce439906bc40e7bb36844f46",
+    "UI Platform/src/server/production/current-iam.ts": "3bb9f5708a5c8ece4cc065e1d792f3143f71b693fe285e3cc3703391f226c840",
+    "UI Platform/src/server/production/data-handler.ts": "bd2ff63d77471cbcb9df9d7f120ea4ff812d74ac1ec4ac951fdccabdcf8f3034",
+    "UI Platform/src/server/production/enrollment.ts": "450ecd5a1daa75537b2d4b3ecb6dd5eda4cb4b14ae20b7bf5d6017893a938ce5",
+    "UI Platform/src/server/production/identity-integration.ts": "0f0dc0afd94d643a1257f42ac9f947b36dbefe67ff854f369944d5d659f50b23",
+    "UI Platform/src/server/production/internal-trust.ts": "74d2938eeebe7e4717eaf21ac4e69f977a7d03f3a1f798729ba791b1faeb1b46",
+    "UI Platform/src/server/production/management-frontend.ts": "a6bb89054f5163d22e56eb016bd1a418062d9c81c4771b28885e4c057249cb5b",
+    "UI Platform/src/server/production/management.ts": "48e2f66cba82ee6f2bdb731d8dec2baf1b22cb13e3ee24ec8ea5a79dc1d211cd",
+    "UI Platform/src/server/production/mtls-management-transport.ts": "9a0c5dcfed4868391ee4c2b3629af2664ca98423e4f3b27bfb46df4712a5b953",
+    "UI Platform/src/server/production/mtls-transport.ts": "7455782e2f8d3f9b118907a167a14a0ba5f20cb3cd724a02b0efe2bf22a22e89",
+    "UI Platform/src/server/production/oidc.ts": "c2758c6ba63c619a0fb3cb1d2c82ab02d36125af2eea237c6b4572e385b2c25d",
+    "UI Platform/src/server/production/predicate-templates.ts": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+    "UI Platform/src/server/production/private-asset-owner.ts": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+    "UI Platform/src/server/production/private-assets.ts": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+    "UI Platform/src/server/production/publication-integration.ts": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+    "UI Platform/src/server/production/refusal-trace.ts": "2ce6b160f91adec4b692032d650ceb4ccee41cc867bb0d9dcca4e599170f570e",
+    "UI Platform/src/server/production/release-browser-build.ts": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+    "UI Platform/src/server/production/releases.ts": "876c7845f69a378c536a47976319993335093d4189ac724fec7779ed6cdc03d8",
+    "UI Platform/src/server/production/runtime.ts": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+    "UI Platform/src/server/production/service-rpc.ts": "0e114b4e31c36543a06a87c845b617a0b86209450aeb2caa6223cac37508722e",
+    "UI Platform/src/server/production/sessions.ts": "74b5865ae98171b18c9e0a9ee013ea66c32bbf96f0edafc24230c216e32aef55",
+    "UI Platform/src/shared/released-runtime-services.ts": "263cf09d80c39652d81c1655e7c33cd5d4be9e4e6265df411bd60c7c60018e7e",
+    "UI Platform/src/server/role-administration.ts": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+    "UI Platform/tests/stage5-integration.test.ts": "a51d8dd4c2bb0cde8655a3332044eaecffeee9f41ab2a9fcb9a4d1c94e91bd26",
+    "UI Platform/tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": "7148329e4a34a6896865fd93684fff99e282897670dbd61a8557e68580ed45ae",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c465838bb1ee5a263c4a60205ff367d5a3ed1b4d85b30a267d4463eec963b9e1",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e"
+  },
+  "testInputs": [
+    {
+      "file": "tests/stage5-refusal-rpc.test.ts",
+      "sha256": "dd84722a46bf2a8984c388b11d5424bb5b81b55cc78462e87b82e3de0d4ea445"
+    }
+  ],
+  "rawReportSha256": "1b13d285d4599905a3f3f8a5bb203d77e428596862ce69fc14ea71293e98c7f1",
+  "preservation": {
+    "exitCode": 0,
+    "graphDirectory": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-refusal-investigation-20261106\\rpc-probe-002\\security-only\\disposable\\d3ba71ec-e28b-41f1-bb94-58838f9dc63b\\platform\\components",
+    "originalGraphMetadataCopied": false,
+    "originalLockDirectoryEvents": [],
+    "sharedSnapshotEqual": true,
+    "finishedAt": "2026-11-06T12:27:07.239Z"
+  },
+  "formOutcomeText": null,
+  "probe": {
+    "result": {
+      "calls": 960,
+      "failures": 0,
+      "elapsed": 15012.0819
+    },
+    "refusals": [],
+    "refusalCount": 0,
+    "contract": {
+      "assertionLifetimeSeconds": 15,
+      "rpcTimeoutMs": 3000,
+      "clockToleranceSeconds": 0
+    }
+  }
+}

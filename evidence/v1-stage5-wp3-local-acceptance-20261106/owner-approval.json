@@ -1,0 +1,31 @@
+{
+  "decision": "APPROVED — local Windows V1 WP3 review-process exception and bounded WP3 contract acceptance",
+  "decisionDate": "2026-11-06",
+  "timezone": "America/New_York",
+  "authority": "Explicit project-owner decision in this chat",
+  "baselines": {
+    "ui": "d3729a13c8312d35be4fe61b784f84f9e3bd4446",
+    "data": "81b769eef3763d02343f5347888c26edab6ef7bc",
+    "uiBase": "732eec58ca3d4bd2521197b9d3b6c0457dbc6608"
+  },
+  "reviewPacket": {
+    "path": "docs/architecture/v1-stage5-wp3-technical-review-20261106.md",
+    "sha256": "b8a37abf1a312c98873341e1966ba1eb5163f32cf7a7a30c9431111c6c67a40f"
+  },
+  "acceptedFiles": {
+    "packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "packages/i-am/src/wp3/service.ts": "7099dd392621767e9af321cda8da892bda7020c6ed0a7aa92cf16dbbabe074a9",
+    "packages/i-am/tests/wp3-template-contract.test.ts": "af20b640ef0cb7160bbbea03fdf7271654bd463c21a9a6ff08f146fa2588cc83"
+  },
+  "scope": "Exact four-file candidate only; substantive subsequent changes require review",
+  "independentApproval": {
+    "performed": false,
+    "requiredForLocalV1": false,
+    "requiredBeforeProductionOrBroaderDistribution": true
+  },
+  "stage5Integration": "OPEN",
+  "overallV1": "OPEN",
+  "gitMutationAuthorized": false,
+  "securityTimingOrAuthorityRelaxation": false
+}

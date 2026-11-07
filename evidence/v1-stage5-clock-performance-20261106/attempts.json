@@ -1,0 +1,159 @@
+{
+  "status": "BLOCKED; zero-future-time clock contract and unexpected refusal remain",
+  "attempts": [
+    {
+      "id": "clock-001",
+      "tests": {
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "",
+      "formOutcomeText": null
+    },
+    {
+      "id": "snapshot-before",
+      "tests": {
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "Prototype instrumentation did not observe the module actually used: counter zero is invalid performance evidence. Retained as failed harness attempts; only the counted run establishes before behavior.",
+      "formOutcomeText": null
+    },
+    {
+      "id": "snapshot-before-verified",
+      "tests": {
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "Prototype instrumentation did not observe the module actually used: counter zero is invalid performance evidence. Retained as failed harness attempts; only the counted run establishes before behavior.",
+      "formOutcomeText": null
+    },
+    {
+      "id": "snapshot-before-counted",
+      "tests": {
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "",
+      "formOutcomeText": null
+    },
+    {
+      "id": "snapshot-after",
+      "tests": {
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "",
+      "formOutcomeText": null
+    },
+    {
+      "id": "snapshot-after-final",
+      "tests": {
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "",
+      "formOutcomeText": null
+    },
+    {
+      "id": "snapshot-after-binding",
+      "tests": {
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "",
+      "formOutcomeText": null
+    },
+    {
+      "id": "clock-002",
+      "tests": {
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "",
+      "formOutcomeText": null
+    },
+    {
+      "id": "profile-after",
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "",
+      "formOutcomeText": null
+    },
+    {
+      "id": "full-001",
+      "tests": {
+        "passed": 45,
+        "failed": 1,
+        "skipped": 1
+      },
+      "iam": {
+        "passed": 151,
+        "failed": 0
+      },
+      "qualification": "",
+      "formOutcomeText": null
+    },
+    {
+      "id": "journey-002",
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "qualification": "",
+      "formOutcomeText": null
+    }
+  ]
+}

@@ -33,6 +33,6 @@ export default defineConfig({
     },
   },
   test: {
-    exclude: ['**/node_modules/**', '**/dist/**', '**/dist-server/**', '**/.uib/**', 'data/**'],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/dist-server/**', '**/.uib/**', 'data/**', 'evidence/**'],
   },
 });

@@ -1,0 +1,8 @@
+{
+  "targetId":"4dccd9b7-ae03-43f8-9d9d-e51a20e78689",
+  "classification":"Prior diagnostic run; NOT the final uninstrumented verification",
+  "result":"One complete browser journey passed, including exact stale-template rejection, role/session/User revocation and private transport checks.",
+  "sourceIdentity":"../diagnostic-complete-source-inputs.json",
+  "differenceFromFinalSources":"Temporary error tracing in management, management frontend, sessions and service RPC modules; temporary child-stderr trace forwarding in the test helper. All removed before the final run. No authority checks changed by tracing.",
+  "finalRunDisposition":"The later uninstrumented full run failed an earlier management activation with HTTP 403. This diagnostic success does not supersede that failure or qualify sustained reliability."
+}

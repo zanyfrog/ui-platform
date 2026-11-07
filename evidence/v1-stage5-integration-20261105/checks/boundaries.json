@@ -1,0 +1,33 @@
+{
+  "node": "v24.19.0",
+  "platform": "win32",
+  "runtimeInputs": [
+    "src/server/production/boundary.ts",
+    "src/server/production/runtime.ts"
+  ],
+  "runtimeManagementImportCheck": "PASS",
+  "typecheckExitCode": 0,
+  "checkedFiles": [
+    "src/server/production/applied-integration.ts",
+    "src/server/production/boundary.ts",
+    "src/server/production/current-iam.ts",
+    "src/server/production/data-handler.ts",
+    "src/server/production/enrollment.ts",
+    "src/server/production/identity-integration.ts",
+    "src/server/production/internal-trust.ts",
+    "src/server/production/management-frontend.ts",
+    "src/server/production/management.ts",
+    "src/server/production/mtls-management-transport.ts",
+    "src/server/production/mtls-transport.ts",
+    "src/server/production/oidc.ts",
+    "src/server/production/private-asset-owner.ts",
+    "src/server/production/private-assets.ts",
+    "src/server/production/publication-integration.ts",
+    "src/server/production/release-browser-build.ts",
+    "src/server/production/releases.ts",
+    "src/server/production/runtime.ts",
+    "src/server/production/service-rpc.ts",
+    "src/server/production/sessions.ts"
+  ],
+  "rootDependencyManifestChanged": false
+}

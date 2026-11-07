@@ -1,0 +1,399 @@
+{
+  "id": "full-001",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\full-001\\disposable\\aea5f9e0-1ce5-4e38-92a9-411a6d8b815a\\platform",
+  "tests": {
+    "passed": 45,
+    "failed": 1,
+    "pending": 1,
+    "success": false
+  },
+  "iam": {
+    "passed": 151,
+    "failed": 0
+  },
+  "testCases": [
+    {
+      "title": "refuses anonymous, unauthorized, wrong owner and missing CSRF without policy writes",
+      "status": "passed",
+      "duration": 293.32840000000004
+    },
+    {
+      "title": "separates provision, stage, review and activate through real protected contracts",
+      "status": "passed",
+      "duration": 666.8566000000001
+    },
+    {
+      "title": "refuses incomplete protected checksum state before sending a stage request",
+      "status": "passed",
+      "duration": 147.81550000000016
+    },
+    {
+      "title": "fixes the plan to the exact pilot and requires a verified state before staging",
+      "status": "passed",
+      "duration": 1.1070999999999458
+    },
+    {
+      "title": "retains physical 0.5.1 Card/Panel compatibility and refuses the preexisting Forms junction without creating a junction",
+      "status": "skipped",
+      "duration": 81.3854
+    },
+    {
+      "title": "admits exact physical UI and Forms packages and rejects missing, duplicated, or substituted modules",
+      "status": "passed",
+      "duration": 171.8933
+    },
+    {
+      "title": "preserves accepted Card identity and old literal instances while enforcing new interactive contracts",
+      "status": "passed",
+      "duration": 5.197499999999991
+    },
+    {
+      "title": "round trips every mapped scalar in HTML and rejects unsupported Select options and Boolean strings",
+      "status": "passed",
+      "duration": 8.055499999999995
+    },
+    {
+      "title": "pins the release integrity manifest and refuses its alteration or removal",
+      "status": "passed",
+      "duration": 12.562399999999997
+    },
+    {
+      "title": "freezes package contracts/modules/CSS and refuses altered, missing or unlisted release bytes",
+      "status": "passed",
+      "duration": 54.6858
+    },
+    {
+      "title": "Stage 2: actual Builder creates and applies typed Inventory Dataset and creates mapped Form",
+      "status": "passed",
+      "duration": 27910.786
+    },
+    {
+      "title": "Stage 3: browser File reaches protected application transport",
+      "status": "passed",
+      "duration": 51508.4299
+    },
+    {
+      "title": "Stage 3: retained Presentation asset form preserves identity and version-owned bytes",
+      "status": "passed",
+      "duration": 19911.3754
+    },
+    {
+      "title": "Stage 4: normal role administration and protected WP3 refusals",
+      "status": "passed",
+      "duration": 32124.8475
+    },
+    {
+      "title": "Stage 5: actual Builder publication, protected three-process application and current I-AM workflow",
+      "status": "failed",
+      "duration": 35258.3295
+    },
+    {
+      "title": "passes full rule and granting context and refuses an expression-only predicate adapter",
+      "status": "passed",
+      "duration": 59.036099999999976
+    },
+    {
+      "title": "binds logical owner state across WAL checkpoints and holds competing owner writes until release",
+      "status": "passed",
+      "duration": 25.810599999999965
+    },
+    {
+      "title": "one sender clock sample preserves the 15-second RPC lifetime across a second boundary",
+      "status": "passed",
+      "duration": 841.4591999999999
+    },
+    {
+      "title": "permanent mapping requires operator approval, is app scoped, refuses email/role substitutions and never remaps a subject",
+      "status": "passed",
+      "duration": 17.380099999999857
+    },
+    {
+      "title": "secure sessions enforce cookie flags, CSRF/origin, rotation, idle/absolute expiry, logout, local revocation and restart",
+      "status": "passed",
+      "duration": 14.80320000000006
+    },
+    {
+      "title": "OIDC library cryptographically validates issuer/audience/signature/expiry/nonce; transactions bind state, PKCE and browser exactly once (simulated provider)",
+      "status": "passed",
+      "duration": 76.0634
+    },
+    {
+      "title": "real loopback mTLS and signed assertions reject replay, wrong audience/app/body/path/range, expired/dev credentials and missing client certificate",
+      "status": "passed",
+      "duration": 583.817
+    },
+    {
+      "title": "frozen snapshot A executes Form/calculation/query/delete through real DOE and I-AM after authoring B; forged/stale/schema/ownership and current-policy denials preserve rows",
+      "status": "passed",
+      "duration": 528.8595999999998
+    },
+    {
+      "title": "browser service adapter keeps existing Form signatures while sending only release locators and values, with no actor/definition claims",
+      "status": "passed",
+      "duration": 1.2352999999998246
+    },
+    {
+      "title": "Data HTTP composition connects mTLS assertions, current I-AM and release authority and denies raw/development/management bypass routes",
+      "status": "passed",
+      "duration": 507.9854
+    },
+    {
+      "title": "internal management adapter uses current I-AM and WP3 staging and rejects actor injection, wrong enrollment and public/raw routes (authenticated seam fixture)",
+      "status": "passed",
+      "duration": 85.21780000000035
+    },
+    {
+      "title": "private metadata/thumbnail/download/ranges recheck authority and deny guessed/foreign/revoked/encoded/static paths; real browser observes runtime route separation",
+      "status": "passed",
+      "duration": 1765.3179000000005
+    },
+    {
+      "title": "separate runtime/Data/management processes refuse public management forwarding and enforce a disposable runtime filesystem capability boundary",
+      "status": "passed",
+      "duration": 411.8770999999997
+    },
+    {
+      "title": "GET /api/apps/fixture requires ui.application.view",
+      "status": "passed",
+      "duration": 1.529500000000013
+    },
+    {
+      "title": "DELETE /api/apps/fixture requires ui.application.admin",
+      "status": "passed",
+      "duration": 0.20289999999999964
+    },
+    {
+      "title": "GET /api/apps/fixture/pages requires ui.page.view",
+      "status": "passed",
+      "duration": 0.26720000000000255
+    },
+    {
+      "title": "POST /api/apps/fixture/pages requires ui.page.edit",
+      "status": "passed",
+      "duration": 0.09810000000001651
+    },
+    {
+      "title": "PUT /api/apps/fixture/page requires ui.page.edit",
+      "status": "passed",
+      "duration": 0.102800000000002
+    },
+    {
+      "title": "GET /api/apps/fixture/presentation requires ui.presentation.view",
+      "status": "passed",
+      "duration": 0.06649999999999068
+    },
+    {
+      "title": "POST /api/apps/fixture/presentation/publish requires ui.presentation.admin",
+      "status": "passed",
+      "duration": 0.07269999999999754
+    },
+    {
+      "title": "POST /api/apps/fixture/presentation/assets requires ui.presentation.edit",
+      "status": "passed",
+      "duration": 0.09180000000000632
+    },
+    {
+      "title": "GET /api/apps/fixture/packages requires ui.package.view",
+      "status": "passed",
+      "duration": 0.10349999999999682
+    },
+    {
+      "title": "POST /api/apps/fixture/packages requires ui.package.edit",
+      "status": "passed",
+      "duration": 0.11169999999998481
+    },
+    {
+      "title": "POST /api/apps/fixture/packages/sample/enable requires ui.package.admin",
+      "status": "passed",
+      "duration": 0.06329999999999814
+    },
+    {
+      "title": "PUT /api/apps/fixture/settings requires ui.application.edit",
+      "status": "passed",
+      "duration": 0.05189999999998918
+    },
+    {
+      "title": "POST /api/apps/fixture/export requires ui.application.view",
+      "status": "passed",
+      "duration": 0.05009999999998627
+    },
+    {
+      "title": "POST /api/apps requires ui.platform.application.create",
+      "status": "passed",
+      "duration": 0.048599999999993315
+    },
+    {
+      "title": "POST /api/packages/install requires ui.platform.package.admin",
+      "status": "passed",
+      "duration": 0.050499999999999545
+    },
+    {
+      "title": "POST /api/foundation-sources/github requires ui.platform.package.admin",
+      "status": "passed",
+      "duration": 0.06419999999999959
+    },
+    {
+      "title": "does not invent permission for unknown management routes or app-less resources",
+      "status": "passed",
+      "duration": 0.18819999999999482
+    },
+    {
+      "title": "uses one V1 session for real Page and Form APIs and denies direct Workflow and application mutation",
+      "status": "passed",
+      "duration": 3674.9742999999994
+    },
+    {
+      "title": "propagates the same signed-in User through the protected DOE and real ORM",
+      "status": "passed",
+      "duration": 2913.5642
+    }
+  ],
+  "rawReportSha256": "b16408cb2c4d9cd5e4e89d73cfcb36940ee7e4bcc2f0eb01b7df42ff2b089b6d",
+  "inputs": {
+    "original": "C:\\Projects\\Modular\\ui-platform",
+    "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\full-001\\disposable\\aea5f9e0-1ce5-4e38-92a9-411a6d8b815a\\platform",
+    "roots": {
+      "src/server": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\src\\server",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\full-001\\disposable\\aea5f9e0-1ce5-4e38-92a9-411a6d8b815a\\platform\\src\\server"
+      },
+      "components": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\components",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\full-001\\disposable\\aea5f9e0-1ce5-4e38-92a9-411a6d8b815a\\platform\\components"
+      },
+      "packages/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\full-001\\disposable\\aea5f9e0-1ce5-4e38-92a9-411a6d8b815a\\platform\\packages\\artifacts"
+      },
+      "node_modules/@ui-platform/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\full-001\\disposable\\aea5f9e0-1ce5-4e38-92a9-411a6d8b815a\\platform\\packages\\artifacts"
+      }
+    },
+    "inputs": [
+      {
+        "file": "tests/stage5-integration.test.ts",
+        "sha256": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d"
+      },
+      {
+        "file": "tests/stage5-predicate-contract.test.ts",
+        "sha256": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e"
+      },
+      {
+        "file": "tests/stage5-security.test.ts",
+        "sha256": "4cee40b9094ef29227bc42dd9bf4d19f310723e92977c7e58c64337a7125c30b"
+      },
+      {
+        "file": "tests/stage5-rpc-boundary.test.ts",
+        "sha256": "e6e09cd916dd683bf5e543033cd80e6406ddea2fc88c335525c085c6bb4cca48"
+      },
+      {
+        "file": "tests/stage4-role-administration.test.ts",
+        "sha256": "db1fe416facbbb9dec0599f42a6b8edc82b8825e66da760967a6a7c4e471ebd3"
+      },
+      {
+        "file": "tests/pilot-administration.test.ts",
+        "sha256": "3b4460a0235894b0387d7d2a9de5818a6b0509bb513e78e2748395def1ff73fc"
+      },
+      {
+        "file": "tests/v1-management-server.test.ts",
+        "sha256": "a1e2012360214f6f759a04c5230abb5f0987bd1c467b0eb3715ae6947519f903"
+      },
+      {
+        "file": "tests/v1-management-routes.test.ts",
+        "sha256": "0a32fb2bd211a9e8b50c49a5fe6f6943e89543baedddcc53e709bd8703bd9e3f"
+      },
+      {
+        "file": "tests/stage1-component-admission.test.ts",
+        "sha256": "6878ca49eff426e0893d8930302bcf5b95c411a7d0a5a037a386eb59589b0ec7"
+      },
+      {
+        "file": "tests/stage1-component-release.test.ts",
+        "sha256": "e84267920bf01e532727aa0409df7ad98c665253fe9a8cdaf0ecdfadc17fcc77"
+      },
+      {
+        "file": "tests/stage1-component-pin.test.ts",
+        "sha256": "d06c7cc9ed5e7c7df77b64a988e71d5c7a857ddb667cf4d3291a4c398405a361"
+      },
+      {
+        "file": "tests/stage2-builder-authoring.test.ts",
+        "sha256": "c3d9b15c0986477dfccc63399ecc8e3221e08741449b16ca7ef2023d2a2314ce"
+      },
+      {
+        "file": "tests/stage3-protected-upload.test.ts",
+        "sha256": "636d3e4066fef3b3b2c2f1b465036c42d179459da216cef8e9cc3cbf0f531714"
+      },
+      {
+        "file": "tests/stage3-retained-presentation.test.ts",
+        "sha256": "8295c15e37c9817b665a8f58b767970ac26103ba83ffb0e3643f8df3ef88fd1e"
+      }
+    ],
+    "preparationSha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+    "changes": "Existing preparation; redirected disposable/evidence paths; excluded original Component .uib metadata. Tests copied byte-for-byte."
+  },
+  "sourceInputs": {
+    "UI Platform/src/server/production/applied-integration.ts": "e93d6b694483a0e2d48d696ec5f29064e637b85345558fff8316553b3f7f96d3",
+    "UI Platform/src/server/production/boundary.ts": "28cefd7aecad408d8a9b0d27368cca5e2776dad0ce439906bc40e7bb36844f46",
+    "UI Platform/src/server/production/current-iam.ts": "0f461dee7b139c3978ab2c0474b50e9746a9e6d5a3b01f1717e6765221a916ed",
+    "UI Platform/src/server/production/data-handler.ts": "fa75dd40ab2e6cfaef1e7d1fa8168f7e48119c2654d7403ab5301f0bc6e2dded",
+    "UI Platform/src/server/production/enrollment.ts": "450ecd5a1daa75537b2d4b3ecb6dd5eda4cb4b14ae20b7bf5d6017893a938ce5",
+    "UI Platform/src/server/production/identity-integration.ts": "d3a6fc2db7c4368941c60caa3751d540373ff0e3a52044d716b9d28b042eda75",
+    "UI Platform/src/server/production/internal-trust.ts": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52",
+    "UI Platform/src/server/production/management-frontend.ts": "8b1db3cee2beb4633bf5d555e9bc93b0e9468e115033bb530bcc5392a31e2e08",
+    "UI Platform/src/server/production/management.ts": "dcbe49e811b49b27bde9350e1b2e310ff2b602e0f00c363cb23a04ccf8719eae",
+    "UI Platform/src/server/production/mtls-management-transport.ts": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+    "UI Platform/src/server/production/mtls-transport.ts": "aabe6cf20299709994d1bcd300f76fe1c9ffefc0c9a2e1f8da77f6949b8a4ce1",
+    "UI Platform/src/server/production/oidc.ts": "c2758c6ba63c619a0fb3cb1d2c82ab02d36125af2eea237c6b4572e385b2c25d",
+    "UI Platform/src/server/production/predicate-templates.ts": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+    "UI Platform/src/server/production/private-asset-owner.ts": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+    "UI Platform/src/server/production/private-assets.ts": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+    "UI Platform/src/server/production/publication-integration.ts": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+    "UI Platform/src/server/production/release-browser-build.ts": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+    "UI Platform/src/server/production/releases.ts": "876c7845f69a378c536a47976319993335093d4189ac724fec7779ed6cdc03d8",
+    "UI Platform/src/server/production/runtime.ts": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+    "UI Platform/src/server/production/service-rpc.ts": "219acbdad5171024cba10ba536d2dd1aafa9b8da37739639d593fe123431e193",
+    "UI Platform/src/server/production/sessions.ts": "a63c012793733e2dcc930753ee1b152672427b18d3fde649c1800279be6a09ae",
+    "UI Platform/src/shared/released-runtime-services.ts": "263cf09d80c39652d81c1655e7c33cd5d4be9e4e6265df411bd60c7c60018e7e",
+    "UI Platform/src/server/role-administration.ts": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+    "UI Platform/tests/stage5-integration.test.ts": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d",
+    "UI Platform/tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": "b8ce3300ba8fc590c628d83ba97cc3da44f756cfe0d45092c6e1761378f0cf13",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e"
+  },
+  "completion": {
+    "exitCode": 1,
+    "graphDirectory": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\full-001\\disposable\\aea5f9e0-1ce5-4e38-92a9-411a6d8b815a\\platform\\components",
+    "originalGraphMetadataCopied": false,
+    "originalLockDirectoryEvents": [],
+    "sharedSnapshotEqual": true,
+    "finishedAt": "2026-11-06T18:51:47.318Z"
+  },
+  "codeInputs": {
+    "tests/stage5-integration.test.ts": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d",
+    "tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "tests/stage5-security.test.ts": "4cee40b9094ef29227bc42dd9bf4d19f310723e92977c7e58c64337a7125c30b",
+    "tests/stage5-rpc-boundary.test.ts": "e6e09cd916dd683bf5e543033cd80e6406ddea2fc88c335525c085c6bb4cca48",
+    "tests/stage4-role-administration.test.ts": "db1fe416facbbb9dec0599f42a6b8edc82b8825e66da760967a6a7c4e471ebd3",
+    "tests/pilot-administration.test.ts": "3b4460a0235894b0387d7d2a9de5818a6b0509bb513e78e2748395def1ff73fc",
+    "tests/v1-management-server.test.ts": "a1e2012360214f6f759a04c5230abb5f0987bd1c467b0eb3715ae6947519f903",
+    "tests/v1-management-routes.test.ts": "0a32fb2bd211a9e8b50c49a5fe6f6943e89543baedddcc53e709bd8703bd9e3f",
+    "tests/stage1-component-admission.test.ts": "6878ca49eff426e0893d8930302bcf5b95c411a7d0a5a037a386eb59589b0ec7",
+    "tests/stage1-component-release.test.ts": "e84267920bf01e532727aa0409df7ad98c665253fe9a8cdaf0ecdfadc17fcc77",
+    "tests/stage1-component-pin.test.ts": "d06c7cc9ed5e7c7df77b64a988e71d5c7a857ddb667cf4d3291a4c398405a361",
+    "tests/stage2-builder-authoring.test.ts": "c3d9b15c0986477dfccc63399ecc8e3221e08741449b16ca7ef2023d2a2314ce",
+    "tests/stage3-protected-upload.test.ts": "636d3e4066fef3b3b2c2f1b465036c42d179459da216cef8e9cc3cbf0f531714",
+    "tests/stage3-retained-presentation.test.ts": "8295c15e37c9817b665a8f58b767970ac26103ba83ffb0e3643f8df3ef88fd1e",
+    "scripts/verify-stage5-builder-save.mjs": "3bd988444c91d3f7f570d0c1e143d97b490649a625a704511e4c94596f6802f7",
+    "scripts/stage5-builder-security-diagnostics.mjs": "a5221571ceba66f263c745e92bf46d16d7c18e74007ed3ba9b784337cb3b5709",
+    "tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e",
+    "tests/fixtures/stage5-dataset-field-workflow.ts": "2c7b59560c37bbd608c64ae5634968f8ab90756dcc5638cc9a21843a81665e22",
+    "tests/fixtures/stage5-builder-save-observer.ts": "438c65f993004e38d58e2f09d6a45e13dcef0892f79ba91cc6e96a46c7d1a96f"
+  },
+  "temporaryDiagnostics": null,
+  "failure": "New assertion-helper ancestor locator scoped incorrectly; no matching type control; test-only bug, corrected before journey-002"
+}

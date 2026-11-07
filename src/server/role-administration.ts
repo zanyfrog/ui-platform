@@ -1,10 +1,12 @@
 import { actorAdministrativePaths, boundaryAllowsRule, rulesForChanged } from '@ui-platform/i-am/administration';
 import type { SecurityDocument, SecurityRecord, SecurityScope } from '@ui-platform/i-am/definitions';
 import { securityChecksum } from '@ui-platform/i-am/definitions';
-import { developmentSecurityConfiguration as config, developmentSecurityScopes as scopes } from './v1-security-administration.js';
+import { developmentSecurityConfiguration, developmentSecurityScopes } from './v1-security-administration.js';
+import type { AdministrationScopeAuthority } from '@ui-platform/i-am/administration';
 
 /** A read projection of existing policy, never a second role registry. */
-export function roleAdministrationState(documents: SecurityDocument[], applicationId: string, actorId: string, revision: number) {
+export function roleAdministrationState(documents: SecurityDocument[], applicationId: string, actorId: string, revision: number,
+  config = developmentSecurityConfiguration, scopes: AdministrationScopeAuthority = developmentSecurityScopes) {
   const records = documents.map(d => d.definition), authorityId = config.resourceAuthorityId;
   const application: SecurityScope = { resource: { authorityId, applicationId, kind: 'application', id: applicationId }, descendants: false };
   const platform: SecurityScope = { resource: { authorityId, applicationId: null, kind: 'system', id: config.systemResourceId }, descendants: false };

@@ -1,0 +1,539 @@
+{
+  "id": "clock-002",
+  "testStarted": true,
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\clock-002\\security-only\\disposable\\5f91bf51-d63d-4649-af2b-6e3d31061abd\\platform",
+  "tests": {
+    "passed": 1,
+    "failed": 0,
+    "pending": 0,
+    "success": true
+  },
+  "wp3": {
+    "passed": 63,
+    "failed": 0
+  },
+  "testCases": [
+    {
+      "title": "observes staggered independent Node peers across restart and a minute-long anchor interval",
+      "status": "passed",
+      "duration": 80149.6261
+    }
+  ],
+  "inputs": {
+    "original": "C:\\Projects\\Modular\\ui-platform",
+    "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\clock-002\\security-only\\disposable\\5f91bf51-d63d-4649-af2b-6e3d31061abd\\platform",
+    "roots": {
+      "src/server": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\src\\server",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\clock-002\\security-only\\disposable\\5f91bf51-d63d-4649-af2b-6e3d31061abd\\platform\\src\\server"
+      },
+      "components": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\components",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\clock-002\\security-only\\disposable\\5f91bf51-d63d-4649-af2b-6e3d31061abd\\platform\\components"
+      },
+      "packages/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\clock-002\\security-only\\disposable\\5f91bf51-d63d-4649-af2b-6e3d31061abd\\platform\\packages\\artifacts"
+      },
+      "node_modules/@ui-platform/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\clock-002\\security-only\\disposable\\5f91bf51-d63d-4649-af2b-6e3d31061abd\\platform\\packages\\artifacts"
+      }
+    },
+    "inputs": [
+      {
+        "file": "tests/stage5-clock-qualification.test.ts",
+        "sha256": "a5c8d3927ebca0913e2bf5fe79e15e6c1815c468b0bc9ee77b326db29679143c"
+      }
+    ],
+    "preparationSha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+    "changes": "Existing preparation; redirected disposable/evidence paths; excluded original Component .uib metadata. Tests copied byte-for-byte."
+  },
+  "completion": {
+    "exitCode": 0,
+    "graphDirectory": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\clock-002\\security-only\\disposable\\5f91bf51-d63d-4649-af2b-6e3d31061abd\\platform\\components",
+    "originalGraphMetadataCopied": false,
+    "originalLockDirectoryEvents": [],
+    "sharedSnapshotEqual": true,
+    "finishedAt": "2026-11-06T18:26:44.211Z"
+  },
+  "rawReportSha256": "86d6ed29b717fb4808c1eb8c668db512019b0f307e3306c7d2a47d87210126a3",
+  "sourceInputs": {
+    "UI Platform/src/server/production/applied-integration.ts": "e93d6b694483a0e2d48d696ec5f29064e637b85345558fff8316553b3f7f96d3",
+    "UI Platform/src/server/production/boundary.ts": "28cefd7aecad408d8a9b0d27368cca5e2776dad0ce439906bc40e7bb36844f46",
+    "UI Platform/src/server/production/current-iam.ts": "0f461dee7b139c3978ab2c0474b50e9746a9e6d5a3b01f1717e6765221a916ed",
+    "UI Platform/src/server/production/data-handler.ts": "fa75dd40ab2e6cfaef1e7d1fa8168f7e48119c2654d7403ab5301f0bc6e2dded",
+    "UI Platform/src/server/production/enrollment.ts": "450ecd5a1daa75537b2d4b3ecb6dd5eda4cb4b14ae20b7bf5d6017893a938ce5",
+    "UI Platform/src/server/production/identity-integration.ts": "d3a6fc2db7c4368941c60caa3751d540373ff0e3a52044d716b9d28b042eda75",
+    "UI Platform/src/server/production/internal-trust.ts": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52",
+    "UI Platform/src/server/production/management-frontend.ts": "8b1db3cee2beb4633bf5d555e9bc93b0e9468e115033bb530bcc5392a31e2e08",
+    "UI Platform/src/server/production/management.ts": "dcbe49e811b49b27bde9350e1b2e310ff2b602e0f00c363cb23a04ccf8719eae",
+    "UI Platform/src/server/production/mtls-management-transport.ts": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+    "UI Platform/src/server/production/mtls-transport.ts": "aabe6cf20299709994d1bcd300f76fe1c9ffefc0c9a2e1f8da77f6949b8a4ce1",
+    "UI Platform/src/server/production/oidc.ts": "c2758c6ba63c619a0fb3cb1d2c82ab02d36125af2eea237c6b4572e385b2c25d",
+    "UI Platform/src/server/production/predicate-templates.ts": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+    "UI Platform/src/server/production/private-asset-owner.ts": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+    "UI Platform/src/server/production/private-assets.ts": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+    "UI Platform/src/server/production/publication-integration.ts": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+    "UI Platform/src/server/production/release-browser-build.ts": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+    "UI Platform/src/server/production/releases.ts": "876c7845f69a378c536a47976319993335093d4189ac724fec7779ed6cdc03d8",
+    "UI Platform/src/server/production/runtime.ts": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+    "UI Platform/src/server/production/service-rpc.ts": "219acbdad5171024cba10ba536d2dd1aafa9b8da37739639d593fe123431e193",
+    "UI Platform/src/server/production/sessions.ts": "a63c012793733e2dcc930753ee1b152672427b18d3fde649c1800279be6a09ae",
+    "UI Platform/src/shared/released-runtime-services.ts": "263cf09d80c39652d81c1655e7c33cd5d4be9e4e6265df411bd60c7c60018e7e",
+    "UI Platform/src/server/role-administration.ts": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+    "UI Platform/tests/stage5-integration.test.ts": "a51d8dd4c2bb0cde8655a3332044eaecffeee9f41ab2a9fcb9a4d1c94e91bd26",
+    "UI Platform/tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": "b8ce3300ba8fc590c628d83ba97cc3da44f756cfe0d45092c6e1761378f0cf13",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "5efab8912017bc8d4f4b0a505398aae2c3ec994c692a1a48dfc0c2fd3b4c7669",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e"
+  },
+  "runnerSha256": "aef27b3d2808720fafd93c01c9417fc37e1a4ad35402fb5d69d0966d6270fa68",
+  "extended-clock.json": {
+    "kind": "plain-node-staggered-restart",
+    "node": "v24.19.0",
+    "v8": "13.6.233.17-node.51",
+    "platform": "win32",
+    "startedAt": "2026-11-06T18:25:24.068Z",
+    "finishedAt": "2026-11-06T18:26:44.139Z",
+    "elapsedMs": 80067.2947,
+    "peers": [
+      {
+        "label": "initial",
+        "pid": 1576,
+        "startedAfterMs": 9.413100000000004,
+        "count": 5094,
+        "futureIat": 2,
+        "childAhead": 3783,
+        "receiverAhead": 39,
+        "minChildToParentMs": -3,
+        "maxChildToParentMs": 5,
+        "parentBackwards": 0,
+        "childBackwards": 0,
+        "boundarySamples": [
+          {
+            "parentSend": 1793989525998,
+            "parentMono": 1954.6831,
+            "receive": 1793989526001,
+            "send": 1793989526001,
+            "mono": 1896.3077,
+            "origin": 1793989524099.957,
+            "backwards": 0,
+            "pid": 1576,
+            "parentReceive": 1793989525999,
+            "parentMonoReceive": 1955.2967
+          },
+          {
+            "parentSend": 1793989532998,
+            "parentMono": 8955.1164,
+            "receive": 1793989533001,
+            "send": 1793989533001,
+            "mono": 8896.4706,
+            "origin": 1793989524099.957,
+            "backwards": 0,
+            "pid": 1576,
+            "parentReceive": 1793989532999,
+            "parentMonoReceive": 8955.3406
+          }
+        ],
+        "buckets": [
+          {
+            "elapsedMs": 54.3644,
+            "deltaMs": -2,
+            "roundTripMs": 44.835,
+            "parentWall": 1793989524122,
+            "childWall": 1793989524124,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989524099.957
+          },
+          {
+            "elapsedMs": 10012.6525,
+            "deltaMs": -2,
+            "roundTripMs": 0.4850000000005821,
+            "parentWall": 1793989534081,
+            "childWall": 1793989534083,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989524099.957
+          },
+          {
+            "elapsedMs": 20011.006999999998,
+            "deltaMs": -2,
+            "roundTripMs": 0.40649999999732245,
+            "parentWall": 1793989544079,
+            "childWall": 1793989544081,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989524099.957
+          },
+          {
+            "elapsedMs": 30010.9601,
+            "deltaMs": -2,
+            "roundTripMs": 0.3018000000010943,
+            "parentWall": 1793989554079,
+            "childWall": 1793989554081,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989524099.957
+          },
+          {
+            "elapsedMs": 40012.8501,
+            "deltaMs": -2,
+            "roundTripMs": 0.36110000000189757,
+            "parentWall": 1793989564081,
+            "childWall": 1793989564083,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989524099.957
+          },
+          {
+            "elapsedMs": 50010.082,
+            "deltaMs": -2,
+            "roundTripMs": 0.23509999999805586,
+            "parentWall": 1793989574078,
+            "childWall": 1793989574080,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989524099.957
+          },
+          {
+            "elapsedMs": 60012.3343,
+            "deltaMs": 1,
+            "roundTripMs": 0.2912999999971362,
+            "parentWall": 1793989584084,
+            "childWall": 1793989584083,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989524099.957
+          },
+          {
+            "elapsedMs": 70007.9938,
+            "deltaMs": 0,
+            "roundTripMs": 0.25380000000586733,
+            "parentWall": 1793989594080,
+            "childWall": 1793989594080,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989524099.957
+          },
+          {
+            "elapsedMs": 80013.8814,
+            "deltaMs": 0,
+            "roundTripMs": 0.25190000000293367,
+            "parentWall": 1793989604086,
+            "childWall": 1793989604086,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989524099.957
+          }
+        ],
+        "errors": "",
+        "stoppedAfterMs": 80059.3456,
+        "exit": {
+          "code": null,
+          "signal": "SIGTERM"
+        }
+      },
+      {
+        "label": "start-plus-3s",
+        "pid": 42232,
+        "startedAfterMs": 3019.4457,
+        "count": 2050,
+        "futureIat": 3,
+        "childAhead": 2049,
+        "receiverAhead": 0,
+        "minChildToParentMs": -4,
+        "maxChildToParentMs": 3,
+        "parentBackwards": 0,
+        "childBackwards": 0,
+        "boundarySamples": [
+          {
+            "parentSend": 1793989532998,
+            "parentMono": 8955.1754,
+            "receive": 1793989533002,
+            "send": 1793989533002,
+            "mono": 5881.9003,
+            "origin": 1793989527120.36,
+            "backwards": 0,
+            "pid": 42232,
+            "parentReceive": 1793989532999,
+            "parentMonoReceive": 8955.4367
+          },
+          {
+            "parentSend": 1793989549996,
+            "parentMono": 25953.1098,
+            "receive": 1793989550000,
+            "send": 1793989550000,
+            "mono": 22879.8131,
+            "origin": 1793989527120.36,
+            "backwards": 0,
+            "pid": 42232,
+            "parentReceive": 1793989549997,
+            "parentMonoReceive": 25953.2865
+          },
+          {
+            "parentSend": 1793989557996,
+            "parentMono": 33953.149,
+            "receive": 1793989558000,
+            "send": 1793989558000,
+            "mono": 30879.9566,
+            "origin": 1793989527120.36,
+            "backwards": 0,
+            "pid": 42232,
+            "parentReceive": 1793989557997,
+            "parentMonoReceive": 33953.5127
+          }
+        ],
+        "buckets": [
+          {
+            "elapsedMs": 3068.5570000000002,
+            "deltaMs": -2,
+            "roundTripMs": 49.08269999999993,
+            "parentWall": 1793989527137,
+            "childWall": 1793989527139,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989527120.36
+          },
+          {
+            "elapsedMs": 10012.5448,
+            "deltaMs": -3,
+            "roundTripMs": 0.48179999999956635,
+            "parentWall": 1793989534081,
+            "childWall": 1793989534084,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989527120.36
+          },
+          {
+            "elapsedMs": 20011.0295,
+            "deltaMs": -3,
+            "roundTripMs": 0.40010000000256696,
+            "parentWall": 1793989544079,
+            "childWall": 1793989544082,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989527120.36
+          },
+          {
+            "elapsedMs": 30011.018,
+            "deltaMs": -3,
+            "roundTripMs": 0.2775000000001455,
+            "parentWall": 1793989554079,
+            "childWall": 1793989554082,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989527120.36
+          }
+        ],
+        "errors": "",
+        "stoppedAfterMs": 35044.781500000005,
+        "exit": {
+          "code": null,
+          "signal": "SIGTERM"
+        }
+      },
+      {
+        "label": "start-plus-11s",
+        "pid": 19544,
+        "startedAfterMs": 11033.238899999998,
+        "count": 4354,
+        "futureIat": 3,
+        "childAhead": 3045,
+        "receiverAhead": 85,
+        "minChildToParentMs": -4,
+        "maxChildToParentMs": 1,
+        "parentBackwards": 0,
+        "childBackwards": 0,
+        "boundarySamples": [
+          {
+            "parentSend": 1793989557996,
+            "parentMono": 33953.1183,
+            "receive": 1793989558000,
+            "send": 1793989558000,
+            "mono": 22864.5156,
+            "origin": 1793989535131.985,
+            "backwards": 0,
+            "pid": 19544,
+            "parentReceive": 1793989557997,
+            "parentMonoReceive": 33953.4841
+          },
+          {
+            "parentSend": 1793989565996,
+            "parentMono": 41952.2738,
+            "receive": 1793989566000,
+            "send": 1793989566000,
+            "mono": 30863.6573,
+            "origin": 1793989535131.985,
+            "backwards": 0,
+            "pid": 19544,
+            "parentReceive": 1793989565996,
+            "parentMonoReceive": 41952.5654
+          },
+          {
+            "parentSend": 1793989582996,
+            "parentMono": 58953.0371,
+            "receive": 1793989583000,
+            "send": 1793989583000,
+            "mono": 47864.4686,
+            "origin": 1793989535131.985,
+            "backwards": 0,
+            "pid": 19544,
+            "parentReceive": 1793989582997,
+            "parentMonoReceive": 58953.5098
+          }
+        ],
+        "buckets": [
+          {
+            "elapsedMs": 11083.2429,
+            "deltaMs": -3,
+            "roundTripMs": 49.98660000000018,
+            "parentWall": 1793989535151,
+            "childWall": 1793989535154,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989535131.985
+          },
+          {
+            "elapsedMs": 20010.965,
+            "deltaMs": -4,
+            "roundTripMs": 0.4654000000009546,
+            "parentWall": 1793989544079,
+            "childWall": 1793989544083,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989535131.985
+          },
+          {
+            "elapsedMs": 30011.0547,
+            "deltaMs": -4,
+            "roundTripMs": 0.2956000000012864,
+            "parentWall": 1793989554079,
+            "childWall": 1793989554083,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989535131.985
+          },
+          {
+            "elapsedMs": 40012.919200000004,
+            "deltaMs": -4,
+            "roundTripMs": 0.5566000000035274,
+            "parentWall": 1793989564081,
+            "childWall": 1793989564085,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989535131.985
+          },
+          {
+            "elapsedMs": 50010.0296,
+            "deltaMs": -4,
+            "roundTripMs": 0.26449999999749707,
+            "parentWall": 1793989574078,
+            "childWall": 1793989574082,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989535131.985
+          },
+          {
+            "elapsedMs": 60012.3822,
+            "deltaMs": 0,
+            "roundTripMs": 0.2703999999939697,
+            "parentWall": 1793989584084,
+            "childWall": 1793989584084,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989535131.985
+          },
+          {
+            "elapsedMs": 70008.0273,
+            "deltaMs": 0,
+            "roundTripMs": 0.24090000000433065,
+            "parentWall": 1793989594080,
+            "childWall": 1793989594080,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989535131.985
+          },
+          {
+            "elapsedMs": 80013.9297,
+            "deltaMs": 1,
+            "roundTripMs": 0.23889999999664724,
+            "parentWall": 1793989604086,
+            "childWall": 1793989604085,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989535131.985
+          }
+        ],
+        "errors": "",
+        "stoppedAfterMs": 80059.56869999999,
+        "exit": {
+          "code": null,
+          "signal": "SIGTERM"
+        }
+      },
+      {
+        "label": "restart-plus-35s",
+        "pid": 45912,
+        "startedAfterMs": 35056.283800000005,
+        "count": 2831,
+        "futureIat": 0,
+        "childAhead": 0,
+        "receiverAhead": 2830,
+        "minChildToParentMs": 3,
+        "maxChildToParentMs": 8,
+        "parentBackwards": 0,
+        "childBackwards": 0,
+        "boundarySamples": [],
+        "buckets": [
+          {
+            "elapsedMs": 35098.4617,
+            "deltaMs": 5,
+            "roundTripMs": 42.15350000000035,
+            "parentWall": 1793989559167,
+            "childWall": 1793989559162,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989559146.732
+          },
+          {
+            "elapsedMs": 40013.0625,
+            "deltaMs": 3,
+            "roundTripMs": 0.5432000000000698,
+            "parentWall": 1793989564081,
+            "childWall": 1793989564078,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989559146.732
+          },
+          {
+            "elapsedMs": 50010.062900000004,
+            "deltaMs": 3,
+            "roundTripMs": 0.23329999999987194,
+            "parentWall": 1793989574078,
+            "childWall": 1793989574075,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989559146.732
+          },
+          {
+            "elapsedMs": 60012.4112,
+            "deltaMs": 7,
+            "roundTripMs": 0.27620000000024447,
+            "parentWall": 1793989584084,
+            "childWall": 1793989584077,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989559146.732
+          },
+          {
+            "elapsedMs": 70008.0454,
+            "deltaMs": 7,
+            "roundTripMs": 0.24390000000130385,
+            "parentWall": 1793989594080,
+            "childWall": 1793989594073,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989559146.732
+          },
+          {
+            "elapsedMs": 80013.91739999999,
+            "deltaMs": 8,
+            "roundTripMs": 0.24240000000281725,
+            "parentWall": 1793989604086,
+            "childWall": 1793989604078,
+            "parentOrigin": 1793989524038.983,
+            "childOrigin": 1793989559146.732
+          }
+        ],
+        "errors": "",
+        "stoppedAfterMs": 80059.66189999999,
+        "exit": {
+          "code": null,
+          "signal": "SIGTERM"
+        }
+      }
+    ],
+    "policy": "No tolerance; measurements only; ordered IPC offsets are not instantaneous exact clock differences or a global upper bound"
+  },
+  "clockFixtureSha256": "f1470c54e0652f7e978e9ae09ab6418a5738c7d5ff39a30672ca1bd603cb3bb2"
+}

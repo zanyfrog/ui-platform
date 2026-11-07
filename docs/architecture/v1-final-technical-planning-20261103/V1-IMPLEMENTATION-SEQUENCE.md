@@ -1,5 +1,7 @@
 # V1 Implementation Sequence
 
+**Current scope override — November 6, 2026:** Functional, reliable local Windows V1 is the current acceptance target. Ubuntu/production clock qualification, Caddy, cloud resources and production-host readiness do not gate local V1. Stage 5 security capabilities must work locally under unchanged security contracts. Production deployment and recovery execution remain future, separately authorized milestones; this override does not begin Stage 6/7 or waive local release/data-integrity requirements. See [the local scope review gate](../v1-stage5-local-development-scope-review-gate-20261106.md).
+
 November 3, 2026. **PROPOSED; implementation not authorized.** Stop at the UI Platform V1 Final Technical Planning Review Gate. Authority, evidence labels, commits, preserved acceptance and source ledger are in [Technical Decisions](V1-TECHNICAL-DECISIONS.md). Root abbreviations: Platform = `C:/Projects/Modular/ui-platform`; Base = `C:/Projects/Modular/ui-base`; Data = `C:/Projects/Modular/UI Platform Data Services`, including `packages/i-am`.
 
 ## Independently reviewable stages

@@ -1,0 +1,63 @@
+{
+  "before": {
+    "iam": {
+      "passed": 151,
+      "failed": 1,
+      "success": false
+    },
+    "observation": {
+      "review": "cleanup-after-commit",
+      "result": {
+        "status": "rejected",
+        "diagnostics": [
+          {
+            "code": "ADMIN_AUTHORITY_UNAVAILABLE",
+            "path": "$",
+            "message": "Security administration request denied."
+          }
+        ]
+      },
+      "revision": 2,
+      "auditCount": 1,
+      "candidate": {
+        "status": "activated",
+        "revision": 2,
+        "auditId": "73f9b2f8-2773-43cc-b993-1f9adcdafd97"
+      }
+    },
+    "report": "../v1-stage5-local-scope-20261106/review-evidence/wp3-review-before.json"
+  },
+  "after": {
+    "iam": {
+      "passed": 157,
+      "failed": 0,
+      "success": true
+    },
+    "stage5": {
+      "passed": 13,
+      "failed": 0,
+      "success": true
+    },
+    "observation": {
+      "review": "cleanup-after-commit",
+      "result": {
+        "status": "activated",
+        "revision": 2,
+        "auditId": "9a31b315-540b-4e96-969c-e043824be637"
+      },
+      "revision": 2,
+      "auditCount": 1,
+      "candidate": {
+        "status": "activated",
+        "revision": 2,
+        "auditId": "9a31b315-540b-4e96-969c-e043824be637"
+      }
+    },
+    "report": "../v1-stage5-local-scope-20261106/review-evidence/wp3-review-final.json"
+  },
+  "testProvenance": {
+    "beforeSha256": "af20b640ef0cb7160bbbea03fdf7271654bd463c21a9a6ff08f146fa2588cc83",
+    "afterSha256": "6ce930b83e24d4587118acbde558d84537e50c61bbd359818ea1e8accfef2ef5"
+  },
+  "scope": "156 checked-in-source Data cases plus one unchanged appended cleanup reproducer = 157; 13 Stage 5 security cases. Exact tested production source and copied test input reconciled. No rerun or new integration pass claimed."
+}

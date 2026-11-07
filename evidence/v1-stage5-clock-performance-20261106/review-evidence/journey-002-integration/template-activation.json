@@ -1,0 +1,50 @@
+{
+  "template": {
+    "templateId": "inventory.exclude-hidden.v1",
+    "boundaryId": "initial.08327df7-765c-4e6f-98e0-2c44f1954dee.boundary",
+    "applicationId": "08327df7-765c-4e6f-98e0-2c44f1954dee",
+    "datasetId": "ee92618b-6487-4b91-aca7-2f00957c2794",
+    "fieldId": "70fc2051-4dc9-4c52-a4bf-0d0445ee2aec",
+    "schemaIdentity": "610eccb3ceb668fdbd3c036c7faa376e3d3cb7fa97706ea8a22b0f9e658858fa",
+    "reason": "Explicit Platform authorization of the finite inventory exclusion"
+  },
+  "representation": {
+    "id": "stage5.row-deny",
+    "permissionId": "dataset.read",
+    "effect": "deny",
+    "scope": {
+      "resource": {
+        "authorityId": "ui-platform-development",
+        "applicationId": "08327df7-765c-4e6f-98e0-2c44f1954dee",
+        "kind": "dataset",
+        "id": "ee92618b-6487-4b91-aca7-2f00957c2794"
+      },
+      "descendants": true
+    },
+    "where": {
+      "op": "eq",
+      "left": {
+        "kind": "field",
+        "fieldId": "70fc2051-4dc9-4c52-a4bf-0d0445ee2aec"
+      },
+      "right": {
+        "kind": "literal",
+        "value": "Hidden"
+      }
+    }
+  },
+  "registration": {
+    "templateId": "inventory.exclude-hidden.v1",
+    "registered": true,
+    "registryRevision": "884a8226201e37399cd8341a9a474e97965b4674d1fb7f93c1f26c3caed54453"
+  },
+  "delegation": {
+    "candidateId": "af5fe1b6-ccd8-4f06-afba-1b1e47ddc225",
+    "status": "activated"
+  },
+  "viewerActivation": {
+    "candidateId": "9a1dc00d-9309-4814-a26f-56c097b1ae74",
+    "status": "activated"
+  },
+  "productionQualification": false
+}

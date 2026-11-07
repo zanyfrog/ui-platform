@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';
+const args=process.argv.slice(2),attempt=args.find(a=>/^--attempt=[a-z0-9-]+$/.test(a))?.slice(10);
+if(!attempt||args.some(a=>!['--security-only','--trace','--rpc-probe'].includes(a)&&!/^--attempt=[a-z0-9-]+$/.test(a)))throw Error('Explicit unique --attempt required');
+const destination='evidence/v1-stage5-refusal-investigation-20261106/'+attempt;
+if(await fs.stat(destination).then(()=>true,()=>false))throw Error('IMMUTABLE_ATTEMPT_EXISTS');
+process.env.UI_PLATFORM_STAGE5_REFUSAL_TRACE=args.includes('--trace')?'1':'0';
+process.argv=[...process.argv.slice(0,2),...(args.includes('--rpc-probe')?['--security-only']:args.filter(a=>a==='--security-only'))];
+let source=(await fs.readFile('scripts/verify-stage5-integration.mjs','utf8')).replaceAll('evidence/v1-stage5-wp3-integration-20261105',destination);
+if(args.includes('--rpc-probe'))source=source.replace("const tests = ['stage5-integration'];","const tests = ['stage5-refusal-rpc'];").replace('!transformed.includes("\'stage5-integration\'")','!transformed.includes("\'stage5-refusal-rpc\'")');
+await import('data:text/javascript,'+encodeURIComponent(source));

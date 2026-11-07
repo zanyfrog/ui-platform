@@ -35,9 +35,9 @@ export class SecureSessions {
   async logout(request: IncomingMessage) { await this.read(request, true); this.sessions.delete(digest(cookie(request, this.cookieName)!)); return this.header('', true); }
   revoke(userId: string) { const key = JSON.stringify([userId, this.applicationId]); this.epochs.set(key, (this.epochs.get(key) ?? 0) + 1); }
   /** Only expose through an authenticated internal service adapter, never a public session-ID lookup. */
-  async activeInternal(actor: { enrollment: Enrollment; sessionId: string }) {
+  async activeInternal(actor: { enrollment: Enrollment; sessionId: string; sessionEpoch?: number }) {
     const s = this.sessions.get(actor.sessionId);
-    return !!s && JSON.stringify(s.enrollment) === JSON.stringify(actor.enrollment) && s.epoch === (this.epochs.get(this.epochKey(s.enrollment)) ?? 0) &&
+    return !!s && (actor.sessionEpoch === undefined || actor.sessionEpoch === s.epoch) && JSON.stringify(s.enrollment) === JSON.stringify(actor.enrollment) && s.epoch === (this.epochs.get(this.epochKey(s.enrollment)) ?? 0) &&
       this.now() - s.seen < this.idleMs && this.now() - s.created < this.absoluteMs && await this.directory.current(s.enrollment);
   }
   close() { this.sessions.clear(); this.epochs.clear(); }

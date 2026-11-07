@@ -1,0 +1,112 @@
+{
+  "id": "trace-001",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\trace-001\\security-only\\disposable\\827299d2-7a5a-4be8-85f5-3d5761336e87\\platform",
+  "tests": {
+    "passed": 0,
+    "failed": 1,
+    "pending": 0,
+    "success": false
+  },
+  "iam": {
+    "passed": 63,
+    "failed": 0
+  },
+  "testCases": [
+    {
+      "title": "Stage 5: actual Builder publication, protected three-process application and current I-AM workflow",
+      "status": "failed",
+      "duration": 81153.82680000001
+    }
+  ],
+  "rawReportSha256": "6a82a880c91477cb10501f44e5c0150a4edb2efd572a7289ee558f7447389f6a",
+  "inputs": {
+    "original": "C:\\Projects\\Modular\\ui-platform",
+    "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\trace-001\\security-only\\disposable\\827299d2-7a5a-4be8-85f5-3d5761336e87\\platform",
+    "roots": {
+      "src/server": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\src\\server",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\trace-001\\security-only\\disposable\\827299d2-7a5a-4be8-85f5-3d5761336e87\\platform\\src\\server"
+      },
+      "components": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\components",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\trace-001\\security-only\\disposable\\827299d2-7a5a-4be8-85f5-3d5761336e87\\platform\\components"
+      },
+      "packages/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\trace-001\\security-only\\disposable\\827299d2-7a5a-4be8-85f5-3d5761336e87\\platform\\packages\\artifacts"
+      },
+      "node_modules/@ui-platform/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\trace-001\\security-only\\disposable\\827299d2-7a5a-4be8-85f5-3d5761336e87\\platform\\packages\\artifacts"
+      }
+    },
+    "inputs": [
+      {
+        "file": "tests/stage5-integration.test.ts",
+        "sha256": "2ddb7e3a27ef13a452b533b360cf2dc1209b5dab3d6d0f8078842d8b0a3557cc"
+      }
+    ],
+    "preparationSha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+    "changes": "Existing preparation; redirected disposable/evidence paths; excluded original Component .uib metadata. Tests copied byte-for-byte."
+  },
+  "sourceInputs": {
+    "UI Platform/src/server/production/applied-integration.ts": "e93d6b694483a0e2d48d696ec5f29064e637b85345558fff8316553b3f7f96d3",
+    "UI Platform/src/server/production/boundary.ts": "28cefd7aecad408d8a9b0d27368cca5e2776dad0ce439906bc40e7bb36844f46",
+    "UI Platform/src/server/production/current-iam.ts": "0f461dee7b139c3978ab2c0474b50e9746a9e6d5a3b01f1717e6765221a916ed",
+    "UI Platform/src/server/production/data-handler.ts": "fa75dd40ab2e6cfaef1e7d1fa8168f7e48119c2654d7403ab5301f0bc6e2dded",
+    "UI Platform/src/server/production/enrollment.ts": "450ecd5a1daa75537b2d4b3ecb6dd5eda4cb4b14ae20b7bf5d6017893a938ce5",
+    "UI Platform/src/server/production/identity-integration.ts": "d3a6fc2db7c4368941c60caa3751d540373ff0e3a52044d716b9d28b042eda75",
+    "UI Platform/src/server/production/internal-trust.ts": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52",
+    "UI Platform/src/server/production/management-frontend.ts": "8b1db3cee2beb4633bf5d555e9bc93b0e9468e115033bb530bcc5392a31e2e08",
+    "UI Platform/src/server/production/management.ts": "dcbe49e811b49b27bde9350e1b2e310ff2b602e0f00c363cb23a04ccf8719eae",
+    "UI Platform/src/server/production/mtls-management-transport.ts": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+    "UI Platform/src/server/production/mtls-transport.ts": "aabe6cf20299709994d1bcd300f76fe1c9ffefc0c9a2e1f8da77f6949b8a4ce1",
+    "UI Platform/src/server/production/oidc.ts": "c2758c6ba63c619a0fb3cb1d2c82ab02d36125af2eea237c6b4572e385b2c25d",
+    "UI Platform/src/server/production/predicate-templates.ts": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+    "UI Platform/src/server/production/private-asset-owner.ts": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+    "UI Platform/src/server/production/private-assets.ts": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+    "UI Platform/src/server/production/publication-integration.ts": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+    "UI Platform/src/server/production/release-browser-build.ts": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+    "UI Platform/src/server/production/releases.ts": "876c7845f69a378c536a47976319993335093d4189ac724fec7779ed6cdc03d8",
+    "UI Platform/src/server/production/runtime.ts": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+    "UI Platform/src/server/production/service-rpc.ts": "219acbdad5171024cba10ba536d2dd1aafa9b8da37739639d593fe123431e193",
+    "UI Platform/src/server/production/sessions.ts": "a63c012793733e2dcc930753ee1b152672427b18d3fde649c1800279be6a09ae",
+    "UI Platform/src/shared/released-runtime-services.ts": "263cf09d80c39652d81c1655e7c33cd5d4be9e4e6265df411bd60c7c60018e7e",
+    "UI Platform/src/server/role-administration.ts": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+    "UI Platform/tests/stage5-integration.test.ts": "2ddb7e3a27ef13a452b533b360cf2dc1209b5dab3d6d0f8078842d8b0a3557cc",
+    "UI Platform/tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": "b8ce3300ba8fc590c628d83ba97cc3da44f756cfe0d45092c6e1761378f0cf13",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "5efab8912017bc8d4f4b0a505398aae2c3ec994c692a1a48dfc0c2fd3b4c7669",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e"
+  },
+  "completion": {
+    "exitCode": 1,
+    "graphDirectory": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\trace-001\\security-only\\disposable\\827299d2-7a5a-4be8-85f5-3d5761336e87\\platform\\components",
+    "originalGraphMetadataCopied": false,
+    "originalLockDirectoryEvents": [],
+    "sharedSnapshotEqual": true,
+    "finishedAt": "2026-11-06T18:45:04.725Z"
+  },
+  "codeInputs": {
+    "tests/stage5-integration.test.ts": "2ddb7e3a27ef13a452b533b360cf2dc1209b5dab3d6d0f8078842d8b0a3557cc",
+    "scripts/verify-stage5-builder-save.mjs": "4583e55d7491c7c10912736d579fb3a702a60927043e80340c997269698437fc",
+    "tests/fixtures/stage5-integration-journey.ts": "5efab8912017bc8d4f4b0a505398aae2c3ec994c692a1a48dfc0c2fd3b4c7669",
+    "tests/fixtures/stage5-builder-save-observer.ts": "4c62aaf95c17970d57880cc365c88da351a437b8623bcd81ca7505fe3eaefe7b"
+  },
+  "temporaryDiagnostics": null,
+  "diagnostics": {
+    "builder-save-observations.json": "8ef9ce128180afa8670fec5399f4434d7578fa94c4b072b3a99c6bdd8b263415",
+    "runtime-submit.txt": "e01e2e9efc571e11b76ddbd10a89699f07e8794cbb9357183a6ebf262376f6e9"
+  },
+  "integration": {
+    "builder-schema-form.json": "55220917b25351f585c094a5d9d065479d03497cb478f69af26df2bb12ed73e1",
+    "private-public-export-audit.json": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+    "owner-binding-refusal.json": "261ca6f01ce634b66ab84c0bdf3bcfb5f4f8a0b4ac0fcbe5fc8da4c029614725",
+    "publication-and-draft.json": "11a49e8797b688fca3b0e36f0c5c6b1d513fd2d7004a0d34acbd62a3761c2c89"
+  },
+  "failure": "Form result did not contain Visible A; trace-003 establishes its own strict future-iat RPC refusal; no retroactive attribution of untraced runs"
+}

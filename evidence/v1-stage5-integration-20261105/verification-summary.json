@@ -1,0 +1,47 @@
+{
+  "baseline": "d3729a13c8312d35be4fe61b784f84f9e3bd4446",
+  "branch": "main",
+  "status": "BLOCKED: existing predicate administration scope refuses Viewer policy; no bypass",
+  "regressions": {
+    "passed": 42,
+    "failed": 1,
+    "pending": 1,
+    "failedIntegration": "ADMIN_GRANT_CEILING"
+  },
+  "focusedIntegration": "same actual refusal; publication/draft evidence retained",
+  "manifests": {
+    "package.json": "5d672f62672a6c067e4e98e6f71bcdb7190256cd4eddb64b66d43801470d5d45",
+    "package-lock.json": "60987d70d179578958ce226f81544d205b2c7ed7f620ba66a6705457c82acda6",
+    "src/server/production/package.json": "5d1ea0cc865ad948ffedfa90ce044d702cdd32f4de776c2c72c58464520d06b0",
+    "src/server/production/package-lock.json": "75a66f1dd34f5d7eca22ee93a90f0f6d6a63de04e8aeecc5f3527db866690911"
+  },
+  "securityPackages": [
+    {
+      "name": "jose",
+      "version": "6.2.15",
+      "integrity": "sha512-qdF6ewcZARtef63fJ9AKKZPgxw+t7USH6HLXYcD4CrdmSvDp79rpJSPFEKc90QBeGS63u1KQtN2MZQHC0yDIzA==",
+      "installLifecycleScripts": false
+    },
+    {
+      "name": "oauth4webapi",
+      "version": "3.8.8",
+      "integrity": "sha512-8N28E+a/oxfXWBgOMt+ZP/JUf/XR+IFbvkAEPP3gznXOMv9BpAAwiIj0TFNz3tGTPc0ZQ8zmWBNgN1nAys0gng==",
+      "installLifecycleScripts": false
+    },
+    {
+      "name": "openid-client",
+      "version": "6.8.9",
+      "integrity": "sha512-6mXMRNJxDOf6BflEWLXul1UwzLFz++9Ofz1PYwPwwsJsyXBsbfkO+Jo255SW1qnFNLYz4EJWHz42X4OJJrya/g==",
+      "installLifecycleScripts": false
+    }
+  ],
+  "unchangedRepositories": {
+    "../ui-base": "732eec58ca3d4bd2521197b9d3b6c0457dbc6608",
+    "../UI Platform Data Services": "81b769eef3763d02343f5347888c26edab6ef7bc"
+  },
+  "graphPreservation": true,
+  "originalLockDirectoryEvents": [],
+  "productionQualification": false,
+  "committed": false,
+  "pushed": false
+}

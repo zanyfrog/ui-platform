@@ -1,0 +1,17 @@
+{
+  "purpose": "Structural probe of actual WP3 graph contract; not approval or an integration pass",
+  "syntheticLocatorsOnly": true,
+  "exactPredicateCallbackArguments": [
+    "templateIds",
+    "predicate"
+  ],
+  "denyRuleAcceptedByProbe": true,
+  "allowRuleWithSamePredicateAlsoAcceptedByProbe": true,
+  "boundaryIdentityNotPassed": true,
+  "unknownTemplateRefusedByProbe": true,
+  "wrongFieldRefusedByProbe": true,
+  "acceptedDevelopmentAdapterStillRefuses": true,
+  "productionAdapterImplemented": false,
+  "workflowResumed": false,
+  "requiredReview": "Full-rule and boundary context plus transaction-bound template delegation validation"
+}

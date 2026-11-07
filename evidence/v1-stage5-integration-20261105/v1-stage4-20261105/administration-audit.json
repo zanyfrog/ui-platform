@@ -1,0 +1,211 @@
+[
+  {
+    "id": "6120651a-e2e8-4ba7-bb2f-d2af14e72382",
+    "revision": 2,
+    "kind": "administration",
+    "operation": "initialize-platform-security",
+    "actorId": "explicit-local-test-operator",
+    "targetIds": [
+      "dataset.read",
+      "dataset.create",
+      "dataset.update",
+      "dataset.delete",
+      "dataset.write",
+      "automation.reference.notification.invoke",
+      "workflow.invoke",
+      "ui.platform.security.admin",
+      "ui.application.security.admin",
+      "development.platform-security.set",
+      "development.platform-security.role",
+      "development.platform-security.assignment",
+      "development.platform-security.boundary",
+      "development.anchor.dev-v1-identity-fixture.set",
+      "development.anchor.dev-v1-identity-fixture.role",
+      "development.anchor.dev-v1-identity-fixture.assignment",
+      "development.anchor.dev-v1-identity-fixture.boundary"
+    ],
+    "applicationId": null,
+    "authorityPath": [
+      "development.security.local-setup"
+    ],
+    "reason": "Explicit local WP0 development setup",
+    "beforeDigest": "sha256:40769fc2f09c831ed15868d38569c85f68edb42a56d6768e6a4f568eca8f61c9",
+    "afterDigest": "sha256:f09fbff091030517a9a5eb1dfb625d6507d2efd8be4201515f8dca4b421ae2e9",
+    "occurredAt": "2026-11-05T21:59:19.898Z",
+    "candidateId": "b7efdd76-925f-467b-9047-469866ab7f52"
+  },
+  {
+    "id": "546b77e7-b12d-46f5-99e5-3cd71598b1e9",
+    "revision": 3,
+    "kind": "administration",
+    "operation": "assign+create",
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "targetIds": [
+      "wp0.creator-set",
+      "wp0.creator-role",
+      "wp0.creator-assignment"
+    ],
+    "applicationId": null,
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "reason": "Explicit WP0 role administration",
+    "beforeDigest": "sha256:f09fbff091030517a9a5eb1dfb625d6507d2efd8be4201515f8dca4b421ae2e9",
+    "afterDigest": "sha256:b61d577b815d48a7278a7c53d3a9f0005f3e0c65a41d71fb59e759d200656664",
+    "occurredAt": "2026-11-05T21:59:21.584Z",
+    "candidateId": "b15b49d2-acb8-450e-b25f-3bb001110bb9"
+  },
+  {
+    "id": "d306c001-ec44-418f-84d4-9d6f34f09bfe",
+    "revision": 4,
+    "kind": "administration",
+    "operation": "provision-application",
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "targetIds": [
+      "fda7b389-eb39-4bff-9600-036f2885daca",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.set",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.role",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.assignment",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.boundary"
+    ],
+    "applicationId": "fda7b389-eb39-4bff-9600-036f2885daca",
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "reason": "Stage 4 disposable provisioning",
+    "beforeDigest": "sha256:b61d577b815d48a7278a7c53d3a9f0005f3e0c65a41d71fb59e759d200656664",
+    "afterDigest": "sha256:6bc84b2863cae63f1005b6b251ea500ad9ee6239fc17ce1da1f9ac86bb67596c",
+    "occurredAt": "2026-11-05T21:59:31.573Z",
+    "candidateId": "f3787bb5-5771-41c9-a3d2-04e56e914d9d"
+  },
+  {
+    "id": "e94dc8ee-9c3c-4037-bf39-df262c437d4b",
+    "revision": 5,
+    "kind": "administration",
+    "operation": "edit",
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "targetIds": [
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.boundary"
+    ],
+    "applicationId": null,
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "reason": "Explicit WP0 role administration",
+    "beforeDigest": "sha256:6bc84b2863cae63f1005b6b251ea500ad9ee6239fc17ce1da1f9ac86bb67596c",
+    "afterDigest": "sha256:9de43df37a6889b0a5e79891e7cf48d7f9646f10edbe6df9a1809d0c5f566e6e",
+    "occurredAt": "2026-11-05T21:59:31.946Z",
+    "candidateId": "89e38030-6172-498a-b298-cbe6b8cd7dce"
+  },
+  {
+    "id": "2a779c44-d691-4595-b940-4ffab7742ca6",
+    "revision": 6,
+    "kind": "administration",
+    "operation": "assign+create+edit",
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "targetIds": [
+      "stage4.admin.set",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.role",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.assignment",
+      "stage4.editor.set",
+      "stage4.editor",
+      "stage4.viewer.set",
+      "stage4.viewer",
+      "stage4.ceiling.set",
+      "stage4.ceiling"
+    ],
+    "applicationId": "fda7b389-eb39-4bff-9600-036f2885daca",
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "reason": "Explicit WP0 role administration",
+    "beforeDigest": "sha256:9de43df37a6889b0a5e79891e7cf48d7f9646f10edbe6df9a1809d0c5f566e6e",
+    "afterDigest": "sha256:2a2e6c6ba56b9bdcf62b82877aecdfa3e7e73b3b28513996ed7b4ed23f22b45c",
+    "occurredAt": "2026-11-05T21:59:32.061Z",
+    "candidateId": "332004f0-237d-41ce-afe1-b93eb242df58"
+  },
+  {
+    "id": "d4bc2b95-0782-47b5-9dd6-40e4dee4873e",
+    "revision": 7,
+    "kind": "administration",
+    "operation": "assign",
+    "actorId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+    "targetIds": [
+      "4b59ef9f-acae-4ba1-bb2d-ca17c701a95f"
+    ],
+    "applicationId": "fda7b389-eb39-4bff-9600-036f2885daca",
+    "authorityPath": [
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.assignment",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.boundary"
+    ],
+    "reason": "Assign Editor to one Page",
+    "beforeDigest": "sha256:2a2e6c6ba56b9bdcf62b82877aecdfa3e7e73b3b28513996ed7b4ed23f22b45c",
+    "afterDigest": "sha256:eaeda8893bdb1d34fdfc88a20856ddc8fc93a502cd82593f5fe44eb115bc63dc",
+    "occurredAt": "2026-11-05T21:59:32.898Z",
+    "candidateId": "65a4f813-77da-4cf3-abc4-3b0f5b632f4e"
+  },
+  {
+    "id": "44abf116-67e4-495b-8ea7-7fe2ebf41caf",
+    "revision": 8,
+    "kind": "administration",
+    "operation": "revoke",
+    "actorId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+    "targetIds": [
+      "4b59ef9f-acae-4ba1-bb2d-ca17c701a95f"
+    ],
+    "applicationId": "fda7b389-eb39-4bff-9600-036f2885daca",
+    "authorityPath": [
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.assignment",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.boundary"
+    ],
+    "reason": "Assign Editor to one Page",
+    "beforeDigest": "sha256:eaeda8893bdb1d34fdfc88a20856ddc8fc93a502cd82593f5fe44eb115bc63dc",
+    "afterDigest": "sha256:defd536e5d342b4737a3a2c2f49583d383fd2cbebf71bf247a44b75d4ef4bf08",
+    "occurredAt": "2026-11-05T21:59:46.275Z",
+    "candidateId": "ff855cc5-fee5-4cf5-b482-3c563df6df30"
+  },
+  {
+    "id": "092e0f42-5384-4b33-80ca-b612e075abfd",
+    "revision": 9,
+    "kind": "administration",
+    "operation": "assign",
+    "actorId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+    "targetIds": [
+      "65179a51-9309-47e1-ad0b-c3169cf986a9"
+    ],
+    "applicationId": "fda7b389-eb39-4bff-9600-036f2885daca",
+    "authorityPath": [
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.assignment",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.boundary"
+    ],
+    "reason": "Stage 4 direct negative case",
+    "beforeDigest": "sha256:defd536e5d342b4737a3a2c2f49583d383fd2cbebf71bf247a44b75d4ef4bf08",
+    "afterDigest": "sha256:fcaa00b98cffc5c12e39ef4aa7ee9e7234157eb7a74f6d990db7bf3a2081ee14",
+    "occurredAt": "2026-11-05T21:59:46.644Z",
+    "candidateId": "9f079258-50ac-4b77-8f1b-2652935ecb76"
+  },
+  {
+    "id": "405ba51d-1f99-43a6-8123-4bf49cfa3207",
+    "revision": 10,
+    "kind": "administration",
+    "operation": "assign",
+    "actorId": "usr_f01e0c1c58424bed9ac4e8601ff9890a",
+    "targetIds": [
+      "ce2b900f-08cb-456c-af56-192b1d3279c2"
+    ],
+    "applicationId": "fda7b389-eb39-4bff-9600-036f2885daca",
+    "authorityPath": [
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.assignment",
+      "initial.fda7b389-eb39-4bff-9600-036f2885daca.boundary"
+    ],
+    "reason": "Stage 4 direct negative case",
+    "beforeDigest": "sha256:fcaa00b98cffc5c12e39ef4aa7ee9e7234157eb7a74f6d990db7bf3a2081ee14",
+    "afterDigest": "sha256:4ce6cf71f45ad2c609525a3aafd9f4a4930b12b3fdb4afa72e690f6852ff1a82",
+    "occurredAt": "2026-11-05T21:59:46.974Z",
+    "candidateId": "c88c1cfe-5649-4473-9678-a41442efb2b4"
+  }
+]

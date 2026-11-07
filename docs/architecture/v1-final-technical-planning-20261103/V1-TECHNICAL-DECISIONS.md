@@ -1,5 +1,7 @@
 # V1 Technical Decisions
 
+**Current scope override — November 6, 2026:** V1 development and acceptance use the existing local Windows environment. Ubuntu, Caddy, cloud infrastructure and production-host preparation are future production qualifications and are not local acceptance prerequisites. Required I-AM/WP3, permission, identity/session/revocation, data integrity and truthful outcome contracts remain mandatory locally. Local application failures remain blockers. No infrastructure or later-stage execution is authorized. See [the current local scope and review gate](../v1-stage5-local-development-scope-review-gate-20261106.md). The original planning record below is retained with this explicit scope override.
+
 Planning date: November 3, 2026. Gate: **UI Platform V1 Final Technical Planning Review Gate**. Implementation is not authorized. Only these five planning documents may be written. All proposed tests and operations below require later bounded authorization; none was executed for this review.
 
 ## Authority and evidence

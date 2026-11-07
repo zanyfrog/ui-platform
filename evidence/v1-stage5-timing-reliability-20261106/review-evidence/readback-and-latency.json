@@ -1,0 +1,1272 @@
+{
+  "firstDenier": "Data ServiceRpcVerifier: JWT iat claim during identity-current RPC for form-read",
+  "chains": {
+    "data": [
+      {
+        "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+        "events": [
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22344.5073,
+            "component": "applied",
+            "stage": "inspect:start"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22365.4309,
+            "component": "applied",
+            "stage": "inspect:end",
+            "elapsed": 20.916799999999057
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22365.6128,
+            "component": "iam",
+            "stage": "directory-current:start"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22366.2972,
+            "component": "iam",
+            "stage": "directory-current:end",
+            "elapsed": 0.6813999999976659,
+            "accepted": true
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22366.3228,
+            "component": "iam",
+            "stage": "session-current:start"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22368.0975,
+            "component": "rpc-server",
+            "stage": "request-start",
+            "operation": "current",
+            "method": "POST"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22368.4336,
+            "component": "rpc-verifier",
+            "stage": "jwt-verified",
+            "iat": 1793975729,
+            "exp": 1793975744,
+            "now": 1793975729.973
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22368.4783,
+            "component": "rpc-verifier",
+            "stage": "nonce",
+            "size": 269,
+            "replay": false
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22368.9426,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 0.8544000000001688
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22369.2274,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/sessions/status",
+            "status": 200
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22369.3328,
+            "component": "remote-session",
+            "stage": "result",
+            "active": true
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22369.3512,
+            "component": "iam",
+            "stage": "session-current:end",
+            "elapsed": 3.028199999997014,
+            "accepted": true
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22369.8746,
+            "component": "applied",
+            "stage": "inspect:start"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22387.9557,
+            "component": "applied",
+            "stage": "inspect:end",
+            "elapsed": 18.074899999999616
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22388.4308,
+            "component": "iam",
+            "stage": "assert-current:end",
+            "elapsed": 144.96689999999944
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22388.4514,
+            "component": "iam",
+            "stage": "assert-current:start"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22388.4989,
+            "component": "iam",
+            "stage": "directory-current:start"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22388.8366,
+            "component": "iam",
+            "stage": "directory-current:end",
+            "elapsed": 0.3364000000001397,
+            "accepted": true
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22388.8508,
+            "component": "iam",
+            "stage": "session-current:start"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22390.3175,
+            "component": "rpc-server",
+            "stage": "request-start",
+            "operation": "current",
+            "method": "POST"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22390.8989,
+            "component": "rpc-server",
+            "stage": "catch",
+            "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+            "now": 1793975729.996,
+            "claim": "iat",
+            "reason": "check_failed",
+            "iat": 1793975730,
+            "exp": 1793975745
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22391.0011,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 403,
+            "elapsed": 0.690999999998894
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22391.6387,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/sessions/status",
+            "status": 200
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22391.7401,
+            "component": "remote-session",
+            "stage": "result",
+            "active": false
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22391.765,
+            "component": "iam",
+            "stage": "session-current:end",
+            "elapsed": 2.913199999999051,
+            "accepted": false
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22392.0036,
+            "component": "iam",
+            "stage": "assert-current:error",
+            "elapsed": 3.475699999999051,
+            "code": "DECISION_STALE"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22392.0283,
+            "component": "runtime-data",
+            "stage": "catch",
+            "code": "DECISION_STALE"
+          },
+          {
+            "pid": 11232,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22392.1185,
+            "component": "runtime-data",
+            "stage": "response",
+            "status": 403,
+            "elapsed": 424.54049999999916
+          }
+        ]
+      }
+    ],
+    "runtime": [
+      {
+        "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+        "events": [
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21961.5718,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 2.382499999999709
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21962.7676,
+            "component": "rpc-server",
+            "stage": "request-start",
+            "operation": "status",
+            "method": "POST"
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21963.0693,
+            "component": "rpc-verifier",
+            "stage": "jwt-verified",
+            "iat": 1793975729,
+            "exp": 1793975744,
+            "now": 1793975729.862
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21963.1155,
+            "component": "rpc-verifier",
+            "stage": "nonce",
+            "size": 262,
+            "replay": false
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21963.1431,
+            "component": "sessions",
+            "stage": "active-local",
+            "present": true,
+            "epochMatch": true,
+            "enrollmentMatch": true,
+            "idleExpired": false,
+            "absoluteExpired": false
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21963.1574,
+            "component": "sessions",
+            "stage": "active-directory-current:start"
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21964.2154,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/identity/current",
+            "status": 200
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21964.2695,
+            "component": "remote-directory",
+            "stage": "result",
+            "current": true
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21964.2801,
+            "component": "sessions",
+            "stage": "active-directory-current:end",
+            "elapsed": 1.1226000000024214,
+            "accepted": true
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 21964.3464,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 1.5804000000025553
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22081.3919,
+            "component": "rpc-server",
+            "stage": "request-start",
+            "operation": "status",
+            "method": "POST"
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22081.8314,
+            "component": "rpc-verifier",
+            "stage": "jwt-verified",
+            "iat": 1793975729,
+            "exp": 1793975744,
+            "now": 1793975729.981
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22081.8851,
+            "component": "rpc-verifier",
+            "stage": "nonce",
+            "size": 263,
+            "replay": false
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22081.917,
+            "component": "sessions",
+            "stage": "active-local",
+            "present": true,
+            "epochMatch": true,
+            "enrollmentMatch": true,
+            "idleExpired": false,
+            "absoluteExpired": false
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22081.9291,
+            "component": "sessions",
+            "stage": "active-directory-current:start"
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22083.4191,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/identity/current",
+            "status": 200
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22083.4718,
+            "component": "remote-directory",
+            "stage": "result",
+            "current": true
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22083.4826,
+            "component": "sessions",
+            "stage": "active-directory-current:end",
+            "elapsed": 1.5531999999984691,
+            "accepted": true
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22083.5563,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 2.1730999999999767
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22103.8109,
+            "component": "rpc-server",
+            "stage": "request-start",
+            "operation": "status",
+            "method": "POST"
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22104.2513,
+            "component": "rpc-verifier",
+            "stage": "jwt-verified",
+            "iat": 1793975729,
+            "exp": 1793975744,
+            "now": 1793975730.003
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22104.3079,
+            "component": "rpc-verifier",
+            "stage": "nonce",
+            "size": 248,
+            "replay": false
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22104.3409,
+            "component": "sessions",
+            "stage": "active-local",
+            "present": true,
+            "epochMatch": true,
+            "enrollmentMatch": true,
+            "idleExpired": false,
+            "absoluteExpired": false
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22104.3548,
+            "component": "sessions",
+            "stage": "active-directory-current:start"
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22105.5242,
+            "component": "rpc-client",
+            "stage": "response",
+            "operation": "/identity/current",
+            "status": 403
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22105.798,
+            "component": "identity-rpc",
+            "stage": "catch",
+            "code": "SERVICE_RPC_UNAVAILABLE"
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22105.8271,
+            "component": "sessions",
+            "stage": "active-directory-current:end",
+            "elapsed": 1.4701999999997497,
+            "accepted": false
+          },
+          {
+            "pid": 42872,
+            "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+            "at": 22105.9735,
+            "component": "rpc-server",
+            "stage": "response",
+            "status": 200,
+            "elapsed": 2.1692999999977474
+          }
+        ]
+      }
+    ],
+    "management": [
+      {
+        "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+        "events": []
+      }
+    ]
+  },
+  "profiles": [
+    {
+      "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+      "contract": "onLoad:0",
+      "wallMs": 3887.3955000000005,
+      "status": 200,
+      "timings": {
+        "internal-verifier:directory-current:end": {
+          "count": 1,
+          "inclusiveTotalMs": 0.9596999999994296,
+          "maxMs": 0.9596999999994296
+        },
+        "rpc-server:response": {
+          "count": 63,
+          "inclusiveTotalMs": 164.35899999999856,
+          "maxMs": 16.709199999999328
+        },
+        "internal-verifier:session-current:end": {
+          "count": 1,
+          "inclusiveTotalMs": 9.433099999999286,
+          "maxMs": 9.433099999999286
+        },
+        "runtime-data:internal-authenticate:end": {
+          "count": 1,
+          "inclusiveTotalMs": 11.132599999999911,
+          "maxMs": 11.132599999999911
+        },
+        "iam:directory-current:end": {
+          "count": 62,
+          "inclusiveTotalMs": 36.68599999999242,
+          "maxMs": 2.0131000000001222
+        },
+        "iam:session-current:end": {
+          "count": 62,
+          "inclusiveTotalMs": 531.7732999999907,
+          "maxMs": 27.687599999999293
+        },
+        "runtime-data:iam-lease:end": {
+          "count": 1,
+          "inclusiveTotalMs": 7.221999999999753,
+          "maxMs": 7.221999999999753
+        },
+        "applied:inspect:end": {
+          "count": 194,
+          "inclusiveTotalMs": 6315.27399999999,
+          "maxMs": 76.76549999999952
+        },
+        "release:hash-all:end": {
+          "count": 7,
+          "inclusiveTotalMs": 190.96590000000015,
+          "maxMs": 31.51970000000074
+        },
+        "release:assert-current:end": {
+          "count": 7,
+          "inclusiveTotalMs": 418.33330000000024,
+          "maxMs": 70.5619999999999
+        },
+        "iam:authorize:end": {
+          "count": 1,
+          "inclusiveTotalMs": 159.84149999999954,
+          "maxMs": 159.84149999999954
+        },
+        "iam:assert-current:end": {
+          "count": 3,
+          "inclusiveTotalMs": 492.9460000000008,
+          "maxMs": 167.25700000000052
+        },
+        "planner-service:plan:end": {
+          "count": 1,
+          "inclusiveTotalMs": 1022.6572000000006,
+          "maxMs": 1022.6572000000006
+        },
+        "planner-service:assertCurrent:end": {
+          "count": 2,
+          "inclusiveTotalMs": 1533.4006000000027,
+          "maxMs": 773.8378000000012
+        },
+        "database:query:end": {
+          "count": 1,
+          "inclusiveTotalMs": 0.6078999999990629,
+          "maxMs": 0.6078999999990629
+        },
+        "runtime-data:response": {
+          "count": 1,
+          "inclusiveTotalMs": 3887.3955000000005,
+          "maxMs": 3887.3955000000005
+        }
+      },
+      "decisionStamps": [
+        {
+          "pid": 11232,
+          "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+          "at": 6687.3685,
+          "component": "iam",
+          "stage": "decision",
+          "effect": "allow",
+          "reason": "ALLOW",
+          "policyRevision": "11",
+          "expiresAt": "2026-11-06T14:35:29.132Z",
+          "now": 1793975714292
+        }
+      ],
+      "plannerAssertions": [
+        {
+          "pid": 11232,
+          "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+          "at": 8533.393,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:15.717Z",
+          "expiresAt": "2026-11-06T14:35:30.717Z",
+          "now": 1793975716138,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+          "at": 8537.7694,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:15.500Z",
+          "expiresAt": "2026-11-06T14:35:30.500Z",
+          "now": 1793975716143,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+          "at": 8542.4645,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:15.041Z",
+          "expiresAt": "2026-11-06T14:35:30.041Z",
+          "now": 1793975716147,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+          "at": 8545.9342,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:15.274Z",
+          "expiresAt": "2026-11-06T14:35:30.274Z",
+          "now": 1793975716151,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+          "at": 9465.3387,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:15.041Z",
+          "expiresAt": "2026-11-06T14:35:30.041Z",
+          "now": 1793975717070,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+          "at": 9467.0759,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:15.717Z",
+          "expiresAt": "2026-11-06T14:35:30.717Z",
+          "now": 1793975717072,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+          "at": 9469.3403,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:15.500Z",
+          "expiresAt": "2026-11-06T14:35:30.500Z",
+          "now": 1793975717074,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1a24fd1c-be84-4d88-a08b-218ee55ca4fd",
+          "at": 9471.2731,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:15.274Z",
+          "expiresAt": "2026-11-06T14:35:30.274Z",
+          "now": 1793975717076,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        }
+      ],
+      "plannerErrors": []
+    },
+    {
+      "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+      "contract": "form",
+      "wallMs": 11651.113899999998,
+      "status": 200,
+      "timings": {
+        "internal-verifier:directory-current:end": {
+          "count": 1,
+          "inclusiveTotalMs": 0.35689999999885913,
+          "maxMs": 0.35689999999885913
+        },
+        "rpc-server:response": {
+          "count": 207,
+          "inclusiveTotalMs": 933.1607999999887,
+          "maxMs": 30.181899999999587
+        },
+        "internal-verifier:session-current:end": {
+          "count": 1,
+          "inclusiveTotalMs": 2.9438999999983935,
+          "maxMs": 2.9438999999983935
+        },
+        "runtime-data:internal-authenticate:end": {
+          "count": 1,
+          "inclusiveTotalMs": 3.705899999999019,
+          "maxMs": 3.705899999999019
+        },
+        "iam:directory-current:end": {
+          "count": 206,
+          "inclusiveTotalMs": 150.79040000002533,
+          "maxMs": 6.817399999999907
+        },
+        "iam:session-current:end": {
+          "count": 206,
+          "inclusiveTotalMs": 2694.8818000000283,
+          "maxMs": 67.40859999999884
+        },
+        "runtime-data:iam-lease:end": {
+          "count": 1,
+          "inclusiveTotalMs": 5.872799999999188,
+          "maxMs": 5.872799999999188
+        },
+        "applied:inspect:end": {
+          "count": 644,
+          "inclusiveTotalMs": 30135.937600000078,
+          "maxMs": 142.41860000000088
+        },
+        "release:hash-all:end": {
+          "count": 17,
+          "inclusiveTotalMs": 450.62130000000616,
+          "maxMs": 31.349600000001374
+        },
+        "release:assert-current:end": {
+          "count": 17,
+          "inclusiveTotalMs": 974.6435999999976,
+          "maxMs": 68.10900000000038
+        },
+        "iam:authorize:end": {
+          "count": 1,
+          "inclusiveTotalMs": 146.3038000000015,
+          "maxMs": 146.3038000000015
+        },
+        "iam:assert-current:end": {
+          "count": 3,
+          "inclusiveTotalMs": 449.83539999999994,
+          "maxMs": 152.84380000000056
+        },
+        "planner-service:plan:end": {
+          "count": 3,
+          "inclusiveTotalMs": 5877.922199999997,
+          "maxMs": 2386.5159000000003
+        },
+        "planner-service:assertCurrent:end": {
+          "count": 4,
+          "inclusiveTotalMs": 4133.1997999999985,
+          "maxMs": 1255.324999999997
+        },
+        "database:beginTransaction:end": {
+          "count": 1,
+          "inclusiveTotalMs": 0.07349999999860302,
+          "maxMs": 0.07349999999860302
+        },
+        "database:query:end": {
+          "count": 3,
+          "inclusiveTotalMs": 0.5870000000049913,
+          "maxMs": 0.26230000000214204
+        },
+        "database:insert:end": {
+          "count": 1,
+          "inclusiveTotalMs": 0.28500000000349246,
+          "maxMs": 0.28500000000349246
+        },
+        "database:persist:end": {
+          "count": 1,
+          "inclusiveTotalMs": 1.6072999999996682,
+          "maxMs": 1.6072999999996682
+        },
+        "runtime-data:response": {
+          "count": 1,
+          "inclusiveTotalMs": 11651.113899999998,
+          "maxMs": 11651.113899999998
+        }
+      },
+      "decisionStamps": [
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 10548.7601,
+          "component": "iam",
+          "stage": "decision",
+          "effect": "allow",
+          "reason": "ALLOW",
+          "policyRevision": "11",
+          "expiresAt": "2026-11-06T14:35:33.007Z",
+          "now": 1793975718154
+        }
+      ],
+      "plannerAssertions": [
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 13826.0274,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:19.246Z",
+          "expiresAt": "2026-11-06T14:35:34.246Z",
+          "now": 1793975721431,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 13830.0393,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:19.792Z",
+          "expiresAt": "2026-11-06T14:35:34.792Z",
+          "now": 1793975721435,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 13837.5947,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:18.957Z",
+          "expiresAt": "2026-11-06T14:35:33.957Z",
+          "now": 1793975721442,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 13839.3429,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:19.519Z",
+          "expiresAt": "2026-11-06T14:35:34.519Z",
+          "now": 1793975721444,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 13846.315,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:20.058Z",
+          "expiresAt": "2026-11-06T14:35:35.058Z",
+          "now": 1793975721451,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 13847.8301,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:20.931Z",
+          "expiresAt": "2026-11-06T14:35:35.931Z",
+          "now": 1793975721453,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 13848.8898,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:20.344Z",
+          "expiresAt": "2026-11-06T14:35:35.344Z",
+          "now": 1793975721454,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 13854.3616,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:20.636Z",
+          "expiresAt": "2026-11-06T14:35:35.636Z",
+          "now": 1793975721459,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 17473.9878,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:23.134Z",
+          "expiresAt": "2026-11-06T14:35:38.134Z",
+          "now": 1793975725079,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 17475.7095,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:22.871Z",
+          "expiresAt": "2026-11-06T14:35:37.871Z",
+          "now": 1793975725080,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 17477.2958,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:23.423Z",
+          "expiresAt": "2026-11-06T14:35:38.423Z",
+          "now": 1793975725082,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 17483.9564,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:22.611Z",
+          "expiresAt": "2026-11-06T14:35:37.611Z",
+          "now": 1793975725089,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 17486.7279,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:23.686Z",
+          "expiresAt": "2026-11-06T14:35:38.686Z",
+          "now": 1793975725091,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 17489.0292,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:23.936Z",
+          "expiresAt": "2026-11-06T14:35:38.936Z",
+          "now": 1793975725094,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 17490.9143,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:24.200Z",
+          "expiresAt": "2026-11-06T14:35:39.200Z",
+          "now": 1793975725096,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 17498.7143,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:24.482Z",
+          "expiresAt": "2026-11-06T14:35:39.482Z",
+          "now": 1793975725103,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 19973.5196,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:26.422Z",
+          "expiresAt": "2026-11-06T14:35:41.422Z",
+          "now": 1793975727578,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 19974.6012,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:27.154Z",
+          "expiresAt": "2026-11-06T14:35:42.154Z",
+          "now": 1793975727579,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 19975.6479,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:26.927Z",
+          "expiresAt": "2026-11-06T14:35:41.927Z",
+          "now": 1793975727580,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 19976.6615,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:26.684Z",
+          "expiresAt": "2026-11-06T14:35:41.684Z",
+          "now": 1793975727581,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 20747.074,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:22.611Z",
+          "expiresAt": "2026-11-06T14:35:37.611Z",
+          "now": 1793975728352,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 20748.586,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:23.423Z",
+          "expiresAt": "2026-11-06T14:35:38.423Z",
+          "now": 1793975728353,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 20750.1621,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:22.871Z",
+          "expiresAt": "2026-11-06T14:35:37.871Z",
+          "now": 1793975728355,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 20751.7265,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:23.134Z",
+          "expiresAt": "2026-11-06T14:35:38.134Z",
+          "now": 1793975728356,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 20757.1584,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:23.686Z",
+          "expiresAt": "2026-11-06T14:35:38.686Z",
+          "now": 1793975728362,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 20758.886,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:23.936Z",
+          "expiresAt": "2026-11-06T14:35:38.936Z",
+          "now": 1793975728364,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 20760.3551,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:24.200Z",
+          "expiresAt": "2026-11-06T14:35:39.200Z",
+          "now": 1793975728365,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        },
+        {
+          "pid": 11232,
+          "id": "1edc84b6-f440-412e-ae97-0c3c9129e58d",
+          "at": 20761.4521,
+          "component": "planner",
+          "stage": "assert-start",
+          "evaluatedAt": "2026-11-06T14:35:24.482Z",
+          "expiresAt": "2026-11-06T14:35:39.482Z",
+          "now": 1793975728366,
+          "policyRevision": "11",
+          "resourceRevision": "6:ds0-orm-verification-v1:sha256:7ef27c4f9740ec7fd4064651368b7441bc8f28541d4dace76192a0788c9ac896"
+        }
+      ],
+      "plannerErrors": []
+    },
+    {
+      "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+      "contract": "form-read",
+      "wallMs": 424.54049999999916,
+      "status": 403,
+      "timings": {
+        "internal-verifier:directory-current:end": {
+          "count": 1,
+          "inclusiveTotalMs": 0.4716999999982363,
+          "maxMs": 0.4716999999982363
+        },
+        "rpc-server:response": {
+          "count": 10,
+          "inclusiveTotalMs": 11.686200000000099,
+          "maxMs": 1.7661999999982072
+        },
+        "internal-verifier:session-current:end": {
+          "count": 1,
+          "inclusiveTotalMs": 3.369800000000396,
+          "maxMs": 3.369800000000396
+        },
+        "runtime-data:internal-authenticate:end": {
+          "count": 1,
+          "inclusiveTotalMs": 4.412599999999657,
+          "maxMs": 4.412599999999657
+        },
+        "iam:directory-current:end": {
+          "count": 9,
+          "inclusiveTotalMs": 4.878699999993842,
+          "maxMs": 0.8139000000010128
+        },
+        "iam:session-current:end": {
+          "count": 9,
+          "inclusiveTotalMs": 30.27759999999762,
+          "maxMs": 5.053299999999581
+        },
+        "runtime-data:iam-lease:end": {
+          "count": 1,
+          "inclusiveTotalMs": 4.628500000002532,
+          "maxMs": 4.628500000002532
+        },
+        "applied:inspect:end": {
+          "count": 16,
+          "inclusiveTotalMs": 299.61829999999827,
+          "maxMs": 22.473400000002584
+        },
+        "release:hash-all:end": {
+          "count": 1,
+          "inclusiveTotalMs": 29.325300000000425,
+          "maxMs": 29.325300000000425
+        },
+        "release:assert-current:end": {
+          "count": 1,
+          "inclusiveTotalMs": 59.859300000000076,
+          "maxMs": 59.859300000000076
+        },
+        "iam:authorize:end": {
+          "count": 1,
+          "inclusiveTotalMs": 165.4288000000015,
+          "maxMs": 165.4288000000015
+        },
+        "iam:assert-current:end": {
+          "count": 1,
+          "inclusiveTotalMs": 144.96689999999944,
+          "maxMs": 144.96689999999944
+        },
+        "iam:assert-current:error": {
+          "count": 1,
+          "inclusiveTotalMs": 3.475699999999051,
+          "maxMs": 3.475699999999051
+        },
+        "runtime-data:response": {
+          "count": 1,
+          "inclusiveTotalMs": 424.54049999999916,
+          "maxMs": 424.54049999999916
+        }
+      },
+      "decisionStamps": [
+        {
+          "pid": 11232,
+          "id": "0c18e1c2-d370-4a74-bea5-cc907a6f00d6",
+          "at": 22243.45,
+          "component": "iam",
+          "stage": "decision",
+          "effect": "allow",
+          "reason": "ALLOW",
+          "policyRevision": "11",
+          "expiresAt": "2026-11-06T14:35:44.683Z",
+          "now": 1793975729848
+        }
+      ],
+      "plannerAssertions": [],
+      "plannerErrors": []
+    }
+  ],
+  "warning": "Inclusive totals overlap and nest; do not add them or compare their sum to wall time.",
+  "stalePlan": "No PLAN_EVIDENCE_STALE reproduced; DECISION_STALE in traced read-back follows failed current identity/session check, not observed proof expiry."
+}

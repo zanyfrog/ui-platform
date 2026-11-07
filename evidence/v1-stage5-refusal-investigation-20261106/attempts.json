@@ -1,0 +1,105 @@
+{
+  "status": "BLOCKED; timing-contract review required; no compatible correction implemented",
+  "setupFailure": {
+    "operation": "First RPC-probe harness selection",
+    "command": "node scripts/verify-stage5-refusal-investigation.mjs --attempt=rpc-probe-001 --rpc-probe",
+    "result": "Guard refused before target preparation/tests; corrected the selection assertion only; no executable test inputs or credentials were initialized"
+  },
+  "attempts": [
+    {
+      "id": "trace-001",
+      "tests": {
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      }
+    },
+    {
+      "id": "trace-002",
+      "tests": {
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      }
+    },
+    {
+      "id": "rpc-probe-001",
+      "tests": {
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "probe": {
+        "calls": 12100,
+        "failures": 3803,
+        "elapsed": 15000.8496
+      }
+    },
+    {
+      "id": "rpc-probe-002",
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "probe": {
+        "calls": 960,
+        "failures": 0,
+        "elapsed": 15012.0819
+      }
+    },
+    {
+      "id": "trace-003",
+      "tests": {
+        "passed": 44,
+        "failed": 1,
+        "skipped": 1
+      },
+      "iam": {
+        "passed": 151,
+        "failed": 0
+      }
+    },
+    {
+      "id": "baseline-uninstrumented-001",
+      "tests": {
+        "passed": 44,
+        "failed": 1,
+        "skipped": 1
+      },
+      "iam": {
+        "passed": 151,
+        "failed": 0
+      }
+    },
+    {
+      "id": "rpc-clean-source",
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "probe": {
+        "calls": 942,
+        "failures": 0,
+        "elapsed": 15005.548499999999
+      }
+    }
+  ]
+}

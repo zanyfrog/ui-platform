@@ -1,0 +1,43 @@
+{
+  "priorInventorySha256": "959b91949bd3b9a7258ad4e3816d0bd3b55a91c65f546f666c7dbd420cd2663a",
+  "priorEntriesVerified": 373,
+  "allowedPriorChanges": [],
+  "componentCount": 23,
+  "packageCount": 234,
+  "manifests": {
+    "UI Platform/package.json": "5d672f62672a6c067e4e98e6f71bcdb7190256cd4eddb64b66d43801470d5d45",
+    "UI Platform/package-lock.json": "60987d70d179578958ce226f81544d205b2c7ed7f620ba66a6705457c82acda6",
+    "UI Platform/src/server/production/package.json": "5d1ea0cc865ad948ffedfa90ce044d702cdd32f4de776c2c72c58464520d06b0",
+    "UI Platform/src/server/production/package-lock.json": "75a66f1dd34f5d7eca22ee93a90f0f6d6a63de04e8aeecc5f3527db866690911",
+    "Data Services/package.json": "e505f40299f729a0d7e13346ef9049707ffc22d4330fc928526f14e73038aff0",
+    "Data Services/package-lock.json": "e1e47a4081b6386392223ae4a1543b72c9e3eee53ff1033ac310a887ffb516ad",
+    "Data Services/packages/i-am/package.json": "ca3e0a9f59d4eec55662971a54d1bf856abb91c78ba7ffedb80b78ec907e21bb"
+  },
+  "securityPackages": [
+    {
+      "name": "jose",
+      "version": "6.2.15",
+      "integrity": "sha512-qdF6ewcZARtef63fJ9AKKZPgxw+t7USH6HLXYcD4CrdmSvDp79rpJSPFEKc90QBeGS63u1KQtN2MZQHC0yDIzA==",
+      "installLifecycleScripts": false
+    },
+    {
+      "name": "oauth4webapi",
+      "version": "3.8.8",
+      "integrity": "sha512-8N28E+a/oxfXWBgOMt+ZP/JUf/XR+IFbvkAEPP3gznXOMv9BpAAwiIj0TFNz3tGTPc0ZQ8zmWBNgN1nAys0gng==",
+      "installLifecycleScripts": false
+    },
+    {
+      "name": "openid-client",
+      "version": "6.8.9",
+      "integrity": "sha512-6mXMRNJxDOf6BflEWLXul1UwzLFz++9Ofz1PYwPwwsJsyXBsbfkO+Jo255SW1qnFNLYz4EJWHz42X4OJJrya/g==",
+      "installLifecycleScripts": false
+    }
+  ],
+  "uiBaseClean": true,
+  "temporaryImplementationDiagnostics": "Disposable copies only; never installed in original source; absent from final uninstrumented copies",
+  "rpcAndOwnerSnapshotUnchanged": true,
+  "originalLock": "Directory-only existing preservation checks; no body access or acquisition/recovery",
+  "noStaging": true,
+  "noCommit": true,
+  "noPush": true
+}

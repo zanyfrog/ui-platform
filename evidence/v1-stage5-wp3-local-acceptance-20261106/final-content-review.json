@@ -1,0 +1,17 @@
+{
+  "result": "PASS for proposed conservative candidates within scoped review",
+  "findings": [],
+  "scope": "All nonignored candidate files scanned for credential/private/generated patterns; all prior identities unchanged; prior masked screenshot reviews inherited by exact hash. Not a universal absence-of-secrets proof.",
+  "retention": "No referenced prior evidence removed; optional trimming remains an owner decision",
+  "productionDistribution": "Source builds include src/client, src/server and src/shared; evidence/code-inputs are outside configured TypeScript include roots; diagnostic tooling is not a production entry point",
+  "testDiscovery": {
+    "change": "Only evidence/** added to test exclusions; baseline config comparison passed",
+    "realTestSourceHashes": "Unchanged",
+    "validation": "Static exact-diff and path-scope check; no application/test suite executed"
+  },
+  "gitIndicesEmpty": true,
+  "acceptedWp3Exact": true,
+  "uiIntegration": "OPEN; failing evidence preserved",
+  "dataFileCount": 4,
+  "scannedFiles": 689
+}

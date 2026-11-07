@@ -1,0 +1,28 @@
+{
+  "releaseId": "release_c3de305020bbcafb77a7fe108272bc3ee8b17b8b834419a0774383d83b2b8783",
+  "metadata": {
+    "schemaVersion": 1,
+    "artifactId": "art_4da6f355-f035-4157-8039-21151c7031ee",
+    "kind": "page",
+    "name": "stage5-inventory",
+    "displayName": "stage5 inventory",
+    "route": "/inventory",
+    "state": {
+      "inventory": null
+    },
+    "onLoad": [
+      {
+        "kind": "service",
+        "reference": "dataset.read",
+        "resultState": "inventory",
+        "input": {
+          "literal": {
+            "datasetId": "7ed5b78e-2ffe-4fa7-85fa-a7fa02afc6dd",
+            "limit": 100,
+            "offset": 0
+          }
+        }
+      }
+    ]
+  }
+}

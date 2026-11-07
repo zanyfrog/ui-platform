@@ -1,0 +1,66 @@
+{
+  "environment": "Windows loopback HTTPS; three independently credentialed processes; runtime/management Node filesystem permissions; local enrolled sessions, no live Auth0",
+  "applicationId": "115e7475-b7af-4b76-a120-debe8fd6b16b",
+  "datasetId": "cde885d0-47e6-426c-a5cc-740727dfdf86",
+  "releaseId": "release_09930e6236d79bb08d0bb071d63335227a198572bdc9fbb8ec7986ea04620386",
+  "schemaIdentity": "e570de17a2ee4e4c63d983ba08581ef64cd3d3f70fa03eaeb0703585316c3821",
+  "applied": {
+    "schemaVersion": 1,
+    "schemaDigest": "sha256:2c333ae8db54423c121fe4c7d033d9f1daa21e34044c4b0c5d80f2c81b5a670b",
+    "fields": [
+      {
+        "fieldId": "0bda404f-f171-421f-8cbf-007c258c22b0",
+        "key": "active"
+      },
+      {
+        "fieldId": "3b18c5fb-1833-4104-b7f9-d9023663d954",
+        "key": "id"
+      },
+      {
+        "fieldId": "45775aa7-0b53-4a3a-9449-3c088aead853",
+        "key": "name"
+      },
+      {
+        "fieldId": "bf3a1fbe-6bbe-411a-8418-767f71c6ff43",
+        "key": "quantity"
+      }
+    ]
+  },
+  "processes": {
+    "data": {
+      "pid": 42064
+    },
+    "runtime": {
+      "pid": 16760
+    },
+    "management": {
+      "pid": 45256
+    }
+  },
+  "publication": "actual Builder Publish v1",
+  "draftB": "Field editable=false saved after A",
+  "formA": "browser committed and read back",
+  "viewer": {
+    "rows": 1,
+    "quantityOmitted": true,
+    "hiddenRowOmitted": true,
+    "writeDenied": true
+  },
+  "private": {
+    "metadata": 200,
+    "download": 200,
+    "thumbnailDecoded": true,
+    "head": 200,
+    "range": 206,
+    "privateNoStore": true,
+    "revoked": 403,
+    "anonymous": 403
+  },
+  "managementRevocation": 403,
+  "sessionEpochRevocation": 403,
+  "disabledUserSession": 403,
+  "templateRevocationStaleCandidateRefused": true,
+  "proofBudgetMs": 15000,
+  "defaultProofBudgetUnchangedMs": 1000,
+  "productionQualification": false
+}

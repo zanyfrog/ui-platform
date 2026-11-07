@@ -1,0 +1,725 @@
+{
+  "id": "local-clock-source",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-local-scope-20261106\\local-clock-source\\security-only\\disposable\\30ab827f-e4a5-4488-9dd3-962865d16489\\platform",
+  "iam": {
+    "passed": 156,
+    "failed": 0,
+    "success": true
+  },
+  "tests": {
+    "passed": 1,
+    "failed": 0,
+    "success": true
+  },
+  "browserStarted": true,
+  "sourceInputs": {
+    "UI Platform/src/server/production/applied-integration.ts": "e93d6b694483a0e2d48d696ec5f29064e637b85345558fff8316553b3f7f96d3",
+    "UI Platform/src/server/production/boundary.ts": "28cefd7aecad408d8a9b0d27368cca5e2776dad0ce439906bc40e7bb36844f46",
+    "UI Platform/src/server/production/current-iam.ts": "0f461dee7b139c3978ab2c0474b50e9746a9e6d5a3b01f1717e6765221a916ed",
+    "UI Platform/src/server/production/data-handler.ts": "fa75dd40ab2e6cfaef1e7d1fa8168f7e48119c2654d7403ab5301f0bc6e2dded",
+    "UI Platform/src/server/production/enrollment.ts": "450ecd5a1daa75537b2d4b3ecb6dd5eda4cb4b14ae20b7bf5d6017893a938ce5",
+    "UI Platform/src/server/production/identity-integration.ts": "d3a6fc2db7c4368941c60caa3751d540373ff0e3a52044d716b9d28b042eda75",
+    "UI Platform/src/server/production/internal-trust.ts": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52",
+    "UI Platform/src/server/production/management-frontend.ts": "8b1db3cee2beb4633bf5d555e9bc93b0e9468e115033bb530bcc5392a31e2e08",
+    "UI Platform/src/server/production/management.ts": "dcbe49e811b49b27bde9350e1b2e310ff2b602e0f00c363cb23a04ccf8719eae",
+    "UI Platform/src/server/production/mtls-management-transport.ts": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+    "UI Platform/src/server/production/mtls-transport.ts": "aabe6cf20299709994d1bcd300f76fe1c9ffefc0c9a2e1f8da77f6949b8a4ce1",
+    "UI Platform/src/server/production/oidc.ts": "c2758c6ba63c619a0fb3cb1d2c82ab02d36125af2eea237c6b4572e385b2c25d",
+    "UI Platform/src/server/production/predicate-templates.ts": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+    "UI Platform/src/server/production/private-asset-owner.ts": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+    "UI Platform/src/server/production/private-assets.ts": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+    "UI Platform/src/server/production/publication-integration.ts": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+    "UI Platform/src/server/production/release-browser-build.ts": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+    "UI Platform/src/server/production/releases.ts": "876c7845f69a378c536a47976319993335093d4189ac724fec7779ed6cdc03d8",
+    "UI Platform/src/server/production/runtime.ts": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+    "UI Platform/src/server/production/service-rpc.ts": "219acbdad5171024cba10ba536d2dd1aafa9b8da37739639d593fe123431e193",
+    "UI Platform/src/server/production/sessions.ts": "a63c012793733e2dcc930753ee1b152672427b18d3fde649c1800279be6a09ae",
+    "UI Platform/src/shared/released-runtime-services.ts": "263cf09d80c39652d81c1655e7c33cd5d4be9e4e6265df411bd60c7c60018e7e",
+    "UI Platform/src/server/role-administration.ts": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+    "UI Platform/tests/stage5-integration.test.ts": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d",
+    "UI Platform/tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": "b8ce3300ba8fc590c628d83ba97cc3da44f756cfe0d45092c6e1761378f0cf13",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "7099dd392621767e9af321cda8da892bda7020c6ed0a7aa92cf16dbbabe074a9",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "af20b640ef0cb7160bbbea03fdf7271654bd463c21a9a6ff08f146fa2588cc83"
+  },
+  "codeInputs": {
+    "tests/stage5-local-clock-source.test.ts": "31d16a4af1137eca68f14271ad8ae20bc51f4e7a2d5cf5ef3fb694104dbb83d9",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "7099dd392621767e9af321cda8da892bda7020c6ed0a7aa92cf16dbbabe074a9",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "af20b640ef0cb7160bbbea03fdf7271654bd463c21a9a6ff08f146fa2588cc83",
+    "UI Platform/scripts/verify-stage5-local-scope.mjs": "9966ca4b81661cb5d3d60af3c71bea5ecd18d51c3b182b29f455b62e7085f98c",
+    "UI Platform/scripts/stage5-wp3-review-regressions.ts": "33a97074ad870f942b7d9ce3cba2655e7cdd1425c7f3a49ffd85b13640fb7546",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e"
+  },
+  "rawIamReportSha256": "f4fc706c28dce0cca7e6c57884ffdf05bd651b6b1316b0c8a16d11bcaa8b9662",
+  "cases": [
+    {
+      "title": "WP1 strict source contract round-trips checked-in golden files for every schema branch",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 strict source contract round-trips each supported definition format through one validator",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 strict source contract rejects duplicate JSON keys, unknown fields, invalid IDs and impossible UTC dates",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 strict source contract normalizes unordered IDs to a stable canonical digest",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 strict source contract rejects executable predicates and preserves identity across name edits",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 strict source contract keeps grant boundaries out of application-owned portable definitions",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 graph and lifecycle accepts a diamond set graph but rejects direct and indirect cycles",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 graph and lifecycle rejects direct User Permission Set shape, cross-app membership and second Person link",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 graph and lifecycle allows one User to link to Persons in two applications but rejects a second User for either Person atomically",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 graph and lifecycle allows sequential intervals and rejects overlapping duplicates, including future intervals",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 graph and lifecycle uses caller-supplied trusted time with start-inclusive and end-exclusive bounds",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 graph and lifecycle rejects unpinned shared sets and other-application references",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 graph and lifecycle requires an approved verified immutable publication for a pinned shared set",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 graph and lifecycle checks a shared set against a real verified immutable VDR package publication",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 graph and lifecycle rejects a Service assignment outside the Service application",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation saves invalid drafts without changing active policy, then commits revisions and audit together",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation handles independent writers with CAS and immutable archival history",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation serializes overlapping assignment writers and rejects the rebased overlap",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation persists a complete activation and rolls back when required audit cannot be written",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation resolves an uncertain activation result after reopening the authority",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation does not expose a partially written policy when a separate writer process is killed before commit",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation rejects idempotency-key reuse with altered content",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation discards never-used drafts but retains activated candidate and audit history",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation keeps UI, API, CLI and text paths on identical validation semantics",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation detects file edits but never activates a watcher candidate",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 staging and atomic activation reconciles edits, partial writes, missed events, rename and removal without activating",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 legacy migration dry run maps a direct User grant to a one-person app Group and records source hashes",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 legacy migration dry run quarantines ambiguous scopes, unresolved fields and system grants",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 legacy migration dry run quarantines a legacy grant when the owner registry cannot issue an authority ID",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 legacy migration dry run uses a verified reviewed owner mapping and quarantines ambiguous Dataset aliases",
+      "status": "passed"
+    },
+    {
+      "title": "WP1 Blueprint provider boundary returns only application-owned portable definitions and rejects incomplete closure",
+      "status": "passed"
+    },
+    {
+      "title": "WP2 evaluator acceptance W2-01 defaults to deny and explicit deny beats every allow ordering, including a narrow field",
+      "status": "passed"
+    },
+    {
+      "title": "WP2 evaluator acceptance W2-02 retains every diamond, Role and Group provenance path but redacts ordinary explanations",
+      "status": "passed"
+    },
+    {
+      "title": "WP2 evaluator acceptance W2-03 enforces inclusive start, exclusive end and every principal/assignment dependency without deleting history",
+      "status": "passed"
+    },
+    {
+      "title": "WP2 evaluator acceptance W2-04 permits supported downward scope and rejects upward, sibling and cross-application expansion",
+      "status": "passed"
+    },
+    {
+      "title": "WP2 evaluator acceptance W2-05 preserves row/field correlation and conditional deny over a bounded truth table",
+      "status": "passed"
+    },
+    {
+      "title": "WP2 evaluator acceptance W2-06 fails closed on missing authority, malformed/corrupt definitions, unknown resource, missing facts and empty canAny",
+      "status": "passed"
+    },
+    {
+      "title": "WP2 evaluator acceptance W2-07 binds live decisions to exact request and all represented revisions",
+      "status": "passed"
+    },
+    {
+      "title": "WP2 evaluator acceptance evaluates real Service assignments and never treats an unknown System handle as bypass",
+      "status": "passed"
+    },
+    {
+      "title": "WP2 evaluator acceptance reads the activated WP1 store snapshot through the additive evaluator adapter",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects a permission above the pre-existing Platform grant ceiling",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning commits an explicit non-expiring anchor and durable actor-bound audit; ordinary and duplicate activation cannot bypass",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects unauthorized or forged context alice without policy/audit mutation",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects unauthorized or forged context developer without policy/audit mutation",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects unauthorized or forged context outsider without policy/audit mutation",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects unknown owner evidence",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects wrong-owner owner evidence",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects wrong-authority owner evidence",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects improperly scoped bundle: self",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects improperly scoped bundle: expiring",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects improperly scoped bundle: future",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects improperly scoped bundle: business",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects improperly scoped bundle: foreign",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects improperly scoped bundle: ceiling",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects improperly scoped bundle: unknown-user",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rejects improperly scoped bundle: extra",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rechecks owner evidence after asynchronous authority checks",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning rolls first-scope activation back if durable administration audit fails",
+      "status": "passed"
+    },
+    {
+      "title": "First Application provisioning requires the pre-existing grant ceiling and serializes competing first scopes",
+      "status": "passed"
+    },
+    {
+      "title": "One-time trusted development Platform security setup requires an explicit existing User, local proof, and development environment",
+      "status": "passed"
+    },
+    {
+      "title": "One-time trusted development Platform security setup durably establishes only the selected Platform admin and refuses all subsequent setup",
+      "status": "passed"
+    },
+    {
+      "title": "One-time trusted development Platform security setup refuses to invent legacy Application administrator use during Platform setup",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance preserves the last non-expiring Platform security administrator",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance WP4 owner-backed preflight rejects an invalid resource reference before activation",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-01 separates app admin, app security admin and platform admin; grantable view is not usable view",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-02 rejects self Role/Group, reachable Set composition, DENY removal and boundary enlargement",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-03 protects the non-expiring last admin while allowing self-removal with a current replacement",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-03 serializes competing removals so at most one commits",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-04/W3-08 reject protected owner capture and imported admin definitions without target binding",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-04 refuses a Grant Boundary ownership change",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-05 writes independent durable audit and rolls back policy if required audit insert fails",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-06 requires platform security authority to create a Service and bounded authority to assign its Set",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-07/D6 uses a distinct strong recovery operator and restores only administration with durable audit",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-07 rolls recovery back when its mandatory audit cannot commit",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-07 does not seed or reassert an administrator when the protected store is reopened",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-08/W3-10 keeps API/UI/CLI/text drafts inactive until the same authenticated gate activates them",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3-10 accepts a trusted CLI context but never treats CLI text as identity",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance new WP2 decisions observe WP3 assignment activation and revocation immediately",
+      "status": "passed"
+    },
+    {
+      "title": "WP3 security administration acceptance W3 inspection gives scoped provenance only to a separately authorized Security Administrator",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks uses the same bound authority for text candidates and leaves malformed text unactivated",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks requires restaging after reconstructing the administration service",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks does not activate an unstamped text draft left by a failed owner capture",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks preserves a committed outcome on cleanup failure and refuses subsequent template activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks retains rollback and fails closed after cleanup failure on an unsuccessful activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks permits only explicit Platform authorization of the existing exact application ceiling",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks rejects invalid schema during staging",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks rejects invalid owner during staging",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks rejects invalid revoked during staging",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks activates the exact deny rule through SQLite WP3 and records actual administrative audit",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks passes the real applicable assignment scope when assigning an approved restricted Role",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks releases the binding lease when durable policy audit fails and rolls the policy back",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks serializes competing template activations at the captured policy revision",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses wrong polarity with no policy activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses wrong permission with no policy activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses wrong application with no policy activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses wrong dataset with no policy activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses wrong field with no policy activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses wrong literal with no policy activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses wrong operator with no policy activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses a different administrative boundary and empty/unknown template ceilings",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks Application Administrators cannot mint template authority",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses stale or revoked registry captured at staging",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses stale or revoked schema captured at staging",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses stale or revoked owner captured at staging",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks refuses stale or revoked revoked captured at staging",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks rechecks inside serialized activation after the last asynchronous identity check",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks unconfigured authority and legacy expression-only adapter refuse templated activation",
+      "status": "passed"
+    },
+    {
+      "title": "bounded WP3 transaction hooks non-template staging and activation remain unchanged",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan omits a denied read Field while preserving an allowed null and rejects write to a denied Field",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan keeps independent row/Field grants correlated and denies row-specific cells",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan requires independent filter, sort, group and aggregate permissions and refuses hidden query aliases/features",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan binds count/exists and pagination semantics to row security",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan treats create as proposed-state authority and update as both old and new state, with a final-write checkpoint",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan rejects changed request, mutated plan, revisions, unavailable authority, missing facts and unsupported predicates",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan keeps planner evidence behind the host capability and rejects unsupported typed expressions",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan agrees on typed/null/missing row predicates and subtracts a narrow DENY from two ALLOW branches",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan does not infer Field rights from a deprecated or unclassified catalog entry",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan preflights active Dataset/Field policy references against owner identity and revision",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan uses explicit broad-scope semantics for a new Field but never transfers a field-specific grant by name",
+      "status": "passed"
+    },
+    {
+      "title": "WP4 Dataset security plan reconciles a verified legacy owner mapping with live IDs without changing source hashes or activating grants",
+      "status": "passed"
+    },
+    {
+      "title": "WP6 Service-use approval guard binds the active Service, executable digest, capability, initiator scope and operation ceiling",
+      "status": "passed"
+    },
+    {
+      "title": "WP6 Service-use approval guard rechecks revocation, assignments, resource status and policy availability",
+      "status": "passed"
+    },
+    {
+      "title": "WP6 Service-use approval guard treats a queued Workflow checkpoint as data and rechecks publication, actor, approval and grants at resume",
+      "status": "passed"
+    },
+    {
+      "title": "WP6 Service-use approval guard requires an independent approval for a Service A to Service B transition",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope null for 'insert' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope false for 'insert' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope +0 for 'insert' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope '' for 'insert' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope null for 'update' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope false for 'update' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope +0 for 'update' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope '' for 'update' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope null for 'delete' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope false for 'delete' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope +0 for 'delete' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope '' for 'delete' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope null for 'restore' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope false for 'restore' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope +0 for 'restore' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "denies persisted malformed scope '' for 'restore' without changing files",
+      "status": "passed"
+    },
+    {
+      "title": "preserves 'query' behavior for malformed scope null",
+      "status": "passed"
+    },
+    {
+      "title": "preserves 'query' behavior for malformed scope false",
+      "status": "passed"
+    },
+    {
+      "title": "preserves 'query' behavior for malformed scope +0",
+      "status": "passed"
+    },
+    {
+      "title": "preserves 'query' behavior for malformed scope ''",
+      "status": "passed"
+    },
+    {
+      "title": "preserves 'export' behavior for malformed scope null",
+      "status": "passed"
+    },
+    {
+      "title": "preserves 'export' behavior for malformed scope false",
+      "status": "passed"
+    },
+    {
+      "title": "preserves 'export' behavior for malformed scope +0",
+      "status": "passed"
+    },
+    {
+      "title": "preserves 'export' behavior for malformed scope ''",
+      "status": "passed"
+    },
+    {
+      "title": "ignores nonmatching malformed disabled grants for writes",
+      "status": "passed"
+    },
+    {
+      "title": "ignores nonmatching malformed subject grants for writes",
+      "status": "passed"
+    },
+    {
+      "title": "ignores nonmatching malformed resource grants for writes",
+      "status": "passed"
+    },
+    {
+      "title": "ignores nonmatching malformed action grants for writes",
+      "status": "passed"
+    },
+    {
+      "title": "DOE surfaces I-AM malformed-scope denial null as AUTHORIZATION_DENIED",
+      "status": "passed"
+    },
+    {
+      "title": "DOE surfaces I-AM malformed-scope denial false as AUTHORIZATION_DENIED",
+      "status": "passed"
+    },
+    {
+      "title": "DOE surfaces I-AM malformed-scope denial 0 as AUTHORIZATION_DENIED",
+      "status": "passed"
+    },
+    {
+      "title": "DOE surfaces I-AM malformed-scope denial \"\" as AUTHORIZATION_DENIED",
+      "status": "passed"
+    }
+  ],
+  "inputs": {
+    "original": "C:\\Projects\\Modular\\ui-platform",
+    "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-local-scope-20261106\\local-clock-source\\security-only\\disposable\\30ab827f-e4a5-4488-9dd3-962865d16489\\platform",
+    "roots": {
+      "src/server": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\src\\server",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-local-scope-20261106\\local-clock-source\\security-only\\disposable\\30ab827f-e4a5-4488-9dd3-962865d16489\\platform\\src\\server"
+      },
+      "components": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\components",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-local-scope-20261106\\local-clock-source\\security-only\\disposable\\30ab827f-e4a5-4488-9dd3-962865d16489\\platform\\components"
+      },
+      "packages/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-local-scope-20261106\\local-clock-source\\security-only\\disposable\\30ab827f-e4a5-4488-9dd3-962865d16489\\platform\\packages\\artifacts"
+      },
+      "node_modules/@ui-platform/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-local-scope-20261106\\local-clock-source\\security-only\\disposable\\30ab827f-e4a5-4488-9dd3-962865d16489\\platform\\packages\\artifacts"
+      }
+    },
+    "inputs": [
+      {
+        "file": "tests/stage5-local-clock-source.test.ts",
+        "sha256": "31d16a4af1137eca68f14271ad8ae20bc51f4e7a2d5cf5ef3fb694104dbb83d9"
+      }
+    ],
+    "preparationSha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+    "changes": "Existing preparation; redirected disposable/evidence paths; excluded original Component .uib metadata. Tests copied byte-for-byte."
+  },
+  "completion": {
+    "exitCode": 0,
+    "graphDirectory": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-local-scope-20261106\\local-clock-source\\security-only\\disposable\\30ab827f-e4a5-4488-9dd3-962865d16489\\platform\\components",
+    "originalGraphMetadataCopied": false,
+    "originalLockDirectoryEvents": [],
+    "sharedSnapshotEqual": true,
+    "finishedAt": "2026-11-06T22:49:03.330Z"
+  },
+  "reviewTest": null
+}

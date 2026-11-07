@@ -1,0 +1,653 @@
+{
+  "id": "editing-001",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\editing-001\\security-only\\disposable\\4d85c967-2e85-40da-87a0-5f77a4e7c2ee\\platform",
+  "tests": {
+    "passed": 105,
+    "failed": 0,
+    "pending": 0,
+    "success": true
+  },
+  "iam": {
+    "passed": 63,
+    "failed": 0
+  },
+  "testCases": [
+    {
+      "title": "preserves malformed manifests and unknown types, uses opaque scoped locators, and repairs source",
+      "status": "passed",
+      "duration": 128.3913
+    },
+    {
+      "title": "retains invalid source diagnostics and maps stale checksums without overwriting disk",
+      "status": "passed",
+      "duration": 101.06470000000002
+    },
+    {
+      "title": "normal saves validate the complete candidate before persistence while explicit repair remains available",
+      "status": "passed",
+      "duration": 141.67780000000005
+    },
+    {
+      "title": "generic editor defaults to normal validation and repair does not infect subsequent autosaves",
+      "status": "passed",
+      "duration": 3.011600000000044
+    },
+    {
+      "title": "reauthorizing an unchanged baseline resumes a failed draft without losing Undo history",
+      "status": "passed",
+      "duration": 1.0038000000000693
+    },
+    {
+      "title": "a confirmed unchanged formatted candidate performs no source writes",
+      "status": "passed",
+      "duration": 90.70830000000001
+    },
+    {
+      "title": "shares the watched service and does not duplicate save notifications",
+      "status": "passed",
+      "duration": 378.02740000000006
+    },
+    {
+      "title": "debounces for two seconds of inactivity and shares one copy across simultaneous opens",
+      "status": "passed",
+      "duration": 1.6516999999998916
+    },
+    {
+      "title": "serializes edit-during-save and never replaces newer text with formatted old text",
+      "status": "passed",
+      "duration": 1.304200000000037
+    },
+    {
+      "title": "pauses conflicts, retains edits, protects close, and saves an explicitly resolved merge",
+      "status": "passed",
+      "duration": 1.0189000000000306
+    },
+    {
+      "title": "reloads clean external changes and preserves dirty edits in conflict",
+      "status": "passed",
+      "duration": 0.6779999999998836
+    },
+    {
+      "title": "keeps failed saves pending for explicit retry and refuses navigation until acknowledged",
+      "status": "passed",
+      "duration": 0.4597000000001117
+    },
+    {
+      "title": "does not lose edits made while a clean external refresh is loading",
+      "status": "passed",
+      "duration": 0.3269000000000233
+    },
+    {
+      "title": "adopts formatting for unchanged files while preserving an edit to a different file",
+      "status": "passed",
+      "duration": 0.5488000000000284
+    },
+    {
+      "title": "does not treat its own save notification as an external conflict",
+      "status": "passed",
+      "duration": 0.4637000000000171
+    },
+    {
+      "title": "restores the prior failure after an unchanged stale watch event (existing failure: false)",
+      "status": "passed",
+      "duration": 0.6898000000001048
+    },
+    {
+      "title": "restores the prior failure after an unchanged stale watch event (existing failure: true)",
+      "status": "passed",
+      "duration": 0.5749000000000706
+    },
+    {
+      "title": "suspends a dirty copy without running queued saves, then recovers against a fresh checksum",
+      "status": "passed",
+      "duration": 2.5995000000000346
+    },
+    {
+      "title": "deliberately discards retained copies while accurately waiting for admitted saves",
+      "status": "passed",
+      "duration": 0.7402999999999338
+    },
+    {
+      "title": "rejects cross-workspace locators and path escapes without changing external content",
+      "status": "passed",
+      "duration": 69.91549999999984
+    },
+    {
+      "title": "debounces only changes, and does not write a candidate that has returned to baseline",
+      "status": "passed",
+      "duration": 4.259299999999996
+    },
+    {
+      "title": "keeps logical undo history after save and permits undo/redo independent of focus",
+      "status": "passed",
+      "duration": 0.6785999999999888
+    },
+    {
+      "title": "groups a typing burst but separates different controls and later edits",
+      "status": "passed",
+      "duration": 0.517799999999994
+    },
+    {
+      "title": "bounds retained history by entry count and estimated memory",
+      "status": "passed",
+      "duration": 0.37469999999999004
+    },
+    {
+      "title": "retains invalid drafts without retry loops and resumes after correction",
+      "status": "passed",
+      "duration": 0.9324000000000012
+    },
+    {
+      "title": "preserves newer edits during a delayed response, then saves using the new baseline",
+      "status": "passed",
+      "duration": 0.5459999999999923
+    },
+    {
+      "title": "pauses a failed save and supports explicit retry without losing history",
+      "status": "passed",
+      "duration": 0.5104999999999791
+    },
+    {
+      "title": "retains history in conflict and explicitly resets it on baseline replacement",
+      "status": "passed",
+      "duration": 0.30689999999998463
+    },
+    {
+      "title": "does not erase a conflict when an admitted save subsequently fails",
+      "status": "passed",
+      "duration": 0.22270000000000323
+    },
+    {
+      "title": "does not erase a conflict reported during an admitted save",
+      "status": "passed",
+      "duration": 0.2616999999999905
+    },
+    {
+      "title": "retains an uncertain failed save after Undo to the old baseline, until confirmed by retry",
+      "status": "passed",
+      "duration": 0.3252999999999986
+    },
+    {
+      "title": "does not apply a delayed invalid-candidate error to a newer corrected baseline",
+      "status": "passed",
+      "duration": 0.19939999999999714
+    },
+    {
+      "title": "suspension prevents queued writes while discard drains an admitted save",
+      "status": "passed",
+      "duration": 0.4067000000000007
+    },
+    {
+      "title": "uses a native leave warning only for recoverable drafts and never initiates a save",
+      "status": "passed",
+      "duration": 0.3340000000000032
+    },
+    {
+      "title": "shares the latest copy across panel subscriptions and flushes it before artifact navigation",
+      "status": "passed",
+      "duration": 31.17410000000001
+    },
+    {
+      "title": "WP4: unchanged authority polling preserves stateful panels while revocation still suspends synchronously",
+      "status": "passed",
+      "duration": 2.3947000000000003
+    },
+    {
+      "title": "retains failed unsaved copies on navigation and cleanup until deliberate discard",
+      "status": "passed",
+      "duration": 2.615399999999994
+    },
+    {
+      "title": "guards read-only mutations and does not expose edit actions through the context",
+      "status": "passed",
+      "duration": 2.792900000000003
+    },
+    {
+      "title": "hides revoked source synchronously, cancels debounce, and requires the original identity for recovery",
+      "status": "passed",
+      "duration": 4.16119999999998
+    },
+    {
+      "title": "requires explicit changed-checksum recovery decision: reload",
+      "status": "passed",
+      "duration": 2.5687999999999818
+    },
+    {
+      "title": "requires explicit changed-checksum recovery decision: keep-local",
+      "status": "passed",
+      "duration": 2.4632000000000005
+    },
+    {
+      "title": "rejects a recovery decision when disk changed after the comparison",
+      "status": "passed",
+      "duration": 3.4174999999999898
+    },
+    {
+      "title": "does not recover dirty edits into read-only authorization and reload adopts fresh capabilities",
+      "status": "passed",
+      "duration": 2.1670000000000016
+    },
+    {
+      "title": "handles ordinary save conflicts through fresh comparison and explicit replacement",
+      "status": "passed",
+      "duration": 2.835099999999983
+    },
+    {
+      "title": "removes comparison source on another identity change and removes subscriptions on disposal",
+      "status": "passed",
+      "duration": 3.8541999999999916
+    },
+    {
+      "title": "rejects a late open response from the previous session and permits a fresh open",
+      "status": "passed",
+      "duration": 2.649600000000021
+    },
+    {
+      "title": "waits for an admitted save before comparing a suspended copy, without claiming cancellation",
+      "status": "passed",
+      "duration": 2.572900000000004
+    },
+    {
+      "title": "selects exact registered type/version descriptors without serializing executable definitions",
+      "status": "passed",
+      "duration": 146.24609999999996
+    },
+    {
+      "title": "omits descriptors for unsupported unknown version 1",
+      "status": "passed",
+      "duration": 34.542499999999905
+    },
+    {
+      "title": "omits descriptors for unsupported form version 999",
+      "status": "passed",
+      "duration": 36.5163
+    },
+    {
+      "title": "rejects executable/non-JSON metadata, ambiguous registration and unsafe bindings",
+      "status": "passed",
+      "duration": 1.2486999999999853
+    },
+    {
+      "title": "patches fields against the newest shared snapshot, preserving unmodeled source and numeric lexemes",
+      "status": "passed",
+      "duration": 101.9452
+    },
+    {
+      "title": "creates missing optional paths while preserving manifest extensions and identity",
+      "status": "passed",
+      "duration": 41.68439999999998
+    },
+    {
+      "title": "groups typing within one stable property binding while separating another property operation",
+      "status": "passed",
+      "duration": 42.937599999999975
+    },
+    {
+      "title": "resolves stable collection IDs after another panel reorders items, refusing ambiguous identities",
+      "status": "passed",
+      "duration": 41.56869999999992
+    },
+    {
+      "title": "preserves incompatible file content: {broken",
+      "status": "passed",
+      "duration": 42.27620000000002
+    },
+    {
+      "title": "preserves incompatible file content: {\"fields\":[],\"duplicate\":1,\"duplicate\":2}",
+      "status": "passed",
+      "duration": 40.553499999999985
+    },
+    {
+      "title": "preserves incompatible file content: {\"fields\":{\"unsupported\":true}}",
+      "status": "passed",
+      "duration": 40.38659999999993
+    },
+    {
+      "title": "rejects stale scalar writes if another panel replaced that field with an object",
+      "status": "passed",
+      "duration": 40.1640000000001
+    },
+    {
+      "title": "allows invalid numeric drafts and retains authoritative diagnostics through explicit advanced repair saves",
+      "status": "passed",
+      "duration": 96.34879999999998
+    },
+    {
+      "title": "keeps malformed manifests available as source without inventing descriptors",
+      "status": "passed",
+      "duration": 77.27120000000014
+    },
+    {
+      "title": "prevents field writes after permission changes and recovers the same dirty source only for the original user",
+      "status": "passed",
+      "duration": 103.68079999999986
+    },
+    {
+      "title": "registers multiple compatible plugins with deterministic order and read-only filtering",
+      "status": "passed",
+      "duration": 42.36239999999998
+    },
+    {
+      "title": "rejects duplicate field components without introducing a save or validator service",
+      "status": "passed",
+      "duration": 0.4783999999999651
+    },
+    {
+      "title": "preserves the existing two-second debounce and binds saves to server session headers",
+      "status": "passed",
+      "duration": 26.47659999999999
+    },
+    {
+      "title": "blocks queued writes when switching to reviewer, preserving local contents and failed-close behavior",
+      "status": "passed",
+      "duration": 2.2637
+    },
+    {
+      "title": "blocks queued writes when switching to admin, preserving local contents and failed-close behavior",
+      "status": "passed",
+      "duration": 1.8363000000000227
+    },
+    {
+      "title": "rejects stale in-flight responses after switching, without accepting old formatting or sending the next save",
+      "status": "passed",
+      "duration": 1.479299999999995
+    },
+    {
+      "title": "detects a session changed by another tab or server revocation and locks controls immediately",
+      "status": "passed",
+      "duration": 33.525800000000004
+    },
+    {
+      "title": "locks a denied transport and stops retrying unauthorized saves",
+      "status": "passed",
+      "duration": 1.6338999999999828
+    },
+    {
+      "title": "refreshes identity after SSE disconnect and closes subscriptions when its revision changes",
+      "status": "passed",
+      "duration": 57.49810000000002
+    },
+    {
+      "title": "does not show editing actions for an authorized read-only artifact",
+      "status": "passed",
+      "duration": 1.4944999999999595
+    },
+    {
+      "title": "suspends at identity change and permits recovery only after the original user is reauthorized",
+      "status": "passed",
+      "duration": 3.774400000000014
+    },
+    {
+      "title": "preserves same-origin session authorization through the configured Vite proxy",
+      "status": "passed",
+      "duration": 2406.5442999999996
+    },
+    {
+      "title": "routes the real server through authorization, accepts a configured fixture, and scopes application access",
+      "status": "passed",
+      "duration": 1496.5502000000001
+    },
+    {
+      "title": "disables editor routes in the production server composition",
+      "status": "passed",
+      "duration": 915.4328999999998
+    },
+    {
+      "title": "refuses fixture enablement in the emitted server even if NODE_ENV is development",
+      "status": "passed",
+      "duration": 696.2911000000004
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace returns authorized normal-candidate diagnostics without paths or hidden identities and leaves source unchanged",
+      "status": "passed",
+      "duration": 631.3526999999999
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace uses the WP3 graph and durable gate for real HTTP security activation, independent of fixture admin labels",
+      "status": "passed",
+      "duration": 52.266999999999825
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace stages and explicitly activates a WP1 application draft only through a development administrator session",
+      "status": "passed",
+      "duration": 617.2197000000001
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace requires an authenticated explicit activation after filesystem reconciliation",
+      "status": "passed",
+      "duration": 30.104000000000042
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace rejects every unauthenticated artifact endpoint and SSE without trusting identity headers",
+      "status": "passed",
+      "duration": 106.84879999999998
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace viewer reads and validates but cannot mutate even with a valid checksum",
+      "status": "passed",
+      "duration": 707.8609999999999
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace reviewer reads and validates but cannot mutate even with a valid checksum",
+      "status": "passed",
+      "duration": 698.4966
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace filters discovery, references and diagnostics and denies restricted operations",
+      "status": "passed",
+      "duration": 793.0135
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace allows admin system edits and preserves 400/409 and safe failures",
+      "status": "passed",
+      "duration": 724.6617999999999
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace allows app editor invalid-file saves but prevents identity/type promotion",
+      "status": "passed",
+      "duration": 524.9314999999997
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace denies cross-application access before workspace lookup and isolates locators for multi-app admins",
+      "status": "passed",
+      "duration": 134.35919999999987
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace fails closed on legacy source, export, download and mutation route families for every identity",
+      "status": "passed",
+      "duration": 83.70669999999973
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace keeps the explicitly safe unrelated development endpoints available",
+      "status": "passed",
+      "duration": 20.360399999999572
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace requires same-origin CSRF and rejects hostile hosts and forwarded connections",
+      "status": "passed",
+      "duration": 295.29269999999997
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace filters SSE by app and artifact, handles authorized removals, and closes on identity switch",
+      "status": "passed",
+      "duration": 608.3103000000001
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace invalidates old request revisions even if the new identity also permits editing",
+      "status": "passed",
+      "duration": 262.97450000000026
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace rejects a request still preparing a write when identity changes",
+      "status": "passed",
+      "duration": 154.52370000000064
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace drains an admitted save before acknowledging a switch and rejects later old-session writes",
+      "status": "passed",
+      "duration": 404.5489000000007
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace revokes an identity across sessions and closes its streams",
+      "status": "passed",
+      "duration": 78.61530000000039
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace honors an independent server policy on every operation",
+      "status": "passed",
+      "duration": 169.08060000000023
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace expires idle sessions and streams without allowing a delayed write",
+      "status": "passed",
+      "duration": 846.3719999999994
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace does not emit an event whose authorization read finishes after revocation",
+      "status": "passed",
+      "duration": 213.61239999999998
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace keeps malformed raw manifests repairable by administrators and hidden from other roles",
+      "status": "passed",
+      "duration": 789.4871999999996
+    },
+    {
+      "title": "editor HTTP authorization around the real workspace honors server ownership overrides without trusting a manifest ownership field",
+      "status": "passed",
+      "duration": 305.0540000000001
+    },
+    {
+      "title": "disabled editor and production boundary denies editor APIs in 'development' when disabled",
+      "status": "passed",
+      "duration": 16.35059999999976
+    },
+    {
+      "title": "disabled editor and production boundary denies editor APIs in 'production' when disabled",
+      "status": "passed",
+      "duration": 14.373099999998885
+    },
+    {
+      "title": "disabled editor and production boundary refuses fixture activation in production or in the emitted server even with a development environment",
+      "status": "passed",
+      "duration": 0.48689999999987776
+    },
+    {
+      "title": "disabled editor and production boundary requires explicit opt-in and server-only settings",
+      "status": "passed",
+      "duration": 1.0316000000002532
+    }
+  ],
+  "rawReportSha256": "22f5c2548a437ce8ab3b150aa4080af82b8a22648efffd08b6d1ae69c98fa857",
+  "inputs": {
+    "original": "C:\\Projects\\Modular\\ui-platform",
+    "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\editing-001\\security-only\\disposable\\4d85c967-2e85-40da-87a0-5f77a4e7c2ee\\platform",
+    "roots": {
+      "src/server": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\src\\server",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\editing-001\\security-only\\disposable\\4d85c967-2e85-40da-87a0-5f77a4e7c2ee\\platform\\src\\server"
+      },
+      "components": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\components",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\editing-001\\security-only\\disposable\\4d85c967-2e85-40da-87a0-5f77a4e7c2ee\\platform\\components"
+      },
+      "packages/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\editing-001\\security-only\\disposable\\4d85c967-2e85-40da-87a0-5f77a4e7c2ee\\platform\\packages\\artifacts"
+      },
+      "node_modules/@ui-platform/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\editing-001\\security-only\\disposable\\4d85c967-2e85-40da-87a0-5f77a4e7c2ee\\platform\\packages\\artifacts"
+      }
+    },
+    "inputs": [
+      {
+        "file": "tests/editing-lifecycle.test.ts",
+        "sha256": "ff37cac25e5e5e0266f6d2009aa03f3c68c0f2b2715bdd53d2706e783aec97a1"
+      },
+      {
+        "file": "tests/artifact-editor.test.ts",
+        "sha256": "25b03e86a9adc5a67d919479eee691518c90c9f9435f654be2debd0ddca5f19c"
+      },
+      {
+        "file": "tests/editor-context.test.ts",
+        "sha256": "f981a6656605733eb6c9d00f09964a7b99a0763bd740268caea7cdce9a7dbefa"
+      },
+      {
+        "file": "tests/editor-properties.test.ts",
+        "sha256": "2511ad925f24714ff9ce4c20baa98c16e7d1ed88a42a1e262e3285cae6ecb18c"
+      },
+      {
+        "file": "tests/editor-security-client.test.ts",
+        "sha256": "f4546a4f0e7b95937c2518782149d3eaabcd80a3205085b1e4fff3f954042879"
+      },
+      {
+        "file": "tests/editor-security-server.test.ts",
+        "sha256": "1a4a362e5c2d91a55b610afba832e9c5ca600046da14cb922a7c0ee946df59e6"
+      },
+      {
+        "file": "tests/editor-security.test.ts",
+        "sha256": "9fa0fd5e1eda0f621423a3a930bcc64ad88a2af52047bd36ad7967e72b0347ac"
+      }
+    ],
+    "preparationSha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+    "changes": "Existing preparation; redirected disposable/evidence paths; excluded original Component .uib metadata. Tests copied byte-for-byte."
+  },
+  "sourceInputs": {
+    "UI Platform/src/server/production/applied-integration.ts": "e93d6b694483a0e2d48d696ec5f29064e637b85345558fff8316553b3f7f96d3",
+    "UI Platform/src/server/production/boundary.ts": "28cefd7aecad408d8a9b0d27368cca5e2776dad0ce439906bc40e7bb36844f46",
+    "UI Platform/src/server/production/current-iam.ts": "0f461dee7b139c3978ab2c0474b50e9746a9e6d5a3b01f1717e6765221a916ed",
+    "UI Platform/src/server/production/data-handler.ts": "fa75dd40ab2e6cfaef1e7d1fa8168f7e48119c2654d7403ab5301f0bc6e2dded",
+    "UI Platform/src/server/production/enrollment.ts": "450ecd5a1daa75537b2d4b3ecb6dd5eda4cb4b14ae20b7bf5d6017893a938ce5",
+    "UI Platform/src/server/production/identity-integration.ts": "d3a6fc2db7c4368941c60caa3751d540373ff0e3a52044d716b9d28b042eda75",
+    "UI Platform/src/server/production/internal-trust.ts": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52",
+    "UI Platform/src/server/production/management-frontend.ts": "8b1db3cee2beb4633bf5d555e9bc93b0e9468e115033bb530bcc5392a31e2e08",
+    "UI Platform/src/server/production/management.ts": "dcbe49e811b49b27bde9350e1b2e310ff2b602e0f00c363cb23a04ccf8719eae",
+    "UI Platform/src/server/production/mtls-management-transport.ts": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+    "UI Platform/src/server/production/mtls-transport.ts": "aabe6cf20299709994d1bcd300f76fe1c9ffefc0c9a2e1f8da77f6949b8a4ce1",
+    "UI Platform/src/server/production/oidc.ts": "c2758c6ba63c619a0fb3cb1d2c82ab02d36125af2eea237c6b4572e385b2c25d",
+    "UI Platform/src/server/production/predicate-templates.ts": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+    "UI Platform/src/server/production/private-asset-owner.ts": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+    "UI Platform/src/server/production/private-assets.ts": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+    "UI Platform/src/server/production/publication-integration.ts": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+    "UI Platform/src/server/production/release-browser-build.ts": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+    "UI Platform/src/server/production/releases.ts": "876c7845f69a378c536a47976319993335093d4189ac724fec7779ed6cdc03d8",
+    "UI Platform/src/server/production/runtime.ts": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+    "UI Platform/src/server/production/service-rpc.ts": "219acbdad5171024cba10ba536d2dd1aafa9b8da37739639d593fe123431e193",
+    "UI Platform/src/server/production/sessions.ts": "a63c012793733e2dcc930753ee1b152672427b18d3fde649c1800279be6a09ae",
+    "UI Platform/src/shared/released-runtime-services.ts": "263cf09d80c39652d81c1655e7c33cd5d4be9e4e6265df411bd60c7c60018e7e",
+    "UI Platform/src/server/role-administration.ts": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+    "UI Platform/tests/stage5-integration.test.ts": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d",
+    "UI Platform/tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": "b8ce3300ba8fc590c628d83ba97cc3da44f756cfe0d45092c6e1761378f0cf13",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e"
+  },
+  "completion": {
+    "exitCode": 0,
+    "graphDirectory": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\editing-001\\security-only\\disposable\\4d85c967-2e85-40da-87a0-5f77a4e7c2ee\\platform\\components",
+    "originalGraphMetadataCopied": false,
+    "originalLockDirectoryEvents": [],
+    "sharedSnapshotEqual": true,
+    "finishedAt": "2026-11-06T18:50:12.260Z"
+  },
+  "codeInputs": {
+    "tests/editing-lifecycle.test.ts": "ff37cac25e5e5e0266f6d2009aa03f3c68c0f2b2715bdd53d2706e783aec97a1",
+    "tests/artifact-editor.test.ts": "25b03e86a9adc5a67d919479eee691518c90c9f9435f654be2debd0ddca5f19c",
+    "tests/editor-context.test.ts": "f981a6656605733eb6c9d00f09964a7b99a0763bd740268caea7cdce9a7dbefa",
+    "tests/editor-properties.test.ts": "2511ad925f24714ff9ce4c20baa98c16e7d1ed88a42a1e262e3285cae6ecb18c",
+    "tests/editor-security-client.test.ts": "f4546a4f0e7b95937c2518782149d3eaabcd80a3205085b1e4fff3f954042879",
+    "tests/editor-security-server.test.ts": "1a4a362e5c2d91a55b610afba832e9c5ca600046da14cb922a7c0ee946df59e6",
+    "tests/editor-security.test.ts": "9fa0fd5e1eda0f621423a3a930bcc64ad88a2af52047bd36ad7967e72b0347ac",
+    "scripts/verify-stage5-builder-save.mjs": "3bc27a5d5393fe695613226628b468d4ed538578733257e77eb343f2cb19d04c",
+    "scripts/stage5-builder-security-diagnostics.mjs": "a5221571ceba66f263c745e92bf46d16d7c18e74007ed3ba9b784337cb3b5709",
+    "tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e",
+    "tests/fixtures/stage5-dataset-field-workflow.ts": "f5bc8a3ad4c0b7ddaecdc9a1bcaf0bfa9d2f71e26a8a257709e9899d00f952dc",
+    "tests/fixtures/stage5-builder-save-observer.ts": "438c65f993004e38d58e2f09d6a45e13dcef0892f79ba91cc6e96a46c7d1a96f"
+  },
+  "temporaryDiagnostics": null
+}

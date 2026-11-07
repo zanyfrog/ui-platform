@@ -1,0 +1,6667 @@
+{
+  "events": [
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679402,
+      "mono": 33930.2989,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679402,
+      "mono": 33930.4282,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679402,
+      "mono": 33930.5781,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679402,
+      "mono": 33930.8972,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679402,
+      "mono": 33930.9254,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679402,
+      "mono": 33931.0138,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5852999999988242
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679404,
+      "mono": 33932.1398,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.8548000000009779
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679405,
+      "mono": 33933.3571,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679405,
+      "mono": 33933.5072,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679405,
+      "mono": 33933.7181,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679405,
+      "mono": 33934.0527,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679405,
+      "mono": 33934.079,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679406,
+      "mono": 33934.1358,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.629399999997986
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679406,
+      "mono": 33934.9749,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.630300000004354
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679408,
+      "mono": 33936.4558,
+      "stage": "http:start",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "method": "GET"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679408,
+      "mono": 33936.6702,
+      "stage": "InternalVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679408,
+      "mono": 33936.863,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679409,
+      "mono": 33937.1856,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679409,
+      "mono": 33937.202,
+      "stage": "actor:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679412,
+      "mono": 33940.4233,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679412,
+      "mono": 33940.6102,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679412,
+      "mono": 33940.9181,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679413,
+      "mono": 33941.2916,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679413,
+      "mono": 33941.3172,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679413,
+      "mono": 33941.3868,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.7762999999977183
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679414,
+      "mono": 33942.5134,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 2.103399999999965
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679415,
+      "mono": 33943.2533,
+      "stage": "InternalVerifier.authenticate:end",
+      "elapsed": 6.5807999999960884
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679415,
+      "mono": 33943.3136,
+      "stage": "iam.lease:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679418,
+      "mono": 33946.8915,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679418,
+      "mono": 33947.0464,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679419,
+      "mono": 33947.2334,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679419,
+      "mono": 33947.5541,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679419,
+      "mono": 33947.5747,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679419,
+      "mono": 33947.6304,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5846999999994296
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679420,
+      "mono": 33948.6888,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.8081999999994878
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679422,
+      "mono": 33950.1558,
+      "stage": "iam.lease:end",
+      "elapsed": 6.8364999999976135
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679422,
+      "mono": 33950.3026,
+      "stage": "release.lease:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679422,
+      "mono": 33950.3837,
+      "stage": "ReleasedContracts.lease:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679551,
+      "mono": 34079.1588,
+      "stage": "ReleasedContracts.lease:end",
+      "elapsed": 128.77040000000125
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679551,
+      "mono": 34079.1957,
+      "stage": "release.lease:end",
+      "elapsed": 128.89410000000498
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679551,
+      "mono": 34079.2249,
+      "stage": "PrivateAssets.reply:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679551,
+      "mono": 34079.7628,
+      "stage": "asset.authorize:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679554,
+      "mono": 34083.068,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679555,
+      "mono": 34083.223,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679555,
+      "mono": 34083.4089,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679555,
+      "mono": 34083.7377,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679555,
+      "mono": 34083.7587,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679555,
+      "mono": 34083.8332,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6106999999974505
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679556,
+      "mono": 34084.8017,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.7466000000058557
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679561,
+      "mono": 34089.4245,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679561,
+      "mono": 34089.6137,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679561,
+      "mono": 34089.82,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679562,
+      "mono": 34090.1909,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679562,
+      "mono": 34090.2233,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679562,
+      "mono": 34090.2883,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6759000000020023
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679563,
+      "mono": 34091.3627,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.9521999999997206
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679569,
+      "mono": 34097.6578,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679569,
+      "mono": 34097.8303,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679569,
+      "mono": 34098.0225,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679570,
+      "mono": 34098.38,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679570,
+      "mono": 34098.419,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679570,
+      "mono": 34098.4827,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6534000000028755
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679571,
+      "mono": 34099.4534,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.8109000000040396
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679637,
+      "mono": 34165.9644,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679638,
+      "mono": 34166.3125,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.34939999999915017
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679746,
+      "mono": 34274.1788,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679746,
+      "mono": 34274.3008,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679746,
+      "mono": 34274.4211,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679746,
+      "mono": 34274.7253,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679746,
+      "mono": 34274.753,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679746,
+      "mono": 34274.8367,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5357000000003609
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679747,
+      "mono": 34275.6822,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.5135000000009313
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679779,
+      "mono": 34307.5356,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679779,
+      "mono": 34307.6826,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679779,
+      "mono": 34307.8284,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679780,
+      "mono": 34308.1345,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679780,
+      "mono": 34308.1566,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679780,
+      "mono": 34308.2102,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5285000000003492
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679780,
+      "mono": 34309.0858,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.5627999999996973
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679784,
+      "mono": 34312.8348,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679784,
+      "mono": 34313.0224,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679785,
+      "mono": 34313.2416,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679785,
+      "mono": 34313.6808,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679785,
+      "mono": 34313.7177,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679785,
+      "mono": 34313.8112,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.7888999999995576
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679786,
+      "mono": 34315.0991,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 2.2779999999984284
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679852,
+      "mono": 34380.4832,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989679852,
+      "mono": 34380.6325,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.15430000000196742
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680028,
+      "mono": 34556.5687,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680028,
+      "mono": 34556.7461,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680028,
+      "mono": 34556.9154,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680029,
+      "mono": 34557.2882,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680029,
+      "mono": 34557.3138,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680029,
+      "mono": 34557.3849,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6386999999958789
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680030,
+      "mono": 34558.4152,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.8612999999968451
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680068,
+      "mono": 34597.098,
+      "stage": "asset.authorize:end",
+      "elapsed": 517.3331000000035
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680069,
+      "mono": 34597.1658,
+      "stage": "asset.current.first:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680073,
+      "mono": 34601.8159,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680073,
+      "mono": 34601.9926,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680074,
+      "mono": 34602.213,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680074,
+      "mono": 34602.6672,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680074,
+      "mono": 34602.6939,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680074,
+      "mono": 34602.7541,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.762300000002142
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680075,
+      "mono": 34603.8181,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 2.018100000001141
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680080,
+      "mono": 34608.6027,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680080,
+      "mono": 34608.7698,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680080,
+      "mono": 34608.9568,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680081,
+      "mono": 34609.3155,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680081,
+      "mono": 34609.3423,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680081,
+      "mono": 34609.4059,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6370000000024447
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680082,
+      "mono": 34610.333,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.7437000000063563
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680149,
+      "mono": 34677.6968,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680149,
+      "mono": 34677.836,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.14389999999548309
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680276,
+      "mono": 34804.1391,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680276,
+      "mono": 34804.3378,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680276,
+      "mono": 34804.5078,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680276,
+      "mono": 34804.8205,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680276,
+      "mono": 34804.8426,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680276,
+      "mono": 34804.8935,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5567000000010012
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680277,
+      "mono": 34805.7734,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.6526000000012573
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680310,
+      "mono": 34838.711,
+      "stage": "asset.current.first:end",
+      "elapsed": 241.5385000000024
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680310,
+      "mono": 34838.8403,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680310,
+      "mono": 34839.0111,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.1698000000033062
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680312,
+      "mono": 34841.0682,
+      "stage": "asset.bytes:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680313,
+      "mono": 34841.5492,
+      "stage": "asset.bytes:end",
+      "elapsed": 0.48440000000118744
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680313,
+      "mono": 34841.6012,
+      "stage": "asset.current.repeat:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680316,
+      "mono": 34844.9548,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680316,
+      "mono": 34845.0702,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680317,
+      "mono": 34845.2303,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680317,
+      "mono": 34845.5445,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680317,
+      "mono": 34845.5648,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680317,
+      "mono": 34845.6107,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5409999999974389
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680318,
+      "mono": 34846.4755,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.5323000000062166
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680322,
+      "mono": 34850.8629,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680322,
+      "mono": 34851.0343,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680323,
+      "mono": 34851.2438,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680323,
+      "mono": 34851.7264,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680323,
+      "mono": 34851.7707,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680323,
+      "mono": 34851.8318,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.7980999999999767
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680324,
+      "mono": 34852.9558,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 2.106500000001688
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680387,
+      "mono": 34915.2734,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680387,
+      "mono": 34915.4056,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.1360999999960768
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680499,
+      "mono": 35028.0289,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680500,
+      "mono": 35028.1576,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680500,
+      "mono": 35028.2817,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680500,
+      "mono": 35028.5636,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680500,
+      "mono": 35028.5932,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680500,
+      "mono": 35028.6751,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5179999999963911
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680501,
+      "mono": 35029.7926,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.7725000000064028
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680531,
+      "mono": 35060.1145,
+      "stage": "asset.current.repeat:end",
+      "elapsed": 218.50950000000012
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680532,
+      "mono": 35060.3217,
+      "stage": "PrivateAssets.reply:end",
+      "elapsed": 981.0957999999955
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 35960,
+      "wall": 1793989680532,
+      "mono": 35060.4069,
+      "stage": "http:end",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "status": 200,
+      "elapsed": 1123.9702000000034
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688791,
+      "mono": 43319.1328,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688791,
+      "mono": 43319.2753,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688791,
+      "mono": 43319.4466,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688791,
+      "mono": 43319.7829,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688791,
+      "mono": 43319.8064,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688791,
+      "mono": 43319.8579,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5829000000012456
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688792,
+      "mono": 43320.7974,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.6771000000007916
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688793,
+      "mono": 43321.9338,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688793,
+      "mono": 43322.083,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688794,
+      "mono": 43322.2592,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688794,
+      "mono": 43322.5498,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688794,
+      "mono": 43322.5684,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688794,
+      "mono": 43322.6071,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5253000000011525
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688795,
+      "mono": 43323.4436,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.5225000000064028
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688796,
+      "mono": 43324.4828,
+      "stage": "http:start",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "method": "GET"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688796,
+      "mono": 43324.6089,
+      "stage": "InternalVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688796,
+      "mono": 43324.8137,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688797,
+      "mono": 43325.1462,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688797,
+      "mono": 43325.1647,
+      "stage": "actor:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688800,
+      "mono": 43328.3386,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688800,
+      "mono": 43328.5596,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688800,
+      "mono": 43328.7789,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688801,
+      "mono": 43329.2375,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688801,
+      "mono": 43329.2674,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688801,
+      "mono": 43329.3213,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.7627999999967869
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688802,
+      "mono": 43330.3058,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.984199999998964
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688802,
+      "mono": 43330.9953,
+      "stage": "InternalVerifier.authenticate:end",
+      "elapsed": 6.384799999999814
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688802,
+      "mono": 43331.0269,
+      "stage": "iam.lease:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688805,
+      "mono": 43333.8356,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688805,
+      "mono": 43333.9832,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688806,
+      "mono": 43334.1895,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688806,
+      "mono": 43334.5428,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688806,
+      "mono": 43334.5651,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688806,
+      "mono": 43334.6166,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6342999999978929
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688807,
+      "mono": 43335.4272,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.6028000000005704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688808,
+      "mono": 43336.6555,
+      "stage": "iam.lease:end",
+      "elapsed": 5.623799999993935
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688808,
+      "mono": 43336.7041,
+      "stage": "release.lease:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688808,
+      "mono": 43336.723,
+      "stage": "ReleasedContracts.lease:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688936,
+      "mono": 43464.3774,
+      "stage": "ReleasedContracts.lease:end",
+      "elapsed": 127.64880000000267
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688936,
+      "mono": 43464.4094,
+      "stage": "release.lease:end",
+      "elapsed": 127.70539999999892
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688936,
+      "mono": 43464.4218,
+      "stage": "PrivateAssets.reply:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688936,
+      "mono": 43464.4408,
+      "stage": "asset.authorize:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688939,
+      "mono": 43467.847,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688939,
+      "mono": 43468.0108,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688940,
+      "mono": 43468.1799,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688940,
+      "mono": 43468.5114,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688940,
+      "mono": 43468.532,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688940,
+      "mono": 43468.5845,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5751999999993131
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688941,
+      "mono": 43469.6513,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.8185999999986961
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688946,
+      "mono": 43474.6836,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688946,
+      "mono": 43474.8501,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688946,
+      "mono": 43475.0259,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688947,
+      "mono": 43475.374,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688947,
+      "mono": 43475.393,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688947,
+      "mono": 43475.4534,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6039999999993597
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688948,
+      "mono": 43476.4922,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.8211000000010245
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688955,
+      "mono": 43483.9312,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688955,
+      "mono": 43484.0774,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688956,
+      "mono": 43484.2279,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688956,
+      "mono": 43484.5681,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688956,
+      "mono": 43484.5932,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688956,
+      "mono": 43484.8382,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.7575000000069849
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989688957,
+      "mono": 43486.0391,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 2.116699999998673
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689027,
+      "mono": 43555.5166,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689027,
+      "mono": 43555.6836,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.1705999999976484
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689245,
+      "mono": 43773.5228,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689245,
+      "mono": 43773.6589,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689245,
+      "mono": 43773.8196,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689246,
+      "mono": 43774.1602,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689246,
+      "mono": 43774.1897,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689246,
+      "mono": 43774.2941,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6350000000020373
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689247,
+      "mono": 43775.7844,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 2.2753999999986263
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689282,
+      "mono": 43810.6026,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689282,
+      "mono": 43810.7436,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689282,
+      "mono": 43810.8941,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689283,
+      "mono": 43811.2483,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689283,
+      "mono": 43811.2804,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689283,
+      "mono": 43811.3574,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6131999999997788
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689284,
+      "mono": 43812.4565,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.866600000001199
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689288,
+      "mono": 43816.9695,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689289,
+      "mono": 43817.179,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689289,
+      "mono": 43817.4268,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689289,
+      "mono": 43817.8283,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689289,
+      "mono": 43817.8581,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689289,
+      "mono": 43817.9107,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.7343999999939115
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689290,
+      "mono": 43819.0163,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 2.0614000000059605
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689386,
+      "mono": 43914.5713,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689386,
+      "mono": 43914.8056,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.2386999999944237
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689607,
+      "mono": 44135.4921,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689607,
+      "mono": 44135.6477,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689607,
+      "mono": 44135.7942,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689607,
+      "mono": 44136.0864,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689607,
+      "mono": 44136.1055,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689608,
+      "mono": 44136.1567,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5092999999978929
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689608,
+      "mono": 44136.9709,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.491600000001199
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689640,
+      "mono": 44168.4892,
+      "stage": "asset.authorize:end",
+      "elapsed": 704.0432000000001
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689640,
+      "mono": 44168.5403,
+      "stage": "asset.current.first:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689644,
+      "mono": 44172.9286,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689644,
+      "mono": 44173.0765,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689645,
+      "mono": 44173.241,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689645,
+      "mono": 44173.5962,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689645,
+      "mono": 44173.6287,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689645,
+      "mono": 44173.7096,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6327000000019325
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689646,
+      "mono": 44174.8644,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.9487000000008265
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689651,
+      "mono": 44179.9165,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689651,
+      "mono": 44180.0599,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689652,
+      "mono": 44180.2116,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689652,
+      "mono": 44180.4972,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689652,
+      "mono": 44180.5136,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689652,
+      "mono": 44180.5523,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.4933000000019092
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689653,
+      "mono": 44181.3553,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.4526000000041677
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689716,
+      "mono": 44244.7273,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689716,
+      "mono": 44244.8454,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.12010000000009313
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689899,
+      "mono": 44427.207,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689899,
+      "mono": 44427.3518,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689899,
+      "mono": 44427.4955,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689899,
+      "mono": 44427.8712,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689899,
+      "mono": 44427.8928,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689899,
+      "mono": 44427.9343,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5833999999958905
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689900,
+      "mono": 44428.821,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.6267000000007101
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689930,
+      "mono": 44458.1427,
+      "stage": "asset.current.first:end",
+      "elapsed": 289.599000000002
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689930,
+      "mono": 44458.2024,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689930,
+      "mono": 44458.2818,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.0793000000048778
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689932,
+      "mono": 44460.6696,
+      "stage": "asset.bytes:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689932,
+      "mono": 44460.9773,
+      "stage": "asset.bytes:end",
+      "elapsed": 0.3099000000001979
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689932,
+      "mono": 44461.0181,
+      "stage": "asset.current.repeat:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689936,
+      "mono": 44464.5971,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689936,
+      "mono": 44464.722,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689936,
+      "mono": 44464.8698,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689937,
+      "mono": 44465.1451,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689937,
+      "mono": 44465.1622,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689937,
+      "mono": 44465.1992,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.4777999999932945
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689937,
+      "mono": 44465.8981,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.313800000003539
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689941,
+      "mono": 44469.922,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689941,
+      "mono": 44470.0744,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689942,
+      "mono": 44470.233,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689942,
+      "mono": 44470.5505,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689942,
+      "mono": 44470.5715,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689942,
+      "mono": 44470.6221,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5489000000015949
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989689943,
+      "mono": 44471.4406,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.5308999999979278
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690007,
+      "mono": 44535.4788,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690007,
+      "mono": 44535.6408,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.16630000000441214
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690180,
+      "mono": 44708.6911,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690180,
+      "mono": 44708.8612,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690180,
+      "mono": 44709.029,
+      "stage": "jwt:start",
+      "iat": 1793989690,
+      "exp": 1793989705
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690181,
+      "mono": 44709.3791,
+      "stage": "jwt:allow",
+      "iat": 1793989690,
+      "exp": 1793989705
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690181,
+      "mono": 44709.402,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690181,
+      "mono": 44709.4733,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6128000000026077
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690182,
+      "mono": 44710.3657,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.6886999999987893
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690217,
+      "mono": 44745.1275,
+      "stage": "asset.current.repeat:end",
+      "elapsed": 284.10629999999946
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690217,
+      "mono": 44745.3613,
+      "stage": "PrivateAssets.reply:end",
+      "elapsed": 1280.9375
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 35960,
+      "wall": 1793989690217,
+      "mono": 44745.4399,
+      "stage": "http:end",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "status": 200,
+      "elapsed": 1420.9717000000019
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696843,
+      "mono": 51371.1527,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696843,
+      "mono": 51371.3457,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696843,
+      "mono": 51371.5486,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696843,
+      "mono": 51371.8762,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696843,
+      "mono": 51371.8908,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696843,
+      "mono": 51371.9223,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5788999999931548
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696844,
+      "mono": 51372.765,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.6265999999959604
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696845,
+      "mono": 51373.5741,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696845,
+      "mono": 51373.6874,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696845,
+      "mono": 51373.8199,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696846,
+      "mono": 51374.2137,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696846,
+      "mono": 51374.2403,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696846,
+      "mono": 51374.306,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6186000000016065
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696847,
+      "mono": 51375.3314,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.7637000000031549
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696847,
+      "mono": 51376.1115,
+      "stage": "http:start",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "method": "GET"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696848,
+      "mono": 51376.1989,
+      "stage": "InternalVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696848,
+      "mono": 51376.3499,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696848,
+      "mono": 51376.6294,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696848,
+      "mono": 51376.6439,
+      "stage": "actor:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696850,
+      "mono": 51378.9706,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696850,
+      "mono": 51379.0808,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696851,
+      "mono": 51379.205,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696851,
+      "mono": 51379.532,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696851,
+      "mono": 51379.5739,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696851,
+      "mono": 51379.6149,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5346999999965192
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696852,
+      "mono": 51380.4196,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.456400000002759
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696852,
+      "mono": 51380.9033,
+      "stage": "InternalVerifier.authenticate:end",
+      "elapsed": 4.702499999999418
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696852,
+      "mono": 51380.9331,
+      "stage": "iam.lease:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696855,
+      "mono": 51383.6623,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696855,
+      "mono": 51383.8265,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696855,
+      "mono": 51384.0237,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696856,
+      "mono": 51384.4173,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696856,
+      "mono": 51384.4353,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696856,
+      "mono": 51384.4806,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6556000000055064
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696857,
+      "mono": 51385.3507,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.702499999999418
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696858,
+      "mono": 51386.3495,
+      "stage": "iam.lease:end",
+      "elapsed": 5.413399999997637
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696858,
+      "mono": 51386.3826,
+      "stage": "release.lease:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696858,
+      "mono": 51386.3973,
+      "stage": "ReleasedContracts.lease:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696970,
+      "mono": 51498.9393,
+      "stage": "ReleasedContracts.lease:end",
+      "elapsed": 112.5367000000042
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696970,
+      "mono": 51498.989,
+      "stage": "release.lease:end",
+      "elapsed": 112.60580000000482
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696970,
+      "mono": 51499.0094,
+      "stage": "PrivateAssets.reply:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696970,
+      "mono": 51499.0294,
+      "stage": "asset.authorize:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696974,
+      "mono": 51502.4289,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696974,
+      "mono": 51502.5608,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696974,
+      "mono": 51502.7019,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696974,
+      "mono": 51503.0735,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696974,
+      "mono": 51503.0927,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696975,
+      "mono": 51503.1366,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5767999999952735
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696975,
+      "mono": 51503.9816,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.5655000000042492
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696979,
+      "mono": 51507.4294,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696979,
+      "mono": 51507.5833,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696979,
+      "mono": 51507.7473,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696979,
+      "mono": 51508.0128,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696979,
+      "mono": 51508.0325,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696979,
+      "mono": 51508.0957,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5136999999958789
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696980,
+      "mono": 51509.0376,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.6181999999971595
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696983,
+      "mono": 51511.9299,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696983,
+      "mono": 51512.0751,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696984,
+      "mono": 51512.2406,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696984,
+      "mono": 51512.4661,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696984,
+      "mono": 51512.4794,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696984,
+      "mono": 51512.5065,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.433099999994738
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989696984,
+      "mono": 51513.1005,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.180000000000291
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697043,
+      "mono": 51571.9517,
+      "stage": "_PrivateAssetOwner.lookup:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697043,
+      "mono": 51572.0472,
+      "stage": "_PrivateAssetOwner.lookup:end",
+      "elapsed": 0.09839999999530846
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697228,
+      "mono": 51756.6779,
+      "stage": "http:start",
+      "route": "/identity/current",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697228,
+      "mono": 51756.8647,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697228,
+      "mono": 51757.0883,
+      "stage": "jwt:start",
+      "iat": 1793989697,
+      "exp": 1793989712
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697229,
+      "mono": 51757.4458,
+      "stage": "jwt:allow",
+      "iat": 1793989697,
+      "exp": 1793989712
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697229,
+      "mono": 51757.4701,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697229,
+      "mono": 51757.5269,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6639000000068336
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697230,
+      "mono": 51758.6161,
+      "stage": "http:end",
+      "route": "/identity/current",
+      "status": 200,
+      "elapsed": 1.9591999999975087
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697271,
+      "mono": 51799.2508,
+      "stage": "asset.authorize:error",
+      "elapsed": 300.1958999999988,
+      "code": "ERROR"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697271,
+      "mono": 51799.3117,
+      "stage": "private-assets:denied"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697271,
+      "mono": 51799.5123,
+      "stage": "PrivateAssets.reply:end",
+      "elapsed": 300.50109999999404
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 35960,
+      "wall": 1793989697271,
+      "mono": 51799.6034,
+      "stage": "http:end",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "status": 403,
+      "elapsed": 423.50130000000354
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679401,
+      "mono": 33502.4035,
+      "stage": "http:start",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "method": "GET"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679401,
+      "mono": 33502.6646,
+      "stage": "SecureSessions.read:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679401,
+      "mono": 33502.735,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679404,
+      "mono": 33505.5371,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.798799999996845,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679404,
+      "mono": 33505.5973,
+      "stage": "SecureSessions.read:end",
+      "elapsed": 2.9337000000014086
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679404,
+      "mono": 33505.8229,
+      "stage": "SecureSessions.read:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679404,
+      "mono": 33505.8774,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679407,
+      "mono": 33508.3828,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.500499999994645,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679407,
+      "mono": 33508.4626,
+      "stage": "SecureSessions.read:end",
+      "elapsed": 2.6396999999997206
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679410,
+      "mono": 33511.7573,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679410,
+      "mono": 33511.9409,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679411,
+      "mono": 33512.1352,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679411,
+      "mono": 33512.5114,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679411,
+      "mono": 33512.5415,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679411,
+      "mono": 33512.6055,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6664000000018859
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679411,
+      "mono": 33512.6464,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679411,
+      "mono": 33512.6734,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679414,
+      "mono": 33515.9052,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.2263999999995576,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679414,
+      "mono": 33515.9477,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.3012999999991735,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679415,
+      "mono": 33516.1405,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.396300000000338
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679417,
+      "mono": 33518.2621,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679417,
+      "mono": 33518.4522,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679417,
+      "mono": 33518.6384,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679417,
+      "mono": 33518.9759,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679417,
+      "mono": 33518.9966,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679418,
+      "mono": 33519.1182,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.666800000006333
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679418,
+      "mono": 33519.167,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679418,
+      "mono": 33519.1857,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679421,
+      "mono": 33522.0965,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.904499999996915,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679421,
+      "mono": 33522.1345,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.9677000000010594,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679421,
+      "mono": 33522.3187,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.068900000005669
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679553,
+      "mono": 33654.7036,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679553,
+      "mono": 33654.8733,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679554,
+      "mono": 33655.0665,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679554,
+      "mono": 33655.3907,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679554,
+      "mono": 33655.413,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679554,
+      "mono": 33655.4781,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.606099999997241
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679554,
+      "mono": 33655.5118,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679554,
+      "mono": 33655.5279,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679557,
+      "mono": 33658.1703,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.6370000000024447,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679557,
+      "mono": 33658.2227,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.7106000000057975,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679557,
+      "mono": 33658.3855,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.6957000000038533
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679559,
+      "mono": 33660.7643,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679559,
+      "mono": 33660.9558,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679560,
+      "mono": 33661.1397,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679560,
+      "mono": 33661.5251,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679560,
+      "mono": 33661.5476,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679560,
+      "mono": 33661.6088,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6541999999972177
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679560,
+      "mono": 33661.661,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679560,
+      "mono": 33661.6838,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679563,
+      "mono": 33664.7747,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.0855999999985215,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679563,
+      "mono": 33664.8178,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.157099999996717,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679564,
+      "mono": 33665.0951,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.341099999997823
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679567,
+      "mono": 33668.9861,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679568,
+      "mono": 33669.1693,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679568,
+      "mono": 33669.3533,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679568,
+      "mono": 33669.6839,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679568,
+      "mono": 33669.7114,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679568,
+      "mono": 33669.7719,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6036999999996624
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679568,
+      "mono": 33669.8063,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679568,
+      "mono": 33669.8256,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679571,
+      "mono": 33672.8526,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.021199999995588,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679571,
+      "mono": 33672.8967,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.0898999999990338,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679571,
+      "mono": 33673.0554,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.081899999997404
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679744,
+      "mono": 33846.0445,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679745,
+      "mono": 33846.1966,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679745,
+      "mono": 33846.3501,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679745,
+      "mono": 33846.708,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679745,
+      "mono": 33846.7247,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679745,
+      "mono": 33846.7652,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5698999999949592
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679745,
+      "mono": 33846.7839,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679745,
+      "mono": 33846.793,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679747,
+      "mono": 33848.9878,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.191899999997986,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679747,
+      "mono": 33849.0124,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.2281999999977415,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679748,
+      "mono": 33849.1303,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.096900000004098
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679778,
+      "mono": 33879.3161,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679778,
+      "mono": 33879.4946,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679778,
+      "mono": 33879.6545,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679778,
+      "mono": 33879.9456,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679778,
+      "mono": 33879.9635,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679778,
+      "mono": 33880.0214,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5268999999971129
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679778,
+      "mono": 33880.0581,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679779,
+      "mono": 33880.0772,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679781,
+      "mono": 33882.4227,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.34150000000227,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679781,
+      "mono": 33882.4538,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.3953999999939697,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679781,
+      "mono": 33882.6064,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.303299999999581
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679783,
+      "mono": 33884.542,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679783,
+      "mono": 33884.7049,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679783,
+      "mono": 33884.8901,
+      "stage": "jwt:start",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679784,
+      "mono": 33885.2041,
+      "stage": "jwt:allow",
+      "iat": 1793989679,
+      "exp": 1793989694
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679784,
+      "mono": 33885.2229,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679784,
+      "mono": 33885.2651,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5622000000003027
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679784,
+      "mono": 33885.2871,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679784,
+      "mono": 33885.2986,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679787,
+      "mono": 33888.4367,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.1341000000029453,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679787,
+      "mono": 33888.4655,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.1784000000043306,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989679787,
+      "mono": 33888.6212,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.090199999998731
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680027,
+      "mono": 34128.0865,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680027,
+      "mono": 34128.2679,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680027,
+      "mono": 34128.4523,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680027,
+      "mono": 34128.7805,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680027,
+      "mono": 34128.8129,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680027,
+      "mono": 34128.8761,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.609599999996135
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680027,
+      "mono": 34128.9109,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680027,
+      "mono": 34128.9285,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680030,
+      "mono": 34131.7795,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.8447999999989406,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680030,
+      "mono": 34131.8124,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.9012999999977183,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680030,
+      "mono": 34131.9815,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.9095999999990454
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680071,
+      "mono": 34172.6004,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680071,
+      "mono": 34172.8965,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680072,
+      "mono": 34173.1838,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680072,
+      "mono": 34173.6826,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680072,
+      "mono": 34173.7185,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680072,
+      "mono": 34173.8805,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.9850000000005821
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680072,
+      "mono": 34173.9301,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680072,
+      "mono": 34173.9582,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680076,
+      "mono": 34177.2121,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.2488000000012107,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680076,
+      "mono": 34177.2525,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.32220000000234,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680076,
+      "mono": 34177.4557,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.890100000004168
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680078,
+      "mono": 34179.9787,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680079,
+      "mono": 34180.1664,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680079,
+      "mono": 34180.3531,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680079,
+      "mono": 34180.649,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680079,
+      "mono": 34180.6757,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680079,
+      "mono": 34180.7382,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5733000000036554
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680079,
+      "mono": 34180.7764,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680079,
+      "mono": 34180.8054,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680082,
+      "mono": 34183.6906,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.8885000000009313,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680082,
+      "mono": 34183.7252,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.9487999999983003,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680082,
+      "mono": 34183.8687,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.902699999998731
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680273,
+      "mono": 34374.8215,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680273,
+      "mono": 34374.994,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680274,
+      "mono": 34375.1845,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680274,
+      "mono": 34375.5307,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680274,
+      "mono": 34375.5582,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680274,
+      "mono": 34375.6234,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6304000000018277
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680274,
+      "mono": 34375.663,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680274,
+      "mono": 34375.6812,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680278,
+      "mono": 34379.115,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.4298999999955413,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680278,
+      "mono": 34379.146,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.483299999999872,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680278,
+      "mono": 34379.2832,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.475800000000163
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680315,
+      "mono": 34416.6434,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680315,
+      "mono": 34416.7591,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680315,
+      "mono": 34416.892,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680316,
+      "mono": 34417.2164,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680316,
+      "mono": 34417.2435,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680316,
+      "mono": 34417.3274,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.568200000001525
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680316,
+      "mono": 34417.3581,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680316,
+      "mono": 34417.3733,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680318,
+      "mono": 34419.869,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.4922999999980675,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680318,
+      "mono": 34419.9009,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.542300000000978,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680318,
+      "mono": 34420.0481,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.4135000000023865
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680321,
+      "mono": 34422.5781,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680321,
+      "mono": 34422.7416,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680321,
+      "mono": 34422.9029,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680322,
+      "mono": 34423.1931,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680322,
+      "mono": 34423.2104,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680322,
+      "mono": 34423.2625,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5227999999988242
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680322,
+      "mono": 34423.2895,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680322,
+      "mono": 34423.302,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680325,
+      "mono": 34426.527,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.219700000001467,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680325,
+      "mono": 34426.5606,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.2704999999987194,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680325,
+      "mono": 34426.7181,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.148699999997916
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680499,
+      "mono": 34600.0985,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680499,
+      "mono": 34600.2137,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680499,
+      "mono": 34600.3492,
+      "stage": "jwt:start",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680499,
+      "mono": 34600.5843,
+      "stage": "jwt:allow",
+      "iat": 1793989680,
+      "exp": 1793989695
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680499,
+      "mono": 34600.5961,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680499,
+      "mono": 34600.6325,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.41930000000138534
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680499,
+      "mono": 34600.6503,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680499,
+      "mono": 34600.6606,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680502,
+      "mono": 34603.1097,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.4459999999962747,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680502,
+      "mono": 34603.1489,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.4976999999998952,
+      "value": true
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680502,
+      "mono": 34603.3309,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.241200000004028
+    },
+    {
+      "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+      "pid": 416,
+      "wall": 1793989680532,
+      "mono": 34633.9826,
+      "stage": "http:end",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "status": 200,
+      "elapsed": 1131.595500000003
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688789,
+      "mono": 42890.9692,
+      "stage": "http:start",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "method": "GET"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688790,
+      "mono": 42891.1208,
+      "stage": "SecureSessions.read:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688790,
+      "mono": 42891.1896,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688793,
+      "mono": 42894.2658,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.0706999999965774,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688793,
+      "mono": 42894.3282,
+      "stage": "SecureSessions.read:end",
+      "elapsed": 3.209500000004482
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688793,
+      "mono": 42894.3764,
+      "stage": "SecureSessions.read:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688793,
+      "mono": 42894.4187,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688795,
+      "mono": 42896.832,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.4086999999999534,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688795,
+      "mono": 42896.9012,
+      "stage": "SecureSessions.read:end",
+      "elapsed": 2.5240999999950873
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688798,
+      "mono": 42899.6879,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688798,
+      "mono": 42899.842,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688798,
+      "mono": 42900.0511,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688799,
+      "mono": 42900.3827,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688799,
+      "mono": 42900.4136,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688799,
+      "mono": 42900.4974,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6557999999931781
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688799,
+      "mono": 42900.545,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688799,
+      "mono": 42900.5685,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688802,
+      "mono": 42903.6903,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.116699999998673,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688802,
+      "mono": 42903.7363,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.191100000003644,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688802,
+      "mono": 42903.9335,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.256699999998091
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688804,
+      "mono": 42905.4999,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688804,
+      "mono": 42905.6248,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688804,
+      "mono": 42905.7943,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688805,
+      "mono": 42906.1297,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688805,
+      "mono": 42906.1599,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688805,
+      "mono": 42906.239,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6146999999982654
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688805,
+      "mono": 42906.2772,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688805,
+      "mono": 42906.2961,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688807,
+      "mono": 42908.7847,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.4849000000031083,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688807,
+      "mono": 42908.8157,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.539199999999255,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688807,
+      "mono": 42908.9908,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.4923999999955413
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688938,
+      "mono": 43039.2992,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688938,
+      "mono": 43039.443,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688938,
+      "mono": 43039.6227,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688938,
+      "mono": 43039.9499,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688938,
+      "mono": 43039.9803,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688939,
+      "mono": 43040.0708,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6279999999969732
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688939,
+      "mono": 43040.1165,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688939,
+      "mono": 43040.1398,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688942,
+      "mono": 43043.0915,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.946299999995972,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688942,
+      "mono": 43043.1321,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.0155999999988126,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688942,
+      "mono": 43043.3094,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.021600000000035
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688945,
+      "mono": 43046.2119,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688945,
+      "mono": 43046.3704,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688945,
+      "mono": 43046.5436,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688945,
+      "mono": 43046.9462,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688945,
+      "mono": 43046.9675,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688945,
+      "mono": 43047.0243,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6543000000019674
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688945,
+      "mono": 43047.0559,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688946,
+      "mono": 43047.0709,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688948,
+      "mono": 43049.8228,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.746400000003632,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688948,
+      "mono": 43049.8625,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.8066000000035274,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688948,
+      "mono": 43050.0184,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.8197000000000116
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688954,
+      "mono": 43055.4506,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688954,
+      "mono": 43055.6189,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688954,
+      "mono": 43055.8788,
+      "stage": "jwt:start",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688955,
+      "mono": 43056.2139,
+      "stage": "jwt:allow",
+      "iat": 1793989688,
+      "exp": 1793989703
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688955,
+      "mono": 43056.2308,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688955,
+      "mono": 43056.2719,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6543000000019674
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688955,
+      "mono": 43056.2932,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688955,
+      "mono": 43056.3047,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688958,
+      "mono": 43059.4763,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.1639999999970314,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688958,
+      "mono": 43059.5254,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.231099999997241,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989688958,
+      "mono": 43059.7322,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.296200000004319
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689244,
+      "mono": 43345.1771,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689244,
+      "mono": 43345.3281,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689244,
+      "mono": 43345.5216,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689244,
+      "mono": 43345.8129,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689244,
+      "mono": 43345.8326,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689244,
+      "mono": 43345.9075,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5802000000039698
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689244,
+      "mono": 43345.938,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689244,
+      "mono": 43345.9549,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689248,
+      "mono": 43349.1396,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.179199999998673,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689248,
+      "mono": 43349.1747,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.235999999997148,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689248,
+      "mono": 43349.3972,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.230000000003201
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689281,
+      "mono": 43382.3397,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689281,
+      "mono": 43382.4936,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689281,
+      "mono": 43382.6847,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689281,
+      "mono": 43382.9677,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689281,
+      "mono": 43382.9858,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689281,
+      "mono": 43383.0381,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5446999999985565
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689282,
+      "mono": 43383.0755,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689282,
+      "mono": 43383.0929,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689284,
+      "mono": 43385.8241,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.7260999999998603,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689284,
+      "mono": 43385.8623,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.7866999999969266,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689284,
+      "mono": 43386.0492,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.720900000000256
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689287,
+      "mono": 43388.5623,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689287,
+      "mono": 43388.7377,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689287,
+      "mono": 43388.958,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689288,
+      "mono": 43389.2519,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689288,
+      "mono": 43389.2704,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689288,
+      "mono": 43389.3193,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.583200000000943
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689288,
+      "mono": 43389.351,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689288,
+      "mono": 43389.3647,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689291,
+      "mono": 43392.4418,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.069899999994959,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689291,
+      "mono": 43392.4938,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.1424000000042724,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689291,
+      "mono": 43393.0108,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.45679999999993
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689606,
+      "mono": 43707.2675,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689606,
+      "mono": 43707.4046,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689606,
+      "mono": 43707.5494,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689606,
+      "mono": 43707.8217,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689606,
+      "mono": 43707.845,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689606,
+      "mono": 43707.9165,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.511899999997695
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689606,
+      "mono": 43707.9553,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689606,
+      "mono": 43707.9769,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689609,
+      "mono": 43710.2918,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.3122999999977765,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689609,
+      "mono": 43710.3232,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.3681999999971595,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689609,
+      "mono": 43710.468,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.2106999999959953
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689643,
+      "mono": 43744.3528,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689643,
+      "mono": 43744.6404,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689643,
+      "mono": 43744.7932,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689644,
+      "mono": 43745.1104,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689644,
+      "mono": 43745.1415,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689644,
+      "mono": 43745.2231,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5822000000043772
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689644,
+      "mono": 43745.267,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689644,
+      "mono": 43745.2925,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689647,
+      "mono": 43748.1365,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.8390999999974156,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689647,
+      "mono": 43748.1738,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.9069000000017695,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689647,
+      "mono": 43748.3487,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.018499999998312
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689650,
+      "mono": 43751.0611,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689650,
+      "mono": 43751.4368,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689650,
+      "mono": 43751.6793,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689651,
+      "mono": 43752.2219,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689651,
+      "mono": 43752.2514,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689651,
+      "mono": 43752.309,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.8755000000019209
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689651,
+      "mono": 43752.3417,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689651,
+      "mono": 43752.3594,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689653,
+      "mono": 43754.747,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.382099999995262,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689653,
+      "mono": 43754.7903,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.447999999996682,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689653,
+      "mono": 43755.0043,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.9548999999969965
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689897,
+      "mono": 43998.8694,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689897,
+      "mono": 43999.0097,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689898,
+      "mono": 43999.1525,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689898,
+      "mono": 43999.5221,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689898,
+      "mono": 43999.5524,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689898,
+      "mono": 43999.6173,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6082999999998719
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689898,
+      "mono": 43999.6599,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689898,
+      "mono": 43999.6904,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689901,
+      "mono": 44002.1548,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.460399999996298,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689901,
+      "mono": 44002.1913,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.533400000000256,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689901,
+      "mono": 44002.3572,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.4984000000040396
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689934,
+      "mono": 44035.8948,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689934,
+      "mono": 44036.0306,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689935,
+      "mono": 44036.2314,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689935,
+      "mono": 44036.8882,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689935,
+      "mono": 44036.918,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689935,
+      "mono": 44036.9928,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.9619999999995343
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689935,
+      "mono": 44037.0309,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689935,
+      "mono": 44037.0498,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689938,
+      "mono": 44039.2245,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.1719999999986612,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689938,
+      "mono": 44039.2535,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.2226000000009662,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689938,
+      "mono": 44039.4155,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.5315999999947962
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689940,
+      "mono": 44041.4738,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689940,
+      "mono": 44041.6472,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689940,
+      "mono": 44041.8719,
+      "stage": "jwt:start",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689941,
+      "mono": 44042.287,
+      "stage": "jwt:allow",
+      "iat": 1793989689,
+      "exp": 1793989704
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689941,
+      "mono": 44042.3088,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689941,
+      "mono": 44042.3484,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.702900000003865
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689941,
+      "mono": 44042.3753,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689941,
+      "mono": 44042.3912,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689943,
+      "mono": 44044.8105,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.4125999999960186,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689943,
+      "mono": 44044.846,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.4702000000033877,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989689943,
+      "mono": 44045.0376,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.5760000000009313
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690179,
+      "mono": 44280.4435,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690179,
+      "mono": 44280.5878,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690179,
+      "mono": 44280.7554,
+      "stage": "jwt:start",
+      "iat": 1793989690,
+      "exp": 1793989705
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690179,
+      "mono": 44281.0372,
+      "stage": "jwt:allow",
+      "iat": 1793989690,
+      "exp": 1793989705
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690179,
+      "mono": 44281.0522,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690180,
+      "mono": 44281.1273,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5402000000030966
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690180,
+      "mono": 44281.158,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690180,
+      "mono": 44281.1739,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690182,
+      "mono": 44283.7389,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.5601999999998952,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690182,
+      "mono": 44283.7685,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.6105999999999767,
+      "value": true
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690182,
+      "mono": 44283.9592,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.5253999999986263
+    },
+    {
+      "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+      "pid": 416,
+      "wall": 1793989690217,
+      "mono": 44318.9352,
+      "stage": "http:end",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "status": 200,
+      "elapsed": 1427.988900000004
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696842,
+      "mono": 50943.4924,
+      "stage": "http:start",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "method": "GET"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696842,
+      "mono": 50943.5617,
+      "stage": "SecureSessions.read:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696842,
+      "mono": 50943.5905,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696844,
+      "mono": 50946.0528,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.4591999999975087,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696845,
+      "mono": 50946.1004,
+      "stage": "SecureSessions.read:end",
+      "elapsed": 2.538699999997334
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696845,
+      "mono": 50946.1427,
+      "stage": "SecureSessions.read:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696845,
+      "mono": 50946.1768,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696847,
+      "mono": 50948.6417,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.46129999999539,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696847,
+      "mono": 50948.6926,
+      "stage": "SecureSessions.read:end",
+      "elapsed": 2.549299999998766
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696849,
+      "mono": 50950.9989,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696850,
+      "mono": 50951.1473,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696850,
+      "mono": 50951.3024,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696850,
+      "mono": 50951.5503,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696850,
+      "mono": 50951.5653,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696850,
+      "mono": 50951.5955,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.44909999999799766
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696850,
+      "mono": 50951.6143,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696850,
+      "mono": 50951.624,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696852,
+      "mono": 50953.7117,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.084100000000035,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696852,
+      "mono": 50953.736,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.1209000000017113,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696852,
+      "mono": 50953.8526,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 2.862600000000384
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696854,
+      "mono": 50955.3205,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696854,
+      "mono": 50955.4166,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696854,
+      "mono": 50955.5561,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696854,
+      "mono": 50955.9257,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696854,
+      "mono": 50955.9529,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696854,
+      "mono": 50956.0124,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5957000000053085
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696854,
+      "mono": 50956.0478,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696855,
+      "mono": 50956.0624,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696857,
+      "mono": 50958.7026,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.6356999999989057,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696857,
+      "mono": 50958.7313,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.683499999999185,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696857,
+      "mono": 50958.8671,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.5512999999991735
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696973,
+      "mono": 51074.1583,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696973,
+      "mono": 51074.3634,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696973,
+      "mono": 51074.57,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696973,
+      "mono": 51074.8548,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696973,
+      "mono": 51074.8752,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696973,
+      "mono": 51074.9176,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5555999999996857
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696973,
+      "mono": 51074.9425,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696973,
+      "mono": 51074.9559,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696976,
+      "mono": 51077.3501,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.390800000001036,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696976,
+      "mono": 51077.3827,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.4394000000029337,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696976,
+      "mono": 51077.5525,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.4121000000013737
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696978,
+      "mono": 51079.2168,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696978,
+      "mono": 51079.3226,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696978,
+      "mono": 51079.4691,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696978,
+      "mono": 51079.7781,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696978,
+      "mono": 51079.8019,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696978,
+      "mono": 51079.8542,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.5313999999998487
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696978,
+      "mono": 51079.8867,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696978,
+      "mono": 51079.9056,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696981,
+      "mono": 51082.3144,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 2.4055999999982305,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696981,
+      "mono": 51082.3399,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 2.4530000000013388,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696981,
+      "mono": 51082.456,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 3.247400000000198
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696982,
+      "mono": 51083.9793,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696983,
+      "mono": 51084.0763,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696983,
+      "mono": 51084.2144,
+      "stage": "jwt:start",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696983,
+      "mono": 51084.4732,
+      "stage": "jwt:allow",
+      "iat": 1793989696,
+      "exp": 1793989711
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696983,
+      "mono": 51084.4885,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696983,
+      "mono": 51084.5312,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.45530000000144355
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696983,
+      "mono": 51084.5554,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696983,
+      "mono": 51084.5698,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696985,
+      "mono": 51086.4323,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 1.8591000000014901,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696985,
+      "mono": 51086.4638,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 1.9078999999983353,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989696985,
+      "mono": 51086.6065,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 2.631100000005972
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697227,
+      "mono": 51328.1868,
+      "stage": "http:start",
+      "route": "/sessions/status",
+      "method": "POST"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697227,
+      "mono": 51328.3465,
+      "stage": "ServiceRpcVerifier.authenticate:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697227,
+      "mono": 51328.5243,
+      "stage": "jwt:start",
+      "iat": 1793989697,
+      "exp": 1793989712
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697227,
+      "mono": 51328.8846,
+      "stage": "jwt:allow",
+      "iat": 1793989697,
+      "exp": 1793989712
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697227,
+      "mono": 51328.9035,
+      "stage": "rpc:claims-verified"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697227,
+      "mono": 51328.9461,
+      "stage": "ServiceRpcVerifier.authenticate:end",
+      "elapsed": 0.6002000000007683
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697227,
+      "mono": 51328.9716,
+      "stage": "SecureSessions.activeInternal:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697227,
+      "mono": 51328.9843,
+      "stage": "RemoteIdentityDirectory.current:start"
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697230,
+      "mono": 51332.0097,
+      "stage": "RemoteIdentityDirectory.current:end",
+      "elapsed": 3.0201000000015483,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697230,
+      "mono": 51332.0437,
+      "stage": "SecureSessions.activeInternal:end",
+      "elapsed": 3.071700000000419,
+      "value": true
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697231,
+      "mono": 51332.2177,
+      "stage": "http:end",
+      "route": "/sessions/status",
+      "status": 200,
+      "elapsed": 4.041199999999662
+    },
+    {
+      "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+      "pid": 416,
+      "wall": 1793989697272,
+      "mono": 51373.1504,
+      "stage": "http:end",
+      "route": "/runtime/assets/<asset>/<version>/metadata",
+      "status": 403,
+      "elapsed": 429.6667000000016
+    }
+  ],
+  "ordering": "Causal request IDs across processes; mono is process-local. Do not sort different process clocks into assumed total order."
+}

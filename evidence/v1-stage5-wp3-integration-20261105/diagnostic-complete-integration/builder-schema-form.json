@@ -1,0 +1,191 @@
+{
+  "applicationId": "e36ce3a8-3c9e-4172-ab06-97beaaedef86",
+  "datasetId": "4e345371-2097-4c53-91c3-25a9d4372f96",
+  "schema": {
+    "definitionType": "dataset-schema",
+    "definitionFormatVersion": 1,
+    "dataset": {
+      "id": "4e345371-2097-4c53-91c3-25a9d4372f96",
+      "key": "records_4e34537120974c5391c325a9d4372f96",
+      "name": "Stage 2 Inventory",
+      "pluralName": "Stage 2 Inventorys"
+    },
+    "fields": [
+      {
+        "id": "65c33f74-0554-45fd-bb39-addf59300ac0",
+        "key": "id",
+        "type": "id",
+        "required": true
+      },
+      {
+        "id": "2f413358-9527-4e5c-86a0-476a2d37cb52",
+        "key": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "id": "9b79c0cd-0d93-4314-897b-fa59185d0d89",
+        "key": "quantity",
+        "type": "number",
+        "required": true
+      },
+      {
+        "id": "4383d6a5-5d8f-41c2-8eca-0fbfb045d37f",
+        "key": "active",
+        "type": "boolean",
+        "required": true
+      }
+    ]
+  },
+  "form": {
+    "schemaVersion": 1,
+    "artifactId": "art_6b88dff5-6b95-4acc-8b09-0b9a8304710d",
+    "kind": "component",
+    "name": "stage2-inventory-form-1793941815497",
+    "displayName": "stage2 inventory form 1793941815497",
+    "componentId": "cmp_platform_d9995570-9a38-461d-bfc3-1ea2303308b8",
+    "public": {
+      "properties": {
+        "mode": {
+          "type": "string",
+          "default": "public"
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "create",
+            "edit"
+          ],
+          "default": "create"
+        },
+        "recordId": {
+          "type": "string"
+        },
+        "initialRecord": {
+          "type": "object"
+        },
+        "readOnly": {
+          "type": "boolean",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "events": {
+        "submitStarted": {
+          "payload": {
+            "result": {
+              "type": "object"
+            }
+          }
+        },
+        "submitSucceeded": {
+          "payload": {
+            "result": {
+              "type": "object"
+            }
+          }
+        },
+        "submitFailed": {
+          "payload": {
+            "result": {
+              "type": "object"
+            }
+          }
+        },
+        "recordCreated": {
+          "payload": {
+            "result": {
+              "type": "object"
+            }
+          }
+        },
+        "recordUpdated": {
+          "payload": {
+            "result": {
+              "type": "object"
+            }
+          }
+        },
+        "cancelRequested": {
+          "payload": {
+            "result": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "slots": []
+    },
+    "capabilities": [
+      "visual",
+      "form"
+    ],
+    "modes": {
+      "default": "public",
+      "overrides": {
+        "public": {}
+      }
+    },
+    "form": {
+      "node": "form",
+      "datasetId": "4e345371-2097-4c53-91c3-25a9d4372f96",
+      "primaryKey": "id",
+      "fields": [
+        {
+          "id": "field_2f413358-9527-4e5c-86a0-476a2d37cb52",
+          "node": "control_name",
+          "key": "name",
+          "datasetFieldId": "2f413358-9527-4e5c-86a0-476a2d37cb52",
+          "type": "string",
+          "datasetRequired": true,
+          "required": true,
+          "label": "name",
+          "visible": true,
+          "editable": true
+        },
+        {
+          "id": "field_9b79c0cd-0d93-4314-897b-fa59185d0d89",
+          "node": "control_quantity",
+          "key": "quantity",
+          "datasetFieldId": "9b79c0cd-0d93-4314-897b-fa59185d0d89",
+          "type": "number",
+          "datasetRequired": true,
+          "required": true,
+          "label": "quantity",
+          "visible": true,
+          "editable": true
+        },
+        {
+          "id": "field_4383d6a5-5d8f-41c2-8eca-0fbfb045d37f",
+          "node": "control_active",
+          "key": "active",
+          "datasetFieldId": "4383d6a5-5d8f-41c2-8eca-0fbfb045d37f",
+          "type": "boolean",
+          "datasetRequired": true,
+          "required": true,
+          "label": "active",
+          "visible": true,
+          "editable": true
+        }
+      ],
+      "submit": {
+        "service": "dataset.write",
+        "readService": "dataset.read"
+      },
+      "contractVersion": 1
+    },
+    "state": {
+      "values": {},
+      "dirty": false,
+      "submitting": false,
+      "submitted": false,
+      "submitError": null,
+      "validation": {},
+      "savedRecord": null
+    }
+  },
+  "browserErrors": []
+}

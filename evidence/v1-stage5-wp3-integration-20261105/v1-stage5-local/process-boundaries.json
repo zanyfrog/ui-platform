@@ -1,0 +1,28 @@
+{
+  "processes": [
+    {
+      "kind": "runtime",
+      "pid": 9508,
+      "port": 58547,
+      "privateReadDenied": true
+    },
+    {
+      "kind": "data",
+      "pid": 17200,
+      "port": 58548,
+      "privateReadDenied": false
+    },
+    {
+      "kind": "management",
+      "pid": 2504,
+      "port": 58549,
+      "privateReadDenied": false
+    }
+  ],
+  "actualOs": "win32",
+  "filesystemBoundary": "Node 24 runtime permission model; same Windows OS user",
+  "runtimePublic": 200,
+  "runtimeManagement": 404,
+  "dataAnonymous": 403,
+  "productionOsAccountIsolation": "UNVERIFIED"
+}

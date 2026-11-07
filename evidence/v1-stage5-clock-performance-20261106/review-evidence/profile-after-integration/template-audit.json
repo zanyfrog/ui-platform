@@ -1,0 +1,35 @@
+[
+  {
+    "seq": 1,
+    "action": "register",
+    "actor": "usr_stage5_6de5c433-ec8e-42aa-bdc9-19fa33c08c88",
+    "body": {
+      "binding": {
+        "authorityId": "ui-platform-development",
+        "applicationId": "115e7475-b7af-4b76-a120-debe8fd6b16b",
+        "datasetId": "cde885d0-47e6-426c-a5cc-740727dfdf86",
+        "nameFieldId": "45775aa7-0b53-4a3a-9449-3c088aead853",
+        "schemaIdentity": "e570de17a2ee4e4c63d983ba08581ef64cd3d3f70fa03eaeb0703585316c3821",
+        "witness": "de6c6613eba7829a5d58072ff34ed83b0c272ba8d7053fddbbdae0d223263780"
+      },
+      "boundaryId": "initial.115e7475-b7af-4b76-a120-debe8fd6b16b.boundary",
+      "beneficiary": {
+        "kind": "role",
+        "id": "initial.115e7475-b7af-4b76-a120-debe8fd6b16b.role"
+      },
+      "sourceBoundaryId": "development.platform-security.boundary",
+      "sourceAssignmentId": "stage5.platform-admin-assignment",
+      "registeredBy": "usr_stage5_6de5c433-ec8e-42aa-bdc9-19fa33c08c88",
+      "reason": "Explicit Platform authorization of the finite inventory exclusion"
+    }
+  },
+  {
+    "seq": 2,
+    "action": "revoke",
+    "actor": "usr_stage5_6de5c433-ec8e-42aa-bdc9-19fa33c08c88",
+    "body": {
+      "templateId": "inventory.exclude-hidden.v1",
+      "reason": "Explicit end-of-qualification revocation"
+    }
+  }
+]

@@ -64,7 +64,10 @@ export class ReleasedContracts {
     const assertCurrent = async () => {
       const current = await this.selection.read();
       if (JSON.stringify(current) !== JSON.stringify(admission) || !await this.currentSchema(applicationId, admission.schemaIdentity)) deny();
-      for (const name of Object.keys(admission.files)) await read(name);
+      // Preserve the complete byte/link check while avoiding serial filesystem
+      // round trips consuming the planner's short evidence lifetime on real releases.
+      const names=Object.keys(admission.files);
+      for(let offset=0;offset<names.length;offset+=32)await Promise.all(names.slice(offset,offset+32).map(read));
     };
     await assertCurrent();
     for (const file of Object.keys(admission.files).filter(p => p.endsWith('.visual.json'))) {

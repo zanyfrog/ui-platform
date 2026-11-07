@@ -11,9 +11,11 @@ import { attachFormRuntime } from './form-runtime.js';
 import type { FormRuntimeOptions } from './form-runtime.js';
 import { readPackageSettings, valueErrors } from './model.js';
 import { validateArtifact } from './validation.js';
-import type { Action, FunctionContext, LayoutRule, PackageComponent, RuntimeArtifact } from './model.js';
+import type { Action, ArtifactMetadata, FunctionContext, LayoutRule, PackageComponent, RuntimeArtifact } from './model.js';
 
 export interface RuntimeOptions extends FormRuntimeOptions {
+  /** Host adapter selects services per released artifact, including nested Forms. No authority is stored here. */
+  servicesForArtifact?: (metadata: ArtifactMetadata) => NonNullable<RuntimeOptions['services']>;
   components: RuntimeArtifact[]; packages: PackageComponent[];
   inputs?: Record<string, unknown>; sources?: Record<string, unknown>; context?: Record<string, unknown>; route?: Record<string, unknown>;
   slots?: Node[]; navigate?: (to: string) => void;
@@ -47,6 +49,7 @@ export function layoutCss(layout: RuntimeArtifact['metadata']['layout']): string
 
 /** Both preview and application pages call this renderer. Shadow roots are artifact/instance CSS boundaries. */
 export function mountVisualArtifact(artifact: RuntimeArtifact, options: RuntimeOptions): ArtifactInstance {
+  if (options.servicesForArtifact) options = { ...options, services: options.servicesForArtifact(artifact.metadata) };
   assertManagedVisualRevision(artifact, options.components);
   const errors = validateArtifact(artifact, options.components, options.packages, Object.keys(options.services ?? {})).filter(d => d.severity === 'error');
   if (errors.length) throw new Error(errors.map(d => d.message).join('\n'));

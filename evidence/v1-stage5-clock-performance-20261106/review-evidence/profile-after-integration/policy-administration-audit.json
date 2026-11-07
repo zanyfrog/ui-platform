@@ -1,0 +1,203 @@
+[
+  {
+    "actorId": "explicit-local-test-operator",
+    "operation": "initialize-platform-security",
+    "authorityPath": [
+      "development.security.local-setup"
+    ],
+    "targetIds": [
+      "dataset.read",
+      "dataset.create",
+      "dataset.update",
+      "dataset.delete",
+      "dataset.write",
+      "automation.reference.notification.invoke",
+      "workflow.invoke",
+      "ui.platform.security.admin",
+      "ui.application.security.admin",
+      "development.platform-security.set",
+      "development.platform-security.role",
+      "development.platform-security.assignment",
+      "development.platform-security.boundary",
+      "development.anchor.dev-v1-identity-fixture.set",
+      "development.anchor.dev-v1-identity-fixture.role",
+      "development.anchor.dev-v1-identity-fixture.assignment",
+      "development.anchor.dev-v1-identity-fixture.boundary"
+    ],
+    "reason": "Explicit local WP0 development setup",
+    "beforeDigest": "sha256:40769fc2f09c831ed15868d38569c85f68edb42a56d6768e6a4f568eca8f61c9",
+    "afterDigest": "sha256:e0b2e60c61104b455292754281b7dc3d44f052d895e6f7b521e2d504fb7a76a4"
+  },
+  {
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "operation": "assign+create",
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "targetIds": [
+      "wp0.creator-set",
+      "wp0.creator-role",
+      "wp0.creator-assignment"
+    ],
+    "reason": "Explicit WP0 role administration",
+    "beforeDigest": "sha256:e0b2e60c61104b455292754281b7dc3d44f052d895e6f7b521e2d504fb7a76a4",
+    "afterDigest": "sha256:fd0d27c73852d137284be5412cd3218d25136d91aaaad93f9bc28fe9ff6534e5"
+  },
+  {
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "operation": "provision-application",
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "targetIds": [
+      "115e7475-b7af-4b76-a120-debe8fd6b16b",
+      "initial.115e7475-b7af-4b76-a120-debe8fd6b16b.set",
+      "initial.115e7475-b7af-4b76-a120-debe8fd6b16b.role",
+      "initial.115e7475-b7af-4b76-a120-debe8fd6b16b.assignment",
+      "initial.115e7475-b7af-4b76-a120-debe8fd6b16b.boundary"
+    ],
+    "reason": "Explicit initial Application security administrator",
+    "beforeDigest": "sha256:fd0d27c73852d137284be5412cd3218d25136d91aaaad93f9bc28fe9ff6534e5",
+    "afterDigest": "sha256:21eb5dbb4cc1cc9062a189b09278b804b6815631ba4910cfee13d5b48e68a5c8"
+  },
+  {
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "operation": "assign+create",
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "targetIds": [
+      "wp4.author-set",
+      "wp4.author-role",
+      "wp4.author-assignment"
+    ],
+    "reason": "Explicit WP0 role administration",
+    "beforeDigest": "sha256:21eb5dbb4cc1cc9062a189b09278b804b6815631ba4910cfee13d5b48e68a5c8",
+    "afterDigest": "sha256:45ba110ef4d713a12a388f0a53bf6b8ab71f5195dd796e13f70ab80dd14e671b"
+  },
+  {
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "operation": "assign+create",
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "targetIds": [
+      "stage5.publisher-set",
+      "stage5.publisher-role",
+      "stage5.publisher-assignment"
+    ],
+    "reason": "Explicit WP0 role administration",
+    "beforeDigest": "sha256:45ba110ef4d713a12a388f0a53bf6b8ab71f5195dd796e13f70ab80dd14e671b",
+    "afterDigest": "sha256:8b518c25e92ae19e7857a0dda1fffd0e5b667cd66f3d50666c3255a3d06b4600"
+  },
+  {
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "operation": "create",
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "targetIds": [
+      "usr_stage5_746fc8b8-8005-4a3a-9ff2-b3578666b22b",
+      "usr_stage5_1cbf6d0d-a7c6-4123-9980-563b5de7b646",
+      "usr_stage5_6de5c433-ec8e-42aa-bdc9-19fa33c08c88",
+      "usr_stage5_d0e8e7c6-4d2b-4826-a799-053e75a166a3"
+    ],
+    "reason": "Explicit WP0 role administration",
+    "beforeDigest": "sha256:8b518c25e92ae19e7857a0dda1fffd0e5b667cd66f3d50666c3255a3d06b4600",
+    "afterDigest": "sha256:f8dc176f1e45b208da89661bc4cf585988d448bcaf4bbe4bbb20cf43bc4ad66a"
+  },
+  {
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "operation": "assign",
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "targetIds": [
+      "stage5.platform-admin-assignment"
+    ],
+    "reason": "Explicit WP0 role administration",
+    "beforeDigest": "sha256:f8dc176f1e45b208da89661bc4cf585988d448bcaf4bbe4bbb20cf43bc4ad66a",
+    "afterDigest": "sha256:cf1ac1eff797401433b5deb1b64d6f4d3f0d579f83c728f47af4b304225a47f9"
+  },
+  {
+    "actorId": "usr_06fefc50791f4f15ac0139de699701b9",
+    "operation": "assign+create",
+    "authorityPath": [
+      "development.platform-security.assignment",
+      "development.platform-security.boundary"
+    ],
+    "targetIds": [
+      "stage5.application-admin-assignment",
+      "stage5.runtime-editor-set",
+      "stage5.runtime-editor-role",
+      "stage5.runtime-editor-assignment"
+    ],
+    "reason": "Explicit WP0 role administration",
+    "beforeDigest": "sha256:cf1ac1eff797401433b5deb1b64d6f4d3f0d579f83c728f47af4b304225a47f9",
+    "afterDigest": "sha256:bf287798bb94182a77453607ecb511dd7545ae1c4417a650e745b15faa075abf"
+  },
+  {
+    "actorId": "usr_stage5_6de5c433-ec8e-42aa-bdc9-19fa33c08c88",
+    "operation": "edit",
+    "authorityPath": [
+      "development.platform-security.boundary",
+      "stage5.platform-admin-assignment"
+    ],
+    "targetIds": [
+      "initial.115e7475-b7af-4b76-a120-debe8fd6b16b.boundary"
+    ],
+    "reason": "Reviewed finite-template integration",
+    "beforeDigest": "sha256:bf287798bb94182a77453607ecb511dd7545ae1c4417a650e745b15faa075abf",
+    "afterDigest": "sha256:fb2b8e2b3b84778674d14775b992e5af5b6bf787cc9030ade0f5be6a084bc286"
+  },
+  {
+    "actorId": "usr_stage5_d0e8e7c6-4d2b-4826-a799-053e75a166a3",
+    "operation": "assign+create",
+    "authorityPath": [
+      "initial.115e7475-b7af-4b76-a120-debe8fd6b16b.boundary",
+      "stage5.application-admin-assignment"
+    ],
+    "targetIds": [
+      "stage5.viewer-set",
+      "stage5.viewer-role",
+      "stage5.viewer-assignment"
+    ],
+    "reason": "Reviewed finite-template integration",
+    "beforeDigest": "sha256:fb2b8e2b3b84778674d14775b992e5af5b6bf787cc9030ade0f5be6a084bc286",
+    "afterDigest": "sha256:3e07560f6b943dddfe233a4962b012b11db81d6e5980e76f07cac17ad256a11c"
+  },
+  {
+    "actorId": "usr_stage5_d0e8e7c6-4d2b-4826-a799-053e75a166a3",
+    "operation": "revoke",
+    "authorityPath": [
+      "initial.115e7475-b7af-4b76-a120-debe8fd6b16b.boundary",
+      "stage5.application-admin-assignment"
+    ],
+    "targetIds": [
+      "stage5.viewer-assignment"
+    ],
+    "reason": "Local current-policy revocation",
+    "beforeDigest": "sha256:3e07560f6b943dddfe233a4962b012b11db81d6e5980e76f07cac17ad256a11c",
+    "afterDigest": "sha256:08a3ebd95e0ebf4ee951449adde39ce7548a3f0ff8c98199ec22477644b51c48"
+  },
+  {
+    "actorId": "usr_stage5_6de5c433-ec8e-42aa-bdc9-19fa33c08c88",
+    "operation": "edit",
+    "authorityPath": [
+      "development.platform-security.boundary",
+      "stage5.platform-admin-assignment"
+    ],
+    "targetIds": [
+      "usr_stage5_746fc8b8-8005-4a3a-9ff2-b3578666b22b"
+    ],
+    "reason": "Reviewed finite-template integration",
+    "beforeDigest": "sha256:08a3ebd95e0ebf4ee951449adde39ce7548a3f0ff8c98199ec22477644b51c48",
+    "afterDigest": "sha256:b46d2a0df436031e48961505578ee6e6f4992b62a6ce407095092050ffe390e8"
+  }
+]

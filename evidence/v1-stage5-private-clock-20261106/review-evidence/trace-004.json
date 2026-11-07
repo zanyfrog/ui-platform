@@ -1,0 +1,1108 @@
+{
+  "id": "trace-004",
+  "testStarted": true,
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\trace-004\\security-only\\disposable\\4d8c58c5-0fdd-4b83-ad24-d0c009139130\\platform",
+  "tests": {
+    "passed": 1,
+    "failed": 0,
+    "pending": 0,
+    "success": true
+  },
+  "wp3": {
+    "passed": 63,
+    "failed": 0
+  },
+  "testCases": [
+    {
+      "title": "Stage 5: actual Builder publication, protected three-process application and current I-AM workflow",
+      "status": "passed",
+      "duration": 111715.3459
+    }
+  ],
+  "inputs": {
+    "original": "C:\\Projects\\Modular\\ui-platform",
+    "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\trace-004\\security-only\\disposable\\4d8c58c5-0fdd-4b83-ad24-d0c009139130\\platform",
+    "roots": {
+      "src/server": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\src\\server",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\trace-004\\security-only\\disposable\\4d8c58c5-0fdd-4b83-ad24-d0c009139130\\platform\\src\\server"
+      },
+      "components": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\components",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\trace-004\\security-only\\disposable\\4d8c58c5-0fdd-4b83-ad24-d0c009139130\\platform\\components"
+      },
+      "packages/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\trace-004\\security-only\\disposable\\4d8c58c5-0fdd-4b83-ad24-d0c009139130\\platform\\packages\\artifacts"
+      },
+      "node_modules/@ui-platform/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\trace-004\\security-only\\disposable\\4d8c58c5-0fdd-4b83-ad24-d0c009139130\\platform\\packages\\artifacts"
+      }
+    },
+    "inputs": [
+      {
+        "file": "tests/stage5-integration.test.ts",
+        "sha256": "a51d8dd4c2bb0cde8655a3332044eaecffeee9f41ab2a9fcb9a4d1c94e91bd26"
+      }
+    ],
+    "preparationSha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+    "changes": "Existing preparation; redirected disposable/evidence paths; excluded original Component .uib metadata. Tests copied byte-for-byte."
+  },
+  "completion": {
+    "exitCode": 0,
+    "graphDirectory": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-private-clock-20261106\\trace-004\\security-only\\disposable\\4d8c58c5-0fdd-4b83-ad24-d0c009139130\\platform\\components",
+    "originalGraphMetadataCopied": false,
+    "originalLockDirectoryEvents": [],
+    "sharedSnapshotEqual": true,
+    "finishedAt": "2026-11-06T18:28:23.518Z"
+  },
+  "rawReportSha256": "abd73a9c2ddbe535e39d7c153214e162c62819f4d84e0ba541921d1106f272b4",
+  "sourceInputs": {
+    "UI Platform/src/server/production/applied-integration.ts": "e93d6b694483a0e2d48d696ec5f29064e637b85345558fff8316553b3f7f96d3",
+    "UI Platform/src/server/production/boundary.ts": "28cefd7aecad408d8a9b0d27368cca5e2776dad0ce439906bc40e7bb36844f46",
+    "UI Platform/src/server/production/current-iam.ts": "0f461dee7b139c3978ab2c0474b50e9746a9e6d5a3b01f1717e6765221a916ed",
+    "UI Platform/src/server/production/data-handler.ts": "fa75dd40ab2e6cfaef1e7d1fa8168f7e48119c2654d7403ab5301f0bc6e2dded",
+    "UI Platform/src/server/production/enrollment.ts": "450ecd5a1daa75537b2d4b3ecb6dd5eda4cb4b14ae20b7bf5d6017893a938ce5",
+    "UI Platform/src/server/production/identity-integration.ts": "d3a6fc2db7c4368941c60caa3751d540373ff0e3a52044d716b9d28b042eda75",
+    "UI Platform/src/server/production/internal-trust.ts": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52",
+    "UI Platform/src/server/production/management-frontend.ts": "8b1db3cee2beb4633bf5d555e9bc93b0e9468e115033bb530bcc5392a31e2e08",
+    "UI Platform/src/server/production/management.ts": "dcbe49e811b49b27bde9350e1b2e310ff2b602e0f00c363cb23a04ccf8719eae",
+    "UI Platform/src/server/production/mtls-management-transport.ts": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+    "UI Platform/src/server/production/mtls-transport.ts": "aabe6cf20299709994d1bcd300f76fe1c9ffefc0c9a2e1f8da77f6949b8a4ce1",
+    "UI Platform/src/server/production/oidc.ts": "c2758c6ba63c619a0fb3cb1d2c82ab02d36125af2eea237c6b4572e385b2c25d",
+    "UI Platform/src/server/production/predicate-templates.ts": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+    "UI Platform/src/server/production/private-asset-owner.ts": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+    "UI Platform/src/server/production/private-assets.ts": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+    "UI Platform/src/server/production/publication-integration.ts": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+    "UI Platform/src/server/production/release-browser-build.ts": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+    "UI Platform/src/server/production/releases.ts": "876c7845f69a378c536a47976319993335093d4189ac724fec7779ed6cdc03d8",
+    "UI Platform/src/server/production/runtime.ts": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+    "UI Platform/src/server/production/service-rpc.ts": "219acbdad5171024cba10ba536d2dd1aafa9b8da37739639d593fe123431e193",
+    "UI Platform/src/server/production/sessions.ts": "a63c012793733e2dcc930753ee1b152672427b18d3fde649c1800279be6a09ae",
+    "UI Platform/src/shared/released-runtime-services.ts": "263cf09d80c39652d81c1655e7c33cd5d4be9e4e6265df411bd60c7c60018e7e",
+    "UI Platform/src/server/role-administration.ts": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+    "UI Platform/tests/stage5-integration.test.ts": "a51d8dd4c2bb0cde8655a3332044eaecffeee9f41ab2a9fcb9a4d1c94e91bd26",
+    "UI Platform/tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": "b8ce3300ba8fc590c628d83ba97cc3da44f756cfe0d45092c6e1761378f0cf13",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "5efab8912017bc8d4f4b0a505398aae2c3ec994c692a1a48dfc0c2fd3b4c7669",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e"
+  },
+  "runnerSha256": "aef27b3d2808720fafd93c01c9417fc37e1a4ad35402fb5d69d0966d6270fa68",
+  "temporaryDiagnostics": {
+    "scope": "Disposable copied sources only; no authority or timestamp changes",
+    "helperSha256": "07502b8dc7793a48e423aa7f60c3816b891df7da79f87c396811c96dc481a457",
+    "modifications": {
+      "tests/fixtures/stage5-integration-journey.ts": {
+        "beforeSha256": "5efab8912017bc8d4f4b0a505398aae2c3ec994c692a1a48dfc0c2fd3b4c7669",
+        "afterSha256": "0e4b3618e37a453441130a2e8600094f6212a01d1ba06768775df20366baa720"
+      },
+      "tests/fixtures/stage5-integration-process.ts": {
+        "beforeSha256": "b8ce3300ba8fc590c628d83ba97cc3da44f756cfe0d45092c6e1761378f0cf13",
+        "afterSha256": "1c4bba6a963d825cc4ae73766077d0e344bca03908087a97a76c6d93f4e3303e"
+      },
+      "src/server/production/service-rpc.ts": {
+        "beforeSha256": "219acbdad5171024cba10ba536d2dd1aafa9b8da37739639d593fe123431e193",
+        "afterSha256": "759187dbf521eff828a26f38c4cb7fe0a362b99db0d201707ccdb1ce27307b16"
+      },
+      "src/server/production/internal-trust.ts": {
+        "beforeSha256": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52",
+        "afterSha256": "4e4b93cefefad88aee4649fa6305a5b3b5222551fd918f352d77275ad499f6cf"
+      },
+      "src/server/production/mtls-transport.ts": {
+        "beforeSha256": "aabe6cf20299709994d1bcd300f76fe1c9ffefc0c9a2e1f8da77f6949b8a4ce1",
+        "afterSha256": "95c46d450c74321ba9ba7f855837f7822ac37a301654bdb2ebb65f5042b05c17"
+      },
+      "src/server/production/mtls-management-transport.ts": {
+        "beforeSha256": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+        "afterSha256": "1dc099a920b984075b4fee41d7cffe9e0b977bcb8c962c8cc906ca93ac4f0e13"
+      },
+      "src/server/production/data-handler.ts": {
+        "beforeSha256": "fa75dd40ab2e6cfaef1e7d1fa8168f7e48119c2654d7403ab5301f0bc6e2dded",
+        "afterSha256": "9f558d36a45c77e4e7a333ce60059b893c02f6e591740ffeb91ced2e0fba2bfc"
+      },
+      "src/server/production/runtime.ts": {
+        "beforeSha256": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+        "afterSha256": "5898b2b6d9a29d99df7252be0caf39730420646b85c33e855c7c62e4c14959a9"
+      },
+      "src/server/production/private-assets.ts": {
+        "beforeSha256": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+        "afterSha256": "fd0615f67053d9935bb94c8ab8f2e99ca25a9e83cdc8f238565358069cbd99ce"
+      }
+    }
+  },
+  "diagnosticsDriverSha256": "a87dc8205756d00c7dff19757817d769fed21eb9f523c067f0ae077df10ca351",
+  "traceFiles": [
+    {
+      "name": "private-access-34552.jsonl",
+      "sha256": "c3b23cead48b1607eb9472ace19ecccbe64fbc167fd2f5d8f7154d24157151fc"
+    },
+    {
+      "name": "private-access-35960.jsonl",
+      "sha256": "eb8ba25f5d3d73403eaff40741b96fe32ab8f3b3616698e4be182cb6de89c7f7"
+    },
+    {
+      "name": "private-access-416.jsonl",
+      "sha256": "6af9a8a65196bba8cd12097169f257f8ba556465b30d5c201b84fe7a0ddd0b34"
+    }
+  ],
+  "traceSummary": {
+    "events": 24024,
+    "jwtRejections": [],
+    "metadataRequests": [
+      {
+        "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+        "responses": [
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679404,
+            "mono": 33932.1398,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.8548000000009779
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679406,
+            "mono": 33934.9749,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.630300000004354
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679414,
+            "mono": 33942.5134,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 2.103399999999965
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679420,
+            "mono": 33948.6888,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.8081999999994878
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679556,
+            "mono": 34084.8017,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.7466000000058557
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679563,
+            "mono": 34091.3627,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.9521999999997206
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679571,
+            "mono": 34099.4534,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.8109000000040396
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679747,
+            "mono": 34275.6822,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.5135000000009313
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679780,
+            "mono": 34309.0858,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.5627999999996973
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989679786,
+            "mono": 34315.0991,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 2.2779999999984284
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989680030,
+            "mono": 34558.4152,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.8612999999968451
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989680075,
+            "mono": 34603.8181,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 2.018100000001141
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989680082,
+            "mono": 34610.333,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.7437000000063563
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989680277,
+            "mono": 34805.7734,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.6526000000012573
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989680318,
+            "mono": 34846.4755,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.5323000000062166
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989680324,
+            "mono": 34852.9558,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 2.106500000001688
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989680501,
+            "mono": 35029.7926,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.7725000000064028
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 35960,
+            "wall": 1793989680532,
+            "mono": 35060.4069,
+            "stage": "http:end",
+            "route": "/runtime/assets/<asset>/<version>/metadata",
+            "status": 200,
+            "elapsed": 1123.9702000000034
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989679415,
+            "mono": 33516.1405,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.396300000000338
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989679421,
+            "mono": 33522.3187,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.068900000005669
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989679557,
+            "mono": 33658.3855,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.6957000000038533
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989679564,
+            "mono": 33665.0951,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.341099999997823
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989679571,
+            "mono": 33673.0554,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.081899999997404
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989679748,
+            "mono": 33849.1303,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.096900000004098
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989679781,
+            "mono": 33882.6064,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.303299999999581
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989679787,
+            "mono": 33888.6212,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.090199999998731
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989680030,
+            "mono": 34131.9815,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.9095999999990454
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989680076,
+            "mono": 34177.4557,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.890100000004168
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989680082,
+            "mono": 34183.8687,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.902699999998731
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989680278,
+            "mono": 34379.2832,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.475800000000163
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989680318,
+            "mono": 34420.0481,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.4135000000023865
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989680325,
+            "mono": 34426.7181,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.148699999997916
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989680502,
+            "mono": 34603.3309,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.241200000004028
+          },
+          {
+            "id": "02597a7c-a8e1-40af-af34-cf428ed53af6",
+            "pid": 416,
+            "wall": 1793989680532,
+            "mono": 34633.9826,
+            "stage": "http:end",
+            "route": "/runtime/assets/<asset>/<version>/metadata",
+            "status": 200,
+            "elapsed": 1131.595500000003
+          }
+        ],
+        "errors": []
+      },
+      {
+        "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+        "responses": [
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989688792,
+            "mono": 43320.7974,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.6771000000007916
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989688795,
+            "mono": 43323.4436,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.5225000000064028
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989688802,
+            "mono": 43330.3058,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.984199999998964
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989688807,
+            "mono": 43335.4272,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.6028000000005704
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989688941,
+            "mono": 43469.6513,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.8185999999986961
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989688948,
+            "mono": 43476.4922,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.8211000000010245
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989688957,
+            "mono": 43486.0391,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 2.116699999998673
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989689247,
+            "mono": 43775.7844,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 2.2753999999986263
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989689284,
+            "mono": 43812.4565,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.866600000001199
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989689290,
+            "mono": 43819.0163,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 2.0614000000059605
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989689608,
+            "mono": 44136.9709,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.491600000001199
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989689646,
+            "mono": 44174.8644,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.9487000000008265
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989689653,
+            "mono": 44181.3553,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.4526000000041677
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989689900,
+            "mono": 44428.821,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.6267000000007101
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989689937,
+            "mono": 44465.8981,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.313800000003539
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989689943,
+            "mono": 44471.4406,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.5308999999979278
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989690182,
+            "mono": 44710.3657,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.6886999999987893
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 35960,
+            "wall": 1793989690217,
+            "mono": 44745.4399,
+            "stage": "http:end",
+            "route": "/runtime/assets/<asset>/<version>/metadata",
+            "status": 200,
+            "elapsed": 1420.9717000000019
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989688802,
+            "mono": 42903.9335,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.256699999998091
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989688807,
+            "mono": 42908.9908,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.4923999999955413
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989688942,
+            "mono": 43043.3094,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.021600000000035
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989688948,
+            "mono": 43050.0184,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.8197000000000116
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989688958,
+            "mono": 43059.7322,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.296200000004319
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989689248,
+            "mono": 43349.3972,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.230000000003201
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989689284,
+            "mono": 43386.0492,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.720900000000256
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989689291,
+            "mono": 43393.0108,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.45679999999993
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989689609,
+            "mono": 43710.468,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.2106999999959953
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989689647,
+            "mono": 43748.3487,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.018499999998312
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989689653,
+            "mono": 43755.0043,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.9548999999969965
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989689901,
+            "mono": 44002.3572,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.4984000000040396
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989689938,
+            "mono": 44039.4155,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.5315999999947962
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989689943,
+            "mono": 44045.0376,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.5760000000009313
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989690182,
+            "mono": 44283.9592,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.5253999999986263
+          },
+          {
+            "id": "47f3ce96-0583-4430-a02b-cc8fc0f168eb",
+            "pid": 416,
+            "wall": 1793989690217,
+            "mono": 44318.9352,
+            "stage": "http:end",
+            "route": "/runtime/assets/<asset>/<version>/metadata",
+            "status": 200,
+            "elapsed": 1427.988900000004
+          }
+        ],
+        "errors": []
+      },
+      {
+        "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+        "responses": [
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989696844,
+            "mono": 51372.765,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.6265999999959604
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989696847,
+            "mono": 51375.3314,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.7637000000031549
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989696852,
+            "mono": 51380.4196,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.456400000002759
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989696857,
+            "mono": 51385.3507,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.702499999999418
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989696975,
+            "mono": 51503.9816,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.5655000000042492
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989696980,
+            "mono": 51509.0376,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.6181999999971595
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989696984,
+            "mono": 51513.1005,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.180000000000291
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989697230,
+            "mono": 51758.6161,
+            "stage": "http:end",
+            "route": "/identity/current",
+            "status": 200,
+            "elapsed": 1.9591999999975087
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989697271,
+            "mono": 51799.6034,
+            "stage": "http:end",
+            "route": "/runtime/assets/<asset>/<version>/metadata",
+            "status": 403,
+            "elapsed": 423.50130000000354
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 416,
+            "wall": 1793989696852,
+            "mono": 50953.8526,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 2.862600000000384
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 416,
+            "wall": 1793989696857,
+            "mono": 50958.8671,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.5512999999991735
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 416,
+            "wall": 1793989696976,
+            "mono": 51077.5525,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.4121000000013737
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 416,
+            "wall": 1793989696981,
+            "mono": 51082.456,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 3.247400000000198
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 416,
+            "wall": 1793989696985,
+            "mono": 51086.6065,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 2.631100000005972
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 416,
+            "wall": 1793989697231,
+            "mono": 51332.2177,
+            "stage": "http:end",
+            "route": "/sessions/status",
+            "status": 200,
+            "elapsed": 4.041199999999662
+          },
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 416,
+            "wall": 1793989697272,
+            "mono": 51373.1504,
+            "stage": "http:end",
+            "route": "/runtime/assets/<asset>/<version>/metadata",
+            "status": 403,
+            "elapsed": 429.6667000000016
+          }
+        ],
+        "errors": [
+          {
+            "id": "2da246d7-498c-430e-aa0e-73ffcedc641e",
+            "pid": 35960,
+            "wall": 1793989697271,
+            "mono": 51799.2508,
+            "stage": "asset.authorize:error",
+            "elapsed": 300.1958999999988,
+            "code": "ERROR"
+          }
+        ]
+      }
+    ]
+  },
+  "integration-results.json": {
+    "environment": "Windows loopback HTTPS; three independently credentialed processes; runtime/management Node filesystem permissions; local enrolled sessions, no live Auth0",
+    "applicationId": "ddda250f-3ed6-4de0-a909-ade321f558a0",
+    "datasetId": "3e3a3804-4567-412d-9a0c-adf40ad43197",
+    "releaseId": "release_ae3ee4ea0d46d49b9fee9951e1e569c06fb89c2d6477459c08f701ee2245a251",
+    "schemaIdentity": "5cbcc71e9781f378aa35d17809434b511369d8d151164c4105cc14d89379c157",
+    "applied": {
+      "schemaVersion": 1,
+      "schemaDigest": "sha256:6cea1da507ebb45438e19749bc34c32ab19a2b05cdc8be1a016622d9d956734d",
+      "fields": [
+        {
+          "fieldId": "42a61fb9-bc04-4b16-a060-4d7fed94c9a2",
+          "key": "active"
+        },
+        {
+          "fieldId": "4ae19c32-c613-4515-9ebb-7a85e47a34dd",
+          "key": "quantity"
+        },
+        {
+          "fieldId": "67caa918-404e-4b98-a049-6e13eca03337",
+          "key": "id"
+        },
+        {
+          "fieldId": "7dc51c34-14f3-47fe-bb07-b521c6ce6545",
+          "key": "name"
+        }
+      ]
+    },
+    "processes": {
+      "data": {
+        "pid": 35960
+      },
+      "runtime": {
+        "pid": 416
+      },
+      "management": {
+        "pid": 34552
+      }
+    },
+    "publication": "actual Builder Publish v1",
+    "draftB": "Field editable=false saved after A",
+    "formA": "browser committed and read back",
+    "viewer": {
+      "rows": 1,
+      "quantityOmitted": true,
+      "hiddenRowOmitted": true,
+      "writeDenied": true
+    },
+    "private": {
+      "metadata": 200,
+      "download": 200,
+      "thumbnailDecoded": true,
+      "head": 200,
+      "range": 206,
+      "privateNoStore": true,
+      "revoked": 403,
+      "anonymous": 403
+    },
+    "managementRevocation": 403,
+    "sessionEpochRevocation": 403,
+    "disabledUserSession": 403,
+    "templateRevocationStaleCandidateRefused": true,
+    "proofBudgetMs": 15000,
+    "defaultProofBudgetUnchangedMs": 1000,
+    "productionQualification": false
+  },
+  "private-public-export-audit.json": {
+    "publicFiles": 7,
+    "exportFiles": 349,
+    "exportStatus": 500,
+    "archiveDownloadVerified": false,
+    "archiveQualification": "UNVERIFIED: existing Windows ZIP subprocess failed; prepared export tree audited only",
+    "privateByteMatches": 0,
+    "credentialOrPrivateStoreFiles": 0,
+    "privateOwnerOutsideApplicationAndPublicBuild": true
+  },
+  "owner-binding-refusal.json": {
+    "disabledOwnerStageStatus": 403,
+    "releaseSelectionRefused": true,
+    "originalOwnerBytesRestored": true
+  }
+}

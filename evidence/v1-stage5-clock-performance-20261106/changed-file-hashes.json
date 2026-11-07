@@ -1,0 +1,1504 @@
+{
+  "algorithm": "SHA-256",
+  "excludedSelf": true,
+  "status": "BLOCKED review, no acceptance",
+  "contentReview": {
+    "newPackageFilesScanned": 69,
+    "findings": 0,
+    "scope": "Scoped inventory, pattern/byte scan and selected masked screenshot inspection; not a general absence proof"
+  },
+  "files": {
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": {
+      "sha256": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+      "bytes": 32843
+    },
+    "UI Platform/src/server/production/current-iam.ts": {
+      "sha256": "0f461dee7b139c3978ab2c0474b50e9746a9e6d5a3b01f1717e6765221a916ed",
+      "bytes": 3430
+    },
+    "UI Platform/src/server/production/internal-trust.ts": {
+      "sha256": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52",
+      "bytes": 3738
+    },
+    "UI Platform/src/server/production/management.ts": {
+      "sha256": "dcbe49e811b49b27bde9350e1b2e310ff2b602e0f00c363cb23a04ccf8719eae",
+      "bytes": 7145
+    },
+    "UI Platform/src/server/production/private-assets.ts": {
+      "sha256": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+      "bytes": 4055
+    },
+    "UI Platform/src/server/production/releases.ts": {
+      "sha256": "876c7845f69a378c536a47976319993335093d4189ac724fec7779ed6cdc03d8",
+      "bytes": 11456
+    },
+    "UI Platform/src/server/production/runtime.ts": {
+      "sha256": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+      "bytes": 5876
+    },
+    "UI Platform/src/server/production/sessions.ts": {
+      "sha256": "a63c012793733e2dcc930753ee1b152672427b18d3fde649c1800279be6a09ae",
+      "bytes": 3787
+    },
+    "UI Platform/src/server/role-administration.ts": {
+      "sha256": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+      "bytes": 2676
+    },
+    "UI Platform/docs/architecture/v1-stage5-clock-consistency-performance-review-gate-20261106.md": {
+      "sha256": "3b9da843226ef5eb3fee27f0115ee8659c3902ad2a2504f7cf3f16e84a932c60",
+      "bytes": 15174
+    },
+    "UI Platform/docs/architecture/v1-stage5-integration-readiness-review-gate-20261105.md": {
+      "sha256": "6fa7700b4f25a5bc3f3fb792dc8bcecdf71bfaf44d2255c61d35679f53886f75",
+      "bytes": 10392
+    },
+    "UI Platform/docs/architecture/v1-stage5-management-identity-refusal-resolution-review-gate-20261106.md": {
+      "sha256": "ba3c58bb9c8123eb7bd6c3fe4c22f50300ad6ea9d12e430464245536642a9ea3",
+      "bytes": 13284
+    },
+    "UI Platform/docs/architecture/v1-stage5-predicate-contract-decision-gate-20261105.md": {
+      "sha256": "c09b1d7ce85dddd5f7f2cf95770d201ddc7bba6f9dd9a174f409458c4fb2b8c7",
+      "bytes": 8660
+    },
+    "UI Platform/docs/architecture/v1-stage5-timing-reliability-correction-review-gate-20261106.md": {
+      "sha256": "5dcd8a65c91abefdc9d74c9b67379074949eab8ab5ccbc63de3dfa546a4f13fb",
+      "bytes": 11990
+    },
+    "UI Platform/docs/architecture/v1-stage5-wp3-data-review-20261105.md": {
+      "sha256": "a919a131df7a31583fa087c66781830331e72f6737658cf62c3f4a76ffb8dd9b",
+      "bytes": 4393
+    },
+    "UI Platform/docs/architecture/v1-stage5-wp3-integration-final-review-gate-20261105.md": {
+      "sha256": "caae0cd5d9e18d232be3b957292228120e6fd17d2944a99faec88a592bdd3f71",
+      "bytes": 14315
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/.gitignore": {
+      "sha256": "0f95e86729265d5efe3b3ab2796287ee26b62fd118a6e8630e215b3248f8f0bf",
+      "bytes": 222
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/attempts.json": {
+      "sha256": "6f81b9a9d2d9b6781afb0c76535e981b4e443f26918c7f3749861a9bd86b18f1",
+      "bytes": 3330
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/applied-integration.ts": {
+      "sha256": "e524f09d9ea286d7d5e16870894dffbfc39e1ee3f7062b1621caf7dfe9576e9e",
+      "bytes": 6657
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/current-iam.ts": {
+      "sha256": "3bb9f5708a5c8ece4cc065e1d792f3143f71b693fe285e3cc3703391f226c840",
+      "bytes": 4510
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/data-handler.ts": {
+      "sha256": "79c74e81aa4f666697c3d72ce35a0f0165f6a995692d01a62df1c0c8804f540c",
+      "bytes": 3049
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/identity-integration.ts": {
+      "sha256": "0f0dc0afd94d643a1257f42ac9f947b36dbefe67ff854f369944d5d659f50b23",
+      "bytes": 3026
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/internal-trust.ts": {
+      "sha256": "74d2938eeebe7e4717eaf21ac4e69f977a7d03f3a1f798729ba791b1faeb1b46",
+      "bytes": 4239
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/management-frontend.ts": {
+      "sha256": "a6bb89054f5163d22e56eb016bd1a418062d9c81c4771b28885e4c057249cb5b",
+      "bytes": 2784
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/management.ts": {
+      "sha256": "48e2f66cba82ee6f2bdb731d8dec2baf1b22cb13e3ee24ec8ea5a79dc1d211cd",
+      "bytes": 7879
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/mtls-management-transport.ts": {
+      "sha256": "f8663881e366aaa60f4a0f1ebc6378cb5e063692b8f92a15cc62b1bc9608c3ad",
+      "bytes": 2143
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/mtls-transport.ts": {
+      "sha256": "8c252d65f34c8bdf122f6095bedb5532e2923a36600533e7d14d4e3fa1589d5f",
+      "bytes": 2499
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/refusal-trace.ts": {
+      "sha256": "1506730b32ff54ee2d84b0ada161a9408cf4b426773d8ec36ca75d56bddaa4ed",
+      "bytes": 2593
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/releases.ts": {
+      "sha256": "dc3676727e5b281a800169e5e1c8ae93132df55225a39f9cb992ca8c210ceb57",
+      "bytes": 11587
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/service-rpc.ts": {
+      "sha256": "18a5e08c7cd08bed414d4b0387a4ee6068cc6b187c13b81cc1ea57345af55e51",
+      "bytes": 5196
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/sessions.ts": {
+      "sha256": "74b5865ae98171b18c9e0a9ee013ea66c32bbf96f0edafc24230c216e32aef55",
+      "bytes": 4266
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/stage5-integration-journey.ts": {
+      "sha256": "c465838bb1ee5a263c4a60205ff367d5a3ed1b4d85b30a267d4463eec963b9e1",
+      "bytes": 39463
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/diagnostic-source/stage5-integration-process.ts": {
+      "sha256": "05e6e08635cc7dfa4c9a6a6843bb3b55bce2eb1a16efcb0fe5214bb04b669817",
+      "bytes": 11326
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/owner-focused-results.json": {
+      "sha256": "f1d86ade987a03be54440622031eae0cbe60847ecda47fb196ef28443a699d7f",
+      "bytes": 25348
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/preservation-summary.json": {
+      "sha256": "e9957932480533d3c983240e172b1f425498f693d811bb4f152383fb3e6e281f",
+      "bytes": 2435
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/boundary-checks.json": {
+      "sha256": "6a7bdfd6b1d6e8c3bd68024204e4932f7141f2edaaa5dd27f92141e117df1f25",
+      "bytes": 1277
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/clock-001.json": {
+      "sha256": "dd5970fa6f55b46cca5b2cf3e08564d0d798ea5a4ceafa752d1c0b1c71e48c2d",
+      "bytes": 13277
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/clock-002.json": {
+      "sha256": "b696a3987b36543c24e790a64fdfb639086c957f2284f4cdec3126539b4d1ce1",
+      "bytes": 21205
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/code-inputs/3f703b0e198f3e9164ae46e13ddea54fe940255861770178ad2d00807d4eb2b6.ts": {
+      "sha256": "3f703b0e198f3e9164ae46e13ddea54fe940255861770178ad2d00807d4eb2b6",
+      "bytes": 4247
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/code-inputs/7de2d7dbfa02c9f71f1fbec985ba4ea20d72049d2530fe8eebaf1b75174d4077.ts": {
+      "sha256": "7de2d7dbfa02c9f71f1fbec985ba4ea20d72049d2530fe8eebaf1b75174d4077",
+      "bytes": 5149
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/code-inputs/913ea472ec24c958d526e3e06de17f5ea5795fc72c987ac8a4ef01eceb2153c5.mjs": {
+      "sha256": "913ea472ec24c958d526e3e06de17f5ea5795fc72c987ac8a4ef01eceb2153c5",
+      "bytes": 1114
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/code-inputs/d04be80f290bc82cdf958d75b878905a901824f84e40693c540cac52ce655d7a.mjs": {
+      "sha256": "d04be80f290bc82cdf958d75b878905a901824f84e40693c540cac52ce655d7a",
+      "bytes": 2874
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/code-inputs/d0657625b589030534d36276bf4391c8d4c53dd5c112aa043c65d55fc4a65792.mjs": {
+      "sha256": "d0657625b589030534d36276bf4391c8d4c53dd5c112aa043c65d55fc4a65792",
+      "bytes": 2835
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/code-inputs/d6d5ca7546d57a3054513704efb44de8d0a887dabc5a46e914365e718891b966.mjs": {
+      "sha256": "d6d5ca7546d57a3054513704efb44de8d0a887dabc5a46e914365e718891b966",
+      "bytes": 3125
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/code-inputs/d738ffc8bf6ac3f9a4072cae34f798c82afd76c2265c229691bd05c07c155f9b.ts": {
+      "sha256": "d738ffc8bf6ac3f9a4072cae34f798c82afd76c2265c229691bd05c07c155f9b",
+      "bytes": 5401
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/code-inputs/f0e0ef6627f8ea3c507a191be4551987ab062d91320dc345a5d0c1866e3f56e8.mjs": {
+      "sha256": "f0e0ef6627f8ea3c507a191be4551987ab062d91320dc345a5d0c1866e3f56e8",
+      "bytes": 1425
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/critical-path.json": {
+      "sha256": "32ac9e2d18161d4b2ecdbb921efb426b9fab39ff77f17d59d4dc786b4c60d18c",
+      "bytes": 1762247
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/full-001-integration/owner-binding-refusal.json": {
+      "sha256": "261ca6f01ce634b66ab84c0bdf3bcfb5f4f8a0b4ac0fcbe5fc8da4c029614725",
+      "bytes": 110
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/full-001-integration/private-public-export-audit.json": {
+      "sha256": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+      "bytes": 339
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/full-001-integration/publication-and-draft.json": {
+      "sha256": "48fe139c70d395109bbcb3400ad399a03f8ea830477ab7d60cbf7dee72ea7f55",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/full-001-integration/published-form-A-after-draft-B.png": {
+      "sha256": "bc22d2bcb28a4f37a79c258346e02b1b33ef8a6575857aeb723612981a8b5006",
+      "bytes": 17862
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/full-001-integration/template-activation.json": {
+      "sha256": "7b90329726f12e4e9f4fefaee2e8a69adfeade86ff41f972ce7fdce620a99f0b",
+      "bytes": 1550
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/full-001.json": {
+      "sha256": "aba2c49187fe46df090e77d76d14c369c8a851a2f5b7ba90130724cb57e7ba5d",
+      "bytes": 7919
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/host-clock-events.json": {
+      "sha256": "f0e67fc057afd18b4502adfc3a3f3a11ae2c5418a5dd295b5134843cd8063dee",
+      "bytes": 1129
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/isolation-checks.json": {
+      "sha256": "5cfcf99afdb63f69d84d85c1b27a2dff992bb1d869da72531ef8d1ddf5d8ab6d",
+      "bytes": 733
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/integration-results.json": {
+      "sha256": "382f8361f8622b7b85b8cb5268d76d08360d227cc2d644e041a49f9bb3e38f36",
+      "bytes": 1878
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/owner-binding-refusal.json": {
+      "sha256": "261ca6f01ce634b66ab84c0bdf3bcfb5f4f8a0b4ac0fcbe5fc8da4c029614725",
+      "bytes": 110
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/policy-administration-audit.json": {
+      "sha256": "3266c3f444fb799c1fd877de34c44e424976eaf6d4c350ad5d04cf6fb7989bf5",
+      "bytes": 7772
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/private-public-export-audit.json": {
+      "sha256": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+      "bytes": 339
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/private-thumbnail.png": {
+      "sha256": "4abd84b6292e87d748dec9dccadaa2d5e7f967da848ac3a46392b21df2d62256",
+      "bytes": 17806
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/protected-management-revocation.png": {
+      "sha256": "31e418f464bd028e2b86e1cfb3d2c250fc41a70617195fe2cfc28c9120086a6e",
+      "bytes": 31958
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/publication-and-draft.json": {
+      "sha256": "6080b0d5f6976101fb37c14851c30fbad9c29046299d407ab9d5e40124889c76",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/published-form-A-after-draft-B.png": {
+      "sha256": "6a5aae5eff049a767f040fdcd9a6c1f4357bc006c78205e3cf35539d1e739f4f",
+      "bytes": 17791
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/template-activation.json": {
+      "sha256": "217cec6ab6a7ace45dae23d2657d577932a1bc3ae6d8ba4eb4c7044333f0bd77",
+      "bytes": 1550
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002-integration/template-audit.json": {
+      "sha256": "5cb66b105657f5c45fd6f0f8abd3f34a680bdc0427184727f36bd614a76bb995",
+      "bytes": 1311
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/journey-002.json": {
+      "sha256": "746f6bbebe0872a2967cbeb4c9438b88267f98925d1649da12e863d77f57624b",
+      "bytes": 5240
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/owner-focused.json": {
+      "sha256": "165922714ea253c00bc14bc595ff4ff56d8a09190f978fa391d4bcf0837ddea4",
+      "bytes": 788
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/integration-results.json": {
+      "sha256": "a47cf9f66f9d7b5bf59269889c0c081748446b515159655f741ed5a5549aa032",
+      "bytes": 1879
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/owner-binding-refusal.json": {
+      "sha256": "261ca6f01ce634b66ab84c0bdf3bcfb5f4f8a0b4ac0fcbe5fc8da4c029614725",
+      "bytes": 110
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/policy-administration-audit.json": {
+      "sha256": "5a1fc50ea0048201755eab4bf2b0cab4bf86099fb4ac89e38327a80d7a2cf087",
+      "bytes": 7772
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/private-public-export-audit.json": {
+      "sha256": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+      "bytes": 339
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/private-thumbnail.png": {
+      "sha256": "e5d0ce92dee7e01f128b638810d76c52a58654da64fcff24be59e6c899948a75",
+      "bytes": 17977
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/protected-management-revocation.png": {
+      "sha256": "24bb9ec5f4fb7b9df21b34d864f1e097444dd3f18bcd2f9b0c7925bb7605037a",
+      "bytes": 33243
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/publication-and-draft.json": {
+      "sha256": "7b60759140efa386c012e744de73b9516a3c950d3292b4008c846a4825c8a242",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/published-form-A-after-draft-B.png": {
+      "sha256": "54d0dc315336097dea4b4df0fd62e6c88ee82c378f3a107ce8a53a60b63252ca",
+      "bytes": 17962
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/template-activation.json": {
+      "sha256": "601f125c068372993512268d8c869c0ce407af99d0804b2c7c6dd91acd8a9a41",
+      "bytes": 1550
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after-integration/template-audit.json": {
+      "sha256": "9d8e95fffc62b2052f99d63d81886b9d73dcd4cb7c940057b9ca013cfe50f440",
+      "bytes": 1311
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/profile-after.json": {
+      "sha256": "c7683bf3ba8efaf73a85d5acaa5bd17ff1e1cbed09ea460c7a22ead17274177b",
+      "bytes": 5394
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/runtime-identity.json": {
+      "sha256": "50140076b20f5add5e466e2971809ff311a07e51e1c7059fbc13cf884409191d",
+      "bytes": 96
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/snapshot-after-binding.json": {
+      "sha256": "3eae5c3dc2e334e6849534e9ae9e8e742878e47f4a87ff70376af76161b1b02c",
+      "bytes": 6078
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/snapshot-after-final.json": {
+      "sha256": "80d34da2160719087be23ea52ffa270115f595ab0d94e46c73395ba38dcd8e2f",
+      "bytes": 6070
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/snapshot-after.json": {
+      "sha256": "0a9bc4b5e3c6985f926e4ab2599dc8494c26be4f84b41853408b7a2c3b9a0402",
+      "bytes": 6046
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/snapshot-before-counted.json": {
+      "sha256": "0bcf5593727a3bd4aee854db193d901c1d4abe0e869df7b28ded106078db740d",
+      "bytes": 7622
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/snapshot-before-verified.json": {
+      "sha256": "ca5a8a36af2ba05e48ed87801b686708bd361a67d20084dc22dd795e3ac3b104",
+      "bytes": 7175
+    },
+    "UI Platform/evidence/v1-stage5-clock-performance-20261106/review-evidence/snapshot-before.json": {
+      "sha256": "dc86d0c5c7e297a12e2b39d01904eee23bdaf25dc78dd6930c85760557258f07",
+      "bytes": 7130
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/.gitignore": {
+      "sha256": "bf225ef1172dce06f5f992cc37c45d7f23b36be5e62a7aafc6fc812144b7679c",
+      "bytes": 69
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/changed-file-hashes.json": {
+      "sha256": "e2fcb9c2a5d972956c19ecc1f0010a256f4d33a1660d0a9973f997132455cb69",
+      "bytes": 17144
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/checks/boundaries.json": {
+      "sha256": "982f1de3bcc0a764d1f022d79fbab352f10735364d5514b25b981afbb4a5d47d",
+      "bytes": 1225
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/checks/isolation-missing.json": {
+      "sha256": "c934d28fbc5a05daadc15127e6f3921e7089a83d83d49fdddbb374cb344e6e1a",
+      "bytes": 98
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/checks/isolation-original.json": {
+      "sha256": "c934d28fbc5a05daadc15127e6f3921e7089a83d83d49fdddbb374cb344e6e1a",
+      "bytes": 98
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/completion.json": {
+      "sha256": "cbb0a48e67f5bcb53b0471fed702c1403e9f44cfa49d4b3f9850f38549983ee0",
+      "bytes": 344
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/focused-tests.txt": {
+      "sha256": "411ea803366022965a533df04476818dbacc204f86b1083b23e50c009dc0c466",
+      "bytes": 9235
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/graph-lock-metrics.jsonl": {
+      "sha256": "74b1626dbaaba4526548252b1ec18688881eaa5ac8c04b7593945e466bab0350",
+      "bytes": 7023
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/package-closure.json": {
+      "sha256": "aab036cc81543cc485ecfe22307275e6f0e89334464f7ec91f33a47a794a720a",
+      "bytes": 28310
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/paths-and-inputs.json": {
+      "sha256": "ccde5a285885eeca7f8939077d8a73887cba9eb04c42b323ac4c9987451abf36",
+      "bytes": 3387
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/predicate-contract/inspection.json": {
+      "sha256": "6669386237c6b8ad83840a1b74ea2ad5d93540c04b66c4f509332dda934ce254",
+      "bytes": 2254
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/predicate-contract/result.json": {
+      "sha256": "0ebb44287fdb958587906fa70b3414b5e6202dc8408e7a310b8b65729727e276",
+      "bytes": 646
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/predicate-contract/tests.json": {
+      "sha256": "3be91f3c5ebf1f2ad218417c6b0345425efabb06c8f8b27416e19c435e5569d4",
+      "bytes": 1117
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/preservation-after.json": {
+      "sha256": "e8a19626cacd93193aeeac1e868cdb2cb4191c400f2000e1b1e8d6f53913b2fc",
+      "bytes": 3008
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/preservation-before.json": {
+      "sha256": "e8a19626cacd93193aeeac1e868cdb2cb4191c400f2000e1b1e8d6f53913b2fc",
+      "bytes": 3008
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/results.json": {
+      "sha256": "8bf90e694531ae03d2d489a44ca93d4d3790e0117891786492810410d87fa5f8",
+      "bytes": 18649
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/.gitignore": {
+      "sha256": "bf225ef1172dce06f5f992cc37c45d7f23b36be5e62a7aafc6fc812144b7679c",
+      "bytes": 69
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/completion.json": {
+      "sha256": "524da29809f78376f14d76949db6db37aa9ddbb93e9e44e4fb0d33d519e7a8b8",
+      "bytes": 359
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/focused-tests.txt": {
+      "sha256": "c1401963209e57f6f70c6c65c01c54700a65dffb0107a7b5e1347917ec7573b2",
+      "bytes": 2623
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/graph-lock-metrics.jsonl": {
+      "sha256": "cc82d6762ecd710322c06df83a6cdc42aa4c1db6e3c89c28258e4d7b7005076f",
+      "bytes": 25427
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/package-closure.json": {
+      "sha256": "d25dbb717ac8ffa8730627a150943ace4bbd88f6792768d581a0990e7fa58cdb",
+      "bytes": 28460
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/paths-and-inputs.json": {
+      "sha256": "ece82bba1221707e8494d194220c0469e8ad5e51f54519d1211b0df69bb5c99e",
+      "bytes": 1808
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/preservation-after.json": {
+      "sha256": "e8a19626cacd93193aeeac1e868cdb2cb4191c400f2000e1b1e8d6f53913b2fc",
+      "bytes": 3008
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/preservation-before.json": {
+      "sha256": "e8a19626cacd93193aeeac1e868cdb2cb4191c400f2000e1b1e8d6f53913b2fc",
+      "bytes": 3008
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/results.json": {
+      "sha256": "d99d31cc73d652beb763e6c95c3a37d0091c7c5887339516ee238c4e20dd45ed",
+      "bytes": 2131
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/security-packages.json": {
+      "sha256": "75a66f1dd34f5d7eca22ee93a90f0f6d6a63de04e8aeecc5f3527db866690911",
+      "bytes": 1570
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/v1-stage3-physical-20261105/package-closure.json": {
+      "sha256": "d25dbb717ac8ffa8730627a150943ace4bbd88f6792768d581a0990e7fa58cdb",
+      "bytes": 28460
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/v1-stage5-integration-local/authoring-draft-B-after-publication.png": {
+      "sha256": "ecbfd353242c91e5287884fc293f31994590bfd320b238a4f6789fbf7ecab721",
+      "bytes": 508045
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/v1-stage5-integration-local/builder-schema-form.json": {
+      "sha256": "5b10af1cc3702301b6d2f7981f1ece53bd6dbb4f9988c6d77aef32b66142442a",
+      "bytes": 4657
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/v1-stage5-integration-local/builder-schema-form.png": {
+      "sha256": "1b3d99f3568a8acaaa93c5b1e76692ceff5d382c1b7405cf494c9c0a285ff161",
+      "bytes": 408978
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/v1-stage5-integration-local/publication-and-draft.json": {
+      "sha256": "16a8a070faef953096351317fef5eb32beb5bbf9f4163f3a32b81a2d02c1e933",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-only/visual-build.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/security-packages.json": {
+      "sha256": "75a66f1dd34f5d7eca22ee93a90f0f6d6a63de04e8aeecc5f3527db866690911",
+      "bytes": 1570
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage2-20261104/builder-schema-form.json": {
+      "sha256": "4df955899a7d3aaf40b2235ea95b47a5f1057703a42dde0c29627b2cf6177d08",
+      "bytes": 4657
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage2-20261104/builder-schema-form.png": {
+      "sha256": "a2098c83d2a3861ca9b05095cbe70247f6bc3843ef35ecba6cfd381de912d400",
+      "bytes": 409395
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-20261104/insertion-options.json": {
+      "sha256": "731699b7d8fb178f1fe05f43e21571bc8e5d80615ab114e5e20cbf6dc27ed798",
+      "bytes": 2005
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-20261104/normal-composition-upload.png": {
+      "sha256": "5b3dfcea6487faaed67b08ab6f255c5ce572cf6b3b31fb641938890042c61972",
+      "bytes": 380679
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-20261104/page-preview.png": {
+      "sha256": "bf6c3cd59b833ca7d93f38298f7310f9da00b075132f8a146df44850f0325a27",
+      "bytes": 870990
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-20261104/protected-results.json": {
+      "sha256": "3889d50d6177695530d3d563f2e5bcacf300fd1cc4bc1a7543b4f42e2d6cabe0",
+      "bytes": 406
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-20261104/protected-upload.png": {
+      "sha256": "bcaba0a2ccd0e63c742e82220f332296aeb19decab578ce82ca347bb007a3fac",
+      "bytes": 186782
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-20261104/publish-response.json": {
+      "sha256": "5df60b99409bfa1be108bfe93c566473e8ace162a3b322412b4a713cd1a2deab",
+      "bytes": 1737
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-20261104/published.json": {
+      "sha256": "647c0f506f4fb71a10f227c88a5ad896d7f333aa342cfc64a90e6888952cac40",
+      "bytes": 2075
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-20261104/revocation.json": {
+      "sha256": "68f32edf24a94e55806c55cc4c8d73c063d40d54fa9f086b9bd400853e1bef70",
+      "bytes": 68
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-20261104/size-rejection.json": {
+      "sha256": "52d5a12a015280fa9e6001d0ebb7ae3e6fb158418f841971b64108d708cc9636",
+      "bytes": 167
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-physical-20261105/application-package-inputs.json": {
+      "sha256": "88f5a2b5b77171aae3f9c75f2871d491133f13d248dfe9db8d52246de9776823",
+      "bytes": 26977
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-physical-20261105/frozen-bytes.json": {
+      "sha256": "2322aecbc6690caff749de5321167fa05c718f690041e699c8fbed079df511f2",
+      "bytes": 297
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-physical-20261105/package-closure.json": {
+      "sha256": "aab036cc81543cc485ecfe22307275e6f0e89334464f7ec91f33a47a794a720a",
+      "bytes": 28310
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-physical-20261105/retained-interface.png": {
+      "sha256": "101030fabc54f3efa279bfb4317c3717bdf15958c390d26c3b5d6028e1b6c2b1",
+      "bytes": 11428
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-physical-20261105/retained-parity.json": {
+      "sha256": "9676dcf445e74e9ca1ac67aa314f459e3edc495f5ddcfe87522cbe1289e01365",
+      "bytes": 428
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-physical-20261105/retained-upload.json": {
+      "sha256": "370c4af386fe40176a99d40d8a51ee27d1bbeb913777fcd388d91c12b19c215b",
+      "bytes": 19
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage3-physical-20261105/rollback.json": {
+      "sha256": "41f4a7aab015f04dc0ba87e6d3e2fd1facdcb3d16bcb64f5047f1605fe56a318",
+      "bytes": 2573
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage4-20261105/administration-audit.json": {
+      "sha256": "91f2397ea5b70b5ce6db542537d2efb2c9d6f57755c06325dfe0bd7f5ca41ded",
+      "bytes": 8318
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage4-20261105/assigned-editor.png": {
+      "sha256": "7e8d72f535ca63387e84608ba103b8ab95fe07d9d3cc922eff22a07b2388073d",
+      "bytes": 819567
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage4-20261105/assignment.png": {
+      "sha256": "f40fb6172230c4c98dfc2a183c650b1cbcdee731226cef5a8bf6363275319335",
+      "bytes": 213934
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage4-20261105/grant-ceiling-refusal.png": {
+      "sha256": "7e63a890b5d4eaa9efcf1ac5aef7260f3cf39100f33fb09d609a27c05b9d094c",
+      "bytes": 266445
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage4-20261105/last-admin-refusal.png": {
+      "sha256": "2201b50c013915f94404078bf17aa1845ec3e72d25ace120c6d7b8bb9fbd7964",
+      "bytes": 257234
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage4-20261105/protected-results.json": {
+      "sha256": "14b326df2a184128f365171236a540963ae326eb04f8e79f06de03c94c442aa9",
+      "bytes": 1240
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage4-20261105/revocation.png": {
+      "sha256": "b3a580b5e9118e826a9b03241ed6a3cdc3557daf2af73ef552768663ff1a4c56",
+      "bytes": 211764
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage5-integration-local/builder-schema-form.json": {
+      "sha256": "e5e45e6fdf16930279c4b73e434f6e342d87651a6aefc5c2034c77257fc6c9e5",
+      "bytes": 4657
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage5-integration-local/builder-schema-form.png": {
+      "sha256": "297173032105119c6aceec759a4555ad4d117abf6558f9a3cc9f9fbb03380459",
+      "bytes": 408500
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage5-local/private-results.json": {
+      "sha256": "7aade6754489f2f951dfa0d0540a204970fff6830e50bf163d86df3473c882f2",
+      "bytes": 418
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage5-local/process-boundaries.json": {
+      "sha256": "17e5d9a21d44b4097601dfdd2cbaa3195e6a9ef175a86b4d19a5f71cf8755097",
+      "bytes": 587
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage5-local/release-results.json": {
+      "sha256": "25157b3437ed35296955693ae86eade66ac161588429900bf3dbc1f7380efa45",
+      "bytes": 317
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/v1-stage5-local/runtime-browser.png": {
+      "sha256": "a7fb426136be9514e0e17d2c63d062a612d891bb2c09101f298b563bf3e76599",
+      "bytes": 7136
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/verification-summary.json": {
+      "sha256": "d791e1a4e40ad8adfad9f6e9f2738ddddd05cc9f525ae51cbe9d1596b60c280a",
+      "bytes": 1830
+    },
+    "UI Platform/evidence/v1-stage5-integration-20261105/visual-build.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/.gitignore": {
+      "sha256": "223e4f1468dce8c0bf4d2a0a4112b5e5262409c02f60678443b2cb7464180f10",
+      "bytes": 125
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/attempts.json": {
+      "sha256": "42e4d113b7cd8593108e53fda00145158eb7a06bf5fdb4e46de8fc9f76b735bc",
+      "bytes": 2095
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/changed-file-hashes.json": {
+      "sha256": "2148d9855bff3fa14ae70c213418d7bf5439300bb1bcdc4dfad0a45fe71f556a",
+      "bytes": 53057
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/current-iam.ts": {
+      "sha256": "f37ed1a728efe2efa4dddc1c7d0ce2178af604ce37c7bae88e13b5f769bc7fce",
+      "bytes": 3837
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/data-handler.ts": {
+      "sha256": "bd2ff63d77471cbcb9df9d7f120ea4ff812d74ac1ec4ac951fdccabdcf8f3034",
+      "bytes": 2970
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/identity-integration.ts": {
+      "sha256": "0f0dc0afd94d643a1257f42ac9f947b36dbefe67ff854f369944d5d659f50b23",
+      "bytes": 3026
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/internal-trust.ts": {
+      "sha256": "91da4b96a1148f09c742c80bdfaff8f395704dc1883c1335ffd72b96cf1c4bf8",
+      "bytes": 4228
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/management-frontend.ts": {
+      "sha256": "a6bb89054f5163d22e56eb016bd1a418062d9c81c4771b28885e4c057249cb5b",
+      "bytes": 2784
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/management.ts": {
+      "sha256": "48e2f66cba82ee6f2bdb731d8dec2baf1b22cb13e3ee24ec8ea5a79dc1d211cd",
+      "bytes": 7879
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/mtls-management-transport.ts": {
+      "sha256": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+      "bytes": 1983
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/mtls-transport.ts": {
+      "sha256": "aabe6cf20299709994d1bcd300f76fe1c9ffefc0c9a2e1f8da77f6949b8a4ce1",
+      "bytes": 2338
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/refusal-trace.ts": {
+      "sha256": "2dec52a48f3214046cd9ef4e00bc759f104b08feb057638df06eee321989e807",
+      "bytes": 1940
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/service-rpc.ts": {
+      "sha256": "6ede78186724a2021a6a0ebcd7440e2e0a0e483bb1bf0dd6ca2d06c6e1112b19",
+      "bytes": 5123
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/sessions.ts": {
+      "sha256": "74b5865ae98171b18c9e0a9ee013ea66c32bbf96f0edafc24230c216e32aef55",
+      "bytes": 4266
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-001/stage5-integration-journey.ts": {
+      "sha256": "c465838bb1ee5a263c4a60205ff367d5a3ed1b4d85b30a267d4463eec963b9e1",
+      "bytes": 39463
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/current-iam.ts": {
+      "sha256": "3bb9f5708a5c8ece4cc065e1d792f3143f71b693fe285e3cc3703391f226c840",
+      "bytes": 4510
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/data-handler.ts": {
+      "sha256": "bd2ff63d77471cbcb9df9d7f120ea4ff812d74ac1ec4ac951fdccabdcf8f3034",
+      "bytes": 2970
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/identity-integration.ts": {
+      "sha256": "0f0dc0afd94d643a1257f42ac9f947b36dbefe67ff854f369944d5d659f50b23",
+      "bytes": 3026
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/internal-trust.ts": {
+      "sha256": "74d2938eeebe7e4717eaf21ac4e69f977a7d03f3a1f798729ba791b1faeb1b46",
+      "bytes": 4239
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/management-frontend.ts": {
+      "sha256": "a6bb89054f5163d22e56eb016bd1a418062d9c81c4771b28885e4c057249cb5b",
+      "bytes": 2784
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/management.ts": {
+      "sha256": "48e2f66cba82ee6f2bdb731d8dec2baf1b22cb13e3ee24ec8ea5a79dc1d211cd",
+      "bytes": 7879
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/mtls-management-transport.ts": {
+      "sha256": "9a0c5dcfed4868391ee4c2b3629af2664ca98423e4f3b27bfb46df4712a5b953",
+      "bytes": 2059
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/mtls-transport.ts": {
+      "sha256": "7455782e2f8d3f9b118907a167a14a0ba5f20cb3cd724a02b0efe2bf22a22e89",
+      "bytes": 2415
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/refusal-trace.ts": {
+      "sha256": "2ce6b160f91adec4b692032d650ceb4ccee41cc867bb0d9dcca4e599170f570e",
+      "bytes": 2423
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/service-rpc.ts": {
+      "sha256": "0e114b4e31c36543a06a87c845b617a0b86209450aeb2caa6223cac37508722e",
+      "bytes": 5128
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/sessions.ts": {
+      "sha256": "74b5865ae98171b18c9e0a9ee013ea66c32bbf96f0edafc24230c216e32aef55",
+      "bytes": 4266
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-002/stage5-integration-journey.ts": {
+      "sha256": "c465838bb1ee5a263c4a60205ff367d5a3ed1b4d85b30a267d4463eec963b9e1",
+      "bytes": 39463
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/current-iam.ts": {
+      "sha256": "3bb9f5708a5c8ece4cc065e1d792f3143f71b693fe285e3cc3703391f226c840",
+      "bytes": 4510
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/data-handler.ts": {
+      "sha256": "bd2ff63d77471cbcb9df9d7f120ea4ff812d74ac1ec4ac951fdccabdcf8f3034",
+      "bytes": 2970
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/identity-integration.ts": {
+      "sha256": "0f0dc0afd94d643a1257f42ac9f947b36dbefe67ff854f369944d5d659f50b23",
+      "bytes": 3026
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/internal-trust.ts": {
+      "sha256": "74d2938eeebe7e4717eaf21ac4e69f977a7d03f3a1f798729ba791b1faeb1b46",
+      "bytes": 4239
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/management-frontend.ts": {
+      "sha256": "a6bb89054f5163d22e56eb016bd1a418062d9c81c4771b28885e4c057249cb5b",
+      "bytes": 2784
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/management.ts": {
+      "sha256": "48e2f66cba82ee6f2bdb731d8dec2baf1b22cb13e3ee24ec8ea5a79dc1d211cd",
+      "bytes": 7879
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/mtls-management-transport.ts": {
+      "sha256": "9a0c5dcfed4868391ee4c2b3629af2664ca98423e4f3b27bfb46df4712a5b953",
+      "bytes": 2059
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/mtls-transport.ts": {
+      "sha256": "7455782e2f8d3f9b118907a167a14a0ba5f20cb3cd724a02b0efe2bf22a22e89",
+      "bytes": 2415
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/refusal-trace.ts": {
+      "sha256": "2ce6b160f91adec4b692032d650ceb4ccee41cc867bb0d9dcca4e599170f570e",
+      "bytes": 2423
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/service-rpc.ts": {
+      "sha256": "0e114b4e31c36543a06a87c845b617a0b86209450aeb2caa6223cac37508722e",
+      "bytes": 5128
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/sessions.ts": {
+      "sha256": "74b5865ae98171b18c9e0a9ee013ea66c32bbf96f0edafc24230c216e32aef55",
+      "bytes": 4266
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/diagnostic-source/trace-003/stage5-integration-journey.ts": {
+      "sha256": "c465838bb1ee5a263c4a60205ff367d5a3ed1b4d85b30a267d4463eec963b9e1",
+      "bytes": 39463
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/preservation-summary.json": {
+      "sha256": "38593ebefa769b1ac878ec0b45c97ceb5167042f3204dd36f121e0f0fc900e9a",
+      "bytes": 2176
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/prior-evidence-preservation.json": {
+      "sha256": "0396331aeee018d3428144e1273993a44a10696904576d68fff2082b550431d7",
+      "bytes": 22482
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/baseline-uninstrumented-001-integration/owner-binding-refusal.json": {
+      "sha256": "261ca6f01ce634b66ab84c0bdf3bcfb5f4f8a0b4ac0fcbe5fc8da4c029614725",
+      "bytes": 110
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/baseline-uninstrumented-001-integration/private-public-export-audit.json": {
+      "sha256": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+      "bytes": 339
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/baseline-uninstrumented-001-integration/publication-and-draft.json": {
+      "sha256": "149319d8a991964f375b6bd76e7d79101af9f4dfc566dc82c0a38c6f73a328b2",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/baseline-uninstrumented-001-integration/released-query-contract.json": {
+      "sha256": "87bddfb3c57cd3e45a5d6bfc358ae33b3ea48014084203fd909455469e0d7c34",
+      "bytes": 681
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/baseline-uninstrumented-001-integration/template-activation.json": {
+      "sha256": "a322e915c2ebc2f1d86bf0e4d144930961c5185f5a4036cb2231f0fd8564b99f",
+      "bytes": 1550
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/baseline-uninstrumented-001.json": {
+      "sha256": "86b320f3df34630eefbadd7004b53177a14e8a878c7e1f1797377b146509c004",
+      "bytes": 8062
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/boundary-checks.json": {
+      "sha256": "6a7bdfd6b1d6e8c3bd68024204e4932f7141f2edaaa5dd27f92141e117df1f25",
+      "bytes": 1277
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/isolation-checks.json": {
+      "sha256": "4414e64e8bf631ed15672da42dd7bd1ec68ee28f0939f703dd922e4759b83787",
+      "bytes": 885
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/rpc-clean-source.json": {
+      "sha256": "3ea7e7759d39c96c50be3432fc62e4337a13193d0ceb345f2d5a6c54f7b1483d",
+      "bytes": 817
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/rpc-probe-001-test-source.ts": {
+      "sha256": "b813f3c45872f2967aa28a638ea719c61edf41c63e7ca6b895d169e95c9fa836",
+      "bytes": 5744
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/rpc-probe-001.json": {
+      "sha256": "02c3301bbc5930e6f890eba14669de56cc048f0d31fa5a7baacb9b3576b58352",
+      "bytes": 7272
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/rpc-probe-002-test-source.ts": {
+      "sha256": "dd84722a46bf2a8984c388b11d5424bb5b81b55cc78462e87b82e3de0d4ea445",
+      "bytes": 5792
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/rpc-probe-002.json": {
+      "sha256": "6787f3ad1a927d3c7cda0c7b13d14f606e7a4ece452ddbdcd6902315a62ac04f",
+      "bytes": 5601
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-001-refusal-chains.json": {
+      "sha256": "401fc6248e0097d7dc3e2a079043312fdbfdd153f826f2b9bbebea71e164e004",
+      "bytes": 24967
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-001.json": {
+      "sha256": "325bf6008ac07263b8e797feb25857b3ae88fd32ccad4bf98aa730bfb9e9ae36",
+      "bytes": 6670
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-002-refusal-chains.json": {
+      "sha256": "43ba9d865eca49bba73848e4915e488554884f98b22ff491d12ebfa0050b17ee",
+      "bytes": 7177
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-002.json": {
+      "sha256": "3a14c5946409868f955531af4db8c15ab6cf2ea7bc4d54501e8e2222a0a661d1",
+      "bytes": 6367
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-003-integration/owner-binding-refusal.json": {
+      "sha256": "261ca6f01ce634b66ab84c0bdf3bcfb5f4f8a0b4ac0fcbe5fc8da4c029614725",
+      "bytes": 110
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-003-integration/private-public-export-audit.json": {
+      "sha256": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+      "bytes": 339
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-003-integration/publication-and-draft.json": {
+      "sha256": "a93145026354a3f0cbb171c9a652d29ad026c2c570c1a100c6c17c2b057c0b3e",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-003-integration/published-form-A-after-draft-B.png": {
+      "sha256": "9a7e79b08aa9e34e522cb4f24f3b6dabc592e9570cb7d926972161ade929a75f",
+      "bytes": 17881
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-003-integration/released-query-contract.json": {
+      "sha256": "a4a9a95c75ca9093f4cdee70577e3f3396245bb90095d3d8ebd5e1efa0249565",
+      "bytes": 681
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-003-integration/template-activation.json": {
+      "sha256": "71f275dbc83baefc5fd219e6e886a77951f1abd512034857363e83f90652ca92",
+      "bytes": 1550
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-003-refusal-chains.json": {
+      "sha256": "dab482631f082334117d9f0e7b243408ceeed4e21b705d4d326be86ef7b78e63",
+      "bytes": 12920
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/review-evidence/trace-003.json": {
+      "sha256": "2132b086cdea15897a4872aeaa33e9bcd9866d90b0f894169ebdb52e25d4f8d2",
+      "bytes": 7854
+    },
+    "UI Platform/evidence/v1-stage5-refusal-investigation-20261106/rpc-clean-source-results.json": {
+      "sha256": "3e0c1ffc73ea4154fd956337b4f573e229d755af99e10000f33019b793927c2e",
+      "bytes": 1098
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/.gitignore": {
+      "sha256": "5f8c891f4cd085e099a5dcc1f5df0fadd703aa59d8cd9aec10afd9332b6bc664",
+      "bytes": 103
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/attempts.json": {
+      "sha256": "07e938c73f0b3afca0d4d7031da3d4a745e3d63a3ec9efc012dbee6d0a8c727c",
+      "bytes": 1309
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/changed-file-hashes.json": {
+      "sha256": "f3bcbd716490f2769cf5cb7fcdff96329a7a4d69163198b41fd29398ce002579",
+      "bytes": 63940
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/applied-integration.ts": {
+      "sha256": "b310c69e6baa5add4dc5d4194174632fa94bf16dd39017719f039131a5a91f3d",
+      "bytes": 4071
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/current-iam.ts": {
+      "sha256": "3bb9f5708a5c8ece4cc065e1d792f3143f71b693fe285e3cc3703391f226c840",
+      "bytes": 4510
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/data-handler.ts": {
+      "sha256": "79c74e81aa4f666697c3d72ce35a0f0165f6a995692d01a62df1c0c8804f540c",
+      "bytes": 3049
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/identity-integration.ts": {
+      "sha256": "0f0dc0afd94d643a1257f42ac9f947b36dbefe67ff854f369944d5d659f50b23",
+      "bytes": 3026
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/internal-trust.ts": {
+      "sha256": "74d2938eeebe7e4717eaf21ac4e69f977a7d03f3a1f798729ba791b1faeb1b46",
+      "bytes": 4239
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/management-frontend.ts": {
+      "sha256": "a6bb89054f5163d22e56eb016bd1a418062d9c81c4771b28885e4c057249cb5b",
+      "bytes": 2784
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/management.ts": {
+      "sha256": "48e2f66cba82ee6f2bdb731d8dec2baf1b22cb13e3ee24ec8ea5a79dc1d211cd",
+      "bytes": 7879
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/mtls-management-transport.ts": {
+      "sha256": "f8663881e366aaa60f4a0f1ebc6378cb5e063692b8f92a15cc62b1bc9608c3ad",
+      "bytes": 2143
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/mtls-transport.ts": {
+      "sha256": "8c252d65f34c8bdf122f6095bedb5532e2923a36600533e7d14d4e3fa1589d5f",
+      "bytes": 2499
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/refusal-trace.ts": {
+      "sha256": "2ce6b160f91adec4b692032d650ceb4ccee41cc867bb0d9dcca4e599170f570e",
+      "bytes": 2423
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/releases.ts": {
+      "sha256": "dc3676727e5b281a800169e5e1c8ae93132df55225a39f9cb992ca8c210ceb57",
+      "bytes": 11587
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/service-rpc.ts": {
+      "sha256": "18a5e08c7cd08bed414d4b0387a4ee6068cc6b187c13b81cc1ea57345af55e51",
+      "bytes": 5196
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/sessions.ts": {
+      "sha256": "74b5865ae98171b18c9e0a9ee013ea66c32bbf96f0edafc24230c216e32aef55",
+      "bytes": 4266
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/stage5-integration-journey.ts": {
+      "sha256": "c465838bb1ee5a263c4a60205ff367d5a3ed1b4d85b30a267d4463eec963b9e1",
+      "bytes": 39463
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/diagnostic-source/stage5-integration-process.ts": {
+      "sha256": "4717a71c6c9cea86ed7547ee0d2529b2c40d1ea83a5bca2e198e517abebfe55f",
+      "bytes": 11304
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/preservation-summary.json": {
+      "sha256": "7017f1fac9bc413592a17fce6e181cae371cbac5d40cc510fea6b94bdfec7aa3",
+      "bytes": 2125
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/boundary-after-test-source.ts": {
+      "sha256": "e6e09cd916dd683bf5e543033cd80e6406ddea2fc88c335525c085c6bb4cca48",
+      "bytes": 6906
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/boundary-after.json": {
+      "sha256": "74c4cf313870fea72bf7bd33d92657d2ad47630602522c709a20943becfa2d47",
+      "bytes": 9255
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/boundary-before-test-source.ts": {
+      "sha256": "e6e09cd916dd683bf5e543033cd80e6406ddea2fc88c335525c085c6bb4cca48",
+      "bytes": 6906
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/boundary-before.json": {
+      "sha256": "bf243a71b70f9e5c6cf62d8e80875aa442da53359075a37c601b69491a1112a8",
+      "bytes": 6176
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/boundary-checks.json": {
+      "sha256": "6a7bdfd6b1d6e8c3bd68024204e4932f7141f2edaaa5dd27f92141e117df1f25",
+      "bytes": 1277
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/full-001-integration/anonymous-public.png": {
+      "sha256": "83c30eb88fe3b25a86e313dfd34d62fc53d8f7f698b1f56613ab5c1c98ab3a8d",
+      "bytes": 14654
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/full-001-integration/private-public-export-audit.json": {
+      "sha256": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+      "bytes": 339
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/full-001-integration/publication-and-draft.json": {
+      "sha256": "fd46e3a8af8116154da93ae899d48e501004eb5cf3c6ee7c17a489520d49a1d4",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/full-001.json": {
+      "sha256": "31851a19d037e611d3802464cb5118f4282844beb02d4a3f6307d5db291073f0",
+      "bytes": 7952
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/isolation-checks.json": {
+      "sha256": "a03dd8854dd4fdb9732cfe2516011380c957bdead69a7d1af8679b6c8ad30fe6",
+      "bytes": 813
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/anonymous-public.png": {
+      "sha256": "83c30eb88fe3b25a86e313dfd34d62fc53d8f7f698b1f56613ab5c1c98ab3a8d",
+      "bytes": 14654
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/integration-results.json": {
+      "sha256": "df32f945a1afed1a082c8e31fcfaaa4536581b0bcbaddf4cea45f5767e69651b",
+      "bytes": 1879
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/owner-binding-refusal.json": {
+      "sha256": "261ca6f01ce634b66ab84c0bdf3bcfb5f4f8a0b4ac0fcbe5fc8da4c029614725",
+      "bytes": 110
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/policy-administration-audit.json": {
+      "sha256": "45744c7c98d59aba6a356b9db9280787f3b9b5c58e73b03cfe53a75bcaa0c6cd",
+      "bytes": 7772
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/private-public-export-audit.json": {
+      "sha256": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+      "bytes": 339
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/private-thumbnail.png": {
+      "sha256": "7e54e944a2d336eaf391aedd852735cc280b1c846e114193b57fb3ec3a48831b",
+      "bytes": 17767
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/protected-management-revocation.png": {
+      "sha256": "347e191c0279268191e2daae47ee9785499a7ad396fe71d5796004edb2533c9e",
+      "bytes": 33764
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/publication-and-draft.json": {
+      "sha256": "1bf733938ff87885812182d5b7190a845d79eae38b239874d92ebdf72e461dc3",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/published-form-A-after-draft-B.png": {
+      "sha256": "7fcd92db8f202f37737a04fa1c2738c701d342483312bb1a3157f205237a3a5c",
+      "bytes": 17752
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/template-activation.json": {
+      "sha256": "3a4ab4406ec5a53c30f7bfb843a5d8cc6731597821101bbcb40dcfdcd53d7b67",
+      "bytes": 1550
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002-integration/template-audit.json": {
+      "sha256": "a46c4206c52719c082483cbcdb81408fba4a8f2063c83c35d82e3458d5b4b6fd",
+      "bytes": 1311
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/journey-002.json": {
+      "sha256": "6273973064076df21b201f0ac787070af5e9bc897f52c09b5b3fe2a2deacc0c4",
+      "bytes": 5156
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/jwt-library-identity.json": {
+      "sha256": "8a3e5943f19bf5b7d8e50d7bad610765c457b26f7449233f69f72c6534eb3e08",
+      "bytes": 359
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/readback-and-latency.json": {
+      "sha256": "8bff826969dc0cf1cdb827e1cb81e0f87a1a4d2ce20b74d97a87c5faa44f0633",
+      "bytes": 43853
+    },
+    "UI Platform/evidence/v1-stage5-timing-reliability-20261106/review-evidence/readback-diagnostic.json": {
+      "sha256": "d27839a147c54e6d65fb6885dabfd534466a45277fcd55c8c55ac0f0025d7768",
+      "bytes": 6354
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/.gitignore": {
+      "sha256": "d4dce298264d7b5cdb2f4e29fda87805e019fe54635554f24047b5fce9c5f3aa",
+      "bytes": 116
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/changed-file-hashes.json": {
+      "sha256": "cfd97cafaef40d772fd6ca5694e5b7ddd60b96b903248e662b554d0ad9e5f11d",
+      "bytes": 37201
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/checks/boundaries.json": {
+      "sha256": "6a7bdfd6b1d6e8c3bd68024204e4932f7141f2edaaa5dd27f92141e117df1f25",
+      "bytes": 1277
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/checks/isolation-refusals.json": {
+      "sha256": "6bbcc95caff493c85a4b2e1f2af3bcfb1d3bd0c6e0606058faf0790b1406560e",
+      "bytes": 521
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/completion.json": {
+      "sha256": "be58154fc11c3f00a68b3af245eb0a4322ca41eac9bed7d83785c7053e2c678f",
+      "bytes": 348
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/current-run/integration-local/anonymous-public.png": {
+      "sha256": "83c30eb88fe3b25a86e313dfd34d62fc53d8f7f698b1f56613ab5c1c98ab3a8d",
+      "bytes": 14654
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/current-run/integration-local/authoring-draft-B-after-publication.png": {
+      "sha256": "2db4e64b3dce1225280dba131723b9eae9e97cfe09d9cf06ea348b5b11c55c47",
+      "bytes": 505253
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/current-run/integration-local/builder-schema-form.json": {
+      "sha256": "1a70d72806d992a3b8e4e7b3e37213b95b614cfcc006f6211d3421d006d369dc",
+      "bytes": 4657
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/current-run/integration-local/builder-schema-form.png": {
+      "sha256": "2a73fd8d9427580d69af00758a06e864452e60c11678fc02e6eeb2b1f90e2050",
+      "bytes": 408515
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/current-run/integration-local/private-public-export-audit.json": {
+      "sha256": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+      "bytes": 339
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/current-run/integration-local/publication-and-draft.json": {
+      "sha256": "299243c22ca74ba9a19fb8add34a4135cc7042f4e15ab0f22b2aa80485afbd50",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/current-run/integration-local/released-query-contract.json": {
+      "sha256": "f9c34abcf100cef91d2f99788e11a5d64b1270ec51eadafd189e51d3e6aef8ef",
+      "bytes": 681
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/data-changed-file-hashes.json": {
+      "sha256": "3261dd14515f90ece2453754378dd51a1df1c2fc4505b479c2541c05642d884d",
+      "bytes": 2263
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/anonymous-public.png": {
+      "sha256": "83c30eb88fe3b25a86e313dfd34d62fc53d8f7f698b1f56613ab5c1c98ab3a8d",
+      "bytes": 14654
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/authoring-draft-B-after-publication.png": {
+      "sha256": "6233af6289438abf0837f6ea816f92ab5b8f05194e18d25cb3a779d20b60b9a5",
+      "bytes": 505615
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/builder-schema-form.json": {
+      "sha256": "6eb7407135c260c8b3a6195b016300ff82335ed23cbc46b0bdca54da3d1eb1e6",
+      "bytes": 4657
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/builder-schema-form.png": {
+      "sha256": "3a36aeab3e90dc30d19173237bab7e70817248a7c8e06d3dabac5def1dc6d21b",
+      "bytes": 408787
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/integration-results.json": {
+      "sha256": "d09ac08ff309669ae4657ff7ec277cd9898ec25ce89c425e5fc073e4c1883247",
+      "bytes": 1878
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/owner-binding-refusal.json": {
+      "sha256": "261ca6f01ce634b66ab84c0bdf3bcfb5f4f8a0b4ac0fcbe5fc8da4c029614725",
+      "bytes": 110
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/policy-administration-audit.json": {
+      "sha256": "638f0859295919f394218cc2b8a93e714bcadf26721518160e6af45516c79656",
+      "bytes": 7772
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/private-public-export-audit.json": {
+      "sha256": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+      "bytes": 339
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/private-thumbnail.png": {
+      "sha256": "37ab0bda095f136e27a228f82f72820956588b89f318b32d4158aa048bb94ad5",
+      "bytes": 17967
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/protected-management-revocation.png": {
+      "sha256": "ccb1c1c870b086344921a6218c79fa76ec74c0bca0da5dba24df2becc3107785",
+      "bytes": 33263
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/provenance.json": {
+      "sha256": "2904c148a6a472574081b6b0e2823c5517ee018fef6ed7f470eb36fafda94bf1",
+      "bytes": 826
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/publication-and-draft.json": {
+      "sha256": "39361bf855378c41923cf3217539dbb71fb0363f716889aa4c88774336d16a50",
+      "bytes": 24770
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/published-form-A-after-draft-B.png": {
+      "sha256": "e0ff8358c1960b042848479b84eeceb358c3a4220a6b3620fc59d5b3ffbb0614",
+      "bytes": 17951
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/released-query-contract.json": {
+      "sha256": "8b271b42dabe0f32dfd64f9d9faf6bbed534b1b9ffb8c53d567ae2e039bc20f4",
+      "bytes": 681
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/template-activation.json": {
+      "sha256": "2586270d6a71a2c4c36f7a19b39cf708823561e9ff2fdb8b1fe624f21f60d01c",
+      "bytes": 1550
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/template-audit.json": {
+      "sha256": "0ea091c8b8613583111d5333c8c552d2be6bf4ee1e1e9a6c0f2f293b0484058c",
+      "bytes": 1311
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-integration/template-revocation-response.json": {
+      "sha256": "16b93236f44a4cc6595c9f60636ce382011aa78c615af432a4ce5eda659706f4",
+      "bytes": 236
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-results.json": {
+      "sha256": "5077bbc652f44767977e7eed0ed695e3bd490b091399912384c7929f9909977a",
+      "bytes": 1103
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/diagnostic-complete-source-inputs.json": {
+      "sha256": "79e7437c56eb0891704a67215322642c298a0af156a9b278d1c178b5ad2a8622",
+      "bytes": 3995
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/focused-tests.txt": {
+      "sha256": "b872df1324d016d7bd992b74128899b0876de94d85c72ef1b282d33c0e04b4e2",
+      "bytes": 8766
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/graph-lock-metrics.jsonl": {
+      "sha256": "09bbd1fefa0738c981f551f15d5e81b45474cba996fe7878bcc14a018736ee7d",
+      "bytes": 36659
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/package-closure.json": {
+      "sha256": "eee261291a55dce150c2663c12d48f70cb448006f76e585aee2175d77c0f7513",
+      "bytes": 28350
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/paths-and-inputs.json": {
+      "sha256": "0c02b5cfd9bc7a0e6490c1f40fb0e919c50ff5761dbd14f1c954ae390c634ef4",
+      "bytes": 3560
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/preservation-after.json": {
+      "sha256": "e8a19626cacd93193aeeac1e868cdb2cb4191c400f2000e1b1e8d6f53913b2fc",
+      "bytes": 3008
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/preservation-before.json": {
+      "sha256": "e8a19626cacd93193aeeac1e868cdb2cb4191c400f2000e1b1e8d6f53913b2fc",
+      "bytes": 3008
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/prior-full-results.json": {
+      "sha256": "227039b3d478a2174bf011791526c8fd07bcbbdc726f5c22c6dcacf564d19cb1",
+      "bytes": 19215
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/results.json": {
+      "sha256": "35b66901e799efe973c0d05c189f1deb608778d6137d620bd49c32d3caf5f5ae",
+      "bytes": 19481
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/run-source-inputs.json": {
+      "sha256": "d50bcaa5be1055a760caedc62ba9eb7ede028434ea997abbf66b67d6fd61ae08",
+      "bytes": 3995
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/security-packages.json": {
+      "sha256": "75a66f1dd34f5d7eca22ee93a90f0f6d6a63de04e8aeecc5f3527db866690911",
+      "bytes": 1570
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage2-20261104/builder-schema-form.json": {
+      "sha256": "6be8fd91506b4f6184ae22933242d88516d2761dbcd52b3085b89dd0bab49bb5",
+      "bytes": 4657
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage2-20261104/builder-schema-form.png": {
+      "sha256": "5d69fa059b2ab282a0069a536e8879e3e6d20b3d3fa1b462150a4a20fd1c0ad9",
+      "bytes": 409235
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-20261104/insertion-options.json": {
+      "sha256": "731699b7d8fb178f1fe05f43e21571bc8e5d80615ab114e5e20cbf6dc27ed798",
+      "bytes": 2005
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-20261104/normal-composition-upload.png": {
+      "sha256": "5b3dfcea6487faaed67b08ab6f255c5ce572cf6b3b31fb641938890042c61972",
+      "bytes": 380679
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-20261104/page-preview.png": {
+      "sha256": "143de3527ed8e8c6ca8cbe6ca38fdf74d85373dedec783938436226534b6a928",
+      "bytes": 869798
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-20261104/protected-results.json": {
+      "sha256": "d487e4cddf2a8a165113adb464e8a1896f2e35e1690686cbd2b0f76e6d272c72",
+      "bytes": 406
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-20261104/protected-upload.png": {
+      "sha256": "946380ae6432ae964375611acc65d5bc367cb575f6fc37a2bbaf2b2482788f7b",
+      "bytes": 187036
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-20261104/publish-response.json": {
+      "sha256": "fa78cb2c820c04bf409ed00523cc8a3b3db92b10679e37ac278360542d95c060",
+      "bytes": 1737
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-20261104/published.json": {
+      "sha256": "33680404ecd93844e7104737d7ad39e07df7784070c7a9b6baf1cf2a79242633",
+      "bytes": 2075
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-20261104/revocation.json": {
+      "sha256": "68f32edf24a94e55806c55cc4c8d73c063d40d54fa9f086b9bd400853e1bef70",
+      "bytes": 68
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-20261104/size-rejection.json": {
+      "sha256": "52d5a12a015280fa9e6001d0ebb7ae3e6fb158418f841971b64108d708cc9636",
+      "bytes": 167
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-physical-20261105/application-package-inputs.json": {
+      "sha256": "9879d4efa20be7f95a65dbad6b8b7b3f0ad8d26fa9bd22591348aab4011e1ee1",
+      "bytes": 26977
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-physical-20261105/frozen-bytes.json": {
+      "sha256": "2322aecbc6690caff749de5321167fa05c718f690041e699c8fbed079df511f2",
+      "bytes": 297
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-physical-20261105/package-closure.json": {
+      "sha256": "eee261291a55dce150c2663c12d48f70cb448006f76e585aee2175d77c0f7513",
+      "bytes": 28350
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-physical-20261105/retained-interface.png": {
+      "sha256": "101030fabc54f3efa279bfb4317c3717bdf15958c390d26c3b5d6028e1b6c2b1",
+      "bytes": 11428
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-physical-20261105/retained-parity.json": {
+      "sha256": "9676dcf445e74e9ca1ac67aa314f459e3edc495f5ddcfe87522cbe1289e01365",
+      "bytes": 428
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-physical-20261105/retained-upload.json": {
+      "sha256": "370c4af386fe40176a99d40d8a51ee27d1bbeb913777fcd388d91c12b19c215b",
+      "bytes": 19
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage3-physical-20261105/rollback.json": {
+      "sha256": "2c075cff0c1eee3e2d7d5536dae46d56be39ff2ae43b48e70b7e9be7c826024e",
+      "bytes": 2573
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage4-20261105/administration-audit.json": {
+      "sha256": "3b19ae53b68a178a2f4aefd713e0bb0277b327d6e609698d8918cc2f3644f100",
+      "bytes": 8318
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage4-20261105/assigned-editor.png": {
+      "sha256": "c65b89edb445af0b8bb1714bc114d55ec22fc8a1f6d0b7aa47e0453ce5157139",
+      "bytes": 818352
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage4-20261105/assignment.png": {
+      "sha256": "634ebbbe28ce7ad411fc917da5b59a11f9509800d0f8b1c45b7f2587c95bbae5",
+      "bytes": 213787
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage4-20261105/grant-ceiling-refusal.png": {
+      "sha256": "b93087dfad369799f06b2058a3a0292fa8648010adb0e2eebae0b4426ae8903f",
+      "bytes": 265508
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage4-20261105/last-admin-refusal.png": {
+      "sha256": "311f8c4344624ee8eeabd46c82325e91464e7b7392167967a3b6501321e578fe",
+      "bytes": 256915
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage4-20261105/protected-results.json": {
+      "sha256": "25e79a033bd47475cd80ce6caa933ce4dd77da1e6240e4596afbed72dd27876c",
+      "bytes": 1240
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage4-20261105/revocation.png": {
+      "sha256": "c7d3abfb728a9637a68132a4a5f7b1a76157f2c87cb54810f0b4a09ac1529d1d",
+      "bytes": 212236
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage5-local/private-results.json": {
+      "sha256": "7aade6754489f2f951dfa0d0540a204970fff6830e50bf163d86df3473c882f2",
+      "bytes": 418
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage5-local/process-boundaries.json": {
+      "sha256": "46a0eb9d046d19c6b923c6931a45cd3af4623d913889e1077336e37a3b1ac28a",
+      "bytes": 585
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage5-local/release-results.json": {
+      "sha256": "25157b3437ed35296955693ae86eade66ac161588429900bf3dbc1f7380efa45",
+      "bytes": 317
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/v1-stage5-local/runtime-browser.png": {
+      "sha256": "a7fb426136be9514e0e17d2c63d062a612d891bb2c09101f298b563bf3e76599",
+      "bytes": 7136
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/verification-attempts.json": {
+      "sha256": "44c851ccf46be67b931df64bffbb8342da323d88eee37657f4f897f52cecf2f8",
+      "bytes": 2009
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/verification-summary.json": {
+      "sha256": "b94bdf75d1acd5f60f93cd93a4d706dcf9c7d2189e0211696a5b13ffba88a250",
+      "bytes": 4545
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/visual-build.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/wp3-activation-observations.json": {
+      "sha256": "5bd2b6c5cc6f88342550ab38528a7108cc1ccfd83e7f20fc0b2b66f5db73cbf9",
+      "bytes": 9095
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/wp3-build.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/wp3-results.json": {
+      "sha256": "030a30a6218d51ca771099ae6429ea2e2f05dec110ff651e666bb82b0482cdfc",
+      "bytes": 50685
+    },
+    "UI Platform/evidence/v1-stage5-wp3-integration-20261105/wp3-tests.txt": {
+      "sha256": "52d1baa7a045e09f40138edf003c1224456f674e3a1146a83fa3c17b971b6225",
+      "bytes": 943
+    },
+    "UI Platform/scripts/check-stage5-wp3-isolation.mjs": {
+      "sha256": "b48b92bddb2309b9e5bdf766ff28d3dad2d6cf1dfa81801e2daf51475c877b6e",
+      "bytes": 2026
+    },
+    "UI Platform/scripts/record-stage5-clock-performance.mjs": {
+      "sha256": "2196dc516e281bd4705e59493af2f405964b6ce4c4a8ea4db3492a488c2ba48f",
+      "bytes": 15241
+    },
+    "UI Platform/scripts/record-stage5-integration-review.mjs": {
+      "sha256": "469673b8e2999e68221fb01bed9f217b11ee9373e267e6901c9e3b606f1b73b0",
+      "bytes": 5000
+    },
+    "UI Platform/scripts/record-stage5-predicate-contract.mjs": {
+      "sha256": "ab158656ddef039c6f1de1f3b7d37403b58d5bdd52afaa661c2c33189fd47451",
+      "bytes": 3468
+    },
+    "UI Platform/scripts/record-stage5-refusal-investigation.mjs": {
+      "sha256": "92bc45ab20114f1d37446f27c09a42516ccc5cf2bd258bb320abc8ed3fdf3247",
+      "bytes": 13764
+    },
+    "UI Platform/scripts/record-stage5-timing-reliability.mjs": {
+      "sha256": "51c94027375262aa1b1a21a97d3c61e975b9b40af49d442fdcb270cb317f63e1",
+      "bytes": 12806
+    },
+    "UI Platform/scripts/record-stage5-wp3-review.mjs": {
+      "sha256": "d7631c483da445f22514764313eeb52a3354cb462d2baff8672fbaca05f6078d",
+      "bytes": 10874
+    },
+    "UI Platform/scripts/verify-stage5-clock-performance.mjs": {
+      "sha256": "d6d5ca7546d57a3054513704efb44de8d0a887dabc5a46e914365e718891b966",
+      "bytes": 3125
+    },
+    "UI Platform/scripts/verify-stage5-integration.mjs": {
+      "sha256": "73efbdcf406931ee8a0ebedf172e158070e53e575739cc6bb240efec68ce5b9e",
+      "bytes": 7665
+    },
+    "UI Platform/scripts/verify-stage5-refusal-investigation.mjs": {
+      "sha256": "86cdc716d9e545e5bb8ad501ff2eda6ce395e4f2f7a8bc37b0cd3e5ee2c93857",
+      "bytes": 1156
+    },
+    "UI Platform/scripts/verify-stage5-timing-reliability.mjs": {
+      "sha256": "2054eea3806b6212a6d1dcdf0d76ce5a918641d3b89961464a26097025c33766",
+      "bytes": 1164
+    },
+    "UI Platform/src/server/production/applied-integration.ts": {
+      "sha256": "e93d6b694483a0e2d48d696ec5f29064e637b85345558fff8316553b3f7f96d3",
+      "bytes": 6158
+    },
+    "UI Platform/src/server/production/identity-integration.ts": {
+      "sha256": "d3a6fc2db7c4368941c60caa3751d540373ff0e3a52044d716b9d28b042eda75",
+      "bytes": 2702
+    },
+    "UI Platform/src/server/production/management-frontend.ts": {
+      "sha256": "8b1db3cee2beb4633bf5d555e9bc93b0e9468e115033bb530bcc5392a31e2e08",
+      "bytes": 2450
+    },
+    "UI Platform/src/server/production/mtls-management-transport.ts": {
+      "sha256": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+      "bytes": 1983
+    },
+    "UI Platform/src/server/production/predicate-templates.ts": {
+      "sha256": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+      "bytes": 11472
+    },
+    "UI Platform/src/server/production/private-asset-owner.ts": {
+      "sha256": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+      "bytes": 4521
+    },
+    "UI Platform/src/server/production/publication-integration.ts": {
+      "sha256": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+      "bytes": 3014
+    },
+    "UI Platform/src/server/production/release-browser-build.ts": {
+      "sha256": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+      "bytes": 4208
+    },
+    "UI Platform/src/server/production/service-rpc.ts": {
+      "sha256": "219acbdad5171024cba10ba536d2dd1aafa9b8da37739639d593fe123431e193",
+      "bytes": 4644
+    },
+    "UI Platform/tests/fixtures/stage5-clock-probe.mjs": {
+      "sha256": "7a429a19ef764fa0b80d2fae830db61e06086e75fa412d6156ea47607b673246",
+      "bytes": 2507
+    },
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": {
+      "sha256": "5efab8912017bc8d4f4b0a505398aae2c3ec994c692a1a48dfc0c2fd3b4c7669",
+      "bytes": 38963
+    },
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": {
+      "sha256": "b8ce3300ba8fc590c628d83ba97cc3da44f756cfe0d45092c6e1761378f0cf13",
+      "bytes": 11067
+    },
+    "UI Platform/tests/stage5-applied-snapshot.test.ts": {
+      "sha256": "e6a1d353453b35c6dd821c24af3ccefddde83a189068d1cbe664bc62f96021cc",
+      "bytes": 4822
+    },
+    "UI Platform/tests/stage5-clock-consistency.test.ts": {
+      "sha256": "e1395f16b4cc702a5f4d65186a0f172bbfb3a6e17b22662161ab3637418e0a63",
+      "bytes": 4968
+    },
+    "UI Platform/tests/stage5-integration.test.ts": {
+      "sha256": "a51d8dd4c2bb0cde8655a3332044eaecffeee9f41ab2a9fcb9a4d1c94e91bd26",
+      "bytes": 21189
+    },
+    "UI Platform/tests/stage5-predicate-contract.test.ts": {
+      "sha256": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+      "bytes": 5578
+    },
+    "UI Platform/tests/stage5-refusal-rpc.test.ts": {
+      "sha256": "dd84722a46bf2a8984c388b11d5424bb5b81b55cc78462e87b82e3de0d4ea445",
+      "bytes": 5792
+    },
+    "UI Platform/tests/stage5-rpc-boundary.test.ts": {
+      "sha256": "e6e09cd916dd683bf5e543033cd80e6406ddea2fc88c335525c085c6bb4cca48",
+      "bytes": 6906
+    },
+    "Data Services/packages/i-am/src/wp3/graph.ts": {
+      "sha256": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+      "bytes": 11186
+    },
+    "Data Services/packages/i-am/src/wp3/service.ts": {
+      "sha256": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+      "bytes": 29838
+    },
+    "Data Services/packages/i-am/src/wp3/types.ts": {
+      "sha256": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+      "bytes": 3685
+    },
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": {
+      "sha256": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e",
+      "bytes": 23677
+    }
+  }
+}

@@ -49,8 +49,10 @@ export function runtimeHandler(options: { sessions: SecureSessions; login: OidcL
         const bytes = await body(request), release = await options.selected();
         const current = await options.sessions.read(request, request.method === 'POST');
         if (JSON.stringify(session.enrollment) !== JSON.stringify(current.enrollment) || session.epoch !== current.epoch) deny();
-        const actor = { enrollment: current.enrollment, sessionId: digest(cookie(request, options.sessions.cookieName)!), releaseId: release.releaseId };
-        const result = await options.transport.send(actor, url.pathname, bytes, request);
+        const actor = { enrollment: current.enrollment, sessionId: digest(cookie(request, options.sessions.cookieName)!), releaseId: release.releaseId, sessionEpoch: current.epoch };
+        let result: Awaited<ReturnType<RuntimeTransport['send']>>;
+        try { result = await options.transport.send(actor, url.pathname, bytes, request); }
+        catch { json(response,503,{code:'UPSTREAM_UNAVAILABLE',commitOutcome:request.method==='POST'?'unknown':'not-committed'}); return; }
         // No upstream cookies/redirects/cache policy, arbitrary routes, or server diagnostics reach browser.
         if (![200, 206, 403, 404, 416].includes(result.status) || result.bytes.length > 20_000_000) deny();
         const allowed = ['content-type', 'content-length', 'content-range', 'accept-ranges', 'content-disposition'];

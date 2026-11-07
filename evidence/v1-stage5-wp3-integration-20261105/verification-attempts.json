@@ -1,0 +1,12 @@
+{
+  "scope": "Local verification attempt history; no production qualification",
+  "attempts": [
+    {"targetId":"883fdd22-b26a-4527-978c-05b485375202","selection":"full","iamPassed":151,"platformPassed":44,"platformFailed":1,"platformSkipped":1,"failure":"Final template activation returned a generic HTTP denial instead of the asserted WP3 result. The precise cause was not established.","report":"prior-full-results.json"},
+    {"targetId":"4eb25cf1-9284-44b8-9ea5-dc1db289be1e","selection":"diagnostic browser","failure":"Form write explicitly refused before commit with PLAN_EVIDENCE_STALE; no automatic retry."},
+    {"targetId":"9342753b-7e6f-4bde-b65d-cdba94fb323f","selection":"diagnostic browser","failure":"Management identity/session checks refused access before registration; precise channel failure cause was not established."},
+    {"targetId":"4dccd9b7-ae03-43f8-9d9d-e51a20e78689","selection":"diagnostic browser","passed":true,"result":"Complete workflow including exact ADMIN_TEMPLATE_BINDING_STALE result passed. Only the deliberate status-channel outage was reported as an RPC error."},
+    {"targetId":"603781e2-e64d-4558-ac79-1e20418017c8","selection":"FINAL uninstrumented full","iamPassed":151,"platformPassed":44,"platformFailed":1,"platformSkipped":1,"failure":"HTTP 403 PROTECTED_REQUEST_DENIED during initial Viewer policy activation via protected management; no successful final journey is claimed.","report":"results.json","disposition":"BLOCKED; stop implementation/acceptance pending investigation of intermittent identity/session/management refusal."}
+  ],
+  "disposition":"Intermittent local fail-closed refusals remain an unresolved reliability qualification. A later successful run does not establish their cause or production latency/reliability. No evaluator semantics or authority checks were weakened; temporary diagnostic instrumentation was removed.",
+  "rawDiagnosticTargets":"Local ignored disposable/security-only paths, excluded from proposed review inventory"
+}

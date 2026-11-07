@@ -1,0 +1,113 @@
+{
+  "id": "journey-002",
+  "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\journey-002\\security-only\\disposable\\98b1c3a4-8f61-453f-985a-e63175a15af4\\platform",
+  "tests": {
+    "passed": 0,
+    "failed": 1,
+    "pending": 0,
+    "success": false
+  },
+  "iam": {
+    "passed": 63,
+    "failed": 0
+  },
+  "testCases": [
+    {
+      "title": "Stage 5: actual Builder publication, protected three-process application and current I-AM workflow",
+      "status": "failed",
+      "duration": 68676.6272
+    }
+  ],
+  "rawReportSha256": "d64c2c4a13811e645d8041c4c31344a437e415f62e5c2935523cb30e396f0be7",
+  "inputs": {
+    "original": "C:\\Projects\\Modular\\ui-platform",
+    "target": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\journey-002\\security-only\\disposable\\98b1c3a4-8f61-453f-985a-e63175a15af4\\platform",
+    "roots": {
+      "src/server": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\src\\server",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\journey-002\\security-only\\disposable\\98b1c3a4-8f61-453f-985a-e63175a15af4\\platform\\src\\server"
+      },
+      "components": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\components",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\journey-002\\security-only\\disposable\\98b1c3a4-8f61-453f-985a-e63175a15af4\\platform\\components"
+      },
+      "packages/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\journey-002\\security-only\\disposable\\98b1c3a4-8f61-453f-985a-e63175a15af4\\platform\\packages\\artifacts"
+      },
+      "node_modules/@ui-platform/artifacts": {
+        "before": "C:\\Projects\\Modular\\ui-platform\\packages\\artifacts",
+        "after": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\journey-002\\security-only\\disposable\\98b1c3a4-8f61-453f-985a-e63175a15af4\\platform\\packages\\artifacts"
+      }
+    },
+    "inputs": [
+      {
+        "file": "tests/stage5-integration.test.ts",
+        "sha256": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d"
+      }
+    ],
+    "preparationSha256": "9c55e73082dc92624f8fab33d165d94d8849266f32c671b089b0909988ea3506",
+    "changes": "Existing preparation; redirected disposable/evidence paths; excluded original Component .uib metadata. Tests copied byte-for-byte."
+  },
+  "sourceInputs": {
+    "UI Platform/src/server/production/applied-integration.ts": "e93d6b694483a0e2d48d696ec5f29064e637b85345558fff8316553b3f7f96d3",
+    "UI Platform/src/server/production/boundary.ts": "28cefd7aecad408d8a9b0d27368cca5e2776dad0ce439906bc40e7bb36844f46",
+    "UI Platform/src/server/production/current-iam.ts": "0f461dee7b139c3978ab2c0474b50e9746a9e6d5a3b01f1717e6765221a916ed",
+    "UI Platform/src/server/production/data-handler.ts": "fa75dd40ab2e6cfaef1e7d1fa8168f7e48119c2654d7403ab5301f0bc6e2dded",
+    "UI Platform/src/server/production/enrollment.ts": "450ecd5a1daa75537b2d4b3ecb6dd5eda4cb4b14ae20b7bf5d6017893a938ce5",
+    "UI Platform/src/server/production/identity-integration.ts": "d3a6fc2db7c4368941c60caa3751d540373ff0e3a52044d716b9d28b042eda75",
+    "UI Platform/src/server/production/internal-trust.ts": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52",
+    "UI Platform/src/server/production/management-frontend.ts": "8b1db3cee2beb4633bf5d555e9bc93b0e9468e115033bb530bcc5392a31e2e08",
+    "UI Platform/src/server/production/management.ts": "dcbe49e811b49b27bde9350e1b2e310ff2b602e0f00c363cb23a04ccf8719eae",
+    "UI Platform/src/server/production/mtls-management-transport.ts": "dbf471da0691563e93246ccc43972927c79197fc737f6ca29d6bbd4766eae061",
+    "UI Platform/src/server/production/mtls-transport.ts": "aabe6cf20299709994d1bcd300f76fe1c9ffefc0c9a2e1f8da77f6949b8a4ce1",
+    "UI Platform/src/server/production/oidc.ts": "c2758c6ba63c619a0fb3cb1d2c82ab02d36125af2eea237c6b4572e385b2c25d",
+    "UI Platform/src/server/production/predicate-templates.ts": "48e0a113f12d4e49c8fd12187a550522384d821f68e45ac76ee32836dc4784e2",
+    "UI Platform/src/server/production/private-asset-owner.ts": "252c31137a163a3d37e47b6fd06ed5a82a916f573bb80bbaa69e5d65eb2ed9f2",
+    "UI Platform/src/server/production/private-assets.ts": "afebd214d3307693a686db6ea1a4324ef55b3fcb925283f4cdacd3d4e3aa33d8",
+    "UI Platform/src/server/production/publication-integration.ts": "8460213bed081680fda87179816c2abc102c9454cdbe3ba2a65cd2cd47ec8120",
+    "UI Platform/src/server/production/release-browser-build.ts": "942e95919ae092aed1babc6d0beb59befa01c7bbd72fd2218ac04c8a9e8e6462",
+    "UI Platform/src/server/production/releases.ts": "876c7845f69a378c536a47976319993335093d4189ac724fec7779ed6cdc03d8",
+    "UI Platform/src/server/production/runtime.ts": "6311c1a28c3f22a20701b845b4d0b89c89989831d2764f4a87215112e56f4463",
+    "UI Platform/src/server/production/service-rpc.ts": "219acbdad5171024cba10ba536d2dd1aafa9b8da37739639d593fe123431e193",
+    "UI Platform/src/server/production/sessions.ts": "a63c012793733e2dcc930753ee1b152672427b18d3fde649c1800279be6a09ae",
+    "UI Platform/src/shared/released-runtime-services.ts": "263cf09d80c39652d81c1655e7c33cd5d4be9e4e6265df411bd60c7c60018e7e",
+    "UI Platform/src/server/role-administration.ts": "e5c5d666e1d41014c9390edf27966d529d98f363eb940e3adbe4d5772dafe5a7",
+    "UI Platform/packages/visual-artifacts/src/runtime.ts": "945a15de3591e6b58f1822853f3aa5a3386000b9e5d07a55b6f21fdf23c08e02",
+    "UI Platform/tests/stage5-integration.test.ts": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d",
+    "UI Platform/tests/stage5-predicate-contract.test.ts": "0e024c052fe90807068aea25b2daf935ed3665472b9b102c773a464446ebba9e",
+    "UI Platform/tests/fixtures/stage5-integration-process.ts": "b8ce3300ba8fc590c628d83ba97cc3da44f756cfe0d45092c6e1761378f0cf13",
+    "UI Platform/tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e",
+    "Data Services/packages/i-am/src/wp3/types.ts": "cf323e381c975a3c4b5b5b9bf8397e005c5f187466e6fabfafc30888ff329696",
+    "Data Services/packages/i-am/src/wp3/graph.ts": "d72cfb05151ce13950e1fa00e25e1028581588206074f2937463d950a2a26853",
+    "Data Services/packages/i-am/src/wp3/service.ts": "fa4ee268cb630a594e8eadf066c1aaa7c5b462561862300eb2b62a4f37e95bee",
+    "Data Services/packages/i-am/tests/wp3-template-contract.test.ts": "85e444647ca8cfa0c4e1bf8e7646738aeb2c019bc5e140e0c817f1472657977e"
+  },
+  "completion": {
+    "exitCode": 1,
+    "graphDirectory": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-builder-save-20261106\\journey-002\\security-only\\disposable\\98b1c3a4-8f61-453f-985a-e63175a15af4\\platform\\components",
+    "originalGraphMetadataCopied": false,
+    "originalLockDirectoryEvents": [],
+    "sharedSnapshotEqual": true,
+    "finishedAt": "2026-11-06T18:50:21.284Z"
+  },
+  "codeInputs": {
+    "tests/stage5-integration.test.ts": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d",
+    "scripts/verify-stage5-builder-save.mjs": "3bd988444c91d3f7f570d0c1e143d97b490649a625a704511e4c94596f6802f7",
+    "scripts/stage5-builder-security-diagnostics.mjs": "a5221571ceba66f263c745e92bf46d16d7c18e74007ed3ba9b784337cb3b5709",
+    "tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e",
+    "tests/fixtures/stage5-dataset-field-workflow.ts": "f5bc8a3ad4c0b7ddaecdc9a1bcaf0bfa9d2f71e26a8a257709e9899d00f952dc",
+    "tests/fixtures/stage5-builder-save-observer.ts": "438c65f993004e38d58e2f09d6a45e13dcef0892f79ba91cc6e96a46c7d1a96f"
+  },
+  "temporaryDiagnostics": null,
+  "diagnostics": {
+    "builder-field-identity.json": "6ae2e0b71b171867126ad73ba873e405b588c44aac9e381f97c43599db4519a6"
+  },
+  "integration": {
+    "builder-schema-form.json": "f53f5f3b2ded5e4f68440b7af53e5f3713b7122f33a788b72901181b957814f0",
+    "canonical-field-identity.json": "869adf1972fbb9cc12bf3a3247ffe71f0f75b8ef50400cacfcee693cfbaccd56",
+    "private-public-export-audit.json": "4875e04e36c9bc95cb3bbc4131e215bf3cf42a49768386ebdce8014d4d77edff",
+    "publication-and-draft.json": "aeef8e12c71f255bd4b30cc8458d121bd22e5ac25f146eae99f2003b9ce60f74"
+  },
+  "failure": "Management process startup SERVICE_RPC_UNAVAILABLE; no first-denier trace for that original request"
+}

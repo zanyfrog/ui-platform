@@ -4,7 +4,7 @@ import path from 'node:path';
 import { deny, digest, identifier, json } from './boundary.js';
 
 export interface PrivateAssetVersion { applicationId: string; id: string; version: string; name: string; mediaType: string;
-  bytes: { file: string; sha256: string }; thumbnail?: { file: string; sha256: string } }
+  bytes: { file: string; sha256: string }; thumbnail?: { file: string; sha256: string; mediaType?: 'image/png' | 'image/jpeg' | 'image/webp' } }
 /** Hash/version transport over a Data-owned store outside any public/export root. */
 export class PrivateAssets {
   constructor(private readonly root: string, private readonly lookup: (applicationId: string, id: string, version: string) => Promise<PrivateAssetVersion | undefined>) {
@@ -40,7 +40,9 @@ export class PrivateAssets {
         partial = true;
       }
       await check();
-      response.writeHead(partial ? 206 : 200, { 'content-type': 'application/octet-stream', 'content-disposition': 'attachment', 'x-content-type-options': 'nosniff',
+      const thumbnailType = variant === 'thumbnail' && asset.thumbnail?.mediaType;
+      const inline = thumbnailType && ['image/png', 'image/jpeg', 'image/webp'].includes(thumbnailType);
+      response.writeHead(partial ? 206 : 200, { 'content-type': inline ? thumbnailType : 'application/octet-stream', 'content-disposition': inline ? 'inline' : 'attachment', 'x-content-type-options': 'nosniff',
         'cache-control': 'private, no-store', vary: 'Cookie', 'accept-ranges': 'bytes', 'content-length': end - start + 1,
         ...(partial ? { 'content-range': `bytes ${start}-${end}/${bytes.length}` } : {}) });
       response.end(request.method === 'HEAD' ? undefined : bytes.subarray(start, end + 1));

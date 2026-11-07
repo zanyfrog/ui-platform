@@ -1,0 +1,70 @@
+{
+  "status": "BLOCKED; no integration acceptance",
+  "attempts": [
+    {
+      "id": "boundary-before",
+      "tests": {
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "formOutcomeText": null
+    },
+    {
+      "id": "boundary-after",
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "formOutcomeText": null
+    },
+    {
+      "id": "readback-diagnostic",
+      "tests": {
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "formOutcomeText": "Write committed. Read-back or post-commit processing failed. Error: APPLICATION_DATA_REQUEST_DENIED"
+    },
+    {
+      "id": "full-001",
+      "tests": {
+        "passed": 44,
+        "failed": 1,
+        "skipped": 1
+      },
+      "iam": {
+        "passed": 151,
+        "failed": 0
+      },
+      "formOutcomeText": null
+    },
+    {
+      "id": "journey-002",
+      "tests": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "iam": {
+        "passed": 63,
+        "failed": 0
+      },
+      "formOutcomeText": null
+    }
+  ]
+}
