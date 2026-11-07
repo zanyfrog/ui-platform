@@ -1,0 +1,67 @@
+{
+  "repository": "Data Services",
+  "baseline": "d2525592eee4d6286537a7093510e59fd4c342f2",
+  "scope": "Accepted applied-state foundation plus publication/registry writer guards and scoped schema inspection",
+  "items": [
+    {
+      "path": "packages/schema-application/src/activation-owner.ts",
+      "sha256": "73d065512234605163545e451bde0443425ad888241eb5fb0529e2b6ad19b9fc",
+      "bytes": 4413
+    },
+    {
+      "path": "packages/schema-application/src/index.ts",
+      "sha256": "9afbaf8b6cff5dcf64cfefc06e6b036f1b0f2c8c649390666d59b89c42609205",
+      "bytes": 15612
+    },
+    {
+      "path": "packages/schema-application/src/resolver.ts",
+      "sha256": "ad0338926b5b42ed7f5a108ed18513475e0b3856463fc438011725a53dd46eb3",
+      "bytes": 10889
+    },
+    {
+      "path": "packages/schema-application/src/resource-registry.ts",
+      "sha256": "97cb429769194778709a043434c8799acf04cb4876a57378085f0cb25a6ff48d",
+      "bytes": 16694
+    },
+    {
+      "path": "packages/schema-application/src/state-exclusion-scope.ts",
+      "sha256": "9c3e280eee39b6d3fd4a5d7b0cefeca8abd6e50de55e994939e0a3e45a1c3559",
+      "bytes": 1092
+    },
+    {
+      "path": "packages/schema-application/tests/resolver.test.ts",
+      "sha256": "c53eb41c7e1105186f2abc6d248e95275a6323f7762aaa4c392dd8a07284285a",
+      "bytes": 8874
+    },
+    {
+      "path": "packages/schema-application/tests/resource-registry.test.ts",
+      "sha256": "ef91bf950191d2c57f15f796d459137be80b970aa996f334d082ce30ade614a9",
+      "bytes": 12511
+    },
+    {
+      "path": "packages/schema-application/tests/state-store.test.ts",
+      "sha256": "88991451d5b5ead9fed35ae8df172806581cb27a15441288873405721b4e0fba",
+      "bytes": 9417
+    },
+    {
+      "path": "packages/schema-manager/src/index.ts",
+      "sha256": "f3749c4f4666ba84c74c0ebfa49115f4d3af6ae6832434d83bb24f311efc4ba6",
+      "bytes": 6089
+    },
+    {
+      "path": "packages/versioned-definition-registry/src/registry.ts",
+      "sha256": "15f2674e2b4a7714e3acfd19e50de44fe51f0fc8d5807784db4d54a5de88d0e1",
+      "bytes": 20079
+    },
+    {
+      "path": "packages/versioned-definition-registry/tests/registry.test.ts",
+      "sha256": "63da1b1843809a7c8c77e06963f2dace8cb418baac1d07d20e25a08d20016340",
+      "bytes": 18134
+    }
+  ],
+  "verification": {
+    "freshPhysicalTarget": ".handoff-verify-TAXjHf",
+    "testsPassed": 234,
+    "filesPassed": 12
+  }
+}
