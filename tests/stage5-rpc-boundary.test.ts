@@ -1,4 +1,4 @@
-import {it,expect} from 'vitest';
+import {it,expect,vi} from 'vitest';
 import {mkdtemp,readFile,writeFile,realpath,rm,mkdir} from 'node:fs/promises';
 import path from 'node:path';
 import {tmpdir} from 'node:os';
@@ -9,12 +9,12 @@ import {ServiceRpcClient,ServiceRpcVerifier} from '../src/server/production/serv
 import {generateKeyPair,SignJWT,decodeJwt} from '../src/server/production/node_modules/jose/dist/webapi/index.js';
 import {digest,json} from '../src/server/production/boundary.js';
 
-// Replace only the JavaScript wall clock in this isolated, sequential test.
-// The sender and receiver get independent samples; production has no test-clock hook.
+import { internalJwtClock } from '../src/server/production/internal-jwt-clock.js';
+// Stub individual trusted samples here; discontinuity behavior is tested separately.
 const RealDate=Date;
 function clock(samples:number[]){let index=0;const next=()=>samples[Math.min(index++,samples.length-1)]!;
-  globalThis.Date=class extends RealDate{constructor(value?:any){super(value===undefined?next():value);}static now(){return next();}} as DateConstructor;
-  return()=>{globalThis.Date=RealDate;};
+  const mock=vi.spyOn(internalJwtClock,'sample').mockImplementation(()=>({wall:next(),before:0n,after:0n}));
+  return()=>mock.mockRestore();
 }
 it('one sender clock sample preserves the 15-second RPC lifetime across a second boundary',async()=>{
   const physical=process.env.UI_PLATFORM_STAGE3_PHYSICAL_ROOT,original=process.env.UI_PLATFORM_TEST_ORIGINAL_ROOT;
@@ -58,5 +58,5 @@ it('one sender clock sample preserves the 15-second RPC lifetime across a second
     for(const [name,overrides]of [['audience',{aud:'foreign'}],['service',{iss:'foreign'}],['body',{bodyHash:'forged'}],['path',{path:'/foreign'}],['method',{method:'GET'}],['lifetime',{exp:base+16}]] as const){label=name;expect(await send(await token(overrides))).toBe(403);}
     label='signature';expect(await send(await token({},other.privateKey))).toBe(403);
     await writeFile('diagnostics/rpc-boundary-observations.json',JSON.stringify({observations,assertionLifetimeSeconds:15,generalClockToleranceAdded:false,genuineFutureOneMillisecondStillDenied:true},null,2));
-  }finally{globalThis.Date=RealDate;if(server){server.closeAllConnections();await new Promise<void>(resolve=>server!.close(()=>resolve()));}await rm(root,{recursive:true,force:true,maxRetries:10,retryDelay:100});}
+  }finally{vi.restoreAllMocks();if(server){server.closeAllConnections();await new Promise<void>(resolve=>server!.close(()=>resolve()));}await rm(root,{recursive:true,force:true,maxRetries:10,retryDelay:100});}
 },60000);

@@ -4,10 +4,12 @@ import type { IncomingMessage, RequestListener } from 'node:http';
 import { SignJWT, jwtVerify, type CryptoKey } from 'jose';
 import { body, deny, digest, json, random } from './boundary.js';
 
+import { internalJwtClock, internalJwtLifetime, InternalJwtReplay } from './internal-jwt-clock.js';
+
 export interface RpcPeer { id: string; keyId: string; key: CryptoKey; fingerprint: string; paths: string[] }
 /** Infrastructure RPC authenticates services only. It never creates a User/role/permission. */
 export class ServiceRpcVerifier {
-  private readonly used = new Map<string, number>();
+  private readonly replay = new InternalJwtReplay();
   constructor(private readonly audience: string, private readonly peers: RpcPeer[]) {
     if (!audience || new Set(peers.map(p => p.keyId)).size !== peers.length) deny();
   }
@@ -15,15 +17,14 @@ export class ServiceRpcVerifier {
     if (!(request.socket instanceof TLSSocket) || !request.socket.authorized || request.method !== 'POST') deny();
     const fingerprint = request.socket.getPeerCertificate().fingerprint256, token = request.headers.authorization;
     if (typeof token !== 'string' || !token.startsWith('Bearer ') || token.length > 8192) deny();
+    const currentDate = new Date(internalJwtClock.sample().wall);
     const result = await jwtVerify(token.slice(7), header => {
       const peer = this.peers.find(p => p.keyId === header.kid && p.fingerprint === fingerprint && p.paths.includes(request.url ?? ''));
       if (!peer || header.typ !== 'uib-service-rpc+jwt') deny(); return peer.key;
-    }, { audience: this.audience, algorithms: ['EdDSA'], maxTokenAge: 15, requiredClaims: ['iss', 'iat', 'exp', 'jti'] });
+    }, { audience: this.audience, algorithms: ['EdDSA'], currentDate, maxTokenAge: internalJwtLifetime, requiredClaims: ['iss', 'iat', 'exp', 'jti'] });
     const p = result.payload, peer = this.peers.find(s => s.keyId === result.protectedHeader.kid && s.id === p.iss);
-    if (!peer || p.path !== request.url || p.method !== request.method || p.bodyHash !== digest(bytes) || typeof p.iat !== 'number' || p.iat > Date.now() / 1000 ||
-        typeof p.exp !== 'number' || p.exp - p.iat > 15 || typeof p.jti !== 'string') deny();
-    for (const [key, expires] of this.used) if (expires <= Date.now() / 1000) this.used.delete(key);
-    const nonce = `${p.iss}:${p.jti}`; if (this.used.size >= 8192 || this.used.has(nonce)) deny(); this.used.set(nonce, p.exp);
+    if (!peer || p.path !== request.url || p.method !== request.method || p.bodyHash !== digest(bytes)) deny();
+    this.replay.consume(p, internalJwtClock.sample());
     return peer.id;
   }
 }
@@ -35,9 +36,9 @@ export class ServiceRpcClient {
   }
   async call(path: string, value: unknown): Promise<any> {
     if (!this.paths.includes(path)) deny(); const bytes = Buffer.from(JSON.stringify(value));
-    const issuedAt = Math.floor(Date.now() / 1000);
+    const issuedAt = Math.floor(internalJwtClock.sample().wall / 1000);
     const token = await new SignJWT({ method: 'POST', path, bodyHash: digest(bytes) }).setProtectedHeader({ alg: 'EdDSA', kid: this.keyId, typ: 'uib-service-rpc+jwt' })
-      .setIssuer(this.id).setAudience(this.audience).setIssuedAt(issuedAt).setExpirationTime(issuedAt + 15).setJti(random()).sign(this.signingKey);
+      .setIssuer(this.id).setAudience(this.audience).setIssuedAt(issuedAt).setExpirationTime(issuedAt + internalJwtLifetime).setJti(random()).sign(this.signingKey);
     return new Promise((resolve, reject) => {
       const request = requestHttps(new URL(path, this.url), { ...this.tls, rejectUnauthorized: true, method: 'POST', headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' } }, response => {
         const chunks: Buffer[] = []; let size = 0;

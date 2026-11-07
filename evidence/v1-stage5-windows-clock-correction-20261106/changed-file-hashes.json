@@ -1,0 +1,83 @@
+{
+  "uiBaseline": "3d6fa162bd37f71e67bcd5962a8d1de42da0c7cd",
+  "dataDependency": "d2525592eee4d6286537a7093510e59fd4c342f2",
+  "scope": "Small separately approvable Windows internal JWT clock and replay checkpoint; not staged",
+  "items": [
+    {
+      "path": "docs/architecture/v1-stage5-windows-clock-replay-correction-review-gate-20261106.md",
+      "sha256": "2106758c18bad0bc1211478e140f09f5bbd8f88a1c7245adc2524c56efbff391",
+      "bytes": 9274
+    },
+    {
+      "path": "evidence/v1-stage5-windows-clock-correction-20261106/.gitignore",
+      "sha256": "c455142348c63b94cc8a99c19e1a14461543ca0103cdc11f1aadd481c84ac11d",
+      "bytes": 10
+    },
+    {
+      "path": "evidence/v1-stage5-windows-clock-correction-20261106/preservation.json",
+      "sha256": "1d88584739b9c257ed7b9dcfd5e72f1f02f481688a9229c17e710d39f7e597e6",
+      "bytes": 30812
+    },
+    {
+      "path": "evidence/v1-stage5-windows-clock-correction-20261106/verification.json",
+      "sha256": "ec564dc22c7396b6f5542b7b0365a7e72b3bae613f80fe3186a20f3bc6a96656",
+      "bytes": 52022
+    },
+    {
+      "path": "scripts/verify-stage5-windows-clock.mjs",
+      "sha256": "48f8cd5115bb85f7114131bc2b5fc460df98c46ab5b36c8da26542f1f66fe4b7",
+      "bytes": 1229
+    },
+    {
+      "path": "src/server/production/internal-jwt-clock.ts",
+      "sha256": "276ecd534ea9a5ce8ad117745fd4afa11209155f352abf8b572d7ed63a1ddb42",
+      "bytes": 3064
+    },
+    {
+      "path": "src/server/production/internal-trust.ts",
+      "sha256": "69572cfc7efa485619ee6a3488ce0e00d8ba0b94ee45f0e14ce0646bdcc47356",
+      "bytes": 3697
+    },
+    {
+      "path": "src/server/production/mtls-transport.ts",
+      "sha256": "b09d5078797229942e34a6fd7ebda2dd17fd8796d38607a6d9a45445d1a747a7",
+      "bytes": 2327
+    },
+    {
+      "path": "src/server/production/service-rpc.ts",
+      "sha256": "50f1f83099908af4b4196e0575695e2c24970a7de77fa80ad9611c11f3f3b743",
+      "bytes": 4558
+    },
+    {
+      "path": "tests/fixtures/stage5-windows-clock-peer.mjs",
+      "sha256": "7678f3bb53b33ddf42d97a59eae967eb86a69a8d986b79acc77fb3d032ff1d89",
+      "bytes": 2827
+    },
+    {
+      "path": "tests/stage5-rpc-boundary.test.ts",
+      "sha256": "967708ad19260f21d716cfd3b5cc92060a9805e7545ac8bf9bc3c3b0fbaaa68c",
+      "bytes": 6856
+    },
+    {
+      "path": "tests/stage5-security.test.ts",
+      "sha256": "f35081bd503ab25f82cd20d420299291daa2ec129198e4cb6aaadec1efc72da0",
+      "bytes": 42383
+    },
+    {
+      "path": "tests/stage5-windows-clock-reliability.test.ts",
+      "sha256": "c8f09759551ed09a7d0456f424bea0b26369a1c27f60c083d3a724e184b588f8",
+      "bytes": 16022
+    }
+  ],
+  "metadataExceptions": [
+    {
+      "path": "evidence/v1-stage5-windows-clock-correction-20261106/changed-file-hashes.json",
+      "rule": "Manifest excludes itself. External raw SHA-256 reported at review gate."
+    }
+  ],
+  "exclusions": [
+    "Previously retained diagnostic package and its historical source archives",
+    "Ignored runs-*/ physical copies, test credentials, runtime stores, generated artifacts and raw logs"
+  ],
+  "scopedSecretScan": "No PEM private key, JWT-shaped bearer, or GitHub-token matches in candidate."
+}

@@ -1,0 +1,1466 @@
+{
+  "baselineWitness": {
+    "prior": "evidence/v1-stage5-windows-clock-20261106/review-evidence/peer-jwt-004/windows-clock-actual-rpc-rollback.json",
+    "actorExpiry": {
+      "accepted": true,
+      "issuedAt": 1800000000,
+      "expiresAt": 1800000015,
+      "finalWallMs": 1800000015000,
+      "scope": "unchanged actor verifier with simulated trusted clock and TLS peer"
+    },
+    "actorBaselineSourceSha256": "8e1c7f531518842297cfff38e27a6e23038e1c2fc0ae7d74f99f1c4424f33e52"
+  },
+  "clockSampling": {
+    "samples": 2126742,
+    "maxReadMs": 0.45,
+    "maxWallIncrementMs": 16,
+    "maxElapsedDifferenceMs": 15.9999,
+    "durationMs": 2000
+  },
+  "targetedTypecheck": {
+    "status": "pass",
+    "files": [
+      "src/server/production/internal-jwt-clock.ts",
+      "src/server/production/internal-trust.ts",
+      "src/server/production/service-rpc.ts"
+    ],
+    "initialInvocation": "TS5112; retried with --ignoreConfig; no source change"
+  },
+  "runs": [
+    {
+      "name": "runs-focused-001",
+      "sourceSha256": {
+        "src/server/production/internal-jwt-clock.ts": "276ecd534ea9a5ce8ad117745fd4afa11209155f352abf8b572d7ed63a1ddb42",
+        "src/server/production/internal-trust.ts": "69572cfc7efa485619ee6a3488ce0e00d8ba0b94ee45f0e14ce0646bdcc47356",
+        "src/server/production/service-rpc.ts": "50f1f83099908af4b4196e0575695e2c24970a7de77fa80ad9611c11f3f3b743",
+        "src/server/production/mtls-transport.ts": "b09d5078797229942e34a6fd7ebda2dd17fd8796d38607a6d9a45445d1a747a7",
+        "scripts/verify-stage5-windows-clock.mjs": "48f8cd5115bb85f7114131bc2b5fc460df98c46ab5b36c8da26542f1f66fe4b7",
+        "tests/stage5-security.test.ts": "f35081bd503ab25f82cd20d420299291daa2ec129198e4cb6aaadec1efc72da0",
+        "tests/stage5-rpc-boundary.test.ts": "967708ad19260f21d716cfd3b5cc92060a9805e7545ac8bf9bc3c3b0fbaaa68c",
+        "tests/stage5-windows-clock-reliability.test.ts": "c8f09759551ed09a7d0456f424bea0b26369a1c27f60c083d3a724e184b588f8",
+        "tests/fixtures/stage5-windows-clock-peer.mjs": "7678f3bb53b33ddf42d97a59eae967eb86a69a8d986b79acc77fb3d032ff1d89"
+      },
+      "exitCode": 0,
+      "ui": {
+        "passed": 18,
+        "failed": 0,
+        "tests": [
+          {
+            "title": "fresh cross-process mTLS RPC assertions remain valid under repeated current checks",
+            "status": "passed",
+            "durationMs": 15616.338600000001
+          },
+          {
+            "title": "one sender clock sample preserves the 15-second RPC lifetime across a second boundary",
+            "status": "passed",
+            "durationMs": 567.6881
+          },
+          {
+            "title": "permanent mapping requires operator approval, is app scoped, refuses email/role substitutions and never remaps a subject",
+            "status": "passed",
+            "durationMs": 15.936799999999948
+          },
+          {
+            "title": "secure sessions enforce cookie flags, CSRF/origin, rotation, idle/absolute expiry, logout, local revocation and restart",
+            "status": "passed",
+            "durationMs": 13.110500000000002
+          },
+          {
+            "title": "OIDC library cryptographically validates issuer/audience/signature/expiry/nonce; transactions bind state, PKCE and browser exactly once (simulated provider)",
+            "status": "passed",
+            "durationMs": 125.53160000000003
+          },
+          {
+            "title": "real loopback mTLS and signed assertions reject replay, wrong audience/app/body/path/range, expired/dev credentials and missing client certificate",
+            "status": "passed",
+            "durationMs": 549.2484999999999
+          },
+          {
+            "title": "frozen snapshot A executes Form/calculation/query/delete through real DOE and I-AM after authoring B; forged/stale/schema/ownership and current-policy denials preserve rows",
+            "status": "passed",
+            "durationMs": 435.8305999999998
+          },
+          {
+            "title": "browser service adapter keeps existing Form signatures while sending only release locators and values, with no actor/definition claims",
+            "status": "passed",
+            "durationMs": 1.1516999999998916
+          },
+          {
+            "title": "Data HTTP composition connects mTLS assertions, current I-AM and release authority and denies raw/development/management bypass routes",
+            "status": "passed",
+            "durationMs": 693.9436000000001
+          },
+          {
+            "title": "internal management adapter uses current I-AM and WP3 staging and rejects actor injection, wrong enrollment and public/raw routes (authenticated seam fixture)",
+            "status": "passed",
+            "durationMs": 76.72389999999996
+          },
+          {
+            "title": "private metadata/thumbnail/download/ranges recheck authority and deny guessed/foreign/revoked/encoded/static paths; real browser observes runtime route separation",
+            "status": "passed",
+            "durationMs": 2638.7708
+          },
+          {
+            "title": "separate runtime/Data/management processes refuse public management forwarding and enforce a disposable runtime filesystem capability boundary",
+            "status": "passed",
+            "durationMs": 329.4422999999997
+          },
+          {
+            "title": "latches invalid readings, wall steps, suspension divergence and untrustworthy sample duration",
+            "status": "passed",
+            "durationMs": 3.8305999999999756
+          },
+          {
+            "title": "keeps live replay entries at capacity and permits eviction only after wall expiry and monotonic retention",
+            "status": "passed",
+            "durationMs": 188.9035
+          },
+          {
+            "title": "refuses rollback and expiry during actor verification, then refuses the prior epoch and signing key",
+            "status": "passed",
+            "durationMs": 13.565499999999986
+          },
+          {
+            "title": "compares real signed JWTs on six directed Windows peer pairs, independent starts and restarts",
+            "status": "passed",
+            "durationMs": 21394.6339
+          },
+          {
+            "title": "retains strict pinned-verifier boundaries and exposes backward-jump replay requirements",
+            "status": "passed",
+            "durationMs": 9.838200000001962
+          },
+          {
+            "title": "rejects expiry-eviction then backward-jump replay in the actual corrected RPC verifier",
+            "status": "passed",
+            "durationMs": 7.5908999999992375
+          }
+        ]
+      },
+      "data": {
+        "passed": 68,
+        "failed": 0
+      },
+      "isolation": {
+        "root": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-windows-clock-correction-20261106\\runs-focused-001\\security-only\\disposable\\a91c3f01-885c-4283-92be-072c1c551e96\\platform",
+        "originalGraphMetadataCopied": false,
+        "sharedSnapshotEqual": true,
+        "originalLockDirectoryEvents": []
+      },
+      "peerMeasurements": {
+        "runs": [
+          {
+            "epoch": 0,
+            "peers": [
+              {
+                "label": "runtime",
+                "pid": 53408,
+                "audience": "2fd3dac2-a814-449d-befe-3a372a5484c4",
+                "node": "v24.19.0",
+                "v8": "13.6.233.17-node.51",
+                "sqlite": "3.53.3",
+                "executable": "C:\\Program Files\\nodejs\\node.exe"
+              },
+              {
+                "label": "data",
+                "pid": 43792,
+                "audience": "2d083616-69c4-46a1-b983-4ff0a7ba54b8",
+                "node": "v24.19.0",
+                "v8": "13.6.233.17-node.51",
+                "sqlite": "3.53.3",
+                "executable": "C:\\Program Files\\nodejs\\node.exe"
+              },
+              {
+                "label": "management",
+                "pid": 31652,
+                "audience": "f4b3087f-8d0c-4aca-ae34-9edfc32dae29",
+                "node": "v24.19.0",
+                "v8": "13.6.233.17-node.51",
+                "sqlite": "3.53.3",
+                "executable": "C:\\Program Files\\nodejs\\node.exe"
+              }
+            ],
+            "pairs": [
+              {
+                "from": "runtime",
+                "to": "data",
+                "samples": 1224,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 1,
+                "sqliteFuture": 0,
+                "dateMinMs": -1,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021350,
+                  1794021351,
+                  1794021352,
+                  1794021353,
+                  1794021354,
+                  1794021355,
+                  1794021356
+                ],
+                "refusals": []
+              },
+              {
+                "from": "runtime",
+                "to": "management",
+                "samples": 1224,
+                "dateDenied": 15,
+                "sqliteDenied": 0,
+                "dateFuture": 15,
+                "sqliteFuture": 0,
+                "dateMinMs": -14,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021350,
+                  1794021351,
+                  1794021352,
+                  1794021353,
+                  1794021354,
+                  1794021355,
+                  1794021356
+                ],
+                "refusals": [
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021351005,
+                    "receiverMs": 1794021350992,
+                    "iat": 1794021351,
+                    "exp": 1794021366
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021351011,
+                    "receiverMs": 1794021350998,
+                    "iat": 1794021351,
+                    "exp": 1794021366
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021352002,
+                    "receiverMs": 1794021351988,
+                    "iat": 1794021352,
+                    "exp": 1794021367
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021352007,
+                    "receiverMs": 1794021351994,
+                    "iat": 1794021352,
+                    "exp": 1794021367
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021352013,
+                    "receiverMs": 1794021351999,
+                    "iat": 1794021352,
+                    "exp": 1794021367
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021353005,
+                    "receiverMs": 1794021352991,
+                    "iat": 1794021353,
+                    "exp": 1794021368
+                  }
+                ]
+              },
+              {
+                "from": "data",
+                "to": "runtime",
+                "samples": 1224,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 0,
+                "sqliteFuture": 0,
+                "dateMinMs": 1,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021350,
+                  1794021351,
+                  1794021352,
+                  1794021353,
+                  1794021354,
+                  1794021355,
+                  1794021356
+                ],
+                "refusals": []
+              },
+              {
+                "from": "data",
+                "to": "management",
+                "samples": 1224,
+                "dateDenied": 14,
+                "sqliteDenied": 0,
+                "dateFuture": 14,
+                "sqliteFuture": 0,
+                "dateMinMs": -13,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021350,
+                  1794021351,
+                  1794021352,
+                  1794021353,
+                  1794021354,
+                  1794021355,
+                  1794021356
+                ],
+                "refusals": [
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021351000,
+                    "receiverMs": 1794021350987,
+                    "iat": 1794021351,
+                    "exp": 1794021366
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021351006,
+                    "receiverMs": 1794021350993,
+                    "iat": 1794021351,
+                    "exp": 1794021366
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021352003,
+                    "receiverMs": 1794021351990,
+                    "iat": 1794021352,
+                    "exp": 1794021367
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021352008,
+                    "receiverMs": 1794021351995,
+                    "iat": 1794021352,
+                    "exp": 1794021367
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021353000,
+                    "receiverMs": 1794021352987,
+                    "iat": 1794021353,
+                    "exp": 1794021368
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021353005,
+                    "receiverMs": 1794021352992,
+                    "iat": 1794021353,
+                    "exp": 1794021368
+                  }
+                ]
+              },
+              {
+                "from": "management",
+                "to": "runtime",
+                "samples": 1224,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 0,
+                "sqliteFuture": 0,
+                "dateMinMs": 14,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021350,
+                  1794021351,
+                  1794021352,
+                  1794021353,
+                  1794021354,
+                  1794021355,
+                  1794021356
+                ],
+                "refusals": []
+              },
+              {
+                "from": "management",
+                "to": "data",
+                "samples": 1224,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 0,
+                "sqliteFuture": 0,
+                "dateMinMs": 13,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021350,
+                  1794021351,
+                  1794021352,
+                  1794021353,
+                  1794021354,
+                  1794021355,
+                  1794021356
+                ],
+                "refusals": []
+              }
+            ]
+          },
+          {
+            "epoch": 1,
+            "peers": [
+              {
+                "label": "runtime",
+                "pid": 52388,
+                "audience": "a6878549-5745-415f-8906-695135f4bcb1",
+                "node": "v24.19.0",
+                "v8": "13.6.233.17-node.51",
+                "sqlite": "3.53.3",
+                "executable": "C:\\Program Files\\nodejs\\node.exe"
+              },
+              {
+                "label": "data",
+                "pid": 49660,
+                "audience": "ab9c9acd-19dd-4824-a7f1-91e0b832b658",
+                "node": "v24.19.0",
+                "v8": "13.6.233.17-node.51",
+                "sqlite": "3.53.3",
+                "executable": "C:\\Program Files\\nodejs\\node.exe"
+              },
+              {
+                "label": "management",
+                "pid": 42140,
+                "audience": "ff23a92a-a71a-49a5-bd71-0244d0b419b6",
+                "node": "v24.19.0",
+                "v8": "13.6.233.17-node.51",
+                "sqlite": "3.53.3",
+                "executable": "C:\\Program Files\\nodejs\\node.exe"
+              }
+            ],
+            "pairs": [
+              {
+                "from": "runtime",
+                "to": "data",
+                "samples": 1193,
+                "dateDenied": 1,
+                "sqliteDenied": 0,
+                "dateFuture": 1,
+                "sqliteFuture": 0,
+                "dateMinMs": -1,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021358,
+                  1794021359,
+                  1794021360,
+                  1794021361,
+                  1794021362,
+                  1794021363,
+                  1794021364
+                ],
+                "refusals": [
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021361000,
+                    "receiverMs": 1794021360999,
+                    "iat": 1794021361,
+                    "exp": 1794021376
+                  }
+                ]
+              },
+              {
+                "from": "runtime",
+                "to": "management",
+                "samples": 1193,
+                "dateDenied": 3,
+                "sqliteDenied": 0,
+                "dateFuture": 3,
+                "sqliteFuture": 0,
+                "dateMinMs": -4,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021358,
+                  1794021359,
+                  1794021360,
+                  1794021361,
+                  1794021362,
+                  1794021363,
+                  1794021364
+                ],
+                "refusals": [
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021361001,
+                    "receiverMs": 1794021360997,
+                    "iat": 1794021361,
+                    "exp": 1794021376
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021362002,
+                    "receiverMs": 1794021361999,
+                    "iat": 1794021362,
+                    "exp": 1794021377
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021364002,
+                    "receiverMs": 1794021363999,
+                    "iat": 1794021364,
+                    "exp": 1794021379
+                  }
+                ]
+              },
+              {
+                "from": "data",
+                "to": "runtime",
+                "samples": 1193,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 0,
+                "sqliteFuture": 0,
+                "dateMinMs": 1,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021358,
+                  1794021359,
+                  1794021360,
+                  1794021361,
+                  1794021362,
+                  1794021363,
+                  1794021364
+                ],
+                "refusals": []
+              },
+              {
+                "from": "data",
+                "to": "management",
+                "samples": 1193,
+                "dateDenied": 1,
+                "sqliteDenied": 0,
+                "dateFuture": 1,
+                "sqliteFuture": 0,
+                "dateMinMs": -3,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021358,
+                  1794021359,
+                  1794021360,
+                  1794021361,
+                  1794021362,
+                  1794021363,
+                  1794021364
+                ],
+                "refusals": [
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021360000,
+                    "receiverMs": 1794021359998,
+                    "iat": 1794021360,
+                    "exp": 1794021375
+                  }
+                ]
+              },
+              {
+                "from": "management",
+                "to": "runtime",
+                "samples": 1193,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 0,
+                "sqliteFuture": 0,
+                "dateMinMs": 3,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021358,
+                  1794021359,
+                  1794021360,
+                  1794021361,
+                  1794021362,
+                  1794021363,
+                  1794021364
+                ],
+                "refusals": []
+              },
+              {
+                "from": "management",
+                "to": "data",
+                "samples": 1193,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 0,
+                "sqliteFuture": 0,
+                "dateMinMs": 2,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021358,
+                  1794021359,
+                  1794021360,
+                  1794021361,
+                  1794021362,
+                  1794021363,
+                  1794021364
+                ],
+                "refusals": []
+              }
+            ],
+            "oldAudienceAfterRestart": {
+              "date": {
+                "allowed": false,
+                "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                "claim": "aud",
+                "reason": "check_failed",
+                "senderMs": 1794021356914,
+                "receiverMs": 1794021358001,
+                "iat": 1794021356,
+                "exp": 1794021371
+              },
+              "sqlite": {
+                "allowed": false,
+                "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                "claim": "aud",
+                "reason": "check_failed",
+                "senderMs": 1794021356910,
+                "receiverMs": 1794021358008,
+                "iat": 1794021356,
+                "exp": 1794021371
+              }
+            }
+          },
+          {
+            "epoch": 2,
+            "peers": [
+              {
+                "label": "runtime",
+                "pid": 9380,
+                "audience": "dddc2a3b-865f-43c0-8a93-3bcda8e56e59",
+                "node": "v24.19.0",
+                "v8": "13.6.233.17-node.51",
+                "sqlite": "3.53.3",
+                "executable": "C:\\Program Files\\nodejs\\node.exe"
+              },
+              {
+                "label": "data",
+                "pid": 39212,
+                "audience": "932c5e7e-5579-4429-a34f-be2a3fad556f",
+                "node": "v24.19.0",
+                "v8": "13.6.233.17-node.51",
+                "sqlite": "3.53.3",
+                "executable": "C:\\Program Files\\nodejs\\node.exe"
+              },
+              {
+                "label": "management",
+                "pid": 50968,
+                "audience": "07273c6f-23e1-4404-b4b6-821b8c255322",
+                "node": "v24.19.0",
+                "v8": "13.6.233.17-node.51",
+                "sqlite": "3.53.3",
+                "executable": "C:\\Program Files\\nodejs\\node.exe"
+              }
+            ],
+            "pairs": [
+              {
+                "from": "runtime",
+                "to": "data",
+                "samples": 1233,
+                "dateDenied": 12,
+                "sqliteDenied": 0,
+                "dateFuture": 12,
+                "sqliteFuture": 0,
+                "dateMinMs": -10,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021365,
+                  1794021366,
+                  1794021367,
+                  1794021368,
+                  1794021369,
+                  1794021370,
+                  1794021371
+                ],
+                "refusals": [
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021366001,
+                    "receiverMs": 1794021365991,
+                    "iat": 1794021366,
+                    "exp": 1794021381
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021366007,
+                    "receiverMs": 1794021365998,
+                    "iat": 1794021366,
+                    "exp": 1794021381
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021367003,
+                    "receiverMs": 1794021366994,
+                    "iat": 1794021367,
+                    "exp": 1794021382
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021367008,
+                    "receiverMs": 1794021366999,
+                    "iat": 1794021367,
+                    "exp": 1794021382
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021368001,
+                    "receiverMs": 1794021367991,
+                    "iat": 1794021368,
+                    "exp": 1794021383
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021368005,
+                    "receiverMs": 1794021367995,
+                    "iat": 1794021368,
+                    "exp": 1794021383
+                  }
+                ]
+              },
+              {
+                "from": "runtime",
+                "to": "management",
+                "samples": 1233,
+                "dateDenied": 3,
+                "sqliteDenied": 0,
+                "dateFuture": 3,
+                "sqliteFuture": 0,
+                "dateMinMs": -3,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021365,
+                  1794021366,
+                  1794021367,
+                  1794021368,
+                  1794021369,
+                  1794021370,
+                  1794021371
+                ],
+                "refusals": [
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021366002,
+                    "receiverMs": 1794021365999,
+                    "iat": 1794021366,
+                    "exp": 1794021381
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021368001,
+                    "receiverMs": 1794021367999,
+                    "iat": 1794021368,
+                    "exp": 1794021383
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021371001,
+                    "receiverMs": 1794021370998,
+                    "iat": 1794021371,
+                    "exp": 1794021386
+                  }
+                ]
+              },
+              {
+                "from": "data",
+                "to": "runtime",
+                "samples": 1233,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 0,
+                "sqliteFuture": 0,
+                "dateMinMs": 10,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021365,
+                  1794021366,
+                  1794021367,
+                  1794021368,
+                  1794021369,
+                  1794021370,
+                  1794021371
+                ],
+                "refusals": []
+              },
+              {
+                "from": "data",
+                "to": "management",
+                "samples": 1233,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 0,
+                "sqliteFuture": 0,
+                "dateMinMs": 7,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021365,
+                  1794021366,
+                  1794021367,
+                  1794021368,
+                  1794021369,
+                  1794021370,
+                  1794021371
+                ],
+                "refusals": []
+              },
+              {
+                "from": "management",
+                "to": "runtime",
+                "samples": 1233,
+                "dateDenied": 0,
+                "sqliteDenied": 0,
+                "dateFuture": 0,
+                "sqliteFuture": 0,
+                "dateMinMs": 3,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021365,
+                  1794021366,
+                  1794021367,
+                  1794021368,
+                  1794021369,
+                  1794021370,
+                  1794021371
+                ],
+                "refusals": []
+              },
+              {
+                "from": "management",
+                "to": "data",
+                "samples": 1233,
+                "dateDenied": 7,
+                "sqliteDenied": 0,
+                "dateFuture": 8,
+                "sqliteFuture": 0,
+                "dateMinMs": -7,
+                "sqliteMinMs": 0,
+                "secondBoundaries": [
+                  1794021365,
+                  1794021366,
+                  1794021367,
+                  1794021368,
+                  1794021369,
+                  1794021370,
+                  1794021371
+                ],
+                "refusals": [
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021366003,
+                    "receiverMs": 1794021365997,
+                    "iat": 1794021366,
+                    "exp": 1794021381
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021367000,
+                    "receiverMs": 1794021366993,
+                    "iat": 1794021367,
+                    "exp": 1794021382
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021367005,
+                    "receiverMs": 1794021366998,
+                    "iat": 1794021367,
+                    "exp": 1794021382
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021368001,
+                    "receiverMs": 1794021367994,
+                    "iat": 1794021368,
+                    "exp": 1794021383
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021369003,
+                    "receiverMs": 1794021368996,
+                    "iat": 1794021369,
+                    "exp": 1794021384
+                  },
+                  {
+                    "source": "date",
+                    "allowed": false,
+                    "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                    "claim": "iat",
+                    "reason": "check_failed",
+                    "senderMs": 1794021370004,
+                    "receiverMs": 1794021369997,
+                    "iat": 1794021370,
+                    "exp": 1794021385
+                  }
+                ]
+              }
+            ],
+            "oldAudienceAfterRestart": {
+              "date": {
+                "allowed": false,
+                "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                "claim": "aud",
+                "reason": "check_failed",
+                "senderMs": 1794021364006,
+                "receiverMs": 1794021365237,
+                "iat": 1794021364,
+                "exp": 1794021379
+              },
+              "sqlite": {
+                "allowed": false,
+                "code": "ERR_JWT_CLAIM_VALIDATION_FAILED",
+                "claim": "aud",
+                "reason": "check_failed",
+                "senderMs": 1794021364010,
+                "receiverMs": 1794021365245,
+                "iat": 1794021364,
+                "exp": 1794021379
+              }
+            }
+          }
+        ],
+        "policy": "Existing pinned jose; zero tolerance; 15s assertion lifetime; date baseline versus experimental in-memory SQLite OS clock. Production clock source under test."
+      },
+      "rpcTransport": {
+        "result": {
+          "calls": 962,
+          "failures": 0,
+          "elapsed": 15002.5108
+        },
+        "refusals": [],
+        "contract": {
+          "assertionLifetimeSeconds": 15,
+          "rpcTimeoutMs": 3000,
+          "clockToleranceSeconds": 0
+        },
+        "credentialsRetained": false
+      },
+      "rollback": {
+        "outcomes": [
+          {
+            "phase": "first",
+            "accepted": true
+          },
+          {
+            "phase": "immediate-replay",
+            "rejected": true
+          },
+          {
+            "phase": "expired",
+            "rejected": true
+          },
+          {
+            "phase": "later-valid-request-evicts-expired-nonce",
+            "accepted": true
+          },
+          {
+            "phase": "backward-jump-replay",
+            "accepted": false
+          }
+        ],
+        "scope": "Actual corrected verifier and pinned jose; simulated trusted-clock discontinuity and TLS peer identity; real network/certificate negatives covered separately by unchanged Stage 5 security tests. Demonstrates rollback refusal and sticky fault."
+      },
+      "rpcBoundaries": [
+        {
+          "label": "boundary",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 200,
+          "code": "ALLOW"
+        },
+        {
+          "label": "before-expiry",
+          "receiverMs": 1794021386999,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 200,
+          "code": "ALLOW"
+        },
+        {
+          "label": "at-expiry",
+          "receiverMs": 1794021387000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "ERR_JWT_EXPIRED"
+        },
+        {
+          "label": "genuine-future-1ms",
+          "receiverMs": 1794021372999,
+          "iat": 1794021373,
+          "exp": 1794021388,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "ERR_JWT_CLAIM_VALIDATION_FAILED"
+        },
+        {
+          "label": "genuine-future-second",
+          "receiverMs": 1794021372000,
+          "iat": 1794021373,
+          "exp": 1794021388,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "ERR_JWT_CLAIM_VALIDATION_FAILED"
+        },
+        {
+          "label": "not-before-future",
+          "receiverMs": 1794021372000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": 1794021373,
+          "span": 15,
+          "status": 403,
+          "code": "ERR_JWT_CLAIM_VALIDATION_FAILED"
+        },
+        {
+          "label": "max-age",
+          "receiverMs": 1794021388000,
+          "iat": 1794021372,
+          "exp": 1794021402,
+          "nbf": null,
+          "span": 30,
+          "status": 403,
+          "code": "ERR_JWT_EXPIRED"
+        },
+        {
+          "label": "replay-first",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 200,
+          "code": "ALLOW"
+        },
+        {
+          "label": "replay-second",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "PROTECTED_REQUEST_DENIED"
+        },
+        {
+          "label": "audience",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "ERR_JWT_CLAIM_VALIDATION_FAILED"
+        },
+        {
+          "label": "service",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "PROTECTED_REQUEST_DENIED"
+        },
+        {
+          "label": "body",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "PROTECTED_REQUEST_DENIED"
+        },
+        {
+          "label": "path",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "PROTECTED_REQUEST_DENIED"
+        },
+        {
+          "label": "method",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "PROTECTED_REQUEST_DENIED"
+        },
+        {
+          "label": "lifetime",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021388,
+          "nbf": null,
+          "span": 16,
+          "status": 403,
+          "code": "PROTECTED_REQUEST_DENIED"
+        },
+        {
+          "label": "signature",
+          "receiverMs": 1794021373000,
+          "iat": 1794021372,
+          "exp": 1794021387,
+          "nbf": null,
+          "span": 15,
+          "status": 403,
+          "code": "ERR_JWS_SIGNATURE_VERIFICATION_FAILED"
+        }
+      ]
+    },
+    {
+      "name": "runs-integration-001",
+      "sourceSha256": {
+        "src/server/production/internal-jwt-clock.ts": "276ecd534ea9a5ce8ad117745fd4afa11209155f352abf8b572d7ed63a1ddb42",
+        "src/server/production/internal-trust.ts": "69572cfc7efa485619ee6a3488ce0e00d8ba0b94ee45f0e14ce0646bdcc47356",
+        "src/server/production/service-rpc.ts": "50f1f83099908af4b4196e0575695e2c24970a7de77fa80ad9611c11f3f3b743",
+        "src/server/production/mtls-transport.ts": "b09d5078797229942e34a6fd7ebda2dd17fd8796d38607a6d9a45445d1a747a7",
+        "scripts/verify-stage5-windows-clock.mjs": "48f8cd5115bb85f7114131bc2b5fc460df98c46ab5b36c8da26542f1f66fe4b7",
+        "tests/stage5-security.test.ts": "f35081bd503ab25f82cd20d420299291daa2ec129198e4cb6aaadec1efc72da0",
+        "tests/stage5-rpc-boundary.test.ts": "967708ad19260f21d716cfd3b5cc92060a9805e7545ac8bf9bc3c3b0fbaaa68c",
+        "tests/stage5-windows-clock-reliability.test.ts": "c8f09759551ed09a7d0456f424bea0b26369a1c27f60c083d3a724e184b588f8",
+        "tests/fixtures/stage5-windows-clock-peer.mjs": "7678f3bb53b33ddf42d97a59eae967eb86a69a8d986b79acc77fb3d032ff1d89"
+      },
+      "exitCode": 0,
+      "ui": {
+        "passed": 1,
+        "failed": 0,
+        "tests": [
+          {
+            "title": "Stage 5: actual Builder publication, protected three-process application and current I-AM workflow",
+            "status": "passed",
+            "durationMs": 96233.3545
+          }
+        ]
+      },
+      "data": {
+        "passed": 68,
+        "failed": 0
+      },
+      "isolation": {
+        "root": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-windows-clock-correction-20261106\\runs-integration-001\\security-only\\disposable\\f4c600d5-b2ea-4f24-813d-3ce8f9754c3e\\platform",
+        "originalGraphMetadataCopied": false,
+        "sharedSnapshotEqual": true,
+        "originalLockDirectoryEvents": []
+      },
+      "journey": {
+        "releaseId": "release_03c5de3100dde7514681078a9b54ef54ab64472f3b0f445128e45440d0ad0256",
+        "canonicalFields": {
+          "source": [
+            {
+              "id": "22247e17-0da3-4260-81ad-5bb4472cd685",
+              "key": "id"
+            },
+            {
+              "id": "4ad4d536-e2f1-4da2-994d-46e020f733fe",
+              "key": "name"
+            },
+            {
+              "id": "f489761c-2c81-409d-acc4-044215efdaf1",
+              "key": "quantity"
+            },
+            {
+              "id": "f548c7e5-bebd-4393-bad8-bba87387675b",
+              "key": "active"
+            }
+          ],
+          "canonical": [
+            {
+              "fieldId": "22247e17-0da3-4260-81ad-5bb4472cd685",
+              "key": "id"
+            },
+            {
+              "fieldId": "4ad4d536-e2f1-4da2-994d-46e020f733fe",
+              "key": "name"
+            },
+            {
+              "fieldId": "f489761c-2c81-409d-acc4-044215efdaf1",
+              "key": "quantity"
+            },
+            {
+              "fieldId": "f548c7e5-bebd-4393-bad8-bba87387675b",
+              "key": "active"
+            }
+          ]
+        },
+        "publication": "actual Builder Publish v1",
+        "draftB": "Field editable=false saved after A",
+        "formA": "browser committed and read back",
+        "viewer": {
+          "rows": 1,
+          "quantityOmitted": true,
+          "hiddenRowOmitted": true,
+          "writeDenied": true
+        },
+        "private": {
+          "metadata": 200,
+          "download": 200,
+          "thumbnailDecoded": true,
+          "head": 200,
+          "range": 206,
+          "privateNoStore": true,
+          "revoked": 403,
+          "anonymous": 403
+        },
+        "managementRevocation": 403,
+        "sessionEpochRevocation": 403,
+        "disabledUserSession": 403,
+        "templateRevocationStaleCandidateRefused": true,
+        "proofBudgetMs": 15000,
+        "defaultProofBudgetUnchangedMs": 1000,
+        "archive": {
+          "publicFiles": 7,
+          "exportFiles": 349,
+          "exportStatus": 500,
+          "archiveDownloadVerified": false,
+          "archiveQualification": "UNVERIFIED: existing Windows ZIP subprocess failed; prepared export tree audited only",
+          "privateByteMatches": 0,
+          "credentialOrPrivateStoreFiles": 0,
+          "privateOwnerOutsideApplicationAndPublicBuild": true
+        }
+      }
+    },
+    {
+      "name": "runs-integration-002",
+      "sourceSha256": {
+        "src/server/production/internal-jwt-clock.ts": "276ecd534ea9a5ce8ad117745fd4afa11209155f352abf8b572d7ed63a1ddb42",
+        "src/server/production/internal-trust.ts": "69572cfc7efa485619ee6a3488ce0e00d8ba0b94ee45f0e14ce0646bdcc47356",
+        "src/server/production/service-rpc.ts": "50f1f83099908af4b4196e0575695e2c24970a7de77fa80ad9611c11f3f3b743",
+        "src/server/production/mtls-transport.ts": "b09d5078797229942e34a6fd7ebda2dd17fd8796d38607a6d9a45445d1a747a7",
+        "scripts/verify-stage5-windows-clock.mjs": "48f8cd5115bb85f7114131bc2b5fc460df98c46ab5b36c8da26542f1f66fe4b7",
+        "tests/stage5-security.test.ts": "f35081bd503ab25f82cd20d420299291daa2ec129198e4cb6aaadec1efc72da0",
+        "tests/stage5-rpc-boundary.test.ts": "967708ad19260f21d716cfd3b5cc92060a9805e7545ac8bf9bc3c3b0fbaaa68c",
+        "tests/stage5-windows-clock-reliability.test.ts": "c8f09759551ed09a7d0456f424bea0b26369a1c27f60c083d3a724e184b588f8",
+        "tests/fixtures/stage5-windows-clock-peer.mjs": "7678f3bb53b33ddf42d97a59eae967eb86a69a8d986b79acc77fb3d032ff1d89"
+      },
+      "exitCode": 0,
+      "ui": {
+        "passed": 1,
+        "failed": 0,
+        "tests": [
+          {
+            "title": "Stage 5: actual Builder publication, protected three-process application and current I-AM workflow",
+            "status": "passed",
+            "durationMs": 95288.7528
+          }
+        ]
+      },
+      "data": {
+        "passed": 68,
+        "failed": 0
+      },
+      "isolation": {
+        "root": "C:\\Projects\\Modular\\ui-platform\\evidence\\v1-stage5-windows-clock-correction-20261106\\runs-integration-002\\security-only\\disposable\\7df2efec-f430-4e48-a5d6-8a6024eb9788\\platform",
+        "originalGraphMetadataCopied": false,
+        "sharedSnapshotEqual": true,
+        "originalLockDirectoryEvents": []
+      },
+      "journey": {
+        "releaseId": "release_3486f7aeba24615e906a6fd685a578127efe6216bbb989660d4f909c4096b20b",
+        "canonicalFields": {
+          "source": [
+            {
+              "id": "f53d27b6-b36e-42a2-bb0d-284cd1109058",
+              "key": "id"
+            },
+            {
+              "id": "07d80546-dfde-4479-a3ef-207c57877879",
+              "key": "name"
+            },
+            {
+              "id": "1d7b0b16-e607-409c-81d1-2232087d5956",
+              "key": "quantity"
+            },
+            {
+              "id": "76fe4398-9e46-46d0-a634-c41d2226f012",
+              "key": "active"
+            }
+          ],
+          "canonical": [
+            {
+              "fieldId": "07d80546-dfde-4479-a3ef-207c57877879",
+              "key": "name"
+            },
+            {
+              "fieldId": "1d7b0b16-e607-409c-81d1-2232087d5956",
+              "key": "quantity"
+            },
+            {
+              "fieldId": "76fe4398-9e46-46d0-a634-c41d2226f012",
+              "key": "active"
+            },
+            {
+              "fieldId": "f53d27b6-b36e-42a2-bb0d-284cd1109058",
+              "key": "id"
+            }
+          ]
+        },
+        "publication": "actual Builder Publish v1",
+        "draftB": "Field editable=false saved after A",
+        "formA": "browser committed and read back",
+        "viewer": {
+          "rows": 1,
+          "quantityOmitted": true,
+          "hiddenRowOmitted": true,
+          "writeDenied": true
+        },
+        "private": {
+          "metadata": 200,
+          "download": 200,
+          "thumbnailDecoded": true,
+          "head": 200,
+          "range": 206,
+          "privateNoStore": true,
+          "revoked": 403,
+          "anonymous": 403
+        },
+        "managementRevocation": 403,
+        "sessionEpochRevocation": 403,
+        "disabledUserSession": 403,
+        "templateRevocationStaleCandidateRefused": true,
+        "proofBudgetMs": 15000,
+        "defaultProofBudgetUnchangedMs": 1000,
+        "archive": {
+          "publicFiles": 7,
+          "exportFiles": 349,
+          "exportStatus": 500,
+          "archiveDownloadVerified": false,
+          "archiveQualification": "UNVERIFIED: existing Windows ZIP subprocess failed; prepared export tree audited only",
+          "privateByteMatches": 0,
+          "credentialOrPrivateStoreFiles": 0,
+          "privateOwnerOutsideApplicationAndPublicBuild": true
+        }
+      }
+    }
+  ]
+}

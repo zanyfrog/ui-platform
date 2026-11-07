@@ -138,7 +138,11 @@ it('real loopback mTLS and signed assertions reject replay, wrong audience/app/b
   expect(await post(await signer.sign(actor, 'POST', '/runtime/execute', Buffer.from('{}')), '{"forged":true}')).toBe(403);
   expect(await post(await signer.sign(actor, 'POST', '/runtime/execute', Buffer.from('{}')), '{}', '/management')).toBe(403);
   expect(await post(await signer.sign(actor, 'POST', '/runtime/execute', Buffer.from('{}')), '{}', '/runtime/execute', 'bytes=0-1')).toBe(403);
-  expect(await post(await signer.sign(actor, 'POST', '/runtime/execute', Buffer.from('{}'), Math.floor(Date.now() / 1000) - 30))).toBe(403);
+  const expiredAt = Math.floor(Date.now() / 1000) - 15;
+  const expired = await new SignJWT({ ...actor, method: 'POST', path: '/runtime/execute', range: '', bodyHash: digest('{}') })
+    .setProtectedHeader({ alg: 'EdDSA', kid: 'runtime-key', typ: 'uib-internal+jwt' }).setIssuer('runtime').setAudience(audience)
+    .setIssuedAt(expiredAt - 15).setExpirationTime(expiredAt).setJti('expired-test-assertion').sign(keys.privateKey);
+  expect(await post(expired)).toBe(403);
   expect(await post(await new InternalSigner('runtime', 'runtime-key', keys.privateKey, 'wrong-audience').sign(actor, 'POST', '/runtime/execute', Buffer.from('{}')))).toBe(403);
   expect(await post(await signer.sign({ ...actor, enrollment: { ...f.enrollment, applicationId: 'app-b' } }, 'POST', '/runtime/execute', Buffer.from('{}')))).toBe(403);
   expect(await post('development-static-token')).toBe(403); await expect(post(good, '{}', '/runtime/execute', undefined, false)).rejects.toThrow();

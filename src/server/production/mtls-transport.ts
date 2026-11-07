@@ -14,7 +14,7 @@ export class MtlsRuntimeTransport implements RuntimeTransport {
   async send(actor: InternalActor, path: string, bytes: Buffer, incoming: IncomingMessage) {
     if (!(path === '/runtime/execute' || /^\/runtime\/assets\/[A-Za-z0-9_.:-]+\/[A-Za-z0-9_.:-]+\/(metadata|thumbnail|download)$/.test(path))) deny();
     const method = incoming.method!, range = incoming.headers.range ?? '';
-    const assertion = await this.signer.sign(actor, method, path, bytes, undefined, range);
+    const assertion = await this.signer.sign(actor, method, path, bytes, range);
     return new Promise<{ status: number; headers: Record<string, string>; bytes: Buffer }>((resolve, reject) => {
       const request = httpsRequest(new URL(path, this.endpoint), { ...this.tls, rejectUnauthorized: true, method,
         headers: { authorization: `Bearer ${assertion}`, 'content-type': 'application/json', ...(range ? { range } : {}) } }, response => {
