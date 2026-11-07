@@ -1,0 +1,38 @@
+{
+  "repository": "Data Services",
+  "baseline": "e08565d9dbeab6518eaff23da6c5b65a138c04f7",
+  "scope": "Controller-owned exclusion and closed-admission schema and registry binding proof",
+  "items": [
+    {
+      "path": "packages/dataset-operations/tests/activation-http.test.ts",
+      "sha256": "c9a04559929e04a85c1942b1584eb8e6a00760a071fc53a33df449926ffb4d05",
+      "bytes": 32465
+    },
+    {
+      "path": "packages/dataset-operations/tests/support/activation-host.ts",
+      "sha256": "12275ad21c23f462a877e8c39a2d7a829862a238d83dc8e3a3e519f72e9d3ec1",
+      "bytes": 12508
+    },
+    {
+      "path": "packages/schema-application/src/activation-controller.ts",
+      "sha256": "0f1437069c30dabb9f98b82c13e72fe8147fa19a4a740108af8eeac15f3c88bb",
+      "bytes": 20242
+    },
+    {
+      "path": "packages/schema-application/src/index.ts",
+      "sha256": "165963feb32f905176a63fc463cc68bff80a2faf3aea8b78575b95c1ad3cc85d",
+      "bytes": 15641
+    },
+    {
+      "path": "packages/schema-application/src/resource-registry.ts",
+      "sha256": "38631c2b335d794401c7beaa9fbda0fe0741e971ce52a7ae605fd248180b9b94",
+      "bytes": 18893
+    }
+  ],
+  "verification": {
+    "freshPhysicalTarget": ".handoff-verify-eYzggH",
+    "testsPassed": 235,
+    "filesPassed": 12,
+    "windowsReleaseLifecycleVerified": false
+  }
+}
