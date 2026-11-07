@@ -1,0 +1,42 @@
+{
+  "baseline": "cc837601fc5775309d6daea6af179093b9bb6557",
+  "dataDependency": "d2525592eee4d6286537a7093510e59fd4c342f2",
+  "items": [
+    {
+      "path": "src/server/exporter.ts",
+      "sha256": "2fa539b027282e64d1ce22e4edd2439ab47fc2cb40e0d9579afa69a2cd160d3c",
+      "bytes": 8455
+    },
+    {
+      "path": "tests/fixtures/stage5-integration-journey.ts",
+      "sha256": "d50a3d51903fefecaeab7c1c223ea550d375aa8f359312e972b9ca83b9bba081",
+      "bytes": 42840
+    },
+    {
+      "path": "tests/stage5-integration.test.ts",
+      "sha256": "cea671bfae9b363e25187313275ddcd007cd9da688cecd53d47d0eb09f72d30c",
+      "bytes": 21820
+    },
+    {
+      "path": "docs/architecture/v1-stage5-windows-zip-export-review-gate-20261106.md",
+      "sha256": "d9dfbf9a751107771db807342710f5de4d4be035cb2384178744163d08d9a22c",
+      "bytes": 5191
+    },
+    {
+      "path": "evidence/v1-stage5-zip-20261106/.gitignore",
+      "sha256": "80d797075ae63dc51bb820bb2bf5192414ea440967a30341dbf5e8ce92777a91",
+      "bytes": 21
+    },
+    {
+      "path": "evidence/v1-stage5-zip-20261106/verification.json",
+      "sha256": "5d2c304db306d6972ea7bfb382909b9581143b2c0e6546b0a326be15a935753f",
+      "bytes": 6332
+    }
+  ],
+  "metadataExceptions": [
+    {
+      "path": "evidence/v1-stage5-zip-20261106/changed-file-hashes.json",
+      "rule": "Manifest excludes itself. The review-gate response supplies its external SHA-256."
+    }
+  ]
+}

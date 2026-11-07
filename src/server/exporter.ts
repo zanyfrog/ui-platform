@@ -25,7 +25,9 @@ function zipFolder(folder: string, zipFile: string): Promise<void> {
       command = 'powershell.exe';
       const escapedFolder = folder.replaceAll("'", "''");
       const escapedZip = zipFile.replaceAll("'", "''");
-      args = ['-NoProfile', '-NonInteractive', '-Command', `$ErrorActionPreference = 'Stop'; Compress-Archive -Path '${escapedFolder}\\*' -DestinationPath '${escapedZip}' -Force`];
+      // The parent may expose modules for a different PowerShell installation.
+      const archiveModule = "Import-Module -Name (Join-Path $PSHOME 'Modules/Microsoft.PowerShell.Archive/Microsoft.PowerShell.Archive.psd1')";
+      args = ['-NoProfile', '-NonInteractive', '-Command', `$ErrorActionPreference = 'Stop'; ${archiveModule}; Microsoft.PowerShell.Archive\\Compress-Archive -Path '${escapedFolder}\\*' -DestinationPath '${escapedZip}' -Force`];
       cwd = path.dirname(folder);
     } else {
       command = 'zip';

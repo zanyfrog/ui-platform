@@ -1,0 +1,175 @@
+{
+  "ui": "cc837601fc5775309d6daea6af179093b9bb6557",
+  "data": "d2525592eee4d6286537a7093510e59fd4c342f2",
+  "runs": [
+    {
+      "name": "before",
+      "exitCode": 0,
+      "ui": {
+        "passed": 1,
+        "failed": 0
+      },
+      "data": {
+        "passed": 68,
+        "failed": 0
+      },
+      "sourceSha256": {
+        "src/server/exporter.ts": "5fb7859ac3c78b6f95bb450cd70910bdf622cee04fc5abd408981914160efc98",
+        "tests/fixtures/stage5-integration-journey.ts": "c561ceb3ac885a43b7a5bb907c54f25bf835cd881b46a285dfdd0e1cc527e47e",
+        "tests/stage5-integration.test.ts": "19faf0aee313413f65d5bc50a68680ea112c1a91a29aed22d5810d5bcbc2db4d"
+      },
+      "audit": {
+        "publicFiles": 7,
+        "exportFiles": 349,
+        "exportStatus": 500,
+        "archiveDownloadVerified": false,
+        "archiveQualification": "UNVERIFIED: existing Windows ZIP subprocess failed; prepared export tree audited only",
+        "privateByteMatches": 0,
+        "credentialOrPrivateStoreFiles": 0,
+        "privateOwnerOutsideApplicationAndPublicBuild": true
+      },
+      "journey": {
+        "releaseId": "release_962e5eab4d3aa194cd43a9c1709dea57459dd0e5da341552f02c0373e2807b7e",
+        "publication": "actual Builder Publish v1",
+        "form": "browser committed and read back",
+        "viewer": {
+          "rows": 1,
+          "quantityOmitted": true,
+          "hiddenRowOmitted": true,
+          "writeDenied": true
+        },
+        "private": {
+          "metadata": 200,
+          "download": 200,
+          "thumbnailDecoded": true,
+          "head": 200,
+          "range": 206,
+          "privateNoStore": true,
+          "revoked": 403,
+          "anonymous": 403
+        },
+        "sessionEpochRevocation": 403,
+        "templateRevocationStaleCandidateRefused": true
+      },
+      "originalLockDirectoryEvents": [],
+      "sharedSnapshotEqual": true
+    },
+    {
+      "name": "after-001",
+      "exitCode": 1,
+      "ui": {
+        "passed": 0,
+        "failed": 1
+      },
+      "data": {
+        "passed": 68,
+        "failed": 0
+      },
+      "sourceSha256": {
+        "src/server/exporter.ts": "2fa539b027282e64d1ce22e4edd2439ab47fc2cb40e0d9579afa69a2cd160d3c",
+        "tests/fixtures/stage5-integration-journey.ts": "08ae3b49bf166118c960ab940b3fe70e171e4f40d4ef561c2b4be427bc2fae3a",
+        "tests/stage5-integration.test.ts": "cea671bfae9b363e25187313275ddcd007cd9da688cecd53d47d0eb09f72d30c"
+      },
+      "audit": null,
+      "journey": null,
+      "originalLockDirectoryEvents": [],
+      "sharedSnapshotEqual": true
+    },
+    {
+      "name": "after-002",
+      "exitCode": 0,
+      "ui": {
+        "passed": 1,
+        "failed": 0
+      },
+      "data": {
+        "passed": 68,
+        "failed": 0
+      },
+      "sourceSha256": {
+        "src/server/exporter.ts": "2fa539b027282e64d1ce22e4edd2439ab47fc2cb40e0d9579afa69a2cd160d3c",
+        "tests/fixtures/stage5-integration-journey.ts": "d50a3d51903fefecaeab7c1c223ea550d375aa8f359312e972b9ca83b9bba081",
+        "tests/stage5-integration.test.ts": "cea671bfae9b363e25187313275ddcd007cd9da688cecd53d47d0eb09f72d30c"
+      },
+      "audit": {
+        "publicFiles": 7,
+        "exportFiles": 349,
+        "exportStatus": 200,
+        "downloadStatus": 200,
+        "archiveDownloadVerified": true,
+        "archiveSha256": "00203e848761f1a08efa76136b67dcab0b8fe160986238291201633d0a1e830c",
+        "archiveBytes": 456867,
+        "releaseId": "release_21df45683f18b0e199e7277e42ab283b91419adc9a8f5b9aa4afb33472a2c0dd",
+        "frozenFilesVerified": 46,
+        "deniedExport": 403,
+        "deniedDownload": 403,
+        "anonymousDownload": 401,
+        "invalidDownload": 403,
+        "privateByteMatches": 0,
+        "credentialOrPrivateStoreFiles": 0,
+        "privateOwnerOutsideApplicationAndPublicBuild": true
+      },
+      "journey": {
+        "releaseId": "release_21df45683f18b0e199e7277e42ab283b91419adc9a8f5b9aa4afb33472a2c0dd",
+        "publication": "actual Builder Publish v1",
+        "form": "browser committed and read back",
+        "viewer": {
+          "rows": 1,
+          "quantityOmitted": true,
+          "hiddenRowOmitted": true,
+          "writeDenied": true
+        },
+        "private": {
+          "metadata": 200,
+          "download": 200,
+          "thumbnailDecoded": true,
+          "head": 200,
+          "range": 206,
+          "privateNoStore": true,
+          "revoked": 403,
+          "anonymous": 403
+        },
+        "sessionEpochRevocation": 403,
+        "templateRevocationStaleCandidateRefused": true
+      },
+      "originalLockDirectoryEvents": [],
+      "sharedSnapshotEqual": true
+    }
+  ],
+  "compressorProbe": {
+    "sameInput": "Temporary folder with spaces and apostrophe",
+    "original": {
+      "exitCode": 1,
+      "error": "CouldNotAutoloadMatchingModule",
+      "archiveCreated": false
+    },
+    "systemModule": {
+      "exitCode": 0,
+      "archiveCreated": true,
+      "listedFile": "file.txt"
+    },
+    "importByName": "PSSecurityException UnauthorizedAccess on inherited Microsoft.PowerShell.Archive 1.2.6",
+    "systemManifest": "Windows PowerShell system module 1.0.1.0 imported under existing policy"
+  },
+  "preservation": {
+    "componentFiles": 23,
+    "nativeFiles": 234,
+    "historicalFiles": 41,
+    "lockMetadata": {
+      "entries": [],
+      "modifiedUtc": "2026-11-05T14:52:44.372Z"
+    },
+    "lockBodyAccess": false,
+    "dependencies": {
+      "package.json": "5d672f62672a6c067e4e98e6f71bcdb7190256cd4eddb64b66d43801470d5d45",
+      "package-lock.json": "60987d70d179578958ce226f81544d205b2c7ed7f620ba66a6705457c82acda6",
+      "src/server/production/package.json": "5d1ea0cc865ad948ffedfa90ce044d702cdd32f4de776c2c72c58464520d06b0",
+      "src/server/production/package-lock.json": "75a66f1dd34f5d7eca22ee93a90f0f6d6a63de04e8aeecc5f3527db866690911",
+      "src/server/production/node_modules/jose/dist/webapi/lib/jwt_claims_set.js": "c0c893b68c426d585f3b955b3873c715e5e15f46d62d9a67d82a5d19c12eefec",
+      "../UI Platform Data Services/package.json": "e505f40299f729a0d7e13346ef9049707ffc22d4330fc928526f14e73038aff0",
+      "../UI Platform Data Services/package-lock.json": "e1e47a4081b6386392223ae4a1543b72c9e3eee53ff1033ac310a887ffb516ad"
+    },
+    "uiBase": "732eec58ca3d4bd2521197b9d3b6c0457dbc6608",
+    "stagedPaths": []
+  }
+}

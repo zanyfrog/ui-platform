@@ -34,7 +34,7 @@ async function credentials(root:string){
   return peers;
 }
 export async function continueStage5Integration(f:any){
-  const {page,workspace,form,applicationId,datasetId,schema,root,apps,runtime,policyPath,cleanup,creator,activate,post,origin}=f;
+  const {page,workspace,form,applicationId,datasetId,schema,root,apps,runtime,policyPath,cleanup,creator,unrelated,activate,post,origin}=f;
   const evidence=path.resolve('evidence/v1-stage5-integration-local');await mkdir(evidence,{recursive:true});
   const switchBuilderIdentity=async(email:string)=>{await page.getByLabel('Development identity',{exact:true}).selectOption(email);await expect.poll(()=>page.getByLabel('Development identity',{exact:true}).isEnabled(),{timeout:30_000}).toBe(true);await page.reload();await expect.poll(()=>page.getByLabel('Development identity',{exact:true}).inputValue(),{timeout:30_000}).toBe(email);await page.getByText('Select an application or create a new one.',{exact:false}).waitFor();};
   await workspace.getByRole('button',{name:'Create Page',exact:true}).click();const create=page.getByRole('dialog',{name:'Create Page',exact:true});
@@ -96,11 +96,81 @@ export async function continueStage5Integration(f:any){
   const assertOperator=async(context:unknown)=>{if(context!==operator)throw new Error('OPERATOR_DENIED');};
   const privateVersion=await assetOwner.save(applicationId,'stage5-private','Private image',privateBytes,null,()=>assertOperator(operator));assetOwner.close();directory.close();policy.close();
   for(const [route,file]of browserRelease.publicFiles){expect(Buffer.from(file.bytes).includes(privateBytes),route).toBe(false);}
-  const exported=await post('/api/apps/wp5c-created/export',{},creator);
-  if(exported.status===200)expect((await fetch(origin+exported.value.url,{headers:creator})).status).toBe(200);
-  else expect(exported.value.error).toBe('ZIP command failed with exit code 1'); // Explicit Windows packaging qualification below; never a ZIP success claim.
-  let exportFiles=0;const auditExport=async(dir:string)=>{for(const entry of await readdir(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isSymbolicLink())throw Error('EXPORT_LINK');if(entry.isDirectory())await auditExport(file);else{exportFiles++;expect((await readFile(file)).includes(privateBytes)).toBe(false);expect(entry.name).not.toMatch(/\.(?:key|pem|pfx|sqlite)$/i);}}};await auditExport(path.join(runtime,'exports'));
-  await saveJson(path.join(evidence,'private-public-export-audit.json'),{publicFiles:browserRelease.publicFiles.size,exportFiles,exportStatus:exported.status,archiveDownloadVerified:exported.status===200,archiveQualification:exported.status===200?'local download verified':'UNVERIFIED: existing Windows ZIP subprocess failed; prepared export tree audited only',privateByteMatches:0,credentialOrPrivateStoreFiles:0,privateOwnerOutsideApplicationAndPublicBuild:true});
+  const exportRoute = '/api/apps/wp5c-created/export';
+  const deniedExport = await post(exportRoute, {}, unrelated);
+  expect(deniedExport.status).toBe(403);
+  const exported = await post(exportRoute, {}, creator);
+  expect(exported.status, JSON.stringify(exported.value)).toBe(200);
+  expect(exported.value.downloadName).toBe('wp5c-created-export.zip');
+  expect(exported.value.url).toMatch(/^\/api\/downloads\/wp5c-created-[\w-]+\.zip$/);
+  const deniedDownload = await fetch(origin + exported.value.url, { headers: unrelated });
+  expect(deniedDownload.status).toBe(403);
+  const anonymousDownload = await fetch(origin + exported.value.url);
+  expect(anonymousDownload.status).toBe(401);
+  const invalidDownload = await fetch(origin + '/api/downloads/nonexistent.zip', { headers: creator });
+  expect(invalidDownload.status).toBe(403);
+  const downloaded = await fetch(origin + exported.value.url, { headers: creator });
+  expect(downloaded.status).toBe(200);
+  expect(downloaded.headers.get('content-type')).toBe('application/zip');
+  expect(downloaded.headers.get('content-disposition')).toMatch(/^attachment; filename="[^"/]+\.zip"$/);
+  const bytes = Buffer.from(await downloaded.arrayBuffer());
+  expect(bytes.length).toBe(Number(downloaded.headers.get('content-length')));
+  const token = path.basename(exported.value.url);
+  const prepared = path.join(runtime, 'exports', token.slice(0, -4));
+  expect(digest(bytes)).toBe(digest(await readFile(prepared + '.zip')));
+
+  const preparedDirectories = new Set<string>();
+  async function inventory(dir: string, relative = '', audit = false): Promise<Map<string, string>> {
+    const files = new Map<string, string>();
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+      const name = relative + entry.name, file = path.join(dir, entry.name);
+      expect(entry.name).not.toMatch(/^(?:node_modules|dist|dist-server|\.git|\.vite|\.uib|credentials|private-store|\.env(?:\..*)?)$/i);
+      if (entry.isDirectory()) {
+        if (!audit) preparedDirectories.add(name + '/');
+        for (const [key, hash] of await inventory(file, name + '/', audit)) files.set(key, hash);
+      } else {
+        expect(entry.isFile(), name).toBe(true);
+        const content = await readFile(file);
+        if (audit) {
+          expect(content.includes(privateBytes), name).toBe(false);
+          expect(entry.name).not.toMatch(/\.(?:key|pem|pfx|sqlite3?|db)(?:-(?:wal|shm))?$/i);
+          expect(content.subarray(0, 16).toString()).not.toBe('SQLite format 3\0');
+          expect(content.toString()).not.toMatch(/-----BEGIN (?:\w+ )*PRIVATE KEY-----/);
+        }
+        files.set(name, digest(content));
+      }
+    }
+    return files;
+  }
+  const archive = path.join(root, 'downloaded export.zip'), extracted = path.join(root, 'verified export');
+  await writeFile(archive, bytes, { flag: 'wx' });
+  await mkdir(extracted);
+  const expected = await inventory(prepared);
+  const listed = execFileSync('tar.exe', ['-tf', archive], { encoding: 'utf8', windowsHide: true }).trimEnd().split(/\r?\n/);
+  for (const member of listed) {
+    expect(member).not.toMatch(/^(?:[\\/]|[A-Za-z]:)|(?:^|[\\/])\.\.(?:[\\/]|$)/);
+    expect(member.endsWith('/') ? preparedDirectories.has(member) : expected.has(member), member).toBe(true);
+  }
+  expect(listed.filter(member => !member.endsWith('/')).sort()).toEqual([...expected.keys()].sort());
+  execFileSync('tar.exe', ['-xf', archive, '-C', extracted], { windowsHide: true });
+  const actual = await inventory(extracted, '', true);
+  expect(actual).toEqual(expected);
+  const releasePrefix = 'app/' + path.relative(appRoot, release.compositionRoot).split(path.sep).join('/') + '/';
+  let frozenFilesVerified = 0;
+  for (const [relative, hash] of Object.entries(release.files)) {
+    if (relative.split('/').includes('node_modules')) continue; // Existing portable export exclusions.
+    expect(actual.get(releasePrefix + relative), relative).toBe(hash);
+    frozenFilesVerified++;
+  }
+  expect(frozenFilesVerified).toBeGreaterThan(0);
+  expect((await selection.read()).releaseId).toBe(release.releaseId);
+  await saveJson(path.join(evidence, 'private-public-export-audit.json'), {
+    publicFiles: browserRelease.publicFiles.size, exportFiles: actual.size, exportStatus: exported.status,
+    downloadStatus: downloaded.status, archiveDownloadVerified: true, archiveSha256: digest(bytes), archiveBytes: bytes.length,
+    releaseId: release.releaseId, frozenFilesVerified, deniedExport: deniedExport.status, deniedDownload: deniedDownload.status,
+    anonymousDownload: anonymousDownload.status, invalidDownload: invalidDownload.status, privateByteMatches: 0,
+    credentialOrPrivateStoreFiles: 0, privateOwnerOutsideApplicationAndPublicBuild: true,
+  });
   const endpoints:any={};for(const kind of ['data','runtime','management']){const p=await port(),rpcPort=await port();endpoints[kind]={port:p,rpcPort,url:`https://127.0.0.1:${p}/`,rpc:`https://127.0.0.1:${rpcPort}/`,rpcAudience:kind+'-rpc-'+randomUUID(),actorAudience:kind+'-actor-'+randomUUID()};}
   const managementPublic=path.join(root,'management-public');await mkdir(managementPublic);
   await build({stdin:{contents:`import {mountRoleAdministration} from ${JSON.stringify(path.resolve('src/client/artifact-editor/role-administration.ts').replaceAll('\\','/'))};

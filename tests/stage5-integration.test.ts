@@ -189,6 +189,6 @@ it('Stage 5: actual Builder publication, protected three-process application and
   await writeFile('evidence/v1-stage5-integration-local/builder-schema-form.json', JSON.stringify({ applicationId, datasetId, schema, form: form.metadata, browserErrors }, null, 2));
   await page.screenshot({ path: 'evidence/v1-stage5-integration-local/builder-schema-form.png', fullPage: true });
   expect(browserErrors).toEqual([]);
-  await continueStage5Integration({root,runtime,apps,policyPath,applicationId,datasetId,schema,form,page,workspace,creator,security,activate,post,cleanup,origin});
+  await continueStage5Integration({root,runtime,apps,policyPath,applicationId,datasetId,schema,form,page,workspace,creator,unrelated,security,activate,post,cleanup,origin});
 }, 420000);
 
