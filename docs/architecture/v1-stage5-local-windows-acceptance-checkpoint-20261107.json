@@ -1,0 +1,30 @@
+{
+  "scope": "Stage 5 local Windows owner acceptance documentation only",
+  "baseline": "10206d1b3a1492526f9ef78b6d17f5c881a77a6b",
+  "dataDependency": "d2525592eee4d6286537a7093510e59fd4c342f2",
+  "proofBudgetMs": 15000,
+  "items": [
+    {
+      "path": "docs/architecture/v1-final-technical-planning-20261103/V1-FINAL-ACCEPTANCE-MATRIX.md",
+      "sha256": "c92fffda57aaa66157360e5298167e22bfb937fb2be93e23e6b7ad45b3c2effd",
+      "bytes": 17503
+    },
+    {
+      "path": "docs/architecture/v1-final-technical-planning-20261103/V1-IMPLEMENTATION-SEQUENCE.md",
+      "sha256": "01be6c5e18b2fd823170b9a21c0e5e683ada6a20d675a32f57ec3d8206d29ea5",
+      "bytes": 10837
+    },
+    {
+      "path": "docs/architecture/v1-stage5-local-windows-acceptance-closure-20261107.md",
+      "sha256": "76e09085fb9af618df497d17645357dce03ce5d4c228930f0d7b63b16c59ab20",
+      "bytes": 2798
+    }
+  ],
+  "metadataExceptions": [
+    {
+      "path": "docs/architecture/v1-stage5-local-windows-acceptance-checkpoint-20261107.json",
+      "rule": "Inventory excludes its own hash. The external SHA-256 is recorded in the checkpoint preparation response."
+    }
+  ],
+  "excludedHistoricalDiagnosticPaths": 41
+}
