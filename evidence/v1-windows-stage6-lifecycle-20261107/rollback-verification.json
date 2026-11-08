@@ -1,0 +1,207 @@
+{
+  "runs": [
+    {
+      "run": "rollback-compatible",
+      "activation": {
+        "processes": {
+          "data": 47704,
+          "runtime": 35544,
+          "management": 37508
+        },
+        "approval": {
+          "planId": "c4cc71fc-959c-4456-af56-fc2e23b50a7c",
+          "applicationId": "85191122-2dad-4d6d-b21a-b108ae36be86",
+          "buildId": "release_9f344463c853aaabd17846ebc823d7faee423e7cb690375999ccf2fcc87b3641",
+          "manifestFingerprint": "sha256:6b7727b7c2a557424b8d0fcec8a9dbaf9de7fc320589422a6119b9fc3a9cb658"
+        },
+        "result": {
+          "deploymentId": "fa1b600c-977e-4e18-8a85-aff649f964b9",
+          "state": "succeeded",
+          "outcome": "activated"
+        },
+        "activeBuild": "release_9f344463c853aaabd17846ebc823d7faee423e7cb690375999ccf2fcc87b3641",
+        "activeManifestFingerprint": "sha256:6b7727b7c2a557424b8d0fcec8a9dbaf9de7fc320589422a6119b9fc3a9cb658",
+        "served": "9cf29380cfbab8d9111ca13d4c9c59938c1804b3787c51e643066ff94a73db24",
+        "schemaIdentity": "9b17bfe453bba0f3a7731df501d7463ad7f32538ee6155b4342754a1901d3adc"
+      },
+      "rollback": {
+        "mode": "compatible",
+        "approval": {
+          "planId": "e5dd26fc-f7af-4cb5-99a1-68dc4f4ec3c4",
+          "applicationId": "85191122-2dad-4d6d-b21a-b108ae36be86",
+          "buildId": "release_448447b320eac00efcb3cd336014059fb68e9ebbbe3cd9ddfb91cf572b0d977e",
+          "manifestFingerprint": "sha256:e943640363cdf5ee0905b05718f2c4e1ef3cacbba677c0eb382bc7b72a0a36f9"
+        },
+        "result": {
+          "outcome": "activated",
+          "admissionOpen": true,
+          "caller": "management"
+        },
+        "authorized": true,
+        "before": "release_9f344463c853aaabd17846ebc823d7faee423e7cb690375999ccf2fcc87b3641",
+        "after": "release_448447b320eac00efcb3cd336014059fb68e9ebbbe3cd9ddfb91cf572b0d977e",
+        "manifest": "sha256:e943640363cdf5ee0905b05718f2c4e1ef3cacbba677c0eb382bc7b72a0a36f9",
+        "servedAfter": "3532ad79674286a62a1f9fcb2a39688c3943c11669c517b3f13f6e7b73f8a774",
+        "schemaIdentity": "9b17bfe453bba0f3a7731df501d7463ad7f32538ee6155b4342754a1901d3adc",
+        "registryRevision": "6:ds0-orm-verification-v1:sha256:abe4bfaa2390a7325ce288b8cfe5e37642fcf0aad8aed654dee1c7b9b76436dc",
+        "valid": 200,
+        "stale": 403
+      },
+      "workerSha256": "3b141fa17cf85ab73e3c277defaeec9351456576d902ea43727232669b0c93fc",
+      "sourceSha256": "6a840c74ad97d01a682345f12a4a6dfb38a69595a2185eabbed71fd38fe217f0",
+      "launcherSha256": "791fc9e27cb1f52d9315f58d9de62032cebe3278d003e25549a17aad096c9cc7",
+      "resultsSha256": "d6beb7bccf9aca6dc7501d450cbb956261e8eb39fd833ffe7fe99d0a0b4471ea"
+    },
+    {
+      "run": "rollback-incompatible-002",
+      "activation": {
+        "processes": {
+          "data": 54240,
+          "runtime": 51776,
+          "management": 52008
+        },
+        "approval": {
+          "planId": "f9359b94-582b-45ed-ad98-9eec4b41efaa",
+          "applicationId": "603a7b3c-de05-42b3-bcc0-32c6c6873e26",
+          "buildId": "release_be3f292fbc710896eab69d9802c55451f6b46a5abfda73989b379b4c00086787",
+          "manifestFingerprint": "sha256:1cf38e4afb57bd64558972c3eac1e3ac796ce1a4307cb132b7170cc35a822e4a"
+        },
+        "result": {
+          "deploymentId": "189f1e0f-02c1-402a-a448-df7cb6cbe2f3",
+          "state": "succeeded",
+          "outcome": "activated"
+        },
+        "activeBuild": "release_be3f292fbc710896eab69d9802c55451f6b46a5abfda73989b379b4c00086787",
+        "activeManifestFingerprint": "sha256:1cf38e4afb57bd64558972c3eac1e3ac796ce1a4307cb132b7170cc35a822e4a",
+        "served": "c36f292a112bdc74abbb12c9d5df4b561265fd2936e43c35be40207638e0136b",
+        "schemaIdentity": "fdedffd218201d780b1917c0efe687fe5a3af7d9438e41239b8ac1b2641149ba"
+      },
+      "rollback": {
+        "mode": "incompatible",
+        "approval": {
+          "planId": "65da4846-b80d-480b-818b-174456e2f681",
+          "applicationId": "603a7b3c-de05-42b3-bcc0-32c6c6873e26",
+          "buildId": "release_c1084b544367b7f4f4c61698f93b5f6e20f5e7750903773a18634452fa1d96c7",
+          "manifestFingerprint": "sha256:7de5bb5bc62a32972cb111b92e36636e469b7f075e27a3affd761453aa444fc6"
+        },
+        "result": {
+          "outcome": "incompatible",
+          "admissionOpen": true
+        },
+        "authorized": true,
+        "before": "release_be3f292fbc710896eab69d9802c55451f6b46a5abfda73989b379b4c00086787",
+        "after": "release_be3f292fbc710896eab69d9802c55451f6b46a5abfda73989b379b4c00086787",
+        "manifest": "sha256:1cf38e4afb57bd64558972c3eac1e3ac796ce1a4307cb132b7170cc35a822e4a",
+        "servedAfter": "c36f292a112bdc74abbb12c9d5df4b561265fd2936e43c35be40207638e0136b",
+        "schemaIdentity": "fdedffd218201d780b1917c0efe687fe5a3af7d9438e41239b8ac1b2641149ba",
+        "registryRevision": "6:ds0-orm-verification-v1:sha256:7e677ece2a2b9ebc3ebdfcc1e67f6ce304457046f0f067816f60e923fda12e40",
+        "valid": 200,
+        "stale": 403,
+        "unauthorizedRefused": true
+      },
+      "workerSha256": "427a7b9fa6aeb908f9ad899a6f78a06220db25a9aad8060bf92cee034ca9c05f",
+      "sourceSha256": "7e6269cb528d6f587ae74f07c0fcddb539378ebb110fa07c9fda5c1ec08d5c18",
+      "launcherSha256": "1bcb7f173ca1417a9053884a675012b88d2904b4282a8efe56ed63a0b3465969",
+      "resultsSha256": "b73a1094512d12194c2a6fcb1b394c20d7c5f62b324830c94f8da34fe4e23dab"
+    },
+    {
+      "run": "rollback-uncertain",
+      "activation": {
+        "processes": {
+          "data": 51684,
+          "runtime": 53552,
+          "management": 51276
+        },
+        "approval": {
+          "planId": "1355f92b-3afd-41c5-9c80-8bbda5c59c01",
+          "applicationId": "4c3613d7-5b9f-48e0-9850-d983b6e644b5",
+          "buildId": "release_b7c92e9707fde07e0ad0387d8867e726b367f4392778f7c274d4a19a0f2a7ab7",
+          "manifestFingerprint": "sha256:76776ae21fe15b5352134fd6958aa1b42facec4b15421d18097ae11905d09661"
+        },
+        "result": {
+          "deploymentId": "dd62605d-3076-4d29-bc00-0dd6a67272c0",
+          "state": "succeeded",
+          "outcome": "activated"
+        },
+        "activeBuild": "release_b7c92e9707fde07e0ad0387d8867e726b367f4392778f7c274d4a19a0f2a7ab7",
+        "activeManifestFingerprint": "sha256:76776ae21fe15b5352134fd6958aa1b42facec4b15421d18097ae11905d09661",
+        "served": "9f48a4a0eca88f8b7d0d3a44e516417a96feedcca2ccc6d868e56ca40cd88241",
+        "schemaIdentity": "a60466e9bac251e4552fc1ac1d005bdc57b623277b0c54e259d8677000e1b317"
+      },
+      "rollback": {
+        "mode": "uncertain",
+        "approval": {
+          "planId": "f9d9b0df-d0a3-4fd4-9c9f-6b271c5d9223",
+          "applicationId": "4c3613d7-5b9f-48e0-9850-d983b6e644b5",
+          "buildId": "release_f5f179c7bda462b9e5db162a33bfcb1ef455370e92089044287f86a7536e3b0a",
+          "manifestFingerprint": "sha256:23a4ba4114b667f7bc7ff13c550b856eb2a7d69575cde02546cfc7a4c2467fbc"
+        },
+        "result": {
+          "outcome": "recovery-required",
+          "admissionOpen": false,
+          "caller": "management",
+          "observations": [
+            {
+              "releaseId": "release_b7c92e9707fde07e0ad0387d8867e726b367f4392778f7c274d4a19a0f2a7ab7",
+              "manifestFingerprint": "sha256:76776ae21fe15b5352134fd6958aa1b42facec4b15421d18097ae11905d09661",
+              "bundleSha256": "9f48a4a0eca88f8b7d0d3a44e516417a96feedcca2ccc6d868e56ca40cd88241",
+              "schemaFingerprint": "ds0-orm-verification-v1:sha256:bf5bab67de782ff89d47ed9312d1c984036ccc0a7f9996fc0333064e96baf623",
+              "registry": {
+                "revision": 6,
+                "bindingDigest": "ds0-orm-verification-v1:sha256:c02bd424fed04c93f04e253dbbf6425223d7010e8f26b5189dd755bacfa28c1e"
+              },
+              "admissionOpen": false
+            },
+            {
+              "releaseId": "release_f5f179c7bda462b9e5db162a33bfcb1ef455370e92089044287f86a7536e3b0a",
+              "manifestFingerprint": "sha256:23a4ba4114b667f7bc7ff13c550b856eb2a7d69575cde02546cfc7a4c2467fbc",
+              "bundleSha256": "b4dc3d667244e31e2c11c7574a86c276e0ff3457c8e61b5b3e4055eb5e4a7f1b",
+              "schemaFingerprint": "ds0-orm-verification-v1:sha256:bf5bab67de782ff89d47ed9312d1c984036ccc0a7f9996fc0333064e96baf623",
+              "registry": {
+                "revision": 6,
+                "bindingDigest": "ds0-orm-verification-v1:sha256:c02bd424fed04c93f04e253dbbf6425223d7010e8f26b5189dd755bacfa28c1e"
+              },
+              "admissionOpen": false
+            },
+            {
+              "releaseId": "release_b7c92e9707fde07e0ad0387d8867e726b367f4392778f7c274d4a19a0f2a7ab7",
+              "manifestFingerprint": "sha256:76776ae21fe15b5352134fd6958aa1b42facec4b15421d18097ae11905d09661",
+              "bundleSha256": "9f48a4a0eca88f8b7d0d3a44e516417a96feedcca2ccc6d868e56ca40cd88241",
+              "schemaFingerprint": "ds0-orm-verification-v1:sha256:bf5bab67de782ff89d47ed9312d1c984036ccc0a7f9996fc0333064e96baf623",
+              "registry": {
+                "revision": 6,
+                "bindingDigest": "ds0-orm-verification-v1:sha256:c02bd424fed04c93f04e253dbbf6425223d7010e8f26b5189dd755bacfa28c1e"
+              },
+              "admissionOpen": false
+            }
+          ],
+          "failure": "RELEASE_RECOVERY_REQUIRED"
+        },
+        "authorized": true,
+        "before": "release_b7c92e9707fde07e0ad0387d8867e726b367f4392778f7c274d4a19a0f2a7ab7",
+        "after": "release_b7c92e9707fde07e0ad0387d8867e726b367f4392778f7c274d4a19a0f2a7ab7",
+        "manifest": "sha256:76776ae21fe15b5352134fd6958aa1b42facec4b15421d18097ae11905d09661",
+        "servedAfter": "9f48a4a0eca88f8b7d0d3a44e516417a96feedcca2ccc6d868e56ca40cd88241",
+        "schemaIdentity": "a60466e9bac251e4552fc1ac1d005bdc57b623277b0c54e259d8677000e1b317",
+        "registryRevision": "6:ds0-orm-verification-v1:sha256:00ce552ebd77cdfe1e0e0df78e622aefbda60c8e02c09c0c09c70b24725ad779",
+        "valid": 403,
+        "stale": 403,
+        "unauthorizedRefused": false
+      },
+      "workerSha256": "427a7b9fa6aeb908f9ad899a6f78a06220db25a9aad8060bf92cee034ca9c05f",
+      "sourceSha256": "7e6269cb528d6f587ae74f07c0fcddb539378ebb110fa07c9fda5c1ec08d5c18",
+      "launcherSha256": "1bcb7f173ca1417a9053884a675012b88d2904b4282a8efe56ed63a0b3465969",
+      "resultsSha256": "7bc9b59d20df2c18d353c7b500641bf0a9ac787ba15e3595085f757ed61597bf"
+    }
+  ],
+  "failedSetup": {
+    "run": "rollback-incompatible",
+    "failure": "Artifact lock refusal in deployment preflight before promotion",
+    "resultsSha256": "c7c3b6f1b7cd4b418a8e05f55e07f131b8e66555c8becea78a18590d9735715f"
+  },
+  "qualifications": [
+    "Incompatible case uses an intentionally different required schema identity in the trusted approval. No schema migration.",
+    "Uncertain case deliberately rejects both A and subsequent B recovery verification after collecting real observations.",
+    "Rollback outcome retained in the sanitized process journey evidence."
+  ]
+}

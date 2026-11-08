@@ -1,0 +1,32 @@
+{
+  "run": "run-001/security-only",
+  "activationVerified": false,
+  "pointerChanged": true,
+  "actual": {
+    "processes": {
+      "data": 36436,
+      "runtime": 53028,
+      "management": 40468
+    },
+    "approval": {
+      "planId": "6604f62c-dc48-4dea-8f88-2fe168e5b285",
+      "applicationId": "a3bedc58-fcf3-47fd-b2ca-6e35d73cf34f",
+      "buildId": "release_ad8b319bb3fd6cd59dd0eeb401f2c3e76482ef714e4dded7ace31d12069f2568",
+      "manifestFingerprint": "sha256:3b9dac6f9c45cc31d2f806eeed03de537c39fd51376c08b8a38ab80f34bbc1c0"
+    },
+    "result": {
+      "deploymentId": "362d8a49-ccd8-4420-8108-e9f169d5370f",
+      "state": "recovery-required"
+    },
+    "activeBuild": "release_ad8b319bb3fd6cd59dd0eeb401f2c3e76482ef714e4dded7ace31d12069f2568",
+    "activeManifestFingerprint": "sha256:3b9dac6f9c45cc31d2f806eeed03de537c39fd51376c08b8a38ab80f34bbc1c0",
+    "served": "f11c5a12bfdcd9e0bf554b59e78254f68f22e47bf97de48a7ab65e843393b996",
+    "schemaIdentity": "4b59dc47c5fd9ef285812616279c4ac0b415b6586f15ddcf31135bee29778005"
+  },
+  "releaseBefore": "release_afd9ad05cfab33d51afa8f223063eeaee7f9a001a9ea1452c04236b032d07128",
+  "servedBefore": "ab54c7ce41e2c86669774ecc6e9a2ebc82ade1977c76cd1ba1eec569e9f33d32",
+  "expectedBBundle": "f11c5a12bfdcd9e0bf554b59e78254f68f22e47bf97de48a7ab65e843393b996",
+  "cause": "Disposable artifact package dist loaded generic DeploymentService without controlledPromotion. Build used tsconfig.json instead of tsconfig.build.json.",
+  "admissionObservation": "Controller not entered; no post-result protected HTTP test",
+  "correction": "Both launcher and Data worker import DeploymentService from reviewed source. Bundle contains controlled path. No fresh activation run."
+}

@@ -1,0 +1,35 @@
+{
+  "scope": "Durable A serving through real Windows Runtime and protected Data. Frozen B prepared only.",
+  "runOutcomes": [
+    "run-001 Runtime startup denied external TypeScript module",
+    "run-002 same startup denial",
+    "run-003 complete Stage 5 pass"
+  ],
+  "readerTestsPassed": 10,
+  "wp3Passed": 68,
+  "processes": {
+    "data": {
+      "pid": 53800
+    },
+    "runtime": {
+      "pid": 1944
+    },
+    "management": {
+      "pid": 50952
+    }
+  },
+  "activeBuild": "release_556214010a7884e1297883048cc8098bbff25dabaa1b576ae3f1b8f0482abb28",
+  "activeManifestFingerprint": "sha256:e2e8d88967401e9527afa69c1478c62b698a6f46a833cab1d0013d74db276479",
+  "frozenCandidate": "release_5d54f014b3292f2daadc29c04f2062183d9720a2aef926fe0f69c8da8a2540e7",
+  "schemaIdentity": "9a10050642a9c55b05bdcdb557102049bd4458943919062a75d685122bb1db84",
+  "servedBundle": "6c5ae504d88a7036b4643346bac5e3864f49d8874089358d8dcd0553ae02b05f",
+  "candidateBundle": "bad32fbdfe99aab6c2b8ab3fc07c10d1f75bc4bcffb8e3c953caa8571222d909",
+  "activationAttempted": false,
+  "uiSourceSha256": {
+    "src/server/production/durable-release-selection.ts": "76e0cbccfbb1c9cb0c086486eaab0e9d23ed91a68355ab76f206022e3587f75d",
+    "tests/durable-release-selection.test.ts": "4a6cbca89c0dd168e71334edd96122be3d5045603a20da2d6120f64f71d76f4f",
+    "tests/fixtures/stage5-integration-journey.ts": "120d407fd46bbba1b5503347ccdd6b2465797c86c7313dbaa47afe4db77f627b",
+    "tests/fixtures/stage5-integration-process.ts": "6bbc8d8ae03ae5d0d532f3f9601aa0d79a1ec43a6a6ad41b5240d18e9f24e85c"
+  },
+  "dataSourceChanges": []
+}

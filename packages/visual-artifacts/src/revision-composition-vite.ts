@@ -13,7 +13,7 @@ import { capturePageRoutes } from './page-admission.js';
 import { componentPackageDirectory, verifyComponentPackages } from './component-packages.js';
 
 /** Development reads source; builds read the composition snapshot selected by existing Publish. */
-export function revisionApplicationComposition(options: { revisionPinned?: true; root: string; sharedComponentsRoot?: string; packageManifests?: string[] }): Plugin {
+export function revisionApplicationComposition(options: { revisionPinned?: true; root: string; sharedComponentsRoot?: string; packageManifests?: string[]; publishedVersion?: number }): Plugin {
   const id = 'virtual:uip-application-composition';
   const watchId = 'virtual:uip-composition-watch';
   let production = false;
@@ -26,7 +26,12 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
     // Admission creates and removes private lock files while compiling. They
     // must not trigger Vite's ordinary add/unlink reload handling.
     config() { return { server: { watch: { ignored: ['**/.uib/**'] } } }; },
-    configResolved(config) { production = config.command === 'build'; },
+    configResolved(config) {
+      production = config.command === 'build';
+      if (options.publishedVersion !== undefined && (!production || !Number.isSafeInteger(options.publishedVersion) || options.publishedVersion < 1)) {
+        throw new Error('An explicit publication version requires a valid production build.');
+      }
+    },
     resolveId(request, importer) { boundary?.guard(request, importer); if (request === id || request === watchId) return '\0' + request; },
     async load(request) {
       if (request === '\0' + watchId) return runtimeRefreshClient;
@@ -40,9 +45,12 @@ export function revisionApplicationComposition(options: { revisionPinned?: true;
       let expectedPackageHash: string | undefined;
       if (production) {
         const manifest = JSON.parse(await readFile(path.join(root, 'presentation/presentation.manifest.json'), 'utf8').catch(() => '{}'));
-        if (!manifest.activeVersion) throw new Error('Publish this Application presentation before building its production composition.');
-        expectedPackageHash = manifest.versions?.find((version: { version: number }) => version.version === manifest.activeVersion)?.componentPackageIntegrity;
-        root = path.join(root, 'presentation/versions', `v${manifest.activeVersion}`, 'composition');
+        const version = options.publishedVersion ?? manifest.activeVersion;
+        if (!Number.isSafeInteger(version) || version < 1) throw new Error('Publish this Application presentation before building its production composition.');
+        const records = manifest.versions?.filter((record: { version: number }) => record.version === version);
+        expectedPackageHash = records?.[0]?.componentPackageIntegrity;
+        if (options.publishedVersion !== undefined && (records?.length !== 1 || !expectedPackageHash)) throw new Error('The selected frozen version is not admitted.');
+        root = path.join(root, 'presentation/versions', `v${version}`, 'composition');
       }
       // Runtime admission never repairs source. A pending transaction blocks the
       // complete capture before any role is read, including unused collections.

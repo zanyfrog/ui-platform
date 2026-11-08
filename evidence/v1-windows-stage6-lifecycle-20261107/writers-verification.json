@@ -1,0 +1,74 @@
+{
+  "run": "writers-001",
+  "actual": {
+    "processes": {
+      "data": 50712,
+      "runtime": 16400,
+      "management": 43712
+    },
+    "approval": {
+      "planId": "f9107480-e32f-4cad-b79e-6c385312d25f",
+      "applicationId": "fe0abef3-5687-4a64-9fd5-c9370db6aa94",
+      "buildId": "release_c50c2adf58aaa79b5dd338716292119dc7fa33f7d3e20cd89cbc344fc2805701",
+      "manifestFingerprint": "sha256:32828cdccf71eb6d92c39b9174f610a84cfc0240d9ae250e7e21728999c01e17"
+    },
+    "result": {
+      "deploymentId": "74d6fe2d-4f33-46f0-8824-dc566fee0418",
+      "state": "succeeded",
+      "outcome": "activated",
+      "writerWitnesses": [
+        {
+          "releaseId": "release_1b8d0e3587bde631951772949986d37d9eaee6dde3fefb99f4889f5da5c83bb0",
+          "manifestFingerprint": "sha256:477039b403561e26d9c86f42fff42f653744a74c722979a2196835aabfa0ac9e",
+          "bundleSha256": "6d8b8cee99415804137e8c0e08f2822397344dd413f39a220dc37e848222ace4",
+          "admissionOpen": false,
+          "schemaFingerprint": "ds0-orm-verification-v1:sha256:f775e52b9bcf8d96eb0c33a5c0f8204570a45e1339da705bde5526b2685d7b1c",
+          "registry": {
+            "revision": 6,
+            "bindingDigest": "ds0-orm-verification-v1:sha256:825ac77c27935e3b8d5ae657deccd7c4defc46059bd1ef01bdd7a63f7b8f9804"
+          },
+          "writers": {
+            "pid": 52076,
+            "state": "SCHEMA_APPLICATION_LOCKED",
+            "publication": "SCHEMA_PUBLICATION_LOCKED",
+            "registry": "REGISTRY_LOCKED"
+          }
+        },
+        {
+          "releaseId": "release_c50c2adf58aaa79b5dd338716292119dc7fa33f7d3e20cd89cbc344fc2805701",
+          "manifestFingerprint": "sha256:32828cdccf71eb6d92c39b9174f610a84cfc0240d9ae250e7e21728999c01e17",
+          "bundleSha256": "778930a08824615a1c861c0ba8acd3cc53a0d5a4f3808fa3cd3e9ca7c61f6dc9",
+          "admissionOpen": false,
+          "schemaFingerprint": "ds0-orm-verification-v1:sha256:f775e52b9bcf8d96eb0c33a5c0f8204570a45e1339da705bde5526b2685d7b1c",
+          "registry": {
+            "revision": 6,
+            "bindingDigest": "ds0-orm-verification-v1:sha256:825ac77c27935e3b8d5ae657deccd7c4defc46059bd1ef01bdd7a63f7b8f9804"
+          },
+          "writers": {
+            "pid": 52512,
+            "state": "SCHEMA_APPLICATION_LOCKED",
+            "publication": "SCHEMA_PUBLICATION_LOCKED",
+            "registry": "REGISTRY_LOCKED"
+          }
+        }
+      ],
+      "admissionOpen": true,
+      "caller": "management"
+    },
+    "activeBuild": "release_c50c2adf58aaa79b5dd338716292119dc7fa33f7d3e20cd89cbc344fc2805701",
+    "activeManifestFingerprint": "sha256:32828cdccf71eb6d92c39b9174f610a84cfc0240d9ae250e7e21728999c01e17",
+    "served": "778930a08824615a1c861c0ba8acd3cc53a0d5a4f3808fa3cd3e9ca7c61f6dc9",
+    "schemaIdentity": "bff77470422836a165309e636a9b28adcd583c88b44bf24d4d18ee15f7d0756d"
+  },
+  "initial": {
+    "buildId": "release_1b8d0e3587bde631951772949986d37d9eaee6dde3fefb99f4889f5da5c83bb0",
+    "manifestFingerprint": "sha256:477039b403561e26d9c86f42fff42f653744a74c722979a2196835aabfa0ac9e"
+  },
+  "http": {
+    "staleWrite": 403,
+    "activeQuery": 200
+  },
+  "workerSha256": "b6cb710b01ae4a1875bb335d90c872fcd8359aff6ff7695607cb0b80eab2a22b",
+  "sourceSha256": "f97f7b81a5b76ab13f886546181b766157c55d0b4f93a43512d04eca96a6952b",
+  "resultsSha256": "838f6cee3992b172dfae797050adf907a8e39a28e8454e1a29c9ce801c3f6075"
+}

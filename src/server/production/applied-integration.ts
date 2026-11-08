@@ -1,7 +1,7 @@
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import {statSync,realpathSync} from 'node:fs';
-import { inspectDevelopmentDataset, registerTriggerDataset, TriggerRegistry, type SecuredDevelopmentHostConfig } from '@ui-platform/dataset-operations';
+import { inspectDevelopmentDataset, registerTriggerDataset, TriggerRegistry, type SecuredDevelopmentHostConfig, type bootstrapDevelopmentDataset } from '@ui-platform/dataset-operations';
 import type { DatasetResourceRegistry } from '@ui-platform/i-am/dataset-security';
 import type { SecuredDatasetOperationEngine, DatasetSecurityPlanner } from '@ui-platform/dataset-operations';
 import type { SecurityResourceRef } from '@ui-platform/i-am/definitions';
@@ -12,7 +12,8 @@ type AppliedBinding=Omit<Awaited<ReturnType<typeof inspectDevelopmentDataset>>,'
 export const appliedIdentity = (binding: AppliedBinding) => digest(JSON.stringify({ resource: binding.resource, environmentId: binding.environmentId,
   schemaVersion: binding.schemaVersion, schemaDigest: binding.schemaDigest, physical: binding.physical, fields: binding.fields }));
 /** Reuse the Data-owned canonical publication/applied/registry verifier. No developer actor is authenticated here. */
-export async function openAppliedData(config: AppliedConfiguration, artifactExists: (ref: SecurityResourceRef) => Promise<boolean>) {
+type ServingOwner = NonNullable<Awaited<ReturnType<typeof bootstrapDevelopmentDataset>>['servingOwner']>;
+export async function openAppliedData(config: AppliedConfiguration, artifactExists: (ref: SecurityResourceRef) => Promise<boolean>, servingOwner?: ServingOwner) {
   config = structuredClone(config);
   await inspectDevelopmentDataset(config);
   // Resolve the existing ORM through its owning package's declared dependency, without a second installation or source import.
@@ -22,14 +23,15 @@ export async function openAppliedData(config: AppliedConfiguration, artifactExis
     import(pathToFileURL(dataRequire.resolve('@ui-platform/schema-manager')).href),
     import(pathToFileURL(dataRequire.resolve('@ui-platform/schema-application')).href),
   ]);
-  const orm = new JsonFileDatasetOrm(config.paths.ormData) as ConstructorParameters<typeof SecuredDatasetOperationEngine>[0] & { register(value: unknown): void };
-  orm.register(config.registration); registerTriggerDataset(orm); const triggers = new TriggerRegistry(orm);
+  const orm = (servingOwner?.orm ?? new JsonFileDatasetOrm(config.paths.ormData)) as ConstructorParameters<typeof SecuredDatasetOperationEngine>[0] & { register(value: unknown): void };
+  if (!servingOwner) orm.register(config.registration);
+  registerTriggerDataset(orm); const triggers = new TriggerRegistry(orm);
   const manager=new SchemaManager(config.paths.schemaPublications);
   const resolver=new QualifiedAppliedResolver({stateRoot:config.paths.schemaApplicationState,pin:config.pin,reader:new CanonicalSchemaReader(manager),
     runtime:{generation:config.serving.generation,orm,async assertServing(input:{generation:string;fingerprint:string}){
       if(input.generation!==config.serving.generation||input.fingerprint!==config.serving.fingerprint)deny();
     }}});
-  const owner=new AppliedResourceRegistry(config.paths.resourceRegistry,config.identity.authorityId,config.systemResourceId??'platform',config.pin.environmentId,
+  const owner=servingOwner?.registry ?? new AppliedResourceRegistry(config.paths.resourceRegistry,config.identity.authorityId,config.systemResourceId??'platform',config.pin.environmentId,
     {async assertApplicationOwner(){throw Error('OWNER_MUTATION_UNAVAILABLE');},async assertDatasetRetired(){throw Error('OWNER_MUTATION_UNAVAILABLE');}},manager,resolver);
   const fileIdentity=()=>{const file=realpathSync(config.paths.resourceRegistry),info=statSync(file,{bigint:true});return JSON.stringify([file,String(info.dev),String(info.ino)]);};
   const ownerFile=fileIdentity(),assertOwnerFile=()=>{if(fileIdentity()!==ownerFile)throw Error('APPLIED_OWNER_FILE_CHANGED');};
@@ -59,5 +61,5 @@ export async function openAppliedData(config: AppliedConfiguration, artifactExis
       return undefined;
     },
   };
-  return { orm, triggers, resources, inspect, guardPlanner, close(){owner.close();}, async schemaCurrent(applicationId: string, identity: string) { try { return applicationId === config.pin.appId && appliedIdentity(await bind()) === identity; } catch { return false; } } };
+  return { orm, triggers, resources, inspect, guardPlanner, close(){ if (!servingOwner) owner.close(); }, async schemaCurrent(applicationId: string, identity: string) { try { return applicationId === config.pin.appId && appliedIdentity(await bind()) === identity; } catch { return false; } } };
 }

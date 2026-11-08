@@ -1,0 +1,86 @@
+{
+  "scope": "Two genuine three-process Windows recovery runs with deliberate verifier refusal. Accepted run 002 preserved separately.",
+  "runs": [
+    {
+      "mode": "verified",
+      "workerSha256": "6dcaf01726298f20de2c87f74ccb32636452d7e58bb41aa1748d34122c09484e",
+      "prior": {
+        "buildId": "release_588836f674d09ada5d814bcf265b77cdd2b08a1bff8ec6fc173ec76114d6fe8c",
+        "manifestFingerprint": "sha256:3f1fccb338f614bee8f54602dc19ec6f7bbbb3afa41571f56ea6252e3395d488"
+      },
+      "transition": {
+        "processes": {
+          "data": 38584,
+          "runtime": 49452,
+          "management": 48028
+        },
+        "approval": {
+          "planId": "38d61880-d5ed-4154-bc23-250114b3a4d3",
+          "applicationId": "b8042940-b5a8-42fa-8837-44695c0d23b2",
+          "buildId": "release_2faf9e2913da2d364aaa0a897db3c3fd870f62ed968dae809732c02b5ac2fe5e",
+          "manifestFingerprint": "sha256:95472073c6e7676e1db316b048b67725b6b5c4ace657d469eed510bb02f8dd22"
+        },
+        "result": {
+          "deploymentId": "c8035ef6-8f09-464e-94f9-44ee563e8393",
+          "state": "failed",
+          "outcome": "activation-failed-prior-verified",
+          "failure": "TEST_B_VERIFICATION_REFUSAL",
+          "admissionOpen": true
+        },
+        "activeBuild": "release_588836f674d09ada5d814bcf265b77cdd2b08a1bff8ec6fc173ec76114d6fe8c",
+        "activeManifestFingerprint": "sha256:3f1fccb338f614bee8f54602dc19ec6f7bbbb3afa41571f56ea6252e3395d488",
+        "served": "5e9e10baaff5d900ceb854cd733c68c7973f94469b4276a4ec9ced0fe4ada13e",
+        "schemaIdentity": "d3feab21531693e8e6b1c3649cdc4ab9b1941253ce34cacfc842e4ea1a14eb50"
+      },
+      "http": {
+        "recoveredAQuery": 200,
+        "admissionOpen": true
+      },
+      "resultsSha256": "a913e9da2f8212de33fd71fe895a62d26ccc999502ec66c030baf05a2a97e67a",
+      "wp3TestsPassed": 68
+    },
+    {
+      "mode": "uncertain",
+      "workerSha256": "6dcaf01726298f20de2c87f74ccb32636452d7e58bb41aa1748d34122c09484e",
+      "prior": {
+        "buildId": "release_724854646d8d904ba2faef3bb43fb33f9573ae69f9d1ec6b85efc70c351c3925",
+        "manifestFingerprint": "sha256:7d2793f7985a144533f39db7b72a655a32d73402e86a682481244c2276126ec8"
+      },
+      "transition": {
+        "processes": {
+          "data": 9688,
+          "runtime": 10752,
+          "management": 48480
+        },
+        "approval": {
+          "planId": "550a2b89-e2d1-402b-a0de-5a9c06c84281",
+          "applicationId": "78cd1d83-f8bf-44c1-867b-d9f2a68f1e5a",
+          "buildId": "release_b43f981443f99961d5f729fc0253c16d267b84ba71e497e3a6491a660382676b",
+          "manifestFingerprint": "sha256:29985ce8b95166634bf303240ef5fb8d168feebf3deb79ac676f66811c65f77f"
+        },
+        "result": {
+          "deploymentId": "191ed405-3c42-4d5e-a84e-9897a70308d0",
+          "state": "recovery-required",
+          "outcome": "recovery-required",
+          "failure": "RELEASE_RECOVERY_REQUIRED",
+          "admissionOpen": false
+        },
+        "activeBuild": "release_724854646d8d904ba2faef3bb43fb33f9573ae69f9d1ec6b85efc70c351c3925",
+        "activeManifestFingerprint": "sha256:7d2793f7985a144533f39db7b72a655a32d73402e86a682481244c2276126ec8",
+        "served": "fc577ee015d7ab39bd597fc339fa957d72aa65ac6c05d7d2e1bf51e9ea10534e",
+        "schemaIdentity": "3e7717b0f7f7e795f48552b6410d22af08c57d9db20206b72d96185f87e455c1"
+      },
+      "http": {
+        "recoveredAQuery": 403,
+        "admissionOpen": false
+      },
+      "resultsSha256": "d626e5bb0801ce949e9971d3950c3bcdd615bd0e4a38e4d79e37aacaf67ddabf",
+      "wp3TestsPassed": 68
+    }
+  ],
+  "outstanding": [
+    "Real in-flight drain and competing writer instrumentation",
+    "Remaining security negatives",
+    "Controlled restart and authorized/denied rollback"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "run": "run-002/security-only",
+  "activationVerified": true,
+  "guardRegressionTestsPassed": 14,
+  "wp3TestsPassed": 68,
+  "loadedWorkerSha256": "406535c5a984bd0b43aee908d4a4e7bdbc5c0bc2f64c4449f8d786c8db0bebad",
+  "artifactDeploymentDistSha256": "6b4eda6e03a1c10b24473c7779f605b2387fa3bd8fdd28dd5fe5841e7bdc72e1",
+  "prior": {
+    "buildId": "release_55a42540a611fdd2e217607dec8e321177cbec071b8694e072d31bcda69d3746",
+    "manifestFingerprint": "sha256:56439d03997ba9ccf559daa5d6ce4666de7a212ba5c24209f224f806ac4044af"
+  },
+  "servedBeforeAndDuringPreparation": "8b85de82159bb4fa8a447cb3943a1af769473b388a3baf10a799427b81a935ef",
+  "actual": {
+    "processes": {
+      "data": 48660,
+      "runtime": 53336,
+      "management": 44244
+    },
+    "approval": {
+      "planId": "fdc38c28-defb-4724-8186-22bfde63b341",
+      "applicationId": "f7745054-976b-42b9-b077-25b879f4194c",
+      "buildId": "release_40b13c57f7b793f42464eb51cee66c005e1eb2c4daba1691cbd2a3108b0013da",
+      "manifestFingerprint": "sha256:87d89da4522ffca1f9c8fc97cbc2bbbbff92cbc95bc6333baa612fb867d4c197"
+    },
+    "result": {
+      "deploymentId": "021ea276-eae8-44f3-8314-fce11cd30b17",
+      "state": "succeeded",
+      "outcome": "activated"
+    },
+    "activeBuild": "release_40b13c57f7b793f42464eb51cee66c005e1eb2c4daba1691cbd2a3108b0013da",
+    "activeManifestFingerprint": "sha256:87d89da4522ffca1f9c8fc97cbc2bbbbff92cbc95bc6333baa612fb867d4c197",
+    "served": "c16180d0bb32ac3ca71dfa96d09fd92ba8fb34fb38f4a4b41d4b01845862151b",
+    "schemaIdentity": "2d0791907b541d37e0b3417ca04279649af35cb0c9ca692168b2dc19dbc21047"
+  },
+  "expectedBBundle": "c16180d0bb32ac3ca71dfa96d09fd92ba8fb34fb38f4a4b41d4b01845862151b",
+  "http": {
+    "staleWrite": 403,
+    "activeQuery": 200
+  },
+  "separateDrainAndExclusionInstrumentation": false,
+  "recoveryExercised": false,
+  "uiChanges": [
+    {
+      "sha256": "8b05aea2ae857eacd6b699da54b151c4ca0b66825a1899dbe01ae9329c294862",
+      "path": "packages/artifacts/src/application/local-target.ts"
+    },
+    {
+      "sha256": "057b3d89014f6db83653d3d82773199c4fca0423bb5ee791963fc7ee5fe9e959",
+      "path": "packages/artifacts/tests/migrations-deployment.test.ts"
+    },
+    {
+      "sha256": "9d0ae26ca6661fb440f616602a378cc2086596bfcde6c8e266189d4ceae6cec4",
+      "path": "tests/fixtures/stage5-integration-process.ts"
+    }
+  ],
+  "dataChanges": []
+}

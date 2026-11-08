@@ -136,14 +136,26 @@ async function validateComponentDefaults(key: string, defaults: ApplicationPrese
 export async function publishPresentation(key: string, admit: () => Promise<void> = async () => {}): Promise<ApplicationPresentationStatus> {
   return withApplicationMutation(appPath(key), async () => { await admit(); return publishPresentationSource(key, admit); });
 }
-async function publishPresentationSource(key: string, admit: () => Promise<void>): Promise<ApplicationPresentationStatus> {
-  const status = await initializePresentationSource(key);
+/** Trusted host preparation. Records an immutable version without selecting it. */
+export async function preparePresentationCandidate(key: string, admit: () => Promise<void>): Promise<ApplicationPresentationStatus> {
+  return withApplicationMutation(appPath(key), async () => {
+    await admit();
+    return publishPresentationSource(key, admit, true);
+  });
+}
+async function publishPresentationSource(key: string, admit: () => Promise<void>, candidateOnly = false): Promise<ApplicationPresentationStatus> {
+  const status = candidateOnly ? await getApplicationPresentation(key) : await initializePresentationSource(key);
+  if (candidateOnly && (!status.manifest?.activeVersion || !status.draft || !await compositionSettings(key))) {
+    throw new Error('Preparing a release requires an active composed presentation.');
+  }
   const draft = status.draft!;
   const manifest = status.manifest!;
   const version = Math.max(0, ...manifest.versions.map((item) => item.version)) + 1;
   const now = new Date().toISOString();
   const hash = checksum(draft);
   const css = renderPresentationCss(draft);
+  const versionRoot = path.join(root(key), 'versions', `v${version}`);
+  if (candidateOnly) await mkdir(versionRoot);
   let componentPackageIntegrity: string | undefined;
   if (await compositionSettings(key)) {
     const catalog = await discoverComponents(key);
@@ -167,18 +179,26 @@ async function publishPresentationSource(key: string, admit: () => Promise<void>
   }
   await atomicWriteJson(versionPath(key, version), draft);
   await atomicWriteText(path.join(root(key), 'versions', `v${version}`, 'application.css'), css);
-  await syncDraftAssetsToActive(key);
-  await copyPresentationAssetsToVersion(key, version);
-  await atomicWriteText(activeCssPath(key), css);
-  await ensurePresentationRuntimeImport(key);
-  await writePresentationRuntime(key, draft);
-  manifest.activeVersion = version;
+  if (candidateOnly) {
+    for (const source of [activeAssetsRoot(key), draftAssetsRoot(key)]) {
+      await cp(source, path.join(versionRoot, 'assets'), { recursive: true, force: true }).catch(error => {
+        if (error.code !== 'ENOENT') throw error;
+      });
+    }
+  } else {
+    await syncDraftAssetsToActive(key);
+    await copyPresentationAssetsToVersion(key, version);
+    await atomicWriteText(activeCssPath(key), css);
+    await ensurePresentationRuntimeImport(key);
+    await writePresentationRuntime(key, draft);
+    manifest.activeVersion = version;
+  }
   manifest.versions.push({ version, checksum: hash, publishedAt: now, actor: 'local-user', ...(componentPackageIntegrity ? { componentPackageIntegrity } : {}) });
-  manifest.draft = { exists: true, modifiedAt: now, checksum: hash };
+  if (!candidateOnly) manifest.draft = { exists: true, modifiedAt: now, checksum: hash };
   const baseline = await readRoleBundle(presentationLocation(key));
   if (baseline.checksum !== status.sourceRevision) throw Object.assign(new Error('Presentation changed while preparing Publish. The active pointer was not advanced.'), { status: 409 });
   await saveRoleBundle(presentationLocation(key), { expectedChecksum: baseline.checksum, files: { ...baseline.files, [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n' }, validate() { validatePresentation(draft); }, admit });
-  await appendHistory(appPath(key), { action: 'presentation.published', version, checksum: hash, actor: 'local-user' });
+  await appendHistory(appPath(key), { action: candidateOnly ? 'presentation.prepared' : 'presentation.published', version, checksum: hash, actor: 'local-user' });
   return getApplicationPresentation(key);
 }
 

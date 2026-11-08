@@ -1,0 +1,105 @@
+{
+  "run": "security-001",
+  "requests": {
+    "refusals": {
+      "runtime-identity": true,
+      "wrong-audience": true,
+      "wrong-planId": true,
+      "wrong-applicationId": true,
+      "wrong-buildId": true,
+      "wrong-manifestFingerprint": true
+    },
+    "concurrentRefused": true,
+    "duplicateRefused": true,
+    "activation": {
+      "deploymentId": "c877e1d7-2acb-4c78-aa38-947f2fb44370",
+      "state": "succeeded",
+      "outcome": "activated"
+    }
+  },
+  "audiences": {
+    "freshAccepted": true,
+    "staleRefused": true,
+    "oldAudience": "data-rpc-d85f4364-39ab-486e-b1ed-ca2f9652e896",
+    "newAudience": "data-rpc-6d2c40c4-f82c-4754-96d0-626e01db3f7a"
+  },
+  "activation": {
+    "processes": {
+      "data": 41236,
+      "runtime": 25480,
+      "management": 47628
+    },
+    "approval": {
+      "planId": "1af4dbcf-a4d3-4315-9559-45baa10d3229",
+      "applicationId": "ef09fbc4-802f-4411-8f43-6aeb167fef5b",
+      "buildId": "release_45b3f5f4d90cfb3ea67107a3afb10ccc7ecc4e9a682d53a2c65db4f9145a5323",
+      "manifestFingerprint": "sha256:6cff8b7c0c9dc6eebadd076b1038ab9f0f1dfc287479f489c641fe2e8623b61c"
+    },
+    "result": {
+      "deploymentId": "c877e1d7-2acb-4c78-aa38-947f2fb44370",
+      "state": "succeeded",
+      "outcome": "activated"
+    },
+    "activeBuild": "release_45b3f5f4d90cfb3ea67107a3afb10ccc7ecc4e9a682d53a2c65db4f9145a5323",
+    "activeManifestFingerprint": "sha256:6cff8b7c0c9dc6eebadd076b1038ab9f0f1dfc287479f489c641fe2e8623b61c",
+    "served": "5eef33b63f23169210ca8f359e40f759c3cc9a00d28ffdb53d0e340f0369a344",
+    "schemaIdentity": "4a25b718dc34bff38cf2bffe3fe194faa98c6b14459edb6a4769b5ac8673cd76"
+  },
+  "restart": {
+    "before": {
+      "data": {
+        "pid": 41236,
+        "rpcAudience": "data-rpc-d85f4364-39ab-486e-b1ed-ca2f9652e896",
+        "actorAudience": "data-actor-c13931e6-006a-4efd-be4e-bd522a2e6ede"
+      },
+      "runtime": {
+        "pid": 25480,
+        "rpcAudience": "runtime-rpc-d3f1c657-03c8-4375-aa5e-aec7e0481792",
+        "actorAudience": "runtime-actor-7be4a209-9078-4cb2-916d-dd76efd01020"
+      },
+      "management": {
+        "pid": 47628,
+        "rpcAudience": "management-rpc-64affdaf-4409-4d7d-9667-0b5ad7a698a1",
+        "actorAudience": "management-actor-f3590320-d051-498b-a1d4-90e11038eb79"
+      }
+    },
+    "after": {
+      "data": {
+        "pid": 53272,
+        "rpcAudience": "data-rpc-6d2c40c4-f82c-4754-96d0-626e01db3f7a",
+        "actorAudience": "data-actor-616bf6d5-1f71-4072-99d2-f5c15124e320"
+      },
+      "runtime": {
+        "pid": 52204,
+        "rpcAudience": "runtime-rpc-e0b7fce8-b619-4289-931a-69ac6a5a4120",
+        "actorAudience": "runtime-actor-7eca4039-d040-4d38-8dad-9412317f287e"
+      },
+      "management": {
+        "pid": 41428,
+        "rpcAudience": "management-rpc-6cec8ad8-0f83-4844-9dfb-4e51a4ec6e67",
+        "actorAudience": "management-actor-7f77f464-ca37-44ca-ae4b-2dfc1a7eafd1"
+      }
+    },
+    "activeBuild": "release_45b3f5f4d90cfb3ea67107a3afb10ccc7ecc4e9a682d53a2c65db4f9145a5323",
+    "manifestFingerprint": "sha256:6cff8b7c0c9dc6eebadd076b1038ab9f0f1dfc287479f489c641fe2e8623b61c",
+    "restartedBundle": "5eef33b63f23169210ca8f359e40f759c3cc9a00d28ffdb53d0e340f0369a344",
+    "schemaIdentity": "4a25b718dc34bff38cf2bffe3fe194faa98c6b14459edb6a4769b5ac8673cd76",
+    "registryRevision": "6:ds0-orm-verification-v1:sha256:fede789743e60b6488976d3f1963b85e1fa38efba07ebae13bf2a65d90c20959",
+    "ormInventoryUnchanged": true,
+    "policyHash": "9cda808443f1442248fbc564be5792dad7845572c694b3f240194539d39348c3",
+    "activeQuery": 200,
+    "staleQuery": 403
+  },
+  "workerSha256": "b7db0c3c5d1aefe042d02d3396c81f276255fbf527a6b049c4d16cf4237b6031",
+  "resultsSha256": "0c45998e2e189656c35de84a8250ba8448356074e010065f45445cd26622fbd6",
+  "focusedTls": [
+    "trusted certificate accepted",
+    "wrong pin refused",
+    "wrong hostname refused",
+    "wrong release refused",
+    "wrong manifest refused",
+    "corrupted bundle refused",
+    "truncated bundle refused"
+  ],
+  "focusedDeploymentTestsPassed": 14
+}

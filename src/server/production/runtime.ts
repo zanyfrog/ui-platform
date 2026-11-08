@@ -8,7 +8,7 @@ import type { InternalActor } from './internal-trust.js';
 export interface RuntimeTransport {
   send(actor: InternalActor, path: string, bytes: Buffer, request: IncomingMessage): Promise<{ status: number; headers: Record<string, string>; bytes: Buffer }>;
 }
-export interface PublicRelease { releaseId: string; publicFiles: ReadonlyMap<string, { bytes: Uint8Array; sha256: string; mediaType: string }> }
+export interface PublicRelease { releaseId: string; manifestFingerprint?: string; publicFiles: ReadonlyMap<string, { bytes: Uint8Array; sha256: string; mediaType: string }> }
 /** Public runtime imports no Builder, development proxy, management router or filesystem store. */
 export function runtimeHandler(options: { sessions: SecureSessions; login: OidcLogin; selected: () => Promise<PublicRelease>; transport: RuntimeTransport;
   /** Caddy must overwrite forwarded headers; only these operator-configured socket peers are trusted. */
@@ -65,6 +65,7 @@ export function runtimeHandler(options: { sessions: SecureSessions; login: OidcL
       const release = await options.selected(), file = release.publicFiles.get(url.pathname);
       if (!file || digest(file.bytes) !== file.sha256) { json(response, 404, { code: 'NOT_FOUND' }); return; }
       response.writeHead(200, { 'content-type': file.mediaType, 'cache-control': 'no-cache', 'x-content-type-options': 'nosniff',
+        ...(release.manifestFingerprint ? { 'x-ui-release': release.releaseId, 'x-ui-manifest-fingerprint': release.manifestFingerprint } : {}),
         'content-security-policy': "default-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'" }).end(request.method === 'HEAD' ? undefined : file.bytes);
     } catch { json(response, 403, { code: 'PROTECTED_REQUEST_DENIED' }); }
   };

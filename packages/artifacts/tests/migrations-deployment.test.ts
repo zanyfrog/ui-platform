@@ -218,7 +218,7 @@ describe("migration execution", () => {
 
 async function production(
   f: Awaited<ReturnType<typeof setup>>,
-  migration: MigrationDefinition,
+  migration?: MigrationDefinition,
 ) {
   const environmentRoot = path.join(f.root, "production"),
     dataRoot = path.join(environmentRoot, "data");
@@ -262,8 +262,8 @@ async function production(
     },
     entryPoint: "server/index.js",
     requiredEnvironmentKeys: ["DATABASE_URL"],
-    migrationIdsIncluded: [migration.migrationId],
-    migrationChecksums: { [migration.migrationId]: migration.checksum },
+    migrationIdsIncluded: migration ? [migration.migrationId] : [],
+    migrationChecksums: migration ? { [migration.migrationId]: migration.checksum } : {},
     files: await filesUnder(directory),
     artifacts: [],
     validationReport: "validation-report.json",
@@ -289,6 +289,64 @@ async function production(
   return { deployment, provider, target, directory, maintenance };
 }
 describe("production deployment", () => {
+  it("refuses generic deployment before the guarded pointer changes", async () => {
+    const f = await setup(), p = await production(f);
+    const manifestFile = path.join(p.directory, "runtime-manifest.json");
+    const candidate = JSON.parse(await readFile(manifestFile, "utf8")) as RuntimeManifest;
+    const initial = { ...candidate, buildId: "initial-a" };
+    const root = path.join(f.root, "guarded-target");
+    const activate = vi.fn(async () => {});
+    const options = { root, activate, health: async () => {}, oldRuntimeCompatible: async () => false };
+    const bootstrap = new LocalDirectoryDeploymentTarget(options);
+    await writeJson(manifestFile, initial);
+    await bootstrap.stage(p.directory, initial);
+    await bootstrap.promote(initial);
+    await writeJson(manifestFile, candidate);
+    const authorizePromotion = vi.fn(() => {
+      throw new Error("CONTROLLED_TRANSITION_REQUIRED");
+    });
+    const guarded = new LocalDirectoryDeploymentTarget({ ...options, authorizePromotion });
+    const rollback = vi.spyOn(guarded, "rollbackPointer");
+    const service = new DeploymentService({ ...p.deployment.options, target: guarded });
+    const plan = await service.preflight(p.directory);
+    const before = await guarded.readVerifiedActive("app");
+    await expect(service.deploy(plan.planId, { ...approval, planId: plan.planId })).resolves.toMatchObject({ state: "recovery-required" });
+    expect(authorizePromotion).toHaveBeenCalledExactlyOnceWith(plan.manifestFingerprint);
+    expect(await guarded.readVerifiedActive("app")).toEqual(before);
+    expect(activate).toHaveBeenCalledOnce();
+    expect(rollback).not.toHaveBeenCalled();
+  });
+  it.each(["activated", "activation-failed-prior-verified", "recovery-required"] as const)(
+    "records controlled outcome %s without a second rollback", async outcome => {
+      const f = await setup(), p = await production(f);
+      const target = new LocalDirectoryDeploymentTarget({
+        root: path.join(f.root, "controlled-target"), health: async () => {}, activate: async () => {},
+        oldRuntimeCompatible: async () => true,
+      });
+      const rollback = vi.spyOn(target, "rollbackPointer");
+      const previous = { releaseId: "release_" + "a".repeat(64), manifestFingerprint: "b".repeat(64) };
+      const signal = new AbortController().signal;
+      let late: (() => Promise<void>) | undefined;
+      const deployment = new DeploymentService({ ...p.deployment.options, target, async controlledPromotion({ promote }) {
+        late = () => promote(signal);
+        const expired = AbortSignal.abort(new Error("expired transition"));
+        await expect(promote(expired)).rejects.toThrow("expired transition");
+        await expect(target.readVerifiedActive("app")).rejects.toThrow("No active release binding");
+        await promote(signal);
+        await expect(promote(signal)).rejects.toThrow("no longer available");
+        if (outcome === "recovery-required") throw Error("recovery uncertain");
+        if (outcome === "activation-failed-prior-verified") return { outcome, previous, activationError: Error("B failed") };
+        return { outcome };
+      } });
+      const plan = await deployment.preflight(p.directory);
+      const record = await deployment.deploy(plan.planId, { ...approval, planId: plan.planId });
+      expect(record.state).toBe(outcome === "activated" ? "succeeded" : outcome === "recovery-required" ? outcome : "failed");
+      expect(record.transition?.outcome).toBe(outcome);
+      if (outcome === "activation-failed-prior-verified") expect(record.transition).toMatchObject({ previous, failure: "B failed" });
+      await expect(late!()).rejects.toThrow("no longer available");
+      expect(rollback).not.toHaveBeenCalled();
+    },
+  );
   it("requires fresh destructive approval, applies in order, checks health then promotes", async () => {
     const f = await setup();
     const m = await destructiveMigration(f);
@@ -386,5 +444,54 @@ describe("production deployment", () => {
     ).toBe(manifest.buildId);
     expect(activate).toHaveBeenCalledOnce();
     await expect(target.stage(p.directory, manifest)).rejects.toThrow();
+  });
+  it("local target preserves exact prior manifest identity and refuses unsafe rollback", async () => {
+    const f = await setup();
+    const p = await production(f, await destructiveMigration(f));
+    const manifestFile = path.join(p.directory, "runtime-manifest.json");
+    const a = JSON.parse(await readFile(manifestFile, "utf8")) as RuntimeManifest;
+    const root = path.join(f.root, "host"), pointer = path.join(root, "active-release.json");
+    let compatible = false;
+    const activate = vi.fn(async (_release: string) => {});
+    const options = { root, activate, health: async () => {}, oldRuntimeCompatible: async () => compatible };
+    const target = new LocalDirectoryDeploymentTarget(options);
+    await target.stage(p.directory, a);
+    await target.promote(a);
+    const boundA = await target.readVerifiedActive(a.applicationId);
+    const b = { ...a, buildId: "candidate-b" };
+    const schemaCompatible = async (manifest: RuntimeManifest) => manifest.sourceFingerprint === a.sourceFingerprint;
+    const captured = await target.captureControlledRecovery(a.applicationId, fingerprint(b), schemaCompatible);
+    const wrongCandidate = await target.captureControlledRecovery(a.applicationId, fingerprint(a), schemaCompatible);
+    await writeFile(manifestFile, JSON.stringify(b));
+    await target.stage(p.directory, b);
+    expect(await target.readVerifiedActive(a.applicationId)).toEqual(boundA);
+    await target.promote(b);
+
+    const reopened = new LocalDirectoryDeploymentTarget(options);
+    const boundB = await reopened.readVerifiedActive(a.applicationId);
+    const pointerBytes = await readFile(pointer, "utf8");
+    await expect(wrongCandidate.restore(new AbortController().signal)).rejects.toThrow("controlled recovery scope");
+    expect(boundB.manifest.buildId).toBe("candidate-b");
+    expect(JSON.parse(pointerBytes).previous).toEqual(boundA.binding);
+    await expect(reopened.readVerifiedActive("another-app")).rejects.toThrow("another application");
+    await expect(reopened.rollbackPointer()).rejects.toThrow("incompatible");
+    expect(await readFile(pointer, "utf8")).toBe(pointerBytes);
+    expect(activate).toHaveBeenCalledTimes(2);
+
+    compatible = true;
+    const oldManifest = path.join(boundA.binding.release, "runtime-manifest.json");
+    const oldBytes = await readFile(oldManifest);
+    await writeFile(oldManifest, JSON.stringify({ ...a, sourceFingerprint: "tampered" }));
+    await expect(reopened.rollbackPointer()).rejects.toThrow("manifest or contents changed");
+    expect(await readFile(pointer, "utf8")).toBe(pointerBytes);
+    await writeFile(oldManifest, oldBytes);
+    await reopened.rollbackPointer();
+    expect(await reopened.readVerifiedActive(a.applicationId)).toEqual(boundA);
+    expect(activate).toHaveBeenLastCalledWith(boundA.binding.release);
+    await target.promote(b);
+    const signal = new AbortController().signal;
+    await captured.restore(signal);
+    expect(await reopened.readVerifiedActive(a.applicationId)).toEqual(boundA);
+    await expect(captured.restore(signal)).rejects.toThrow("already used");
   });
 });

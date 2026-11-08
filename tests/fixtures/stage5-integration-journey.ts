@@ -16,6 +16,10 @@ import { appliedIdentity } from '../../src/server/production/applied-integration
 import { inspectDevelopmentDataset } from '@ui-platform/dataset-operations';
 import { buildReleasedBrowser } from '../../src/server/production/release-browser-build.js';
 import { digest } from '../../src/server/production/boundary.js';
+import { LocalDirectoryDeploymentTarget } from '../../packages/artifacts/src/application/local-target.js';
+import { DeploymentService } from '../../packages/artifacts/src/application/deployment.js';
+import { filesUnder } from '../../packages/artifacts/src/application/common.js';
+import type { RuntimeManifest } from '../../packages/artifacts/src/application/build.js';
 
 const port=async()=>{const server=createServer();await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));const p=(server.address() as any).port;await new Promise<void>(r=>server.close(()=>r()));return p;};
 const saveJson=(file:string,value:unknown)=>writeFile(file,JSON.stringify(value,null,2));
@@ -64,7 +68,9 @@ export async function continueStage5Integration(f:any){
   let queryContract='';
   for(const file of Object.keys(release.files).filter(file=>file.endsWith('.visual.json'))){const metadata=JSON.parse(await readFile(path.join(release.compositionRoot,file),'utf8'));if(metadata.artifactId===createdPage.metadata.artifactId){const index=(metadata.onLoad??[]).findIndex((a:any)=>a.kind==='service'&&a.reference==='dataset.read'&&a.input?.literal?.datasetId===datasetId&&a.resultState==='inventory');expect(index).toBeGreaterThanOrEqual(0);queryContract='onLoad:'+index;await saveJson(path.join(evidence,'released-query-contract.json'),{releaseId:release.releaseId,metadata});}}
   expect(queryContract).not.toBe('');
-  const publicRoot=path.join(root,'released-public'),browserRelease=await buildReleasedBrowser(appRoot,process.cwd(),release.releaseId,publicRoot);
+  const publicRoot=path.join(root,'released-public');
+  await expect(buildReleasedBrowser(appRoot,process.cwd(),{...release,releaseId:release.releaseId+'-wrong'},publicRoot)).rejects.toThrow();
+  const browserRelease=await buildReleasedBrowser(appRoot,process.cwd(),release,publicRoot);
   const publicManifest={files:[...browserRelease.publicFiles].map(([route,item])=>({route,file:route==='/'||!route.includes('.')?'index.html':route.slice(1),sha256:item.sha256,mediaType:item.mediaType}))};await saveJson(path.join(publicRoot,'public-manifest.json'),publicManifest);
   // Ordinary authoring draft B changes the Form. The released Form remains editable and executable against A.
   await switchBuilderIdentity(developmentUsers[2].email);await page.locator('[data-app="wp5c-created"]').first().click();await page.locator('uib-tabs.app-tabs > uib-tab').nth(1).click();await workspace.getByText(form.metadata.displayName,{exact:true}).first().click();
@@ -178,26 +184,333 @@ export async function continueStage5Integration(f:any){
   await writeFile(path.join(managementPublic,'index.html'),'<!doctype html><title>Protected management</title><script type="module" src="/management.js"></script>');
   const mgmtFiles=[];for(const name of ['index.html','management.js']){const bytes=await readFile(path.join(managementPublic,name));mgmtFiles.push({route:name==='index.html'?'/':'/'+name,file:name,sha256:digest(bytes),mediaType:name.endsWith('.js')?'text/javascript':'text/html'});}await saveJson(path.join(managementPublic,'public-manifest.json'),{files:mgmtFiles});
   const worker=path.resolve('diagnostics/stage5-integration-worker.mjs');await mkdir(path.dirname(worker),{recursive:true});await build({entryPoints:['tests/fixtures/stage5-integration-process.ts'],bundle:true,platform:'node',format:'esm',external:['@ui-platform/*'],outfile:worker,logLevel:'silent'});
+  const deploymentRoot=process.env.UI_PLATFORM_RETAINED_RELEASE_JOURNEY === '1' ? path.join(root,'deployment') : undefined;
+  if(deploymentRoot){
+    const artifact=path.join(root,'deployment-initial-artifact');
+    await mkdir(path.join(artifact,'public'),{recursive:true});
+    const routes=[];
+    const compiled=JSON.parse(await readFile(path.join(publicRoot,'public-manifest.json'),'utf8'));
+    for(const [index,entry] of compiled.files.entries()){
+      const bytes=await readFile(path.join(publicRoot,entry.file));
+      expect(digest(bytes)).toBe(entry.sha256);
+      const file='public/'+index;
+      await writeFile(path.join(artifact,file),bytes);
+      routes.push({route:entry.route,file,mediaType:entry.mediaType});
+    }
+    await saveJson(path.join(artifact,'release-selection.json'),{version:1,releaseId:release.releaseId,schemaIdentity,
+      compositionDigest:digest(JSON.stringify(release.files)),publicFiles:routes});
+    const manifest:RuntimeManifest={manifestVersion:1,applicationId,buildId:release.releaseId,builtAt:new Date().toISOString(),
+      sourceFingerprint:digest(JSON.stringify(release.files)),uiPlatformVersion:'local-stage5',
+      runtimeCompatibility:{node:process.versions.node.split('.')[0]!,target:`${process.platform}-${process.arch}`},
+      entryPoint:routes.find(entry=>entry.route==='/application.js')!.file,requiredEnvironmentKeys:[],migrationIdsIncluded:[],migrationChecksums:{},
+      files:await filesUnder(artifact),artifacts:[],validationReport:'release-selection.json'};
+    await saveJson(path.join(artifact,'runtime-manifest.json'),manifest);
+    const target=new LocalDirectoryDeploymentTarget({root:deploymentRoot,async health(){throw Error('INITIAL_BOOTSTRAP_ONLY');},async activate(){},async oldRuntimeCompatible(){return false;}});
+    await target.stage(artifact,manifest);
+    await target.promote(manifest);
+    const {binding}=await target.readVerifiedActive(applicationId);
+    await saveJson(path.join(evidence,'durable-initial-binding.json'),{buildId:binding.buildId,manifestFingerprint:binding.manifestFingerprint});
+  }
   const processes:any={};
+  let restartServing: typeof deployment.serving | undefined;
+  const startProcesses=async()=>{
   for(const kind of ['data','runtime','management']){
     const ownRoot=path.join(secrets,kind);for(const p of peers)await writeFile(path.join(ownRoot,p.id+'.pub'),p.publicKey);
     const cfg:any={kind,keyFile:path.join(ownRoot,'signing.key'),caFile:path.join(ownRoot,'ca.pem'),certFile:path.join(ownRoot,'tls.pem'),tlsKeyFile:path.join(ownRoot,'tls.key'),peers:peers.map(p=>({id:p.id,fingerprint:p.fingerprint,publicKeyFile:path.join(ownRoot,p.id+'.pub')})),endpoints,applicationId,managementApplicationId,issuer};
     if(kind==='data')Object.assign(cfg,{policyFile:policyPath,enrollmentFile,templateRegistry:path.join(integration,'templates.sqlite'),applicationRoot:appRoot,schemaIdentity,privateRoot,privateAssetId:'stage5-private',privateVersion:privateVersion.version,publicRoots:[apps,publicRoot],authorityId:V1_AUTHORITY_ID,applied:{...deployment,identity:{enabled:false,token:'',userId:'',applicationId,authorityId:V1_AUTHORITY_ID}}});
     else Object.assign(cfg,{enrollmentApplicationId:kind==='runtime'?applicationId:managementApplicationId,clientId:kind+'-fixture-client',origin:`https://${kind==='management'?'localhost':'127.0.0.1'}:${endpoints[kind].port}`,sessionUsers:kind==='runtime'?[editor.id,viewer.id,admin.id]:[admin.id,applicationAdmin.id,editor.id],releaseId:kind==='runtime'?release.releaseId:'management',publicRoot:kind==='runtime'?publicRoot:managementPublic,publicManifest:path.join(kind==='runtime'?publicRoot:managementPublic,'public-manifest.json'),applicationKeys:{'wp5c-created':applicationId,platform:'platform'}});
+    if(deploymentRoot&&kind!=='management')Object.assign(cfg,{deploymentRoot,applicationRoot:appRoot,schemaIdentity,retainDataOwner:kind==='data'});
+    if(restartServing && kind==='data')cfg.applied.serving=restartServing;
+    if(deploymentRoot && process.env.UI_PLATFORM_CONTROLLED_PROMOTION==='1' && !restartServing) {
+      if(kind==='data')Object.assign(cfg,{approvedReleaseTransitionFile:path.join(deploymentRoot,'approved-transition.json'),
+        recoveryWitness:process.env.UI_PLATFORM_RECOVERY_WITNESS,drainWitness:process.env.UI_PLATFORM_DRAIN_WITNESS==='1',
+        writerWitness:process.env.UI_PLATFORM_WRITER_WITNESS==='1'});
+      if(kind==='management')cfg.controlledDeployment=true;
+    }
+    if(deploymentRoot)cfg.transitionNegativeWitness=process.env.UI_PLATFORM_TRANSITION_NEGATIVES==='1';
+    if(deploymentRoot&&process.env.UI_PLATFORM_ROLLBACK_WITNESS){
+      if(kind==='data')cfg.approvedRollbackFile=path.join(deploymentRoot,'approved-rollback.json');
+      else cfg.rollbackWitness=true;
+    }
     const configFile=path.join(ownRoot,'process.json');await saveJson(configFile,cfg);
-    const args=kind==='data'?[]:['--permission',`--allow-fs-read=${path.dirname(process.cwd())}`,`--allow-fs-read=${ownRoot}`,`--allow-fs-read=${cfg.publicRoot}`];
-    const child=spawn(process.execPath,[...args,worker],{cwd:process.cwd(),windowsHide:true,env:{...process.env,STAGE5_LOCAL_PROCESS_CONFIG:configFile},stdio:['ignore','pipe','pipe','ipc']});
-    cleanup.push(async()=>{if(child.exitCode===null){const end=new Promise<void>(r=>child.once('exit',()=>r()));child.kill();await end;}});
+    const args=kind==='data'?[]:['--permission',`--allow-fs-read=${path.dirname(process.cwd())}`,`--allow-fs-read=${ownRoot}`,`--allow-fs-read=${cfg.publicRoot}`,...(deploymentRoot&&kind==='runtime'?[`--allow-fs-read=${deploymentRoot}`]:[])];
+    const child=spawn(process.execPath,[...args,worker],{cwd:process.cwd(),windowsHide:true,env:{...process.env,STAGE5_LOCAL_PROCESS_CONFIG:configFile,...(cfg.retainDataOwner?{NODE_ENV:'development'}:{})},stdio:['ignore','pipe','pipe','ipc']});
+    cleanup.push(async()=>{if(child.exitCode===null){const end=new Promise<void>(r=>child.once('exit',()=>r()));if(cfg.retainDataOwner&&child.connected)child.disconnect();else child.kill();await end;}});
     processes[kind]=await new Promise<any>((resolve,reject)=>{let text='',errors='';const timer=setTimeout(()=>reject(new Error('PROCESS_START_TIMEOUT '+kind)),30_000);child.stdout!.on('data',b=>{text+=String(b);if(text.includes('\n')){clearTimeout(timer);resolve(JSON.parse(text.split('\n')[0]!));}});child.stderr!.on('data',b=>errors+=String(b));child.once('exit',code=>{clearTimeout(timer);reject(new Error('PROCESS_START_FAILED '+kind+' '+code+' '+errors));});});
     processes[kind].child=child;
   }
+  };
+  await startProcesses();
   expect(new Set(Object.values(processes).map((p:any)=>p.pid)).size).toBe(3);
   console.log('Stage 5 integration: separate Data, runtime and management processes started');
   const browser=page.context().browser(),context=await browser.newContext({ignoreHTTPSErrors:true});cleanup.push(()=>context.close());
   const runtimeUrl=`https://127.0.0.1:${endpoints.runtime.port}`,managementUrl=`https://localhost:${endpoints.management.port}`,runtimePage=await context.newPage();
   await runtimePage.goto(runtimeUrl+'/inventory');expect((await context.request.get(runtimeUrl+'/inventory')).status()).toBe(200);await runtimePage.screenshot({path:path.join(evidence,'anonymous-public.png'),fullPage:true});
+  const runtimeBundleHash = async () => {
+    const response = await context.request.get(runtimeUrl + '/application.js');
+    expect(response.status()).toBe(200);
+    return digest(await response.body());
+  };
+  const servedA = await runtimeBundleHash();
+  expect(servedA).toBe(browserRelease.publicFiles.get('/application.js')?.sha256);
+  const preparation = `
+    import {preparePresentationCandidate} from './src/server/application-presentation.ts';
+    import {readApplicationOwnerId} from './src/server/applications.ts';
+    const key = 'wp5c-created';
+    const status = await preparePresentationCandidate(key, async () => {
+      if (await readApplicationOwnerId(key) !== ${JSON.stringify(applicationId)}) throw Error('CANDIDATE_OWNER_MISMATCH');
+    });
+    console.log(JSON.stringify({activeVersion:status.manifest.activeVersion,version:status.manifest.versions.at(-1).version}));`;
+  const preparationOutput = execFileSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', preparation], {
+    cwd: process.cwd(), encoding: 'utf8', env: { ...process.env, UI_APPS_DIR: apps, UI_RUNTIME_DIR: runtime }, windowsHide: true, timeout: 30_000,
+  });
+  const preparedRelease = JSON.parse(preparationOutput.trim().split(/\r?\n/).at(-1)!);
+  expect(preparedRelease.version).toBeGreaterThan(preparedRelease.activeVersion);
+  const candidate = await selection.readPublishedVersion(preparedRelease.version);
+  const candidateBrowser = await buildReleasedBrowser(appRoot, process.cwd(), candidate, path.join(root, 'candidate-public'));
+  expect(candidate.releaseId).not.toBe(release.releaseId);
+  expect(candidateBrowser.releaseId).toBe(candidate.releaseId);
+  expect(await selection.read()).toEqual(release);
+  expect(await runtimeBundleHash()).toBe(servedA);
+  expect(candidateBrowser.publicFiles.get('/application.js')?.sha256).not.toBe(servedA);
+  await saveJson(path.join(evidence, 'frozen-release-candidate.json'), {
+    activeRelease: release.releaseId, candidateRelease: candidate.releaseId, schemaIdentity, activeVersion: preparedRelease.activeVersion,
+    candidateVersion: preparedRelease.version, candidateFiles: candidate.files, candidateBrowserHash: candidateBrowser.publicFiles.get('/application.js')?.sha256,
+    servedAHashBeforeAndAfter: servedA,
+  });
   const sessionFor=(kind:string,id:string)=>processes[kind].sessions.find((s:any)=>s.userId===id);
   const use=async(kind:string,id:string)=>{const s=sessionFor(kind,id);await context.addCookies([{name:'__Host-uib_session',value:s.token,url:kind==='runtime'?runtimeUrl:managementUrl,secure:true,httpOnly:true,sameSite:'Lax'}]);return s;};
+  if(deploymentRoot && process.env.UI_PLATFORM_CONTROLLED_PROMOTION==='1'){
+    const {MigrationEngine,JsonFileMigrationProvider,FileSystemArtifactService}=await import('@ui-platform/artifacts');
+    const artifact=path.join(root,'deployment-candidate-artifact');
+    await mkdir(path.join(artifact,'public'),{recursive:true});
+    const routes=[];
+    for(const [route,entry] of candidateBrowser.publicFiles){
+      const file='public/'+routes.length;
+      expect(digest(entry.bytes)).toBe(entry.sha256);
+      await writeFile(path.join(artifact,file),entry.bytes);
+      routes.push({route,file,mediaType:entry.mediaType});
+    }
+    await saveJson(path.join(artifact,'release-selection.json'),{version:preparedRelease.version,releaseId:candidate.releaseId,schemaIdentity,
+      compositionDigest:digest(JSON.stringify(candidate.files)),publicFiles:routes});
+    const manifest:RuntimeManifest={manifestVersion:1,applicationId,buildId:candidate.releaseId,builtAt:new Date().toISOString(),
+      sourceFingerprint:digest(JSON.stringify(candidate.files)),uiPlatformVersion:'local-stage5',
+      runtimeCompatibility:{node:process.versions.node.split('.')[0]!,target:process.platform+'-'+process.arch},
+      entryPoint:routes.find(entry=>entry.route==='/application.js')!.file,requiredEnvironmentKeys:[],migrationIdsIncluded:[],migrationChecksums:{},
+      files:await filesUnder(artifact),artifacts:[],validationReport:'release-selection.json'};
+    await saveJson(path.join(artifact,'runtime-manifest.json'),manifest);
+    const datasetFiles={};
+    const provider=new JsonFileMigrationProvider({environmentRoot:deploymentRoot,environmentId:deployment.pin.environmentId,production:false,
+      dataRoot:deployment.paths.ormData,datasetFiles,async setMaintenance(){throw Error('SCHEMA_MIGRATION_NOT_AUTHORIZED');}});
+    await provider.initialize([]);
+    const migrations=new MigrationEngine({root:appRoot,applicationId,provider,service:new FileSystemArtifactService({root:appRoot}),async authorize(){return false;}});
+    const target=new LocalDirectoryDeploymentTarget({root:deploymentRoot,async health(){throw Error('PREFLIGHT_ONLY');},async activate(){throw Error('PREFLIGHT_ONLY');},async oldRuntimeCompatible(){return false;}});
+    const service=new DeploymentService({root:appRoot,applicationId,migrations,target,async environment(){return {};},async authorize(){return false;}});
+    const plan=await service.preflight(artifact);
+    expect(plan.migrations).toEqual([]);
+    const approval={planId:plan.planId,applicationId,buildId:manifest.buildId,manifestFingerprint:plan.manifestFingerprint};
+    await saveJson(path.join(deploymentRoot,'approved-transition.json'),{...approval,releaseId:candidate.releaseId,datasetFiles});
+    const invoke=(kind:string,operation:string,input:unknown,wrongAudience:boolean|string=false)=>new Promise<any>((resolve,reject)=>{
+      const child=processes[kind].child,id=randomUUID();
+      const timer=setTimeout(()=>{child.off('message',receive);reject(Error('MANAGEMENT_TRANSITION_TIMEOUT'));},35_000);
+      const receive=(message:any)=>{if(message.id!==id)return;clearTimeout(timer);child.off('message',receive);resolve(message);};
+      child.on('message',receive);
+      child.send({operation,id,approval:input,wrongAudience});
+    });
+    const transitionNegatives=process.env.UI_PLATFORM_TRANSITION_NEGATIVES==='1';
+    const refusals:Record<string,boolean>={};
+    if(transitionNegatives){
+      const before=(await target.readVerifiedActive(applicationId)).binding;
+      const denyTransition=async(name:string,kind:string,input:unknown,wrongAudience=false)=>{
+        const response=await invoke(kind,'negative-transition',input,wrongAudience);
+        refusals[name]=response.done===false;
+        expect(refusals[name]).toBe(true);
+        expect((await target.readVerifiedActive(applicationId)).binding).toEqual(before);
+      };
+      await denyTransition('runtime-identity','runtime',approval);
+      await denyTransition('wrong-audience','management',approval,true);
+      for(const key of ['planId','applicationId','buildId','manifestFingerprint']){
+        await denyTransition('wrong-'+key,'management',{...approval,[key]:'incorrect'});
+      }
+      await saveJson(path.join(evidence,'transition-negatives.json'),{refusals,unchanged:before});
+    }
+    const drain=process.env.UI_PLATFORM_DRAIN_WITNESS==='1';
+    const dataChild=processes.data.child;
+    const witnessEvents:any[]=[];
+    const waitWitness=(witness:string)=>new Promise<any>((resolve,reject)=>{
+      const timer=setTimeout(()=>{dataChild.off('message',receive);reject(Error('DRAIN_WITNESS_TIMEOUT '+witness));},12_000);
+      const receive=(message:any)=>{if(message.witness!==witness)return;clearTimeout(timer);dataChild.off('message',receive);witnessEvents.push(message);resolve(message);};
+      dataChild.on('message',receive);
+    });
+    const request=async(data:unknown)=>context.request.post(runtimeUrl+'/runtime/execute',{
+      headers:{origin:runtimeUrl,'x-uib-csrf':sessionFor('runtime',editor.id).csrf},data});
+    let heldWrite:ReturnType<typeof request>|undefined, closed:ReturnType<typeof waitWitness>|undefined;
+    const recordId=randomUUID();
+    if(drain){
+      await use('runtime',editor.id);
+      const armed=waitWitness('drain-armed');dataChild.send({operation:'arm-drain'});await armed;
+      const held=waitWitness('commit-held');
+      heldWrite=request({releaseId:release.releaseId,artifactId:form.metadata.artifactId,contract:'form',
+        values:{operation:'create',record:{id:recordId,name:'Drain witness',quantity:7,active:true}}});
+      void heldWrite.catch(()=>{});
+      await held;
+      closed=waitWitness('admission-closed');
+    }
+    const consumed=transitionNegatives?waitWitness('transition-consumed'):undefined;
+    const transition=invoke('management','activate-approved',approval);
+    if(consumed)await consumed;
+    const concurrent=transitionNegatives?invoke('management','negative-transition',approval):undefined;
+    let closedHttp:number|undefined, committed:unknown;
+    if(closed){
+      try {
+        expect((await closed).inFlight).toBeGreaterThan(0);
+        expect((await target.readVerifiedActive(applicationId)).binding.buildId).toBe(release.releaseId);
+        closedHttp=(await request({releaseId:release.releaseId,artifactId:createdPage.metadata.artifactId,contract:queryContract,values:{}})).status();
+        expect(closedHttp).toBe(403);
+        expect((await target.readVerifiedActive(applicationId)).binding.buildId).toBe(release.releaseId);
+      } finally {
+        const settled=waitWitness('commit-settled');
+        dataChild.send({operation:'release-commit'});
+        await settled;
+      }
+      const response=await heldWrite!;
+      expect(response.status()).toBe(200);
+      committed=await response.json();
+      expect(committed).toMatchObject({committed:true,commitOutcome:'committed'});
+    }
+    const result=await transition;
+    if(concurrent){
+      expect((await concurrent).done).toBe(false);
+      expect((await invoke('management','negative-transition',approval)).done).toBe(false);
+      await saveJson(path.join(evidence,'transition-negatives.json'),{refusals,concurrentRefused:true,duplicateRefused:true,activation:result.result});
+    }
+    const active=await target.readVerifiedActive(applicationId);
+    const served=await runtimeBundleHash();
+    await saveJson(path.join(evidence,'controlled-transition.json'),{processes:Object.fromEntries(Object.entries(processes).map(([kind,p]:any)=>[kind,p.pid])),
+      approval,result:result.result??null,activeBuild:active.binding.buildId,activeManifestFingerprint:active.binding.manifestFingerprint,served,schemaIdentity});
+    expect(result.done).toBe(true);
+    const witness=process.env.UI_PLATFORM_RECOVERY_WITNESS;
+    if(witness){
+      const uncertain=witness==='uncertain';
+      expect(result.result).toMatchObject({state:uncertain?'recovery-required':'failed',
+        outcome:uncertain?'recovery-required':'activation-failed-prior-verified',admissionOpen:!uncertain});
+      expect(active.binding.buildId).toBe(release.releaseId);
+      expect(served).toBe(servedA);
+      const editorSession=await use('runtime',editor.id);
+      const query=await context.request.post(runtimeUrl+'/runtime/execute',{headers:{origin:runtimeUrl,'x-uib-csrf':editorSession.csrf},
+        data:{releaseId:release.releaseId,artifactId:createdPage.metadata.artifactId,contract:queryContract,values:{}}});
+      await saveJson(path.join(evidence,'controlled-transition-http.json'),{recoveredAQuery:query.status(),admissionOpen:result.result.admissionOpen});
+      expect(query.status()).toBe(uncertain?403:200);
+      return;
+    }
+    expect(result.result.state).toBe('succeeded');
+    if(process.env.UI_PLATFORM_WRITER_WITNESS==='1'){
+      expect(result.result.writerWitnesses.map((w:any)=>w.releaseId)).toEqual([release.releaseId,candidate.releaseId]);
+      expect(result.result.writerWitnesses.every((w:any)=>!w.admissionOpen)).toBe(true);
+      expect(result.result.admissionOpen).toBe(true);
+    }
+    expect(active.binding.manifestFingerprint).toBe(plan.manifestFingerprint);
+    expect(served).toBe(candidateBrowser.publicFiles.get('/application.js')?.sha256);
+    const editorSession=await use('runtime',editor.id);
+    const execute=async (data:unknown)=>context.request.post(runtimeUrl+'/runtime/execute',{headers:{origin:runtimeUrl,'x-uib-csrf':editorSession.csrf},data});
+    const stale=await execute({releaseId:release.releaseId,artifactId:form.metadata.artifactId,contract:'form',values:{operation:'create',record:{id:randomUUID(),name:'Stale',quantity:1,active:true}}});
+    const live=await execute({releaseId:candidate.releaseId,artifactId:createdPage.metadata.artifactId,contract:queryContract,values:{}});
+    if(drain){
+      const rows=await live.json();
+      expect(rows).toEqual(expect.arrayContaining([expect.objectContaining({id:recordId,name:'Drain witness',quantity:7,active:true})]));
+      await saveJson(path.join(evidence,'transaction-drain.json'),{events:witnessEvents,closedHttp,committed,recordId,verifiedBRead:true});
+    }
+    await saveJson(path.join(evidence,'controlled-transition-http.json'),{staleWrite:stale.status(),activeQuery:live.status()});
+    expect(stale.status()).toBe(403);
+    expect(live.status()).toBe(200);
+    const rollbackMode=process.env.UI_PLATFORM_ROLLBACK_WITNESS;
+    if(rollbackMode){
+      const prior=await target.readVerifiedPrior(applicationId);
+      const rollbackApproval={planId:randomUUID(),applicationId,buildId:prior.binding.buildId,manifestFingerprint:prior.binding.manifestFingerprint};
+      await saveJson(path.join(deploymentRoot,'approved-rollback.json'),{...rollbackApproval,releaseId:release.releaseId,
+        schemaIdentity:rollbackMode==='incompatible'?'incompatible-schema':schemaIdentity,failVerification:rollbackMode==='uncertain'});
+      let unauthorizedRefused=false;
+      if(rollbackMode==='incompatible'){
+        unauthorizedRefused=(await invoke('runtime','rollback-approved',rollbackApproval)).done===false;
+        expect(unauthorizedRefused).toBe(true);
+        expect((await target.readVerifiedActive(applicationId)).binding).toEqual(active.binding);
+      }
+      const result=await invoke(rollbackMode==='unauthorized'?'runtime':'management','rollback-approved',rollbackApproval);
+      const after=await target.readVerifiedActive(applicationId);
+      const servedAfter=await runtimeBundleHash();
+      const restored=rollbackMode==='compatible';
+      const releaseId=restored?release.releaseId:candidate.releaseId;
+      const valid=await execute({releaseId,artifactId:createdPage.metadata.artifactId,contract:queryContract,values:{}});
+      const stale=await execute({releaseId:restored?candidate.releaseId:release.releaseId,artifactId:createdPage.metadata.artifactId,contract:queryContract,values:{}});
+      await saveJson(path.join(evidence,'controlled-rollback.json'),{mode:rollbackMode,approval:rollbackApproval,result:result.result??null,authorized:result.done,
+        before:active.binding.buildId,after:after.binding.buildId,manifest:after.binding.manifestFingerprint,servedAfter,schemaIdentity,
+        registryRevision:processes.data.registryRevision,valid:valid.status(),stale:stale.status(),unauthorizedRefused});
+      expect(after.binding).toEqual(restored?prior.binding:active.binding);
+      expect(servedAfter).toBe(restored?servedA:served);
+      expect(stale.status()).toBe(403);
+      expect(valid.status()).toBe(rollbackMode==='uncertain'?403:200);
+      if(rollbackMode==='unauthorized')expect(result.done).toBe(false);
+      else {
+        expect(result.done).toBe(true);
+        expect(result.result).toMatchObject({outcome:restored?'activated':rollbackMode==='uncertain'?'recovery-required':'incompatible',
+          admissionOpen:rollbackMode!=='uncertain'});
+      }
+    }
+    if(process.env.UI_PLATFORM_RESTART_WITNESS==='1'){
+      const snapshot=()=>Object.fromEntries(Object.entries(processes).map(([kind,p]:any)=>[kind,{pid:p.pid,
+        rpcAudience:endpoints[kind].rpcAudience,actorAudience:endpoints[kind].actorAudience}]));
+      const before=snapshot(), policyHash=digest(await readFile(policyPath));
+      const ormBefore=await filesUnder(deployment.paths.ormData);
+      const priorSchema=processes.data.schemaIdentity, priorRegistry=processes.data.registryRevision;
+      restartServing=processes.data.serving;
+      expect(restartServing).toBeDefined();
+      for(const kind of ['management','runtime','data']){
+        const child=processes[kind].child;
+        const stopped=new Promise<number|null>((resolve,reject)=>{
+          const timer=setTimeout(()=>reject(Error('CONTROLLED_SHUTDOWN_TIMEOUT '+kind)),15_000);
+          child.once('exit',(code:number|null)=>{clearTimeout(timer);resolve(code);});
+        });
+        child.disconnect();
+        expect(await stopped).toBe(0);
+        endpoints[kind].rpcAudience=kind+'-rpc-'+randomUUID();
+        endpoints[kind].actorAudience=kind+'-actor-'+randomUUID();
+      }
+      await startProcesses();
+      const after=snapshot();
+      for(const kind of ['data','runtime','management']){
+        expect(after[kind]!.pid).not.toBe(before[kind]!.pid);
+        expect(after[kind]!.rpcAudience).not.toBe(before[kind]!.rpcAudience);
+        expect(after[kind]!.actorAudience).not.toBe(before[kind]!.actorAudience);
+      }
+      expect(processes.data.schemaIdentity).toBe(priorSchema);
+      expect(processes.data.registryRevision).toBe(priorRegistry);
+      expect(digest(await readFile(policyPath))).toBe(policyHash);
+      expect(await filesUnder(deployment.paths.ormData)).toEqual(ormBefore);
+      if(transitionNegatives){
+        const identity={issuer,subject:editor.id,applicationId};
+        const fresh=await invoke('runtime','identity-audience-witness',identity);
+        const old=await invoke('runtime','identity-audience-witness',identity,before.data!.rpcAudience);
+        expect(fresh.done).toBe(true);
+        expect(old.done).toBe(false);
+        await saveJson(path.join(evidence,'restart-audience-negatives.json'),{freshAccepted:true,staleRefused:true,oldAudience:before.data!.rpcAudience,newAudience:after.data!.rpcAudience});
+      }
+      expect((await target.readVerifiedActive(applicationId)).binding).toEqual(active.binding);
+      const restartedBundle=await runtimeBundleHash();
+      expect(restartedBundle).toBe(served);
+      const restartedEditor=await use('runtime',editor.id);
+      const query=async(releaseId:string)=>context.request.post(runtimeUrl+'/runtime/execute',{
+        headers:{origin:runtimeUrl,'x-uib-csrf':restartedEditor.csrf},data:{releaseId,artifactId:createdPage.metadata.artifactId,contract:queryContract,values:{}}});
+      const activeResponse=await query(candidate.releaseId);
+      const activeQuery=activeResponse.status(),staleQuery=(await query(release.releaseId)).status();
+      if(drain)expect(await activeResponse.json()).toEqual(expect.arrayContaining([expect.objectContaining({id:recordId,name:'Drain witness',quantity:7,active:true})]));
+      await saveJson(path.join(evidence,'controlled-restart.json'),{before,after,activeBuild:active.binding.buildId,
+        manifestFingerprint:active.binding.manifestFingerprint,restartedBundle,schemaIdentity:priorSchema,registryRevision:priorRegistry,
+        ormInventoryUnchanged:true,policyHash,activeQuery,staleQuery,...(drain?{recordId,nonemptyRecordVerified:true}:{})});
+      expect(activeQuery).toBe(200);
+      expect(staleQuery).toBe(403);
+    }
+    return;
+  }
   let managementActor=admin.id;await use('management',managementActor);
   const managementPost=async(action:string,value:any,key='wp5c-created')=>{const r=await context.request.post(`${managementUrl}/api/apps/${key}/security/${action}`,{headers:{origin:managementUrl,'x-uib-csrf':sessionFor('management',managementActor).csrf},data:value});return{status:r.status(),value:await r.json()};};
   const readPolicy=()=>{const p=new SecurityDefinitionStore(policyPath);try{return p.snapshot();}finally{p.close();}};

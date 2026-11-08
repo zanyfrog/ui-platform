@@ -1,0 +1,81 @@
+{
+  "run": "restart-001/security-only",
+  "passed": true,
+  "wp3TestsPassed": 68,
+  "restart": {
+    "before": {
+      "data": {
+        "pid": 52008,
+        "rpcAudience": "data-rpc-a51098ab-333f-4460-a420-da327f0fd281",
+        "actorAudience": "data-actor-103bf047-dbd5-49a1-ae62-77d55d604718"
+      },
+      "runtime": {
+        "pid": 50964,
+        "rpcAudience": "runtime-rpc-6b5b1563-59af-4d89-b209-e99d20729782",
+        "actorAudience": "runtime-actor-b605ef47-bcca-409f-bd67-7ddb72e805b8"
+      },
+      "management": {
+        "pid": 29012,
+        "rpcAudience": "management-rpc-9c4a0696-847d-4cfb-afb3-56570f45f8ee",
+        "actorAudience": "management-actor-86012f72-50b6-48c5-a034-2f5daf843e4e"
+      }
+    },
+    "after": {
+      "data": {
+        "pid": 35328,
+        "rpcAudience": "data-rpc-7398c4af-38a0-4cf3-9657-1507c179650f",
+        "actorAudience": "data-actor-80155849-01ae-4b7e-b715-a230964cea4a"
+      },
+      "runtime": {
+        "pid": 37860,
+        "rpcAudience": "runtime-rpc-75397ce5-6bcc-460d-af6e-2498eee65c1a",
+        "actorAudience": "runtime-actor-81fe3397-fea3-4280-91f6-775014cc184a"
+      },
+      "management": {
+        "pid": 14312,
+        "rpcAudience": "management-rpc-59f90f9e-ec02-4168-a31e-512c49f0a11f",
+        "actorAudience": "management-actor-39a921f4-cc68-41dd-bfee-6b80ce029a8b"
+      }
+    },
+    "activeBuild": "release_0bf5ccbe07d28e18d694c505b2ee45fc00577cb0d6ff7ca6971281fca02a64eb",
+    "manifestFingerprint": "sha256:f66ca836cf53bbcd3f00d684f2ab7ca2bc4679c256a757ea8117b84905c3f12d",
+    "restartedBundle": "b783db33a08189acb8d7f8e6e4e25844bad0ad4d7be7a8f3676c8e924f085574",
+    "schemaIdentity": "318d257df598d6267e5fc80d53dea1be998710ffe600c7ddfba0d305faae012c",
+    "registryRevision": "6:ds0-orm-verification-v1:sha256:859f7403077e8923f0f4765d78d08983e73cecccebe94210f7accef75ad3a87d",
+    "ormInventoryUnchanged": true,
+    "policyHash": "71987fd3154bdb04903906c0667a0807db4f2621e20d18e0f95bc6ea44ae45d0",
+    "activeQuery": 200,
+    "staleQuery": 403
+  },
+  "activation": {
+    "processes": {
+      "data": 52008,
+      "runtime": 50964,
+      "management": 29012
+    },
+    "approval": {
+      "planId": "9d37ca9c-81d7-4b5f-842f-c5d95b935470",
+      "applicationId": "9c84c1f6-1916-4a21-bee2-b79bd3db51fd",
+      "buildId": "release_0bf5ccbe07d28e18d694c505b2ee45fc00577cb0d6ff7ca6971281fca02a64eb",
+      "manifestFingerprint": "sha256:f66ca836cf53bbcd3f00d684f2ab7ca2bc4679c256a757ea8117b84905c3f12d"
+    },
+    "result": {
+      "deploymentId": "c6a60d8c-e09d-49a4-856b-74d8663af3a4",
+      "state": "succeeded",
+      "outcome": "activated"
+    },
+    "activeBuild": "release_0bf5ccbe07d28e18d694c505b2ee45fc00577cb0d6ff7ca6971281fca02a64eb",
+    "activeManifestFingerprint": "sha256:f66ca836cf53bbcd3f00d684f2ab7ca2bc4679c256a757ea8117b84905c3f12d",
+    "served": "b783db33a08189acb8d7f8e6e4e25844bad0ad4d7be7a8f3676c8e924f085574",
+    "schemaIdentity": "318d257df598d6267e5fc80d53dea1be998710ffe600c7ddfba0d305faae012c"
+  },
+  "resultsSha256": "0500724b3bcf6f74184f5d07c08d948f4b441d0316c77f3ac3dac411e6b71370",
+  "workerSha256": "6820bcf037ad1f7d4740f24aeb34e63a8eff922b2054dcb8838a447da50bc9f5",
+  "qualification": "ORM inventory byte hashes compared; no separate nonempty record persistence witness",
+  "outstanding": [
+    "In-flight transaction drain",
+    "Independent competing writers in the lifecycle journey",
+    "Remaining security negatives",
+    "Compatible, incompatible and unauthorized rollback"
+  ]
+}

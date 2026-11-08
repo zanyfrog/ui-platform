@@ -31,7 +31,7 @@ export class ServiceRpcVerifier {
 export class ServiceRpcClient {
   private readonly url: URL;
   constructor(endpoint: string, private readonly tls: { ca: string; cert: string; key: string }, private readonly id: string,
-    private readonly keyId: string, private readonly signingKey: CryptoKey, private readonly audience: string, private readonly paths: string[]) {
+    private readonly keyId: string, private readonly signingKey: CryptoKey, private readonly audience: string, private readonly paths: string[], private readonly timeoutMs = 3000) {
     this.url = new URL(endpoint); if (this.url.protocol !== 'https:' || this.url.pathname !== '/' || this.url.username || this.url.password || this.url.search || this.url.hash || !audience) deny();
   }
   async call(path: string, value: unknown): Promise<any> {
@@ -45,7 +45,7 @@ export class ServiceRpcClient {
         response.on('data', chunk => { if ((size += chunk.length) > 65536) response.destroy(new Error('RPC_LIMIT')); else chunks.push(Buffer.from(chunk)); });
         response.on('error', reject); response.on('end', () => { try { if (response.statusCode !== 200) deny(); resolve(JSON.parse(Buffer.concat(chunks).toString('utf8'))); } catch { reject(new Error('SERVICE_RPC_UNAVAILABLE')); } });
       });
-      request.setTimeout(3000, () => request.destroy(new Error('SERVICE_RPC_UNAVAILABLE'))); request.on('error', reject); request.end(bytes);
+      request.setTimeout(this.timeoutMs, () => request.destroy(new Error('SERVICE_RPC_UNAVAILABLE'))); request.on('error', reject); request.end(bytes);
     });
   }
 }

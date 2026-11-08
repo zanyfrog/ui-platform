@@ -1,0 +1,32 @@
+{
+  "scope": "Retained Data worker with existing Stage 5 HTTPS processes. Frozen B prepared only.",
+  "run": "run-001/security-only",
+  "stage5Passed": 1,
+  "wp3Passed": 68,
+  "launcherChanges": [
+    "Enable retained Data owner",
+    "Use development mode only in the Data child",
+    "Disconnect Data for shutdown during cleanup"
+  ],
+  "testedWorkerSha256": "4bfd6c91d8d3c0fbe4dda2b32482ed2834a1234b7502dd03ab42119f5b22208c",
+  "testedJourneySha256": "a5aad3ec6d6adff6749bdae20fcf567f899ee1a29cdbe2735e140a0663c831d2",
+  "processes": {
+    "data": {
+      "pid": 18900
+    },
+    "runtime": {
+      "pid": 47648
+    },
+    "management": {
+      "pid": 39248
+    }
+  },
+  "activeRelease": "release_117c54f3b0dcc0bb3a69f727b7bcdae344a581531ae17ea1ef16bc83cf9ad3a1",
+  "candidateRelease": "release_e15cc38efe2a010cbd2af8c2e86fc69a0dfcdd7c1de12922bc012b97497d9ef5",
+  "schemaIdentity": "bec8d3472c2f6e2abf2fac80f2a0040286376baadc3242423e1bb113e1287245",
+  "servedAHashBeforeAndAfter": "bc0484af41ec3bce938e83d3b72fad77887128ee54c6d1851da3e85054cc644c",
+  "candidateBrowserHash": "742ef624943f582a330c863c9934d9cfba25e8b10041b76e8cd5cb95472d0426",
+  "proofBudgetMs": 15000,
+  "factoryProofBudgetMs": 1000,
+  "aToBActivationAttempted": false
+}

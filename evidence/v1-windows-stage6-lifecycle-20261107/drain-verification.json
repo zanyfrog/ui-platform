@@ -1,0 +1,122 @@
+{
+  "failedAttempt": {
+    "boundary": "DeploymentService.preflight pendingForEnvironment",
+    "run": "drain-001",
+    "error": "Artifact is locked by another writer.",
+    "resultsSha256": "8f81996dc84129ec5f8de460d733b4bf9585aece068c016b81973a8a0f11e405"
+  },
+  "passingRun": "drain-002",
+  "drain": {
+    "events": [
+      {
+        "witness": "drain-armed"
+      },
+      {
+        "witness": "commit-held",
+        "transactionId": "6de1bc09-d347-4da6-92a3-395363cfa59a"
+      },
+      {
+        "witness": "admission-closed",
+        "inFlight": 1
+      },
+      {
+        "witness": "commit-settled",
+        "transactionId": "6de1bc09-d347-4da6-92a3-395363cfa59a",
+        "outcome": "committed"
+      }
+    ],
+    "closedHttp": 403,
+    "committed": {
+      "operationId": "957e1bcb-399d-484c-87c8-02ce02a5b633",
+      "correlationId": "957e1bcb-399d-484c-87c8-02ce02a5b633",
+      "success": true,
+      "committed": true,
+      "commitOutcome": "committed",
+      "counts": {
+        "requested": 1,
+        "succeeded": 1,
+        "failed": 0,
+        "unknown": 0
+      }
+    },
+    "recordId": "37f553af-e372-4fe5-a835-ba02390aa699",
+    "verifiedBRead": true
+  },
+  "restart": {
+    "before": {
+      "data": {
+        "pid": 8336,
+        "rpcAudience": "data-rpc-a3a5111e-d5c2-4fa3-b989-cccfa74ad580",
+        "actorAudience": "data-actor-fa732bd4-5796-4eaa-a340-db8bc60d7f00"
+      },
+      "runtime": {
+        "pid": 50616,
+        "rpcAudience": "runtime-rpc-9689b91e-32d1-4fc8-9546-f28e41d33d8f",
+        "actorAudience": "runtime-actor-04ba398b-66be-4107-98e4-acc8be2c6bd5"
+      },
+      "management": {
+        "pid": 37516,
+        "rpcAudience": "management-rpc-87759f77-351c-403e-8fcf-8b22f47aa700",
+        "actorAudience": "management-actor-a1b9bdb7-360a-4480-abf5-d58062e122df"
+      }
+    },
+    "after": {
+      "data": {
+        "pid": 26276,
+        "rpcAudience": "data-rpc-fc349a33-dbb8-4f78-9452-64f852e25eba",
+        "actorAudience": "data-actor-71945f07-d23b-4c31-ab8e-7592b48d8d39"
+      },
+      "runtime": {
+        "pid": 45784,
+        "rpcAudience": "runtime-rpc-9fe17006-fb81-4bb7-81fc-8c1d3e41d6b8",
+        "actorAudience": "runtime-actor-5304f11e-6c3c-4767-bb69-de2fcd91329c"
+      },
+      "management": {
+        "pid": 20768,
+        "rpcAudience": "management-rpc-117a34cb-337b-4e15-98c5-355f9654f886",
+        "actorAudience": "management-actor-ca698bf9-c345-4792-9a5c-d4c6f8f6f8b7"
+      }
+    },
+    "activeBuild": "release_b5d308410f356e134107a928b2a9c2eb0251a115b3866bdc695925a558776cdb",
+    "manifestFingerprint": "sha256:355c212042eb4980140ad7ba860f21030e1697de8e086ebd17540349b934fb65",
+    "restartedBundle": "0ecc9e1de2280bae1f41e4465b1ca70b490eedb04d5916add518e4d0cca5df09",
+    "schemaIdentity": "54891f3350f344a4fa0be5d9502a8a09428cc9de6249ebe2898bc30783406516",
+    "registryRevision": "6:ds0-orm-verification-v1:sha256:180625112f6c3ac66a9a3eb91b9d18f605c4d32770aedcb05e8c34fd57af9396",
+    "ormInventoryUnchanged": true,
+    "policyHash": "e201b870f61cfe27671b2255895ae78920968d285fea7152ad6da44be4209cc4",
+    "activeQuery": 200,
+    "staleQuery": 403,
+    "recordId": "37f553af-e372-4fe5-a835-ba02390aa699",
+    "nonemptyRecordVerified": true
+  },
+  "transition": {
+    "processes": {
+      "data": 8336,
+      "runtime": 50616,
+      "management": 37516
+    },
+    "approval": {
+      "planId": "866f18d6-063f-4413-b16e-6700851fc80c",
+      "applicationId": "748a51a8-84fa-45e8-91e2-9c2f16a11edd",
+      "buildId": "release_b5d308410f356e134107a928b2a9c2eb0251a115b3866bdc695925a558776cdb",
+      "manifestFingerprint": "sha256:355c212042eb4980140ad7ba860f21030e1697de8e086ebd17540349b934fb65"
+    },
+    "result": {
+      "deploymentId": "8a041275-fff2-4927-ad2f-29aea384f9a1",
+      "state": "succeeded",
+      "outcome": "activated"
+    },
+    "activeBuild": "release_b5d308410f356e134107a928b2a9c2eb0251a115b3866bdc695925a558776cdb",
+    "activeManifestFingerprint": "sha256:355c212042eb4980140ad7ba860f21030e1697de8e086ebd17540349b934fb65",
+    "served": "0ecc9e1de2280bae1f41e4465b1ca70b490eedb04d5916add518e4d0cca5df09",
+    "schemaIdentity": "54891f3350f344a4fa0be5d9502a8a09428cc9de6249ebe2898bc30783406516"
+  },
+  "http": {
+    "staleWrite": 403,
+    "activeQuery": 200
+  },
+  "workerSha256": "f9e564075e972f3db0b19e6187b25a021a5fd3ee6180ce742ad6afb6f8bd0e6b",
+  "focusedWriterCasesPassed": 3,
+  "writerCasesScope": "Independent writer handles in disposable Data controller fixture, separate from three-process lifecycle",
+  "wp3Passed": 68
+}

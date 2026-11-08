@@ -54,6 +54,14 @@ export interface DeploymentOptions {
   environment: () => Promise<Record<string, string | undefined>>;
   authorize: (approval: DeploymentApproval) => Promise<boolean>;
   policy?: (manifest: RuntimeManifest) => Promise<PolicyDiagnostic[]>;
+  /** Trusted schema-identical transition owner. Owns promotion and all release recovery. */
+  controlledPromotion?: (input: {
+    manifest: RuntimeManifest;
+    promote(signal: AbortSignal): Promise<void>;
+  }) => Promise<
+    | { outcome: "activated" }
+    | { outcome: "activation-failed-prior-verified"; previous: { releaseId: string; manifestFingerprint: string }; activationError: unknown }
+  >;
 }
 export interface DeploymentRecord {
   deploymentId: string;
@@ -74,6 +82,7 @@ export interface DeploymentRecord {
   actorId: string;
   updatedAt: string;
   backup?: BackupReference;
+  transition?: { outcome: "activated" | "activation-failed-prior-verified" | "recovery-required"; previous?: { releaseId: string; manifestFingerprint: string }; failure?: string };
 }
 export class DeploymentService {
   constructor(readonly options: DeploymentOptions) {}
@@ -183,6 +192,8 @@ export class DeploymentService {
         plan.manifestFingerprint,
       );
       const pending = await this.options.migrations.pendingForEnvironment();
+      const controlledPromotion = this.options.controlledPromotion;
+      if (controlledPromotion && pending.length) throw new Error("Controlled release promotion refuses pending migrations.");
       if (fingerprint(pending) !== fingerprint(plan.migrations))
         throw new Error("Pending migrations changed; repeat preflight.");
       const policy = (await this.options.policy?.(manifest)) ?? [];
@@ -273,11 +284,44 @@ export class DeploymentService {
         await this.verify(plan.directory, plan.manifestFingerprint);
         await save("promoting");
         promotionStarted = true;
-        await this.options.target.promote(manifest);
-        await this.options.target.health(manifest, "promoted");
+        if (controlledPromotion) {
+          let open = true;
+          let promotion: Promise<void> | undefined;
+          try {
+            const result = await controlledPromotion({
+              manifest: structuredClone(manifest),
+              promote: async signal => {
+                signal.throwIfAborted();
+                if (!open || promotion) throw new Error("Controlled promotion is no longer available.");
+                promotion = this.options.target.promote(manifest);
+                await promotion;
+              },
+            });
+            if (result.outcome === "activation-failed-prior-verified") {
+              record.transition = { outcome: result.outcome, previous: result.previous,
+                failure: result.activationError instanceof Error ? result.activationError.message : String(result.activationError) };
+              await save("failed");
+              return record;
+            }
+            if (!promotion || result.outcome !== "activated") throw new Error("Controlled promotion was not verified.");
+            await promotion;
+            record.transition = { outcome: "activated" };
+          } finally {
+            open = false;
+            await promotion?.catch(() => {});
+          }
+        } else {
+          await this.options.target.promote(manifest);
+          await this.options.target.health(manifest, "promoted");
+        }
         if (maintenance) await provider.maintenance(false);
         await save("succeeded");
-      } catch {
+      } catch (error) {
+        if (controlledPromotion && promotionStarted) {
+          record.transition = { outcome: "recovery-required", failure: error instanceof Error ? error.message : String(error) };
+          await save("recovery-required");
+          return record;
+        }
         // Recovery never automatically restores data or reopens writes after uncertain mutations.
         let recovered = !mutationStarted && !promotionStarted;
         if (
