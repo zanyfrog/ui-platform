@@ -40,7 +40,7 @@ export async function startApplicationArtifactWatchers(
       current.add(root);
       if (!watchers.has(root)) {
         try {
-          const service = services?.get(root) ?? new FileSystemArtifactService({ root });
+          const service = services?.get(root) ?? new FileSystemArtifactService({ root, recovery: 'refuse' });
           watchers.set(
             root,
             await service.startWatching({ onChange: event => { onChange(event); services?.changed(root, event); }, onError }),

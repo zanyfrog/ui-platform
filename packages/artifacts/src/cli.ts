@@ -6,6 +6,7 @@ import { stat } from "node:fs/promises";
 import { FileSystemArtifactService } from "./artifact-service.js";
 import type { ArtifactService, ArtifactValidationResult } from "./types.js";
 import { runApplicationCli } from "./application/cli.js";
+import { assertStandaloneRoot } from './standalone-root.js';
 
 export async function runArtifactCli(
   args: string[],
@@ -41,6 +42,12 @@ export async function runArtifactCli(
   const output = (value: unknown) =>
     stdout(json ? JSON.stringify(value, null, 2) + "\n" : render(value));
   try {
+    await assertStandaloneRoot(root);
+    await assertStandaloneRoot(path.resolve(root, target), command === 'watch' || command === 'discover');
+    if (!(service instanceof FileSystemArtifactService) || Object.getPrototypeOf(service) !== FileSystemArtifactService.prototype) {
+      throw new Error('FOUNDATION_SERVICE_ROOT_UNVERIFIED');
+    }
+    await service.assertStandaloneWorkspace();
     switch (command) {
       case "discover":
         output(await service.discover(target));
@@ -80,8 +87,8 @@ export async function runArtifactCli(
       }
       case "watch": {
         const watchService =
-          options.service ??
-          new FileSystemArtifactService({ root: path.resolve(root, target) });
+          options.service ? service : new FileSystemArtifactService({ root: path.resolve(root, target) });
+        await watchService.assertStandaloneWorkspace();
         const watcher = await watchService.startWatching({
           onChange: (event) => output(event),
           onError: (error) => stderr(error.message + "\n"),

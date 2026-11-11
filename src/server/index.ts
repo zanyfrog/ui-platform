@@ -12,6 +12,7 @@ import { ensurePreview, stopAllPreviews, stopPreview } from './preview.js';
 import { exportApp } from './exporter.js';
 import { appendHistory } from './history.js';
 import { startWorkspaceWatcher } from './watcher.js';
+import { listApplicationRecovery, recoverApplicationSource } from './application-source-recovery.js';
 import { startApplicationArtifactWatchers } from './artifact-watcher.js';
 import { ArtifactEditorWorkspace } from './artifact-editor.js';
 import { ArtifactEditorSecurity } from './editor-security.js';
@@ -86,6 +87,7 @@ const editorSecurity = new ArtifactEditorSecurity({
   origins: [port, Number(process.env.UI_PLATFORM_UI_PORT ?? 5174)].flatMap(value => [`http://localhost:${value}`, `http://127.0.0.1:${value}`]),
   workspace: async key => { await getApp(key); return editorWorkspace(appPath(key)); },
   securityDefinitions: v1Identity ? undefined : wp1Service ?? undefined,
+  applicationOwner: readApplicationOwnerId,
   trustedDevelopmentUser: v1Identity ? request => v1Identity.currentUser(request) : undefined,
   authorizer: v1Identity ? { can: (principal, operation, scope) => v1Identity.authorizeEditor(principal.subjectId, operation, scope) } : undefined,
   audit: event => console.info('artifact-editor-security', JSON.stringify(event)),
@@ -304,6 +306,30 @@ const server = http.createServer(async (req, res) => {
       }
     }
     if (url.pathname === '/api/health') return json(res, 200, { ok: true });
+    if (parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'source-recovery' && parts.length === 4 &&
+        (method === 'GET' || method === 'POST')) {
+      const actor = v1Identity?.currentUser(req);
+      if (!actor) return json(res, 403, { code: 'V1_PERMISSION_DENIED' });
+      const key = decodeURIComponent(parts[2]);
+      try {
+        return json(res, 200, method === 'GET' ? await listApplicationRecovery(key, admitManagement) :
+          await recoverApplicationSource(key, await body(req), actor, admitManagement));
+      } catch (cause) {
+        const failure = cause as { status?: number; code?: string; name?: string; message?: string; restoredRevision?: string };
+        if (failure.message === 'SOURCE_RECOVERY_AUDIT_INCOMPLETE') {
+          return json(res, 500, { code: 'SOURCE_RECOVERY_AUDIT_INCOMPLETE', sourceRestored: true, sourceRevision: failure.restoredRevision });
+        }
+        if (failure.message === 'SOURCE_RECOVERY_PARTIAL_FAILURE') return json(res, 500, { code: 'SOURCE_RECOVERY_PARTIAL_FAILURE' });
+        if (failure.message?.startsWith('V1_')) return json(res, 403, { code: 'SOURCE_RECOVERY_AUTHORITY_CHANGED' });
+        if (failure.status === 422 || failure.status === 413) return json(res, failure.status, { code: 'SOURCE_RECOVERY_INVALID_REQUEST' });
+        if (failure.status === 409 || failure.name === 'ArtifactConflictError' || failure.name === 'SyntaxError' ||
+            failure.code === 'ENOENT' || failure.code?.startsWith('source.') ||
+            /^(RECOVERY_|SECURITY_WRITER_ADMISSION_CLOSED)/.test(failure.message ?? '')) {
+          return json(res, 409, { code: 'SOURCE_RECOVERY_REFUSED' });
+        }
+        return json(res, 500, { code: 'SOURCE_RECOVERY_FAILED' });
+      }
+    }
     if (parts[0] === 'api' && parts[1] === 'apps' && parts[3] === 'automation-catalog' && parts.length === 4 && method === 'GET') {
       if (!developmentRuntime) return json(res, 403, { error: 'Protected normal host required.' });
       const owner = await readApplicationOwnerId(decodeURIComponent(parts[2]));

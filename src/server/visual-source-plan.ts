@@ -26,7 +26,7 @@ export async function prepareVisualSourcePlan(root: string, changes: ReadonlyMap
       const anchorFile = path.join(root, collection, locator), stem = path.basename(locator, '.visual.json');
       await mkdir(path.dirname(anchorFile), { recursive: true });
       const location = { root: service.root, directory: path.dirname(anchorFile), anchor: path.basename(anchorFile), paths: Object.values(roles).map(extension => stem + extension) };
-      const before = await readRoleBundle(location), files = { ...before.files };
+      const before = await readRoleBundle(location, { recovery: 'refuse' }), files = { ...before.files };
       let changed = false;
       for (const name of location.paths) {
         const relative = path.relative(root, path.join(location.directory, name)).replaceAll('\\', '/'); managedPaths.add(relative);
@@ -69,15 +69,15 @@ export async function prepareVisualSourcePlan(root: string, changes: ReadonlyMap
       const expected = new Map(records.map(record => [record, record.before.checksum]));
       const check = async (current?: typeof records[number]) => {
         for (const [relative, original] of sourceChecks) if (await readFile(path.join(root, relative), 'utf8').catch(error => { if (error.code === 'ENOENT') return null; throw error; }) !== original) throw Object.assign(new Error('Composition source changed during the explicit operation.'), { status: 409 });
-        for (const record of records) if (record !== current && (await readRoleBundle(record.location)).checksum !== expected.get(record)) throw Object.assign(new Error('Visual dependency changed during the explicit operation.'), { status: 409 });
+        for (const record of records) if (record !== current && (await readRoleBundle(record.location, { recovery: 'refuse' })).checksum !== expected.get(record)) throw Object.assign(new Error('Visual dependency changed during the explicit operation.'), { status: 409 });
         for (const bundle of shared) if ((await sharedService.read(bundle.locator)).hash !== bundle.hash) throw Object.assign(new Error('A shared Component changed during the explicit operation.'), { status: 409 });
       };
-      for (const record of records) if ((await readRoleBundle(record.location)).checksum !== record.before.checksum) throw Object.assign(new Error('Visual source changed while preparing the explicit operation.'), { status: 409 });
+      for (const record of records) if ((await readRoleBundle(record.location, { recovery: 'refuse' })).checksum !== record.before.checksum) throw Object.assign(new Error('Visual source changed while preparing the explicit operation.'), { status: 409 });
       for (const bundle of shared) if ((await sharedService.read(bundle.locator)).hash !== bundle.hash) throw Object.assign(new Error('A shared Component changed while preparing the explicit operation.'), { status: 409 });
       await admit(); const committed: string[] = [];
       try {
         for (const record of records.filter(item => item.changed)) {
-          const saved = await saveRoleBundle(record.location, { expectedChecksum: record.before.checksum, files: record.files, validate() {}, async admit() { await admit(); await check(record); } });
+          const saved = await saveRoleBundle(record.location, { expectedChecksum: record.before.checksum, files: record.files, validate() {}, async admit() { await admit(); await check(record); } }, { recovery: 'refuse' });
           expected.set(record, saved.checksum);
           committed.push(record.artifact.metadata.artifactId);
         }

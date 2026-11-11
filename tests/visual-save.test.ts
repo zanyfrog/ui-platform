@@ -29,9 +29,12 @@ it.each(['page.html', 'page.css', 'page.visual.json', 'page.fixtures.json', 'pag
   await expect(failing.saveCandidate(f.before.locator, f.candidate, f.before.hash, { validate: f.validate, admit: async () => {} })).rejects.toThrow('Injected service write failure');
   expect((await f.service.read(f.before.locator)).files).toEqual(f.before.files);
 });
-it('returns recovery-required for rollback failure, then recovers before the next service read', async () => {
+it('refuses ordinary reads after rollback failure until authorized graph-ordered recovery', async () => {
   const f = await fixture(), failing = new VisualArtifactService(f.root, 'page', { beforeWrite(file) { if (file === 'page.visual.json') throw new Error('Commit failed'); }, beforeRollbackWrite() { throw new Error('Rollback failed'); } });
   await expect(failing.saveCandidate(f.before.locator, f.candidate, f.before.hash, { validate: f.validate, admit: async () => {} })).rejects.toMatchObject({ code: 'source.recovery-required' });
+  await expect(f.service.read(f.before.locator)).rejects.toMatchObject({ code: 'source.recovery-required' });
+  await expect(f.service.recover(async () => { throw new Error('denied'); })).rejects.toThrow('denied');
+  await f.service.recover(async () => {});
   expect((await f.service.read(f.before.locator)).files).toEqual(f.before.files);
 });
 it('rechecks original authority and external source after complete validation, before persistence', async () => {

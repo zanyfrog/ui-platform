@@ -59,7 +59,7 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
     }, !context.canEdit || snapshot.saveState === 'conflict' || snapshot.saveState === 'saving'));
     if (snapshot) toolbar.append(button('Suspend editor', () => { context.suspend(); }, context.pending));
     if (context.hasCopy) {
-      toolbar.append(button(context.suspended ? 'Authorize and compare for recovery' : 'Compare with server', () => run(() => context.compare()), context.pending || (context.suspended && !context.canRecover)));
+      toolbar.append(button(context.suspended ? 'Authorize and compare for recovery' : 'Review changes', () => run(() => context.compare()), context.pending || (context.suspended && !context.canRecover)));
       toolbar.append(button('Close artifact', workspace ? workspace.close : () => run(async () => { if (!await context.close()) message = 'Navigation stopped. Resolve or discard the retained changes before leaving.'; }), context.pending));
       toolbar.append(button('Discard local copy…', () => { confirmDiscard = true; render(); }, context.pending));
     }
@@ -85,10 +85,15 @@ export function mountEditorShell(container: HTMLElement, context: EditorRuntimeC
         const pre = element('pre', JSON.stringify({ manifest: value.manifestContent, files: value.files }, null, 2));
         review.append(element('h4', label), pre);
       }
-      review.append(button('Reload server source — discard local edits', () => run(() => context.decide('reload')), context.pending));
+      review.append(button('Reload latest', () => {
+        if (snapshot?.dirty && !confirm('Discard your unsaved changes and reload the reviewed version?')) return;
+        run(() => context.decide('reload'));
+      }, context.pending));
       if (comparison.remote.capabilities.edit) {
         if (context.suspended && comparison.remote.checksum === comparison.local.checksum) review.append(button('Resume retained changes', () => run(() => context.decide('resume')), context.pending));
-        if (context.suspended || snapshot?.saveState === 'conflict') review.append(button('Keep local source — replace server source', () => run(() => context.decide('keep-local')), context.pending));
+        if (context.suspended || snapshot?.saveState === 'conflict') review.append(button('Overwrite reviewed version', () => {
+          if (confirm('Replace the reviewed saved version with your local changes?')) run(() => context.decide('keep-local'));
+        }, context.pending));
       }
       diagnostics.append(review);
     }

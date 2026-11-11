@@ -20,7 +20,7 @@ export class ArtifactEditorWorkspace {
     private buildQueue?: { onSourceChanged(file: string): Promise<unknown> },
     private reportError: (error: unknown) => void = console.error,
     private securityDrafts?: SecurityDraftStager) {
-    this.service = new FileSystemArtifactService({ root });
+    this.service = new FileSystemArtifactService({ root, recovery: 'refuse' });
   }
   locator(bundle: string): string {
     let token = this.tokens.get(bundle);
@@ -50,14 +50,14 @@ export class ArtifactEditorWorkspace {
   async load(token: string) { return this.project(await this.service.load(this.location(token))); }
   async validate(token: string) { const bundle = this.location(token); return this.validation(await this.service.validate(bundle), bundle); }
   async references(token: string) { return this.service.getReferences(this.location(token)); }
-  async save(token: string, input: unknown, actorId?: string) {
+  async save(token: string, input: unknown, actorId?: string, admit?: () => Promise<void>) {
     if (!input || typeof input !== 'object' || Array.isArray(input)) throw new EditorRequestError(400, 'editor.request', 'A save object is required.');
     const value = input as EditorSaveDto;
     if (typeof value.expectedChecksum !== 'string' || !value.expectedChecksum) throw new EditorRequestError(400, 'editor.checksum', 'expectedChecksum is required.');
     if (value.manifest !== undefined && typeof value.manifest !== 'string' && (!value.manifest || typeof value.manifest !== 'object' || Array.isArray(value.manifest))) throw new EditorRequestError(400, 'editor.request', 'Invalid manifest representation.');
     if (value.files !== undefined && (!value.files || typeof value.files !== 'object' || Array.isArray(value.files) || Object.values(value.files).some(v => v !== null && typeof v !== 'string'))) throw new EditorRequestError(400, 'editor.request', 'File contents must be text or null.');
     if (value.mode !== undefined && value.mode !== 'normal' && value.mode !== 'repair') throw new EditorRequestError(400, 'editor.request', 'Unknown save mode.');
-    const result = await this.service.save(this.location(token), { expectedChecksum: value.expectedChecksum, manifest: value.manifest, files: value.files, mode: value.mode }).catch(error => {
+    const result = await this.service.save(this.location(token), { expectedChecksum: value.expectedChecksum, manifest: value.manifest, files: value.files, mode: value.mode }, admit).catch(error => {
       if (error instanceof ArtifactValidationError) throw new ArtifactValidationError(error.message, this.validation(error.validation, this.location(token)));
       throw error;
     });
@@ -70,7 +70,7 @@ export class ArtifactEditorWorkspace {
     }
     if (result.saved) this.changed({ kind: 'changed', bundlePath: result.artifact.bundlePath, artifact: result.artifact });
     const artifact = this.project(result.artifact);
-    return { saved: result.saved, artifact, validation: artifact.validation, ...(securityStageStatus ? { securityStageStatus } : {}), ...(securityCandidate ? { securityCandidate } : {}) };
+    return { saved: result.saved, artifact, validation: artifact.validation, ...(result.auditIncomplete ? { auditIncomplete: true as const } : {}), ...(securityStageStatus ? { securityStageStatus } : {}), ...(securityCandidate ? { securityCandidate } : {}) };
   }
   changed(event: ArtifactWatchEvent) {
     // A committed save must remain successful even if an observer fails.
@@ -80,6 +80,9 @@ export class ArtifactEditorWorkspace {
 }
 
 export function editorError(error: unknown) {
+  if ((error as { code?: string } | null)?.code === 'source.recovery-required') {
+    return { status: 409, body: { code: 'source.recovery-required', error: 'Artifact source requires explicit recovery.' } };
+  }
   if (error instanceof ArtifactConflictError) return { status: 409, body: { code: 'editor.conflict', error: 'Artifact changed on disk. Reload or resolve the conflict.' } };
   if (error instanceof EditorRequestError) return { status: error.status, body: { code: error.code, error: error.message } };
   if (error instanceof ArtifactValidationError) return { status: 422, body: { code: 'editor.validation', error: 'Artifact operation was rejected.', validation: error.validation } };

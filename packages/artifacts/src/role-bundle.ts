@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { lstat, realpath, readdir, readFile } from 'node:fs/promises';
 import { appendFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { capture, checksum, safeFile, validRelativePath, type Snapshot } from './bundle.js';
 import { ArtifactConflictError, commitTransaction, recoverTransaction, withArtifactLock, storageKey, type ArtifactLockOptions } from './storage.js';
 
@@ -55,6 +56,44 @@ async function canonical(location: RoleBundleLocation) {
 }
 function validateSnapshot(snapshot: Snapshot, paths: readonly string[]) {
   if (!snapshot || typeof snapshot !== 'object' || Array.isArray(snapshot) || Object.keys(snapshot).length !== paths.length || paths.some(name => !Object.hasOwn(snapshot, name) || snapshot[name] !== null && typeof snapshot[name] !== 'string')) throw new Error('The source journal/candidate does not match the declared role bundle.');
+}
+
+export async function recoverBoundRoleBundle(location: RoleBundleLocation, approval: {
+  journalSha256: string; sourceRevision: string; generic?: boolean;
+  validate(original: Readonly<Snapshot>, current: Readonly<Snapshot>): void;
+  admit(): Promise<void>;
+  mutationStarted(): void;
+  verified?(revision: string): Promise<void>;
+}): Promise<string> {
+  const resolved = await canonical(location);
+  const identity = approval.generic ? undefined : resolved.identity;
+  const snapshot = () => capture(resolved.directory, resolved.paths, { includeManifest: false });
+  return withArtifactLock(resolved.root, resolved.directory, async () => {
+    let restored = '';
+    const recovered = await recoverTransaction(resolved.root, resolved.directory, {
+      identity,
+      async admitReplay(bytes, original) {
+        validateSnapshot(original, resolved.paths);
+        if (createHash('sha256').update(bytes).digest('hex') !== approval.journalSha256) throw new ArtifactConflictError();
+        const binding = JSON.parse(bytes.toString('utf8'));
+        if (!approval.generic && (binding.bundle !== resolved.directory || binding.identity !== resolved.identity)) throw new Error('Recovery journal owner mismatch.');
+        const current = await snapshot();
+        if (checksum(current) !== approval.sourceRevision) throw new ArtifactConflictError();
+        approval.validate(original, current);
+        await approval.admit();
+        const journal = path.join(resolved.root, '.uib', 'transactions', storageKey(identity ?? resolved.directory), 'pending.json');
+        if (!(await readFile(journal)).equals(bytes) || checksum(await snapshot()) !== approval.sourceRevision) throw new ArtifactConflictError();
+        approval.mutationStarted();
+      },
+      async verifyReplay(original) {
+        restored = checksum(await snapshot());
+        if (restored !== checksum(original)) throw new Error('Recovery verification failed.');
+        await approval.verified?.(restored);
+      },
+    });
+    if (!recovered) throw new Error('Recovery journal is missing.');
+    return restored;
+  }, identity ?? resolved.directory, { recovery: 'refuse', timeoutMs: 5000 });
 }
 const project = (files: Snapshot): RoleBundleSnapshot => ({ files: structuredClone(files), checksum: checksum(files) });
 async function locked<T>(location: RoleBundleLocation, work: (resolved: Awaited<ReturnType<typeof canonical>>, files: Snapshot) => Promise<T>, options: RoleBundleReadOptions = {}) {
@@ -158,7 +197,7 @@ export async function withRoleBundleGraph<T>(ownerRoot: string, work: () => Prom
   });
 }
 /** Uses Foundation's existing transaction writer, rollback, journal and stale checks. */
-export function saveRoleBundle(location: RoleBundleLocation, input: RoleBundleSave): Promise<RoleBundleSnapshot> {
+export function saveRoleBundle(location: RoleBundleLocation, input: RoleBundleSave, options: RoleBundleReadOptions = {}): Promise<RoleBundleSnapshot> {
   return locked(location, async (resolved, original) => {
     if (!input.expectedChecksum || checksum(original) !== input.expectedChecksum) throw new ArtifactConflictError();
     const staged = structuredClone(input.files); validateSnapshot(staged, resolved.paths);
@@ -181,5 +220,5 @@ export function saveRoleBundle(location: RoleBundleLocation, input: RoleBundleSa
     const committed = project(await current());
     if (committed.checksum !== candidate.checksum) throw new ArtifactConflictError();
     return committed;
-  });
+  }, options);
 }

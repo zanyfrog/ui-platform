@@ -45,7 +45,7 @@ async function readDraft(key: string): Promise<ApplicationPresentation | null> {
 const presentationLocation = (key: string) => ({ root: root(key), directory: root(key), anchor: MANIFEST_FILE, paths: [MANIFEST_FILE, `${DRAFT_DIR}/${PRESENTATION_FILE}`] });
 async function presentationSource(key: string) {
   if (!await stat(root(key)).catch(error => { if (error.code === 'ENOENT') return null; throw error; })) return undefined;
-  return readRoleBundle(presentationLocation(key));
+  return readRoleBundle(presentationLocation(key), { recovery: 'refuse' });
 }
 export async function getApplicationPresentation(key: string): Promise<ApplicationPresentationStatus> {
   const snapshot = await presentationSource(key);
@@ -75,13 +75,13 @@ async function initializePresentationSource(key: string): Promise<ApplicationPre
   const now = new Date().toISOString();
   const manifest: ApplicationPresentationManifest = { type: 'ui-platform.presentation', schemaVersion: APPLICATION_PRESENTATION_VERSION, applicationId: app.appId, activeVersion: null, draft: { exists: true, modifiedAt: now, checksum: checksum(draft) }, versions: [] };
   await mkdir(path.dirname(draftPath(key)), { recursive: true });
-  const original = await readRoleBundle(presentationLocation(key));
+  const original = await readRoleBundle(presentationLocation(key), { recovery: 'refuse' });
   await mkdir(activeAssetsRoot(key), { recursive: true });
   await mkdir(draftAssetsRoot(key), { recursive: true });
   await atomicWriteText(activeCssPath(key), '/* Application Presentation has not been published yet. */\n');
   await writePresentationRuntime(key, draft);
   await ensurePresentationRuntimeImport(key);
-  await saveRoleBundle(presentationLocation(key), { expectedChecksum: original.checksum, files: { [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n', [`${DRAFT_DIR}/${PRESENTATION_FILE}`]: JSON.stringify(draft, null, 2) + '\n' }, validate() { validatePresentation(draft); }, admit() {} });
+  await saveRoleBundle(presentationLocation(key), { expectedChecksum: original.checksum, files: { [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n', [`${DRAFT_DIR}/${PRESENTATION_FILE}`]: JSON.stringify(draft, null, 2) + '\n' }, validate() { validatePresentation(draft); }, admit() {} }, { recovery: 'refuse' });
   await appendHistory(appPath(key), { action: 'presentation.initialized', appId: app.appId, actor: 'local-user' });
   return getApplicationPresentation(key);
 }
@@ -106,13 +106,13 @@ async function savePresentationDraftSource(key: string, value: unknown, expected
   if (manifest.applicationId !== (await getApp(key)).appId) throw Object.assign(new Error('Original presentation owner changed.'), { status: 409 });
   if (checksum(presentation) === checksum(status.draft)) {
     await admit();
-    if ((await readRoleBundle(presentationLocation(key))).checksum !== status.sourceRevision) throw Object.assign(new Error('Presentation source changed during admission.'), { status: 409 });
+    if ((await readRoleBundle(presentationLocation(key), { recovery: 'refuse' })).checksum !== status.sourceRevision) throw Object.assign(new Error('Presentation source changed during admission.'), { status: 409 });
     return status;
   }
   const now = new Date().toISOString();
   manifest.draft = { exists: true, modifiedAt: now, checksum: checksum(presentation) };
-  const original = await readRoleBundle(presentationLocation(key));
-  await saveRoleBundle(presentationLocation(key), { expectedChecksum: expectedRevision ?? original.checksum, files: { [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n', [`${DRAFT_DIR}/${PRESENTATION_FILE}`]: JSON.stringify(presentation, null, 2) + '\n' }, validate() { validatePresentation(presentation); }, admit });
+  const original = await readRoleBundle(presentationLocation(key), { recovery: 'refuse' });
+  await saveRoleBundle(presentationLocation(key), { expectedChecksum: expectedRevision ?? original.checksum, files: { [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n', [`${DRAFT_DIR}/${PRESENTATION_FILE}`]: JSON.stringify(presentation, null, 2) + '\n' }, validate() { validatePresentation(presentation); }, admit }, { recovery: 'refuse' });
   await appendHistory(appPath(key), { action: 'presentation.draft.updated', actor: 'local-user' });
   return getApplicationPresentation(key);
 }
@@ -195,9 +195,9 @@ async function publishPresentationSource(key: string, admit: () => Promise<void>
   }
   manifest.versions.push({ version, checksum: hash, publishedAt: now, actor: 'local-user', ...(componentPackageIntegrity ? { componentPackageIntegrity } : {}) });
   if (!candidateOnly) manifest.draft = { exists: true, modifiedAt: now, checksum: hash };
-  const baseline = await readRoleBundle(presentationLocation(key));
+  const baseline = await readRoleBundle(presentationLocation(key), { recovery: 'refuse' });
   if (baseline.checksum !== status.sourceRevision) throw Object.assign(new Error('Presentation changed while preparing Publish. The active pointer was not advanced.'), { status: 409 });
-  await saveRoleBundle(presentationLocation(key), { expectedChecksum: baseline.checksum, files: { ...baseline.files, [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n' }, validate() { validatePresentation(draft); }, admit });
+  await saveRoleBundle(presentationLocation(key), { expectedChecksum: baseline.checksum, files: { ...baseline.files, [MANIFEST_FILE]: JSON.stringify(manifest, null, 2) + '\n' }, validate() { validatePresentation(draft); }, admit }, { recovery: 'refuse' });
   await appendHistory(appPath(key), { action: candidateOnly ? 'presentation.prepared' : 'presentation.published', version, checksum: hash, actor: 'local-user' });
   return getApplicationPresentation(key);
 }

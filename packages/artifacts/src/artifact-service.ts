@@ -16,6 +16,7 @@ import {
 import { ArtifactDefinitionRegistry } from "./definitions.js";
 import { formatArtifact } from "./formatting.js";
 import { ValidatorRegistry } from "./validation/validator-registry.js";
+import { assertStandaloneRoot } from './standalone-root.js';
 import {
   validateSnapshot,
   validationResult,
@@ -45,6 +46,7 @@ import type {
 export interface ArtifactServiceOptions {
   /** Artifact workspace root; .uib lives here. */
   root: string;
+  recovery?: 'refuse';
   definitions?: ArtifactDefinitionRegistry;
   validators?: ValidatorRegistry;
   resolveReference?: ArtifactValidationContext["resolveReference"];
@@ -61,10 +63,16 @@ export class FileSystemArtifactService implements ArtifactService {
   private readonly identities = new Map<string, string>();
   private routes: NonNullable<ArtifactValidationContext["routes"]> = [];
   private root: string;
+  private standalone = false;
   constructor(private readonly options: ArtifactServiceOptions) {
     this.root = path.resolve(options.root);
     this.definitions = options.definitions ?? new ArtifactDefinitionRegistry();
     this.validators = options.validators ?? new ValidatorRegistry();
+  }
+  async assertStandaloneWorkspace(): Promise<void> {
+    await assertStandaloneRoot(this.root);
+    for (const bundle of await discoverBundles(this.root)) await assertStandaloneRoot(bundle);
+    this.standalone = true;
   }
   private async log(
     operation: string,
@@ -228,14 +236,15 @@ export class FileSystemArtifactService implements ArtifactService {
     bundle: string,
     operation: () => Promise<T>,
   ): Promise<T> {
+    if (this.standalone) await assertStandaloneRoot(bundle);
     return withArtifactLock(this.root, bundle, async () => {
-      if (await recoverTransaction(this.root, bundle))
+      if (await recoverTransaction(this.root, bundle, { recovery: this.options.recovery }))
         await this.log("transaction.rollback", undefined, {
           bundlePath: bundle,
           message: "Recovered interrupted transaction.",
         });
       return operation();
-    });
+    }, bundle, { recovery: this.options.recovery });
   }
   async discover(root = this.root): Promise<ArtifactSummary[]> {
     const searchRoot = await this.withinRoot(path.resolve(this.root, root));
@@ -283,6 +292,7 @@ export class FileSystemArtifactService implements ArtifactService {
   async save(
     idOrPath: string,
     changes: ArtifactChanges = {},
+    admit?: () => Promise<void>,
   ): Promise<ArtifactSaveResult> {
     const bundle = await this.resolve(idOrPath);
     const initial = await capture(bundle);
@@ -346,6 +356,10 @@ export class FileSystemArtifactService implements ArtifactService {
         const candidate = await this.normalized(bundle, staged, formatting);
         if (!candidate.validation.valid) throw new ArtifactValidationError('Correct the candidate before saving. Changes retained locally.', candidate.validation);
       }
+      await admit?.();
+      if (checksum(await capture(bundle, Object.keys(original))) !== checksum(original)) {
+        throw new ArtifactConflictError();
+      }
       if (checksum(staged) === checksum(original)) {
         const unchanged = await this.normalized(bundle, original, formatting);
         if (checksum(await capture(bundle, Object.keys(original))) !== checksum(original)) throw new ArtifactConflictError();
@@ -371,12 +385,16 @@ export class FileSystemArtifactService implements ArtifactService {
       this.savedChecksums.set(bundle, updated.checksum);
       if (updated.manifest)
         this.identities.set(bundle, updated.manifest.artifactId);
-      await this.log("artifact.save.result", updated, {
-        message: "SAVED",
-      });
-      await this.log("validation.result", updated);
+      let auditIncomplete: true | undefined;
+      try {
+        await this.log("artifact.save.result", updated, { message: "SAVED" });
+        await this.log("validation.result", updated);
+      } catch {
+        auditIncomplete = true;
+      }
       return {
         saved: true,
+        ...(auditIncomplete ? { auditIncomplete } : {}),
         artifact: updated,
         validation: updated.validation,
       };

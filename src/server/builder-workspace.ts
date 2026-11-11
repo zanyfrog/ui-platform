@@ -16,6 +16,7 @@ import { V1_AUTHORITY_ID, V1_FIXTURE_APPLICATION_ID, V1_FIXTURE_APPLICATION_KEY 
 import { withApplicationMutation } from './composition-lock.js';
 import { captureProblemSources, ProblemsValidation } from './application-problems.js';
 import { compositionChecksum } from './composition-snapshots.js';
+import { RoleBundleRecoveryRequiredError } from '@ui-platform/artifacts/storage';
 import { NativeUiBasePathError } from './native-ui-base.js';
 
 /** Read-only orchestration over owner services. No second discovery registry. */
@@ -40,9 +41,10 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
         permitted('ui.platform.automation.admin', 'system'), permitted('ui.package.view', 'artifact', 'packages'),
       ]);
       const validating = req.method === 'GET' && parts.length === 5 && parts[4] === 'validate';
-      const graphRevision = validating && presentation ? await compositionChecksum(appPath(key)).catch(() => undefined) : undefined;
+      const visualReadOptions = { recovery: 'refuse' as const };
+      const graphRevision = validating && presentation ? await compositionChecksum(appPath(key), visualReadOptions).catch(() => undefined) : undefined;
       const catalog = pages || presentation || components || packages ? await discoverComponents(key) : [];
-      const visual = pages || presentation || components ? await visualWorkspace(key, catalog) : { pages: [], shells: [], components: [], packages: [] };
+      const visual = pages || presentation || components ? await visualWorkspace(key, catalog, visualReadOptions) : { pages: [], shells: [], components: [], packages: [] };
       // Filter source before it crosses the API. Dependencies remain subject to their own read permission.
       const visiblePages = [];
       for (const bundle of visual.pages) if (pages || bundle.metadata?.artifactId && await permitted('ui.page.view', 'page', bundle.metadata.artifactId)) visiblePages.push(bundle);
@@ -77,7 +79,7 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
           entry.name ?? 'Artifact needing repair', artifact.capabilities.edit, async () => ({ generic: artifact }));
       }
       if (presentation) {
-        const composition = await compositionWorkspace(key, catalog).catch(() => null);
+        const composition = await compositionWorkspace(key, catalog, undefined, visualReadOptions).catch(() => null);
         capturedComposition = composition;
         if (composition) {
           composition.pages = pages ? composition.pages : [];
@@ -141,11 +143,11 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
         const report = await validator.validate(sources, sources.map(s => s.identity), {
           assertAuthority, async canRead(target) { return allowed.has(workspaceIdentityKey(target)); },
           async revisionsCurrent() {
-            if (graphRevision && graphRevision !== await compositionChecksum(appPath(key)).catch(() => undefined)) return false;
+            if (graphRevision && graphRevision !== await compositionChecksum(appPath(key), visualReadOptions).catch(() => undefined)) return false;
             const freshVisual = { ...visualContext,
-              pages: pages ? await new VisualArtifactService(path.join(appPath(key), 'src/pages'), 'page').list() : [],
-              shells: presentation ? await new VisualArtifactService(path.join(appPath(key), 'shells'), 'shell').list() : [],
-              components: components ? await new VisualArtifactService(platformComponentsRoot, 'component').list() : [],
+              pages: pages ? await new VisualArtifactService(path.join(appPath(key), 'src/pages'), 'page').list(visualReadOptions) : [],
+              shells: presentation ? await new VisualArtifactService(path.join(appPath(key), 'shells'), 'shell').list(visualReadOptions) : [],
+              components: components ? await new VisualArtifactService(platformComponentsRoot, 'component').list(visualReadOptions) : [],
             };
             const shape = (context: typeof visualContext) => JSON.stringify([context.pages, context.shells, context.components].map(group => group.map(b => [b.locator, b.hash])));
             if (shape(freshVisual) !== shape(visualContext)) return false;
@@ -173,6 +175,10 @@ export function createBuilderWorkspaceHandler(identity: V1DevelopmentIdentity, s
       send(200, { ...item.summary, ...payload }); return true;
       });
     } catch (error) {
+      if (error instanceof RoleBundleRecoveryRequiredError) {
+        send(409, { code: 'WORKSPACE_SOURCE_RECOVERY_REQUIRED', error: 'Visual source requires recovery before validation.' });
+        return true;
+      }
       if (error instanceof NativeUiBasePathError) {
         send(503, { code: 'WORKSPACE_NATIVE_INSTALLATION_INVALID',
           error: 'Workspace discovery is blocked: the installed native UI Base package must use physical installed paths. Installation review is required; additional permissions will not resolve this failure.' });

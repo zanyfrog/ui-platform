@@ -146,7 +146,7 @@ export class EditorRuntimeContext {
       } else {
         this.requireCopy(choice !== 'reload');
         const remote = await checked.load(review.remote.locator);
-        if (choice === 'reload') await copy.reload();
+        if (choice === 'reload') await copy.reload(remote.checksum);
         else copy.resolve(remote, { ...review.local, capabilities: remote.capabilities });
       }
       this.comparison = undefined;

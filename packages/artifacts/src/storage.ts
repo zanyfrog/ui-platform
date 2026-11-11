@@ -301,17 +301,36 @@ async function acquireArtifactLock<T>(
 export async function recoverTransaction(
   root: string,
   bundle: string,
-  options: { identity?: string; validate?: (snapshot: Snapshot) => void; beforeWrite?: (file: string, index: number) => void | Promise<void> } = {},
+  options: { recovery?: 'refuse'; identity?: string; validate?: (snapshot: Snapshot) => void; beforeWrite?: (file: string, index: number) => void | Promise<void>;
+    admitReplay?: (journal: Buffer, original: Snapshot) => Promise<void>;
+    verifyReplay?: (original: Snapshot) => Promise<void>;
+  } = {},
 ): Promise<boolean> {
+  if (options.recovery === 'refuse') {
+    let directory = root;
+    try {
+      for (const part of ['.uib', 'transactions', storageKey(options.identity ?? bundle)]) {
+        directory = path.join(directory, part);
+        if (!(await lstat(directory)).isDirectory()) throw new Error('Unsafe source transaction storage.');
+      }
+      await lstat(path.join(directory, 'pending.json'));
+    } catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') return false; throw error; }
+    throw Object.assign(new Error('Source recovery is required.'), { code: 'source.recovery-required' });
+  }
   const directory = await storageDirectory(
     root,
     "transactions",
     storageKey(options.identity ?? bundle),
   );
   const journal = path.join(directory, "pending.json");
-  let pending: { original: Snapshot; bundle?: string; identity?: string };
+  let pending: { original: Snapshot; bundle?: string; identity?: string }, bytes: Buffer;
   try {
-    pending = JSON.parse(await readFile(journal, "utf8"));
+    if (options.admitReplay) {
+      const info = await lstat(journal);
+      if (!info.isFile() || info.nlink !== 1) throw new Error('Unsafe recovery journal.');
+    }
+    bytes = await readFile(journal);
+    pending = JSON.parse(bytes.toString('utf8'));
   } catch (e) {
     if ((e as NodeJS.ErrnoException).code === "ENOENT") return false;
     throw e;
@@ -320,7 +339,12 @@ export async function recoverTransaction(
       (pending.identity !== undefined && pending.identity !== options.identity))
     throw new Error("Source journal location does not match its recovery lock.");
   options.validate?.(pending.original);
+  await options.admitReplay?.(bytes, pending.original);
   await writeSnapshot(bundle, pending.original, options.beforeWrite);
+  await options.verifyReplay?.(pending.original);
+  if (options.admitReplay && !(await readFile(journal)).equals(bytes)) {
+    throw new Error('Recovery journal changed during replay.');
+  }
   await rm(journal);
   return true;
 }

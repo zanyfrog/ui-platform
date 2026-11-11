@@ -107,6 +107,7 @@ export interface ArtifactChanges {
 }
 export interface ArtifactSaveResult {
   saved: boolean;
+  auditIncomplete?: true;
   artifact: EditableArtifact;
   validation: ArtifactValidationResult;
 }

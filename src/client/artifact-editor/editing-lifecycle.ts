@@ -110,7 +110,7 @@ export class EditingLifecycle<T> {
     if (this.generation !== generation || !this.failure) this.schedule();
     this.emit();
   }
-  conflict(message = 'Source changed outside Builder. Compare or reload; local changes retained.') {
+  conflict(message = 'This file has changed outside the editor. Your unsaved changes are preserved. Review the latest version before saving.') {
     clearTimeout(this.timer); this.state = 'conflict'; this.failure = message; this.emit();
   }
   reset(remote: T, local: T = remote) {

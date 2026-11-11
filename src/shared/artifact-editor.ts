@@ -22,7 +22,7 @@ export interface EditorSaveDto {
   files?: Record<string, string | null>;
   expectedChecksum: string;
 }
-export interface EditorSaveResponse { saved: boolean; artifact: EditorArtifactDto; validation: ArtifactValidationResult }
+export interface EditorSaveResponse { saved: boolean; artifact: EditorArtifactDto; validation: ArtifactValidationResult; auditIncomplete?: true }
 export interface EditorArtifactSummary { locator: string; artifactId?: string; artifactType?: string; name?: string; validation: ArtifactValidationResult }
 export interface EditorWatchEvent { appKey: string; locator: string; kind: 'changed' | 'removed'; checksum?: string }
 export interface ArtifactEditorTransport {

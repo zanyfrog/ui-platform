@@ -27,6 +27,7 @@ export interface EditorSecurityOptions {
   origins: string[];
   fixtures: EditorPrincipal[];
   workspace(applicationKey: string): Promise<ArtifactEditorWorkspace>;
+  applicationOwner?(applicationKey: string): Promise<string>;
   /** Optional isolated WP1 development authority; never accepted in production mode. */
   securityDefinitions?: SecurityDefinitionService;
   /** Optional WP3 development-only administrative gate; its trusted host verifies session principal handles. */
@@ -393,6 +394,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
         }
         fail(404, 'editor.not-found', 'Security endpoint was not found.');
       }
+      const originalOwner = req.method === 'PUT' ? await this.options.applicationOwner?.(appKey) : undefined;
       const workspace = await this.options.workspace(appKey);
       if (parts.length === 4 && req.method === 'GET') {
         const { artifacts, visible, ids } = await this.visible(workspace, principal);
@@ -431,7 +433,19 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
           if (typeof input.expectedChecksum !== 'string' || !input.expectedChecksum) fail(400, 'editor.checksum', 'expectedChecksum is required.');
           fail(409, 'editor.conflict', 'Artifact changed on disk. Reload or resolve the conflict.');
         }
-        const save = workspace.save(locator, input, principal.subjectId);
+        const save = workspace.save(locator, input, principal.subjectId, async () => {
+          const current = this.assertCurrent(req, session, revision);
+          await this.authorize(current, 'edit', scope);
+          if (input.manifest !== undefined && !await this.allowed(current, 'admin', scope)) {
+            let manifest;
+            try { manifest = typeof input.manifest === 'string' ? JSON.parse(input.manifest) : input.manifest; } catch { manifest = null; }
+            if (!manifest || manifest.artifactId !== artifact.manifest?.artifactId || manifest.artifactType !== artifact.manifest?.artifactType) fail(403, 'editor.identity', 'Changing or invalidating artifact identity requires an administrator.');
+          }
+          if (originalOwner !== undefined && await this.options.applicationOwner?.(appKey) !== originalOwner) {
+            fail(403, 'editor.owner-changed', 'The original Application owner changed.');
+          }
+          this.assertCurrent(req, session, revision);
+        });
         const settled = save.then(() => undefined, () => undefined);
         session.writes.add(settled);
         let result;
@@ -452,7 +466,7 @@ export class ArtifactEditorSecurity implements EditorIdentityProvider {
         this.assertCurrent(req, session, revision);
         const projected = await this.project(workspace, principal, result.artifact);
         this.assertCurrent(req, session, revision);
-        send(res, 200, { saved: result.saved, artifact: projected, validation: projected.validation, ...('securityStageStatus' in result ? { securityStageStatus: result.securityStageStatus } : {}), ...('securityCandidate' in result ? { securityCandidate: result.securityCandidate } : {}) }); return true;
+        send(res, 200, { saved: result.saved, artifact: projected, validation: projected.validation, ...(result.auditIncomplete ? { auditIncomplete: true } : {}), ...('securityStageStatus' in result ? { securityStageStatus: result.securityStageStatus } : {}), ...('securityCandidate' in result ? { securityCandidate: result.securityCandidate } : {}) }); return true;
       }
       // load() already returns authoritative saved-source validation/references.
       // Use that same authorized snapshot: a second read could race an external

@@ -21,6 +21,7 @@ export class EditorWorkingCopy {
       try {
         const result = await this.transport.save(candidate.locator, changes);
         if (!result.saved) throw new Error('The server did not save this artifact.');
+        this.lifecycle.notice = result.auditIncomplete ? 'Source saved. The operation log could not be completed.' : undefined;
         this.validation = undefined;
         const now = this.lifecycle.current;
         if (!sourceEqual(now, candidate)) {
@@ -92,13 +93,15 @@ export class EditorWorkingCopy {
       const remote = event.kind === 'removed' ? undefined : await this.transport.load(c.current.locator);
       if (c.disposed || c.suspended || sequence !== this.refreshSequence) return;
       if (remote?.checksum === c.baseline.checksum) { c.state = previousState; c.failure = previousFailure; c.schedule(); c.emit(); return; }
-      if (!remote || c.dirty || generation !== c.generation || c.inFlight) c.conflict(); else c.reset(remote);
+      if (!remote || c.dirty || generation !== c.generation || c.inFlight) c.conflict();
+      else { c.reset(remote); c.notice = 'Saved source changed outside the editor. The latest version is loaded.'; c.emit(); }
     } catch (error) { c.failure = error instanceof Error ? error.message : String(error); c.state = 'error'; c.emit(); }
   }
-  async reload() {
+  async reload(expectedChecksum?: string) {
     const c = this.lifecycle; if (c.suspended) throw new Error('Working copy is suspended after an identity change.');
     if (c.inFlight) await c.inFlight;
     const generation = c.generation, remote = await this.transport.load(c.current.locator);
+    if (expectedChecksum && remote.checksum !== expectedChecksum) throw new Error('Saved source changed again. Review the latest version before reloading.');
     if (generation !== c.generation) throw new Error('New edits arrived during reload.');
     this.validation = undefined; c.reset(remote);
   }

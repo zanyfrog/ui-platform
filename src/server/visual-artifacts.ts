@@ -8,6 +8,7 @@ import { moveToOsTrash } from './trash.js';
 import { appPath } from './applications.js';
 import { appsDir, platformRoot } from './paths.js';
 import { readRoleBundle, saveRoleBundle, recoverRoleBundleRoot, type RoleBundleLocation, type RoleBundleReadOptions } from '@ui-platform/artifacts/storage';
+import { withApplicationMutation } from './composition-lock.js';
 
 export const platformComponentsRoot = path.join(platformRoot, 'components');
 const roles = { source: '.html', css: '.css', metadata: '.visual.json', fixtures: '.fixtures.json', code: '.functions.ts' } as const;
@@ -38,7 +39,7 @@ export class VisualArtifactService {
     return realpath(current).catch(error => { if (error.code === 'ENOENT') return current; throw error; });
   }
   async list(options: RoleBundleReadOptions = {}): Promise<ArtifactBundle[]> {
-    options = { ...options };
+    options = { ...options, recovery: 'refuse' };
     await recoverRoleBundleRoot(this.root, options);
     const locators: string[] = [];
     const walk = async (dir: string, prefix = '') => {
@@ -78,7 +79,7 @@ export class VisualArtifactService {
     return bundles;
   }
   async read(locator: string, options: RoleBundleReadOptions = {}): Promise<ArtifactBundle> {
-    options = { ...options };
+    options = { ...options, recovery: 'refuse' };
     const location = await this.location(locator), file = path.join(location.directory, location.anchor);
     const stem = file.slice(0, -'.visual.json'.length);
     const files = {} as ArtifactFiles;
@@ -91,6 +92,12 @@ export class VisualArtifactService {
     if (!files.source) diagnostics.push({ severity: 'error', message: 'HTML source is missing or empty.' });
     try { JSON.parse(files.fixtures || '{}'); } catch { diagnostics.push({ severity: 'error', message: 'Preview fixtures are invalid JSON.' }); }
     return { locator, files, hash: hash(files), metadata: parsed.metadata, diagnostics };
+  }
+  async recover(admit: () => Promise<void>): Promise<void> {
+    await withApplicationMutation(this.root, async () => {
+      await admit();
+      await recoverRoleBundleRoot(this.root);
+    });
   }
   async create(name: string, route?: string, form?: { dataset?: DatasetDefinition; authoring?: boolean }, shellId?: string, initialRegionId: string | null = 'region-main', admit: () => Promise<void> = async () => {}): Promise<ArtifactBundle> {
     if (!/^[a-z][a-z0-9-]*$/.test(name)) throw new Error('Use a lowercase name with letters, numbers, and hyphens.');
@@ -120,7 +127,7 @@ export class VisualArtifactService {
   async saveCandidate(locator: string, files: ArtifactFiles, expectedHash: string, options: {
     repair?: boolean; validate?: (candidate: ArtifactBundle) => Promise<void>; admit?: () => Promise<void>;
   }): Promise<ArtifactBundle> {
-    const location = await this.location(locator), original = await readRoleBundle(location), stem = path.basename(location.anchor, '.visual.json');
+    const location = await this.location(locator), original = await readRoleBundle(location, { recovery: 'refuse' }), stem = path.basename(location.anchor, '.visual.json');
     const previousFiles = Object.fromEntries(Object.entries(roles).map(([role, extension]) => [role, original.files[stem + extension] ?? ''])) as unknown as ArtifactFiles;
     if (!expectedHash || hash(previousFiles) !== expectedHash) throw Object.assign(new Error('Visual Artifact changed on disk. Reload or recover your editor changes before saving.'), { status: 409 });
     const staged = structuredClone(files);
@@ -140,7 +147,7 @@ export class VisualArtifactService {
           await options.validate!({ locator, files: staged, metadata: incoming.metadata, diagnostics, hash: hash(staged) });
         }
       }, admit: async () => { await options.admit?.(); }, ...this.faults,
-    });
+    }, { recovery: 'refuse' });
     return { locator, files: staged, metadata: parseMetadata(staged.metadata).metadata, diagnostics: parseMetadata(staged.metadata).diagnostics, hash: hash(staged) };
   }
   async remove(locator: string, expectedHash: string, knownArtifacts: ArtifactBundle[], admit: () => Promise<void> = async () => {}): Promise<void> {

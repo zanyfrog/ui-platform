@@ -48,6 +48,51 @@ async function fixture() {
   return { root, bundle, service: new FileSystemArtifactService({ root }) };
 }
 describe("atomic replacement and transactional recovery", () => {
+  it("rechecks authority and disk bytes at the save boundary", async () => {
+    const f = await fixture();
+    const initial = await f.service.load("form");
+    const changes = { expectedChecksum: initial.checksum, files: { "form.json": '{"fields":[],"draft":true}' } };
+    await expect(f.service.save("form", changes, async () => { throw new Error("permission revoked"); }))
+      .rejects.toThrow("permission revoked");
+    expect(await fs.readFile(path.join(f.bundle, "form.json"), "utf8")).toBe('{"fields":[]}');
+    const external = '{"fields":[],"external":true}';
+    await expect(f.service.save("form", changes, async () => {
+      await fs.writeFile(path.join(f.bundle, "form.json"), external);
+    })).rejects.toMatchObject({ name: "ArtifactConflictError" });
+    expect(await fs.readFile(path.join(f.bundle, "form.json"), "utf8")).toBe(external);
+  });
+  it("reports committed bytes separately from a failed completion log", async () => {
+    const f = await fixture();
+    const initial = await f.service.load("form");
+    const log = path.join(f.root, ".uib", "logs", "operations.jsonl");
+    let blocked = false;
+    const service = new FileSystemArtifactService({
+      root: f.root,
+      async beforeCommitFile() {
+        if (blocked) return;
+        blocked = true;
+        await actual.rename(log, log + ".prior");
+        await actual.mkdir(log);
+      },
+    });
+    const result = await service.save("form", {
+      expectedChecksum: initial.checksum,
+      files: { "form.json": '{"fields":[],"committed":true}' },
+    });
+    expect(result).toMatchObject({ saved: true, auditIncomplete: true });
+    expect(JSON.parse(await fs.readFile(path.join(f.bundle, "form.json"), "utf8"))).toMatchObject({ committed: true });
+    await actual.rmdir(log);
+    await actual.rename(log + ".prior", log);
+    const reloaded = await service.load("form");
+    expect(reloaded.checksum).toBe(result.artifact.checksum);
+    const next = await service.save("form", {
+      expectedChecksum: reloaded.checksum,
+      files: { "form.json": '{"fields":[],"next":true}' },
+    }, async () => {});
+    expect(next.saved).toBe(true);
+    expect(next.auditIncomplete).toBeUndefined();
+    expect(JSON.parse(await fs.readFile(path.join(f.bundle, "form.json"), "utf8"))).toMatchObject({ next: true });
+  });
   it.runIf(process.platform === "win32")(
     "survives a real Windows handle that temporarily denies replacement",
     async () => {

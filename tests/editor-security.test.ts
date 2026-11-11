@@ -11,6 +11,7 @@ import type { EditorSessionDto } from '../src/shared/editor-security.js';
 import { SecurityDefinitionService, SecurityDefinitionStore, parseSecurityDocument, reconcileSecurityDirectory, securityChecksum } from '@ui-platform/i-am/definitions';
 import { SecurityAuthorizationEvaluator, wp1StorePolicyAuthority } from '@ui-platform/i-am/evaluator';
 import { SecurityAdministrationService } from '@ui-platform/i-am/administration';
+import { withArtifactLock } from '@ui-platform/artifacts/storage';
 
 const cleanups: (() => Promise<unknown>)[] = [];
 afterEach(async () => { vi.restoreAllMocks(); for (const cleanup of cleanups.splice(0).reverse()) await cleanup(); });
@@ -334,7 +335,7 @@ describe('editor HTTP authorization around the real workspace', () => {
     expect((await pending).status).toBe(403);
     expect(await readFile(path.join(f.root, 'alpha/public-form/form.json'), 'utf8')).toBe('{"fields":[]}');
   });
-  it('drains an admitted save before acknowledging a switch and rejects later old-session writes', async () => {
+  it('drains a queued save on identity switch and refuses it before persistence', async () => {
     const f = await fixture(), client = await f.client('editor'), id = await f.locator('public-form'), endpoint = `/api/apps/alpha/artifacts/${id}`, workspace = f.workspaces.get('alpha')!;
     const artifact = (await client.call(endpoint)).body, original = workspace.save.bind(workspace), entered = deferred(), release = deferred();
     vi.spyOn(workspace, 'save').mockImplementationOnce(async (...args) => { entered.resolve(); await release.promise; return original(...args); });
@@ -345,8 +346,35 @@ describe('editor HTTP authorization around the real workspace', () => {
     expect(switched).toBe(false);
     expect((await client.call(endpoint, 'PUT', { expectedChecksum: artifact.checksum })).status).toBe(403);
     release.resolve(); expect((await pending).status).toBe(403); expect((await switching).status).toBe(200);
-    expect(await readFile(path.join(f.root, 'alpha/public-form/form.json'), 'utf8')).toContain('before switch');
+    expect(await readFile(path.join(f.root, 'alpha/public-form/form.json'), 'utf8')).toBe('{"fields":[]}');
     expect((await client.call(endpoint, 'PUT', { expectedChecksum: artifact.checksum })).status).toBe(403);
+  });
+  it('refuses an HTTP save when its original application owner changes before write admission', async () => {
+    let manifest = '';
+    const f = await fixture({ applicationOwner: async () => JSON.parse(await readFile(manifest, 'utf8')).appId });
+    const root = path.join(f.root, 'alpha'), bundle = path.join(root, 'public-form');
+    manifest = path.join(root, 'app.manifest.json');
+    await writeFile(manifest, '{"appId":"original-owner"}');
+    const client = await f.client('editor'), id = await f.locator('public-form');
+    const endpoint = `/api/apps/alpha/artifacts/${id}`, workspace = f.workspaces.get('alpha')!;
+    const artifact = (await client.call(endpoint)).body;
+    const save = workspace.save.bind(workspace), entered = deferred(), release = deferred();
+    vi.spyOn(workspace, 'save').mockImplementationOnce(async (...args) => {
+      entered.resolve();
+      await release.promise;
+      return save(...args);
+    });
+    const pending = client.call(endpoint, 'PUT', {
+      expectedChecksum: artifact.checksum, files: { 'form.json': '{"fields":[],"label":"must not write"}' },
+    });
+    await entered.promise;
+    await withArtifactLock(root, bundle, async () => {
+      release.resolve();
+      await writeFile(manifest, '{"appId":"replacement-owner"}');
+      expect(await readFile(path.join(bundle, 'form.json'), 'utf8')).toBe('{"fields":[]}');
+    });
+    expect(await pending).toMatchObject({ status: 403, body: { code: 'editor.owner-changed' } });
+    expect(await readFile(path.join(f.root, 'alpha/public-form/form.json'), 'utf8')).toBe('{"fields":[]}');
   });
   it('revokes an identity across sessions and closes its streams', async () => {
     const f = await fixture(), one = await f.client('editor'), two = await f.client('editor'), stream = await f.stream(one.headers());

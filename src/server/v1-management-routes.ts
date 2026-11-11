@@ -19,6 +19,8 @@ export function managementCheck(method: string, pathname: string, applicationId?
     return { permissionId: 'ui.platform.package.admin', resource: system };
   if (parts[1] !== 'apps' || !parts[2] || !applicationId) return null;
   const area = parts[3];
+  if (area === 'source-recovery' && parts.length === 4 && ['GET', 'POST'].includes(method))
+    return { permissionId: 'ui.application.admin', resource: app(applicationId) };
   if (area === 'automation-catalog' && method === 'GET') return { permissionId: 'ui.application.view', resource: app(applicationId) };
   const read = method === 'GET';
   if (area === 'page-shell') return { permissionId: 'ui.page.edit', resource: child(applicationId, 'page', 'pages') };

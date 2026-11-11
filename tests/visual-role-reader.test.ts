@@ -1,5 +1,5 @@
 import { afterEach, expect, it } from 'vitest';
-import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -8,7 +8,7 @@ import { createServer as createHttpServer, type Server } from 'node:http';
 import { createServer, type ViteDevServer } from 'vite';
 import { visualArtifacts, applicationComposition } from '@ui-platform/visual-artifacts/vite';
 import { validateArtifact, type ArtifactMetadata } from '@ui-platform/visual-artifacts';
-import { readRoleBundle, saveRoleBundle, type RoleBundleLocation } from '@ui-platform/artifacts/storage';
+import { readRoleBundle, recoverRoleBundleRoot, saveRoleBundle, withRoleBundleGraph, type RoleBundleLocation } from '@ui-platform/artifacts/storage';
 
 const roots: string[] = [], servers: ViteDevServer[] = [];
 const httpServers: Server[] = [];
@@ -35,17 +35,23 @@ it('pins metadata and HTML together while a real transaction is paused between r
   for (const files of [f.original, f.candidate]) expect(validateArtifact({ metadata: JSON.parse(files['page.visual.json']), source: files['page.html'], css: files['page.css'] }).filter(d => d.severity === 'error')).toEqual([]);
   const id = '\0virtual:uip-visual-page:' + encodeURIComponent(path.join(f.directory, 'page.visual.json')) + '.js';
   const oldModule = await f.server.transformRequest(id); expect(oldModule!.code).toContain('old-node');
-  const saving = saveRoleBundle(f.location, { files: f.candidate, expectedChecksum: f.before.checksum, validate() {}, admit() {}, async beforeWrite(name) { if (name === 'page.visual.json') { entered.release(); await release.wait; } } });
+  // Match the production writer contract: the graph lock precedes role locks.
+  const saving = withRoleBundleGraph(f.root, () => saveRoleBundle(f.location, { files: f.candidate, expectedChecksum: f.before.checksum, validate() {}, admit() {}, async beforeWrite(name) { if (name === 'page.visual.json') { entered.release(); await release.wait; } } }));
   await entered.wait;
   try {
     await expect(f.server.transformRequest('/src/pages/example/page.html?raw')).rejects.toThrow('Direct Visual role imports are blocked');
     await expect(f.server.transformRequest('/src/pages/example/page.visual.json?import')).rejects.toThrow('Direct Visual role imports are blocked');
     f.server.moduleGraph.invalidateModule(f.server.moduleGraph.getModuleById(id)!);
     let completed = false;
-    const fresh = f.server.transformRequest(id).then(value => { completed = true; return value; });
+    const fresh = f.server.transformRequest(id).then(
+      value => { completed = true; return { value }; },
+      (error: unknown) => { completed = true; return { error }; },
+    );
     await new Promise(resolve => setTimeout(resolve, 40)); expect(completed).toBe(false);
     release.release(); await saving;
-    const current = await fresh;
+    const outcome = await fresh;
+    if ('error' in outcome) throw outcome.error;
+    const current = outcome.value;
     expect(current!.code).toContain('new-node'); expect(current!.code).not.toContain('old-node');
     expect(current!.code).not.toContain('page.html?raw');
     // An already loaded reader still owns the immutable valid prior output.
@@ -179,7 +185,7 @@ it('rejects a particular helper with private mutable cache state and offers a lo
   const id = '\0virtual:uip-visual-page:' + encodeURIComponent(path.join(f.directory, 'page.visual.json')) + '.js';
   await expect(f.server.transformRequest(id)).rejects.toThrow('helper.ts has opaque private mutable state');
 });
-it('recovers a lost metadata anchor before runtime discovery and blocks orphan/journal HTTP bypasses', async () => {
+it('refuses runtime discovery with a lost anchor until graph-ordered recovery and blocks orphan/journal HTTP bypasses', async () => {
   const f = await fixture();
   await expect(saveRoleBundle(f.location, { expectedChecksum: f.before.checksum, files: f.candidate, validate() {}, admit() {}, async beforeWrite(name) {
     if (name === 'page.visual.json') { await rm(path.join(f.directory, name)); throw new Error('Metadata replacement interrupted'); }
@@ -194,6 +200,12 @@ it('recovers a lost metadata anchor before runtime discovery and blocks orphan/j
   expect((await fetch(origin + journalPath)).status).toBe(409);
   expect((await fetch(origin + journalPath.replace('/.uib/transactions/', '/.UIB/TRANSACTIONS/'))).status).toBe(409);
   const id = '\0virtual:uip-visual-page:' + encodeURIComponent(path.join(f.directory, 'page.visual.json')) + '.js';
+  const journal = path.join(f.location.root, '.uib/transactions', storageKey(path.join(f.directory, f.location.anchor)), 'pending.json');
+  const bytes = await readFile(journal);
+  await expect(f.server.transformRequest(id)).rejects.toMatchObject({ code: 'source.recovery-required' });
+  expect(await readFile(journal)).toEqual(bytes);
+  await expect(readFile(path.join(f.directory, f.location.anchor))).rejects.toMatchObject({ code: 'ENOENT' });
+  await withRoleBundleGraph(f.root, () => recoverRoleBundleRoot(f.location.root));
   const restored = await f.server.transformRequest(id); expect(restored!.code).toContain('old-node'); expect(restored!.code).not.toContain('new-node');
   expect((await readRoleBundle(f.location)).files).toEqual(f.original);
 });

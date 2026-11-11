@@ -3,15 +3,16 @@ import { lstat, readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { componentReferences } from '@ui-platform/visual-artifacts';
 import { VisualArtifactService } from './visual-artifacts.js';
-import { readRoleBundle, recoverRoleBundleRoot } from '@ui-platform/artifacts/storage';
+import { readRoleBundle, recoverRoleBundleRoot, type RoleBundleReadOptions } from '@ui-platform/artifacts/storage';
 
 export const compositionSources = ['app.settings.json', 'shells', 'menus', 'styles', 'assets', 'src/pages'] as const;
 // Frozen distribution dependencies retain Platform identity; this is not an editable
 // Application Component collection and is never exposed through Component management.
 export const platformComponentSnapshotPath = 'presentation/platform-components';
-export async function compositionSourceFiles(root: string, immutable = /\/presentation\/versions\/v\d+\/composition$/.test(root.replaceAll('\\', '/'))): Promise<Map<string, Buffer>> {
+export async function compositionSourceFiles(root: string, immutable = /\/presentation\/versions\/v\d+\/composition$/.test(root.replaceAll('\\', '/')), options: RoleBundleReadOptions = {}): Promise<Map<string, Buffer>> {
+  options = { ...options, recovery: 'refuse' };
   const files = new Map<string, Buffer>();
-  if (!immutable) for (const collection of ['shells', 'src/pages']) await recoverRoleBundleRoot(path.join(root, collection));
+  if (!immutable) for (const collection of ['shells', 'src/pages']) await recoverRoleBundleRoot(path.join(root, collection), options);
   const walk = async (file: string, relative: string) => {
     const info = await lstat(file).catch(error => { if (error.code === 'ENOENT') return null; throw error; }); if (!info) return;
     if (info.isSymbolicLink()) throw new Error('Published composition cannot contain symbolic links.');
@@ -20,7 +21,7 @@ export async function compositionSourceFiles(root: string, immutable = /\/presen
       if (!immutable) for (const anchor of entries.filter(entry => entry.endsWith('.visual.json'))) {
         const stem = anchor.slice(0, -'.visual.json'.length), paths = ['.html', '.css', '.visual.json', '.fixtures.json', '.functions.ts'].map(extension => stem + extension);
         const owner = relative.startsWith('src/pages') ? path.join(root, 'src/pages') : path.join(root, 'shells');
-        const snapshot = await readRoleBundle({ root: owner, directory: file, anchor, paths });
+        const snapshot = await readRoleBundle({ root: owner, directory: file, anchor, paths }, options);
         for (const [name, content] of Object.entries(snapshot.files)) if (content !== null) files.set(relative + '/' + name, Buffer.from(content));
       }
       for (const entry of entries) if (!files.has(relative + '/' + entry)) await walk(path.join(file, entry), relative + '/' + entry);
@@ -29,9 +30,9 @@ export async function compositionSourceFiles(root: string, immutable = /\/presen
   for (const relative of compositionSources) await walk(path.join(root, relative), relative);
   return files;
 }
-export async function compositionChecksum(root: string): Promise<string> {
+export async function compositionChecksum(root: string, options: RoleBundleReadOptions = {}): Promise<string> {
   const hash = createHash('sha256');
-  for (const [relative, content] of [...await compositionSourceFiles(root)].sort(([a], [b]) => a.localeCompare(b))) { hash.update(relative); hash.update('\0'); hash.update(content); hash.update('\0'); }
+  for (const [relative, content] of [...await compositionSourceFiles(root, undefined, options)].sort(([a], [b]) => a.localeCompare(b))) { hash.update(relative); hash.update('\0'); hash.update(content); hash.update('\0'); }
   return hash.digest('hex');
 }
 export async function copyCompositionSnapshot(source: string, destination: string): Promise<void> {

@@ -3,6 +3,7 @@ import { pathToFileURL } from "node:url";
 import type { ApplicationBuildEngine } from "./build.js";
 import type { MigrationEngine } from "./migrations.js";
 import type { DeploymentService } from "./deployment.js";
+import { assertStandaloneRoot } from '../standalone-root.js';
 
 export interface ApplicationTooling {
   build: ApplicationBuildEngine;
@@ -56,6 +57,8 @@ export async function runApplicationCli(
       throw new Error(
         "Usage: uib app <validate|build|watch|preflight|deploy> <app-or-plan> --tooling <local-module> | uib migration <preview|confirm|apply|status> <dataset-or-migration> --tooling <local-module>",
       );
+    const root = path.resolve(options.cwd ?? process.cwd(), values.get("--root") ?? ".");
+    if (!options.tooling || values.has('--root')) await assertStandaloneRoot(root);
     let tooling = options.tooling;
     if (!tooling) {
       const file = values.get("--tooling");
@@ -63,14 +66,11 @@ export async function runApplicationCli(
         throw new Error(
           "An explicit trusted --tooling module is required to connect application registrations, compiler, and environment providers.",
         );
-      const module = await import(
-        pathToFileURL(path.resolve(options.cwd ?? process.cwd(), file)).href
-      );
+      const toolingFile = path.resolve(options.cwd ?? process.cwd(), file);
+      await assertStandaloneRoot(toolingFile);
+      const module = await import(pathToFileURL(toolingFile).href);
       tooling = await module.createTooling({
-        root: path.resolve(
-          options.cwd ?? process.cwd(),
-          values.get("--root") ?? ".",
-        ),
+        root,
         applicationId:
           namespace === "app" && !["deploy", "preflight"].includes(command)
             ? target
@@ -79,6 +79,8 @@ export async function runApplicationCli(
       });
     }
     if (!tooling) throw new Error("Tooling factory returned no services.");
+    await assertStandaloneRoot(tooling.build.options.root);
+    if (tooling.deployment) await assertStandaloneRoot(tooling.deployment.options.root);
     const environment = values.get("--env") ?? values.get("--target");
     if (
       environment &&
