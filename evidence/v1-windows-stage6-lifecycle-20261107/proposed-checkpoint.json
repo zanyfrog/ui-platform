@@ -1,0 +1,145 @@
+{
+  "scope": "Proposed dependency-ordered checkpoint for review. Historical diagnostics, prior review packages and disposable/raw output remain separate.",
+  "order": [
+    "Data Services",
+    "UI Platform"
+  ],
+  "data": {
+    "baseline": "a0fe92a4a6700bef9cc38018c3be8d25a647464c",
+    "source": [
+      {
+        "path": "packages/dataset-operations/src/development-dataset-bootstrap.ts",
+        "sha256": "e6327f9aab87b2b242fccac8fd58964311e3125bd643582475c5d3122bb2f5c4"
+      },
+      {
+        "path": "packages/dataset-operations/tests/activation-http.test.ts",
+        "sha256": "34ec5c07ae1bad80062cd1f09c295f805138a815f985fb8e81933a31daabf361"
+      },
+      {
+        "path": "packages/schema-application/src/activation-controller.ts",
+        "sha256": "9cf93832f1cc4ddeee024ce6490734624df2093a88c743db178eb766f8c5af27"
+      },
+      {
+        "path": "packages/schema-application/src/index.ts",
+        "sha256": "1d7de8457c8993f56af44fd18ff52d129fa2ec33c340a8cdfd239f4688fc5ed2"
+      }
+    ]
+  },
+  "ui": {
+    "baseline": "da2a1bf5e5cafa569c5ff91f9151611f78b9340d",
+    "source": [
+      {
+        "path": "packages/artifacts/src/application/deployment.ts",
+        "sha256": "e946f00c8af18463bc71d1eee243bf51c5429ef273c10597b0557fd5b2b46598"
+      },
+      {
+        "path": "packages/artifacts/src/application/local-target.ts",
+        "sha256": "04c3019b09964d3675c2ae42fa6a2e977a2d42505beda1ed1bc3fd3697ae1ad3"
+      },
+      {
+        "path": "packages/artifacts/tests/migrations-deployment.test.ts",
+        "sha256": "c26452d1c4a4df0c2dc01371e49e057a4c596a8f72e0eaf14f5969196d9907c1"
+      },
+      {
+        "path": "packages/visual-artifacts/src/revision-composition-vite.ts",
+        "sha256": "d7b947d150634ed3c4c504800fb51c1170d8e5c7f1e65b900dfa0b82a489a5e6"
+      },
+      {
+        "path": "src/server/application-presentation.ts",
+        "sha256": "b4b26603d58cefdeddf4ae51a65209a826938d27891fc8caf0eecec34c04c839"
+      },
+      {
+        "path": "src/server/production/applied-integration.ts",
+        "sha256": "c0d416b0bf24a2a2bed88daf62ab2b2b4064c33d9179c26fb69ab3fe5ad0d47a"
+      },
+      {
+        "path": "src/server/production/durable-release-selection.ts",
+        "sha256": "aea831eaf8ef7f134a88e15a0e362f1bcba4799e321c94c878cbfc1c5508b182"
+      },
+      {
+        "path": "src/server/production/publication-integration.ts",
+        "sha256": "b2646b6119b05f752dd2a9d219803c8c2d4ead1f191ec764ebb5eedd22c5f937"
+      },
+      {
+        "path": "src/server/production/release-browser-build.ts",
+        "sha256": "4d358e63bd1205cc6493e879d666bfa3e47b36923174673a800c9957dde2a7c6"
+      },
+      {
+        "path": "src/server/production/runtime.ts",
+        "sha256": "ba698691531d8c0fe64e24d7474177cc7786028cafcb4a2b4da38e22ec846484"
+      },
+      {
+        "path": "src/server/production/service-rpc.ts",
+        "sha256": "23af318d81ca787fe3ff9b3fa99250fade7b25aa359727e5d3cb981e2acf08cc"
+      },
+      {
+        "path": "tests/durable-release-selection.test.ts",
+        "sha256": "4a6cbca89c0dd168e71334edd96122be3d5045603a20da2d6120f64f71d76f4f"
+      },
+      {
+        "path": "tests/fixtures/stage5-integration-journey.ts",
+        "sha256": "1bcb7f173ca1417a9053884a675012b88d2904b4282a8efe56ed63a0b3465969"
+      },
+      {
+        "path": "tests/fixtures/stage5-integration-process.ts",
+        "sha256": "7e6269cb528d6f587ae74f07c0fcddb539378ebb110fa07c9fda5c1ec08d5c18"
+      },
+      {
+        "path": "tests/fixtures/runtime-serving-witness.ts",
+        "sha256": "6acf9443125c5dc4ca1af4b125f0e09f3a6aa48f564fc7d80234eef6496285d4"
+      },
+      {
+        "path": "tests/runtime-serving-witness.test.ts",
+        "sha256": "16d943c43e6e1e09cbd2944b02ca6d0fdd16069dc06ec8a75a5febee03001a25"
+      }
+    ],
+    "priorEvidence": [
+      {
+        "path": "evidence/v1-windows-controlled-promotion-20261107/verification.json",
+        "sha256": "e7e189cf3572874e3df91aba6b44b5bc22fb472769152f544874353bd3f07d91"
+      },
+      {
+        "path": "evidence/v1-windows-controlled-promotion-20261107/verification-run-002.json",
+        "sha256": "67208ff6e4307e6307d8d8429d522c1992050291509017811e9d459fb56305ba"
+      },
+      {
+        "path": "evidence/v1-windows-durable-serving-20261107/verification.json",
+        "sha256": "7106ae667bb99461f45d805e04735a83154d126f767d8e65b8c5cb4f3f93e494"
+      },
+      {
+        "path": "evidence/v1-windows-retained-data-20261107/verification.json",
+        "sha256": "1f976c840a8d2edc03c85dfd61c11d3b5880ca89ba0873f6dcfc0744e0a88f27"
+      },
+      {
+        "path": "evidence/v1-windows-stage6-recovery-20261107/verification.json",
+        "sha256": "4a36b83a61010e0f1fefc81372aa168de4a8f22ad3e108843d2e03c4abb58d6e"
+      },
+      {
+        "sha256": "e1da1c34475ce8d3e254bef4ae01752b9db71074cad2ff6cfc7a71b437bf8a8f",
+        "path": "evidence/v1-windows-stage6-lifecycle-20261107/verification.json"
+      },
+      {
+        "sha256": "e4cccbf38ec3431776f1925edd897859312f0703d9dfc09bc9b82218cf1b72fa",
+        "path": "evidence/v1-windows-stage6-lifecycle-20261107/drain-verification.json"
+      },
+      {
+        "path": "evidence/v1-windows-stage6-lifecycle-20261107/writers-verification.json",
+        "sha256": "dd051952163c1a35ebec5af33dc65ce10dfdf2ab26f1e8f297fda0601b5f861a"
+      },
+      {
+        "path": "evidence/v1-windows-stage6-lifecycle-20261107/security-verification.json",
+        "sha256": "526b1b2a96e803d3519906a992b9eb5931bac90ba7f84803da255a312cef6c0e"
+      },
+      {
+        "sha256": "1c28dafc83f14c13b91c119f8e44e7d5b085d68d8f9d0d27e003418c336491b3",
+        "path": "evidence/v1-windows-stage6-lifecycle-20261107/rollback-verification.json"
+      }
+    ]
+  },
+  "excluded": [
+    "41 historical diagnostics retained separately",
+    "Disposable trees, credentials, raw diagnostics and build outputs",
+    "Previously accepted review and checkpoint files retained as separate inventories"
+  ],
+  "selfHash": "External only"
+}
