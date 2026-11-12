@@ -45,8 +45,9 @@ export interface ArtifactMetadata {
   form?: FormDefinition;
 }
 export interface NodeOverride { visible?: boolean; editable?: boolean; required?: boolean; label?: string; help?: string; default?: unknown }
-export interface FormField extends NodeOverride { id: string; node: string; key: string; datasetFieldId: string; type: ValueType; datasetRequired?: boolean; operations?: Array<'create' | 'edit'>; calculation?: { expression: import('@ui-platform/dataset-operations/expression').DeclarativeExpression; persist: boolean }; codec?: 'date' | 'json' }
+export interface FormField extends NodeOverride { lookup?: import('./form-lookup.js').FormLookup; id: string; node: string; key: string; datasetFieldId: string; type: ValueType; datasetRequired?: boolean; operations?: Array<'create' | 'edit'>; calculation?: { expression: import('@ui-platform/dataset-operations/expression').DeclarativeExpression; persist: boolean }; codec?: 'date' | 'json' }
 export interface FormDefinition {
+  assignment?: boolean;
   contractVersion?: 1;
   node: string; datasetId: string; primaryKey: string; fields: FormField[];
   submit: { service: string; readService: string };
@@ -141,3 +142,4 @@ export function readLegacyPackageSettings(pkg: PackageComponent, attributes: Rec
   for (const [key, contract] of Object.entries(legacyPackageSettingContracts(pkg))) if (Object.hasOwn(attributes, key)) values[key] = contract.type === 'boolean' ? attributes[key] !== 'false' : contract.type === 'number' ? Number(attributes[key]) : attributes[key];
   return { ...values, ...stored };
 }
+

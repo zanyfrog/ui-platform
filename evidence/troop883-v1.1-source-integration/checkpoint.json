@@ -1,0 +1,106 @@
+{
+  "milestone": "Troop 883 V1.1 accepted source integration",
+  "scope": "Source-only local checkpoint; no merge, push, retag or pilot mutation",
+  "baseline": "0199a6fc0977be76b66b5c9979d3b7d4bea6ad24",
+  "branch": "integration/troop883-v1.1-20261112",
+  "files": [
+    {
+      "file": "src/client/artifact-editor/dataset-editor.ts",
+      "kind": "modified",
+      "sha256": "8f9ed59e073a685ae151209faa5c72c1d6e37ead85329a946f829c4fdae54793"
+    },
+    {
+      "file": "src/client/artifact-editor/form-editor.ts",
+      "kind": "modified",
+      "sha256": "10aecfff3f247c64a929994ba73f1ec5fd97eea4206555032be301f753ab4c6c"
+    },
+    {
+      "file": "src/server/application-data-proxy.ts",
+      "kind": "modified",
+      "sha256": "9d72ad6487cb24aef09ff9fbb89cd4b61fe28bf741fd598ec1a072d233cee3c4"
+    },
+    {
+      "file": "src/server/builder-development-host.ts",
+      "kind": "modified",
+      "sha256": "bbbf96e619b5e09f282c87351e36b810e8b0e7fa859a632cd07845f6d8f2eb71"
+    },
+    {
+      "file": "src/server/dataset-development.ts",
+      "kind": "modified",
+      "sha256": "08d588e5b6242e1997db5a885e50dcacf6c50769a6456c8235a103992dc20ce1"
+    },
+    {
+      "file": "src/server/development-application-runtime.ts",
+      "kind": "modified",
+      "sha256": "7a2701641bdd272499e4e7eb0c862b6824986007bfa60f56fb43afaa3c782130"
+    },
+    {
+      "file": "src/shared/dataset-authoring.ts",
+      "kind": "modified",
+      "sha256": "1066a626dfb47015429e5eec0fb53c56a6fc3379064af241087758b99d5504cc"
+    },
+    {
+      "file": "packages/visual-artifacts/src/form-runtime.ts",
+      "kind": "modified",
+      "sha256": "4aa4617db201dc3a8ef5d2fd4b842264766cd8ce78666d50cad6e298b80bcb60"
+    },
+    {
+      "file": "packages/visual-artifacts/src/model.ts",
+      "kind": "modified",
+      "sha256": "2f68e7e9d2e83810894b37ca7b246dbeca2a6b0ebc3bd4de73e343fd4adc5b29"
+    },
+    {
+      "file": "packages/visual-artifacts/src/validation.ts",
+      "kind": "modified",
+      "sha256": "08afcc8fbb20c9db6e28b94ed022d0f274ed5bdf68524b0615dcd775a2a04b9b"
+    },
+    {
+      "file": "tests/increment2-routing.test.ts",
+      "kind": "added",
+      "sha256": "7b03af01c7d6d59ee07f5a472e9788bf0fd93bdfc27302825212bba65b128aed"
+    },
+    {
+      "file": "src/server/assignment-reference.ts",
+      "kind": "added",
+      "sha256": "2ad3474cb5aa3cb01325b636a1ecb96d46c2b9bed45a04ee3db25f89bce5dabd"
+    },
+    {
+      "file": "packages/visual-artifacts/src/form-lookup.ts",
+      "kind": "added",
+      "sha256": "9686f655c04fa83d9e0b85173628a49b02b4db5104b301bad5314edc14108ad4"
+    },
+    {
+      "file": "tests/increment3-reference.test.ts",
+      "kind": "added",
+      "sha256": "b3700f0217f521bb8649a4212bb642b085d0bd576050992fa314c20987689572"
+    },
+    {
+      "file": "tests/increment3-form.test.ts",
+      "kind": "added",
+      "sha256": "77218cb7991fa07428ddff4cadc9218c68fed2f684c17e34b4efde66ca5d4574"
+    }
+  ],
+  "verification": {
+    "platformTests": 15,
+    "assignmentTests": 13,
+    "failed": 0,
+    "compiledPackages": [
+      "orm",
+      "dataset-operations",
+      "visual-artifacts"
+    ],
+    "dependencySetup": "Copied existing accepted pilot dependencies into integration targets; no installs/upgrades. Reused package-local TypeScript 6.0.3 for visual-artifacts resolution."
+  },
+  "qualifications": [
+    "All accepted local Windows pilot qualifications retained; this is not production acceptance.",
+    "Broader baseline typechecks previously documented seven production and six fixture/native-card diagnostics; not rerun in this source-only checkpoint.",
+    "UI Platform manifest still consumes vendor/native/ui-base-forms-0.1.1.tgz; this source checkpoint does not regenerate that archive. Focused source checks use the matched integrated UI-Base source and prepared accepted dependencies. Fresh-install package assembly must be reviewed before merge/release.",
+    "Assignment concurrency requires the accepted Node runtime with node:sqlite; Node v24.19.0 used for focused checks.",
+    "Cross-repository focused tests assume sibling ui-platform, UI Platform Data Services and ui-base directories."
+  ],
+  "excluded": [
+    "pilot-tools/normal-windows-host.ts",
+    "Pilot applications, Dataset definitions/records, runtime configuration, launchers and logs",
+    "Generated dist, installed dependencies and historical/deferred changes"
+  ]
+}

@@ -3,7 +3,7 @@ export type { DatasetSchema as AuthoringDatasetSchema } from '@ui-platform/artif
 export interface DatasetDevelopmentStatus {
   sourceChecksum: string; sourceValid: boolean; validated: boolean;
   publication?: { version: number; checksum: string };
-  applied: boolean; connectedDatasetId?: string;
+  applied: boolean; connectedDatasetId?: string; connectedDatasetIds?: string[];
   appliedSchema?: import('@ui-platform/artifacts').DatasetSchema;
   connection: 'disconnected' | 'connecting' | 'ready' | 'unsupported' | 'failed';
   diagnostic?: string;

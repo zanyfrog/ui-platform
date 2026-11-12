@@ -98,7 +98,15 @@ function renderMapping(container: HTMLElement, context: EditorRuntimeContext, sc
   }));
   const choice = state.datasets.find(d => (d.appliedSchema?.dataset.id ?? d.schema?.dataset.id) === metadata.form!.datasetId), schema = choice?.appliedSchema;
   if (!schema) { container.append(el('p', 'Select, apply and connect a Dataset through its existing editor before executable mapping/submission.')); return; }
-  for (const f of schema.fields.filter(f => f.type !== 'id')) {
+  if (schema.fields.some(f => f.key === 'revision') && schema.fields.some(f => f.key === 'patrolId')) container.append(check('Owner-keyed Assignment Form', !!metadata.form!.assignment, !context.canEdit, value => editForm(context, 'form/assignment', (m, doc) => {
+    m.form!.assignment = value;
+    if (value) {
+      for (const f of m.form!.fields.filter(f => f.key === 'revision')) doc.querySelector(`[data-uip-node="${f.node}"]`)?.parentElement?.remove();
+      m.form!.fields = m.form!.fields.filter(f => f.key !== 'revision');
+    }
+  })));
+  if (metadata.form!.assignment) container.append(el('p', 'The owner recordId supplies the permanent primary key. Revision is server-managed; missing Assignment rows open as Unassigned. Existing rows require their read revision for edits.'));
+  for (const f of schema.fields.filter(f => f.type !== 'id' && !(metadata.form!.assignment && f.key === 'revision'))) {
     const mapped = metadata.form!.fields.find(m => m.datasetFieldId === f.id), supported = ['string', 'number', 'integer', 'boolean', 'date'].includes(f.type);
     const row = el('article'); row.append(el('p', `${f.key} · ${f.type} · ${f.required ? 'required' : 'optional'} · ${mapped ? 'mapped' : 'unmapped'} · ${f.id}`));
     if (!mapped && supported) row.append(button(`Map ${f.key}`, () => addMapping(context, f), !context.canEdit));
@@ -120,6 +128,16 @@ function renderFields(container: HTMLElement, context: EditorRuntimeContext, rul
       row.append(text('Field label', field.label ?? '', `${field.id}/label`, disabled, value => update('label', f => { f.label = value; })), text('Field help', field.help ?? '', `${field.id}/help`, disabled, value => update('help', f => { f.help = value; })));
       for (const property of ['visible', 'editable', 'required'] as const) row.append(check(property, field[property] !== false && (property !== 'required' || !!field.required), disabled || property === 'required' && !!field.datasetRequired, value => update(property, f => { f[property] = value; })));
       row.append(select('Field operation', field.operations?.join(',') ?? 'create,edit', [['create,edit', 'Create and edit'], ['create', 'Create only'], ['edit', 'Edit only']], disabled, value => update('operations', f => { f.operations = value.split(',') as ('create' | 'edit')[]; })));
+      if (field.type === 'string') {
+        row.append(check('Lookup-backed Select', !!field.lookup, disabled, value => editForm(context, `${field.id}/lookup-control`, (m, doc) => {
+          const f = m.form!.fields.find(f => f.id === field.id)!;
+          if (value) f.lookup = { datasetId: '', labelField: 'name', activeField: 'active', emptyLabel: 'Unassigned', inactiveLabel: 'Inactive selection' }; else delete f.lookup;
+          const current = doc.querySelector(`[data-uip-node="${field.node}"]`);
+          if (current) { const replacement = doc.createElement(value ? 'uib-forms-select' : 'uib-forms-textbox'); for (const attr of [...current.attributes]) replacement.setAttribute(attr.name, attr.value); current.replaceWith(replacement); }
+        })));
+        if (field.lookup) for (const [key, label] of [['datasetId', 'Lookup Dataset ID'], ['labelField', 'Lookup label field'], ['activeField', 'Lookup active field'], ['emptyLabel', 'Empty selection label'], ['inactiveLabel', 'Inactive selection label']] as const)
+          row.append(text(label, field.lookup[key] ?? '', `${field.id}/lookup/${key}`, disabled, value => update(`lookup/${key}`, f => { f.lookup = { ...f.lookup!, [key]: value }; })));
+      }
       row.append(text('Default value', field.default === undefined ? '' : field.codec === 'json' ? JSON.stringify(field.default) : String(field.default), `${field.id}/default`, disabled, value => { if (value === '') update('default', f => { delete f.default; }); else update('default', f => { f.default = field.codec === 'json' ? JSON.parse(value) : field.type === 'number' ? Number(value) : field.type === 'boolean' ? value === 'true' : value; }); }));
       for (const direction of ['up', 'down'] as const) row.append(button(`Move ${direction}`, () => editForm(context, `${field.id}/${direction}`, (m, doc) => { const control = doc.querySelector(`[data-uip-node="${field.node}"]`), wrapper = control?.parentElement; if (!wrapper) return; const sibling = direction === 'up' ? wrapper.previousElementSibling : wrapper.nextElementSibling; if (!sibling || !sibling.querySelector('[data-uip-field-error]')) return; if (direction === 'up') sibling.before(wrapper); else sibling.after(wrapper); const ordered = [...doc.querySelectorAll('[data-uip-field-error]')].map(e => (e as HTMLElement).dataset.uipFieldError); m.form!.fields.sort((a,b) => ordered.indexOf(a.id) - ordered.indexOf(b.id)); }), disabled));
       row.append(button('Remove mapping and control', () => editForm(context, `remove/${field.id}`, (m, doc) => { doc.querySelector(`[data-uip-node="${field.node}"]`)?.parentElement?.remove(); m.form!.fields = m.form!.fields.filter(f => f.id !== field.id); m.conditions = m.conditions?.filter(c => c.node !== field.node); for (const mode of Object.values(m.modes?.overrides ?? {})) delete mode[field.node]; }), disabled));

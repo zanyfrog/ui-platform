@@ -5,7 +5,7 @@ import type { EditorPluginScope } from './plugins.js';
 import { createEditorSessionBinding } from './session.js';
 
 type Capabilities = DatasetDevelopmentStatus['capabilities'];
-type State = { capabilities?: Capabilities; status?: DatasetDevelopmentStatus; message?: string; records?: Record<string, unknown>[] };
+type State = { capabilities?: Capabilities; status?: DatasetDevelopmentStatus; message?: string; records?: Record<string, unknown>[]; assignment?: { ownerDatasetId: string; targetDatasetId: string; targetActiveField: string } };
 const states = new WeakMap<EditorRuntimeContext, State>();
 const stateFor = (context: EditorRuntimeContext) => { let state = states.get(context); if (!state) { state = {}; states.set(context, state); } return state; };
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string) { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; return node; }
@@ -80,6 +80,18 @@ export function renderDatasetDevelopment(container: HTMLElement, context: Editor
   const render = () => {
     container.replaceChildren();
     container.append(el('p', 'Saving source does not publish, activate or migrate the Dataset. Apply requires Dataset administration authority; runtime permissions are assigned separately through trusted security administration.'));
+    const schema = source(context).schema;
+    if (schema.fields.length === 3 && schema.fields.some(f => f.key === 'revision') && schema.fields.some(f => f.key === 'patrolId')) {
+      const group = el('fieldset'); group.append(el('legend', 'Protected Assignment references'));
+      const refs = state.assignment ??= { ownerDatasetId: '', targetDatasetId: '', targetActiveField: 'active' };
+      for (const [key, label] of [['ownerDatasetId', 'Owner Dataset ID'], ['targetDatasetId', 'Target Dataset ID'], ['targetActiveField', 'Target active field']] as const) {
+        const row = el('label', label), input = el('input'); input.setAttribute('aria-label', label); input.value = refs[key]; input.oninput = () => { refs[key] = input.value; }; row.append(input); group.append(row);
+      }
+      group.append(button('Configure protected Assignment references', () => {
+        void context.perform(async () => { try { state.status = await datasetRequest<DatasetDevelopmentStatus>(context, 'assignment', { ...refs }); state.message = 'Protected Assignment references configured. Apply remains a separate explicit action.'; }
+          catch (error) { state.message = (error as Error).message; } }).catch(error => { state.message = error.message; render(); });
+      }, context.pending || !!snapshot?.dirty)); container.append(group);
+    }
     if (state.message) container.append(el('p', state.message));
     if (state.status && state.status.sourceChecksum === snapshot?.artifact.checksum && !snapshot.dirty) {
       const status = state.status;
@@ -96,7 +108,7 @@ export function renderDatasetDevelopment(container: HTMLElement, context: Editor
     container.append(button('Refresh development status', () => action('status'), context.pending),
       button('Validate saved definition', () => action('validate'), context.pending || !!snapshot?.dirty),
       button('Apply to Development…', () => { if (confirm('Publish and activate this saved Dataset in Development? This creates real development storage and does not grant runtime permissions. Existing schema migrations are unsupported.')) action('apply', true); }, context.pending || !!snapshot?.dirty),
-      button('Connect Runtime…', () => { if (confirm('Connect this applied Dataset to this Application’s protected development host? One Dataset is supported per host.')) action('connect', true); }, context.pending || !!snapshot?.dirty));
+      button('Connect Runtime…', () => { if (confirm('Connect this applied Dataset to this Application’s protected development host? Other connected Datasets remain available through their own protected hosts.')) action('connect', true); }, context.pending || !!snapshot?.dirty));
     container.append(el('p', 'Required values and defaults use the existing protected engine. Permission rules reference permanent Dataset and field IDs through I-AM. The creator receives no automatic runtime or security grant.'));
   };
   render();

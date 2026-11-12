@@ -1,5 +1,6 @@
 import type { ArtifactMetadata, FormField } from './model.js';
 import { effectiveField, formPayload, formValueErrors, resolveMode, formCalculations, formExpressionFields } from './form.js';
+import { formLookupOptions, type LookupOption } from './form-lookup.js';
 import { calculateFields } from './expression.js';
 
 export interface FormRuntimeOptions {
@@ -8,8 +9,10 @@ export interface FormRuntimeOptions {
 }
 export function attachFormRuntime(metadata: ArtifactMetadata, root: ShadowRoot, state: Record<string, unknown>, options: FormRuntimeOptions, inputs: () => Record<string, unknown>, render: () => void, emit: (name: string, payload: Record<string, unknown>) => void) {
   const form = metadata.form!;
+  const lookups = new Map<string, { key: string; items?: LookupOption[]; error?: string }>();
   let original: Record<string, unknown> = {}, identity = '', generation = 0, disposed = false, loading = false;
-  const operation = () => String(inputs().operation ?? 'create');
+  let assignmentOperation: 'create' | 'edit' | undefined;
+  const operation = () => form.assignment && assignmentOperation ? assignmentOperation : String(inputs().operation ?? 'create');
   const fields = (): FormField[] => form.fields.map(field => { const effective = effectiveField(field, resolveMode(metadata, inputs().mode), operation(), Boolean(inputs().readOnly || inputs().disabled || state.submitting || loading), options.fieldAuthorization?.[form.datasetId]?.[field.key]); if (field.calculation) effective.editable = false; return effective; });
   const values = () => state.values as Record<string, unknown>;
   const notify = (name: string, result: Record<string, unknown>) => { if (metadata.public?.events[name]) emit(name, { result }); };
@@ -19,9 +22,9 @@ export function attachFormRuntime(metadata: ArtifactMetadata, root: ShadowRoot, 
     return adapter(input);
   };
   function initialize() {
-    const next = JSON.stringify([operation(), inputs().recordId, inputs().initialRecord]);
+    const next = JSON.stringify([inputs().operation ?? 'create', inputs().recordId, inputs().initialRecord]);
     if (next === identity) return;
-    identity = next; const current = ++generation;
+    identity = next; assignmentOperation = undefined; const current = ++generation;
     original = structuredClone((inputs().initialRecord ?? {}) as Record<string, unknown>);
     state.values = Object.fromEntries(fields().filter(f => f.default !== undefined).map(f => [f.key, structuredClone(f.default)]));
     for (const field of form.fields) if (field.type === 'boolean' && !Object.hasOwn(values(), field.key)) values()[field.key] = false;
@@ -32,6 +35,7 @@ export function attachFormRuntime(metadata: ArtifactMetadata, root: ShadowRoot, 
       loading = true;
       void Promise.resolve().then(() => service(form.submit.readService, { datasetId: form.datasetId, where: { field: form.primaryKey, op: 'eq', value: inputs().recordId } })).then(result => {
         if (disposed || current !== generation) return;
+        if (form.assignment && Array.isArray(result) && !result.length) { assignmentOperation = 'create'; loading = false; render(); return; }
         if (!Array.isArray(result) || !result[0]) throw new Error('Record was not found or read was denied.');
         original = structuredClone(result[0]); state.values = structuredClone(original); loading = false; render();
       }).catch(error => { if (!disposed && current === generation) { loading = false; state.submitError = String(error); render(); } });
@@ -51,6 +55,17 @@ export function attachFormRuntime(metadata: ArtifactMetadata, root: ShadowRoot, 
       if (field.label !== undefined) control.setAttribute('label', field.label);
       if (field.help !== undefined) control.setAttribute('help', field.help);
       const value = values()[field.key];
+      if (field.lookup) {
+        const key = JSON.stringify([generation, field.lookup, value]);
+        if (lookups.get(field.id)?.key !== key) {
+          const entry: { key: string; items?: LookupOption[]; error?: string } = { key }; lookups.set(field.id, entry);
+          void formLookupOptions(field.lookup, value, async query => await service(form.submit.readService, query)).then(items => { entry.items = items; }).catch(error => { entry.error = String(error); }).finally(() => { if (!disposed && lookups.get(field.id) === entry) render(); });
+        }
+        const lookup = lookups.get(field.id)!;
+        control.setAttribute('option-items', JSON.stringify(lookup.items ?? []));
+        if (!lookup.items || lookup.error) control.setAttribute('disabled', '');
+        if (lookup.error) state.submitError = lookup.error;
+      }
       const raw = (state.rawJsonValues as Record<string, string>)[field.id];
       if (raw !== undefined || value !== undefined) { control.setAttribute('value', raw ?? (field.codec === 'json' ? JSON.stringify(value) : String(value))); if (field.type === 'boolean') control.toggleAttribute('checked', Boolean(value)); }
       const error = root.querySelector(`[data-uip-field-error="${field.id}"]`);
@@ -91,12 +106,18 @@ export function attachFormRuntime(metadata: ArtifactMetadata, root: ShadowRoot, 
       // Conditions may remove a control or ancestor from the DOM. Retained values
       // still submit; only existing operation/read-only/host restrictions narrow writes.
       const active = fields();
+      if (active.some(f => f.lookup && (!lookups.get(f.id)?.items || lookups.get(f.id)?.error))) throw new Error('Lookup choices are unavailable. Reload before submitting.');
       state.validation = formValueErrors(values(), active);
       if ((event as CustomEvent).detail?.valid === false || Object.keys(state.validation as object).length) throw new Error('Correct the validation errors before submitting.');
       const record = formPayload(metadata, values(), original, active, operation());
+      if (form.assignment && operation() === 'create') {
+        if (typeof inputs().recordId !== 'string' || !inputs().recordId) throw new Error('Select an owner record before assigning.');
+        record[form.primaryKey] = inputs().recordId;
+      }
+      if (form.assignment && operation() === 'edit' && typeof original.revision !== 'string') throw new Error('Reload the Assignment before changing it: revision is unavailable.');
       if (operation() === 'create' && record[form.primaryKey] === undefined) record[form.primaryKey] = crypto.randomUUID();
-      state.submitting = true; state.submitError = null; notify('submitStarted', {}); render();
-      const result = await service(form.submit.service, { datasetId: form.datasetId, ...(form.contractVersion === 1 || formCalculations(metadata).some(c => c.persist) ? { formId: metadata.componentId } : {}), operation: operation() === 'edit' ? 'update' : 'insert', records: [record] }) as Record<string, unknown>;
+      state.submitting = true; if (form.assignment) state.commitOutcome = undefined; state.submitError = null; notify('submitStarted', {}); render();
+      const result = await service(form.submit.service, { datasetId: form.datasetId, ...(form.assignment && operation() === 'edit' ? { expectedRevision: original.revision } : {}), ...(form.contractVersion === 1 || formCalculations(metadata).some(c => c.persist) ? { formId: metadata.componentId } : {}), operation: operation() === 'edit' ? 'update' : 'insert', records: [record] }) as Record<string, unknown>;
       if (disposed || current !== generation) return;
       state.commitOutcome = result?.commitOutcome ?? (result?.committed ? 'committed' : 'not-committed');
       if (result?.success !== true || result.committed !== true) throw new Error(JSON.stringify(result));
@@ -105,6 +126,7 @@ export function attachFormRuntime(metadata: ArtifactMetadata, root: ShadowRoot, 
       if (disposed || current !== generation) return;
       if (!Array.isArray(saved) || !saved[0]) throw new Error('Write committed, but the saved record could not be read. Do not automatically repeat the submission.');
       original = structuredClone(saved[0]); state.values = structuredClone(original); state.savedRecord = structuredClone(original);
+      if (form.assignment) assignmentOperation = 'edit';
       state.dirty = false; state.submitted = true;
       notify('submitSucceeded', result);
       notify(operation() === 'edit' ? 'recordUpdated' : 'recordCreated', original);

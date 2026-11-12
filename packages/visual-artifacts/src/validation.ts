@@ -64,6 +64,7 @@ export function validateArtifact(artifact: RuntimeArtifact, components: RuntimeA
         identities.add(field.id); fieldNodes.add(field.node); keys.add(field.key);
         if (!nodes.has(field.node) || !/^[A-Za-z][\w]*$/.test(field.key) || !field.datasetFieldId) error('Form fields require an explicit node and stable Dataset mapping.');
         if (!['string', 'number', 'boolean', 'object', 'array'].includes(field.type)) error('Invalid Form field value type.');
+        if (field.lookup && (field.type !== 'string' || !field.lookup.datasetId || !/^[A-Za-z][\w]*$/.test(field.lookup.labelField) || field.lookup.activeField && !/^[A-Za-z][\w]*$/.test(field.lookup.activeField) || nodes.get(field.node)?.tag !== 'uib-forms-select')) error('Lookup requires a Select control, Dataset identity and valid field keys.');
         let parent = nodes.get(field.node)?.parent;
         while (parent && parent.id !== m.form.node) parent = parent.parent;
         if (!parent) error('Mapped Form controls must belong to the Form root.');

@@ -14,6 +14,7 @@ import type { DevelopmentApplicationRuntime } from './development-application-ru
 import { V1_AUTHORITY_ID } from './v1-development-policy.js';
 import { platformRoot } from './paths.js';
 import type { AuthoringDatasetSchema, DatasetDevelopmentStatus } from '../shared/dataset-authoring.js';
+import type { AssignmentReferences } from './assignment-reference.js';
 
 type Deployment = { sourceChecksum: string; config: BuilderDevelopmentHostConfig };
 function reject(code: string, status = 409): never { throw new EditorRequestError(status, code, code.replaceAll('_', ' ')); }
@@ -25,23 +26,34 @@ async function atomicJson(file: string, value: unknown) {
   const temporary = `${file}.${randomUUID()}.tmp`; await writeFile(temporary, JSON.stringify(value, null, 2), { mode: 0o600 }); await rename(temporary, file);
 }
 
+/** Durable connection selection, including the accepted legacy single-Dataset shape. */
+export function connectionDatasetIds(persisted: unknown): string[] {
+  if (persisted === undefined) return [];
+  if (!persisted || typeof persisted !== 'object' || Array.isArray(persisted)) reject('DATASET_CONNECTION_METADATA_INVALID');
+  const value = persisted as Record<string, unknown>;
+  const ids = value.version === 1 && Array.isArray(value.datasetIds) && Object.keys(value).every(k => ['version', 'datasetIds'].includes(k)) ? value.datasetIds :
+    typeof value.datasetId === 'string' && Object.keys(value).length === 1 ? [value.datasetId] : undefined;
+  if (!ids || ids.some(id => typeof id !== 'string' || !identifier(id)) || new Set(ids).size !== ids.length) reject('DATASET_CONNECTION_METADATA_INVALID');
+  return [...ids];
+}
+
 /** Development-only orchestration. Schema/activation/owner truth stays in Data Services. */
 export class DatasetDevelopment {
-  private readonly hosts = new Map<string, { datasetId: string; server: Server; host: ReturnType<typeof createBuilderDevelopmentHost> }>();
+  private readonly hosts = new Map<string, { applicationId: string; datasetId: string; server: Server; host: ReturnType<typeof createBuilderDevelopmentHost> }>();
   private readonly validated = new Map<string, string>();
   constructor(private readonly options: { root: string; policyStore: string; registryFile: string; applicationsRoot: string;
     identity: V1DevelopmentIdentity; security: ArtifactEditorSecurity; registry: DevelopmentApplicationRegistry;
     runtime: DevelopmentApplicationRuntime; workspace(key: string): ArtifactEditorWorkspace }) {}
   async close() {
-    for (const [appId, entry] of this.hosts) {
-      this.options.runtime.disconnectManaged(appId);
+    for (const entry of this.hosts.values()) {
+      this.options.runtime.disconnectManaged(entry.applicationId, entry.datasetId);
       await new Promise<void>(resolve => entry.server.close(() => resolve())); entry.host.close();
     }
     this.hosts.clear();
   }
   async handle(req: IncomingMessage, res: ServerResponse): Promise<boolean> {
     const url = new URL(req.url ?? '/', 'http://localhost');
-    const match = /^\/api\/apps\/([^/]+)\/datasets(?:\/(capabilities|create|status|validate|apply|connect|discovery))?$/.exec(url.pathname);
+    const match = /^\/api\/apps\/([^/]+)\/datasets(?:\/(capabilities|create|status|validate|apply|connect|discovery|assignment))?$/.exec(url.pathname);
     if (!match) return false;
     const send = (status: number, value: unknown) => res.writeHead(status, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify(value));
     try {
@@ -53,10 +65,10 @@ export class DatasetDevelopment {
       const workspace = this.options.workspace(key);
       let input: Record<string, unknown> = {};
       if (mutation) { let text = ''; for await (const chunk of req) { text += chunk; if (text.length > 65536) reject('DATASET_REQUEST_TOO_LARGE', 413); } input = JSON.parse(text || '{}'); }
-      const allowedKeys = action === 'create' ? ['name'] : ['locator', 'expectedChecksum', 'confirmed'];
+      const allowedKeys = action === 'create' ? ['name'] : ['locator', 'expectedChecksum', 'confirmed', ...(action === 'assignment' ? ['ownerDatasetId', 'targetDatasetId', 'targetActiveField'] : [])];
       if (Object.keys(input).some(k => !allowedKeys.includes(k)) || !['GET', 'POST'].includes(req.method ?? '')) reject('DATASET_REQUEST_INVALID', 400);
       const resource = { authorityId: V1_AUTHORITY_ID, applicationId: appId, kind: 'artifact' as const, id: 'datasets', parentId: appId };
-      const permission = mutation ? ['apply', 'connect'].includes(action) ? 'ui.artifact.admin' : 'ui.artifact.edit' : 'ui.artifact.view';
+      const permission = mutation ? ['apply', 'connect', 'assignment'].includes(action) ? 'ui.artifact.admin' : 'ui.artifact.edit' : 'ui.artifact.view';
       const authority = this.options.identity.captureAdmission(req, permission, resource);
       const admit = async () => {
         this.options.security.workspacePrincipal(req, mutation); await authority();
@@ -70,7 +82,7 @@ export class DatasetDevelopment {
           const artifact = await this.options.security.workspaceArtifact(req, key, item.locator);
           const deployment = identifier(item.artifactId ?? '') ? await optionalJson<Deployment>(path.join(this.options.root, appId, item.artifactId!, 'host.json')) : undefined;
           const applied = deployment ? await inspectDevelopmentDataset(deployment.config).catch(() => undefined) : undefined;
-          result.push({ ...item, schema: artifact.validation.valid ? JSON.parse(artifact.files.find(f => f.role === 'definition')!.content) : undefined,
+          result.push({ ...item, assignment: !!deployment?.config.assignment, schema: artifact.validation.valid ? JSON.parse(artifact.files.find(f => f.role === 'definition')!.content) : undefined,
             ...(applied?.resource.applicationId === appId && applied.resource.id === item.artifactId ? { appliedSchema: applied.schema, publication: deployment!.config.pin.publication } : {}) });
         }
         await admit(); send(200, result); return true;
@@ -114,8 +126,8 @@ export class DatasetDevelopment {
         const directory = path.join(this.options.root, appId, id), deploymentFile = path.join(directory, 'host.json');
         let deployment = await optionalJson<Deployment>(deploymentFile);
         const status = async (): Promise<DatasetDevelopmentStatus> => {
-          const connectedDatasetId = this.options.runtime.connectedDataset(appId);
-          const readiness = connectedDatasetId === id ? await this.options.runtime.readiness(appId, req) : { ready: false };
+          const connectedDatasetId = this.options.runtime.connectedDataset(appId, id);
+          const readiness = connectedDatasetId === id ? await this.options.runtime.readiness(appId, req, id) : { ready: false };
           let applied = false, appliedSchema: AuthoringDatasetSchema | undefined, diagnostic = readiness.diagnostic;
           if (deployment) {
             if (deployment.config.pin.appId !== appId || deployment.config.pin.datasetId !== id) reject('DATASET_DEPLOYMENT_OWNER_INVALID');
@@ -125,23 +137,45 @@ export class DatasetDevelopment {
           return { sourceChecksum: artifact.checksum, sourceValid: artifact.validation.valid,
             validated: this.validated.get(`${appId}:${id}`) === artifact.checksum,
             ...(deployment ? { publication: deployment.config.pin.publication } : {}),
-            applied, appliedSchema, connectedDatasetId,
+            applied, appliedSchema, connectedDatasetId, connectedDatasetIds: this.options.runtime.connectedDatasets(appId),
             connection: readiness.ready ? 'ready' : connectedDatasetId === id ? 'failed' : 'disconnected',
             ...(diagnostic ? { diagnostic } : {}), capabilities: datasetSchemaCapabilities };
         };
         if (action === 'status' && !mutation) { const value = await status(); await assertSource(); send(200, value); return true; }
-        if (!mutation || !['validate', 'apply', 'connect'].includes(action)) reject('DATASET_REQUEST_INVALID', 400);
+        if (!mutation || !['validate', 'apply', 'connect', 'assignment'].includes(action)) reject('DATASET_REQUEST_INVALID', 400);
         if (!artifact.validation.valid) reject('DATASET_SOURCE_INVALID', 422);
         const schema = JSON.parse(artifact.files.find(f => f.role === 'definition')!.content) as AuthoringDatasetSchema;
         if (schema.dataset.id !== id) reject('DATASET_ID_MISMATCH', 422);
+        const assignmentFile = path.join(directory, 'assignment.json');
+        if (action === 'assignment') {
+          if (deployment || await optionalJson(path.join(directory, 'attempt.json'))) reject('ASSIGNMENT_CONFIGURATION_ALREADY_APPLIED');
+          if (schema.fields.length !== 3 || !schema.fields.some(f => f.key === 'id' && f.type === 'id' && f.required) ||
+              !schema.fields.some(f => f.key === 'revision' && f.type === 'string' && f.required && f.default === undefined) ||
+              !schema.fields.some(f => f.key === 'patrolId' && f.type === 'string' && !f.required && f.default === undefined)) reject('ASSIGNMENT_SCHEMA_INVALID');
+          const ownerDatasetId = String(input.ownerDatasetId ?? ''), targetDatasetId = String(input.targetDatasetId ?? ''), targetActiveField = String(input.targetActiveField ?? '');
+          if (!identifier(ownerDatasetId) || !identifier(targetDatasetId) || ownerDatasetId === targetDatasetId || [ownerDatasetId, targetDatasetId].includes(id) || !/^[A-Za-z][\w]*$/.test(targetActiveField)) reject('ASSIGNMENT_REFERENCES_INVALID');
+          for (const targetId of [ownerDatasetId, targetDatasetId]) {
+            const target: Deployment | undefined = await optionalJson<Deployment>(path.join(this.options.root, appId, targetId, 'host.json'));
+            if (!target || target.config.pin.appId !== appId || target.config.pin.datasetId !== targetId) reject('ASSIGNMENT_REFERENCE_NOT_APPLIED');
+            const applied = await inspectDevelopmentDataset(target.config);
+            if (!applied.schema.fields.some(f => f.key === 'id' && f.type === 'id') || targetId === targetDatasetId && !applied.schema.fields.some(f => f.key === targetActiveField && f.type === 'boolean')) reject('ASSIGNMENT_REFERENCES_INVALID');
+          }
+          await admit(); await assertSource(); await mkdir(directory, { recursive: true });
+          await atomicJson(assignmentFile, { sourceChecksum: artifact.checksum, references: { ownerDatasetId, targetDatasetId, targetActiveField } });
+          send(200, await status()); return true;
+        }
+        const assignment = await optionalJson<{ sourceChecksum: string; references: AssignmentReferences }>(assignmentFile);
+        if (assignment && assignment.sourceChecksum !== artifact.checksum || deployment && JSON.stringify(deployment.config.assignment) !== JSON.stringify(assignment?.references)) reject('ASSIGNMENT_CONFIGURATION_CHANGED');
         const registration = await prepareDevelopmentDataset(appId, schema);
         await assertSource(); this.validated.set(`${appId}:${id}`, artifact.checksum);
         if (action === 'validate') { const value = await status(); await assertSource(); send(200, value); return true; }
         if (input.confirmed !== true) reject('DATASET_EXPLICIT_CONFIRMATION_REQUIRED', 400);
         if (deployment && deployment.sourceChecksum !== artifact.checksum) reject('DATASET_MIGRATION_UNSUPPORTED');
-        const connected = this.options.runtime.connectedDataset(appId);
-        const persistedConnection = await optionalJson<{ datasetId: string }>(path.join(this.options.root, appId, 'connection.json'));
-        if ((connected && connected !== id) || (persistedConnection && persistedConnection.datasetId !== id)) reject('ONE_DATASET_HOST_LIMIT');
+        const connectionFile = path.join(this.options.root, appId, 'connection.json');
+        const persisted = await optionalJson<unknown>(connectionFile);
+        // Legacy selection is connection metadata only; never republish or move its Dataset domain.
+        const datasetIds = connectionDatasetIds(persisted);
+        const hostKey = JSON.stringify([appId, id]);
         if (action === 'apply' && !deployment) {
           await mkdir(directory, { recursive: true });
           // Exclusive durable intent survives interrupted application. Never reseed an incomplete domain.
@@ -150,7 +184,7 @@ export class DatasetDevelopment {
             isCurrentOwner: a => !!this.options.registry.provisioning.resolve(a) }, authorityId: V1_AUTHORITY_ID, systemResourceId: 'platform', applicationKey: key,
             root: path.join(directory, 'domain'), schema, registration, assertAuthority: assertSource });
           deployment = { sourceChecksum: artifact.checksum, config: { pin: applied.pin, paths: { ...applied.paths, policyStore: this.options.policyStore }, serving: applied.serving,
-            registration: applied.registration, port: 0, identity: { enabled: true, token: randomBytes(32).toString('hex'), allowLegacyToken: false,
+            registration: applied.registration, ...(assignment ? { assignment: assignment.references } : {}), port: 0, identity: { enabled: true, token: randomBytes(32).toString('hex'), allowLegacyToken: false,
               trustedUiServerKey: randomBytes(32).toString('hex'), applicationId: appId, authorityId: V1_AUTHORITY_ID, userId: this.options.identity.currentUser(req)! },
             permissions: { operation: { read: 'dataset.read', create: 'dataset.create', update: 'dataset.update', delete: 'dataset.delete' }, field: { read: 'dataset.read', write: 'dataset.write', filter: 'dataset.read', sort: 'dataset.read' } },
             automation: { services: ['reference.notification'], workflowsRoot: path.join(platformRoot, 'workflows'), triggersRoot: path.join(platformRoot, 'triggers') }, management: { registryFile: this.options.registryFile, applicationsRoot: this.options.applicationsRoot } } };
@@ -160,23 +194,26 @@ export class DatasetDevelopment {
         }
         if (action === 'apply') { const value = await status(); await assertSource(); send(200, value); return true; }
         if (!deployment) reject('DATASET_APPLY_REQUIRED');
-        if (!this.hosts.has(appId)) {
+        if (!this.hosts.has(hostKey)) {
           const restored = await bootstrapDevelopmentDataset({ owner: { applicationIdForKey: k => this.options.registry.byKey(k)?.applicationId,
             isCurrentOwner: a => !!this.options.registry.provisioning.resolve(a) }, authorityId: V1_AUTHORITY_ID, systemResourceId: 'platform', applicationKey: key,
             root: path.join(directory, 'domain'), schema, registration: deployment.config.registration, restartPin: deployment.config.pin, assertAuthority: assertSource });
           deployment.config.serving = restored.serving; await atomicJson(deploymentFile, deployment);
           await assertSource();
-          const host = createBuilderDevelopmentHost(deployment.config), server = createServer(host.handler);
+          const host = createBuilderDevelopmentHost(deployment.config, (appId, query, trusted) => this.options.runtime.assignmentReferenceRead(appId, query, trusted)), server = createServer(host.handler);
           try {
             await new Promise<void>((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
             await assertSource();
             const hostUrl = `http://127.0.0.1:${(server.address() as { port: number }).port}`;
             this.options.runtime.connectManaged({ applicationId: appId, key, hostUrl, policyStore: this.options.policyStore,
               datasetId: id, trustedUiServerKey: deployment.config.identity.trustedUiServerKey!, workflowIds: deployment.config.workflows?.ids ?? [] });
-            this.hosts.set(appId, { datasetId: id, host, server });
-            await atomicJson(path.join(this.options.root, appId, 'connection.json'), { datasetId: id });
+            const ready = await this.options.runtime.readiness(appId, req, id);
+            if (!ready.ready) reject(ready.diagnostic ?? 'DATASET_CONNECTION_FAILED');
+            this.hosts.set(hostKey, { applicationId: appId, datasetId: id, host, server });
+            await assertSource();
+            await atomicJson(connectionFile, { version: 1, datasetIds: [...new Set([...datasetIds, id])] });
           } catch (error) {
-            this.options.runtime.disconnectManaged(appId); this.hosts.delete(appId); server.close(); host.close(); throw error;
+            this.options.runtime.disconnectManaged(appId, id); this.hosts.delete(hostKey); server.close(); host.close(); throw error;
           }
         }
         const value = await status(); await assertSource(); send(200, value); return true;

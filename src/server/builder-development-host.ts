@@ -1,5 +1,6 @@
 import path from 'node:path';
-import { createSecuredDevelopmentHost, type SecuredDevelopmentHostConfig } from '@ui-platform/dataset-operations';
+import { AssignmentConcurrency, createSecuredDevelopmentHost, type SecuredDevelopmentHostConfig } from '@ui-platform/dataset-operations';
+import { assignmentReferenceValidator, type AssignmentReferences, type AssignmentReferenceRead } from './assignment-reference.js';
 import { AutomationStore } from './automation-store.js';
 import { AutomationRuntime, AutomationAuditLog } from './automation-runtime.js';
 import { DevelopmentApplicationRegistry } from './development-application-registry.js';
@@ -11,12 +12,13 @@ import { configureProtectedForms } from './form-contract.js';
 import { discoverComponents } from './component-registry.js';
 
 export interface BuilderDevelopmentHostConfig extends SecuredDevelopmentHostConfig {
+  assignment?: AssignmentReferences;
   automation: { workflowsRoot: string; triggersRoot: string; services?: string[] };
   management: { registryFile: string; applicationsRoot: string };
 }
 /** Approved local host assembly. Workflow code and service implementations remain
  * host-owned; this V1 catalog supports inherited protected Dataset actions and the approved fixed reference effect. */
-export function createBuilderDevelopmentHost(config: BuilderDevelopmentHostConfig) {
+export function createBuilderDevelopmentHost(config: BuilderDevelopmentHostConfig, referenceRead?: AssignmentReferenceRead) {
   config = structuredClone(config);
   if (process.env.NODE_ENV !== 'development' || config.workflows && (!config.workflows.ids.length || !config.workflows.permissionId) ||
       !config.identity.trustedUiServerKey || config.identity.allowLegacyToken !== false ||
@@ -39,7 +41,13 @@ export function createBuilderDevelopmentHost(config: BuilderDevelopmentHostConfi
           definition.primaryKey !== config.registration.primaryKey || definition.actions.some(a => a.type === 'crud' ? a.datasetId !== config.pin.datasetId : a.type !== 'service' || a.service !== notificationServiceId || !approvedNotification(services.get(a.service)))) throw new Error('APPROVED_WORKFLOW_UNAVAILABLE');
     }
   };
-  const host = createSecuredDevelopmentHost({ ...config, systemResourceId: 'platform' }, 'development', ({ engine, triggers, resolveDataset, resolveFields, invokeAuthorized }) => {
+  const host = createSecuredDevelopmentHost({ ...config, systemResourceId: 'platform' }, 'development', ({ engine, assignmentStorage, triggers, resolveDataset, resolveFields, invokeAuthorized }) => {
+    if (config.assignment) {
+      if (!referenceRead) throw new Error('ASSIGNMENT_REFERENCE_READER_REQUIRED');
+      const storage = assignmentStorage();
+      engine.configureAssignment({ datasetId: config.pin.datasetId, boundary: new AssignmentConcurrency(path.join(config.paths.ormData, 'assignment-lock.sqlite')),
+        refresh: storage.refresh, validate: assignmentReferenceValidator(config.assignment, referenceRead) });
+    }
     const resource = { authorityId: config.identity.authorityId, applicationId: config.pin.appId, kind: 'artifact' as const, id: notificationServiceId, parentId: config.pin.appId };
     engine.configureServiceInvocation((id, trusted, effect) => {
       const service = services.get(id);

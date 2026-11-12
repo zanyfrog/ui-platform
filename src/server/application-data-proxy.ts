@@ -2,6 +2,8 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import { createHmac, randomBytes } from 'node:crypto';
 
 export interface ApplicationDataProxyConfig { enabled: boolean; environment: string; protectedHostUrl?: string;
+  /** Server-owned Dataset selection, after session/origin admission and bounded body parsing. */
+  selectTarget?: (path: string, intent: unknown) => { hostUrl: string; trustedUiServerKey: string };
   /** Trusted host adapter may narrow intent; it cannot supply actor or grants. */
   prepareIntent?: (path: string, intent: unknown) => unknown;
   v1Identity?: { resolveUser(request: IncomingMessage): string | null; trustedUiServerKey: string;
@@ -23,7 +25,7 @@ export function createApplicationDataProxy(config: ApplicationDataProxyConfig) {
     const url = new URL(request.url ?? '/', 'http://localhost');
     if (!['/api/application-data/queries', '/api/application-data/operations', '/api/application-data/workflows'].includes(url.pathname)) return false;
     if (config.environment !== 'development' || !config.enabled) { response.writeHead(404).end(); return true; }
-    if (!target) { response.writeHead(503, { 'content-type': 'application/json' }).end(JSON.stringify({ code: 'APPLICATION_DATA_UNAVAILABLE' })); return true; }
+    if (!target && !config.selectTarget) { response.writeHead(503, { 'content-type': 'application/json' }).end(JSON.stringify({ code: 'APPLICATION_DATA_UNAVAILABLE' })); return true; }
     if (request.method !== 'POST' || url.search) { response.writeHead(403).end(); return true; }
     let authorization = request.headers.authorization;
     let v1UserId: string | null = null;
@@ -43,6 +45,14 @@ export function createApplicationDataProxy(config: ApplicationDataProxyConfig) {
         if (size > 1_000_000) throw new Error('REQUEST_TOO_LARGE');
         chunks.push(bytes);
       }
+      const path = url.pathname.endsWith('/queries') ? '/queries' : url.pathname.endsWith('/workflows') ? '/workflows' : '/operations';
+      const body = Buffer.concat(chunks);
+      const intent = config.selectTarget || config.prepareIntent ? JSON.parse(body.toString('utf8')) : undefined;
+      const selected = config.selectTarget?.(path, intent);
+      const destination = selected ? new URL(selected.hostUrl) : target!;
+      if (destination.protocol !== 'http:' || !['127.0.0.1', 'localhost'].includes(destination.hostname) ||
+          destination.pathname !== '/' || destination.username || destination.password || destination.search || destination.hash ||
+          selected && selected.trustedUiServerKey.length < 32) throw new Error('APPLICATION_DATA_HOST_INVALID');
       if (config.v1Identity && v1UserId) {
         // Recheck after reading a potentially slow request body, then mint one-use authority immediately before forwarding.
         if (config.v1Identity.resolveUser(request) !== v1UserId) throw new Error('V1_SESSION_CHANGED');
@@ -51,12 +61,11 @@ export function createApplicationDataProxy(config: ApplicationDataProxyConfig) {
           // Windows process clocks can differ by a millisecond. A conservative
           // issuance time shortens the lease; the host still rejects future claims.
           issuedAt: Date.now() - 100, nonce: randomBytes(24).toString('hex') })).toString('base64url');
-        const mac = createHmac('sha256', config.v1Identity.trustedUiServerKey).update(payload).digest('base64url');
+        const mac = createHmac('sha256', selected?.trustedUiServerKey ?? config.v1Identity.trustedUiServerKey).update(payload).digest('base64url');
         authorization = `Bearer v1.${payload}.${mac}`;
       }
-      const path = url.pathname.endsWith('/queries') ? '/queries' : url.pathname.endsWith('/workflows') ? '/workflows' : '/operations';
-      const intentBytes = config.prepareIntent ? Buffer.from(JSON.stringify(config.prepareIntent(path, JSON.parse(Buffer.concat(chunks).toString('utf8'))))) : Buffer.concat(chunks);
-      const upstream = await fetch(new URL(path, target), { method: 'POST',
+      const intentBytes = config.prepareIntent ? Buffer.from(JSON.stringify(config.prepareIntent(path, intent))) : body;
+      const upstream = await fetch(new URL(path, destination), { method: 'POST',
         // Writes can run after-commit automation before returning, just like explicit Workflows.
         headers: { authorization: authorization!, 'content-type': 'application/json' }, body: intentBytes, signal: AbortSignal.timeout(path === '/queries' ? 15_000 : 90_000) });
       const bytes = Buffer.from(await upstream.arrayBuffer());
