@@ -7,7 +7,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "bin": { "uip": "scripts/uip.mjs" },
   "scripts": {
+    "uip": "node scripts/uip.mjs",
     "demo": "tsx scripts/dev-demo.ts",
     "demo:preview": "tsx scripts/dev-demo.ts --preview",
     "dev:composition-reference": "tsx scripts/dev-composition-reference.ts",

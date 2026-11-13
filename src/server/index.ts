@@ -1,3 +1,4 @@
+import { createCliReadonly } from './cli-readonly.js';
 import http from 'node:http';
 import { isolatedPreviewCode, visualPreviewRevision } from './visual-preview.js';
 import { pageCreationShell } from '../shared/page-creation.js';
@@ -236,6 +237,7 @@ function appInfoPayload(req: http.IncomingMessage, url: URL, app: Awaited<Return
 await mkdir(path.join(runtimeDir, 'exports'), { recursive: true });
 const v1Exports = new Map<string, { userId: string; applicationId: string; expires: number }>();
 
+const cliReadonly = v1Identity && developmentRuntime && developmentApplications ? createCliReadonly(v1Identity, developmentRuntime, developmentApplications, discoverApps) : undefined;
 const server = http.createServer(async (req, res) => {
   const acquisition = new AbortController();
   const abort = () => acquisition.abort(new Error('Graph request disconnected.'));
@@ -248,6 +250,7 @@ const server = http.createServer(async (req, res) => {
   let admitManagement = async () => {};
   try {
     if (v1Identity && await v1Identity.handle(req, res)) return;
+    if (cliReadonly && await cliReadonly(req, res)) return;
     if (v1Identity && await v1Identity.handleAdministration(req, res)) return;
     if (developmentRuntime && await developmentRuntime.handle(req, res)) return;
     if (await applicationData(req, res)) return;

@@ -23,6 +23,20 @@ export async function mountDevelopmentIdentity(container: HTMLElement) {
     const verification = document.createElement('pre'); verification.setAttribute('role', 'status');
     let verificationGeneration = 0;
     container.append(verify, verification);
+    const pair = document.createElement('button'); pair.type = 'button'; pair.textContent = 'Pair local CLI';
+    const pairingStatus = document.createElement('pre'); pairingStatus.setAttribute('role','status'); container.append(pair, pairingStatus);
+    pair.addEventListener('click', async () => {
+      pairingStatus.textContent = '';
+      const challenge = prompt('Paste the public challenge displayed by your local uip process:'); if (challenge === null) return;
+      try {
+        const session = await fetch('/api/development-identity/session', { cache: 'no-store' }).then(r => r.json());
+        if (!session.user) throw Error('Sign in before pairing.');
+        const response = await fetch('/api/development-identity/cli-pairing', { method:'POST', credentials:'same-origin', headers:{'content-type':'application/json','x-v1-csrf':session.csrfToken}, body:JSON.stringify({challenge}) });
+        const result = await response.json(); if (!response.ok) throw Error('Pairing refused.');
+        pairingStatus.textContent = 'Enter this single-use code in the originating CLI within 60 seconds: '+result.code;
+        setTimeout(() => { pairingStatus.textContent = ''; }, 60_000);
+      } catch { pairingStatus.textContent = 'Pairing refused. Verify your signed-in development session.'; }
+    });
     let identityGeneration = 0;
     const administrativeRequest: PilotRequest = async (action, body) => {
       if (select.disabled || v1.user?.userId !== pilot.securityAdmin) throw new Error('Sign in as the approved Security Admin and verify the session.');

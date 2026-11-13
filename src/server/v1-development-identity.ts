@@ -1,3 +1,4 @@
+import { CliPairing } from './cli-pairing.js';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { SecurityAuthorizationEvaluator, type AccessRequest, type ResourceAuthority } from '@ui-platform/i-am/evaluator';
@@ -36,6 +37,15 @@ export interface V1DevelopmentIdentityOptions {
 /** Development authentication only. Every request re-reads I-AM User and policy state. */
 export class V1DevelopmentIdentity {
   private readonly sessions = new Map<string, Session>();
+  private readonly cliPairing = new CliPairing<Session>(p => this.sessions.get(p.token) === p && !!p.userId && !!this.activeUser(p.userId));
+  private readonly cliRequests = new WeakMap<IncomingMessage, { credential: string }>();
+  bindCliRequest(request: IncomingMessage, forwarded: IncomingMessage) {
+    this.boundary(request);
+    if (request.headers.cookie || request.headers.origin || !request.headers.authorization?.startsWith('Bearer uip.')) throw new Error('CLI_UNAUTHENTICATED');
+    const credential = request.headers.authorization.slice(7); this.cliPairing.parent(credential);
+    this.cliRequests.set(forwarded, { credential });
+  }
+  cliOrigin() { return this.options.origins[0]!; }
   private readonly store: SecurityDefinitionStore;
   private readonly evaluator: SecurityAuthorizationEvaluator;
   readonly enabled: boolean;
@@ -117,7 +127,7 @@ export class V1DevelopmentIdentity {
       } finally { contexts.delete(context); }
     };
   }
-  close() { this.sessions.clear(); this.store.close(); }
+  close() { this.cliPairing.close(); this.sessions.clear(); this.store.close(); }
   policyDigest(): string { return `sha256:${createHash('sha256').update(JSON.stringify(this.store.snapshot().documents)).digest('hex')}`; }
   setRuntimeReadiness(check: (applicationId: string, req: IncomingMessage) => Promise<{ ready: boolean; diagnostic?: string }>) { this.runtimeReady = check; }
   registeredApplication(key: string): string | undefined { return this.options.applicationRegistry?.byKey(key)?.applicationId; }
@@ -248,6 +258,7 @@ export class V1DevelopmentIdentity {
     return this.store.snapshot().documents.map(doc => doc.definition).find(record => record.kind === 'user' && record.id === userId && record.status === 'active');
   }
   private session(req: IncomingMessage, pruneExpired = true): Session | undefined {
+    const cli = this.cliRequests.get(req); if (cli) return this.cliPairing.parent(cli.credential);
     const cookie = req.headers.cookie?.split(';').map(value => value.trim()).find(value => value.startsWith(`${cookieName}=`));
     const session = cookie ? this.sessions.get(cookie.slice(cookieName.length + 1)) : undefined;
     if (session && session.expires <= Date.now()) { if (pruneExpired) this.sessions.delete(session.token); return undefined; }
@@ -310,6 +321,25 @@ export class V1DevelopmentIdentity {
         id: scope.artifactId ?? `v1-${area}`, parentId: applicationId });
   }
   async handle(req: IncomingMessage, res: ServerResponse): Promise<boolean> {
+    const cliPath = new URL(req.url ?? '/', 'http://localhost').pathname;
+    if (['/api/development-identity/cli-pairing', '/api/cli/pair'].includes(cliPath)) {
+      try {
+        this.boundary(req);
+        if (req.method !== 'POST' || !req.headers['content-type']?.startsWith('application/json')) throw Error('CLI_PAIRING_DENIED');
+        const browser = cliPath === '/api/development-identity/cli-pairing';
+        const parent = browser ? this.session(req) : undefined;
+        const parentRevision = parent?.revision, parentUser = parent?.userId;
+        if (browser) { if (req.headers.authorization || !parent || !this.currentUser(req)) throw Error('CLI_UNAUTHENTICATED'); this.csrf(req, parent); }
+        else if (req.headers.cookie || req.headers.authorization || req.headers.origin) throw Error('CLI_PAIRING_DENIED');
+        let body = ''; for await (const chunk of req) { body += chunk; if (body.length > 1024) throw Error('CLI_PAIRING_DENIED'); }
+        if (browser && (parent?.revision !== parentRevision || parent?.userId !== parentUser || this.session(req) !== parent)) throw Error('CLI_PAIRING_DENIED');
+        const input = JSON.parse(body);
+        if (!input || typeof input !== 'object' || Array.isArray(input) || Object.keys(input).some(k => !(browser ? ['challenge'] : ['code','proof']).includes(k))) throw Error('CLI_PAIRING_DENIED');
+        const value = browser ? this.cliPairing.create(parent!, input.challenge) : this.cliPairing.redeem(input.code,input.proof);
+        res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify(value));
+      } catch { res.writeHead(403, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify({ code: 'CLI_PAIRING_DENIED' })); }
+      return true;
+    }
     if (new URL(req.url ?? '/', 'http://localhost').pathname === '/api/development-identity/status') {
       res.setHeader('cache-control', 'no-store');
       res.setHeader('content-type', 'application/json; charset=utf-8');
