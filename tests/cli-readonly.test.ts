@@ -62,7 +62,7 @@ test('CSV/JSON preserve permitted values; format validation rejects malformed/du
  for(const format of ['json','csv'])assert.deepEqual(parseFile(serialize(rows,format),format),rows);
  assert.throws(()=>parseFile('[{"id":"x"},{"id":"x"}]','json'));assert.throws(()=>parseFile('[{"name":"missing"}]','json'));assert.throws(()=>parseFile('id,name\nx,"broken','csv'));assert.throws(()=>parseFile('id,id\nx,y','csv'));
 });
-test('paired real session traverses existing proxy, signs current IAM actor, and only exports permitted host values',async()=>{
+test('paired real session traverses existing proxy for export and import with current IAM actor',async()=>{
  const dir=mkdtempSync(join(tmpdir(),'uip-proxy-')),identity=new V1DevelopmentIdentity({enabled:true,environment:'development',developmentRuntime:true,policyStorePath:join(dir,'policy.sqlite'),origins:['http://127.0.0.1:5490']});
  const originalFetch=globalThis.fetch;let calls=0;const key='test-only-host-key-'.padEnd(40,'x');
  try{
@@ -74,20 +74,23 @@ test('paired real session traverses existing proxy, signs current IAM actor, and
   const registry:any={byKey:(k:string)=>k===appKey?{applicationId:appId,key:appKey}:undefined,byApplicationId:(id:string)=>id===appId?{key:appKey}:undefined};
   const runtime=new DevelopmentApplicationRuntime(undefined,join(dir,'policy.sqlite'),registry,identity,['http://127.0.0.1:5490']);
   runtime.connectManaged({applicationId:appId,key:appKey,datasetId:'scouts',hostUrl:'http://127.0.0.1:9999',trustedUiServerKey:key,policyStore:join(dir,'policy.sqlite'),workflowIds:[]});
-  globalThis.fetch=(async(url:any,init:any)=>{calls++;assert.equal(String(url),'http://127.0.0.1:9999/queries');const bearer=init.headers.authorization;const [,payload,signature]=bearer.split('.');assert.equal(signature,createHmac('sha256',key).update(payload).digest('base64url'));assert.equal(JSON.parse(Buffer.from(payload,'base64url').toString()).userId,login.data.user.userId);return Response.json([{id:'synthetic-scout',firstName:'Visible'}]);}) as typeof fetch;
+  globalThis.fetch=(async(url:any,init:any)=>{calls++;assert.ok(['/queries','/operations'].some(p=>String(url)==='http://127.0.0.1:9999'+p));const bearer=init.headers.authorization;const [,payload,signature]=bearer.split('.');assert.equal(signature,createHmac('sha256',key).update(payload).digest('base64url'));assert.equal(JSON.parse(Buffer.from(payload,'base64url').toString()).userId,login.data.user.userId);if(String(url).endsWith('/operations')){assert.deepEqual(JSON.parse(init.body.toString()),{kind:'dataset-import',datasetId:'scouts',records:[{id:'imported',firstName:'New'}],dryRun:true});return Response.json({success:true,committed:false,commitOutcome:'not-committed',counts:{insert:1,update:0,unchanged:0}});}return Response.json([{id:'synthetic-scout',firstName:'Visible'}]);}) as typeof fetch;
   const cli=createCliReadonly(identity,runtime,registry,async()=>[{appId,key:appKey}]);const access={authorization:'Bearer '+token};
   assert.equal((await invoke(cli,'/api/cli/apps','GET',undefined,access)).data.length,1);
   const result=await invoke(cli,`/api/cli/export?app=${appId}&dataset=scouts`,'GET',undefined,access);assert.equal(result.status,200);assert.deepEqual(result.data,[{id:'synthetic-scout',firstName:'Visible'}]);assert.equal(calls,1);
+  const imported=await invoke(cli,`/api/cli/import?app=${appId}&dataset=scouts`,'POST',{records:[{id:'imported',firstName:'New'}],dryRun:true},access);assert.equal(imported.status,200);assert.equal(imported.data.counts.insert,1);assert.equal(calls,2);
+  assert.equal((await invoke(cli,`/api/cli/import?app=${appId}&dataset=foreign`,'POST',{records:[]},access)).status,403);assert.equal(calls,2);
   await invoke(auth,'/api/development-identity/session','POST',{email:'page-form-editor@example.local'},headers);
-  assert.equal((await invoke(cli,`/api/cli/export?app=${appId}&dataset=scouts`,'GET',undefined,access)).status,403);assert.equal(calls,1);
+  assert.equal((await invoke(cli,`/api/cli/export?app=${appId}&dataset=scouts`,'GET',undefined,access)).status,403);assert.equal((await invoke(cli,`/api/cli/import?app=${appId}&dataset=scouts`,'POST',{records:[]},access)).status,403);assert.equal(calls,2);
  }finally{globalThis.fetch=originalFetch;identity.close();rmSync(dir,{recursive:true,force:true});}
 });
-test('executable help and local validation work; live import commands are unavailable',()=>{
+test('executable help, validation and import dry-run option parsing work',()=>{
  const dir=mkdtempSync(join(tmpdir(),'uip-file-')),cli=fileURLToPath(new URL('../scripts/uip.mjs',import.meta.url));
  try{
-  assert.match(execFileSync(process.execPath,[cli,'--help'],{encoding:'utf8'}),/read-only/);
+  assert.match(execFileSync(process.execPath,[cli,'--help'],{encoding:'utf8'}),/data import.*--dry-run/);
   for(const format of ['csv','json']){const file=join(dir,'scouts.'+format);writeFileSync(file,serialize([{id:'synthetic-id',firstName:'Synthetic',active:true}],format));const result=JSON.parse(execFileSync(process.execPath,[cli,'data','validate','--file',file],{encoding:'utf8'}));assert.equal(result.records,1);assert.equal(result.persisted,false);assert.equal(result.schemaValidated,false);}
   assert.equal(spawnSync(process.execPath,[cli,'data','import','--file',join(dir,'scouts.json')]).status,1);
+  const importRun=spawnSync(process.execPath,[cli,'data','import','--app','app','--dataset','ds','--file',join(dir,'scouts.json'),'--dry-run'],{encoding:'utf8'});assert.equal(importRun.status,1);assert.match(importRun.stderr,/Interactive terminal required/);
   assert.deepEqual(parseFile(serialize([],'csv'),'csv'),[]);
   assert.throws(()=>serialize([{id:'one',secret:'visible'},{id:'two'}],'csv'),/uniform/);
  }finally{rmSync(dir,{recursive:true,force:true});}

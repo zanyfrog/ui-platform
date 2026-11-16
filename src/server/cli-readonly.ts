@@ -5,7 +5,7 @@ import type { DevelopmentApplicationRuntime } from './development-application-ru
 import type { DevelopmentApplicationRegistry } from './development-application-registry.js';
 import { V1_AUTHORITY_ID } from './v1-development-policy.js';
 type App = { appId: string; key: string; name?: string };
-/** Read-only adapter. Every record query traverses the existing Platform proxy. */
+/** CLI adapter. Protected data requests traverse the existing Platform proxy. */
 export function createCliReadonly(identity: V1DevelopmentIdentity, runtime: DevelopmentApplicationRuntime, registry: DevelopmentApplicationRegistry, apps: () => Promise<App[]>) {
   return async (req: IncomingMessage, res: ServerResponse): Promise<boolean> => {
     const url = new URL(req.url ?? '/', 'http://localhost'); if (!url.pathname.startsWith('/api/cli/')) return false;
@@ -19,14 +19,28 @@ export function createCliReadonly(identity: V1DevelopmentIdentity, runtime: Deve
       const actor = identity.currentUser(actorRequest); if (!actor) throw Error('CLI_UNAUTHENTICATED');
       const assert = () => { if (identity.currentUser(actorRequest) !== actor || identity.policyDigest() !== policy) throw Error('CLI_UNAUTHENTICATED'); };
       const allowed = async (app: App) => registry.byApplicationId(app.appId)?.key === app.key && await identity.authorize(actorRequest,'ui.application.view',{authorityId:V1_AUTHORITY_ID,applicationId:app.appId,kind:'application',id:app.appId});
-      if (req.method !== 'GET') { send(405,{code:'CLI_READ_ONLY'}); return true; }
+      const importing = req.method === 'POST' && url.pathname === '/api/cli/import';
+      if (req.method !== 'GET' && !importing) { send(405,{code:'CLI_METHOD_DENIED'}); return true; }
       if (url.pathname === '/api/cli/apps' && !url.search) {
         const visible = []; for (const app of await apps()) if (await allowed(app)) visible.push({id:app.appId,key:app.key,name:app.name ?? app.key});
         assert(); send(200,visible); return true;
       }
-      if (!['/api/cli/datasets','/api/cli/export'].includes(url.pathname) || [...url.searchParams.keys()].some(k=>!['app','dataset'].includes(k)) || url.searchParams.getAll('app').length!==1 || url.searchParams.getAll('dataset').length>1) throw Error('CLI_REQUEST_INVALID');
+      if (!['/api/cli/datasets','/api/cli/export', ...(importing ? ['/api/cli/import'] : [])].includes(url.pathname) || [...url.searchParams.keys()].some(k=>!['app','dataset'].includes(k)) || url.searchParams.getAll('app').length!==1 || url.searchParams.getAll('dataset').length>1) throw Error('CLI_REQUEST_INVALID');
       const id = url.searchParams.get('app')!, app = registry.byApplicationId(id);
       if (!app || !await allowed({appId:id,key:app.key})) throw Error('CLI_SCOPE_DENIED');
+      if (importing) {
+        const datasetId = url.searchParams.get('dataset');
+        if (!datasetId || !runtime.connectedDatasets(id).includes(datasetId)) throw Error('CLI_SCOPE_DENIED');
+        let source = ''; for await (const chunk of req) { source += chunk; if (Buffer.byteLength(source) > 900000) throw Error('CLI_IMPORT_LIMIT'); }
+        const input = JSON.parse(source);
+        if (!input || typeof input !== 'object' || Array.isArray(input) || Object.keys(input).some(k => !['records','dryRun'].includes(k))) throw Error('CLI_REQUEST_INVALID');
+        assert();
+        const forwarded = Readable.from([JSON.stringify({ kind: 'dataset-import', datasetId, ...input })]) as unknown as IncomingMessage;
+        forwarded.method = 'POST'; forwarded.url = `/api/apps/${encodeURIComponent(app.key)}/application-data/operations`;
+        forwarded.headers = { 'content-type': 'application/json', origin: identity.cliOrigin() }; Object.defineProperty(forwarded, 'socket', { value: req.socket }); identity.bindCliRequest(req, forwarded);
+        // Preserve the protected host's known/unknown commit classification.
+        await runtime.handle(forwarded, res); return true;
+      }
       const query = async (datasetId: string, probe: boolean) => {
         const forwarded = Readable.from([JSON.stringify({datasetId, ...(probe?{select:['id'],limit:1}:{limit:10001})})]) as unknown as IncomingMessage;
         forwarded.method='POST';forwarded.url=`/api/apps/${encodeURIComponent(app.key)}/application-data/queries`;

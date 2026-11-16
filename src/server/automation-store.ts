@@ -1,3 +1,4 @@
+import { TriggerConfigurationBoundary } from '@ui-platform/dataset-operations';
 import { createHash, randomUUID } from 'node:crypto';
 import { lstat, mkdir, readdir, readFile, realpath, rmdir } from 'node:fs/promises';
 import path from 'node:path';
@@ -8,7 +9,14 @@ const hash = (source: string) => createHash('sha256').update(source).digest('hex
 const locks = new Map<string, Promise<unknown>>();
 /** Source files are the only definition store. Reads always observe disk. */
 export class AutomationStore {
-  constructor(readonly root: string, readonly kind: 'trigger' | 'workflow') {}
+  readonly triggerBoundary?: TriggerConfigurationBoundary;
+  constructor(readonly root: string, readonly kind: 'trigger' | 'workflow') {
+    if (kind === 'trigger') this.triggerBoundary = new TriggerConfigurationBoundary(path.resolve(root));
+  }
+  private mutation<T>(action: (markUncertain: () => void) => Promise<T>) { return this.triggerBoundary ? this.triggerBoundary.mutate(action) : action(() => {}); }
+  create(name: string, input: Omit<AutomationDefinition, 'id' | 'kind' | 'schemaVersion' | 'name'>, admit: () => Promise<void> = async () => {}) { return this.mutation(mark => this.createAdmitted(name, input, admit, mark)); }
+  save(locator: string, source: string, expectedHash: string, admit: () => Promise<void> = async () => {}) { return this.mutation(mark => this.saveAdmitted(locator, source, expectedHash, admit, mark)); }
+  remove(locator: string, expectedHash: string, references: Array<{ name: string; source: string }>) { return this.mutation(mark => this.removeAdmitted(locator, expectedHash, references, mark)); }
   private async file(locator: string, create = false) {
     if (!new RegExp(`^[a-z][a-z0-9-]*/${this.kind}\\.json$`).test(locator)) throw new Error('Invalid automation locator.');
     if (create) await mkdir(this.root, { recursive: true });
@@ -41,11 +49,11 @@ export class AutomationStore {
     for (const b of bundles) if (b.definition?.id && bundles.filter(x => x.definition?.id === b.definition?.id).length > 1) b.diagnostics.push('Duplicate permanent identity.');
     return bundles;
   }
-  async create(name: string, input: Omit<AutomationDefinition, 'id' | 'kind' | 'schemaVersion' | 'name'>, admit: () => Promise<void> = async () => {}) {
+  private async createAdmitted(name: string, input: Omit<AutomationDefinition, 'id' | 'kind' | 'schemaVersion' | 'name'>, admit: () => Promise<void>, mark: () => void) {
     const locator = `${name}/${this.kind}.json`, file = await this.file(locator, true);
     const definition: AutomationDefinition = { ...input, schemaVersion: 1, kind: this.kind, id: `${this.kind}_${randomUUID()}`, name };
     const errors = automationDiagnostics(definition); if (errors.length) throw new Error(errors.join(' '));
-    await mkdir(path.dirname(file));
+    mark(); await mkdir(path.dirname(file));
     try { await admit(); await atomicWriteText(file, JSON.stringify(definition, null, 2) + '\n'); }
     catch (cause) { await rmdir(path.dirname(file)).catch(() => {}); throw cause; }
     return this.read(locator);
@@ -55,7 +63,7 @@ export class AutomationStore {
     const next = prior.catch(() => {}).then(action); locks.set(key, next);
     try { return await next; } finally { if (locks.get(key) === next) locks.delete(key); }
   }
-  async save(locator: string, source: string, expectedHash: string, admit: () => Promise<void> = async () => {}) {
+  private async saveAdmitted(locator: string, source: string, expectedHash: string, admit: () => Promise<void>, mark: () => void) {
     return this.locked(locator, async () => {
       const previous = await this.read(locator);
       if (!expectedHash || previous.hash !== expectedHash) throw Object.assign(new Error('Source changed on disk. Reload before saving.'), { status: 409 });
@@ -66,18 +74,18 @@ export class AutomationStore {
       } catch (error) { throw Object.assign(error instanceof Error ? error : new Error(String(error)), { status: 422 }); }
       await admit();
       if ((await this.read(locator)).hash !== expectedHash) throw Object.assign(new Error('Source changed during save admission.'), { status: 409 });
-      if (source !== previous.source) await atomicWriteText(await this.file(locator), source);
+      if (source !== previous.source) { mark(); await atomicWriteText(await this.file(locator), source); }
       return this.read(locator);
     });
   }
-  async remove(locator: string, expectedHash: string, references: Array<{ name: string; source: string }>) {
+  private async removeAdmitted(locator: string, expectedHash: string, references: Array<{ name: string; source: string }>, mark: () => void) {
     return this.locked(locator, async () => {
       const current = await this.read(locator);
       if (!expectedHash || current.hash !== expectedHash) throw new Error('Source changed. Reload before deletion.');
       const id = current.definition?.id;
       const used = id ? references.filter(r => r.source.includes(id)) : [];
       if (used.length) throw new Error(`Referenced by: ${used.map(r => r.name).join(', ')}.`);
-      await moveToOsTrash(path.dirname(await this.file(locator)));
+      mark(); await moveToOsTrash(path.dirname(await this.file(locator)));
     });
   }
 }

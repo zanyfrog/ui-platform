@@ -1,3 +1,4 @@
+import { triggerRevision } from '@ui-platform/dataset-operations';
 import { randomUUID } from 'node:crypto';
 import { notificationContract, notificationInput, notificationOutput } from '../shared/automation-service-contract.js';
 import { approvedNotification } from './automation-services.js';
@@ -66,20 +67,21 @@ export class AutomationRuntime {
   }
   connect(registry: TriggerRegistry, resolveDataset: (appId: string, datasetId: string) => Promise<string>, target?: { appId: string; datasetId: string; primaryKey?: string }) {
     this.target = target;
-    registry.registerSourceProvider(async () => {
+    const rowsFromDisk = async (registerHandlers: boolean) => {
       const definitions = await this.definitions(this.triggers, target);
       const rows = [];
       for (const definition of definitions) {
         if (!definition.enabled) continue;
         if (await resolveDataset(definition.appId, definition.datasetId) !== definition.dataset) throw new Error('TRIGGER_DATASET_BINDING_INVALID');
         const handlerId = `platform-source:${definition.id}`;
-        registry.registerHandler(handlerId, context => this.trigger(definition, context));
+        if (registerHandlers) registry.registerHandler(handlerId, context => this.trigger(definition, context));
         rows.push({ id: definition.id, appId: definition.appId, dataset: definition.dataset!, phase: definition.phase!,
           enabled: definition.enabled, priority: definition.priority, name: definition.name, handlerId,
           executionIdentity: { mode: 'inherit' as const }, createdAt: '', updatedAt: '' });
       }
       return rows;
-    });
+    };
+    registry.registerSourceProvider(() => rowsFromDisk(true), { boundary: this.triggers.triggerBoundary!, snapshot: async () => { const bundles = await this.triggers.list(); if (bundles.some(bundle => bundle.diagnostics.length)) throw new Error('AUTOMATION_SOURCE_INVALID'); const triggers = await rowsFromDisk(false); return { triggers, revision: triggerRevision(bundles) }; } });
   }
   private async action(action: AutomationAction, values: Row, port: AutomationPort, phase?: string, invoke?: <T>(id: string, effect: () => T) => Promise<T>, effects: ServiceEffect[] = []): Promise<unknown> {
     if (action.type === 'reject') throw new Error('TRIGGER_REJECTED');
