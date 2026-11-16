@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { assertPlainPageRoute, assertPageUnused, primaryRouteSignature, regions, validateArtifact, validateCompositionDefinition } from '@ui-platform/visual-artifacts';
+import { assertPlainPageRoute, assertPageUnused, primaryRouteSignature, pageAdmissionKind, regions, validateArtifact, validateCompositionDefinition } from '@ui-platform/visual-artifacts';
 import type { ArtifactBundle, ArtifactFiles } from '@ui-platform/visual-artifacts';
 import { pageCreationShell } from '../shared/page-creation.js';
 import { appPath } from './applications.js';
@@ -98,5 +98,53 @@ export async function deleteVisualPage(key: string, locator: string, expectedHas
       validateCompositionDefinition({ ...definition, pages, routes: definition.routes.filter(route => route.pageId !== page.metadata?.artifactId) }, workspace.components.map(toRuntime).filter((item): item is NonNullable<typeof item> => !!item), packages);
     }
     await service.remove(locator, expectedHash, await knownVisualArtifacts(), authority.admit);
+  });
+}
+
+/** Independent Page copy; publication remains in the Visual creation service. */
+export async function duplicateVisualPage(key: string, sourceId: string, name: string, route: string, expectedHash: string, authority: PageAdmission & { read(): Promise<void> }): Promise<ArtifactBundle> {
+  await authority.read();
+  const original = await resolveVisualPage(key, sourceId);
+  if (original.hash !== expectedHash) pageFailure(409, 'CLI_PAGE_CONFLICT', 'Source Page revision changed. Reload before duplicating.');
+  const composed = pageAdmissionKind(original.metadata!) === 'composed';
+  if (composed && (!original.metadata!.shellId || !original.metadata!.routeId)) pageFailure(422, 'CLI_PAGE_VALIDATION', 'Source Page composition identities require repair.');
+  const service = new VisualArtifactService(path.join(appPath(key), 'src/pages'), 'page');
+  return service.createCompletePage(name, route, composed ? original.metadata!.shellId : undefined, async generated => {
+    await authority.read(); await authority.principal();
+    const source = await resolveVisualPage(key, sourceId);
+    if (source.hash !== expectedHash) pageFailure(409, 'CLI_PAGE_CONFLICT', 'Source Page revision changed. Reload before duplicating.');
+    if (composed) {
+      await authority.shell?.(source.metadata!.shellId!);
+      const matches = (await new VisualArtifactService(path.join(appPath(key), 'shells'), 'shell').list()).filter(shell => shell.metadata?.artifactId === source.metadata!.shellId);
+      if (matches.length !== 1 || matches[0].diagnostics.some(d => d.severity === 'error')) pageFailure(422, 'CLI_PAGE_SHELL_INVALID', 'Source Shell is missing, ambiguous or invalid.');
+    }
+    const pages = await service.list({ recovery: 'refuse' });
+    const signature = primaryRouteSignature(route);
+    if (pages.some(page => page.metadata?.route && primaryRouteSignature(page.metadata.route) === signature)) pageFailure(409, 'CLI_PAGE_ROUTE_CONFLICT', 'A Page already owns that primary Route.');
+    const metadata = { ...structuredClone(source.metadata!), ...generated };
+    if (!composed) { delete metadata.shellId; delete metadata.routeId; }
+    // Node/Region/HTML anchor identities are Page-local and retain all their bindings.
+    // Only typed Menu destinations pointing at the copied Page/Route are self references.
+    const remap = (value: unknown): void => {
+      if (!value || typeof value !== 'object') return;
+      if (Array.isArray(value)) { value.forEach(remap); return; }
+      const object = value as Record<string, unknown>;
+      if (object.kind === 'page' && object.pageId === sourceId) object.pageId = generated.artifactId;
+      if (object.kind === 'route' && source.metadata!.routeId && object.routeId === source.metadata!.routeId) object.routeId = generated.routeId;
+      Object.values(object).forEach(remap);
+    };
+    remap(metadata.menuOverrides);
+    const files = { ...source.files, metadata: JSON.stringify(metadata, null, 2) + '\n' };
+    const packages = await discoverComponents(key);
+    const validation = await prepareVisualCandidate(key, 'page', name + '/page.visual.json', packages, false, undefined, true);
+    return { files, validate: validation.validate, async admit() {
+      await authority.principal(); await authority.read();
+      if (composed) await authority.shell?.(source.metadata!.shellId!);
+      await authority.admit();
+      const latest = await resolveVisualPage(key, sourceId);
+      if (latest.hash !== expectedHash) pageFailure(409, 'CLI_PAGE_CONFLICT', 'Source Page changed before duplicate publication.');
+      await validation.recheck();
+      if (JSON.stringify(await discoverComponents(key)) !== JSON.stringify(packages)) pageFailure(409, 'CLI_PAGE_CONFLICT', 'Installed dependencies changed before duplicate publication.');
+    } };
   });
 }

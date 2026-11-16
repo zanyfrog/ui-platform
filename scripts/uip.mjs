@@ -13,6 +13,7 @@ const help=`uip (local development)
   uip page show --app <application-id> --page <artifact-id>
   uip page create --app <id> --name <name> --route <route> [--shell <shell-id> | --mode plain]
   uip page update --app <id> --page <artifact-id> --file <five-role-json> --expected-hash <hash>
+  uip page duplicate --app <id> --page <source-artifact-id> --name <name> --route <route> --expected-hash <source-hash>
   uip page delete --app <id> --page <artifact-id> --expected-hash <hash>
   uip dataset list --app <permanent-id> [--server <local-url>]
   uip data export --app <id> --dataset <id> --format csv|json --out <file>
@@ -26,19 +27,23 @@ CSV exports use #uip-json-cells-v1 and JSON-valued cells for lossless value type
 `;
 async function main(){const args=process.argv.slice(2);if(!args.length||args.length===1&&args[0]==='--help'){stdout.write(help);return;}
   const [area,action,...rest]=args,options={};for(let i=0;i<rest.length;){const key=rest[i++];if(!key?.startsWith('--')||Object.hasOwn(options,key))throw Error('Invalid or duplicate option.');if(key==='--dry-run'){options[key]=true;continue;}if(!rest[i]||rest[i].startsWith('--'))throw Error('Missing option value.');options[key]=rest[i++];}
-  const valid=area==='page'&&action==='create'?['--app','--name','--route','--shell','--mode','--server']:area==='page'&&action==='update'?['--app','--page','--file','--expected-hash','--server']:area==='page'&&action==='delete'?['--app','--page','--expected-hash','--server']:area==='page'&&action==='list'?['--app','--server']:area==='page'&&action==='show'?['--app','--page','--server']:area==='app'&&action==='list'?['--server']:area==='dataset'&&action==='list'?['--app','--server']:area==='data'&&action==='export'?['--app','--dataset','--format','--out','--server']:area==='data'&&action==='import'?['--app','--dataset','--file','--dry-run','--server']:area==='data'&&action==='validate'?['--file','--format']:null;
+  const valid=area==='page'&&action==='duplicate'?['--app','--page','--name','--route','--expected-hash','--server']:area==='page'&&action==='create'?['--app','--name','--route','--shell','--mode','--server']:area==='page'&&action==='update'?['--app','--page','--file','--expected-hash','--server']:area==='page'&&action==='delete'?['--app','--page','--expected-hash','--server']:area==='page'&&action==='list'?['--app','--server']:area==='page'&&action==='show'?['--app','--page','--server']:area==='app'&&action==='list'?['--server']:area==='dataset'&&action==='list'?['--app','--server']:area==='data'&&action==='export'?['--app','--dataset','--format','--out','--server']:area==='data'&&action==='import'?['--app','--dataset','--file','--dry-run','--server']:area==='data'&&action==='validate'?['--file','--format']:null;
   if(!valid||Object.keys(options).some(k=>!valid.includes(k)))throw Error('Unsupported command/option. Run uip --help.');
   if(area==='data'&&action==='validate'){if(!options['--file'])throw Error('--file is required');const format=options['--format']??options['--file'].split('.').at(-1);const rows=parseFile(await fs.readFile(options['--file'],'utf8'),format);stdout.write(JSON.stringify({records:rows.length,formatValid:true,schemaValidated:false,authorizationValidated:false,persisted:false})+'\n');return;}
   if(area!=='app'&&!options['--app']||action==='export'&&(!options['--dataset']||!options['--out']||!['csv','json'].includes(options['--format'])))throw Error('Required options missing.');
   if(area==='page'&&action==='show'&&!options['--page'])throw Error('--page is required');
   let pageBody;
-  if(area==='page'&&['create','update','delete'].includes(action)){
+  if(area==='page'&&['create','update','delete','duplicate'].includes(action)){
     if(action==='create'){
       if(!options['--name']||!options['--route']||options['--mode']!==undefined&&options['--mode']!=='plain'||options['--mode']==='plain'&&options['--shell'])throw Error('Create requires --name/--route; choose --shell or --mode plain, never both.');
       pageBody={name:options['--name'],route:options['--route'],...(options['--shell']?{shell:options['--shell']}:{}),...(options['--mode']?{mode:options['--mode']}:{})};
     }else{
       if(!options['--page']||!/^[a-f0-9]{64}$/.test(options['--expected-hash']??''))throw Error('--page and a complete --expected-hash are required.');
       pageBody={expectedHash:options['--expected-hash']};
+      if(action==='duplicate'){
+        if(!/^[a-z][a-z0-9-]*$/.test(options['--name']??'')||!options['--route'])throw Error('Duplicate requires --name and --route.');
+        pageBody.name=options['--name'];pageBody.route=options['--route'];
+      }
       if(action==='update'){
         if(!options['--file'])throw Error('--file is required.');
         const files=JSON.parse(await fs.readFile(options['--file'],'utf8')),roles=['source','css','metadata','fixtures','code'];
@@ -65,11 +70,11 @@ async function main(){const args=process.argv.slice(2);if(!args.length||args.len
   const query=new URLSearchParams();if(options['--app'])query.set('app',options['--app']);if(options['--dataset'])query.set('dataset',options['--dataset']);
   if(area==='page'){
     if(options['--page'])query.set('page',options['--page']);
-    const route='/api/cli/'+(['list','create'].includes(action)?'pages':'page')+'?'+query;
+    const route='/api/cli/'+(action==='duplicate'?'page-duplicate':['list','create'].includes(action)?'pages':'page')+'?'+query;
     let result;
     if(pageBody){
       pageMutationSent=true;
-      const response=await fetch(new URL(route,server),{method:action==='create'?'POST':action==='update'?'PUT':'DELETE',headers:{authorization:'Bearer '+credential,'content-type':'application/json'},body:pageBody,redirect:'error',signal:AbortSignal.timeout(20_000)});
+      const response=await fetch(new URL(route,server),{method:['create','duplicate'].includes(action)?'POST':action==='update'?'PUT':'DELETE',headers:{authorization:'Bearer '+credential,'content-type':'application/json'},body:pageBody,redirect:'error',signal:AbortSignal.timeout(20_000)});
       result=await response.json();
       if(result.commitOutcome==='not-committed')pageMutationSent=false;
       if(!response.ok)throw Error((result.code??'CLI_PAGE_DENIED')+': '+(result.message??'Page request denied.'));

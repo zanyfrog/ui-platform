@@ -38,3 +38,21 @@ Create returns `id`, `name`, `route`, `mode`, optional `shellId`, `hash`, and `c
 Validation, authorization and stale-revision failures before admission return `commitOutcome: not-committed` with distinct error codes/statuses. Failures after admission are conservatively `unknown`; a lost/malformed response also leaves the client uncertain. The CLI never retries a mutation automatically. Inspect list/show and authoritative source before deciding whether another command is appropriate. No-op normal updates may return the existing hash.
 
 Focused verification: `node --import tsx --test tests/cli-page-mutations.test.ts tests/cli-pages.test.ts tests/cli-readonly.test.ts`. These cover shared normal services on disposable files, actual OS trash, paired-principal revocation, reference refusals and conservative uncertain-outcome handling. An interactive mutation acceptance workflow remains separate: create one disposable Page, show it, update a complete five-role candidate with its hash, then delete the unused Page using the new hash. Do not use accepted pilot storage.
+
+## Atomic Page duplication (Increment 3D)
+
+```powershell
+node .\scripts\uip.mjs page duplicate --app <app-id> --page <source-page-id> --name scout-profile-copy --route /scouts/profile-copy --expected-hash <source-hash>
+```
+
+Duplication stays within one registered Application. It requires source `ui.page.view`, destination collection `ui.page.edit`, current Application-view/ownership admission, and presentation-view permission for a composed Page's Shell. Source-only edit permission does not authorize destination creation. Every mutation uses the existing fresh browser pairing.
+
+The complete creation companion in `VisualArtifactService` generates a new Page ID and, for composed Pages, a new Route ID. It copies HTML, CSS, fixtures and Page functions unchanged; metadata retains configuration while replacing destination identity, name, display name and route. Plain/composed mode and existing Shell/Component references are preserved. Page-local node/Region/anchor IDs stay local to the new Page with their bindings intact. Typed self Page/Route destinations in Menu overrides are remapped to the new identities. Other Page links retain their existing destinations, including links to the original Page. The generated entry point is regenerated, not copied from arbitrary source code.
+
+The existing graph lock covers source capture, hidden staging, normal candidate validation, admission and atomic directory rename. The candidate validator supports an unpublished Page added to the proposed graph; it applies existing syntax, metadata, Page link/anchor, route, dependency, composition and Shell Region rules. No repair mode or public starter-then-update operation is used. Hidden staging is excluded from Visual and legacy Page discovery/source APIs.
+
+Before publication, admission rechecks source-read, destination-create, Shell access, original session and registered Application ownership. Source hashes, captured Page/Shell/Component revisions and collection membership, composition files/Menu membership, package discovery, destination absence and staging bytes are rechecked. The local Windows filesystem publishes the complete dedicated directory through the existing rename behavior, refusing an existing destination. A validation/admission failure cleans hidden staging and reports not-committed; an uncertain rename/result reports unknown and is never automatically retried. As with existing local editing, arbitrary external filesystem writes cannot be prevented.
+
+Success returns `id`, `name`, `route`, `mode`, selected `shellId`/new `routeId` for composed Pages, `hash` and `commitOutcome`. The source Page is unchanged. Content requiring repair, unsupported anchors or invalid dependencies is refused rather than silently rewritten. Export/Import, cross-Application copies and Page Templates are not included.
+
+Focused verification: `node --import tsx --test tests/cli-page-duplicate.test.ts tests/cli-page-mutations.test.ts tests/cli-pages.test.ts`.

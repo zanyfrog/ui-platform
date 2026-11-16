@@ -118,6 +118,43 @@ export class VisualArtifactService {
     } finally { await rm(temporary, { recursive: true, force: true }); }
     return this.read(locator);
   }
+  /** Complete unpublished Page candidate. The graph lock spans preparation through rename. */
+  async createCompletePage(name: string, route: string, shellId: string | undefined, prepare: (metadata: ArtifactMetadata) => Promise<{
+    files: ArtifactFiles; validate(candidate: ArtifactBundle): Promise<void>; admit(): Promise<void>;
+  }>): Promise<ArtifactBundle> {
+    if (this.kind !== 'page' || !/^[a-z][a-z0-9-]*$/.test(name)) throw new Error('Complete creation requires a valid Page name.');
+    return withApplicationMutation(this.root, async () => {
+      const locator = name + '/page.visual.json', file = await this.file(locator, true), destination = path.dirname(file);
+      const absent = async () => { if (await lstat(destination).then(() => true, error => { if (error.code === 'ENOENT') return false; throw error; })) throw Object.assign(new Error('Destination Page folder already exists.'), { status: 409 }); };
+      await absent();
+      const metadata: ArtifactMetadata = { schemaVersion: 1, artifactId: 'art_' + randomUUID(), kind: 'page', name, displayName: name.replaceAll('-', ' '), route, ...(shellId ? { shellId, routeId: 'route_' + randomUUID() } : {}) };
+      const temporary = path.join(this.root, '.creating-' + randomUUID());
+      let publicationAttempted = false;
+      try {
+        const prepared = await prepare(structuredClone(metadata)), files = structuredClone(prepared.files);
+        if (Object.keys(files).length !== Object.keys(roles).length || Object.keys(roles).some(role => typeof files[role as keyof ArtifactFiles] !== 'string')) throw new Error('A complete five-role Page candidate is required.');
+        const parsed = parseMetadata(files.metadata);
+        if (!parsed.metadata || parsed.diagnostics.some(d => d.severity === 'error') || (['artifactId', 'kind', 'name', 'displayName', 'route', 'shellId', 'routeId'] as const).some(key => parsed.metadata![key] !== metadata[key])) throw new Error('Complete Page candidate must retain the newly generated destination identity.');
+        const candidate: ArtifactBundle = { locator, files, metadata: parsed.metadata, hash: hash(files), diagnostics: parsed.diagnostics };
+        await mkdir(temporary);
+        for (const [role, extension] of Object.entries(roles)) await atomicWriteText(path.join(temporary, 'page' + extension), files[role as keyof ArtifactFiles]);
+        await atomicWriteText(path.join(temporary, 'index.ts'), pageEntry());
+        await prepared.validate(structuredClone(candidate));
+        await prepared.admit();
+        // Refuse changed staging bytes, even when an external editor ignores graph exclusion.
+        for (const [role, extension] of Object.entries(roles)) if (await readFile(path.join(temporary, 'page' + extension), 'utf8') !== files[role as keyof ArtifactFiles]) throw Object.assign(new Error('Staged Page source changed before publication.'), { status: 409 });
+        if (await readFile(path.join(temporary, 'index.ts'), 'utf8') !== pageEntry()) throw Object.assign(new Error('Staged Page entry changed before publication.'), { status: 409 });
+        await this.file(locator); await absent();
+        publicationAttempted = true;
+        await rename(temporary, destination); // Windows refuses an existing destination directory.
+        return candidate;
+      } catch (error) {
+        throw Object.assign(error instanceof Error ? error : new Error(String(error)), { publicationOutcome: publicationAttempted ? 'unknown' : 'not-committed' });
+      } finally {
+        await rm(temporary, { recursive: true, force: true });
+      }
+    });
+  }
   async save(locator: string, role: keyof ArtifactFiles, content: string, expectedHash: string, admit?: () => Promise<void>): Promise<ArtifactBundle> {
     if (!Object.hasOwn(roles, role) || typeof content !== 'string' || !expectedHash) throw new Error('File role, text, and expected hash are required.');
     const current = await this.read(locator);

@@ -19,7 +19,7 @@ function normalizeSource(source: string): string {
     throw new Error('Page source must be a file inside src/pages.');
   }
   const relative = normalized.slice('src/pages/'.length);
-  if (!pageExtension.test(relative) || relative.split('/').some((part) => part.startsWith('_'))) {
+  if (!pageExtension.test(relative) || relative.split('/').some((part) => part.startsWith('_') || part.startsWith('.'))) {
     throw new Error('Only non-underscored .ts and .tsx page files are supported.');
   }
   return normalized;
@@ -57,7 +57,7 @@ async function sourceFiles(appKey: string): Promise<string[]> {
   const found: string[] = [];
   async function walk(dir: string, relative = ''): Promise<void> {
     for (const entry of await readdir(dir, { withFileTypes: true }).catch(() => [])) {
-      if (entry.name.startsWith('_')) continue;
+      if (entry.name.startsWith('_') || entry.name.startsWith('.')) continue;
       const child = relative ? `${relative}/${entry.name}` : entry.name;
       if (entry.isDirectory()) await walk(path.join(dir, entry.name), child);
       else if (entry.isFile() && pageExtension.test(entry.name)) found.push(`src/pages/${child}`);
