@@ -46,6 +46,17 @@ export class V1DevelopmentIdentity {
     this.cliRequests.set(forwarded, { credential });
   }
   cliOrigin() { return this.options.origins[0]!; }
+  /** Host-only normal-editor principal bridge. Only branded paired requests qualify;
+   * browser cookie/revision/CSRF handling remains in ArtifactEditorSecurity. */
+  captureCliEditorPrincipal(req: IncomingMessage): () => void {
+    if (!this.cliRequests.has(req)) throw new Error('CLI_UNAUTHENTICATED');
+    const session = this.session(req), actor = this.currentUser(req), revision = session?.revision;
+    if (!session || !actor) throw new Error('CLI_UNAUTHENTICATED');
+    return () => {
+      if (!this.cliRequests.has(req) || this.session(req) !== session || session.revision !== revision || this.currentUser(req) !== actor)
+        throw new Error('CLI_UNAUTHENTICATED');
+    };
+  }
   private readonly store: SecurityDefinitionStore;
   private readonly evaluator: SecurityAuthorizationEvaluator;
   readonly enabled: boolean;

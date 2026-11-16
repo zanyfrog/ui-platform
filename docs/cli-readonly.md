@@ -1,6 +1,6 @@
 # Local read-only uip CLI
 
-This is a local Windows development CLI. It retains V1's development identity selector qualification; pairing does not add production authentication. Live import/upsert, transaction dry-run, trigger coordination, schema management and page mutations are unavailable. Protected page list/show is documented in [cli-pages.md](cli-pages.md).
+This is a local Windows development CLI. It retains V1's development identity selector qualification; pairing does not add production authentication. Protected Dataset import is documented in [cli-import.md](cli-import.md). Protected page list/show and normal create/update/delete are documented in [cli-pages.md](cli-pages.md). Schema management remains unavailable.
 
 ## Invocation
 

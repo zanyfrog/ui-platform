@@ -1,3 +1,4 @@
+import { cliPageMutation } from './cli-pages.js';
 import { Readable } from 'node:stream';
 import path from 'node:path';
 import { appPath } from './applications.js';
@@ -23,6 +24,8 @@ export function createCliReadonly(identity: V1DevelopmentIdentity, runtime: Deve
       const actor = identity.currentUser(actorRequest); if (!actor) throw Error('CLI_UNAUTHENTICATED');
       const assert = () => { if (identity.currentUser(actorRequest) !== actor || identity.policyDigest() !== policy) throw Error('CLI_UNAUTHENTICATED'); };
       const allowed = async (app: App) => registry.byApplicationId(app.appId)?.key === app.key && await identity.authorize(actorRequest,'ui.application.view',{authorityId:V1_AUTHORITY_ID,applicationId:app.appId,kind:'application',id:app.appId});
+      const pageMutation = await cliPageMutation(req, url, actorRequest, identity, registry);
+      if (pageMutation) { send(pageMutation.status, pageMutation.data); return true; }
       const importing = req.method === 'POST' && url.pathname === '/api/cli/import';
       if (req.method !== 'GET' && !importing) { send(405,{code:'CLI_METHOD_DENIED'}); return true; }
       if (url.pathname === '/api/cli/apps' && !url.search) {

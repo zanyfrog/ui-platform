@@ -25,7 +25,7 @@ test('protected page discovery uses authoritative bundles, current permissions a
   const before=result.data.hash;await writeFile(path.join(pages,'visible/page.html'),'<section>changed</section>');assert.notEqual((await invoke('/api/cli/page?app=app-id&page=art_visible')).data.hash,before);
   for(const target of ['art_secret','absent','visible/page.visual.json'])assert.equal((await invoke('/api/cli/page?app=app-id&page='+target)).status,403);
   assert.equal((await invoke('/api/cli/pages?app=foreign')).status,403);assert.equal((await invoke('/api/cli/pages?app='+key)).status,403);
-  assert.equal((await invoke('/api/cli/pages?app=app-id&locator=secret')).status,403);assert.equal((await invoke('/api/cli/page?app=app-id&page=art_visible&page=art_secret')).status,403);assert.equal((await invoke('/api/cli/pages?app=app-id','POST')).status,405);
+  assert.equal((await invoke('/api/cli/pages?app=app-id&locator=secret')).status,403);assert.equal((await invoke('/api/cli/page?app=app-id&page=art_visible&page=art_secret')).status,403);assert.equal((await invoke('/api/cli/pages?app=app-id','POST')).status,400);
   broad=true;assert.equal((await invoke('/api/cli/pages?app=app-id')).data.length,2);broad=false;
   changePolicy=true;assert.equal((await invoke('/api/cli/pages?app=app-id')).status,403);changePolicy=false;
   active=false;assert.equal((await invoke('/api/cli/pages?app=app-id')).status,403);active=true;

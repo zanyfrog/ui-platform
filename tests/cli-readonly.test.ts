@@ -42,7 +42,8 @@ test('real Platform session pairing enforces CSRF, rejects CLI cookies and reche
   assert.equal((await invoke(handle,'/api/cli/pair','POST',{code:created.data.code,proof},headers)).status,403);
   const redeemed=await invoke(handle,'/api/cli/pair','POST',{code:created.data.code,proof},{'content-type':'application/json'});assert.equal(redeemed.status,200);
   const request:any={headers:{authorization:'Bearer '+redeemed.data.credential},socket:{remoteAddress:'127.0.0.1'}};const forwarded:any={headers:{},socket:request.socket};identity.bindCliRequest(request,forwarded);assert.equal(identity.currentUser(forwarded),login.data.user.userId);
-  await invoke(handle,'/api/development-identity/session','DELETE',{},headers);assert.throws(()=>identity.currentUser(forwarded));
+  const editorAdmission=identity.captureCliEditorPrincipal(forwarded);editorAdmission();assert.throws(()=>identity.captureCliEditorPrincipal(request));
+  await invoke(handle,'/api/development-identity/session','DELETE',{},headers);assert.throws(()=>identity.currentUser(forwarded));assert.throws(editorAdmission);
  }finally{identity.close();rmSync(dir,{recursive:true,force:true});}
 });
 test('readonly routes reject unauthenticated and foreign targets; export only uses query proxy and revalidates before disclosure',async()=>{
