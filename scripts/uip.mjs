@@ -8,6 +8,8 @@ let importSent = false;
 const help=`uip (local development)
   uip --help
   uip app list [--server http://127.0.0.1:5490]
+  uip page list --app <application-id>
+  uip page show --app <application-id> --page <artifact-id>
   uip dataset list --app <permanent-id> [--server <local-url>]
   uip data export --app <id> --dataset <id> --format csv|json --out <file>
   uip data validate --file <csv-or-json> [--format csv|json]
@@ -20,10 +22,11 @@ CSV exports use #uip-json-cells-v1 and JSON-valued cells for lossless value type
 `;
 async function main(){const args=process.argv.slice(2);if(!args.length||args.length===1&&args[0]==='--help'){stdout.write(help);return;}
   const [area,action,...rest]=args,options={};for(let i=0;i<rest.length;){const key=rest[i++];if(!key?.startsWith('--')||Object.hasOwn(options,key))throw Error('Invalid or duplicate option.');if(key==='--dry-run'){options[key]=true;continue;}if(!rest[i]||rest[i].startsWith('--'))throw Error('Missing option value.');options[key]=rest[i++];}
-  const valid=area==='app'&&action==='list'?['--server']:area==='dataset'&&action==='list'?['--app','--server']:area==='data'&&action==='export'?['--app','--dataset','--format','--out','--server']:area==='data'&&action==='import'?['--app','--dataset','--file','--dry-run','--server']:area==='data'&&action==='validate'?['--file','--format']:null;
+  const valid=area==='page'&&action==='list'?['--app','--server']:area==='page'&&action==='show'?['--app','--page','--server']:area==='app'&&action==='list'?['--server']:area==='dataset'&&action==='list'?['--app','--server']:area==='data'&&action==='export'?['--app','--dataset','--format','--out','--server']:area==='data'&&action==='import'?['--app','--dataset','--file','--dry-run','--server']:area==='data'&&action==='validate'?['--file','--format']:null;
   if(!valid||Object.keys(options).some(k=>!valid.includes(k)))throw Error('Unsupported command/option. Run uip --help.');
   if(area==='data'&&action==='validate'){if(!options['--file'])throw Error('--file is required');const format=options['--format']??options['--file'].split('.').at(-1);const rows=parseFile(await fs.readFile(options['--file'],'utf8'),format);stdout.write(JSON.stringify({records:rows.length,formatValid:true,schemaValidated:false,authorizationValidated:false,persisted:false})+'\n');return;}
   if(area!=='app'&&!options['--app']||action==='export'&&(!options['--dataset']||!options['--out']||!['csv','json'].includes(options['--format'])))throw Error('Required options missing.');
+  if(area==='page'&&action==='show'&&!options['--page'])throw Error('--page is required');
   let importBody;
   if(action==='import'){
     if(!options['--file']||!options['--dataset'])throw Error('--file and --dataset are required.');
@@ -39,6 +42,11 @@ async function main(){const args=process.argv.slice(2);if(!args.length||args.len
   const rl=createInterface({input:stdin,output:stdout});let code;try{code=await rl.question('Single-use browser pairing code: ');}finally{rl.close();}
   const {credential}=await request('/api/cli/pair',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code:code.trim(),proof})});
   const query=new URLSearchParams();if(options['--app'])query.set('app',options['--app']);if(options['--dataset'])query.set('dataset',options['--dataset']);
+  if(area==='page'){
+    if(options['--page'])query.set('page',options['--page']);
+    const result=await request('/api/cli/'+(action==='list'?'pages':'page')+'?'+query,{headers:{authorization:'Bearer '+credential}});
+    stdout.write(JSON.stringify(result,null,2)+'\n');return;
+  }
   if(action==='import'){
     importSent=true;
     const result=await request('/api/cli/import?'+query,{method:'POST',headers:{authorization:'Bearer '+credential,'content-type':'application/json'},body:importBody});

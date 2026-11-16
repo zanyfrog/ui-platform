@@ -1,4 +1,8 @@
 import { Readable } from 'node:stream';
+import path from 'node:path';
+import { appPath } from './applications.js';
+import { VisualArtifactService } from './visual-artifacts.js';
+import { withApplicationMutation } from './composition-lock.js';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { V1DevelopmentIdentity } from './v1-development-identity.js';
 import type { DevelopmentApplicationRuntime } from './development-application-runtime.js';
@@ -24,6 +28,42 @@ export function createCliReadonly(identity: V1DevelopmentIdentity, runtime: Deve
       if (url.pathname === '/api/cli/apps' && !url.search) {
         const visible = []; for (const app of await apps()) if (await allowed(app)) visible.push({id:app.appId,key:app.key,name:app.name ?? app.key});
         assert(); send(200,visible); return true;
+      }
+      if (['/api/cli/pages', '/api/cli/page'].includes(url.pathname)) {
+        const showing = url.pathname === '/api/cli/page';
+        if ([...url.searchParams.keys()].some(key => !['app', ...(showing ? ['page'] : [])].includes(key)) ||
+            url.searchParams.getAll('app').length !== 1 || !url.searchParams.get('app') ||
+            showing && (url.searchParams.getAll('page').length !== 1 || !url.searchParams.get('page'))) throw Error('CLI_REQUEST_INVALID');
+        const id = url.searchParams.get('app')!, app = registry.byApplicationId(id);
+        if (!app || !await allowed({ appId: id, key: app.key })) throw Error('CLI_SCOPE_DENIED');
+        const result = await withApplicationMutation(appPath(app.key), async () => {
+          const service = new VisualArtifactService(path.join(appPath(app.key), 'src/pages'), 'page');
+          const pages = await service.list({ recovery: 'refuse' });
+          const ids = new Set<string>();
+          for (const page of pages) {
+            const pageId = page.metadata?.artifactId;
+            if (typeof pageId !== 'string' || !/^art_[\w-]+$/.test(pageId) || page.metadata?.kind !== 'page' || ids.has(pageId)) throw Error('CLI_PAGE_IDENTITY_INVALID');
+            ids.add(pageId);
+          }
+          const canRead = (pageId: string) => identity.authorize(actorRequest, 'ui.page.view', {
+            authorityId: V1_AUTHORITY_ID, applicationId: id, kind: 'page', id: pageId, parentId: id,
+          });
+          const broad = await canRead('pages');
+          if (showing) {
+            const page = pages.find(page => page.metadata!.artifactId === url.searchParams.get('page'));
+            if (!page || !broad && !await canRead(page.metadata!.artifactId)) throw Error('CLI_PAGE_DENIED');
+            return { metadata: page.metadata, hash: page.hash, diagnostics: page.diagnostics, files: page.files };
+          }
+          const visible = [];
+          for (const page of pages) if (broad || await canRead(page.metadata!.artifactId)) visible.push({
+            id: page.metadata!.artifactId, name: page.metadata!.name, displayName: page.metadata!.displayName,
+            route: page.metadata!.route, hash: page.hash,
+          });
+          return visible;
+        });
+        assert();
+        if (!await allowed({ appId: id, key: app.key })) throw Error('CLI_SCOPE_DENIED');
+        assert(); send(200, result); return true;
       }
       if (!['/api/cli/datasets','/api/cli/export', ...(importing ? ['/api/cli/import'] : [])].includes(url.pathname) || [...url.searchParams.keys()].some(k=>!['app','dataset'].includes(k)) || url.searchParams.getAll('app').length!==1 || url.searchParams.getAll('dataset').length>1) throw Error('CLI_REQUEST_INVALID');
       const id = url.searchParams.get('app')!, app = registry.byApplicationId(id);
