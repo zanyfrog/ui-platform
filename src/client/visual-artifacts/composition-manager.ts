@@ -22,9 +22,11 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
   let source: Source | undefined, update: TemplateComparison | undefined;
   let choices = await request<{ assets: string[]; styles: string[] }>(`${base}/composition-asset?list=1`);
   target.innerHTML = `<div class="stack"><strong>Application Composition</strong><p data-status aria-live="polite"></p>
+    <uib-panel heading="Composition source" density="compact"><uib-stack gap="var(--uib-space-3, .75rem)">
     <label>Application source<select data-files><option value="app.settings.json">Branding, theme and default Shell</option>${definition.menus.map(menu => `<option value="${esc(menu.sourcePath)}">${esc(menu.name)}</option>`).join('')}${definition.settings.siteStyles.map(file => `<option>${esc(file)}</option>`).join('')}</select></label>
-    <div data-settings></div><div data-menu></div><details><summary>Advanced native source</summary><label>Source<textarea data-source class="source-editor" spellcheck="false"></textarea></label></details>
+    <uib-stack data-settings gap="var(--uib-space-3, .75rem)"></uib-stack><div data-menu></div><details><summary>Advanced native source</summary><label>Source<textarea data-source class="source-editor" spellcheck="false"></textarea></label></details>
     <div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-reload>Reload source</button><button data-recover>Download recovery</button><button data-new-menu>Create Menu</button><button data-template>Update from Application Template</button></div>
+    </uib-stack></uib-panel>
     <label>Application asset<input type="file" data-asset></label><label>Asset source path<input data-asset-path value="assets/images/image.png"></label><button data-upload-asset>Upload Application asset</button><p data-asset-status></p>
     <p class="note">Saved source appears in development preview. Use the existing Presentation Publish action to update published presentation.</p><div data-update></div></div>`;
   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
