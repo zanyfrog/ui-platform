@@ -22,15 +22,15 @@ document.querySelector('#choose').onclick=async()=>{document.querySelector('outp
     browser = await playwright.chromium.launch({ headless: false, channel: 'msedge' }); const page=await browser.newPage();
     await page.goto(vite.resolvedUrls!.local[0] + 'stage3');
     await page.locator('uib-asset-uploader input[type=file]').setInputFiles({name:'stage3.svg',mimeType:'image/svg+xml',buffer:Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="blue"/></svg>')});
-    await page.getByRole('button',{name:'Create asset',exact:true}).click();
+    await page.getByRole('button',{name:'Upload',exact:true}).click();
     await expect.poll(()=>page.locator('#upload [role=status]').textContent()).toContain('Saved assets/images/stage3.svg');
     expect(await page.evaluate(()=> (window as any).assets['assets/images/stage3.svg'].name)).toBe('stage3.svg');
     await page.screenshot({path:path.join(evidence,'shared-upload.png'),fullPage:true});
     await page.locator('#choose').click(); await page.getByRole('button',{name:'Use selected image',exact:true}).click();
     await expect.poll(()=>page.locator('output').textContent()).toBe('assets/images/stage3.svg');
-    page.once('dialog',dialog=>dialog.dismiss()); await page.getByRole('button',{name:'Create asset',exact:true}).click();
+    page.once('dialog',dialog=>dialog.dismiss()); await page.getByRole('button',{name:'Upload',exact:true}).click();
     await expect.poll(()=>page.locator('#upload [role=status]').textContent()).toContain('Replacement canceled');
-    await page.evaluate(()=>{(window as any).denied=true;}); await page.getByRole('button',{name:'Create asset',exact:true}).click();
+    await page.evaluate(()=>{(window as any).denied=true;}); await page.getByRole('button',{name:'Upload',exact:true}).click();
     await expect.poll(()=>page.locator('#upload [role=status]').textContent()).toContain('Access denied');
     await page.screenshot({path:path.join(evidence,'permission-feedback.png'),fullPage:true});
     await writeFile(path.join(evidence,'adapter-browser.json'),JSON.stringify({qualification:'Real Edge browser File and shared component; test-double transport only. Does not qualify protected backend ownership or A1 end-to-end.',calls:await page.evaluate(()=>(window as any).calls)},null,2));

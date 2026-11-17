@@ -3,7 +3,6 @@ import type { TemplateComparison } from '../../server/template-updates.js';
 import { EditingLifecycle, editingStatus, protectEditingDraft } from '../artifact-editor/editing-lifecycle.js';
 import { specializedTransport, type SourceRequest, type SourceTransportOptions } from '../artifact-editor/specialized-transport.js';
 import { chooseMenuItem } from './menu-controls.js';
-import { defaultAssetPath, uploadApplicationAsset } from './image-selection.js';
 import { mountCompositionUploader } from './asset-upload-adapter.js';
 
 const esc = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
@@ -27,7 +26,7 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
     <uib-stack data-settings gap="var(--uib-space-3, .75rem)"></uib-stack><div data-menu></div><details><summary>Advanced native source</summary><label>Source<textarea data-source class="source-editor" spellcheck="false"></textarea></label></details>
     <div class="editor-actions"><button data-undo>Undo</button><button data-redo>Redo</button><button data-save>Save Now</button><button data-reload>Reload source</button><button data-recover>Download recovery</button><button data-new-menu>Create Menu</button><button data-template>Update from Application Template</button></div>
     </uib-stack></uib-panel>
-    <label>Application asset<input type="file" data-asset></label><label>Asset source path<input data-asset-path value="assets/images/image.png"></label><button data-upload-asset>Upload Application asset</button><p data-asset-status></p>
+    <div data-asset-upload></div>
     <p class="note">Saved source appears in development preview. Use the existing Presentation Publish action to update published presentation.</p><div data-update></div></div>`;
   const find = <T extends HTMLElement>(selector: string) => target.querySelector<T>(selector)!;
   const status = (message: string) => { find('[data-status]').textContent = message; options.onStateChange?.(); };
@@ -38,7 +37,7 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
   const text = () => find<HTMLTextAreaElement>('[data-source]').value;
   const dirty = () => !!copy?.lifecycle.dirty;
   if (!options.source) {
-    const shared = document.createElement('details'); shared.innerHTML = '<summary>Shared Application asset uploader</summary>'; target.append(shared);
+    const shared = find('[data-asset-upload]');
     mountCompositionUploader(shared, `${base}/composition-asset`, transport.capture, () => active && !disposed && !target.hidden && target.isConnected, () => { document.dispatchEvent(new Event('ui-platform-workspace-change')); });
   }
   function paintState() {
@@ -71,13 +70,6 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
     find<HTMLSelectElement>('[data-files]').value = source.path;
     try { renderFields(); } catch { /* Retain invalid source. */ } paintState();
   }
-  find('[data-asset]').addEventListener('change', () => { const file = find<HTMLInputElement>('[data-asset]').files?.[0]; if (file) find<HTMLInputElement>('[data-asset-path]').value = defaultAssetPath(file.name); });
-  find('[data-upload-asset]').addEventListener('click', safe(async () => {
-    const asset = find<HTMLInputElement>('[data-asset]').files?.[0]; if (!asset) throw new Error('Choose an asset file.');
-    const path = find<HTMLInputElement>('[data-asset-path]').value;
-    if (!await uploadApplicationAsset(`${base}/composition-asset`, request, asset, path)) return;
-    find('[data-asset-status]').textContent = `Saved ${path}. Use this source path in branding or component settings.`; document.dispatchEvent(new Event('ui-platform-workspace-change'));
-  }));
   function menu(): ApplicationMenu { return JSON.parse(text()); }
   async function chooseItem(existing?: MenuItem): Promise<MenuItem | undefined> {
     const latest = await request<CompositionDefinition | null>(`${base}/composition`);
@@ -166,8 +158,7 @@ export async function mountCompositionManager(target: HTMLElement, appKey: strin
   if (options.source) {
     openSource(options.source);
     find('[data-files]').parentElement!.hidden = true;
-    for (const selector of ['[data-new-menu]', '[data-template]', '[data-upload-asset]']) find(selector).hidden = true;
-    find('[data-asset]').parentElement!.hidden = true; find('[data-asset-path]').parentElement!.hidden = true;
+    for (const selector of ['[data-new-menu]', '[data-template]', '[data-asset-upload]']) find(selector).hidden = true;
   } else await load();
   const unprotect = protectEditingDraft(() => [...copies.values()].some(record => record.lifecycle.dirty || record.lifecycle.state === 'conflict'));
   let polling = false;
